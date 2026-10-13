@@ -769,3 +769,64 @@ html.lite dialog[open] { animation-duration: 0.36s; }
 .mg-scope-option small { font-size: 13px; color: var(--muted); }
 /* Valor escondido: pontos menores e espaçados, sem peso visual. */
 .feira-hero .feira-hero-value.is-hidden { font-size: 26px; letter-spacing: 0.18em; opacity: 0.75; margin: 14px 0 22px; }
+
+/* ------------------------------------------------------------------ refinamento: painel sem pílulas; card de receita neutro, verde só nos detalhes */
+.mg-period { padding: 2px 14px; border-radius: 22px; }
+.mg-seg { padding: 0; gap: 0; border-radius: 0; background: transparent; }
+.mg-seg button {
+  position: relative;
+  min-height: 46px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+}
+.mg-seg button + button::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 32%;
+  bottom: 32%;
+  width: 1px;
+  background: var(--line);
+}
+.mg-seg button.on { background: transparent; box-shadow: none; color: var(--accent-ink); font-weight: 700; }
+:root[data-theme='light'] .mg-seg button.on { box-shadow: none; }
+.mg-step { margin: 0; padding: 8px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.mg-scope { min-height: 58px; padding: 8px 0; border-radius: 0; background: transparent; }
+
+.feira-hero {
+  color: var(--text);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--text) 6%, var(--panel)) 0%, var(--panel) 70%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 4px 0 rgba(0, 0, 0, 0.55),
+    0 12px 26px rgba(0, 0, 0, 0.35);
+}
+:root[data-theme='dark'] .feira-hero {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 4px 0 rgba(0, 0, 0, 0.55),
+    0 12px 26px rgba(0, 0, 0, 0.35);
+}
+:root[data-theme='light'] .feira-hero {
+  background: linear-gradient(180deg, #fff 0%, var(--panel) 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 4px 0 rgba(37, 52, 66, 0.12), 0 12px 26px rgba(37, 52, 66, 0.1);
+}
+.feira-hero > small { color: var(--accent-ink); opacity: 1; }
+.feira-hero-stats > div {
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+:root[data-theme='light'] .feira-hero-stats > div { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
+.feira-hero-stats small { color: var(--muted); opacity: 1; }
+.feira-hero-stats > div:last-child strong { color: var(--accent-ink); }
+.feira-hero.is-negative .feira-hero-stats > div:last-child strong { color: var(--red); }
+.hero-eye { color: var(--accent-ink); }
+.hero-eye::before {
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 0 rgba(0, 0, 0, 0.25);
+}
+:root[data-theme='light'] .hero-eye::before { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }

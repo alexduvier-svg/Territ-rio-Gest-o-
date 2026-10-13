@@ -1303,7 +1303,7 @@ feiraHero=function(sel,m){const html=feiraHeroBase(sel,m),cut=html.indexOf('<sec
  if(!visible){hero=hero.replace(/R\$(&nbsp;|\s)?-?[\d.,]+/g,'••••••').replace('class="feira-hero-value"','class="feira-hero-value is-hidden"');chart=chart.replace(/<text[^>]*class="bar-value"[^>]*>[^<]*<\/text>/g,'');}
  const eye='<button type="button" data-action="toggle-financial" class="hero-eye" aria-label="'+(visible?'Ocultar':'Mostrar')+' valores" aria-pressed="'+visible+'">'+icon(visible?'eye':'eyeOff')+'</button>';
  hero=hero.replace(/<strong>([^<]+)<\/strong>/g,(tag,text)=>{const n=text.replace(/&nbsp;/g,' ').length;return n>=13?'<strong class="long xlong">'+text+'</strong>':n>=10?'<strong class="long">'+text+'</strong>':tag;}); // valores longos (ex.: R$ 1.234,56) diminuem para caber
- return hero.replace('<section class="feira-hero" aria-label="Resumo do período">',m=>m+eye)+chart;};
+ return hero.replace('<section class="feira-hero" aria-label="Resumo do período">',tag=>(m.result<0?tag.replace('class="feira-hero"','class="feira-hero is-negative"'):tag)+eye)+chart;};
 
 // Gráfico: barras do menor para o maior, da esquerda para a direita, com o dia de cada uma.
 function feiraChartSorted(sel,m){const entries=Object.entries(m.daily).filter(([day,v])=>v>0&&(!sel.month||day.slice(0,7)===sel.month)).sort((a,b)=>a[1]-b[1]);

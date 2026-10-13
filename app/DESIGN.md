@@ -23,7 +23,7 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 
 ## Componentes aprovados
 
-- **Card 3D de destaque** (`.feira-hero` em `src/polish.css`): oliva com degradê e brilho, relevo de tecla (luz no topo, "espessura" embaixo), dados em blocos de vidro, olho em círculo de vidro. Valores longos diminuem (`long`/`xlong`), nunca reticências. Reutilizar para outros números de destaque.
+- **Card 3D de destaque** (`.feira-hero` em `src/polish.css`): superfície neutra com relevo de tecla (luz no topo, "espessura" embaixo), dados em blocos de vidro, **verde só nos detalhes** (rótulo, olho, Resultado). Cards coloridos inteiros não: pesam entre cards escuros. Valores longos diminuem (`long`/`xlong`), nunca reticências. Reutilizar para outros números de destaque.
 - **Relevo de tecla**: teclados, campos de Valores e Estoque, teclas da reposição.
 - **Fechar janela**: círculo cinza translúcido com ×, toque de 44 px.
 - **Seletor**: `<select>` abre folha no estilo do app (`picker-sheet`).
