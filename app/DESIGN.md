@@ -19,6 +19,10 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 - **Cadastro de produto:** lista que expande — cada configuração mostra o valor à direita, uma aberta por vez; ao escolher, abre a próxima ainda sem escolha.
 - **Resumo:** cartão de destaque (receita, vendas, ticket, resultado), gráfico de receita por dia, depois a Orientação.
 
+## Gestos
+
+- **Toque longo (0,6 s)** num cartão de Vender entra no modo de seleção (vibração curta): até **3 produtos**, barra "Vender N produtos" acima das abas; o 4º é recusado com aviso. Voltar do Android ou "Cancelar" sai do modo. Toque normal continua abrindo a venda de um produto. Código: `src/features/multisell.js`.
+
 ## Cores
 
 - **Destaque:** o verde-oliva do Território, `--action-green` `#7FA653`, com texto `--green-text` `#14210d`. Nunca o azul padrão do iOS nem um verde novo.

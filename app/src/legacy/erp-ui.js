@@ -1255,6 +1255,10 @@ function feiraStockList(){const items=productList(true);if(!items.length)return 
 function feiraStockPage(){return top()+feiraStockStatus()+stockLossReminder()+feiraSearch()+feiraChips()+btn('catalog','<span><strong>Catálogo</strong><small>Seu catálogo pronto para compartilhar</small></span>'+icon('image')+icon('chevron'),'catalog-entry')+'<div id="feira-list">'+feiraStockList()+'</div>';}
 document.addEventListener('input',event=>{if(event.target.id!=='feira-search')return;query=event.target.value;const list=document.getElementById('feira-list');if(list)list.innerHTML=page==='Estoque'?feiraStockList():feiraSellList();});
 
+// --- Venda de vários produtos (segurar o cartão em Vender; src/features/multisell.js) ---
+Object.assign(actions,{'sell-multiple':d=>{const ids=String(d.ids||'').split(',').filter(id=>{const p=model.product(id);return p&&p.stock>0;}).slice(0,3);if(!ids.length)return;
+ ids.forEach(id=>createDraft(id));const first=draft.items.findIndex(i=>i.productId===ids[0]);if(first>=0&&first!==draft.active){saveActiveDiscount();draft.active=first;loadActiveDiscount();}render();window.scrollTo(0,0);}});
+
 // --- Reposição rápida: até 4 produtos por vez, teclado próprio ---
 let restock=null;
 function openRestock(ids){ids=ids.filter(id=>model.product(id));if(!ids.length)return;restock={ids,page:0,values:{},active:ids[0]};paintRestock();}

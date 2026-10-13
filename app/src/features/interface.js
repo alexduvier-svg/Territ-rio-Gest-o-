@@ -22,7 +22,7 @@ function markPageChange() {
 }
 
 // ---------------------------------------------------------------- avisos
-const WARN = /^(Não |Estoque não|Nenhum|Informe|Use |Sem |Falta)/;
+const WARN = /^(Não |Estoque não|Nenhum|Informe|Use |Sem |Falta|Máximo)/;
 const SUCCESS = /^(Venda Finalizada|Estoque renovado|QR lido|Página publicada|Backup|Dados de teste zerados|Produto salvo|Cliente salvo)/;
 function classifyToast(toast) {
   if (toast.hidden) return;

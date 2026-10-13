@@ -58,6 +58,7 @@ function isCancel(error) {
 
 function installBackButton() {
   App.addListener('backButton', () => {
+    if (window.TerritorioSelection?.cancel()) return; // voltar sai do modo de seleção de produtos
     if (window.TerritorioShell && window.TerritorioShell.back()) return;
     // At the root, go to the background instead of closing: the seller returns to the same screen.
     App.minimizeApp();
@@ -99,6 +100,7 @@ function installLinksAndDownloads() {
 }
 
 function installHaptics() {
+  window.TerritorioHaptics = { tick: () => Haptics.impact({ style: ImpactStyle.Medium }).catch(() => {}) };
   document.addEventListener('click', event => {
     const target = event.target.closest && event.target.closest('[data-action]');
     if (target && !target.disabled && TICK_ACTIONS.has(target.dataset.action)) {

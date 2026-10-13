@@ -6,6 +6,8 @@ import './layout-feira.css';
 import './fit.css';
 import './motion.css';
 import { installInterface } from './features/interface.js';
+import { installMultiSell } from './features/multisell.js';
+import './features/multisell.css';
 import { version } from '../package.json';
 import './features/portfolio.css';
 import './features/backup.css';
@@ -44,6 +46,7 @@ try {
   window.TERRITORIO_VERSION = version;
   await import('./legacy/erp-ui.js');
   installInterface();
+  installMultiSell();
   installShell();
 } catch (error) {
   // Never leave the seller stuck on the splash screen.
