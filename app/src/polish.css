@@ -700,3 +700,21 @@ dialog[data-kind='mg-detail'] .mg-in-sheet > summary { display: none; }
 .fsh-eye .icon { width: 22px; height: 22px; }
 .fsh-eye:active { transform: translateY(-50%) scale(0.88); }
 @media (prefers-reduced-motion: reduce) { .fsh-main, .fsh-eye { transition: none; } }
+
+/* ------------------------------------------------------------------ mola sutil ao abrir (janelas, seções e cadastro) */
+dialog[open] { animation: sheet-spring 0.52s cubic-bezier(0.22, 0.9, 0.3, 1); }
+@keyframes sheet-spring {
+  0% { transform: translateY(32px) scale(0.98); opacity: 0; }
+  55% { transform: translateY(-5px) scale(1.004); opacity: 1; }
+  78% { transform: translateY(1.5px); }
+  100% { transform: none; }
+}
+details.just-opened > :not(summary) { animation: section-spring 0.46s cubic-bezier(0.22, 0.9, 0.3, 1) both; }
+.dimension-pill.acc.open .choices { animation: section-spring 0.46s cubic-bezier(0.22, 0.9, 0.3, 1) both; }
+@keyframes section-spring {
+  0% { opacity: 0; transform: translateY(-10px); }
+  55% { opacity: 1; transform: translateY(3px); }
+  80% { transform: translateY(-1px); }
+  100% { transform: none; }
+}
+html.lite dialog[open] { animation-duration: 0.36s; }

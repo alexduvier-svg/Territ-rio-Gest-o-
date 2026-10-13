@@ -56,7 +56,7 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 
 ## Movimento (`src/motion.css`, `src/polish.css`)
 
-- Janelas sobem como folha; botões afundam no toque com mola.
+- Janelas sobem como folha com mola sutil (passam um pouco e assentam); seções abertas pelo toque quicam uma vez; botões afundam no toque.
 - Rodapé: cada ícone faz um gesto curto ao entrar (carrinho rola, caixa abre/fecha, pessoas pulam, calendário vira, barras crescem).
 - Conteúdo desliza **só na troca de tela**.
 - Tudo desligado com "reduzir movimento"; celulares simples recebem o modo leve (`html.lite`).
