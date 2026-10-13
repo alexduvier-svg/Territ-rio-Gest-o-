@@ -17,6 +17,9 @@ let toastTimer;
 
 const shell = () => window.TerritorioShell;
 const onVender = () => shell()?.page?.() === 'Vender';
+// O cartão inteiro conta: no estilo Clássico o preço fica fora do botão do cartão.
+const cardFrom = target =>
+  target.closest?.(CARD) || target.closest?.('.selling-card, .product-card, .feira-card')?.querySelector(CARD) || null;
 
 function tick() {
   if (window.TerritorioHaptics) window.TerritorioHaptics.tick();
@@ -98,7 +101,7 @@ function clearTimer() {
 
 export function installMultiSell() {
   document.addEventListener('pointerdown', event => {
-    const card = event.target.closest?.(CARD);
+    const card = cardFrom(event.target);
     if (!card || card.disabled || !onVender() || selected.length) return;
     pressed = card;
     start = { x: event.clientX, y: event.clientY };
@@ -120,7 +123,7 @@ export function installMultiSell() {
 
   // Antes do app: no modo de seleção, tocar no cartão marca/desmarca em vez de abrir a venda.
   document.addEventListener('click', event => {
-    const card = event.target.closest?.(CARD);
+    const card = cardFrom(event.target);
     if (swallowClick) {
       swallowClick = false;
       if (card) { event.preventDefault(); event.stopImmediatePropagation(); return; }
@@ -130,7 +133,7 @@ export function installMultiSell() {
     event.stopImmediatePropagation();
     if (!card.disabled) toggle(card.dataset.id);
   }, true);
-  document.addEventListener('contextmenu', event => { if (event.target.closest?.(CARD)) event.preventDefault(); });
+  document.addEventListener('contextmenu', event => { if (cardFrom(event.target)) event.preventDefault(); });
 
   // A tela se redesenha (busca, categoria): reaplica as marcas; saiu de Vender: cancela.
   new MutationObserver(() => { if (!onVender()) cancel(); else if (selected.length) paint(); })

@@ -112,12 +112,78 @@ document.addEventListener('keydown', event => {
   }
 });
 
+// ---------------------------------------------------------------- venda com vários produtos
+// Bolinha antes do nome: lilás = produto em edição; ✓ verde = já tem quantidade; círculo vazio = falta.
+function decorateSaleGroups() {
+  const groups = [...app().querySelectorAll('.sale-product-group')];
+  const states = groups.length > 1 ? shell()?.draftGroupStates?.() || [] : [];
+  groups.forEach((group, i) => {
+    const s = states[i];
+    const want = !s ? '' : s.active ? 'is-editing' : s.done ? 'is-done' : 'is-pending';
+    for (const c of ['is-editing', 'is-done', 'is-pending']) if (c !== want && group.classList.contains(c)) group.classList.remove(c);
+    if (want && !group.classList.contains(want)) group.classList.add(want);
+  });
+}
+
+// ---------------------------------------------------------------- seletores no estilo do app
+// O <select> nativo abre a lista do Android ("aparência de Android antigo"). Aqui ele abre uma folha
+// no estilo do app; ao escolher, o <select> recebe o valor e avisa o app como antes ("change").
+let picker = null;
+function openPicker(select) {
+  if (!picker) {
+    picker = document.createElement('dialog');
+    picker.className = 'picker-sheet';
+    picker.addEventListener('click', event => {
+      if (event.target === picker) return picker.close();
+      const option = event.target.closest('[data-picker-index]');
+      if (!option) return;
+      const target = picker._select;
+      target.selectedIndex = Number(option.dataset.pickerIndex);
+      target.dispatchEvent(new Event('input', { bubbles: true }));
+      target.dispatchEvent(new Event('change', { bubbles: true }));
+      picker.close();
+    });
+    document.body.appendChild(picker);
+  }
+  picker._select = select;
+  const label = select.labels?.[0]?.textContent?.trim() || select.getAttribute('aria-label') || 'Escolher';
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  picker.innerHTML = `<div class="picker-grab" aria-hidden="true"></div><h2>${esc(label)}</h2><div class="picker-list" role="listbox">${
+    [...select.options].map((o, i) => `<button type="button" role="option" aria-selected="${o.selected}" class="picker-option${o.selected ? ' selected' : ''}" data-picker-index="${i}"${o.disabled ? ' disabled' : ''}><span>${esc(o.textContent)}</span>${o.selected ? '<span class="picker-check" aria-hidden="true">✓</span>' : ''}</button>`).join('')
+  }</div>`;
+  picker.showModal();
+  picker.querySelector('.picker-option.selected')?.scrollIntoView({ block: 'center' });
+}
+function installPicker() {
+  const intercept = event => {
+    const select = event.target.closest?.('select');
+    if (!select || select.disabled || select.multiple) return;
+    event.preventDefault();
+    if (event.type !== 'keydown' || event.key === 'Enter' || event.key === ' ') openPicker(select);
+  };
+  document.addEventListener('mousedown', intercept, true);
+  document.addEventListener('touchstart', e => { if (e.target.closest?.('select')) e.preventDefault(); }, { capture: true, passive: false });
+  document.addEventListener('touchend', e => { const s = e.target.closest?.('select'); if (s && !s.disabled) { e.preventDefault(); openPicker(s); } }, { capture: true, passive: false });
+  document.addEventListener('keydown', e => { if (e.target.matches?.('select') && (e.key === 'Enter' || e.key === ' ')) intercept(e); }, true);
+}
+
+// ---------------------------------------------------------------- celulares mais simples
+// Poucos núcleos ou pouca memória: sem desfoque de fundo e sombras pesadas, transições mais curtas.
+function detectLite() {
+  const cores = navigator.hardwareConcurrency || 8;
+  const memory = navigator.deviceMemory || 8;
+  if (cores <= 4 || memory <= 3) document.documentElement.classList.add('lite');
+}
+
 // ---------------------------------------------------------------- observadores
 export function installInterface() {
   const root = app();
+  detectLite();
+  installPicker();
   new MutationObserver(() => {
     markPageChange();
     decorateDimensions();
+    decorateSaleGroups();
   }).observe(root, { childList: true, subtree: true });
   new MutationObserver(() => decorateDimensions()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-layout'] });
   const toast = document.getElementById('toast');

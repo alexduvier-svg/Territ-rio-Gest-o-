@@ -5,6 +5,7 @@ import './shell.css';
 import './layout-feira.css';
 import './fit.css';
 import './motion.css';
+import './polish.css';
 import { installInterface } from './features/interface.js';
 import { installMultiSell } from './features/multisell.js';
 import './features/multisell.css';
@@ -53,6 +54,6 @@ try {
   console.error(error);
   SplashScreen.hide().catch(() => {});
   document.getElementById('app').innerHTML =
-    '<section class="panel" style="margin-top:40px"><h2>Não foi possível abrir o Território</h2>' +
+    '<section class="panel" style="margin-top:40px"><h2>Não foi possível abrir o AGRO Gestão</h2>' +
     '<p class="muted">Seus dados continuam guardados no aparelho. Feche e abra o app novamente.</p></section>';
 }

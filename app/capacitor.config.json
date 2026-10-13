@@ -1,6 +1,6 @@
 {
   "appId": "br.com.territorio.gestao",
-  "appName": "Território",
+  "appName": "AGRO Gestão",
   "webDir": "dist",
   "android": {
     "backgroundColor": "#000000"
