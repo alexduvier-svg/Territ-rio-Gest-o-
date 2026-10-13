@@ -131,17 +131,19 @@
   background: var(--field);
 }
 .feira-stock-count {
-  padding: 10px 12px;
+  padding: 10px 9px;
   border-radius: 12px;
   text-align: left;
   min-height: 64px;
+  min-width: 0;
 }
 .feira-stock-count small {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 13px;
+  white-space: nowrap;
 }
 .feira-stock-count small::before {
   content: '';

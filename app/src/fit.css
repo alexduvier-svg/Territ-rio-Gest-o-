@@ -1,0 +1,65 @@
+/* Regra de rigor visual, nos dois estilos do app: o texto de um botão nunca sai do botão nem é cortado.
+   O CSS original fixava colunas (repeat(3, minmax(0, 1fr))) e deixava botões encolherem abaixo da
+   largura da palavra (min-width: 0). Aqui, cada botão tem no mínimo a largura do seu texto e os
+   grupos de opções fluem em linhas, preenchendo o espaço por igual. */
+
+/* 1. Botões de opção e pílulas: nunca menores que a palavra mais longa. */
+.choice,
+.chip,
+.badge,
+.scope,
+.stock-target-pill {
+  min-width: min-content !important;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
+
+/* 2. Grupos de opções do cadastro: fluem em linhas em vez de 3 colunas fixas. */
+.registration-dimensions .choices,
+.registration-dimensions .dimension-pill .choices,
+html[data-large-text='true'] .registration-dimensions .dimension-pill .choices {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.registration-dimensions .choice,
+.dimension-pill .choice {
+  flex: 1 0 auto;
+  padding: 10px 16px;
+  font-size: 15px;
+  white-space: nowrap;
+  border-radius: 16px;
+}
+
+/* Rótulos das opções sempre com inicial maiúscula ("crespa" → "Crespa"), só na exibição. */
+.registration-dimensions .choice::first-letter,
+.dimension-pill .choice::first-letter {
+  text-transform: uppercase;
+}
+
+/* 3. Grades de pagamento e ações: colunas que se adaptam ao texto em vez de número fixo. */
+.payment-grid,
+.sale-compact .payment-grid,
+.checkout-payment-controls .payment-grid,
+.optional-sale-actions,
+.sale-options-compact .optional-sale-actions,
+html[data-large-text='true'] .checkout-payment-controls .payment-grid {
+  grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)) !important;
+}
+.payment-grid .choice,
+.sale-compact .payment-grid .choice,
+.checkout-payment-controls .choice,
+.checkout-footer .checkout-payment-controls .choice,
+.optional-sale-actions > * {
+  overflow: visible;
+  white-space: nowrap;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* 4. Texto ampliado: rótulos longos quebram entre palavras, nunca no meio da palavra. */
+html[data-large-text='true'] .choice,
+html[data-large-text='true'] .chip {
+  white-space: normal;
+}

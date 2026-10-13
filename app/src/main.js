@@ -3,6 +3,7 @@ import '@fontsource-variable/inter';
 import '@fontsource-variable/inter-tight';
 import './shell.css';
 import './layout-feira.css';
+import './fit.css';
 import './features/portfolio.css';
 import './features/backup.css';
 import './features/portfolio.js';
