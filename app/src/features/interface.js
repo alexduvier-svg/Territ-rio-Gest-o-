@@ -95,6 +95,16 @@ document.addEventListener('click', event => {
   }
 }, true);
 
+// Venda com vários produtos: tocar em qualquer parte do produto (inclusive no preço, à direita,
+// onde alcança o polegar de quem é destro) o ativa para digitar a quantidade.
+document.addEventListener('click', event => {
+  const group = event.target.closest?.('.sale-product-group');
+  if (!group || event.target.closest('button, input, select, textarea, a')) return;
+  const inHeading = event.target.closest('.sale-product-heading');
+  if (!inHeading && group.classList.contains('active')) return; // dentro do produto ativo, só o cabeçalho
+  group.querySelector('[data-action="active-item"]')?.click();
+});
+
 document.addEventListener('keydown', event => {
   if ((event.key === 'Enter' || event.key === ' ') && event.target.matches?.('.dimension-pill.acc .dimension-heading')) {
     event.preventDefault();

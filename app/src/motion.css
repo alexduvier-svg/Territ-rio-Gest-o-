@@ -40,6 +40,46 @@ button:active:not(:disabled) { transform: scale(0.97); }
 .dimension-pill.acc.open .choices { animation: expand-in 0.3s var(--spring) both; }
 @keyframes expand-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 
+/* Venda: o produto inteiro é área de toque. */
+.sale-product-heading { cursor: pointer; min-height: 52px; }
+.sale-product-group:not(.active) { cursor: pointer; }
+.sale-product-group:not(.active):active { opacity: 0.7; }
+
+/* "Finalize suas vendas": uma venda ficou aberta. A pílula respira e o carrinho dá um balanço
+   a cada poucos segundos — chama a atenção sem incomodar. */
+.draft-resume,
+#app.page-enter > .draft-resume {
+  position: relative;
+  min-height: 52px;
+  font-size: 15px;
+  font-weight: 600;
+  animation: draft-in 0.45s var(--spring) both, draft-breathe 2.6s ease-in-out 0.6s infinite;
+}
+/* Legível nos dois temas: o tom original (rosa-claro) só funcionava no escuro. */
+html[data-theme='light'] .draft-resume {
+  color: #b3261e;
+  background: color-mix(in srgb, var(--red) 10%, #fff);
+  border: 1px solid color-mix(in srgb, var(--red) 35%, transparent);
+}
+.draft-resume > span:last-child { font-size: 15px; font-weight: 700; }
+.draft-resume .icon:first-child,
+.draft-resume > span:first-child > .icon {
+  transform-origin: 50% 80%;
+  animation: cart-nudge 4s ease-in-out 1.2s infinite;
+}
+@keyframes draft-in { from { transform: translateY(-8px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes draft-breathe {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--red) 0%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--red) 16%, transparent); }
+}
+@keyframes cart-nudge {
+  0%, 82%, 100% { transform: rotate(0) translateX(0); }
+  86% { transform: rotate(-12deg) translateX(-1px); }
+  90% { transform: rotate(10deg) translateX(1px); }
+  94% { transform: rotate(-6deg); }
+  97% { transform: rotate(3deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; }
 }
