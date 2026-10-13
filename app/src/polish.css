@@ -379,3 +379,17 @@ dialog .restock-key { background: color-mix(in srgb, var(--text) 9%, var(--panel
 .restock-erase .icon { width: 22px; height: 22px; }
 .restock-keypad { gap: 10px; }
 @media (prefers-reduced-motion: reduce) { .restock-key { transition: none; } }
+
+/* ------------------------------------------------------------------ rodapé: caixa do Estoque abre ao entrar e fecha ao sair */
+.box-flap {
+  transform-box: view-box;
+  transition: transform 0.42s cubic-bezier(0.34, 1.45, 0.64, 1);
+}
+.box-flap-l { transform-origin: 2.5px 9.5px; }
+.box-flap-r { transform-origin: 21.5px 9.5px; }
+button.active .box-flap-l { transform: rotate(-115deg); }
+button.active .box-flap-r { transform: rotate(115deg); }
+button:not(.active) .box-flap { transition-duration: 0.3s; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+svg:has(.box-flap) { overflow: visible; }
+@media (prefers-reduced-motion: reduce) { .box-flap { transition: none; } }
+html[data-reduce-effects='true'] .box-flap { transition: none; }

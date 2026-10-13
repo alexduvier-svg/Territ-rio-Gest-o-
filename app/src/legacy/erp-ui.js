@@ -628,10 +628,10 @@ let managementDays=new Set(),managementHours={from:'',until:''},managementPanel=
 // Contornos proporcionais à referência; o cérebro não usa preenchimento.
 paths.brain='<path d="M4.3 27.2C1.2 24.9 1.9 20 3.8 17.1c.3-2.4 2.2-4.8 4.8-6C12 7 17.8 4.9 23.6 5.1c3.1-1.3 6.6-.4 8.6 1.2 4 .1 7.6 2.3 8.3 5.8 3.8 1.4 5.5 3.8 4.4 6.8 2.2 2.3 2.6 4.3 1.8 6.7 1.8 3.9.4 7.8-2.5 9.8-.1 2.8-3.6 3.7-6.4 2.6-3.5 1.5-6.1.7-9.1.4-3.7.3-7 1.4-10.5.5-2.2 1-4.9.2-5.6-2.5-3.5.6-6.3-.4-6.7-2.4-2.4-1.1-3.2-4.3-1.6-6.8Z"/><path d="M24 39c.7 3.4 4.1 5.2 7.4 4.3 3.6 2.5 7.8.1 9.7-4.1M27.5 43c.9 2.4 1.9 3.5 3.2 3.1 1.2-.5.5-2.4-.1-3.1M7.1 33.9c.7 1.6 3.1 2.6 6 1.1 2.5-4.4 6.4-4.7 10.1-5.8 3.5-1 5.3-2.6 7.7-.8M12.6 36.4c2 1.6 3.5 2.3 5.6 2.5M17.5 34.2c1.2 1.4 2.8 1.5 4.4.5 2.4-1.6 2.9.4 6-.9 2.8-.1 4.3-1.1 6.3-2.8M8.7 23.6c2.7-.1 3.5-1 2.9-3.1-1.6-1.2-1.6-3.3.1-4.7 2.2-1.1 4-3.3 2.9-5.4M8.7 15.1c-2.2 1.4-2.8 3.3-2.5 5.1M11.6 20.5c2.4.4 2.1-1.5 2.1-3.4M13.7 19c4.8-.3 4.5 3.3 5.1 5.8M9.6 25.2c.6 2.7 2.5 3.2 5.2 3.1M21.6 6.1c.6 1.4 1.8.8 2.5 2.1.4 2.3-.3 4.4-1.8 6.1-.7 1-.3 2.4-.5 4.1M24.1 8.2c.6-1.5 1.5-2.1 2.9-2M21.8 17.1c2.4 1.1 4.2 2.1 3.7 5.1M27 13.2c2.1-.5 2.2-3.3 3.7-4.5M29 13c3.9-1.4 4.3 1.2 7.3 1.1 2.6.1 4.6.9 5.4 2.3M28.4 20.9c2-3.4 6.3-1.9 6.4 1.7M34.8 20.2c2.6-2.7 5.5-.8 5.9 2.3M34.3 31c3.7-2 3-5.1 3.1-6.9M37.4 25.7c.6 1.5 1.7 1.8 2.9 1.6M39.7 30.8c1.2-.7 1.7 1.3 3.4.9 1.8.1 2.5-1 2.6-2.1M41.8 31.8c-.4 1.5-.1 2.4.2 3.1M26.8 37.2c2.4-.8 4.7-.6 7.2-1.1 2.3 1.6 4 .1 6.1-.7M33.6 39.1c.4 1.4 1.5 1.4 2.7 1.4"/>';
 paths.navCart='<path d="M2.8 3.5h3.1l2.5 12.7h11.1l2.1-10H6.4M8.4 16.2l.4 2.4h10.5"/><circle cx="9.7" cy="21" r="1.2" fill="currentColor" stroke="none"/><circle cx="18.6" cy="21" r="1.2" fill="currentColor" stroke="none"/>';
-paths.navBox='<path d="m12 2.5 9 5.2v9.7l-9 5.1-9-5.1V7.7l9-5.2ZM3 7.7l9 5.2 9-5.2M12 12.9v9.6"/>';
+paths.navBox='<path d="M3.5 9.5h17v10.7a1.8 1.8 0 0 1-1.8 1.8H5.3a1.8 1.8 0 0 1-1.8-1.8Z"/><path d="M9.5 13.5h5"/><path class="box-flap box-flap-l" d="M2.5 9.5V7.3c0-.4.3-.8.8-.8H12v3Z"/><path class="box-flap box-flap-r" d="M12 9.5v-3h8.7c.5 0 .8.4.8.8v2.2Z"/>';
 paths.navUsers='<g fill="currentColor" stroke="none"><circle cx="7" cy="7.2" r="3.4"/><circle cx="16.7" cy="6.3" r="4.1"/><path d="M.8 18.8c0-3.9 2.4-6.5 6.2-6.5 1.8 0 3.2.6 4.2 1.5-1.7 1.9-2.3 3.4-2.5 6.2H2c-.8 0-1.2-.4-1.2-1.2Zm9.2 1.5c0-4.5 2.6-7.5 6.8-7.5 4.2 0 7.2 3.1 7.2 7.5 0 .8-.5 1.2-1.3 1.2H11.3c-.8 0-1.3-.4-1.3-1.2Z"/></g>';
 paths.navCalendar='<rect x="2.5" y="4.5" width="19" height="17" rx="2.7"/><path d="M6.5 2v5M17.5 2v5M2.5 9h19"/><g fill="currentColor" stroke="none">'+[[7,13],[12,13],[17,13],[7,17.5],[12,17.5],[17,17.5]].map(([x,y])=>'<circle cx="'+x+'" cy="'+y+'" r="1.1"/>').join('')+'</g>';
-paths.navChart='<path d="M2.5 14.4h2.8v8.1H2.5zM8 2.5h2.8v20H8zM13.5 10h2.8v12.5h-2.8zM19 6h2.8v16.5H19z"/>';
+paths.navChart='<path d="M2.5 16.5h2.8v6H2.5zM8 12h2.8v10.5H8zM13.5 7.5h2.8v15h-2.8zM19 2.5h2.8v20H19z"/>';
 function ensureManagementData(){model.data.eventLoads=Array.isArray(model.data.eventLoads)?model.data.eventLoads:[];model.data.contacts=Array.isArray(model.data.contacts)?model.data.contacts:[];model.data.clients.forEach(c=>{c.personType=c.personType==='PJ'?'PJ':'PF';if(c.noticeConsent!==true)c.noticeConsent=false;});}
 function eventStartTime(e){return Date.parse(e.start+'T'+(e.from||'00:00')+':00-03:00');}
 function eventEndTime(e){return Date.parse(e.end+'T'+(e.until||'23:59')+':00-03:00');}
@@ -1515,6 +1515,11 @@ window.TerritorioShell={
   return false;
  }
 };
+// Rodapé: reaproveita os botões existentes; assim a caixa do Estoque pode fechar ao sair.
+const navigationBase=navigation;
+navigation=function(){const buttons=[...nav.querySelectorAll('button[data-page]')];if(buttons.length!==5){navigationBase();return;}
+ nav.hidden=['Venda','Produto','Semana','Inteligência','Ajustes','Dados','Catálogo','Estúdio'].includes(page);const glass=document.getElementById('nav-glass');if(glass)glass.hidden=nav.hidden;
+ buttons.forEach(b=>{const on=b.dataset.page===page;if(b.classList.contains('active')!==on)b.classList.toggle('active',on);const label=b.querySelector('span');if(label&&label.textContent!==pageLabel(b.dataset.page))label.textContent=pageLabel(b.dataset.page);});};
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();
