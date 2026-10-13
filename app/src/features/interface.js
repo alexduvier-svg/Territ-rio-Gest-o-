@@ -175,6 +175,13 @@ function detectLite() {
   if (cores <= 4 || memory <= 3) document.documentElement.classList.add('lite');
 }
 
+// ---------------------------------------------------------------- foco visível só com teclado
+// Janela aberta por notificação recebe foco sem toque prévio e o Android desenha a moldura no "x".
+document.addEventListener('keydown', e => {
+  if (e.key === 'Tab' || e.key.startsWith('Arrow')) document.documentElement.classList.add('kbd-nav');
+}, true);
+document.addEventListener('pointerdown', () => document.documentElement.classList.remove('kbd-nav'), true);
+
 // ---------------------------------------------------------------- observadores
 export function installInterface() {
   const root = app();
