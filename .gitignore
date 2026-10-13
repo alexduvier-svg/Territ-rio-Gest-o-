@@ -1,0 +1,15 @@
+# Dependências e builds
+node_modules/
+dist/
+.wrangler/
+
+# Pacotes e chaves de assinatura (nunca versionar)
+*.apk
+*.aab
+*.keystore
+*.jks
+keystore.properties
+
+# Configurações locais
+*.local
+.claude/
