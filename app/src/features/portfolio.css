@@ -1,0 +1,104 @@
+/* "Portfólio online" panel (Catálogo), producer photo field (Perfil) and the QR hint after a sale. */
+
+.portfolio-online h2 {
+  margin: 0;
+}
+.portfolio-online .row {
+  margin-bottom: 10px;
+}
+.portfolio-online .small {
+  line-height: 1.5;
+}
+.badge.portfolio-live {
+  color: #04140b;
+  background: var(--green);
+  font-weight: 700;
+}
+.portfolio-url {
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  border-radius: 13px;
+  background: var(--field);
+  color: var(--blue);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.portfolio-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.portfolio-actions > button {
+  width: 100%;
+}
+.portfolio-remove {
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  text-align: center;
+  color: var(--red);
+}
+
+.producer-photo-field {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin: 18px 0 8px;
+}
+.producer-photo-field img {
+  width: 72px;
+  height: 72px;
+  flex: none;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.producer-photo-field > div {
+  flex: 1;
+  min-width: 0;
+}
+.producer-photo-field strong,
+.producer-photo-field small {
+  display: block;
+}
+.producer-photo-field small {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.producer-photo-field .catalog-upload {
+  padding: 10px;
+  font-size: 15px;
+}
+
+.event-company {
+  width: 100%;
+  margin: 10px 0 4px;
+  text-align: left;
+}
+.event-company small {
+  display: block;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 2px;
+}
+.event-company-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 2px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.event-company-note .icon {
+  width: 18px;
+  height: 18px;
+  color: var(--green);
+}
+
+.story-qr-hint {
+  margin: 4px 8px 10px;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+  text-align: center;
+}

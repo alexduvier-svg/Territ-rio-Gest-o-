@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108">
+  <!-- Adaptive-icon foreground: 108dp canvas, artwork kept inside the 66dp safe circle. -->
+  <defs>
+    <linearGradient id="sun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD27A"/>
+      <stop offset="1" stop-color="#FFA23A"/>
+    </linearGradient>
+    <clipPath id="sky"><rect x="0" y="0" width="108" height="57.5"/></clipPath>
+  </defs>
+  <g transform="translate(54 54) scale(1.1) translate(-54 -61)">
+  <circle cx="54" cy="57" r="13" fill="url(#sun)" clip-path="url(#sky)"/>
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-width="4.6">
+    <path d="M29 59.5 Q54 52 79 59.5"/>
+    <path d="M31.5 69 Q54 61.5 76.5 69"/>
+    <path d="M35.5 78.5 Q54 71 72.5 78.5"/>
+  </g>
+  </g>
+</svg>

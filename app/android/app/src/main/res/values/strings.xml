@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Território</string>
+    <string name="title_activity_main">Território</string>
+    <string name="package_name">br.com.territorio.gestao</string>
+    <string name="custom_url_scheme">br.com.territorio.gestao</string>
+</resources>

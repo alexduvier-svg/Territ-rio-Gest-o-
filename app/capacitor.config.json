@@ -1,0 +1,18 @@
+{
+  "appId": "br.com.territorio.gestao",
+  "appName": "Território",
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#000000"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false,
+      "backgroundColor": "#000000"
+    },
+    "SystemBars": {
+      "insetsHandling": "css",
+      "style": "DARK"
+    }
+  }
+}
