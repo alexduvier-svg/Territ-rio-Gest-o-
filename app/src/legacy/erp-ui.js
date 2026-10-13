@@ -1302,6 +1302,7 @@ feiraHero=function(sel,m){const html=feiraHeroBase(sel,m),cut=html.indexOf('<sec
  // Valores escondidos: some o dinheiro (receita, ticket, resultado e valores das barras); a quantidade de vendas fica.
  if(!visible){hero=hero.replace(/R\$(&nbsp;|\s)?-?[\d.,]+/g,'••••••');chart=chart.replace(/<text[^>]*class="bar-value"[^>]*>[^<]*<\/text>/g,'');}
  const eye='<button type="button" data-action="toggle-financial" class="hero-eye" aria-label="'+(visible?'Ocultar':'Mostrar')+' valores" aria-pressed="'+visible+'">'+icon(visible?'eye':'eyeOff')+'</button>';
+ hero=hero.replace(/<strong>([^<]+)<\/strong>/g,(tag,text)=>{const n=text.replace(/&nbsp;/g,' ').length;return n>=13?'<strong class="long xlong">'+text+'</strong>':n>=10?'<strong class="long">'+text+'</strong>':tag;}); // valores longos (ex.: R$ 1.234,56) diminuem para caber
  return hero.replace('<section class="feira-hero" aria-label="Resumo do período">',m=>m+eye)+chart;};
 
 // Gráfico: barras do menor para o maior, da esquerda para a direita, com o dia de cada uma.

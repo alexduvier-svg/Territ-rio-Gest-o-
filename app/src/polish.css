@@ -430,6 +430,7 @@ html[data-reduce-effects='true'] #nav .icon * { animation: none !important; tran
 .feira-hero { position: relative; }
 .hero-eye {
   position: absolute;
+  z-index: 2; /* o texto "Receita líquida" ocupa a largura toda e ficava por cima */
   top: 10px;
   right: 10px;
   width: 44px;
@@ -469,3 +470,67 @@ dialog .dialog-close > .icon { position: relative; width: 17px; height: 17px; st
 dialog .dialog-close:active { transform: scale(0.88); }
 dialog[data-kind='brain'] .dialog-close { color: #e5e5ea; }
 @media (prefers-reduced-motion: reduce) { dialog .dialog-close { transition: none; } }
+
+/* ------------------------------------------------------------------ Gestão: card de receita com brilho e blocos de vidro */
+.feira-hero {
+  overflow: hidden;
+  isolation: isolate;
+  padding: 20px 20px 18px;
+  border-radius: 28px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, 0.28), transparent 55%),
+    linear-gradient(150deg, color-mix(in srgb, var(--accent) 88%, #fff) 0%, var(--accent) 45%, color-mix(in srgb, var(--accent) 80%, #2f4a14) 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 14px 32px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+:root[data-theme='dark'] .feira-hero { box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset; }
+.feira-hero > small { font-size: 14px; font-weight: 600; opacity: 0.78; letter-spacing: 0.01em; }
+.feira-hero .feira-hero-value { font-size: 44px; margin: 6px 0 18px; letter-spacing: -0.035em; }
+.feira-hero-stats { gap: 8px; padding-top: 0; border-top: 0; }
+:root[data-theme='dark'] .feira-hero-stats { border-top: 0; }
+.feira-hero-stats > div {
+  min-width: 0;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+}
+.feira-hero-stats small { display: block; font-size: 12px; opacity: 0.75; }
+.feira-hero-stats strong { font-size: 16px; overflow: hidden; text-overflow: ellipsis; }
+.hero-eye::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.26);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset;
+  z-index: -1;
+}
+.hero-eye { top: 12px; right: 12px; transition: transform 0.25s cubic-bezier(0.34, 1.5, 0.64, 1); }
+.hero-eye:active { background: transparent; transform: scale(0.88); }
+@media (prefers-reduced-motion: reduce) { .hero-eye { transition: none; } }
+/* Relevo 3D (mesma linguagem das teclas) e valores sempre inteiros. */
+.feira-hero {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.08),
+    0 5px 0 color-mix(in srgb, var(--accent) 62%, #1c2c0c),
+    0 14px 28px color-mix(in srgb, var(--accent) 28%, transparent);
+  margin-bottom: 22px;
+}
+:root[data-theme='dark'] .feira-hero {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1),
+    0 5px 0 color-mix(in srgb, var(--accent) 55%, #0e1606),
+    0 12px 26px rgba(0, 0, 0, 0.35);
+}
+.feira-hero-stats { grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 1fr); }
+.feira-hero-stats > div {
+  padding: 10px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+.feira-hero-stats strong { font-size: 15px; letter-spacing: -0.01em; overflow: visible; text-overflow: clip; }
+.hero-eye::before { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 rgba(0, 0, 0, 0.1); }
+.feira-hero-stats strong.long { font-size: 12.5px; }
+.feira-hero-stats strong.xlong { font-size: 11px; }
+.feira-hero-stats > div { padding-left: 9px; padding-right: 8px; }
