@@ -1525,6 +1525,76 @@ const navigationBase=navigation;
 navigation=function(){const buttons=[...nav.querySelectorAll('button[data-page]')];if(buttons.length!==5){navigationBase();return;}
  nav.hidden=['Venda','Produto','Semana','Inteligência','Ajustes','Dados','Catálogo','Estúdio'].includes(page);const glass=document.getElementById('nav-glass');if(glass)glass.hidden=nav.hidden;
  buttons.forEach(b=>{const on=b.dataset.page===page;if(b.classList.contains('active')!==on){b.classList.toggle('active',on);if(!on){b.classList.add('leaving');clearTimeout(b._leaving);b._leaving=setTimeout(()=>b.classList.remove('leaving'),500);}else b.classList.remove('leaving');}const label=b.querySelector('span');if(label&&label.textContent!==pageLabel(b.dataset.page))label.textContent=pageLabel(b.dataset.page);});};
+// --- Gestão (estilo Feira): período no topo, card 3D, gráfico, orientação enxuta e detalhes numa lista ---
+// Período: Dia, Semana, Mês ou Ano, com setas para andar no tempo; os locais ficam em pílulas logo abaixo.
+let periodMode='mes',periodAnchor=E.dayKey(Date.now());
+const PERIOD_MODES=[['dia','Dia'],['semana','Semana'],['mes','Mês'],['ano','Ano']];
+function periodDays(mode,anchor){if(mode==='dia')return [anchor];if(mode==='semana'){const back=(new Date(anchor+'T12:00:00Z').getUTCDay()+6)%7;return Array.from({length:7},(_,i)=>shiftDay(anchor,i-back));}return [];}
+function periodSelection(mode,anchor){return {month:mode==='dia'||mode==='mes'?anchor.slice(0,7):'',year:mode==='ano'?anchor.slice(0,4):'',days:periodDays(mode,anchor),scope:managementScope,from:'',until:'',periodMode:mode,periodAnchor:anchor};}
+function shiftPeriod(mode,anchor,delta){if(mode==='dia')return shiftDay(anchor,delta);if(mode==='semana')return shiftDay(anchor,7*delta);const d=new Date(anchor.slice(0,7)+'-15T12:00:00Z');if(mode==='mes')d.setUTCMonth(d.getUTCMonth()+delta);else d.setUTCFullYear(d.getUTCFullYear()+delta);return d.toISOString().slice(0,10);}
+function periodLabel(mode,anchor){const today=E.dayKey(Date.now()),fmt=(day,o)=>new Date(day+'T12:00:00Z').toLocaleDateString('pt-BR',Object.assign({timeZone:'UTC'},o)),cap=t=>t.charAt(0).toUpperCase()+t.slice(1);
+ if(mode==='dia')return [fmt(anchor,{day:'numeric',month:'long'}),anchor===today?'Hoje':anchor===shiftDay(today,-1)?'Ontem':cap(fmt(anchor,{weekday:'long'}))+' · '+anchor.slice(0,4)];
+ if(mode==='semana'){const d=periodDays(mode,anchor),a=d[0],b=d[6];return [(a.slice(0,7)===b.slice(0,7)?Number(a.slice(8)):fmt(a,{day:'numeric',month:'short'}).replace('.',''))+' – '+fmt(b,{day:'numeric',month:'short'}).replace('.',''),(d.includes(today)?'Esta semana':d.includes(shiftDay(today,-7))?'Semana passada':'Semana')+' · '+b.slice(0,4)];}
+ if(mode==='mes')return [cap(fmt(anchor.slice(0,7)+'-15',{month:'long',year:'numeric'})),anchor.slice(0,7)===today.slice(0,7)?'Este mês':''];
+ return [anchor.slice(0,4),anchor.slice(0,4)===today.slice(0,4)?'Este ano':''];}
+function periodIsFuture(mode,anchor){const today=E.dayKey(Date.now()),next=shiftPeriod(mode,anchor,1);return mode==='dia'?next>today:mode==='semana'?periodDays(mode,next)[0]>today:mode==='mes'?next.slice(0,7)>today.slice(0,7):next.slice(0,4)>today.slice(0,4);}
+
+// A seleção da Gestão no estilo Feira vem do período escolhido; o Clássico continua com meses e dias.
+const selectionBase=selection;
+selection=function(){return isFeira()?periodSelection(periodMode,periodAnchor):selectionBase();};
+const matchesSelectionBase=matchesSelection;
+matchesSelection=function(record,sel){if(sel&&sel.year&&E.dayKey(record.date).slice(0,4)!==sel.year)return false;return matchesSelectionBase(record,sel);};
+const previousSelectionBase=previousSelection;
+previousSelection=function(sel){return sel&&sel.periodMode?periodSelection(sel.periodMode,shiftPeriod(sel.periodMode,sel.periodAnchor,-1)):previousSelectionBase(sel);};
+const periodTextBase=periodText;
+periodText=function(sel){if(!sel||!sel.periodMode)return periodTextBase(sel);const [title,sub]=periodLabel(sel.periodMode,sel.periodAnchor);return title+(sub?' · '+sub:'');};
+
+function periodBar(){const [title,sub]=periodLabel(periodMode,periodAnchor),events=model.data.events.filter(e=>e.status!=='finished'||model.data.sales.some(s=>s.scope===e.id)).sort((a,b)=>b.start.localeCompare(a.start)),scopes=[['all','Todos'],['loja','Loja'],...(events.length>1?[['events','Feiras']]:[]),...events.map(e=>[e.id,e.name])];
+ return '<section class="mg-period" aria-label="Período">'
+ +'<div class="mg-seg">'+PERIOD_MODES.map(([id,name])=>btn('mg-period-mode',name,periodMode===id?'on':'',{mode:id})).join('')+'</div>'
+ +'<div class="mg-step">'+btn('mg-period-shift',icon('back')+'<span class="sr-only">Período anterior</span>','mg-arrow',{delta:-1})+'<span class="mg-range" aria-live="polite"><strong>'+escape(title)+'</strong>'+(sub?'<small>'+escape(sub)+'</small>':'')+'</span>'+btn('mg-period-shift',icon('chevron')+'<span class="sr-only">Próximo período</span>','mg-arrow',{delta:1},periodIsFuture(periodMode,periodAnchor))+'</div>'
+ +'<div class="feira-chips mg-scopes" role="group" aria-label="Local das vendas">'+scopes.map(([id,name])=>btn('management-scope',escape(name),'chip'+(managementScope===id?' selected':''),{scope:id})).join('')+'</div></section>';}
+
+const pct=(part,total)=>(total?part/total*100:0).toLocaleString('pt-BR',{maximumFractionDigits:0})+'%';
+function mgSources(m){const map=new Map();m.sales.forEach(s=>{const id=s.scope||'loja';map.set(id,(map.get(id)||0)+s.total);});return [...map].sort((a,b)=>b[1]-a[1]).map(([id,v])=>[scopeName(id),v]);}
+function mgCustomers(m){const r={PF:0,PJ:0,none:0};m.sales.forEach(s=>{const c=s.customerId&&model.data.clients.find(c=>c.id===s.customerId);if(!c)r.none++;else r[c.personType==='PJ'?'PJ':'PF']++;});return r;}
+function mgBestDay(m){const totals=new Map();Object.entries(m.daily).forEach(([day,v])=>{const w=new Date(day+'T12:00:00Z').getUTCDay();totals.set(w,(totals.get(w)||0)+v);});const best=[...totals].sort((a,b)=>b[1]-a[1])[0];return best?['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'][best[0]]:'';}
+function mgBars(rows,total){const max=Math.max(1,...rows.map(r=>r[1]));return rows.map(([name,v])=>'<div class="management-rank-row"><span class="management-ranking-label"><span>'+escape(name)+'</span><strong class="tabular">'+pct(v,total)+' · '+E.money(v)+'</strong></span><span class="track"><span class="bar" style="width:'+v/max*100+'%"></span></span></div>').join('');}
+const openSection=html=>html.replace('<details class="panel management-section"','<details open class="panel management-section mg-in-sheet"');
+const hideMoney=html=>model.data.settings.financialVisible?html:html.replace(/R\$(&nbsp;|\s)?-?[\d.,]+/g,'••••••');
+
+function mgRow(key,ico,title,sub){return btn('mg-detail','<span class="mg-ico">'+icon(ico)+'</span><span class="mg-text"><strong>'+title+'</strong><small>'+escape(sub)+'</small></span>'+icon('chevron'),'mg-row',{key});}
+function mgRows(sel,m){const none='Sem vendas no período',sold=m.sales.flatMap(s=>s.items),methods=Object.entries(m.payments).sort((a,b)=>b[1]-a[1]),peak=managementPeak(m),sources=mgSources(m),people=mgCustomers(m),best=mgBestDay(m);
+ return mgRow('produtos','box','Produtos vendidos',m.sales.length?quantityHeadline(sold)+(m.rank[0]?' · mais vendido '+titleName(m.rank[0].name):''):none)
+ +mgRow('resultado','chart','Resultado',m.sales.length?E.money(m.result)+' · margem '+(m.margin==null?'—':pct(m.margin,100)):none)
+ +mgRow('pagamentos','wallet','Pagamentos',methods.length?methods.slice(0,2).map(([k,v])=>k+' '+pct(v,m.revenue)).join(' · '):none)
+ +mgRow('horarios','clock','Melhor dia e horário',m.sales.length?best+(peak.hours[0]?' · '+peak.hours[0]:''):none)
+ +mgRow('onde','store','Onde vendeu',sources.length?sources.slice(0,2).map(([n,v])=>n+' '+pct(v,m.revenue)).join(' · '):none)
+ +mgRow('clientes','users','Clientes',m.sales.length?[people.PF&&grammarCount(people.PF,'compra PF','compras PF'),people.PJ&&grammarCount(people.PJ,'compra CNPJ','compras CNPJ'),people.none&&grammarCount(people.none,'sem nome','sem nome')].filter(Boolean).join(' · ')+' · '+qrReadSummary(m.sales):none)
+ +mgRow('relatorios','download','Relatórios e planilhas','Planilhas do período e de cada feira');}
+function mgDetail(key,sel,m){const events=model.data.events.slice().sort((a,b)=>b.start.localeCompare(a.start)),people=mgCustomers(m),peak=managementPeak(m);
+ if(key==='produtos')return ['Produtos vendidos',productMetrics(sel,m)+openSection(managementRank(m))];
+ if(key==='resultado')return ['Resultado',openSection(managementResults(m))+'<h3 class="mg-sheet-title">Indicadores</h3><div class="kpi-grid">'+kpiData(sel).map((k,i)=>kpiRow(k,i+1)).join('')+'</div><div class="two">'+btn('log-approaches','Registrar abordagens','choice')+btn('expense','Registrar despesa','choice')+'</div>'+metricSources()];
+ if(key==='pagamentos')return ['Pagamentos',openSection(managementPayments(m))];
+ if(key==='horarios')return ['Melhor dia e horário','<p class="mg-sheet-lead">'+(m.sales.length?'Mais vendas: '+escape(mgBestDay(m))+(peak.hours.length?', '+escape(peak.hours.join(' e ')):'')+'.':'Sem vendas no período.')+'</p>'+openSection(managementRevenue(m))];
+ if(key==='onde')return ['Onde vendeu',m.sales.length?mgBars(mgSources(m),m.revenue):'<p class="muted">Sem vendas no período.</p>'];
+ if(key==='clientes')return ['Clientes','<div class="mg-sheet-stats"><div><strong>'+people.PF+'</strong><small>Pessoa física</small></div><div><strong>'+people.PJ+'</strong><small>CNPJ</small></div><div><strong>'+people.none+'</strong><small>Sem nome</small></div></div><h3 class="mg-sheet-title">Consumo e comparativos</h3><div class="two">'+btn('consumption','Pessoa física','choice',{type:'PF'})+btn('consumption','CNPJ','choice',{type:'PJ'})+'</div><h3 class="mg-sheet-title">QR codes lidos</h3><p class="small muted">'+escape(qrReadSummary(m.sales))+'. Contadas sozinhas quando o cliente abre seu portfólio pelo QR mostrado após a venda.</p>'];
+ if(key==='relatorios')return ['Relatórios e planilhas',openSection(managementReports(events,sel,m))];
+ if(key==='marca')return ['Sua marca',managementAdvice('branding')];
+ if(key==='banca')return ['Sua banca',managementAdvice('pdv')];
+ return null;}
+
+function feiraManagementPage(){const sel=selection(),m=filteredMetrics(sel);
+ const tools=btn('brain','<span class="mg-ico">'+icon('brain')+'</span><span class="mg-text"><strong>Analisar com inteligência</strong><small>Perguntas sobre este período</small></span>'+icon('chevron'),'mg-row',{source:'management'})
+ +mgRow('marca','leaf','Sua marca','Identidade, origem e relacionamento')+mgRow('banca','image','Sua banca','Preços, exposição e experiência');
+ return top()+periodBar()+feiraHero(sel,m)+'<div class="mg-advisor">'+hideMoney(advisorPanel())+'</div><section class="mg-list" aria-label="Detalhes do período">'+hideMoney(mgRows(sel,m))+'</section><section class="mg-list" aria-label="Ferramentas">'+tools+'</section>';}
+const managementPageBase=managementPage;
+managementPage=function(){return isFeira()?feiraManagementPage():managementPageBase();};
+Object.assign(actions,{
+ 'mg-period-mode':d=>{if(!PERIOD_MODES.some(([id])=>id===d.mode))return;periodMode=d.mode;periodAnchor=E.dayKey(Date.now());month=periodAnchor.slice(0,7);render();},
+ 'mg-period-shift':d=>{const next=shiftPeriod(periodMode,periodAnchor,Number(d.delta)>0?1:-1);if(Number(d.delta)>0&&periodIsFuture(periodMode,periodAnchor))return;periodAnchor=next;month=periodAnchor.slice(0,7);render();},
+ 'mg-detail':d=>{const sel=selection(),m=filteredMetrics(sel),r=mgDetail(d.key,sel,m);if(r)openModal(r[0],hideMoney(r[1]),'mg-detail');}
+});
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

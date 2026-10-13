@@ -534,3 +534,105 @@ dialog[data-kind='brain'] .dialog-close { color: #e5e5ea; }
 .feira-hero-stats strong.long { font-size: 12.5px; }
 .feira-hero-stats strong.xlong { font-size: 11px; }
 .feira-hero-stats > div { padding-left: 9px; padding-right: 8px; }
+
+/* ------------------------------------------------------------------ Gestão (Feira): período no topo, lista única de detalhes */
+.mg-period { margin: 4px 0 16px; }
+.mg-seg {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+}
+.mg-seg button {
+  flex: 1;
+  min-height: 36px;
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.mg-seg button.on {
+  color: var(--text);
+  background: var(--panel);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 2px 6px rgba(0, 0, 0, 0.18);
+}
+:root[data-theme='light'] .mg-seg button.on { box-shadow: 0 1px 3px rgba(37, 52, 66, 0.14); }
+.mg-step { display: flex; align-items: center; gap: 8px; margin: 10px 0 8px; }
+.mg-arrow {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--accent-ink);
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+}
+.mg-arrow:disabled { opacity: 0.3; }
+.mg-range { flex: 1; display: grid; text-align: center; gap: 1px; min-width: 0; }
+.mg-range strong { font: 700 18px/1.25 'Inter Tight Variable', 'Inter Variable', sans-serif; }
+.mg-range small { font-size: 12px; color: var(--muted); }
+.mg-scopes { margin: 0; }
+
+.mg-advisor .advisor-situation { display: none; }
+.mg-advisor .advisor-action[data-id='portfolio'] { display: none; }
+.mg-list {
+  margin-bottom: 14px;
+  padding: 2px 16px;
+  border-radius: 22px;
+  background: var(--panel);
+  box-shadow: var(--card-shadow, none);
+}
+.mg-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 0;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.mg-row:last-child { border-bottom: 0; }
+.mg-row > .icon { flex: none; width: 16px; height: 16px; color: var(--muted); }
+.mg-ico {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.mg-ico .icon { width: 19px; height: 19px; }
+.mg-text { flex: 1; display: grid; gap: 2px; min-width: 0; }
+.mg-text strong { font-size: 16px; font-weight: 600; }
+.mg-text small { font-size: 13px; color: var(--muted); line-height: 1.35; }
+.mg-row:active { opacity: 0.6; }
+
+dialog[data-kind='mg-detail'] .mg-in-sheet { margin: 0 0 12px; padding: 0; background: transparent; box-shadow: none; border: 0; }
+dialog[data-kind='mg-detail'] .mg-in-sheet > summary { display: none; }
+.mg-sheet-title { margin: 18px 0 8px; font-size: 15px; }
+.mg-sheet-lead { margin: 0 0 12px; font-size: 15px; }
+.mg-sheet-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.mg-sheet-stats > div { padding: 12px; border-radius: 14px; background: color-mix(in srgb, var(--text) 7%, transparent); }
+.mg-sheet-stats strong { display: block; font: 700 22px/1.1 'Inter Tight Variable', 'Inter Variable', sans-serif; }
+.mg-sheet-stats small { font-size: 12px; color: var(--muted); }
+
+/* ------------------------------------------------------------------ compra múltipla: ✓ aparece conforme cada produto fica pronto */
+.sale-product-group.is-editing .sale-product-name strong::before {
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 2px solid var(--action-green, #7fa653);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--action-green, #7fa653) 22%, transparent);
+  animation: none;
+}
+.sale-product-group.is-pending .sale-product-name strong::before { width: 16px; height: 16px; box-sizing: border-box; }
+.sale-product-group.is-done .sale-product-name strong::before { animation: tick-pop 0.42s cubic-bezier(0.34, 1.7, 0.64, 1); }
+@keyframes tick-pop { 0% { transform: scale(0.2); opacity: 0; } 100% { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sale-product-group.is-done .sale-product-name strong::before { animation: none; } }

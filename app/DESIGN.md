@@ -1,7 +1,8 @@
-# Território — guia de design
+# AGRO Gestão — guia de design
 
-Referência obrigatória para qualquer mudança visual. O padrão é o **rigor de design da Apple**,
-aplicado a um app Android para produtores rurais que vendem em feiras.
+Referência obrigatória para qualquer mudança visual. O padrão é o **rigor de design da Apple e do
+ColorOS 16/17**, aplicado a um app Android para produtores rurais que vendem em feiras.
+Princípios: **minimalismo, beleza, eficiência e funcionalidade** — nada repetido, nenhum controle em dobro.
 
 ## Estilos do app
 
@@ -9,48 +10,56 @@ Em **Ajustes → Aparência → Estilo do app** (independente do tema claro/escu
 
 | Estilo | Padrão | Onde está |
 |---|---|---|
-| **Feira** | sim | `src/layout-feira.css` + funções `feira*` em `src/legacy/erp-ui.js` + `src/features/interface.js` |
-| **Território** | — | o visual original do mockup (`src/legacy/app.css`) |
+| **Feira** | sim | `src/layout-feira.css`, `src/polish.css` + funções `feira*`/`mg*` em `src/legacy/erp-ui.js` + `src/features/interface.js` |
+| **Clássico** | — | o visual original do mockup (`src/legacy/app.css`) |
 
 As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não só cores:
 
-- **Vender:** cartão "Vendendo em … | Hoje · N vendas", busca, categorias em linha rolável, grade de 3 colunas (nome, apresentação, preço; "a partir de" quando há vários preços).
-- **Estoque:** três botões Em dia / Baixo / Esgotado (tocar abre a reposição), busca, categorias, lista agrupada por categoria (nome, apresentação, selo Esgotado/Baixo, quantidade e unidade).
-- **Cadastro de produto:** lista que expande — cada configuração mostra o valor à direita, uma aberta por vez; ao escolher, abre a próxima ainda sem escolha.
-- **Resumo:** cartão de destaque (receita, vendas, ticket, resultado), gráfico de receita por dia, depois a Orientação.
+- **Vender:** cartão "Vendendo em … | Hoje · N vendas" com olho, busca, categorias em linha rolável, grade de 3 colunas (nome, apresentação, preço).
+- **Estoque:** três botões Em dia / Baixo / Esgotado (tocar abre a reposição), categorias, lista agrupada por categoria. Sem campo de busca: a lupa do topo busca.
+- **Cadastro de produto:** lista que expande; escolha feita mostra ✓ verde e o valor à direita. Pesos padrão 250 g / 500 g / 1 kg; produtos do mais caro ao mais barato.
+- **Clientes:** inclui o Catálogo (abaixo de "Próximos eventos").
+- **Gestão:** período no topo (Dia / Semana / Mês / Ano, setas ‹ ›, locais em pílulas) → card 3D de receita → gráfico do menor para o maior → Orientação enxuta → **uma lista** de detalhes (Produtos, Resultado, Pagamentos, Melhor dia e horário, Onde vendeu, Clientes, Relatórios), cada linha abrindo uma folha → Ferramentas (Inteligência, Sua marca, Sua banca). O olho esconde todo valor em dinheiro da página.
+
+## Componentes aprovados
+
+- **Card 3D de destaque** (`.feira-hero` em `src/polish.css`): oliva com degradê e brilho, relevo de tecla (luz no topo, "espessura" embaixo), dados em blocos de vidro, olho em círculo de vidro. Valores longos diminuem (`long`/`xlong`), nunca reticências. Reutilizar para outros números de destaque.
+- **Relevo de tecla**: teclados, campos de Valores e Estoque, teclas da reposição.
+- **Fechar janela**: círculo cinza translúcido com ×, toque de 44 px.
+- **Seletor**: `<select>` abre folha no estilo do app (`picker-sheet`).
+- **Compra múltipla**: círculo oliva = em edição, círculo cinza = falta, ✓ verde com salto = pronto.
 
 ## Gestos
 
-- **Toque longo (0,6 s)** num cartão de Vender entra no modo de seleção (vibração curta): até **3 produtos**, barra "Vender N produtos" acima das abas; o 4º é recusado com aviso. Voltar do Android ou "Cancelar" sai do modo. Toque normal continua abrindo a venda de um produto. Código: `src/features/multisell.js`.
+- **Toque longo (0,6 s)** num cartão de Vender entra no modo de seleção (vibração curta): até **3 produtos**, barra "Vender N produtos" acima das abas. Código: `src/features/multisell.js`.
 
 ## Cores
 
-- **Destaque:** o verde-oliva do Território, `--action-green` `#7FA653`, com texto `--green-text` `#14210d`. Nunca o azul padrão do iOS nem um verde novo.
+- **Destaque:** verde-oliva `--action-green` `#7FA653`, texto `--green-text` `#14210d`. Nunca o azul do iOS nem um verde novo.
 - Tinta de destaque para links e aba ativa: `--accent-ink` (`#4f7a2a` claro, `#a7c97f` escuro).
 - Estados: verde = em dia/indo bem, laranja = baixo/atenção, vermelho = esgotado/urgente, azul `#0a84ff` = oportunidade.
-- Texto sobre cor de fundo sempre com contraste próprio (nada de azul-marinho sobre verde).
+- **Toda cor nova é conferida nos temas claro e escuro.**
 
 ## Tipografia
 
-- Texto: **Inter**. Títulos e números grandes: **Inter Tight** (estilo Feira).
+- Texto: **Inter**. Títulos e números grandes: **Inter Tight**.
 - Valores e quantidades com algarismos de largura fixa (`tabular`).
-- Palavras inteiras: sem hifenização automática ("Tradicio-nal" é proibido).
-- Rótulos de opção com inicial maiúscula na exibição.
+- Palavras inteiras: sem hifenização automática.
 
 ## Regras de layout (inegociáveis)
 
-1. **Texto nunca sai do botão nem é cortado.** Botão nunca menor que a palavra mais longa (`min-width: min-content`); grupos de opções fluem em linhas, sem colunas fixas. Ver `src/fit.css`.
-2. Toque mínimo de **48 dp**.
-3. Nenhum elemento sobrepõe outro; a barra de abas flutuante nunca cobre conteúdo.
-4. Uma ação principal por tela; linguagem simples, sem jargão ("Resumo", não "Gestão"/"ERP").
-5. Antes de cada versão, rodar a auditoria `tests/overflow-audit.js` (zero ocorrências em 360 e 412 px, nos dois estilos, com e sem texto ampliado).
+1. **Texto nunca sai do botão nem é cortado.** Ver `src/fit.css`.
+2. Toque mínimo de **44–48 px**.
+3. Nenhum elemento sobrepõe outro (inclusive em toque: conferir `elementFromPoint` em botões sobre texto).
+4. Uma ação principal por tela; linguagem simples, em português.
+5. Antes de cada versão, rodar `tests/overflow-audit.js` (zero ocorrências em 360 e 375 px, nos dois estilos e temas).
 
-## Movimento (`src/motion.css`)
+## Movimento (`src/motion.css`, `src/polish.css`)
 
-- Janelas sobem como folha (mola `cubic-bezier(0.32, 0.72, 0, 1)`), botões afundam a 97% no toque.
-- Conteúdo desliza **só na troca de tela**, nunca a cada toque.
-- Avisos sobem de baixo; alertas balançam de leve; sucesso dá um pequeno "pulo".
-- Tudo desligado com "reduzir movimento" do sistema ou "Reduzir transparência" do app.
+- Janelas sobem como folha; botões afundam no toque com mola.
+- Rodapé: cada ícone faz um gesto curto ao entrar (carrinho rola, caixa abre/fecha, pessoas pulam, calendário vira, barras crescem).
+- Conteúdo desliza **só na troca de tela**.
+- Tudo desligado com "reduzir movimento"; celulares simples recebem o modo leve (`html.lite`).
 
 ## Processo
 
