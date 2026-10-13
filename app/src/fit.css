@@ -38,14 +38,21 @@ html[data-large-text='true'] .registration-dimensions .dimension-pill .choices {
   text-transform: uppercase;
 }
 
-/* 3. Grades de pagamento e ações: colunas que se adaptam ao texto em vez de número fixo. */
+/* 3. Grades de pagamento e ações: fluem em linhas; cada botão tem a largura do seu texto e nenhum
+      passa por cima do vizinho ("+ Produtos" ficava sob "Outro" com colunas fixas). */
 .payment-grid,
 .sale-compact .payment-grid,
 .checkout-payment-controls .payment-grid,
 .optional-sale-actions,
 .sale-options-compact .optional-sale-actions,
 html[data-large-text='true'] .checkout-payment-controls .payment-grid {
-  grid-template-columns: repeat(auto-fit, minmax(76px, 1fr)) !important;
+  display: flex !important;
+  flex-wrap: wrap;
+}
+.payment-grid > *,
+.optional-sale-actions > * {
+  flex: 1 0 auto;
+  min-width: 84px !important;
 }
 .payment-grid .choice,
 .sale-compact .payment-grid .choice,

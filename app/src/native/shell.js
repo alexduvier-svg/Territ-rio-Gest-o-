@@ -6,6 +6,7 @@ import { AppLauncher } from '@capacitor/app-launcher';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { Haptics, ImpactStyle, NotificationType } from '@capacitor/haptics';
 import { KeepAwake } from '@capacitor-community/keep-awake';
+import { LocalNotifications } from '@capacitor/local-notifications';
 import { Share } from '@capacitor/share';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { settle } from './storage.js';
@@ -149,6 +150,80 @@ function installLifecycle() {
   });
 }
 
+// Avisa fora do app (barra de notificações, tela bloqueada e Always On Display, conforme os ajustes do
+// celular) quando um produto chega a 30% do seu próprio nível de estoque. Cada produto avisa uma vez;
+// depois de reposto acima de 30%, volta a poder avisar.
+const LOW_STOCK = 0.3;
+const ALERTED_KEY = 'territorio-stock-alerted';
+
+function notificationId(productId) {
+  let h = 7;
+  for (const ch of productId) h = (h * 31 + ch.charCodeAt(0)) | 0;
+  return Math.abs(h) % 2000000000;
+}
+
+async function checkStock() {
+  const levels = window.TerritorioShell?.stockLevels?.();
+  if (!levels) return;
+  let alerted = [];
+  try { alerted = JSON.parse(localStorage.getItem(ALERTED_KEY) || '[]'); } catch { /* recomeça */ }
+  const low = levels.filter(l => l.ratio !== null && l.ratio <= LOW_STOCK);
+  const lowIds = new Set(low.map(l => l.id));
+  alerted = alerted.filter(id => lowIds.has(id)); // reposto acima de 30%: pode avisar de novo
+  const fresh = low.filter(l => !alerted.includes(l.id));
+  if (fresh.length) {
+    try {
+      const status = await LocalNotifications.checkPermissions();
+      const granted = status.display === 'granted' || (await LocalNotifications.requestPermissions()).display === 'granted';
+      if (granted) {
+        await LocalNotifications.schedule({
+          notifications: fresh.map(l => ({
+            id: notificationId(l.id),
+            channelId: 'estoque',
+            title: l.stock <= 0 ? `${l.name} acabou` : `Estoque baixo: ${l.name}`,
+            body: l.stock <= 0
+              ? `${l.detail ? l.detail + ' · ' : ''}Toque para repor.`
+              : `Restam ${l.stock.toLocaleString('pt-BR')} ${l.unit} (${Math.round(l.ratio * 100)}% do seu nível). Toque para repor.`,
+            extra: { productId: l.id },
+            smallIcon: 'ic_stat_territorio',
+            iconColor: '#7FA653',
+            autoCancel: true,
+            foreground: true,
+            isExactNotification: false,
+          })),
+        });
+        alerted.push(...fresh.map(l => l.id));
+      }
+    } catch (error) {
+      console.warn('Aviso de estoque não enviado', error);
+    }
+  }
+  localStorage.setItem(ALERTED_KEY, JSON.stringify(alerted));
+}
+
+function installStockAlerts() {
+  LocalNotifications.createChannel({
+    id: 'estoque',
+    name: 'Estoque baixo',
+    description: 'Quando um produto chega a 30% do nível de estoque.',
+    importance: 4,
+    visibility: 1,
+    vibration: true,
+    lights: true,
+    lightColor: '#7FA653',
+  }).catch(() => {});
+  LocalNotifications.addListener('localNotificationActionPerformed', action => {
+    const id = action.notification?.extra?.productId;
+    if (id) setTimeout(() => window.TerritorioShell?.openRestock?.([id]), 400);
+  });
+  let timer;
+  window.addEventListener('territorio:saved', () => {
+    clearTimeout(timer);
+    timer = setTimeout(checkStock, 1200);
+  });
+  setTimeout(checkStock, 3000);
+}
+
 export function installShell() {
   if (!Capacitor.isNativePlatform()) return;
   document.documentElement.classList.add('native');
@@ -158,5 +233,6 @@ export function installShell() {
   installKeepAwake();
   installSystemBars();
   installLifecycle();
+  installStockAlerts();
   requestAnimationFrame(() => SplashScreen.hide({ fadeOutDuration: 200 }).catch(() => {}));
 }

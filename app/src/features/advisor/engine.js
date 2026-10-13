@@ -5,6 +5,7 @@
 //   3. numbers: os valores e as fórmulas, para quem quiser conferir.
 // Toda a complexidade fica aqui; o produtor só lê frases curtas. Valores em centavos.
 import { TOPICS } from './knowledge.js';
+import { forecastNextEvent, runOut } from './forecast.js';
 
 const LEVELS = ['urgente', 'atencao', 'oportunidade', 'bom'];
 const TARGET_MARGIN = 0.4;
@@ -406,7 +407,52 @@ function roundPrices(input) {
   })];
 }
 
-const RULES = [noSales, lossPeriod, pricing, missingCost, restock, leftovers, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices];
+const fmtQty = n => n.toLocaleString('pt-BR', { maximumFractionDigits: 1 });
+
+// Previsão para a próxima feira (agente local: histórico das feiras e ritmo de vendas).
+function nextEventPlan(input) {
+  const u = input.upcoming;
+  if (!u || u.daysUntil > 7 || !input.history) return [];
+  const f = forecastNextEvent(input);
+  if (!f.lines.length) return [];
+  const missing = f.lines.filter(l => l.missing > 0);
+  return [item('previsao-feira', missing.length ? 'atencao' : 'oportunidade', {
+    title: `Previsão para a ${u.name}`,
+    happened: `Pelo seu histórico, a ${u.name} deve render entre ${brl(f.low)} e ${brl(f.high)} (confiança ${f.confidence}).`,
+    todo: missing.length
+      ? `Reponha antes de sair: ${list(missing.slice(0, 3).map(l => `${l.name} (faltam ${fmtQty(l.missing)} ${l.unit})`))}.`
+      : `Leve ${list(f.lines.slice(0, 3).map(l => `${fmtQty(l.take)} ${l.unit} de ${l.name}`))}.`,
+    why: 'A previsão usa o que você vendeu nas últimas feiras, com mais peso para as mais recentes. Quando um produto esgotou, a procura foi maior que a venda, então a previsão sobe. Quanto mais feiras registradas, mais precisa ela fica.',
+    steps: f.lines.slice(0, 8).map(l => `${l.name}: levar ${fmtQty(l.take)} ${l.unit}${l.missing ? ` (você tem ${fmtQty(l.stock)})` : ''} · ${l.basis}`),
+    topics: ['giro', 'espaco'],
+    numbers: [
+      { label: 'Receita prevista', value: `${brl(f.low)} a ${brl(f.high)}` },
+      { label: 'Confiança', value: f.confidence, detail: f.eventsUsed ? `${f.eventsUsed} ${f.eventsUsed === 1 ? 'feira' : 'feiras'} no histórico` : 'sem feiras no histórico' },
+    ],
+    cta: missing.length ? { label: 'Repor agora', action: 'restock-ids', data: { ids: missing.map(l => l.id).join(',') } } : undefined,
+    impact: f.revenue,
+  })];
+}
+
+// Produto que, no ritmo atual, acaba em poucos dias (e ainda não está abaixo do mínimo).
+function runningOut(input) {
+  if (!input.history) return [];
+  const soon = runOut(input).filter(r => r.days <= 5 && r.stock > (r.min || 0));
+  if (!soon.length) return [];
+  const days = r => Math.max(1, Math.round(r.days));
+  return [item('acaba-logo', 'atencao', {
+    title: 'Produto vai acabar em poucos dias',
+    happened: list(soon.slice(0, 3).map(r => `${r.name} acaba em ~${plural(days(r), 'dia', 'dias')}`)) + '.',
+    todo: `Reponha ${list(soon.slice(0, 3).map(r => r.name))} nesta semana.`,
+    why: 'O cálculo divide o que você tem pelo quanto vende por dia nas últimas semanas.',
+    numbers: soon.map(r => ({ label: r.name, value: `${fmtQty(r.stock)} ${r.unitLabel}`, detail: `vende ${fmtQty(r.perDay)} por dia` })),
+    topics: ['giro'],
+    cta: { label: 'Repor agora', action: 'restock-ids', data: { ids: soon.map(r => r.id).join(',') } },
+    impact: soon.reduce((n, r) => n + Math.round(r.perDay * 7 * (r.price || 0)), 0),
+  })];
+}
+
+const RULES = [noSales, lossPeriod, pricing, missingCost, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices];
 
 // ------------------------------------------------------------------------------------- saída
 

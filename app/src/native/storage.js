@@ -95,6 +95,7 @@ async function flush() {
 function save(json) {
   pending = json;
   if (!writing) writing = flush();
+  window.dispatchEvent(new Event('territorio:saved'));
   return true;
 }
 

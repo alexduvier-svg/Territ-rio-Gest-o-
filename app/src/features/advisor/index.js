@@ -1,6 +1,7 @@
 // Orientação ao produtor: monta o HTML do painel do Resumo e dos detalhes. Os botões usam
 // data-action; as ações estão registradas em src/legacy (bloco "Orientação").
 import { buildGuidance, guidanceText } from './engine.js';
+import { answer } from './agent.js';
 import { AREAS, TOPICS, CHECKLISTS, AI_GUIDE } from './knowledge.js';
 import './advisor.css';
 
@@ -113,6 +114,7 @@ window.TerritorioAdvisor = {
   checklist,
   checklistTitle: id => CHECKLISTS[id]?.title || 'Checklist',
   text: input => guidanceText(buildGuidance(input)),
+  answer: (question, input) => answer(question, input),
   summary: input => {
     const g = buildGuidance(input);
     return { situation: g.situation, actions: g.actions.map(d => ({ title: d.title, todo: d.todo })), others: g.all.filter(d => !g.actions.includes(d)).map(d => ({ title: d.title, todo: d.todo })) };

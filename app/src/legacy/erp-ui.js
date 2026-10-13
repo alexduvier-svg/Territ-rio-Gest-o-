@@ -218,10 +218,11 @@ function productCards(stockMode){
  const groups=new Map();products.forEach(p=>{const key=familyKey(p);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(p);});const available=[...groups.values()].filter(variants=>variants.some(v=>v.stock>0));if(!available.length)return '<div class="empty"><strong>Nenhum produto disponível</strong><p>Reponha o estoque para voltar a vender.</p>'+btn('nav','Ver Estoque','link',{page:'Estoque'})+'</div>';return '<div class="product-grid selling-grid">'+available.map(variants=>{const offered=variants.some(v=>v.stock>0)?variants.filter(v=>v.stock>0):variants,p=offered.slice().sort((a,b)=>a.price-b.price)[0],worst=variants.reduce((a,b)=>stockRatio(a).ratio<=stockRatio(b).ratio?a:b);return '<article class="product-card selling-card'+(variants.every(v=>v.stock<=0)?' is-empty':'')+'">'+btn('sell-product','<span class="card-heading"><span class="name">'+escape(titleName(p.name))+'</span>'+productDot(worst)+'</span><span class="price tabular"><small class="price-meta">'+escape(sellingCardDescription(p))+'</small>'+E.money(p.price)+'</span>','card-body',{id:p.id},variants.every(v=>v.stock<=0))+'</article>';}).join('')+'</div>';
 }
 function sellPage(){
+ if(isFeira())return feiraSellPage();
  const today=E.dayKey(new Date()),sales=model.data.sales.filter(s=>s.status==='completed'&&s.scope===scope&&E.dayKey(s.date)===today),visible=model.data.settings.financialVisible;
  return top()+reminderBanner()+'<section class="banner summary-banner">'+btn('weekly-sales','<span class="banner-location">'+icon('chart')+'<span><span class="sub">'+'Vendas de hoje'+'</span><br><span class="big">Resumo</span></span></span><span class="banner-revenue"><span class="sub">Hoje · '+grammarCount(sales.length,'venda','vendas')+'</span><br><span class="big tabular'+(visible?' summary-number':' summary-hidden')+'">'+(visible?E.money(sales.reduce((s,v)=>s+v.total,0)):'••••••')+'</span> '+icon('chevron')+'</span>','summary-main')+'<button type="button" data-action="toggle-financial" class="summary-eye" aria-label="'+(visible?'Ocultar':'Mostrar')+' resultado financeiro" aria-pressed="'+visible+'">'+icon(visible?'eye':'eyeOff')+'</button></section>'+(draft?btn('resume-sale','<span>'+icon('cart')+'<span>Finalize suas vendas</span></span><span>'+E.money(Math.max(0,model.quote(draft).total))+' '+icon('chevron')+'</span>','draft-resume'):'')+productCards(false);
 }
-function stockPage(){return top()+(isFeira()?feiraStockStatus():'')+stockLossReminder()+btn('catalog','<span><strong>Catálogo</strong><small>Seu catálogo pronto para compartilhar</small></span>'+icon('image')+icon('chevron'),'catalog-entry')+productCards(true);}
+function stockPage(){if(isFeira())return feiraStockPage();return top()+stockLossReminder()+btn('catalog','<span><strong>Catálogo</strong><small>Seu catálogo pronto para compartilhar</small></span>'+icon('image')+icon('chevron'),'catalog-entry')+productCards(true);}
 function rankedCategories(){return [...new Set([...E.CATEGORIES,...model.data.products.map(p=>p.category)])];}
 function searchProducts(mode){
  searchMode=mode||'sell';openModal('Produtos cadastrados','<div class="search"><label class="sr-only" for="catalog-search">Buscar produto</label>'+icon('search')+'<input id="catalog-search" placeholder="Buscar produto" autocomplete="off"></div><div class="modal-list" id="catalog-results">'+catalogResults('')+'</div>','catalog',{mode:searchMode});
@@ -494,7 +495,7 @@ async function runAIAnalysis(){
 
 function settingsRow(action,title,value,symbol,color,data){return btn(action,'<span class="settings-symbol '+(color||'')+'">'+icon(symbol)+'</span><span class="settings-name">'+title+'</span>'+(value?'<span class="settings-value">'+escape(value)+'</span>':'')+icon('chevron'),'settings-row',data);}
 function settings(){settingsReturn=page;page='Ajustes';render();window.scrollTo(0,0);}
-function settingsPage(){const st=model.data.settings;return'<div class="subview">'+header('Ajustes','settings-back')+'<div class="settings-list">'+settingsRow('business-settings','Negócio',st.businessName,'store','green')+settingsRow('appearance-settings','Aparência',{system:'Sistema',dark:'Escuro',light:'Claro'}[st.appearance],'appearance','gray')+'</div><div class="settings-list">'+settingsRow('settings-intelligence','Inteligência',aiProvider()?aiProvider().name:'Configurar','spark','purple')+'</div><div class="settings-list">'+settingsRow('data-settings','Backup e dados','','download','cyan')+'</div><div class="settings-version"><span>Versão</span><span class="muted">0.5.0</span></div><p class="settings-note">Suas preferências e registros ficam salvos neste navegador.</p>'+btn('reset-confirm','Restaurar dados de exemplo','soft-danger')+'</div>';}
+function settingsPage(){const st=model.data.settings;return'<div class="subview">'+header('Ajustes','settings-back')+'<div class="settings-list">'+settingsRow('business-settings','Negócio',st.businessName,'store','green')+settingsRow('appearance-settings','Aparência',{system:'Sistema',dark:'Escuro',light:'Claro'}[st.appearance],'appearance','gray')+'</div><div class="settings-list">'+settingsRow('settings-intelligence','Inteligência',aiProvider()?aiProvider().name:'Configurar','spark','purple')+'</div><div class="settings-list">'+settingsRow('data-settings','Backup e dados','','download','cyan')+'</div><div class="settings-list">'+settingsRow('test-reset','Zerar dados para testes','','trash','red')+'</div><div class="settings-version"><span>Versão</span><span class="muted">'+escape(window.TERRITORIO_VERSION||'')+'</span></div><p class="settings-note">Seus dados ficam salvos neste aparelho. Faça backup em Backup e dados.</p>'+btn('reset-confirm','Restaurar dados de exemplo','soft-danger')+'</div>';}
 function businessModal(){const st=model.data.settings;openModal('Perfil e negócio',field('business-name','Nome do negócio',st.businessName)+field('producer-name','Nome do Produtor',st.producerName)+field('business-phone','Telefone',st.phone,'type="tel" autocomplete="tel"')+field('business-email','E-mail',st.email,'type="email" autocomplete="email"')+field('business-city','Município',st.city)+'<label for="business-uf">Estado</label><select id="business-uf">'+E.STATES.map(x=>'<option value="'+x[0]+'"'+(st.uf===x[0]?' selected':'')+'>'+x[0]+' · '+x[1]+'</option>').join('')+'</select>'+producerPhotoField(st)+btn('save-business','Salvar ajustes','success'),'business');}
 function appearanceModal(){const st=model.data.settings;openModal('Aparência','<h3>Estilo do app</h3><div class="choices">'+[['feira','Feira'],['territorio','Território']].map(([value,label])=>btn('set-layout',label,'choice'+((st.layout==='territorio'?'territorio':'feira')===value?' selected':''),{value})).join('')+'</div><p class="settings-note">Feira: visual limpo e direto, com números em destaque. Território: o visual original. As funções são as mesmas nos dois.</p><hr class="divider"><h3>Tema</h3><div class="choices">'+[['dark','Escuro'],['light','Claro'],['system','Sistema']].map(([value,label])=>btn('set-appearance',label,'choice'+(st.appearance===value?' selected':''),{value})).join('')+'</div><hr class="divider"><button type="button" data-action="toggle-large-text" class="client-row" role="switch" aria-checked="'+st.largeText+'"><span>Texto ampliado</span><span class="switch'+(st.largeText?' on':'')+'"><i></i></span></button><button type="button" data-action="toggle-effects" class="client-row" role="switch" aria-checked="'+st.reduceEffects+'"><span>Reduzir transparência</span><span class="switch'+(st.reduceEffects?' on':'')+'"><i></i></span></button>'+btn('close-modal','Entendi','success modal-action'),'appearance');}
 function applyAppearance(){const st=model.data.settings,theme=st.appearance==='system'?(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):st.appearance;document.documentElement.setAttribute('data-theme',theme);document.documentElement.setAttribute('data-large-text',String(st.largeText));document.documentElement.setAttribute('data-reduce-effects',String(st.reduceEffects));document.documentElement.setAttribute('data-layout',st.layout==='territorio'?'territorio':'feira');}
@@ -1206,13 +1207,6 @@ productSuggestions=function(prefix){const key=E.normalize(prefix);if(key.length<
 
 // --- Estilo do app: "Feira" (padrão, inspirado no ERPIA) ou "Território" (original) ---
 function isFeira(){return model.data.settings.layout!=='territorio';}
-function stockGroups(){const ok=[],low=[],out=[];model.data.products.forEach(p=>(p.stock<=0?out:p.stock<=(p.min||0)?low:ok).push(p));return{ok,low,out};}
-function feiraStockStatus(){const g=stockGroups(),total=model.data.products.length;if(!total)return '';const need=g.low.length+g.out.length,w=n=>(n/total*100).toFixed(2)+'%';
- return '<section class="feira-stock" aria-label="Situação do estoque"><div class="feira-stock-bar" aria-hidden="true"><span class="ok" style="width:'+w(g.ok.length)+'"></span><span class="low" style="width:'+w(g.low.length)+'"></span><span class="out" style="width:'+w(g.out.length)+'"></span></div>'
- +'<div class="feira-stock-counts"><div class="feira-stock-count ok"><small>Em dia</small><strong class="tabular">'+g.ok.length+'</strong></div><div class="feira-stock-count low'+(g.low.length?' warn':'')+'"><small>Baixo</small><strong class="tabular">'+g.low.length+'</strong></div><div class="feira-stock-count out'+(g.out.length?' alert':'')+'"><small>Esgotado</small><strong class="tabular">'+g.out.length+'</strong></div></div>'
- +(need?btn('feira-restock',icon('download')+'Repor '+grammarCount(need,'item','itens'),'feira-restock'):'')+'</section>';}
-function feiraRestockModal(){const g=stockGroups(),rows=[...g.out,...g.low].map(p=>btn('feira-restock-item','<span><strong>'+escape(titleName(p.name))+'</strong><small>'+escape(stockCardDescription(p))+'</small></span><b class="tabular '+(p.stock<=0?'out':'low')+'">'+(p.stock<=0?'Esgotado':E.quantity(p.stock)+' de mín. '+E.quantity(p.min||0))+'</b>','feira-restock-row',{id:p.id})).join('');
- openModal('Repor estoque','<p class="dialog-text">Toque no produto para registrar a reposição.</p><div class="feira-restock-list">'+rows+'</div>','feira-restock',null,btn('close-modal','Fechar','link-row'));}
 function feiraHero(sel,m){const monthly=/^\d{4}-\d{2}$/.test(sel.month||'');if(!monthly)sel={...sel,month:E.monthKey(Date.now())};const days=new Date(Number(sel.month.slice(0,4)),Number(sel.month.slice(5,7)),0).getDate(),values=Array.from({length:days},(_,i)=>m.daily[sel.month+'-'+String(i+1).padStart(2,'0')]||0),max=Math.max(...values),today=E.dayKey(Date.now()),W=320,H=120,step=W/days,bw=Math.max(3,step*0.62);
  const bars=max?values.map((v,i)=>{const h=v?Math.max(3,v/max*(H-22)):0,x=i*step+(step-bw)/2;return h?'<rect class="bar'+(sel.month+'-'+String(i+1).padStart(2,'0')===today?' today':'')+'" x="'+x.toFixed(1)+'" y="'+(H-18-h).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+h.toFixed(1)+'" rx="'+Math.min(3,bw/2).toFixed(1)+'"><title>'+(i+1)+': '+E.money(v)+'</title></rect>':'';}).join(''):'';
  const ticks=[1,6,11,16,21,26,days].filter((d,i,a)=>d<=days&&a.indexOf(d)===i).map(d=>'<text x="'+((d-0.5)*step).toFixed(1)+'" y="'+H+'" text-anchor="middle">'+d+'</text>').join('');
@@ -1220,10 +1214,82 @@ function feiraHero(sel,m){const monthly=/^\d{4}-\d{2}$/.test(sel.month||'');if(!
  +(monthly?'<section class="feira-chart"><h2>Receita por dia</h2>'+(max?'<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Gráfico de receita por dia">'+'<line class="baseline" x1="0" x2="'+W+'" y1="'+(H-18)+'" y2="'+(H-18)+'"></line>'+bars+ticks+'</svg>':'<p class="feira-chart-empty">Sem vendas neste período.</p>')+'</section>':'');}
 Object.assign(actions,{
  'set-layout':d=>{model.data.settings.layout=d.value==='territorio'?'territorio':'feira';persist();applyAppearance();render();appearanceModal();},
- 'feira-restock':()=>feiraRestockModal(),
- 'feira-restock-item':d=>{closeModal();actions['stock-product']({id:d.id});}
 });
 applyAppearance();
+
+// --- Agente de previsões: histórico real (feiras encerradas e vendas dos últimos 60 dias) ---
+function advisorHistory(){const today=E.dayKey(Date.now()),since=Date.now()-60*864e5,names=new Map(model.data.products.map(p=>[p.id,advisorName(p)]));
+ const dayDiff=(a,b)=>Math.round((Date.parse(b+'T12:00:00Z')-Date.parse(a+'T12:00:00Z'))/864e5);
+ const events=model.data.events.filter(e=>e.status==='finished'||e.end<today).map(e=>{const load=eventLoad(e.id),bal=load?eventLoadBalance(e.id):null,sold=new Map();eventSoldQuantities(e.id).forEach(s=>sold.set(s.productId,(sold.get(s.productId)||0)+s.qty));
+  const ids=new Set([...sold.keys(),...(load?load.items.map(i=>i.productId):[])]);
+  const items=[...ids].map(id=>{const li=load&&load.items.find(i=>i.productId===id),rest=bal&&bal.balance.find(b=>b.productId===id);return{productId:id,name:names.get(id)||'',sold:sold.get(id)||0,taken:li?li.qty:0,left:rest?Math.max(0,rest.qty):0};});
+  return{id:e.id,name:e.name,start:e.start,days:dayDiff(e.start,e.end)+1,items};}).filter(e=>e.items.some(i=>i.sold>0));
+ const daily=model.data.sales.filter(s=>s.status==='completed'&&Date.parse(s.date)>=since).flatMap(s=>netItems(s).map(i=>({day:E.dayKey(s.date),hour:Number(brTime(s.date).slice(0,2)),productId:model.product(i.productId)?.id||i.productId,qty:i.qty,amount:i.amount})));
+ return{events,daily};}
+const advisorBaseInput=advisorInput;
+advisorInput=function(){const input=advisorBaseInput(),today=E.dayKey(Date.now()),byId=new Map(model.data.products.map(p=>[p.id,p]));
+ input.today=today;input.history=advisorHistory();
+ input.products=input.products.map(p=>{const full=byId.get(p.id);return full?{...p,decimal:['kg','Litro'].includes(full.unit),unitShort:shortUnit(full.unit)}:p;});
+ const next=model.data.events.filter(e=>e.status==='active'&&e.end>=today).sort((a,b)=>a.start.localeCompare(b.start))[0];
+ if(input.upcoming&&next)input.upcoming.days=Math.round((Date.parse(next.end+'T12:00:00Z')-Date.parse(next.start+'T12:00:00Z'))/864e5)+1;
+ return input;};
+Object.assign(actions,{'restock-ids':d=>openRestock(String(d.ids||'').split(',').filter(Boolean))});
+
+// --- Estilo Feira: Vender e Estoque com a estrutura do ERPIA ---
+function feiraSearch(){return '<label class="feira-search">'+icon('search')+'<span class="sr-only">Buscar produto</span><input id="feira-search" type="search" placeholder="Buscar produto" value="'+escape(query)+'" autocomplete="off" spellcheck="false"></label>';}
+function feiraChips(){const cats=[...new Set(model.data.products.map(p=>p.category))];if(cats.length<2)return '';return '<div class="feira-chips" role="group" aria-label="Categorias">'+['Todos',...cats].map(c=>btn('feira-filter',escape(c),'chip'+(filter===c?' selected':''),{value:c})).join('')+'</div>';}
+function feiraSellList(){const groups=new Map();productList(false).forEach(p=>{const k=familyKey(p);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(p);});
+ if(!groups.size)return '<div class="empty"><strong>'+(model.data.products.length?'Nada encontrado':'Nenhum produto ainda')+'</strong><p>'+(model.data.products.length?'Tente outro nome ou categoria.':'Cadastre seus produtos no Estoque para começar a vender.')+'</p></div>';
+ return '<div class="feira-grid">'+[...groups.values()].map(variants=>{const live=variants.filter(v=>v.stock>0),p=(live.length?live:variants).slice().sort((a,b)=>a.price-b.price)[0],out=!live.length,many=new Set(variants.map(v=>v.price)).size>1;
+  return btn('sell-product','<strong>'+escape(titleName(p.name))+'</strong><small>'+escape(sellingCardDescription(p))+'</small>'+(out?'<em>Esgotado</em>':'')+'<span class="tabular">'+(many?'<small>a partir de</small>':'')+E.money(p.price)+'</span>','feira-card'+(out?' is-out':''),{id:p.id},out);}).join('')+'</div>';}
+function feiraSellPage(){const today=E.dayKey(new Date()),sales=model.data.sales.filter(s=>s.status==='completed'&&s.scope===scope&&E.dayKey(s.date)===today),visible=model.data.settings.financialVisible;
+ return top()+reminderBanner()+'<section class="feira-sell-hero">'+btn('weekly-sales','<span class="fsh-where"><span><small>Vendendo em</small><strong>'+escape(scopeName(scope))+'</strong></span></span><span class="fsh-today"><small>Hoje · '+grammarCount(sales.length,'venda','vendas')+'</small><strong class="tabular">'+(visible?E.money(sales.reduce((n,s)=>n+s.total,0)):'••••••')+'</strong></span>','fsh-main')+'<button type="button" data-action="toggle-financial" class="fsh-eye" aria-label="'+(visible?'Ocultar':'Mostrar')+' valores" aria-pressed="'+visible+'">'+icon(visible?'eye':'eyeOff')+'</button></section>'
+ +(draft?btn('resume-sale','<span>'+icon('cart')+'<span>Finalize suas vendas</span></span><span>'+E.money(Math.max(0,model.quote(draft).total))+' '+icon('chevron')+'</span>','draft-resume'):'')+feiraSearch()+feiraChips()+'<div id="feira-list">'+feiraSellList()+'</div>';}
+function stockGroups(){const ok=[],low=[],out=[];model.data.products.forEach(p=>(p.stock<=0?out:p.stock<=(p.min||0)?low:ok).push(p));return{ok,low,out};}
+function feiraStockStatus(){const g=stockGroups();if(!model.data.products.length)return '';const tile=(key,label,list,cls)=>btn('feira-restock','<small>'+label+'</small><strong class="tabular">'+list.length+'</strong>','feira-stock-count '+key+(list.length&&cls?' '+cls:''),{group:key},!list.length);
+ return '<section class="feira-stock" aria-label="Situação do estoque"><div class="feira-stock-counts">'+tile('ok','Em dia',g.ok,'')+tile('low','Baixo',g.low,'warn')+tile('out','Esgotado',g.out,'alert')+'</div><p class="feira-stock-hint">Toque para repor.</p></section>';}
+function feiraStockList(){const items=productList(true);if(!items.length)return '<div class="empty"><strong>'+(model.data.products.length?'Nada encontrado':'Nenhum produto ainda')+'</strong><p>'+(model.data.products.length?'Tente outro nome ou categoria.':'Toque em + para cadastrar o primeiro produto.')+'</p></div>';
+ const byCat=new Map();items.forEach(p=>{if(!byCat.has(p.category))byCat.set(p.category,[]);byCat.get(p.category).push(p);});
+ return [...byCat].map(([cat,list])=>'<h3 class="feira-group">'+escape(cat)+'</h3><div class="feira-rows">'+list.map(p=>{const state=p.stock<=0?'out':p.stock<=(p.min||0)?'low':'ok';
+  return btn('stock-product','<span class="fr-main"><strong>'+escape(titleName(p.name))+'</strong><small>'+escape(stockCardDescription(p))+'</small></span><span class="fr-side">'+(state==='out'?'<em class="fr-badge out">Esgotado</em>':state==='low'?'<em class="fr-badge low">Baixo</em>':'')+'<b class="tabular '+state+'">'+E.quantity(p.stock)+'</b><small>'+escape(shortUnit(p.unit))+'</small></span>'+icon('chevron'),'feira-row',{id:p.id});}).join('')+'</div>').join('');}
+function feiraStockPage(){return top()+feiraStockStatus()+stockLossReminder()+feiraSearch()+feiraChips()+btn('catalog','<span><strong>Catálogo</strong><small>Seu catálogo pronto para compartilhar</small></span>'+icon('image')+icon('chevron'),'catalog-entry')+'<div id="feira-list">'+feiraStockList()+'</div>';}
+document.addEventListener('input',event=>{if(event.target.id!=='feira-search')return;query=event.target.value;const list=document.getElementById('feira-list');if(list)list.innerHTML=page==='Estoque'?feiraStockList():feiraSellList();});
+
+// --- Reposição rápida: até 4 produtos por vez, teclado próprio ---
+let restock=null;
+function openRestock(ids){ids=ids.filter(id=>model.product(id));if(!ids.length)return;restock={ids,page:0,values:{},active:ids[0]};paintRestock();}
+function paintRestock(){const r=restock;if(!r)return;const pages=Math.ceil(r.ids.length/4),pageIds=r.ids.slice(r.page*4,r.page*4+4),last=r.page>=pages-1,active=model.product(r.active),decimal=active&&['kg','Litro'].includes(active.unit);
+ const rows=pageIds.map(id=>{const p=model.product(id),on=id===r.active,value=r.values[id]||'';return btn('restock-pick','<span class="rr-name"><strong>'+escape(titleName(p.name))+'</strong><small>Agora: '+E.quantity(p.stock)+' '+escape(E.unitLabel(p.unit,p.stock))+'</small></span><span class="rr-value'+(value?'':' empty')+'"><span class="tabular">'+(value||'0')+'</span><small>'+escape(shortUnit(p.unit))+'</small></span>','restock-row'+(on?' active':''),{id});}).join('');
+ const keys=[1,2,3,4,5,6,7,8,9].map(n=>btn('restock-digit',String(n),'restock-key',{digit:n})).join('')+(decimal?btn('restock-digit',',','restock-key',{digit:','}):'<span aria-hidden="true"></span>')+btn('restock-digit','0','restock-key',{digit:0})+btn('restock-erase',icon('backspace')+'<span>Corrigir</span>','restock-key restock-erase');
+ openModal(r.ids.length===1?'Repor '+titleName(model.product(r.ids[0]).name):'Repor estoque',(r.ids.length>1?'<p class="dialog-text">Toque no produto e digite quanto entrou'+(pages>1?' · '+(r.page+1)+' de '+pages:'')+'.</p>':'<p class="dialog-text">Digite quanto entrou.</p>')+'<div class="restock-rows">'+rows+'</div><div class="restock-keypad" aria-label="Teclado de quantidade">'+keys+'</div>','restock',null,(last?'':btn('restock-next','Próximos','primary modal-action'))+btn('restock-finish','Finalizar','success modal-action'));}
+function finishRestock(){const r=restock;if(!r)return;let done=0;const missing=[],failed=[];
+ for(const id of r.ids){const p=model.product(id),raw=r.values[id];if(!raw||!(E.number(raw)>0)){missing.push(titleName(p.name));continue;}try{model.move(id,'add',raw,'Reposição');done++;}catch(e){failed.push(titleName(p.name));}}
+ restock=null;if(done&&!persist()){closeModal();return toast('Não foi possível salvar a reposição. Libere espaço.');}closeModal();render();
+ const list=n=>n.length>2?n.slice(0,2).join(', ')+' e mais '+(n.length-2):n.join(' e ');
+ if(!done)toast('Estoque não renovado'+(missing.length?': '+list(missing):'')+'.');
+ else if(missing.length||failed.length)toast('Estoque não renovado: '+list([...missing,...failed])+'. Os demais foram atualizados.');
+ else toast('Estoque renovado: '+grammarCount(done,'produto','produtos')+'.');}
+function stockLevels(){return model.data.products.map(p=>{const r=stockRatio(p);return{id:p.id,name:titleName(p.name),detail:weightLabel(p),stock:p.stock,unit:E.unitLabel(p.unit,p.stock),ratio:r.reference>0?r.ratio:null};});}
+
+// --- Zerar dados para testes ---
+let testReset={sales:true,stock:true,intel:true};
+function testResetModal(){const row=(key,label,note)=>'<button type="button" data-action="test-reset-toggle" data-key="'+key+'" class="client-row" role="switch" aria-checked="'+testReset[key]+'"><span>'+label+'<small class="settings-note" style="display:block;margin:2px 0 0">'+note+'</small></span><span class="switch'+(testReset[key]?' on':'')+'"><i></i></span></button>';
+ openModal('Zerar dados para testes','<p class="dialog-text">Produtos, clientes, eventos e ajustes continuam. Escolha o que apagar:</p>'+row('sales','Vendas e despesas','Vendas, devoluções, leituras de QR e despesas.')+row('stock','Estoque','Quantidades vão a zero e o histórico de movimentos é apagado.')+row('intel','Inteligência','Abordagens registradas, análises e lembretes.'),'test-reset',null,btn('test-reset-confirm','Zerar agora','danger modal-action',null,!Object.values(testReset).some(Boolean))+btn('close-modal','Cancelar','link-row'));}
+function applyTestReset(){const d=model.data;if(testReset.sales){d.sales=[];d.expenses=[];draft=null;pendingCheckout=null;recipientPending=null;}if(testReset.stock){d.products.forEach(p=>p.stock=0);d.movements=[];d.eventLoads=[];}if(testReset.intel){d.contacts=[];delete d.settings.backupReminderAskedAt;aiResult='';aiResultSource='';aiResultStamp='';}
+ if(!persist())return toast('Não foi possível salvar. Libere espaço.');closeModal();page='Vender';render();toast('Dados de teste zerados.');}
+
+Object.assign(actions,{
+ 'feira-filter':d=>{filter=d.value;render();},
+ 'feira-restock':d=>{const g=stockGroups()[d.group]||[];openRestock(g.map(p=>p.id));},
+ 'restock-pick':d=>{if(!restock)return;restock.active=d.id;paintRestock();},
+ 'restock-digit':d=>{if(!restock)return;const id=restock.active,cur=restock.values[id]||'',digit=String(d.digit);if(digit===','&&cur.includes(','))return;if(cur.replace(',','').length>=6)return;restock.values[id]=(cur==='0'&&digit!==','?'':cur)+(digit===','&&!cur?'0':'')+digit;paintRestock();},
+ 'restock-erase':()=>{if(!restock)return;const id=restock.active;restock.values[id]=(restock.values[id]||'').slice(0,-1);paintRestock();},
+ 'restock-next':()=>{if(!restock)return;restock.page++;restock.active=restock.ids[restock.page*4];paintRestock();},
+ 'restock-finish':()=>finishRestock(),
+ 'test-reset':()=>testResetModal(),
+ 'test-reset-toggle':d=>{testReset[d.key]=!testReset[d.key];testResetModal();},
+ 'test-reset-confirm':()=>applyTestReset()
+});
 
 // --- Orientação (src/features/advisor): o motor recebe só os números reais do app ---
 function advisorName(p){const same=model.data.products.filter(x=>E.normalize(x.name)===E.normalize(p.name)).length;return titleName(p.name)+(same>1&&weightLabel(p)?' '+weightLabel(p):'');}
@@ -1245,7 +1311,7 @@ function advisorInput(){const sel=selection(),prev=previousSelection(sel),today=
   upcoming:next?{name:next.name,daysUntil:Math.round((Date.parse(next.start+'T12:00:00-03:00')-Date.parse(today+'T12:00:00-03:00'))/864e5)}:null};}
 function advisorPanel(){const a=window.TerritorioAdvisor;if(!a)return '';try{return a.panel(advisorInput());}catch(e){console.error('Orientação indisponível',e);return '';}}
 // A Inteligência sem IA conectada responde com a mesma orientação; com IA, ela recebe a orientação e o método do material.
-localAnalysis=function(){const a=window.TerritorioAdvisor;return a?a.text(advisorInput()):'';};
+localAnalysis=function(){const a=window.TerritorioAdvisor,q=document.getElementById('ai-question');return a?a.answer(q?q.value:'',advisorInput()):'';};
 const advisorBaseContext=analysisContext;
 analysisContext=function(){const ctx=advisorBaseContext(),a=window.TerritorioAdvisor;if(a){try{ctx.orientation=a.summary(advisorInput());ctx.responseGuide=a.aiGuide;}catch(e){}}return ctx;};
 Object.assign(actions,{
@@ -1368,6 +1434,8 @@ window.TerritorioShell={
  backupReminder,
  askBackup,
  idle:shellIdle,
+ stockLevels,
+ openRestock,
  // Android back: dismiss the top-most layer, like Esc does on the web. Returns false at the root.
  back(){
   const picker=document.getElementById('date-picker-dialog');

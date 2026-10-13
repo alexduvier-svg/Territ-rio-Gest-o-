@@ -1,6 +1,6 @@
 {
   "name": "territorio-app",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Território — vendas, estoque e eventos para produtores rurais (Android).",
   "private": true,
   "type": "module",
@@ -20,6 +20,7 @@
     "@capacitor/core": "8.5.3",
     "@capacitor/filesystem": "8.1.4",
     "@capacitor/haptics": "8.0.2",
+    "@capacitor/local-notifications": "8.3.1",
     "@capacitor/share": "8.0.3",
     "@capacitor/splash-screen": "8.0.2",
     "@fontsource-variable/inter": "5.3.0",

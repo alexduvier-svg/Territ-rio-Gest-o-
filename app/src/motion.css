@@ -1,0 +1,49 @@
+/* Movimento: curtas, com mola suave e sempre com propósito. Desligadas em "Reduzir movimento" do
+   celular e em Aparência → Reduzir transparência. */
+
+:root { --spring: cubic-bezier(0.32, 0.72, 0, 1); }
+
+/* Janelas sobem de baixo como uma folha. */
+dialog[open] { animation: sheet-in 0.38s var(--spring); }
+dialog[open]::backdrop { animation: fade-in 0.28s ease; }
+@keyframes sheet-in { from { transform: translateY(28px) scale(0.985); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* Toque: botões afundam levemente. */
+button { transition: transform 0.14s var(--spring), background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease; }
+button:active:not(:disabled) { transform: scale(0.97); }
+.nav button:active:not(:disabled) { transform: scale(0.92); }
+
+/* Ao trocar de tela (não a cada toque), o conteúdo entra com um leve deslize. */
+#app.page-enter > * { animation: rise-in 0.32s var(--spring) both; }
+#app.page-enter > *:nth-child(2) { animation-delay: 0.02s; }
+#app.page-enter > *:nth-child(3) { animation-delay: 0.04s; }
+#app.page-enter > *:nth-child(4) { animation-delay: 0.06s; }
+@keyframes rise-in { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Avisos: sobem de baixo; os de alerta balançam de leve. */
+.toast:not([hidden]) { animation: toast-in 0.42s var(--spring) both; }
+.toast.toast-warn:not([hidden]) { animation: toast-in 0.42s var(--spring) both, toast-shake 0.5s 0.38s ease both; }
+.toast.toast-success:not([hidden]) { animation: toast-in 0.42s var(--spring) both, toast-pop 0.36s 0.36s var(--spring) both; }
+.toast.toast-warn { box-shadow: 0 0 0 1px color-mix(in srgb, var(--orange) 60%, transparent), 0 12px 30px rgba(0, 0, 0, 0.25); }
+@keyframes toast-in { from { transform: translate(-50%, 140%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+@keyframes toast-shake {
+  0%, 100% { transform: translate(-50%, 0) rotate(0); }
+  20% { transform: translate(calc(-50% - 7px), 0) rotate(-1.5deg); }
+  40% { transform: translate(calc(-50% + 6px), 0) rotate(1.2deg); }
+  60% { transform: translate(calc(-50% - 4px), 0) rotate(-0.8deg); }
+  80% { transform: translate(calc(-50% + 2px), 0) rotate(0.4deg); }
+}
+@keyframes toast-pop { 0%, 100% { transform: translate(-50%, 0) scale(1); } 45% { transform: translate(-50%, 0) scale(1.04); } }
+
+/* Cadastro em lista que expande (estilo Feira). */
+.dimension-pill.acc.open .choices { animation: expand-in 0.3s var(--spring) both; }
+@keyframes expand-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; }
+}
+html[data-reduce-effects='true'] *, html[data-reduce-effects='true'] *::before, html[data-reduce-effects='true'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-delay: 0s !important;
+}

@@ -1,25 +1,21 @@
-/* Estilo "Feira" — inspirado no ERPIA: blocos limpos, títulos fortes, números em destaque e uma
-   cor de marca (verde do Território) no lugar do azul padrão do iOS.
+/* Estilo "Feira" — estrutura inspirada no ERPIA (busca, categorias, grade compacta, lista de estoque
+   por categoria, números em destaque) com o verde-oliva do Território (--action-green).
    Ativo com <html data-layout="feira">; o estilo "Território" (original) não é alterado.
    Funciona nos temas claro e escuro. */
 
 :root[data-layout='feira'] {
-  --accent: #1f7a4c;
-  --accent-pressed: #17643d;
-  --on-accent: #ffffff;
-  --accent-soft: rgba(31, 122, 76, 0.12);
+  --accent: var(--action-green, #7fa653);
+  --accent-pressed: #6a8f43;
+  --on-accent: var(--green-text, #14210d);
+  --accent-soft: rgba(127, 166, 83, 0.18);
+  --accent-ink: #4f7a2a;
   --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05);
-  --blue: var(--accent);
-  --nav-active: var(--accent);
+  --nav-active: var(--accent-ink);
   --blue-focus: var(--accent);
-  --blue-surface: var(--accent);
-  --blue-border: var(--accent);
 }
 :root[data-layout='feira'][data-theme='dark'] {
-  --accent: #3cc37f;
-  --accent-pressed: #2fa96b;
-  --on-accent: #03140a;
-  --accent-soft: rgba(60, 195, 127, 0.16);
+  --accent-soft: rgba(127, 166, 83, 0.22);
+  --accent-ink: #a7c97f;
   --card-shadow: none;
 }
 
@@ -36,10 +32,6 @@
   font-weight: 800;
   letter-spacing: -0.025em;
 }
-:root[data-layout='feira'] .panel > h2 {
-  font-weight: 700;
-  letter-spacing: -0.015em;
-}
 
 /* ------------------------------------------------------------------ blocos */
 :root[data-layout='feira'] .panel,
@@ -49,37 +41,8 @@
   border: 0;
   box-shadow: var(--card-shadow);
 }
-:root[data-layout='feira'] .product-card {
-  border-radius: 20px;
-}
-:root[data-layout='feira'] .product-card .price,
-:root[data-layout='feira'] .stock-number {
-  font-family: 'Inter Tight Variable', 'Inter Variable', sans-serif;
-  letter-spacing: -0.02em;
-}
-
-/* ------------------------------------------------------------------ cartão de destaque (Vender) */
-:root[data-layout='feira'] .summary-banner {
-  background: var(--accent);
-  color: var(--on-accent);
-  border: 0;
-  border-radius: 22px;
-  box-shadow: 0 10px 28px var(--accent-soft);
-}
-:root[data-layout='feira'] .summary-banner *,
-:root[data-layout='feira'] .summary-banner .icon {
-  color: var(--on-accent);
-}
-:root[data-layout='feira'] .summary-banner .sub {
-  opacity: 0.82;
-}
 
 /* ------------------------------------------------------------------ escolhas e botões */
-:root[data-layout='feira'] .chip,
-:root[data-layout='feira'] .scope,
-:root[data-layout='feira'] .round {
-  background: var(--field);
-}
 :root[data-layout='feira'] .chip.selected,
 :root[data-layout='feira'] .choice.selected {
   background: var(--accent);
@@ -91,175 +54,306 @@
   background: var(--accent);
   color: var(--on-accent);
 }
-:root[data-layout='feira'] .switch.on {
-  background: var(--accent);
-}
-:root[data-layout='feira'] .nav button.active {
-  color: var(--accent);
-}
+:root[data-layout='feira'] .switch.on { background: var(--accent); }
+:root[data-layout='feira'] .nav button.active { color: var(--accent-ink); }
+:root[data-layout='feira'] a,
+:root[data-layout='feira'] .link,
+:root[data-layout='feira'] .blue { color: var(--accent-ink); }
 :root[data-layout='feira'][data-theme='light'] .nav {
   background: rgba(255, 255, 255, 0.94);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* ------------------------------------------------------------------ Estoque: situação + repor */
-.feira-stock {
-  background: var(--panel);
-  border-radius: 22px;
-  padding: 18px;
-  margin: 4px 0 16px;
-  box-shadow: var(--card-shadow);
-}
-.feira-stock-bar {
-  display: flex;
-  height: 8px;
-  border-radius: 99px;
-  overflow: hidden;
+/* Opções da venda (peso, caixa…): texto sempre legível sobre o fundo. */
+:root[data-layout='feira'] .weight-pill {
   background: var(--field);
-  margin-bottom: 14px;
+  border-color: transparent;
+  color: var(--text);
 }
-.feira-stock-bar span { display: block; height: 100%; }
-.feira-stock-bar .ok { background: var(--green); }
-.feira-stock-bar .low { background: var(--orange); }
-.feira-stock-bar .out { background: var(--red); }
+:root[data-layout='feira'] .weight-pill .weight-left small { color: var(--muted); }
+:root[data-layout='feira'] .weight-pill.selected {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+:root[data-layout='feira'] .weight-pill.selected .icon { color: var(--accent-ink); }
+
+/* ------------------------------------------------------------------ Vender */
+.feira-sell-hero {
+  position: relative;
+  margin: 4px 0 16px;
+}
+.fsh-main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 52px 16px 18px;
+  border-radius: 22px;
+  background: var(--accent);
+  color: var(--on-accent);
+  text-align: left;
+  box-shadow: 0 10px 26px var(--accent-soft);
+}
+.fsh-main .icon { color: var(--on-accent); }
+.fsh-main > .icon:last-child { margin-left: auto; opacity: 0.7; }
+.fsh-where { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1 1 auto; }
+.fsh-where > .icon { flex: none; }
+.fsh-where > span, .fsh-today { display: grid; gap: 2px; min-width: 0; }
+.fsh-today { flex: 0 0 auto; text-align: right; padding-left: 14px; border-left: 1px solid rgba(20, 33, 13, 0.2); }
+.fsh-main small { font-size: 13px; opacity: 0.8; white-space: nowrap; }
+.fsh-main strong {
+  font: 700 19px/1.2 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fsh-eye {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  color: var(--on-accent);
+}
+.feira-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 14px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  background: var(--field);
+  color: var(--muted);
+}
+.feira-search input {
+  flex: 1;
+  min-height: 46px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 17px;
+}
+.feira-search input:focus-visible { outline: none; }
+.feira-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  margin: 0 -22px 14px;
+  padding: 0 22px 2px;
+  scrollbar-width: none;
+}
+.feira-chips::-webkit-scrollbar { display: none; }
+.feira-chips .chip { flex: none; min-height: 40px; }
+.feira-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+}
+.feira-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 112px;
+  padding: 13px 12px;
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: var(--card-shadow);
+  text-align: left;
+}
+.feira-card strong {
+  font-size: 15px;
+  line-height: 1.25;
+  overflow-wrap: normal;
+  hyphens: manual; /* palavras inteiras: nada de "Tradicio-nal" */
+}
+.feira-card > small { color: var(--muted); font-size: 12px; }
+.feira-card em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--red); }
+.feira-card > span {
+  margin-top: auto;
+  padding-top: 8px;
+  font: 700 17px/1.2 'Inter Tight Variable', 'Inter Variable', sans-serif;
+}
+.feira-card > span small { display: block; font: 400 11px/1.2 'Inter Variable', sans-serif; color: var(--muted); }
+.feira-card.is-out { opacity: 0.55; }
+
+/* ------------------------------------------------------------------ Estoque */
+.feira-stock { margin: 4px 0 14px; }
 .feira-stock-counts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 6px;
-  padding: 4px;
-  border-radius: 16px;
-  background: var(--field);
+  gap: 8px;
 }
 .feira-stock-count {
-  padding: 10px 9px;
-  border-radius: 12px;
+  display: grid;
+  align-content: space-between;
+  gap: 4px;
+  min-height: 76px;
+  min-width: 0 !important;
+  padding: 12px;
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: var(--card-shadow);
   text-align: left;
-  min-height: 64px;
-  min-width: 0;
 }
+.feira-stock-count:disabled { opacity: 0.6; cursor: default; }
 .feira-stock-count small {
   display: flex;
   align-items: center;
-  gap: 5px;
-  color: var(--muted);
+  gap: 6px;
   font-size: 13px;
+  color: var(--muted);
   white-space: nowrap;
 }
-.feira-stock-count small::before {
-  content: '';
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: currentColor;
-}
+.feira-stock-count small::before { content: ''; width: 8px; height: 8px; border-radius: 50%; flex: none; }
 .feira-stock-count.ok small::before { background: var(--green); }
 .feira-stock-count.low small::before { background: var(--orange); }
 .feira-stock-count.out small::before { background: var(--red); }
-.feira-stock-count strong {
-  display: block;
-  font: 700 26px/1.2 'Inter Tight Variable', 'Inter Variable', sans-serif;
-}
-.feira-stock-count.alert {
-  background: var(--red);
-  color: #fff;
-}
-.feira-stock-count.alert small { color: #fff; }
-.feira-stock-count.alert small::before { background: #fff; }
-.feira-stock-count.warn {
-  background: var(--orange);
-  color: #1f1300;
-}
+.feira-stock-count strong { font: 700 28px/1 'Inter Tight Variable', 'Inter Variable', sans-serif; }
+.feira-stock-count.warn { background: var(--orange); color: #1f1300; }
 .feira-stock-count.warn small { color: #1f1300; }
 .feira-stock-count.warn small::before { background: #1f1300; }
-.feira-restock {
-  width: 100%;
-  margin-top: 14px;
-  min-height: 52px;
-  border-radius: 16px;
-  background: var(--accent);
-  color: var(--on-accent);
-  font-weight: 700;
-  font-size: 17px;
+.feira-stock-count.alert { background: var(--red); color: #fff; }
+.feira-stock-count.alert small { color: #fff; }
+.feira-stock-count.alert small::before { background: #fff; }
+.feira-stock-hint { margin: 8px 4px 0; font-size: 13px; color: var(--muted); }
+.feira-group {
+  margin: 20px 4px 8px;
+  font: 700 17px/1.3 'Inter Tight Variable', 'Inter Variable', sans-serif;
+}
+.feira-rows {
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+.feira-row {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 12px 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
 }
-.feira-restock .icon { color: var(--on-accent); }
-.feira-restock-list { display: grid; gap: 8px; }
-.feira-restock-row {
+.feira-row:last-child { border-bottom: 0; }
+.feira-row > .icon { color: var(--muted); width: 18px; height: 18px; flex: none; }
+.fr-main { display: grid; gap: 2px; flex: 1; min-width: 0; }
+.fr-main strong { font-size: 16px; }
+.fr-main small { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.fr-side { display: flex; align-items: baseline; gap: 6px; flex: none; }
+.fr-side b { font: 700 20px/1 'Inter Tight Variable', 'Inter Variable', sans-serif; }
+.fr-side b.out { color: var(--red); }
+.fr-side b.low { color: var(--orange); }
+.fr-side small { font-size: 12px; color: var(--muted); }
+.fr-badge {
+  align-self: center;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 99px;
+}
+.fr-badge.out { color: var(--red); background: color-mix(in srgb, var(--red) 14%, transparent); }
+.fr-badge.low { color: #9a5400; background: color-mix(in srgb, var(--orange) 22%, transparent); }
+:root[data-theme='dark'] .fr-badge.low { color: var(--orange); }
+
+/* ------------------------------------------------------------------ Cadastro: lista que expande */
+:root[data-layout='feira'] .registration-dimensions {
+  display: block;
+  border-radius: 18px;
+  background: var(--field);
+  overflow: hidden;
+}
+:root[data-layout='feira'] .dimension-pill.acc {
+  margin: 0;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  border-bottom: 1px solid var(--line);
+}
+:root[data-layout='feira'] .dimension-pill.acc:last-child { border-bottom: 0; }
+:root[data-layout='feira'] .dimension-pill.acc .dimension-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  margin: 0;
+  cursor: pointer;
+}
+:root[data-layout='feira'] .dimension-pill.acc h3 { flex: 1 1 auto; min-width: 0; margin: 0; font-size: 16px; font-weight: 600; }
+:root[data-layout='feira'] .dimension-pill.acc .dim-value {
+  flex: none;
+  white-space: nowrap;
+  margin-left: auto;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 15px;
+  text-align: right;
+}
+:root[data-layout='feira'] .dimension-pill.acc .dim-value.empty { color: var(--accent-ink); }
+:root[data-layout='feira'] .dimension-pill.acc .dim-value::after {
+  content: '›';
+  display: inline-block;
+  margin-left: 8px;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 0.25s var(--spring, ease);
+}
+:root[data-layout='feira'] .dimension-pill.acc.open .dim-value::after { transform: rotate(90deg); }
+:root[data-layout='feira'] .dimension-pill.acc .dimension-add {
+  order: 3;
+  width: 36px;
+  height: 36px;
+  min-height: 36px;
+}
+:root[data-layout='feira'] .dimension-pill.acc:not(.open) .choices { display: none !important; }
+:root[data-layout='feira'] .dimension-pill.acc:not(.open) .dimension-add { display: none; }
+:root[data-layout='feira'] .dimension-pill.acc.open .choices { padding-bottom: 14px; }
+
+/* ------------------------------------------------------------------ Reposição (nos dois estilos) */
+.restock-rows { display: grid; gap: 8px; margin: 12px 0 14px; }
+.restock-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  padding: 14px;
-  border-radius: 14px;
-  background: var(--field);
+  min-height: 62px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--text) 7%, transparent);
+  border: 2px solid transparent;
   text-align: left;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
 }
-.feira-restock-row small { display: block; color: var(--muted); font-size: 13px; }
-.feira-restock-row b { font-variant-numeric: tabular-nums; }
-.feira-restock-row b.out { color: var(--red); }
-.feira-restock-row b.low { color: var(--orange); }
-
-/* ------------------------------------------------------------------ Resumo: destaque + gráfico */
-.feira-hero {
-  background: var(--accent);
-  color: var(--on-accent);
-  border-radius: 24px;
-  padding: 22px;
-  margin-bottom: 16px;
-  box-shadow: 0 12px 30px var(--accent-soft);
+.restock-row.active { border-color: var(--action-green, #7fa653); background: color-mix(in srgb, var(--action-green, #7fa653) 12%, var(--field)); }
+.rr-name { display: grid; gap: 2px; min-width: 0; }
+.rr-name strong { font-size: 16px; }
+.rr-name small { font-size: 13px; color: var(--muted); }
+.rr-value { display: flex; align-items: baseline; gap: 4px; flex: none; }
+.rr-value .tabular { font: 700 26px/1 'Inter Tight Variable', 'Inter Variable', sans-serif; }
+.rr-value.empty .tabular { color: var(--muted); }
+.rr-value small { font-size: 13px; color: var(--muted); }
+.restock-keypad { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.restock-key {
+  min-height: 54px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--text) 8%, transparent);
+  font: 600 24px/1 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
-.feira-hero small {
-  display: block;
-  opacity: 0.85;
-  font-size: 15px;
-}
-.feira-hero .feira-hero-value {
-  display: block;
-  font: 800 40px/1.1 'Inter Tight Variable', 'Inter Variable', sans-serif;
-  letter-spacing: -0.03em;
-  margin: 4px 0 16px;
-  font-variant-numeric: tabular-nums;
-}
-.feira-hero-stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.28);
-}
-:root[data-theme='dark'] .feira-hero-stats { border-top-color: rgba(0, 0, 0, 0.2); }
-.feira-hero-stats small {
-  font-size: 13px;
-  white-space: nowrap;
-}
-.feira-hero-stats strong {
-  display: block;
-  font: 700 18px/1.3 'Inter Tight Variable', 'Inter Variable', sans-serif;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-/* Na orientação, "oportunidade" não pode ter a mesma cor de "indo bem". */
-:root[data-layout='feira'] .advisor-dot.oportunidade { background: #0a84ff; }
-:root[data-layout='feira'] .advisor-badge { color: #0a84ff; }
-:root[data-layout='feira'] .advisor-badge.urgente { color: var(--red); }
-:root[data-layout='feira'] .advisor-badge.atencao { color: var(--orange); }
-:root[data-layout='feira'] .advisor-badge.bom { color: var(--green); }
-.feira-chart {
-  background: var(--panel);
-  border-radius: 22px;
-  padding: 18px 16px 12px;
-  margin-bottom: 16px;
-  box-shadow: var(--card-shadow);
-}
-.feira-chart h2 { margin: 0 0 12px 4px; font-size: 18px; }
-.feira-chart svg { display: block; width: 100%; height: auto; }
-.feira-chart .bar { fill: var(--accent); }
-.feira-chart .bar.today { fill: var(--accent-pressed); }
-.feira-chart .baseline { stroke: var(--line); stroke-dasharray: 3 4; }
-.feira-chart text { fill: var(--muted); font-size: 11px; font-family: 'Inter Variable', sans-serif; }
-.feira-chart-empty { color: var(--muted); font-size: 15px; margin: 4px 4px 8px; }
+.restock-erase { font: 600 15px/1 'Inter Variable', sans-serif; }

@@ -4,6 +4,9 @@ import '@fontsource-variable/inter-tight';
 import './shell.css';
 import './layout-feira.css';
 import './fit.css';
+import './motion.css';
+import { installInterface } from './features/interface.js';
+import { version } from '../package.json';
 import './features/portfolio.css';
 import './features/backup.css';
 import './features/portfolio.js';
@@ -38,7 +41,9 @@ try {
   const [catalogPhotos] = await Promise.all([toDataURL(catalogPhotosUrl), initStorage()]);
   window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos };
   window.TERRITORIO_MARKET = MARKET_CATALOG;
+  window.TERRITORIO_VERSION = version;
   await import('./legacy/erp-ui.js');
+  installInterface();
   installShell();
 } catch (error) {
   // Never leave the seller stuck on the splash screen.
