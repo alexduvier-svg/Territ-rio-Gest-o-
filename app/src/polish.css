@@ -830,3 +830,68 @@ html.lite dialog[open] { animation-duration: 0.36s; }
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 0 rgba(0, 0, 0, 0.25);
 }
 :root[data-theme='light'] .hero-eye::before { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
+
+/* ------------------------------------------------------------------ janelas: volume 3D do sistema (luz no topo, espessura embaixo) */
+dialog[open] {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 5px 0 rgba(0, 0, 0, 0.55),
+    0 28px 60px rgba(0, 0, 0, 0.5);
+}
+:root[data-theme='light'] dialog[open] {
+  border-color: rgba(53, 72, 89, 0.08);
+  box-shadow: inset 0 1px 0 #fff, 0 5px 0 rgba(37, 52, 66, 0.14), 0 28px 60px rgba(37, 52, 66, 0.22);
+}
+dialog.picker-sheet[open] { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), 0 -12px 40px rgba(0, 0, 0, 0.4); }
+
+/* ------------------------------------------------------------------ Resumo do dia */
+.ds-head { display: grid; gap: 2px; text-align: center; margin: 0 0 14px; }
+.ds-head strong { font: 700 19px/1.25 'Inter Tight Variable', 'Inter Variable', sans-serif; }
+.ds-head small { font-size: 13px; color: var(--muted); }
+.ds-hero { margin-bottom: 18px; }
+.ds-hero .feira-hero-value { font-size: 40px; }
+.feira-hero-stats.ds-stats { grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr); }
+.ds-card { margin: 0 0 12px; padding: 4px 14px; border-radius: 18px; background: color-mix(in srgb, var(--text) 5%, transparent); }
+.ds-card h3 { margin: 10px 0 2px; font-size: 13px; font-weight: 600; color: var(--accent-ink); }
+.ds-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
+.ds-card h3 + .ds-row { border-top: 0; }
+.ds-row > span { display: grid; gap: 2px; min-width: 0; }
+.ds-row strong { font-size: 15px; font-weight: 600; }
+.ds-row small { font-size: 12px; color: var(--muted); }
+.ds-num { text-align: right; flex: none; font-variant-numeric: tabular-nums; }
+.ds-out { color: var(--orange); }
+.ds-empty { margin: 6px 0 12px; font-size: 14px; color: var(--muted); }
+.ds-note { margin: 0 0 12px; font-size: 12px; color: var(--muted); }
+.ds-add { display: flex; align-items: center; gap: 6px; min-height: 44px; margin: 2px 0 6px; font-size: 15px; font-weight: 600; color: var(--accent-ink); }
+.ds-add .icon { width: 18px; height: 18px; }
+.ds-share { width: 100%; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.ds-share .icon { width: 18px; height: 18px; }
+.ds-links { display: grid; gap: 2px; margin-top: 8px; text-align: center; }
+.ds-links .link { min-height: 44px; }
+.ds-presets { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.ds-presets .chip { min-height: 38px; }
+.day-close .fc-date .icon { width: 26px; height: 26px; color: var(--accent-ink); }
+
+/* ------------------------------------------------------------------ Vender: "Vendendo em" neutro, verde só nos detalhes (como o card da Gestão) */
+.fsh-main {
+  color: var(--text);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--text) 6%, var(--panel)) 0%, var(--panel) 70%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 4px 0 rgba(0, 0, 0, 0.55), 0 12px 26px rgba(0, 0, 0, 0.35);
+}
+:root[data-theme='dark'] .fsh-main { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 4px 0 rgba(0, 0, 0, 0.55), 0 12px 26px rgba(0, 0, 0, 0.35); }
+:root[data-theme='light'] .fsh-main {
+  background: linear-gradient(180deg, #fff 0%, var(--panel) 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 4px 0 rgba(37, 52, 66, 0.12), 0 12px 26px rgba(37, 52, 66, 0.1);
+}
+.fsh-main:active { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 0 rgba(0, 0, 0, 0.5); }
+:root[data-theme='light'] .fsh-main:active { box-shadow: inset 0 1px 0 #fff, 0 1px 0 rgba(37, 52, 66, 0.12); }
+.fsh-main .icon { color: var(--muted); }
+.fsh-where small { color: var(--accent-ink); opacity: 1; }
+.fsh-today small { color: var(--muted); opacity: 1; }
+.fsh-today { background: color-mix(in srgb, var(--text) 6%, transparent); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3); }
+:root[data-theme='light'] .fsh-today { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
+.fsh-today strong { color: var(--accent-ink); }
+.fsh-eye { color: var(--accent-ink); }
+.fsh-eye::before { background: color-mix(in srgb, var(--text) 8%, transparent); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 0 rgba(0, 0, 0, 0.25); }
+:root[data-theme='light'] .fsh-eye::before { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }

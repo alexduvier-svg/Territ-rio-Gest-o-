@@ -1603,6 +1603,48 @@ Object.assign(actions,{
  'mg-period-shift':d=>{const next=shiftPeriod(periodMode,periodAnchor,Number(d.delta)>0?1:-1);if(Number(d.delta)>0&&periodIsFuture(periodMode,periodAnchor))return;periodAnchor=next;month=periodAnchor.slice(0,7);render();},
  'mg-detail':d=>{const sel=selection(),m=filteredMetrics(sel),r=mgDetail(d.key,sel,m);if(r)openModal(r[0],hideMoney(r[1]),'mg-detail');}
 });
+// --- Resumo do dia: quanto vendeu, quanto lucrou, o que vendeu, o que sobrou e os custos do dia ---
+// Abre pelo ícone de papel do Vender (o histórico venda por venda fica dentro, em "Ver cada venda").
+const DAY_COST_PRESETS=['Barraca','Transporte','Ajudante','Alimentação','Embalagens'];
+function daySummaryData(){const day=E.dayKey(Date.now()),inDay=r=>E.dayKey(r.date)===day&&(r.scope||'loja')===scope,sales=model.data.sales.filter(s=>s.status==='completed'&&inDay(s)),costs=model.data.expenses.filter(inDay),m=aggregateSales(sales,costs);return {day,sales,costs,m};}
+function dayLeftovers(m){const e=model.data.events.find(x=>x.id===scope),load=e&&eventLoad(e.id);
+ if(load&&load.items&&load.items.length){const sold=new Map();model.data.sales.filter(s=>s.status==='completed'&&s.scope===e.id).forEach(s=>netItems(s).forEach(i=>sold.set(i.productId,(sold.get(i.productId)||0)+i.qty)));return {fromLoad:true,rows:load.items.map(i=>({name:i.name,description:i.description,unit:i.unit,took:i.qty,left:Math.max(0,i.qty-(sold.get(i.productId)||0))}))};}
+ return {fromLoad:false,rows:m.rank.map(r=>{const p=model.product(r.id);return p?{name:p.name,description:p.description||r.description,unit:p.unit,left:Math.max(0,p.stock)}:null;}).filter(Boolean)};}
+function daySummaryHtml(){const {day,sales,costs,m}=daySummaryData(),left=dayLeftovers(m),visible=!!model.data.settings.financialVisible,money=v=>visible?E.money(v):'••••••',e=model.data.events.find(x=>x.id===scope),when=new Date(day+'T12:00:00Z').toLocaleDateString('pt-BR',{timeZone:'UTC',weekday:'long',day:'numeric',month:'long'});
+ const head='<div class="ds-head"><strong>'+escape(scopeName(scope))+'</strong><small>'+escape(when.charAt(0).toUpperCase()+when.slice(1))+(e&&e.from?' · '+escape(e.from)+' às '+escape(e.until||''):'')+'</small></div>';
+ const hero='<section class="feira-hero ds-hero'+(m.result<0?' is-negative':'')+'" aria-label="Resumo do dia"><small>Total vendido</small><span class="feira-hero-value'+(visible?'':' is-hidden')+'">'+money(m.revenue)+'</span><div class="feira-hero-stats ds-stats"><div><small>Vendas</small><strong>'+sales.length+'</strong></div><div><small>Lucro</small><strong>'+money(m.result)+'</strong></div></div></section>';
+ const soldRows=m.rank.length?m.rank.map(r=>'<div class="ds-row"><span><strong>'+escape(titleName(r.name))+'</strong>'+(r.description?'<small>'+escape(r.description)+'</small>':'')+'</span><span class="ds-num"><strong>'+E.quantity(r.qty)+' '+escape(shortUnit(r.unit))+'</strong><small>'+money(r.amount)+'</small></span></div>').join(''):'<p class="ds-empty">Nenhuma venda hoje aqui.</p>';
+ const leftRows=left.rows.length?left.rows.map(r=>'<div class="ds-row"><span><strong>'+escape(titleName(r.name))+'</strong><small>'+(left.fromLoad?'Levou '+E.quantity(r.took)+' '+escape(shortUnit(r.unit)):escape(r.description||'Estoque atual'))+'</small></span><span class="ds-num">'+(r.left<=0?'<strong class="ds-out">Esgotou</strong>':'<strong>'+E.quantity(r.left)+' '+escape(shortUnit(r.unit))+'</strong>')+'</span></div>').join(''):'<p class="ds-empty">Nada para mostrar ainda.</p>';
+ const costRows=(costs.length?costs.map(x=>'<div class="ds-row"><span><strong>'+escape(x.title)+'</strong></span><span class="ds-num"><strong>− '+money(x.amount)+'</strong></span></div>').join(''):'<p class="ds-empty">Sem custos registrados hoje.</p>')+btn('day-cost',icon('plus')+' Adicionar custo do dia','ds-add');
+ return head+hero+'<section class="ds-card"><h3>O que vendeu</h3>'+soldRows+'</section><section class="ds-card"><h3>O que sobrou</h3>'+leftRows+(left.fromLoad||!e?'':'<p class="ds-note">Registre os "Produtos levados" no evento para ver quanto sobrou da feira.</p>')+'</section><section class="ds-card"><h3>Custos do dia</h3>'+costRows+'</section>'
+ +btn('day-summary-share',icon('upload')+' Enviar no WhatsApp','success modal-action ds-share')
+ +'<div class="ds-links">'+btn('day-summary-sales','Ver cada venda ('+sales.length+')','link')+btn('day-summary-gestao','Análise completa na Gestão','link')+'</div>';}
+function openDaySummary(){markDayClosed();openModal('Resumo do dia',daySummaryHtml(),'day-summary');}
+function daySummaryText(){const {sales,costs,m}=daySummaryData(),left=dayLeftovers(m),lines=['*Resumo do dia · '+scopeName(scope)+'*',new Date().toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo'}),'','Total vendido: '+E.money(m.revenue),'Vendas: '+sales.length,'Lucro: '+E.money(m.result)];
+ if(m.rank.length){lines.push('','*O que vendeu*');m.rank.forEach(r=>lines.push('• '+titleName(r.name)+(r.description?' ('+r.description+')':'')+': '+E.quantity(r.qty)+' '+shortUnit(r.unit)+' · '+E.money(r.amount)));}
+ if(left.rows.length){lines.push('','*O que sobrou*');left.rows.forEach(r=>lines.push('• '+titleName(r.name)+': '+(r.left<=0?'esgotou':E.quantity(r.left)+' '+shortUnit(r.unit))));}
+ if(costs.length){lines.push('','*Custos do dia*');costs.forEach(x=>lines.push('• '+x.title+': '+E.money(x.amount)));}
+ return lines.join('\n');}
+
+// Fim da feira: um aviso no Vender convida a fechar o dia e registrar os custos (uma vez por dia e local).
+function dayCloseKey(){return scope+'|'+E.dayKey(Date.now());}
+function markDayClosed(){const st=model.data.settings;st.dayClosed=st.dayClosed||{};if(!st.dayClosed[dayCloseKey()]){st.dayClosed[dayCloseKey()]=Date.now();const keys=Object.keys(st.dayClosed);if(keys.length>60)keys.slice(0,keys.length-60).forEach(k=>delete st.dayClosed[k]);persist();}}
+function dayClosePrompt(){const e=model.data.events.find(x=>x.id===scope);if(!e)return '';const today=E.dayKey(Date.now());if(today<e.start||today>e.end)return '';const end=Date.parse(today+'T'+(e.until||'23:59')+':00-03:00');if(Date.now()<end||(model.data.settings.dayClosed||{})[dayCloseKey()])return '';
+ return '<section class="fair-card day-close" role="status">'+btn('day-summary','<span class="fc-date" aria-hidden="true">'+icon('receipt')+'</span><span class="fc-text"><small>A feira terminou</small><strong>Feche o dia</strong><span>Veja quanto vendeu, o que sobrou e registre os custos.</span></span>'+icon('chevron'),'fc-main')+btn('day-close-dismiss',icon('close')+'<span class="sr-only">Dispensar aviso</span>','fc-close')+'</section>';}
+const feiraSellPageBeforeClose=feiraSellPage;
+feiraSellPage=function(){const html=feiraSellPageBeforeClose(),prompt=dayClosePrompt();return prompt?html.replace('<section class="feira-sell-hero"',prompt+'<section class="feira-sell-hero"'):html;};
+
+Object.assign(actions,{
+ 'sales-history':()=>openDaySummary(),
+ 'day-summary':()=>openDaySummary(),
+ 'day-close-dismiss':()=>{markDayClosed();render();},
+ 'day-summary-sales':()=>{const {sales}=daySummaryData();salesHistory(sales,'Vendas de hoje');},
+ 'day-summary-gestao':()=>{closeModal();periodMode='dia';periodAnchor=E.dayKey(Date.now());month=periodAnchor.slice(0,7);managementScope=scope;page='Gestão';render();window.scrollTo(0,0);},
+ 'day-summary-share':()=>{const a=document.createElement('a');a.href='https://wa.me/?text='+encodeURIComponent(daySummaryText());a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove();},
+ 'day-cost':()=>openModal('Custo do dia','<p class="dialog-text">Entra no lucro de hoje e na Gestão.</p><div class="ds-presets">'+DAY_COST_PRESETS.map(t=>btn('day-cost-preset',t,'chip',{title:t})).join('')+'</div>'+field('day-cost-title','Descrição','','placeholder="Ex.: barraca"')+field('day-cost-value','Valor (R$)','','inputmode="decimal"')+btn('day-cost-save','Salvar custo','primary modal-action'),'day-cost'),
+ 'day-cost-preset':d=>{const input=document.getElementById('day-cost-title');if(input){input.value=d.title;document.getElementById('day-cost-value')?.focus();}},
+ 'day-cost-save':()=>{const title=(document.getElementById('day-cost-title')?.value||'').trim(),amount=E.cents(document.getElementById('day-cost-value')?.value||'');if(!title||!Number.isFinite(amount)||amount<=0)return toast('Informe descrição e valor.');model.data.expenses.unshift({id:E.uid(),title,amount,date:E.dayKey(Date.now())+'T12:00:00-03:00',scope,customerType:'',category:'Operação'});persist();toast('Custo registrado.');openDaySummary();}
+});
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();
