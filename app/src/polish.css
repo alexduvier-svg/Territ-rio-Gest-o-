@@ -718,3 +718,54 @@ details.just-opened > :not(summary) { animation: section-spring 0.46s cubic-bezi
   100% { transform: none; }
 }
 html.lite dialog[open] { animation-duration: 0.36s; }
+
+/* ------------------------------------------------------------------ Gestão: painel de controle (período + local) num cartão só */
+.mg-period {
+  margin: 4px 0 18px;
+  padding: 6px 6px 8px;
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: var(--card-shadow, none);
+}
+.mg-seg { border-radius: 18px; padding: 3px; background: color-mix(in srgb, var(--text) 7%, transparent); }
+.mg-seg button { min-height: 34px; border-radius: 15px; font-size: 14px; }
+.mg-step { margin: 8px 2px 6px; gap: 4px; }
+.mg-arrow { width: 40px; height: 40px; background: transparent; }
+.mg-arrow .icon { width: 20px; height: 20px; }
+.mg-arrow:active:not(:disabled) { background: color-mix(in srgb, var(--text) 8%, transparent); }
+.mg-arrow:disabled { opacity: 0.22; }
+.mg-range strong { font-size: 19px; }
+.mg-scope {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 14px 8px 10px;
+  border-radius: 18px;
+  text-align: left;
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+}
+.mg-scope > .icon { flex: none; width: 16px; height: 16px; color: var(--muted); }
+.mg-scope-text { flex: 1; display: grid; gap: 1px; min-width: 0; }
+.mg-scope-text small { font-size: 12px; color: var(--muted); }
+.mg-scope-text strong { font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mg-scope:active { opacity: 0.7; }
+.mg-scope-list { display: grid; border-radius: 16px; overflow: hidden; background: var(--field); }
+.mg-scope-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+  padding: 10px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+.mg-scope-option:last-child { border-bottom: 0; }
+.mg-scope-option > span:first-child { display: grid; gap: 2px; min-width: 0; }
+.mg-scope-option strong { font-size: 16px; font-weight: 600; }
+.mg-scope-option.selected strong { color: var(--accent-ink); }
+.mg-scope-option small { font-size: 13px; color: var(--muted); }
+/* Valor escondido: pontos menores e espaçados, sem peso visual. */
+.feira-hero .feira-hero-value.is-hidden { font-size: 26px; letter-spacing: 0.18em; opacity: 0.75; margin: 14px 0 22px; }

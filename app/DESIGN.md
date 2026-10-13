@@ -19,7 +19,7 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 - **Estoque:** três botões Em dia / Baixo / Esgotado (tocar abre a reposição), categorias, lista agrupada por categoria. Sem campo de busca: a lupa do topo busca.
 - **Cadastro de produto:** lista que expande; escolha feita mostra ✓ verde e o valor à direita. Pesos padrão 250 g / 500 g / 1 kg; produtos do mais caro ao mais barato.
 - **Clientes:** inclui o Catálogo (abaixo de "Próximos eventos").
-- **Gestão (nos dois estilos):** período no topo (Dia / Semana / Mês / Ano, setas ‹ ›, locais em pílulas) → card 3D de receita → gráfico do menor para o maior → Orientação enxuta → **uma lista** de detalhes (Produtos, Resultado, Pagamentos, Melhor dia e horário, Onde vendeu, Clientes, Relatórios), cada linha abrindo uma folha → Ferramentas (Inteligência, Sua marca, Sua banca). O olho esconde todo valor em dinheiro da página.
+- **Gestão (nos dois estilos):** painel de controle num cartão só (Dia / Semana / Mês / Ano, ‹ período ›, botão "Local" que abre folha) → card 3D de receita → gráfico do menor para o maior → Orientação enxuta → **uma lista** de detalhes (Produtos, Resultado, Pagamentos, Melhor dia e horário, Onde vendeu, Clientes, Relatórios), cada linha abrindo uma folha → Ferramentas (Inteligência, Sua marca, Sua banca). O olho esconde todo valor em dinheiro da página.
 
 ## Componentes aprovados
 

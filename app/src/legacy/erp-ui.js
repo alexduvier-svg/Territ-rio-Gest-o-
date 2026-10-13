@@ -1300,7 +1300,7 @@ weeklyPage=function(){return isFeira()?weeklyPageClean():weeklyPageLegacy();};
 const feiraHeroBase=feiraHero;
 feiraHero=function(sel,m){const html=feiraHeroBase(sel,m),cut=html.indexOf('<section class="feira-chart"'),visible=!!model.data.settings.financialVisible;let hero=cut>=0?html.slice(0,cut):html,chart=feiraChartSorted(sel,m);
  // Valores escondidos: some o dinheiro (receita, ticket, resultado e valores das barras); a quantidade de vendas fica.
- if(!visible){hero=hero.replace(/R\$(&nbsp;|\s)?-?[\d.,]+/g,'••••••');chart=chart.replace(/<text[^>]*class="bar-value"[^>]*>[^<]*<\/text>/g,'');}
+ if(!visible){hero=hero.replace(/R\$(&nbsp;|\s)?-?[\d.,]+/g,'••••••').replace('class="feira-hero-value"','class="feira-hero-value is-hidden"');chart=chart.replace(/<text[^>]*class="bar-value"[^>]*>[^<]*<\/text>/g,'');}
  const eye='<button type="button" data-action="toggle-financial" class="hero-eye" aria-label="'+(visible?'Ocultar':'Mostrar')+' valores" aria-pressed="'+visible+'">'+icon(visible?'eye':'eyeOff')+'</button>';
  hero=hero.replace(/<strong>([^<]+)<\/strong>/g,(tag,text)=>{const n=text.replace(/&nbsp;/g,' ').length;return n>=13?'<strong class="long xlong">'+text+'</strong>':n>=10?'<strong class="long">'+text+'</strong>':tag;}); // valores longos (ex.: R$ 1.234,56) diminuem para caber
  return hero.replace('<section class="feira-hero" aria-label="Resumo do período">',m=>m+eye)+chart;};
@@ -1549,11 +1549,19 @@ previousSelection=function(sel){return sel&&sel.periodMode?periodSelection(sel.p
 const periodTextBase=periodText;
 periodText=function(sel){if(!sel||!sel.periodMode)return periodTextBase(sel);const [title,sub]=periodLabel(sel.periodMode,sel.periodAnchor);return title+(sub?' · '+sub:'');};
 
-function periodBar(){const [title,sub]=periodLabel(periodMode,periodAnchor),events=model.data.events.filter(e=>e.status!=='finished'||model.data.sales.some(s=>s.scope===e.id)).sort((a,b)=>b.start.localeCompare(a.start)),scopes=[['all','Todos'],['loja','Loja'],...(events.length>1?[['events','Feiras']]:[]),...events.map(e=>[e.id,e.name])];
- return '<section class="mg-period" aria-label="Período">'
+// Painel de controle: um cartão só com o tipo de período, o período (‹ ›) e o local (abre uma folha).
+function mgScopeOptions(){const events=model.data.events.filter(e=>e.status!=='finished'||model.data.sales.some(s=>s.scope===e.id)).sort((a,b)=>b.start.localeCompare(a.start));return [['all','Todos os locais',''],['loja','Loja','Vendas fora de feiras'],...(events.length>1?[['events','Todas as feiras','']]:[]),...events.map(e=>[e.id,e.name,eventDateLabel(e)])];}
+function mgScopeLabel(){const o=mgScopeOptions().find(([id])=>id===managementScope);return o?o[1]:reportScopeName(managementScope);}
+function periodBar(){const [title,sub]=periodLabel(periodMode,periodAnchor);
+ return '<section class="mg-period" aria-label="Período e local">'
  +'<div class="mg-seg">'+PERIOD_MODES.map(([id,name])=>btn('mg-period-mode',name,periodMode===id?'on':'',{mode:id})).join('')+'</div>'
  +'<div class="mg-step">'+btn('mg-period-shift',icon('back')+'<span class="sr-only">Período anterior</span>','mg-arrow',{delta:-1})+'<span class="mg-range" aria-live="polite"><strong>'+escape(title)+'</strong>'+(sub?'<small>'+escape(sub)+'</small>':'')+'</span>'+btn('mg-period-shift',icon('chevron')+'<span class="sr-only">Próximo período</span>','mg-arrow',{delta:1},periodIsFuture(periodMode,periodAnchor))+'</div>'
- +'<div class="feira-chips mg-scopes" role="group" aria-label="Local das vendas">'+scopes.map(([id,name])=>btn('management-scope',escape(name),'chip'+(managementScope===id?' selected':''),{scope:id})).join('')+'</div></section>';}
+ +btn('mg-scope-picker','<span class="mg-ico">'+icon('store')+'</span><span class="mg-scope-text"><small>Local</small><strong>'+escape(mgScopeLabel())+'</strong></span>'+icon('down'),'mg-scope')+'</section>';}
+function mgScopeSheet(){return '<div class="mg-scope-list" role="listbox" aria-label="Local das vendas">'+mgScopeOptions().map(([id,name,note])=>btn('mg-scope','<span><strong>'+escape(name)+'</strong>'+(note?'<small>'+escape(note)+'</small>':'')+'</span>'+(managementScope===id?'<span class="picker-check" aria-hidden="true">✓</span>':''),'mg-scope-option'+(managementScope===id?' selected':''),{scope:id})).join('')+'</div>';}
+Object.assign(actions,{
+ 'mg-scope-picker':()=>openModal('Local das vendas',mgScopeSheet(),'mg-detail'),
+ 'mg-scope':d=>{if(!mgScopeOptions().some(([id])=>id===d.scope))return;managementScope=d.scope;closeModal();render();}
+});
 
 const pct=(part,total)=>(total?part/total*100:0).toLocaleString('pt-BR',{maximumFractionDigits:0})+'%';
 function mgSources(m){const map=new Map();m.sales.forEach(s=>{const id=s.scope||'loja';map.set(id,(map.get(id)||0)+s.total);});return [...map].sort((a,b)=>b[1]-a[1]).map(([id,v])=>[scopeName(id),v]);}
