@@ -1,6 +1,8 @@
 import legacyCss from './legacy/app.css?raw';
 import '@fontsource-variable/inter';
+import '@fontsource-variable/inter-tight';
 import './shell.css';
+import './layout-feira.css';
 import './features/portfolio.css';
 import './features/backup.css';
 import './features/portfolio.js';

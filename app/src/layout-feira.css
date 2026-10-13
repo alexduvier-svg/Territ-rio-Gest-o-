@@ -1,0 +1,263 @@
+/* Estilo "Feira" — inspirado no ERPIA: blocos limpos, títulos fortes, números em destaque e uma
+   cor de marca (verde do Território) no lugar do azul padrão do iOS.
+   Ativo com <html data-layout="feira">; o estilo "Território" (original) não é alterado.
+   Funciona nos temas claro e escuro. */
+
+:root[data-layout='feira'] {
+  --accent: #1f7a4c;
+  --accent-pressed: #17643d;
+  --on-accent: #ffffff;
+  --accent-soft: rgba(31, 122, 76, 0.12);
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.05);
+  --blue: var(--accent);
+  --nav-active: var(--accent);
+  --blue-focus: var(--accent);
+  --blue-surface: var(--accent);
+  --blue-border: var(--accent);
+}
+:root[data-layout='feira'][data-theme='dark'] {
+  --accent: #3cc37f;
+  --accent-pressed: #2fa96b;
+  --on-accent: #03140a;
+  --accent-soft: rgba(60, 195, 127, 0.16);
+  --card-shadow: none;
+}
+
+/* ------------------------------------------------------------------ tipografia */
+:root[data-layout='feira'] h1,
+:root[data-layout='feira'] .subheader .title,
+:root[data-layout='feira'] .section-title,
+:root[data-layout='feira'] .panel > h2,
+:root[data-layout='feira'] dialog h2 {
+  font-family: 'Inter Tight Variable', 'Inter Variable', -apple-system, sans-serif;
+}
+:root[data-layout='feira'] h1 {
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+:root[data-layout='feira'] .panel > h2 {
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+/* ------------------------------------------------------------------ blocos */
+:root[data-layout='feira'] .panel,
+:root[data-layout='feira'] .settings-list,
+:root[data-layout='feira'] .product-card,
+:root[data-layout='feira'] .catalog-entry {
+  border: 0;
+  box-shadow: var(--card-shadow);
+}
+:root[data-layout='feira'] .product-card {
+  border-radius: 20px;
+}
+:root[data-layout='feira'] .product-card .price,
+:root[data-layout='feira'] .stock-number {
+  font-family: 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* ------------------------------------------------------------------ cartão de destaque (Vender) */
+:root[data-layout='feira'] .summary-banner {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 0;
+  border-radius: 22px;
+  box-shadow: 0 10px 28px var(--accent-soft);
+}
+:root[data-layout='feira'] .summary-banner *,
+:root[data-layout='feira'] .summary-banner .icon {
+  color: var(--on-accent);
+}
+:root[data-layout='feira'] .summary-banner .sub {
+  opacity: 0.82;
+}
+
+/* ------------------------------------------------------------------ escolhas e botões */
+:root[data-layout='feira'] .chip,
+:root[data-layout='feira'] .scope,
+:root[data-layout='feira'] .round {
+  background: var(--field);
+}
+:root[data-layout='feira'] .chip.selected,
+:root[data-layout='feira'] .choice.selected {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+}
+:root[data-layout='feira'] .success,
+:root[data-layout='feira'] .modal-action.success {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+:root[data-layout='feira'] .switch.on {
+  background: var(--accent);
+}
+:root[data-layout='feira'] .nav button.active {
+  color: var(--accent);
+}
+:root[data-layout='feira'][data-theme='light'] .nav {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* ------------------------------------------------------------------ Estoque: situação + repor */
+.feira-stock {
+  background: var(--panel);
+  border-radius: 22px;
+  padding: 18px;
+  margin: 4px 0 16px;
+  box-shadow: var(--card-shadow);
+}
+.feira-stock-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 99px;
+  overflow: hidden;
+  background: var(--field);
+  margin-bottom: 14px;
+}
+.feira-stock-bar span { display: block; height: 100%; }
+.feira-stock-bar .ok { background: var(--green); }
+.feira-stock-bar .low { background: var(--orange); }
+.feira-stock-bar .out { background: var(--red); }
+.feira-stock-counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  padding: 4px;
+  border-radius: 16px;
+  background: var(--field);
+}
+.feira-stock-count {
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-align: left;
+  min-height: 64px;
+}
+.feira-stock-count small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.feira-stock-count small::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.feira-stock-count.ok small::before { background: var(--green); }
+.feira-stock-count.low small::before { background: var(--orange); }
+.feira-stock-count.out small::before { background: var(--red); }
+.feira-stock-count strong {
+  display: block;
+  font: 700 26px/1.2 'Inter Tight Variable', 'Inter Variable', sans-serif;
+}
+.feira-stock-count.alert {
+  background: var(--red);
+  color: #fff;
+}
+.feira-stock-count.alert small { color: #fff; }
+.feira-stock-count.alert small::before { background: #fff; }
+.feira-stock-count.warn {
+  background: var(--orange);
+  color: #1f1300;
+}
+.feira-stock-count.warn small { color: #1f1300; }
+.feira-stock-count.warn small::before { background: #1f1300; }
+.feira-restock {
+  width: 100%;
+  margin-top: 14px;
+  min-height: 52px;
+  border-radius: 16px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 700;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.feira-restock .icon { color: var(--on-accent); }
+.feira-restock-list { display: grid; gap: 8px; }
+.feira-restock-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--field);
+  text-align: left;
+}
+.feira-restock-row small { display: block; color: var(--muted); font-size: 13px; }
+.feira-restock-row b { font-variant-numeric: tabular-nums; }
+.feira-restock-row b.out { color: var(--red); }
+.feira-restock-row b.low { color: var(--orange); }
+
+/* ------------------------------------------------------------------ Resumo: destaque + gráfico */
+.feira-hero {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-radius: 24px;
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 12px 30px var(--accent-soft);
+}
+.feira-hero small {
+  display: block;
+  opacity: 0.85;
+  font-size: 15px;
+}
+.feira-hero .feira-hero-value {
+  display: block;
+  font: 800 40px/1.1 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  letter-spacing: -0.03em;
+  margin: 4px 0 16px;
+  font-variant-numeric: tabular-nums;
+}
+.feira-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+:root[data-theme='dark'] .feira-hero-stats { border-top-color: rgba(0, 0, 0, 0.2); }
+.feira-hero-stats small {
+  font-size: 13px;
+  white-space: nowrap;
+}
+.feira-hero-stats strong {
+  display: block;
+  font: 700 18px/1.3 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Na orientação, "oportunidade" não pode ter a mesma cor de "indo bem". */
+:root[data-layout='feira'] .advisor-dot.oportunidade { background: #0a84ff; }
+:root[data-layout='feira'] .advisor-badge { color: #0a84ff; }
+:root[data-layout='feira'] .advisor-badge.urgente { color: var(--red); }
+:root[data-layout='feira'] .advisor-badge.atencao { color: var(--orange); }
+:root[data-layout='feira'] .advisor-badge.bom { color: var(--green); }
+.feira-chart {
+  background: var(--panel);
+  border-radius: 22px;
+  padding: 18px 16px 12px;
+  margin-bottom: 16px;
+  box-shadow: var(--card-shadow);
+}
+.feira-chart h2 { margin: 0 0 12px 4px; font-size: 18px; }
+.feira-chart svg { display: block; width: 100%; height: auto; }
+.feira-chart .bar { fill: var(--accent); }
+.feira-chart .bar.today { fill: var(--accent-pressed); }
+.feira-chart .baseline { stroke: var(--line); stroke-dasharray: 3 4; }
+.feira-chart text { fill: var(--muted); font-size: 11px; font-family: 'Inter Variable', sans-serif; }
+.feira-chart-empty { color: var(--muted); font-size: 15px; margin: 4px 4px 8px; }
