@@ -2,7 +2,7 @@
 (function(global){
 'use strict';
 const STATES=[['AC','Acre'],['AL','Alagoas'],['AP','Amapá'],['AM','Amazonas'],['BA','Bahia'],['CE','Ceará'],['DF','Distrito Federal'],['ES','Espírito Santo'],['GO','Goiás'],['MA','Maranhão'],['MT','Mato Grosso'],['MS','Mato Grosso do Sul'],['MG','Minas Gerais'],['PA','Pará'],['PB','Paraíba'],['PR','Paraná'],['PE','Pernambuco'],['PI','Piauí'],['RJ','Rio de Janeiro'],['RN','Rio Grande do Norte'],['RS','Rio Grande do Sul'],['RO','Rondônia'],['RR','Roraima'],['SC','Santa Catarina'],['SP','São Paulo'],['SE','Sergipe'],['TO','Tocantins']];
-const CATEGORIES=['Cafés','Hortifruti-Granjeiro','Laticínios','Doces','Bolos','Panificação','Charcutaria','Grãos','Piscicultura','Artesanato','Beleza','Bebidas','Outros'];
+const CATEGORIES=['Cafés','Hortifruti-Granjeiro','Laticínios','Doces','Bolos','Panificação','Charcutaria','Grãos','Piscicultura','Artesanato','Beleza','Bebidas','Mel e apícolas','Conservas e temperos','Carnes e aves','Plantas e flores','Outros'];
 const COFFEE_TYPES=['Especial','Gourmet','Tradicional','Commodity','Drip coffee'];
 const PAYMENTS=['Pix','Dinheiro','Débito','Crédito','Outro'];
 const COFFEE_PROFILES={Especial:{format:'Moído',unit:'Pacote',weight:250,price:2500,cost:1500,min:5},Gourmet:{format:'Moído',unit:'Pacote',weight:500,price:3000,cost:1800,min:5},Tradicional:{format:'Moído',unit:'Pacote',weight:1000,price:4000,cost:2400,min:5},Commodity:{format:'Verde',unit:'kg',weight:1000,price:2800,cost:1800,min:5},'Drip coffee':{format:'Dose individual',unit:'Pacote',weight:10,price:500,cost:250,min:5}};

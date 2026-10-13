@@ -5,6 +5,8 @@ import './features/portfolio.css';
 import './features/backup.css';
 import './features/portfolio.js';
 import './features/backup.js';
+import './features/advisor/index.js';
+import { MARKET_CATALOG } from './data/market-catalog.js';
 import profilePhoto from './assets/profile.webp';
 import catalogPhotosUrl from './assets/catalog.webp';
 import './legacy/erp-core.js';
@@ -32,6 +34,7 @@ async function toDataURL(url) {
 try {
   const [catalogPhotos] = await Promise.all([toDataURL(catalogPhotosUrl), initStorage()]);
   window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos };
+  window.TERRITORIO_MARKET = MARKET_CATALOG;
   await import('./legacy/erp-ui.js');
   installShell();
 } catch (error) {

@@ -9,6 +9,9 @@ App Android (Capacitor 8) construído a partir de `../territorio-gestao-mockup.h
 | `src/legacy/` | Código do mockup (CSS, `erp-core.js`, `erp-ui.js`), migrado uma vez por `tools/migrate-from-mockup.mjs`. Agora é a fonte; edite aqui. |
 | `src/native/storage.js` | Dados gravados em arquivo no aparelho (dois slots alternados + backup diário de 14 dias). Coberto pelo Backup automático do Android. |
 | `src/native/shell.js` | Botão voltar, vibração, salvar/compartilhar arquivos, links externos, tela sempre ligada na venda, cor das barras do sistema. |
+| `src/features/advisor/` | Orientação no Resumo. `knowledge.js`: o material de apoio da feira (Branding, Percepção, PDV, KPIs) em linguagem simples, sem os números fictícios do estudo de caso. `engine.js`: regras que leem os números reais e dizem o que aconteceu e o que fazer, em três níveis (frase + ações, explicação, números). `index.js`: painel, detalhes, guia da banca e checklists. Também alimenta a Inteligência (sem IA: texto local; com IA: orientação e método enviados no contexto). |
+| `src/data/market-catalog.js` | Banco de produtos de mercado municipal por área e grupo, com unidade padrão. No cadastro, escolhida a área, o autocompletar só sugere itens dela. |
+| `tests/` | `node --test tests/advisor.test.mjs`: motor de orientação e banco de produtos. |
 | `src/features/backup.js` | Backup automático criptografado (envia alterações quando há conexão, verifica a cópia no servidor, restaura por código de recuperação) e lembrete semanal de backup. Criptografia em `backup-crypto.js`. |
 | `src/features/server.js` | Endereço e chamadas ao servidor (`../portfolio-server`). |
 | `src/features/portfolio.js` | Publica o portfólio online (`../portfolio-server`): prepara as fotos, envia só as novas e guarda o link. O QR após cada venda passa a abrir essa página. Endereço do servidor em `VITE_PORTFOLIO_API` (veja `.env.example`). |
