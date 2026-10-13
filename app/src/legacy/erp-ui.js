@@ -1539,9 +1539,9 @@ function periodLabel(mode,anchor){const today=E.dayKey(Date.now()),fmt=(day,o)=>
  return [anchor.slice(0,4),anchor.slice(0,4)===today.slice(0,4)?'Este ano':''];}
 function periodIsFuture(mode,anchor){const today=E.dayKey(Date.now()),next=shiftPeriod(mode,anchor,1);return mode==='dia'?next>today:mode==='semana'?periodDays(mode,next)[0]>today:mode==='mes'?next.slice(0,7)>today.slice(0,7):next.slice(0,4)>today.slice(0,4);}
 
-// A seleção da Gestão no estilo Feira vem do período escolhido; o Clássico continua com meses e dias.
+// A seleção da Gestão (nos dois estilos) vem do período escolhido no topo.
 const selectionBase=selection;
-selection=function(){return isFeira()?periodSelection(periodMode,periodAnchor):selectionBase();};
+selection=function(){return periodSelection(periodMode,periodAnchor);};
 const matchesSelectionBase=matchesSelection;
 matchesSelection=function(record,sel){if(sel&&sel.year&&E.dayKey(record.date).slice(0,4)!==sel.year)return false;return matchesSelectionBase(record,sel);};
 const previousSelectionBase=previousSelection;
@@ -1589,7 +1589,7 @@ function feiraManagementPage(){const sel=selection(),m=filteredMetrics(sel);
  +mgRow('marca','leaf','Sua marca','Identidade, origem e relacionamento')+mgRow('banca','image','Sua banca','Preços, exposição e experiência');
  return top()+periodBar()+feiraHero(sel,m)+'<div class="mg-advisor">'+hideMoney(advisorPanel())+'</div><section class="mg-list" aria-label="Detalhes do período">'+hideMoney(mgRows(sel,m))+'</section><section class="mg-list" aria-label="Ferramentas">'+tools+'</section>';}
 const managementPageBase=managementPage;
-managementPage=function(){return isFeira()?feiraManagementPage():managementPageBase();};
+managementPage=function(){return feiraManagementPage();};
 Object.assign(actions,{
  'mg-period-mode':d=>{if(!PERIOD_MODES.some(([id])=>id===d.mode))return;periodMode=d.mode;periodAnchor=E.dayKey(Date.now());month=periodAnchor.slice(0,7);render();},
  'mg-period-shift':d=>{const next=shiftPeriod(periodMode,periodAnchor,Number(d.delta)>0?1:-1);if(Number(d.delta)>0&&periodIsFuture(periodMode,periodAnchor))return;periodAnchor=next;month=periodAnchor.slice(0,7);render();},

@@ -636,3 +636,67 @@ dialog[data-kind='mg-detail'] .mg-in-sheet > summary { display: none; }
 .sale-product-group.is-done .sale-product-name strong::before { animation: tick-pop 0.42s cubic-bezier(0.34, 1.7, 0.64, 1); }
 @keyframes tick-pop { 0% { transform: scale(0.2); opacity: 0; } 100% { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .sale-product-group.is-done .sale-product-name strong::before { animation: none; } }
+
+/* ------------------------------------------------------------------ Clássico: mesmos tons do card e da Gestão */
+:root[data-layout='territorio'] {
+  --accent: var(--action-green, #7fa653);
+  --accent-pressed: #6a8f43;
+  --on-accent: var(--green-text, #14210d);
+  --accent-soft: rgba(127, 166, 83, 0.18);
+  --accent-ink: #4f7a2a;
+}
+:root[data-layout='territorio'][data-theme='dark'] { --accent-soft: rgba(127, 166, 83, 0.22); --accent-ink: #a7c97f; }
+
+/* ------------------------------------------------------------------ Vender: "Vendendo em" no mesmo padrão do card 3D de destaque */
+.feira-sell-hero { margin-bottom: 20px; }
+.fsh-main {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 76px;
+  padding: 14px 60px 14px 18px;
+  border-radius: 26px;
+  background:
+    radial-gradient(120% 110% at 0% 0%, rgba(255, 255, 255, 0.28), transparent 55%),
+    linear-gradient(150deg, color-mix(in srgb, var(--accent) 88%, #fff) 0%, var(--accent) 45%, color-mix(in srgb, var(--accent) 80%, #2f4a14) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.08),
+    0 5px 0 color-mix(in srgb, var(--accent) 62%, #1c2c0c),
+    0 14px 28px color-mix(in srgb, var(--accent) 28%, transparent);
+  transition: transform 0.18s cubic-bezier(0.34, 1.4, 0.64, 1), box-shadow 0.18s ease;
+}
+:root[data-theme='dark'] .fsh-main {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.1),
+    0 5px 0 color-mix(in srgb, var(--accent) 55%, #0e1606),
+    0 12px 26px rgba(0, 0, 0, 0.35);
+}
+.fsh-main:active {
+  transform: translateY(3px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 0 color-mix(in srgb, var(--accent) 62%, #1c2c0c);
+}
+.fsh-main small { font-weight: 600; opacity: 0.78; }
+.fsh-main strong { font-size: 21px; letter-spacing: -0.01em; }
+.fsh-today {
+  border-left: 0;
+  padding: 8px 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+.fsh-today strong { font-size: 17px; }
+.fsh-eye { right: 10px; z-index: 2; transition: transform 0.25s cubic-bezier(0.34, 1.5, 0.64, 1); }
+.fsh-eye::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.26);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 rgba(0, 0, 0, 0.1);
+  z-index: -1;
+}
+.fsh-eye .icon { width: 22px; height: 22px; }
+.fsh-eye:active { transform: translateY(-50%) scale(0.88); }
+@media (prefers-reduced-motion: reduce) { .fsh-main, .fsh-eye { transition: none; } }
