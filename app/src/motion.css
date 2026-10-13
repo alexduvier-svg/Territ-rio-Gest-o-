@@ -20,6 +20,9 @@ button:active:not(:disabled) { transform: scale(0.97); }
 #app.page-enter > *:nth-child(3) { animation-delay: 0.04s; }
 #app.page-enter > *:nth-child(4) { animation-delay: 0.06s; }
 @keyframes rise-in { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+/* Telas internas (venda, produto, ajustes…) têm barras fixas: um "transform" no bloco faria a barra
+   nascer no lugar errado e pular para baixo. Nelas a entrada é só um esmaecimento. */
+#app.page-enter > .subview { animation: fade-in 0.26s ease both; }
 
 /* Avisos: sobem de baixo; os de alerta balançam de leve. */
 .toast:not([hidden]) { animation: toast-in 0.42s var(--spring) both; }
@@ -55,12 +58,19 @@ button:active:not(:disabled) { transform: scale(0.97); }
   font-weight: 600;
   animation: draft-in 0.45s var(--spring) both, draft-breathe 2.6s ease-in-out 0.6s infinite;
 }
-/* Legível nos dois temas: o tom original (rosa-claro) só funcionava no escuro. */
+/* Lilás suave do Território (--lilac), legível nos dois temas. */
+.draft-resume,
 html[data-theme='light'] .draft-resume {
-  color: #b3261e;
-  background: color-mix(in srgb, var(--red) 10%, #fff);
-  border: 1px solid color-mix(in srgb, var(--red) 35%, transparent);
+  color: var(--lilac-ink, #744b99);
+  background: color-mix(in srgb, var(--lilac, #b49acd) 18%, var(--panel));
+  border: 1px solid color-mix(in srgb, var(--lilac, #b49acd) 45%, transparent);
 }
+html[data-theme='dark'] .draft-resume {
+  color: #dcc8f0;
+  background: color-mix(in srgb, var(--lilac, #b49acd) 20%, var(--panel));
+}
+.draft-resume .icon,
+.draft-resume > span:last-child > .icon { color: inherit; }
 .draft-resume > span:last-child { font-size: 15px; font-weight: 700; }
 .draft-resume .icon:first-child,
 .draft-resume > span:first-child > .icon {
@@ -69,8 +79,8 @@ html[data-theme='light'] .draft-resume {
 }
 @keyframes draft-in { from { transform: translateY(-8px); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes draft-breathe {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--red) 0%, transparent); }
-  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--red) 16%, transparent); }
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lilac, #b49acd) 0%, transparent); }
+  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--lilac, #b49acd) 30%, transparent); }
 }
 @keyframes cart-nudge {
   0%, 82%, 100% { transform: rotate(0) translateX(0); }
