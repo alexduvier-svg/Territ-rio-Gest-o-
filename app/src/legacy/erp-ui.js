@@ -1298,7 +1298,11 @@ const weeklyPageLegacy=weeklyPage;
 weeklyPage=function(){return isFeira()?weeklyPageClean():weeklyPageLegacy();};
 // Gestão no estilo Feira: o gráfico cronológico dá lugar ao ordenado.
 const feiraHeroBase=feiraHero;
-feiraHero=function(sel,m){const html=feiraHeroBase(sel,m),cut=html.indexOf('<section class="feira-chart"');return (cut>=0?html.slice(0,cut):html)+feiraChartSorted(sel,m);};
+feiraHero=function(sel,m){const html=feiraHeroBase(sel,m),cut=html.indexOf('<section class="feira-chart"'),visible=!!model.data.settings.financialVisible;let hero=cut>=0?html.slice(0,cut):html,chart=feiraChartSorted(sel,m);
+ // Valores escondidos: some o dinheiro (receita, ticket, resultado e valores das barras); a quantidade de vendas fica.
+ if(!visible){hero=hero.replace(/R\$(&nbsp;|\s)?-?[\d.,]+/g,'••••••');chart=chart.replace(/<text[^>]*class="bar-value"[^>]*>[^<]*<\/text>/g,'');}
+ const eye='<button type="button" data-action="toggle-financial" class="hero-eye" aria-label="'+(visible?'Ocultar':'Mostrar')+' valores" aria-pressed="'+visible+'">'+icon(visible?'eye':'eyeOff')+'</button>';
+ return hero.replace('<section class="feira-hero" aria-label="Resumo do período">',m=>m+eye)+chart;};
 
 // Gráfico: barras do menor para o maior, da esquerda para a direita, com o dia de cada uma.
 function feiraChartSorted(sel,m){const entries=Object.entries(m.daily).filter(([day,v])=>v>0&&(!sel.month||day.slice(0,7)===sel.month)).sort((a,b)=>a[1]-b[1]);

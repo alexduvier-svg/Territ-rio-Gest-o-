@@ -425,3 +425,47 @@ html[data-reduce-effects='true'] .box-flap { transition: none; }
   #nav .icon *, #nav .active .icon * { animation: none !important; transition: none !important; }
 }
 html[data-reduce-effects='true'] #nav .icon * { animation: none !important; transition: none !important; }
+
+/* ------------------------------------------------------------------ Gestão: olhinho no card de receita (mesma escolha do "Vendendo em") */
+.feira-hero { position: relative; }
+.hero-eye {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--on-accent);
+}
+.hero-eye .icon { width: 22px; height: 22px; }
+.hero-eye:active { background: rgba(0, 0, 0, 0.08); }
+
+/* ------------------------------------------------------------------ fechar janelas: círculo visível (padrão iOS / ColorOS) */
+dialog .dialog-close {
+  float: right;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  margin: -6px -8px 0 8px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  border-radius: 50%;
+  background: transparent;
+  transition: transform 0.25s cubic-bezier(0.34, 1.5, 0.64, 1);
+}
+dialog .dialog-close::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--text) 13%, transparent);
+}
+dialog .dialog-close > .icon { position: relative; width: 17px; height: 17px; stroke-width: 2.6; }
+dialog .dialog-close:active { transform: scale(0.88); }
+dialog[data-kind='brain'] .dialog-close { color: #e5e5ea; }
+@media (prefers-reduced-motion: reduce) { dialog .dialog-close { transition: none; } }
