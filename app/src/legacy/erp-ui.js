@@ -1645,6 +1645,29 @@ Object.assign(actions,{
  'day-cost-preset':d=>{const input=document.getElementById('day-cost-title');if(input){input.value=d.title;document.getElementById('day-cost-value')?.focus();}},
  'day-cost-save':()=>{const title=(document.getElementById('day-cost-title')?.value||'').trim(),amount=E.cents(document.getElementById('day-cost-value')?.value||'');if(!title||!Number.isFinite(amount)||amount<=0)return toast('Informe descrição e valor.');model.data.expenses.unshift({id:E.uid(),title,amount,date:E.dayKey(Date.now())+'T12:00:00-03:00',scope,customerType:'',category:'Operação'});persist();toast('Custo registrado.');openDaySummary();}
 });
+// --- Venda registrada: a venda é gravada ao finalizar (nunca se perde ao fechar) e a página mostra o QR ---
+// Destino automático: a feira em andamento; fora de feira, pessoa física (ou CNPJ, se o cliente for empresa).
+// "Foi uma empresa?" ajusta depois, sem refazer a venda.
+const storyModalBase=storyModal;
+storyModal=function(id){
+ if(!id&&recipientPending&&!recipientPending.busy){storyModalBase();const state=recipientOptions(),type=state.event?'EVENT':recordPersonType(recipientPending.draft)==='PJ'?'PJ':'PF',known=new Set(model.data.sales.map(s=>s.id));chooseSaleRecipient(type,state.event?state.eventRecord.id:undefined);const sale=model.data.sales.find(s=>!known.has(s.id));if(sale)return saleDoneModal(sale.id);return;}
+ const sale=id&&model.data.sales.find(s=>s.id===id);if(sale)return saleDoneModal(id);return storyModalBase(id);};
+function saleDoneModal(id){const sale=model.data.sales.find(s=>s.id===id);if(!sale)return;const destination=storyDestination(sale.scope),payload=sale.qrPayload||storyPayload(destination,null),pj=recordPersonType(sale)==='PJ',methods=[...new Set((sale.payments||[]).map(p=>p.method))].join(' + '),noPortfolio=destination.kind==='catalog'&&!safePublicURL(model.data.catalog.publicUrl);
+ const body='<div class="sd">'
+ +'<div class="sd-head"><span class="sd-check" aria-hidden="true">'+icon('check')+'</span><strong>Venda registrada</strong><small>'+E.money(sale.total)+(methods?' · '+escape(methods):'')+' · '+escape(scopeName(sale.scope))+'</small></div>'
+ +'<section class="sd-qr">'+btn('qr-zoom',E.qrSVG(payload)+'<span class="sr-only">Ampliar QR code</span>','sd-qr-code',{id:sale.id})+'<strong>Mostre ao cliente</strong><small>'+(noPortfolio?'Publique seu portfólio em Catálogo para o QR abrir sua história.':'Ele conhece sua história e guarda seu contato.')+'</small></section>'
+ +'<section class="sd-list">'
+ +btn('sale-company','<span>Foi uma empresa?</span><span class="sd-switch'+(pj?' on':'')+'" role="switch" aria-checked="'+pj+'"><span></span></span>','sd-row',{id:sale.id})
+ +btn('qr-read','<span>Cliente leu o QR</span>'+(sale.qrReadAt?'<strong class="sd-done">Lido ✓</strong>':'<strong class="sd-mark">Marcar</strong>'),'sd-row',{id:sale.id},!!sale.qrReadAt)
+ +'</section>'
+ +btn('close-modal','Nova venda','success modal-action sd-new')
+ +btn('catalog-pdf-options','Enviar catálogo em PDF','link sd-pdf',{sale:sale.id})+'</div>';
+ openModal('',body,'story',{id:sale.id,pending:false});prepareCatalogPDF().catch(()=>{});}
+const qrReadBase=actions['qr-read'];
+Object.assign(actions,{
+ 'qr-read':d=>{qrReadBase(d);const sale=d.id!=='pending'&&model.data.sales.find(s=>s.id===d.id);if(sale&&sale.qrReadAt)saleDoneModal(sale.id);},
+ 'sale-company':d=>{const sale=model.data.sales.find(s=>s.id===d.id);if(!sale||sale.status!=='completed')return;const pj=recordPersonType(sale)!=='PJ';sale.customerType=pj?'PJ':'PF';if(sale.scope==='loja')sale.recipientType=sale.customerType;if(!persist())return toast('Não foi possível salvar.');saleDoneModal(sale.id);}
+});
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();
