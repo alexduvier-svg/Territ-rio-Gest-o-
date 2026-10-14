@@ -941,3 +941,51 @@ dialog[data-kind='story'] .dialog-heading h2:empty, dialog[data-kind='story'] h2
 .sd-new { width: 100%; }
 .sd-pdf { justify-self: center; min-height: 44px; }
 dialog[data-kind='story'] .dialog-close { margin: -4px -4px 0 auto; }
+
+/* ------------------------------------------------------------------ Finanças e Custos */
+.fin-period { margin: -4px 0 12px; text-align: center; font-size: 13px; color: var(--muted); }
+.fin-hero .feira-hero-value { font-size: 38px; margin-bottom: 12px; }
+.fin-goal { margin: -4px 0 14px; }
+.fin-goal-text { display: flex; justify-content: space-between; gap: 8px; }
+.fin-goal-text small { font-size: 12px; color: var(--muted); }
+.fin-bar { height: 8px; margin-top: 6px; border-radius: 4px; overflow: hidden; background: color-mix(in srgb, var(--text) 10%, transparent); }
+.fin-bar > span { display: block; height: 100%; border-radius: 4px; background: var(--action-green, #7fa653); transition: width 0.6s cubic-bezier(0.22, 0.9, 0.3, 1); }
+.fin-row { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.ds-card h3 + .fin-row { border-top: 0; }
+.fin-row > strong { font-weight: 600; text-align: right; }
+.fin-row.fin-sub { font-size: 14px; color: var(--muted); }
+.fin-row.fin-sub > strong { font-weight: 500; color: var(--muted); }
+.fin-row.fin-total { font-weight: 700; }
+.fin-row.fin-total > strong { color: var(--accent-ink); font-weight: 700; }
+.fin-row.fin-total.is-negative > strong, .fin-neg { color: var(--red) !important; }
+.fin-pos { color: var(--accent-ink); }
+.fin-warn-text { color: var(--orange); }
+.fin-tools { margin-top: 4px; }
+.fin-badge { display: inline-grid; place-items: center; width: 18px; height: 18px; margin-left: 6px; border-radius: 50%; font-size: 12px; font-weight: 800; color: #1c1300; background: var(--orange); vertical-align: 2px; }
+.fin-warn {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.35;
+  background: color-mix(in srgb, var(--orange) 12%, var(--panel));
+  border: 1px solid color-mix(in srgb, var(--orange) 35%, transparent);
+}
+.fin-warn-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+.fin-warn-text-body { flex: 1 1 200px; min-width: 0; }
+.fin-warn-actions { display: flex; gap: 8px; margin-left: auto; }
+.fin-warn-go, .fin-warn-later { min-height: 36px; padding: 6px 14px; border-radius: 12px; font-size: 14px; font-weight: 700; }
+.fin-warn-go { color: #1c1300; background: var(--orange); box-shadow: 0 2px 0 color-mix(in srgb, var(--orange) 55%, #000); }
+.fin-warn-later { color: var(--text); background: color-mix(in srgb, var(--text) 8%, transparent); }
+.fin-cost-amount { display: flex; align-items: center; gap: 6px; }
+.fin-del { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; color: var(--muted); }
+.fin-del .icon { width: 17px; height: 17px; }
+.fin-empty { margin: 12px 4px; }
+.fin-kinds { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.fin-kinds .chip { min-height: 38px; }
+.fin-check { display: flex; align-items: center; gap: 10px; min-height: 48px; font-size: 15px; }
+.fin-check input { width: 22px; height: 22px; accent-color: var(--action-green, #7fa653); }

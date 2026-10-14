@@ -6,6 +6,7 @@
 // Toda a complexidade fica aqui; o produtor só lê frases curtas. Valores em centavos.
 import { TOPICS } from './knowledge.js';
 import { forecastNextEvent, runOut } from './forecast.js';
+import { FINANCE_RULES } from './finance-rules.js';
 
 const LEVELS = ['urgente', 'atencao', 'oportunidade', 'bom'];
 const TARGET_MARGIN = 0.4;
@@ -452,7 +453,7 @@ function runningOut(input) {
   })];
 }
 
-const RULES = [noSales, lossPeriod, pricing, missingCost, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices];
+const RULES = [noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices];
 
 // ------------------------------------------------------------------------------------- saída
 

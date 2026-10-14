@@ -16,6 +16,7 @@ import './features/portfolio.js';
 import './features/backup.js';
 import './features/advisor/index.js';
 import { MARKET_CATALOG } from './data/market-catalog.js';
+import * as Finance from './features/finance/finance.js';
 import profilePhoto from './assets/profile.webp';
 import catalogPhotosUrl from './assets/catalog.webp';
 import './legacy/erp-core.js';
@@ -44,6 +45,7 @@ try {
   const [catalogPhotos] = await Promise.all([toDataURL(catalogPhotosUrl), initStorage()]);
   window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos };
   window.TERRITORIO_MARKET = MARKET_CATALOG;
+  window.TerritorioFinance = Finance;
   window.TERRITORIO_VERSION = version;
   await import('./legacy/erp-ui.js');
   installInterface();

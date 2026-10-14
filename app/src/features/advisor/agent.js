@@ -2,12 +2,14 @@
 // em frases curtas, com o "porquê" e os números depois. Sem internet; só os dados reais do app.
 import { buildGuidance, brl } from './engine.js';
 import { forecastNextEvent, runOut, bestMoments } from './forecast.js';
+import { financeLines } from './finance-rules.js';
 
 const INTENTS = [
   ['previsao', /levar|feira|prev|próxim|proxim|amanh|quanto vou vender|expectativa|semana que vem/i],
   ['estoque', /estoque|acab|repor|reposi|falt|durar|sobr|encalh/i],
   ['preco', /lucro|preç|preco|margem|caro|barat|ganh|prejuí|prejui|custo/i],
   ['clientes', /client|volt|fiel|fideli|divulga/i],
+  ['financas', /financ|despesa|gast|empat|equil|meta|compens|vale a pena|taxa|cart|maquin|pix|retirad|pr[oó]-?labore|sal[aá]rio|conta|fixo|caixa|resultado/i],
   ['momento', /horár|horar|hora|melhor dia|dia da semana|movimento|pico/i],
 ];
 
@@ -70,6 +72,7 @@ export function answer(question, input) {
       const found = guidanceSection(g, ['identificar', 'retorno', 'fieis', 'divulgacao', 'qr', 'portfolio']);
       add('Clientes', found.length ? found : ['Seus clientes estão dentro do esperado. Continue avisando das feiras pelo WhatsApp.']);
     }
+    if (intent === 'financas') add('Finanças', [...financeLines(input.finance), ...guidanceSection(g, ['fin-'])]);
     if (intent === 'momento') add('Melhor momento', momentSection(input));
   }
   return sections.join('\n\n');

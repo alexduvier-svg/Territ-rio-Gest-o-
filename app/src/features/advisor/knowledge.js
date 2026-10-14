@@ -129,6 +129,18 @@ export const TOPICS = {
   equilibrio: { area: 'kpi', title: 'Ponto de equilíbrio', what: 'Quantas vendas são necessárias para pagar todos os custos.', formula: 'Custos ÷ lucro médio por venda', how: [], improves: [] },
   participacao: { area: 'kpi', title: 'Peso de cada produto na receita', what: 'Mostra o produto campeão e os que quase não vendem.', formula: 'Receita do produto ÷ receita total',
     how: ['Proteja o estoque do campeão.', 'Produto que quase não vende: leve menos, use em combo ou repense.'], improves: [] },
+
+  // ------------------------------------------------------------------ Finanças (método de gestão do pequeno produtor)
+  contribuicao: { area: 'kpi', title: 'Margem de contribuição', what: 'O que cada venda deixa depois de pagar o produto e a taxa do cartão. É desse dinheiro que saem a barraca, o transporte, as contas do mês e o seu salário.', formula: '(Vendas − custo dos produtos − taxas) ÷ vendas',
+    how: ['Quanto maior, menos você precisa vender para pagar as contas.', 'Sobe com preço justo, menos desconto e mais Pix.'], improves: ['Resultado do mês', 'Ponto de equilíbrio'] },
+  custofeira: { area: 'kpi', title: 'Custo da feira', what: 'Tudo o que você gasta para estar na feira e não é o produto: barraca, transporte, ajudante, alimentação, gelo.', formula: 'Soma dos custos lançados no dia',
+    how: ['Lance no fim de cada feira (ou depois): sem isso o lucro parece maior do que é.', 'Compare feiras pelo lucro depois desses custos, não pelo quanto vendeu.'], improves: ['Lucro por feira'] },
+  custosfixos: { area: 'kpi', title: 'Custos fixos', what: 'Contas que chegam todo mês, vendendo ou não: energia, internet, celular, combustível, manutenção.', formula: 'Soma das contas mensais',
+    how: ['Cadastre uma vez; o app reparte por dia e por semana.', 'Corte o que não ajuda a produzir nem a vender.'], improves: ['Ponto de equilíbrio'] },
+  retirada: { area: 'kpi', title: 'Sua retirada (pró-labore)', what: 'O salário de quem produz. Separar o dinheiro da casa do dinheiro do negócio mostra se a produção paga o seu trabalho.', formula: 'Valor fixo por mês',
+    how: ['Defina um valor e retire sempre o mesmo, no mesmo dia.', 'O que sobrar depois da retirada é reserva e investimento do negócio.'], improves: ['Caixa do negócio'] },
+  taxascartao: { area: 'kpi', title: 'Taxas de cartão', what: 'A parte de cada venda no cartão que fica com a maquininha.', formula: 'Venda no débito × taxa + venda no crédito × taxa',
+    how: ['Deixe o QR do Pix visível na banca.', 'Combine preço "à vista no Pix" para compras maiores.'], improves: ['Margem de contribuição'] },
 };
 
 export const CHECKLISTS = {

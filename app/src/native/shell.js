@@ -226,6 +226,63 @@ function installStockAlerts() {
   setTimeout(checkStock, 3000);
 }
 
+// Custos esquecidos: se há produto sem custo E dia de feira sem custos extras, ao sair do app fica uma
+// notificação fixa ("Fazer agora" abre Custos; "Depois" adia até amanhã). Some ao abrir o app.
+const FIN_NOTICE_ID = 990200;
+const FIN_NOTIFIED_KEY = 'territorio-fin-notified';
+function installFinanceReminder() {
+  LocalNotifications.createChannel({
+    id: 'financas',
+    name: 'Custos para lançar',
+    description: 'Quando faltam custos para o lucro ficar certo.',
+    importance: 4,
+    visibility: 1,
+    vibration: true,
+    lights: true,
+    lightColor: '#7FA653',
+  }).catch(() => {});
+  LocalNotifications.registerActionTypes({
+    types: [{ id: 'FIN_COSTS', actions: [{ id: 'now', title: 'Fazer agora', foreground: true }, { id: 'later', title: 'Depois' }] }],
+  }).catch(() => {});
+  LocalNotifications.addListener('localNotificationActionPerformed', action => {
+    if (action.notification?.extra?.kind !== 'fin') return;
+    if (action.actionId === 'later') return window.TerritorioShell?.financeSnooze?.();
+    setTimeout(() => window.TerritorioShell?.openCosts?.(), 400);
+  });
+  const clear = () => LocalNotifications.cancel({ notifications: [{ id: FIN_NOTICE_ID }] }).catch(() => {});
+  App.addListener('resume', clear);
+  clear();
+  window.addEventListener('territorio:pause', async () => {
+    const shell = window.TerritorioShell;
+    const gaps = shell?.financeGaps?.();
+    const today = new Date().toISOString().slice(0, 10);
+    if (!gaps?.any || shell.financeSnoozed?.() || localStorage.getItem(FIN_NOTIFIED_KEY) === today) return;
+    try {
+      const status = await LocalNotifications.checkPermissions();
+      if (status.display !== 'granted') return;
+      await LocalNotifications.schedule({
+        notifications: [{
+          id: FIN_NOTICE_ID,
+          channelId: 'financas',
+          title: 'Faltam custos para o lucro ficar certo',
+          body: `${gaps.noCost} ${gaps.noCost === 1 ? 'produto sem custo' : 'produtos sem custo'} e ${gaps.missing} ${gaps.missing === 1 ? 'dia de feira' : 'dias de feira'} sem custos lançados.`,
+          actionTypeId: 'FIN_COSTS',
+          extra: { kind: 'fin' },
+          smallIcon: 'ic_stat_territorio',
+          iconColor: '#7FA653',
+          ongoing: true,
+          autoCancel: true,
+          schedule: { at: new Date(Date.now() + 20 * 60 * 1000), allowWhileIdle: true },
+          isExactNotification: false,
+        }],
+      });
+      localStorage.setItem(FIN_NOTIFIED_KEY, today);
+    } catch (error) {
+      console.warn('Aviso de custos não enviado', error);
+    }
+  });
+}
+
 export function installShell() {
   if (!Capacitor.isNativePlatform()) return;
   document.documentElement.classList.add('native');
@@ -236,5 +293,6 @@ export function installShell() {
   installSystemBars();
   installLifecycle();
   installStockAlerts();
+  installFinanceReminder();
   requestAnimationFrame(() => SplashScreen.hide({ fadeOutDuration: 200 }).catch(() => {}));
 }
