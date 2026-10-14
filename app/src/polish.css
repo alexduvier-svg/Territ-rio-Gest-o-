@@ -1268,3 +1268,7 @@ dialog[data-kind='event-detail'] [data-action='event-use'] + .two { margin-top: 
 .sell-others[open] > summary::after { transform: rotate(-135deg); }
 .sell-others > summary span { padding: 1px 8px; border-radius: 999px; font-size: 12px; background: color-mix(in srgb, var(--text) 8%, transparent); }
 .el-card .modal-action { width: 100%; }
+
+/* Aviso de gravação que falhou: fica até o aparelho conseguir salvar */
+.storage-banner { position: fixed; z-index: 60; left: 12px; right: 12px; top: calc(10px + env(safe-area-inset-top, 0px)); display: grid; gap: 2px; padding: 12px 14px; border-radius: var(--r-inner); background: color-mix(in srgb, var(--red) 16%, var(--panel)); box-shadow: 0 0 0 1px color-mix(in srgb, var(--red) 45%, transparent); color: var(--text); font-size: 13px; }
+.storage-banner strong { font-size: 14px; color: var(--red); }

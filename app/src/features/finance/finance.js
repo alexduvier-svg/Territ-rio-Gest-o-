@@ -135,30 +135,39 @@ export function lossValue(movements, costOf) {
   return Math.round(movements.filter(m => m.kind === 'loss').reduce((n, m) => n + m.qty * (m.cost ?? costOf(m.productId) ?? 0), 0));
 }
 
-// Lucro de cada feira/local: o que a venda deixou menos os custos lançados naquele local.
-export function profitByPlace({ sales, expenses, settings: raw, nameOf }) {
+// Lucro de cada feira/local, com as mesmas regras do demonstrativo: vendas pela data da venda (inclusive
+// as devolvidas depois), devoluções pela data da devolução, taxa do cartão, imposto sobre a venda e os
+// custos lançados naquele local (sem retirada nem investimento).
+export function profitByPlace({ sales, returns = [], expenses, settings: raw, nameOf }) {
   const settings = financeSettings(raw);
   const places = new Map();
-  const get = id => places.get(id) || places.set(id, { id, name: nameOf(id), revenue: 0, cmv: 0, fees: 0, costs: 0, sales: 0 }).get(id);
+  const get = id => places.get(id) || places.set(id, { id, name: nameOf(id), revenue: 0, returned: 0, cmv: 0, fees: 0, taxes: 0, costs: 0, sales: 0 }).get(id);
   for (const s of sales) { const p = get(s.scope || 'loja'); p.revenue += s.total; p.cmv += s.cost || 0; p.fees += cardFeesOf([s], settings); p.sales++; }
+  for (const s of returns) { const p = get(s.scope || 'loja'); p.revenue -= s.total; p.returned += s.total; p.cmv -= s.cost || 0; }
   for (const x of expenses) if (!['retirada', 'investimento'].includes(costKind(x))) get(x.scope || 'loja').costs += x.amount;
-  return [...places.values()].map(p => ({ ...p, profit: p.revenue - p.cmv - p.fees - p.costs })).sort((a, b) => b.profit - a.profit);
+  return [...places.values()].map(p => {
+    const taxes = Math.round(Math.max(0, p.revenue) * settings.salesTaxRate / 100);
+    return { ...p, taxes, profit: p.revenue - p.cmv - p.fees - taxes - p.costs };
+  }).sort((a, b) => b.profit - a.profit);
 }
 
-// Margem de cada produto vendido (desconto da venda repartido pelos itens).
-export function productMargins(sales) {
+// Margem de cada produto vendido (desconto da venda repartido pelos itens). Devoluções do período
+// (pela data da devolução) descontam o produto, como no demonstrativo.
+export function productMargins(sales, returns = []) {
   const by = new Map();
-  for (const s of sales) {
+  const add = (s, sign) => {
     const factor = s.subtotal > 0 ? s.total / s.subtotal : 1;
     for (const i of s.items || []) {
       const r = by.get(i.productId) || { id: i.productId, name: i.name, description: i.description, revenue: 0, cost: 0, qty: 0 };
-      r.revenue += (i.netTotal ?? i.total ?? 0) * (i.netTotal != null ? 1 : factor);
-      r.cost += i.costTotal || 0;
-      r.qty += i.qty || 0;
+      r.revenue += sign * (i.netTotal ?? i.total ?? 0) * (i.netTotal != null ? 1 : factor);
+      r.cost += sign * (i.costTotal || 0);
+      r.qty += sign * (i.qty || 0);
       by.set(i.productId, r);
     }
-  }
-  return [...by.values()].map(r => ({ ...r, revenue: Math.round(r.revenue), margin: r.revenue > 0 ? (r.revenue - r.cost) / r.revenue : null })).sort((a, b) => b.revenue - a.revenue);
+  };
+  for (const s of sales) add(s, 1);
+  for (const s of returns) add(s, -1);
+  return [...by.values()].filter(r => r.qty !== 0 || Math.round(r.revenue) !== 0).map(r => ({ ...r, revenue: Math.round(r.revenue), margin: r.revenue > 0 ? (r.revenue - r.cost) / r.revenue : null })).sort((a, b) => b.revenue - a.revenue);
 }
 
 // Meta do mês: a definida pela pessoa ou, se não houver, a média dos últimos resultados positivos + 10%.

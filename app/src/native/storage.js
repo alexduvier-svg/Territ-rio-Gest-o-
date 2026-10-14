@@ -12,6 +12,7 @@
 // `length` lets a truncated write be detected without trusting the payload.
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { createSaveQueue } from './save-queue.js';
 
 const DIR = 'territorio';
 const SLOTS = ['data-a.json', 'data-b.json'];
@@ -21,8 +22,6 @@ const LEGACY_KEY = 'territorio-gestao-prototipo-v1';
 
 const isNative = Capacitor.isNativePlatform();
 let seq = 0;
-let pending = null;
-let writing = null;
 let lastBackupDay = '';
 
 const fileOptions = path => ({ path, directory: Directory.Data, encoding: Encoding.UTF8 });
@@ -70,43 +69,26 @@ async function writeDailyBackup(json, now) {
   await Promise.all(old.map(name => Filesystem.deleteFile({ path: BACKUP_DIR + '/' + name, directory: Directory.Data })));
 }
 
-async function flush() {
-  while (pending !== null) {
-    const json = pending;
-    pending = null;
-    const now = new Date();
-    const next = seq + 1;
-    const header = JSON.stringify({ seq: next, savedAt: now.toISOString(), length: json.length });
-    try {
-      await Filesystem.writeFile({ ...fileOptions(DIR + '/' + SLOTS[next % 2]), data: header + '\n' + json, recursive: true });
-      seq = next;
-      await writeDailyBackup(json, now).catch(error => console.warn('Backup diário não gravado', error));
-    } catch (error) {
-      console.error('Falha ao gravar dados', error);
-      // Keep the newest data queued so the next save (or app pause) retries it.
-      if (pending === null) pending = json;
-      window.dispatchEvent(new CustomEvent('territorio:storage-error'));
-      break;
-    }
-  }
-  writing = null;
+// Cada gravação vai para o slot seguinte (A/B alternados) e, uma vez por dia, para o backup diário.
+async function writeData(json) {
+  const now = new Date();
+  const next = seq + 1;
+  const header = JSON.stringify({ seq: next, savedAt: now.toISOString(), length: json.length });
+  await Filesystem.writeFile({ ...fileOptions(DIR + '/' + SLOTS[next % 2]), data: header + '\n' + json, recursive: true });
+  seq = next;
+  await writeDailyBackup(json, now).catch(error => console.warn('Backup diário não gravado', error));
 }
 
-function save(json) {
-  pending = json;
-  if (!writing) writing = flush();
-  window.dispatchEvent(new Event('territorio:saved'));
-  return true;
-}
+const queue = createSaveQueue({
+  write: writeData,
+  onSaved: () => window.dispatchEvent(new Event('territorio:saved')),
+  onError: error => { console.error('Falha ao gravar dados', error); window.dispatchEvent(new CustomEvent('territorio:storage-error')); },
+  onRecovered: () => window.dispatchEvent(new Event('territorio:storage-ok')),
+});
+const save = json => queue.save(json);
 
 // Resolves once every queued save has reached the disk (used when the app goes to background).
-export async function settle() {
-  while (writing) await writing;
-  if (pending !== null) {
-    writing = flush();
-    await writing;
-  }
-}
+export const settle = () => queue.settle();
 
 // Must finish before the UI script runs: it reads `initialJSON` synchronously on start-up.
 export async function initStorage() {
@@ -126,5 +108,5 @@ export async function initStorage() {
     initialJSON = (await readNewestBackup()) || localStorage.getItem(LEGACY_KEY);
     if (initialJSON) save(initialJSON);
   }
-  window.TerritorioNative = { isNative: true, initialJSON, save };
+  window.TerritorioNative = { isNative: true, initialJSON, save, durable: () => queue.durable(), status: () => queue.status() };
 }

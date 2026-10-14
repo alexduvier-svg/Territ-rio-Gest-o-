@@ -71,6 +71,9 @@ class ERPModel{
   this.correctPapayaUnits();
  }
  correctPapayaUnits(){
+  // Desligada: era uma correção única de uma versão antiga (já aplicada). Num cadastro real, quem vende
+  // mamão por kg vende por kg; quantidade inteira não prova o contrário. O histórico fica em productUnitCorrections.
+  return;
   for(const p of this.data.products){
    if(p.papayaUnitCorrected||p.category!=='Hortifruti-Granjeiro'||p.unit!=='kg'||!/^(mamao|mamoes)\b/.test(normalize(p.baseName||p.name)))continue;
    const counts=[p.stock,p.min,...this.data.movements.filter(m=>m.productId===p.id).flatMap(m=>[m.qty,m.before,m.after]),...this.data.sales.flatMap(s=>s.items.filter(i=>i.productId===p.id).map(i=>i.qty))].filter(v=>v!=null);

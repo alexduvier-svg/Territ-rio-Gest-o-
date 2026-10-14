@@ -149,6 +149,8 @@ function installLifecycle() {
     settle();
     window.dispatchEvent(new Event('territorio:pause'));
   });
+  // A tela some antes do "pause" do Android: começa a esvaziar a fila o quanto antes.
+  document.addEventListener('visibilitychange', () => { if (document.hidden) settle(); });
   window.addEventListener('territorio:storage-error', () => {
     showToast('Não foi possível salvar no aparelho. Libere espaço e faça um backup.');
   });

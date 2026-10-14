@@ -153,3 +153,27 @@ test('conferência: aponta pagamento errado, estoque divergente, custo em dobro 
   assert.equal(a.errors, 3); // pagamentos, negativo, futuro
   assert.equal(a.warnings, 3); // estoque, duplicado, cópia
 });
+
+test('lucro por local usa o mesmo imposto do demonstrativo', () => {
+  const sale = { scope: 'feira', total: 10000, cost: 4000, payments: [{ method: 'Pix', amount: 10000 }] };
+  const settings = { salesTaxRate: 10 };
+  const st = statement({ sales: [sale], expenses: [], settings, general: false });
+  const [place] = profitByPlace({ sales: [sale], expenses: [], settings, nameOf: id => id });
+  assert.equal(st.result, 5000);
+  assert.equal(place.taxes, 1000);
+  assert.equal(place.profit, st.result);
+});
+
+test('devolução em outro mês: setembro mantém a venda, outubro recebe o estorno', () => {
+  const sale = { scope: 'feira', status: 'returned', date: '2026-09-10T10:00:00-03:00', returnedAt: '2026-10-05T10:00:00-03:00', total: 10000, subtotal: 10000, cost: 4000,
+    payments: [{ method: 'Pix', amount: 10000 }], items: [{ productId: 'q', name: 'Queijo', total: 10000, costTotal: 4000, qty: 2 }] };
+  const settings = {};
+  const set = profitByPlace({ sales: [sale], returns: [], expenses: [], settings, nameOf: id => id });
+  const out = profitByPlace({ sales: [], returns: [sale], expenses: [], settings, nameOf: id => id });
+  assert.equal(set[0].revenue, statement({ sales: [sale], returns: [], expenses: [], settings, general: false }).revenue);
+  assert.equal(out[0].revenue, -10000);
+  assert.equal(out[0].profit, statement({ sales: [], returns: [sale], expenses: [], settings, general: false }).result);
+  assert.equal(productMargins([sale], [])[0].qty, 2);
+  assert.equal(productMargins([], [sale])[0].qty, -2);
+  assert.equal(productMargins([sale], [sale]).length, 0);
+});

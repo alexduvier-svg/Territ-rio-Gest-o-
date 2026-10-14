@@ -1686,7 +1686,7 @@ function finStatement(sel){const inSel=r=>matchesSelection(r,sel),general=sel.sc
  const losses=general?FIN().lossValue((model.data.movements||[]).filter(m=>m.kind==='loss'&&inSel({date:m.date,scope:'loja'})),id=>model.product(id)?.cost):0;
  return {sales,returns,expenses,st:FIN().statement({sales,returns,expenses,losses,settings:model.data.settings.finance,shares:finSharesFor(sel),general})};}
 function finData(sel){sel=sel||selection();const f=finStatement(sel),completed=f.sales.filter(s=>s.status==='completed');
- return {sel,sales:completed,returns:f.returns,expenses:f.expenses,st:f.st,places:FIN().profitByPlace({sales:completed,expenses:f.expenses,settings:model.data.settings.finance,nameOf:scopeName}),margins:FIN().productMargins(completed)};}
+ return {sel,sales:completed,returns:f.returns,expenses:f.expenses,st:f.st,places:FIN().profitByPlace({sales:f.sales,returns:f.returns,expenses:f.expenses,settings:model.data.settings.finance,nameOf:scopeName}),margins:FIN().productMargins(f.sales,f.returns)};}
 function finGoal(){const s=finSettings();if(s.goal)return {value:s.goal,auto:false};const now=E.dayKey(Date.now()),past=[1,2,3].map(i=>{const anchor=shiftPeriod('mes',now,-i);return finData({...periodSelection('mes',anchor),scope:'all'}).st.result;});return {value:FIN().suggestedGoal(past),auto:true};}
 
 // Lacunas: produtos sem custo e dias de venda (já encerrados) sem nenhum custo extra lançado.
@@ -1717,7 +1717,7 @@ function financeSheet(){const d=finData(),st=d.st,s=finSettings(),month=d.sel.pe
   +(!st.costsLogged&&st.salesCount?'<p class="ds-note">Sem custos extras lançados neste período: o resultado considera só o custo dos produtos.</p>':'')+'</section>';
  const methods=E.PAYMENTS.filter(k=>st.received[k]);
  const cashHtml='<section class="ds-card"><h3>Caixa do período</h3>'+methods.map(k=>finRow('Recebido em '+escape(k),money(st.received[k]),'fin-sub')).join('')+(st.returned?finRow('− Devoluções pagas',money(st.returned),'fin-sub'):'')+finRow('− Taxas e impostos',money(st.fees+st.taxes),'fin-sub')+finRow('− Custos, fixos e retirada',money(st.operating+st.fixed+st.draw),'fin-sub')+(st.investments?finRow('− Investimentos',money(st.investments),'fin-sub'):'')+finRow('= Sobra no caixa',money(st.cash),'fin-total'+(st.cash<0?' is-negative':''))+'<p class="ds-note">O caixa é o dinheiro que entrou e saiu. O resultado mede o lucro: investimentos saem do caixa, mas não do resultado; perdas de estoque entram no resultado, mas não saem do caixa.</p></section>';
- const places=d.places.length>1||d.places.some(p=>p.costs)?'<section class="ds-card"><h3>Lucro por local</h3>'+d.places.map(p=>'<div class="ds-row"><span><strong>'+escape(p.name)+'</strong><small>Vendeu '+money(p.revenue)+(p.costs?' · custos '+money(p.costs):'')+'</small></span><span class="ds-num"><strong class="'+(p.profit<0?'fin-neg':'fin-pos')+'">'+money(p.profit)+'</strong></span></div>').join('')+'</section>':'';
+ const places=d.places.length>1||d.places.some(p=>p.costs)?'<section class="ds-card"><h3>Lucro por local</h3>'+d.places.map(p=>'<div class="ds-row"><span><strong>'+escape(p.name)+'</strong><small>Vendeu '+money(p.revenue+(p.returned||0))+(p.returned?' · devoluções '+money(p.returned):'')+(p.taxes?' · imposto '+money(p.taxes):'')+(p.costs?' · custos '+money(p.costs):'')+'</small></span><span class="ds-num"><strong class="'+(p.profit<0?'fin-neg':'fin-pos')+'">'+money(p.profit)+'</strong></span></div>').join('')+'</section>':'';
  const margins=d.margins.filter(m=>m.margin!=null).slice(0,8);
  const marginsHtml=margins.length?'<section class="ds-card"><h3>Margem por produto</h3>'+margins.map(m=>'<div class="ds-row"><span><strong>'+escape(titleName(m.name))+'</strong><small>'+escape(m.description||'')+' · vendeu '+money(m.revenue)+'</small></span><span class="ds-num"><strong class="'+(m.margin<0.25?'fin-warn-text':'')+'">'+finPct(m.margin)+'</strong></span></div>').join('')+'<p class="ds-note">Margem = (venda − custo do produto) ÷ venda. Abaixo de 25% aparece em laranja.</p></section>':'';
  const tools='<section class="mg-list fin-tools">'+mgRow('custos','receipt','Custos','Lançar e ver custos do período')+btn('fin-settings','<span class="mg-ico">'+icon('settings')+'</span><span class="mg-text"><strong>Taxas, meta e retirada</strong><small>Débito '+s.cardFees['Débito'].toLocaleString('pt-BR')+'% · Crédito '+s.cardFees['Crédito'].toLocaleString('pt-BR')+'%'+(s.drawOn?' · retirada '+money(s.drawMonthly)+'/mês':'')+'</small></span>'+icon('chevron'),'mg-row')+'</section>';
@@ -2137,6 +2137,17 @@ window.TerritorioShell.openEvent=id=>{closeModal();page='Eventos';render();event
 window.TerritorioShell.eventRunning=()=>!!runningEvent();
 // O que vou levar volta a abrir pelo evento (antes era só um aviso).
 actions['event-load']=d=>startEventLoad(d.id||managementScope);
+// --- Gravação confirmada (src/native/save-queue.js) ---
+// No celular, salvar põe o dado na fila e grava em seguida. Nas operações que mexem com dinheiro ou com
+// todos os dados (venda, devolução, venda lançada depois, restauração), a confirmação só aparece depois que
+// o aparelho confirmou a gravação. Se falhar, o aviso diz isso e um cartão fica na tela até gravar.
+const CRITICAL_TOAST=/^(Venda Finalizada|Venda Devolvida|Venda lançada|Backup restaurado|Exemplos restaurados|Reposição registrada)/;
+const toastBeforeDurable=toast;
+toast=function(text){const store=window.TerritorioNative;if(!CRITICAL_TOAST.test(String(text))||!store||!store.durable)return toastBeforeDurable(text);
+ store.durable().then(ok=>toastBeforeDurable(ok?text:'Atenção: não foi possível gravar no aparelho. A informação está na tela; libere espaço. O app tenta de novo sozinho.'));};
+function storageBanner(){const st=window.TerritorioNative?.status?.();let el=document.getElementById('storage-banner');if(!st||!st.failed){if(el)el.remove();return;}if(!el){document.body.insertAdjacentHTML('afterbegin','<div id="storage-banner" class="storage-banner" role="alert"><strong>Dados ainda não gravados</strong><span>O aparelho não conseguiu salvar. Libere espaço; o app tenta de novo a cada 5 segundos.</span></div>');}}
+window.addEventListener('territorio:storage-error',storageBanner);
+window.addEventListener('territorio:storage-ok',()=>{storageBanner();toastBeforeDurable('Dados gravados no aparelho.');});
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();
