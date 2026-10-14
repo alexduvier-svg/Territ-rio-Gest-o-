@@ -1973,6 +1973,116 @@ eventDetail=function(id){eventDetailBeforeFair(id);const e=model.data.events.fin
 window.TerritorioShell.fairEndings=()=>model.data.events.filter(e=>e.fairId&&!fairReportState(e).sentAt).map(e=>({id:e.id,name:e.fairName||e.name,endAt:fairEventEnd(e)}));
 window.TerritorioShell.openFairReport=id=>{closeModal();page='Vender';render();fairReportSheet(id);};
 window.TerritorioShell.snoozeFairReport=id=>{setFairState(id,{snooze:E.dayKey(Date.now())});render();};
+// --- Finalizar feira, reposição na feira e envio automático (src/features/fair-report.js) ---
+// A concordância é dada uma vez, ao criar o evento ligado à feira oficial. Depois o app envia sozinho:
+// uma prévia quando a feira acaba e a versão final ao finalizar; qualquer mudança depois reenvia o mesmo relatório.
+const FAIR_AUTO_NOTE='As vendas deste evento vão automaticamente para a organização da feira, com o seu nome. Custos, clientes e outras vendas não vão.';
+const eventNameHintBeforeAuto=eventNameHint;
+eventNameHint=function(){eventNameHintBeforeAuto();const input=document.getElementById('event-name'),box=document.getElementById('event-name-hint');if(!input||!box)return;const typed=input.value.trim(),fair=typed.length>=4&&FR().matchOfficialFair(typed,officialFairs());if(fair&&[fair.name,fair.short].some(n=>n.toLocaleLowerCase('pt-BR')===typed.toLocaleLowerCase('pt-BR')))box.insertAdjacentHTML('beforeend','<p class="fr-auto-note">'+escape(FAIR_AUTO_NOTE)+'</p>');};
+const saveEventBeforeConsent=actions['save-event'];
+actions['save-event']=()=>{const known=new Set(model.data.events.map(e=>e.id));saveEventBeforeConsent();const e=model.data.events.find(v=>!known.has(v.id));if(e&&e.fairId){e.fairConsentAt=new Date().toISOString();persist();}};
+
+// "O que vou levar" guarda as reposições com horário. Aumentar a quantidade depois da primeira venda é reposição.
+const saveEventLoadBeforeRestock=saveEventLoad;
+saveEventLoad=function(){const id=eventLoadDraft&&eventLoadDraft.eventId,old=id&&eventLoad(id),before=old&&JSON.parse(JSON.stringify(old));saveEventLoadBeforeRestock();const now=eventLoad(id);if(!now||now===old&&JSON.stringify(now)===JSON.stringify(before))return;
+ const sold=model.data.sales.some(s=>s.scope===id&&s.status==='completed'),stamp=now.updatedAt;
+ now.items.forEach(i=>{const prev=before&&before.items.find(x=>x.productId===i.productId&&x.unit===i.unit);let restocks=(prev&&prev.restocks||[]).slice();const diff=Math.round(((i.qty)-(prev?prev.qty:0))*1000)/1000;if(sold&&before&&diff>0)restocks.push({at:stamp,qty:diff});let extra=restocks.reduce((n,r)=>n+r.qty,0);while(restocks.length&&extra>i.qty){extra-=restocks.pop().qty;}if(restocks.length)i.restocks=restocks;else delete i.restocks;});persist();};
+function fairRestock(eventId,productId,unit,qty){const load=eventLoad(eventId);if(!load)return false;let item=load.items.find(i=>i.productId===productId&&i.unit===unit);const p=model.product(productId);if(!item){if(!p)return false;item={productId,name:p.name,description:E.description?E.description(p):'',unit,qty:0};load.items.push(item);}
+ const stamp=new Date().toISOString();item.qty=Math.round((item.qty+qty)*1000)/1000;item.restocks=[...(item.restocks||[]),{at:stamp,qty}];load.updatedAt=stamp;return persist();}
+function eventSoldOf(eventId,productId,unit){return model.data.sales.filter(s=>s.scope===eventId&&s.status==='completed').reduce((n,s)=>n+s.items.filter(i=>i.productId===productId&&i.unit===unit).reduce((m,i)=>m+i.qty,0),0);}
+
+// Produto acabou durante a feira: "Repôs?" com o horário (a skill precisa das reposições com hora).
+let soldOutQueue=[],lateSaleBusy=false;
+// As vendas são concluídas numa cópia do modelo (ver story): o gancho fica no protótipo e a conferência roda depois de salvar.
+const completeBeforeSoldOut=E.ERPModel.prototype.complete;
+E.ERPModel.prototype.complete=function(d){const sale=completeBeforeSoldOut.call(this,d);if(!lateSaleBusy&&sale&&sale.scope&&sale.scope!=='loja'){const id=sale.id;setTimeout(()=>checkSoldOut(id),900);}return sale;};
+function checkSoldOut(saleId){try{const sale=model.data.sales.find(s=>s.id===saleId);if(!sale)return;const load=eventLoad(sale.scope);if(!load)return;sale.items.forEach(i=>{const item=load.items.find(x=>x.productId===i.productId&&x.unit===i.unit),took=item?item.qty:0,sold=eventSoldOf(sale.scope,i.productId,i.unit),before=sold-i.qty;if(item?sold>=took&&before<took:before<=0)soldOutQueue.push({eventId:sale.scope,productId:i.productId,unit:i.unit,name:i.name});});showSoldOut();}catch(e){}}
+function showSoldOut(){if(!soldOutQueue.length)return;if(dialog.open){dialog.addEventListener('close',()=>setTimeout(showSoldOut,350),{once:true});return;}const q=soldOutQueue.shift(),load=eventLoad(q.eventId),item=load&&load.items.find(x=>x.productId===q.productId&&x.unit===q.unit),took=item?item.qty:0,sold=eventSoldOf(q.eventId,q.productId,q.unit),over=Math.max(0,Math.round((sold-took)*1000)/1000),name=titleName(q.name),unit=E.unitLabel(q.unit,2);
+ openModal(over?'Vendeu mais do que levou':name+' acabou','<p class="dialog-text">'+(item?'Você marcou que levou <strong>'+E.quantity(took)+'</strong> e já vendeu <strong>'+E.quantity(sold)+'</strong> de '+escape(name)+'.':'Você não marcou '+escape(name)+' no que ia levar.')+' Repôs na banca?</p>'
+  +'<label class="ff-qty"><span>Quanto entrou</span><input id="fair-restock-qty" inputmode="'+(['kg','Litro'].includes(q.unit)?'decimal':'numeric')+'" value="'+(over?E.quantity(over):'')+'" placeholder="0"><small>'+escape(unit)+'</small></label>'
+  +(over?'<p class="ds-note">Sem a reposição, o relatório marca que saiu mais do que entrou.</p>':'')
+  +btn('fair-restock-save','Repor','success modal-action',{event:q.eventId,product:q.productId,unit:q.unit})+btn('fair-restock-no',over?'Agora não':'Acabou mesmo','link'),'fair-restock');setTimeout(()=>document.getElementById('fair-restock-qty')?.focus(),250);}
+Object.assign(actions,{
+ 'fair-restock-save':d=>{const v=E.number(document.getElementById('fair-restock-qty')?.value||'');if(!(v>0))return toast('Informe quanto entrou.');if(!fairRestock(d.event,d.product,d.unit,v))return toast('Não foi possível salvar a reposição.');closeModal();render();toast('Reposição registrada às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+'.');},
+ 'fair-restock-no':()=>{closeModal();setTimeout(showSoldOut,350);}
+});
+
+// Envio automático: monta o relatório na hora (com os dados no formato da skill) e envia se algo mudou.
+function fairProducerId(){const st=model.data.settings,base=String(st.startedAt||'')+'|'+String(st.producerName||'');let h=7;for(const c of base)h=(h*31+c.charCodeAt(0))|0;return 'p-'+Math.abs(h).toString(36);}
+const fairReportForBeforeContract=fairReportFor;
+fairReportFor=function(e){const r=fairReportForBeforeContract(e),st=model.data.settings,s=fairReportState(e),all=model.data.sales.filter(v=>v.scope===e.id&&(v.status==='completed'||v.status==='returned'));
+ const contrato=FR().buildFairContract({event:e,load:eventLoad(e.id),sales:all,productOf:id=>model.product(id),producer:{id:fairProducerId(),name:st.producerName,community:st.community||st.city||''},counts:s.counts||{},note:s.note||''});
+ return {...r,status:s.closedAt?'finalizado':'preliminar',finalizedAt:s.closedAt||'',contrato};};
+function fairSignature(e){const s=fairReportState(e),load=eventLoad(e.id),sales=model.data.sales.filter(v=>v.scope===e.id);return [s.closedAt||'',JSON.stringify(s.counts||{}),s.note||'',load?load.updatedAt:'',sales.length,sales.map(v=>v.status[0]+v.total).join(',')].join('|');}
+function fairConsent(e){const s=fairReportState(e);return s.consentAt||e.fairConsentAt||'';}
+let fairSending=false;
+sendFairReport=async function(id,silent){const e=model.data.events.find(v=>v.id===id);if(!e||!e.fairId)return false;const at=fairConsent(e);if(!at)return false;const sig=fairSignature(e);
+ if(!FAIR_API||!navigator.onLine){setFairState(id,{pending:true});return false;}
+ try{const body={...fairReportFor(e),consent:{at,text:FAIR_AUTO_NOTE}};const res=await fetch(FAIR_API+'/api/fairs/'+encodeURIComponent(e.fairId)+'/reports',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});if(!res.ok){const msg=(await res.json().catch(()=>({}))).error;throw Error(msg||'Erro '+res.status);}
+  setFairState(id,{pending:false,payload:null,sentAt:new Date().toISOString(),sig,lastError:''});if(!silent)render();return true;}
+ catch(err){setFairState(id,{pending:true,lastError:String(err.message||err)});return false;}};
+async function syncFairReports(){if(fairSending)return;fairSending=true;try{const now=Date.now();for(const e of model.data.events){if(!e.fairId||!fairConsent(e))continue;const s=fairReportState(e),due=s.closedAt||now>fairEventEnd(e);if(!due||now-fairEventEnd(e)>45*864e5&&!s.pending)continue;if(!model.data.sales.some(v=>v.scope===e.id)&&!s.closedAt)continue;if(s.sig===fairSignature(e)&&!s.pending)continue;const first=!s.sentAt,ok=await sendFairReport(e.id,true);if(ok&&s.closedAt&&!first&&s.sig)toast('Relatório da feira atualizado.');}}finally{fairSending=false;}}
+flushFairReports=async function(){await syncFairReports();render();};
+let fairSyncTimer;
+const persistBeforeFair=persist;
+persist=function(){const ok=persistBeforeFair.apply(this,arguments);if(!fairSending){clearTimeout(fairSyncTimer);fairSyncTimer=setTimeout(syncFairReports,3000);}return ok;};
+setInterval(syncFairReports,5*60000);
+
+// Finalizar feira: 1) o que não vendeu (ou vendeu e não registrou) 2) contagem do que sobrou (opcional) 3) finalizar.
+let ff=null;
+function ffItems(e){const load=eventLoad(e.id);return (load?load.items:[]).map(i=>{const sold=eventSoldOf(e.id,i.productId,i.unit);return {...i,sold,left:Math.max(0,Math.round((i.qty-sold)*1000)/1000)};});}
+function openFairFinish(id){const e=model.data.events.find(v=>v.id===id);if(!e)return;const s=fairReportState(e);ff={id,step:'unsold',decided:{},vendi:null,counts:{...(s.counts||{})},note:s.note||''};if(!ffItems(e).some(i=>!i.sold))ff.step=ffItems(e).length?'count':'send';paintFairFinish();}
+function ffCapture(){if(!ff)return;document.querySelectorAll('[data-ff-count]').forEach(el=>{const v=el.value.trim();if(v==='')delete ff.counts[el.dataset.ffCount];else ff.counts[el.dataset.ffCount]=E.number(v);});const n=document.getElementById('ff-note');if(n)ff.note=n.value;}
+function paintFairFinish(){if(!ff)return;const e=model.data.events.find(v=>v.id===ff.id);if(!e)return;const items=ffItems(e),unsold=items.filter(i=>!i.sold||ff.decided[i.productId]),steps=[unsold.length&&'unsold',items.length&&'count','send'].filter(Boolean),n=steps.indexOf(ff.step)+1,head='<p class="ff-step">'+escape(e.fairName||e.name)+' · passo '+n+' de '+steps.length+'</p>';let body='',foot='';
+ if(ff.step==='unsold'){body=head+'<h3 class="ff-title">Estes não venderam</h3><p class="dialog-text">Se vendeu e esqueceu de registrar, lance agora. A venda entra no relatório marcada como lançada depois.</p><div class="ff-list">'+unsold.map(i=>{const k=i.productId,dec=ff.decided[k],name=escape(titleName(i.name));
+   if(ff.vendi===k)return '<div class="ff-row open"><strong>'+name+'</strong><label class="ff-qty"><span>Quanto vendeu</span><input id="ff-late-qty" inputmode="'+(['kg','Litro'].includes(i.unit)?'decimal':'numeric')+'" placeholder="0"><small>'+escape(E.unitLabel(i.unit,2))+'</small></label><div class="ff-pay">'+['Pix','Dinheiro','Débito','Crédito'].map((m,x)=>'<label><input type="radio" name="ff-pay" value="'+m+'"'+(x===0?' checked':'')+'><span>'+m+'</span></label>').join('')+'</div><div class="two">'+btn('ff-vendi-cancel','Voltar','choice')+btn('ff-late-save','Lançar venda','success',{id:k,unit:i.unit})+'</div></div>';
+   return '<div class="ff-row"><span class="ff-name"><strong>'+name+'</strong><small>'+(dec==='late'?'✓ Venda lançada depois':dec==='none'?'Não vendeu':'Levou '+E.quantity(i.qty)+' · nenhuma venda')+'</small></span>'+(dec==='late'?'':'<span class="ff-choice">'+btn('ff-none','Não vendeu','ff-chip'+(dec==='none'?' on':''),{id:k})+btn('ff-vendi','Vendi','ff-chip',{id:k})+'</span>')+'</div>';}).join('')+'</div>';
+  foot=btn('ff-next','Continuar','success modal-action',{to:steps[n]||'send'});}
+ else if(ff.step==='count'){body=head+'<h3 class="ff-title">Conte o que sobrou</h3><p class="dialog-text">Opcional. Deixe em branco o que não contar. Diferenças aparecem no relatório como vendas não registradas ou perdas.</p><div class="ff-list">'+items.map(i=>'<label class="ff-row ff-count"><span class="ff-name"><strong>'+escape(titleName(i.name))+'</strong><small>Pelo app sobrou '+E.quantity(i.left)+' '+escape(E.unitLabel(i.unit,i.left))+'</small></span><input data-ff-count="'+escape(i.productId)+'" inputmode="'+(['kg','Litro'].includes(i.unit)?'decimal':'numeric')+'" value="'+(ff.counts[i.productId]??'')+'" placeholder="'+E.quantity(i.left)+'" aria-label="Contei de '+escape(i.name)+'"></label>').join('')+'</div>';
+  foot=btn('ff-next','Continuar','success modal-action',{to:'send'});}
+ else{const r=fairReportFor(e),money=E.money;body=head+'<h3 class="ff-title">Finalizar a feira</h3><section class="ds-card fr-summary">'+[['Vendas',String(r.totals.sales)],['Total vendido',money(r.totals.revenue)],['Levou · vendeu · sobrou',r.totals.tookKnown?`${r.totals.took} · ${r.totals.sold} · ${r.totals.left}`:'— · '+r.totals.sold+' · —']].map(([k,v])=>'<div class="ds-row"><span>'+escape(k)+'</span><span class="ds-num"><strong>'+escape(v)+'</strong></span></div>').join('')+'</section>'
+  +(r.totals.tookKnown?'':'<div class="fin-warn"><span class="fin-warn-dot" aria-hidden="true"></span><span class="fin-warn-text-body">Você não marcou o que levou: o relatório não mostra o que sobrou.</span><span class="fin-warn-actions">'+btn('event-load','Marcar agora','fin-warn-go',{id:e.id})+'</span></div>')
+  +'<label class="ff-note"><span>Algo para a organização? <small>Opcional</small></span><textarea id="ff-note" rows="2" maxlength="600" placeholder="Ex.: faltou sombra, o Pix falhou às 11h">'+escape(ff.note||'')+'</textarea></label>'
+  +'<p class="fr-consent">'+escape(FAIR_AUTO_NOTE)+(Date.now()<fairEventEnd(e)?' Se vender mais até o fim da feira, o relatório se atualiza sozinho.':'')+'</p>';
+  foot=btn('ff-finish','Finalizar e enviar relatório','success modal-action',{id:e.id});}
+ openModal('Finalizar feira',body,'fair-finish',{id:ff.id},foot+(n>1?btn('ff-back','Voltar','link',{to:steps[n-2]}):''));}
+Object.assign(actions,{
+ 'fair-finish':d=>openFairFinish(d.id),
+ 'ff-none':d=>{if(!ff)return;ff.decided[d.id]=ff.decided[d.id]==='none'?'':'none';paintFairFinish();},
+ 'ff-vendi':d=>{if(!ff)return;ff.vendi=d.id;paintFairFinish();setTimeout(()=>document.getElementById('ff-late-qty')?.focus(),200);},
+ 'ff-vendi-cancel':()=>{if(!ff)return;ff.vendi=null;paintFairFinish();},
+ 'ff-late-save':d=>{if(!ff)return;const e=model.data.events.find(v=>v.id===ff.id),qty=E.number(document.getElementById('ff-late-qty')?.value||''),method=document.querySelector('input[name="ff-pay"]:checked')?.value||'Pix';if(!e)return;if(!(qty>0))return toast('Informe quanto vendeu.');
+  let sale;lateSaleBusy=true;try{sale=model.complete({scope:e.id,items:[{productId:d.id,rawQty:String(qty).replace('.',',')}],payment:method,customerType:'PF',discountMode:'R$',discountValue:'0'});}catch(err){lateSaleBusy=false;return toast(err.message);}lateSaleBusy=false;
+  const end=Math.min(Date.now(),fairEventEnd(e)-60000),stamp=new Date(end).toISOString();sale.late=true;sale.registeredAt=new Date().toISOString();sale.date=stamp;model.data.movements.filter(m=>m.saleId===sale.id).forEach(m=>{m.date=stamp;m.note='Venda lançada depois';});
+  if(!persist())return toast('Não foi possível salvar a venda.');ff.decided[d.id]='late';ff.vendi=null;paintFairFinish();toast('Venda lançada.');},
+ 'ff-next':d=>{if(!ff)return;ffCapture();ff.step=d.to;paintFairFinish();},
+ 'ff-back':d=>{if(!ff)return;ffCapture();ff.step=d.to;ff.vendi=null;paintFairFinish();},
+ 'ff-finish':async d=>{if(!ff)return;ffCapture();const e=model.data.events.find(v=>v.id===d.id);if(!e)return;const stamp=new Date().toISOString(),s=fairReportState(e);
+  setFairState(e.id,{closedAt:stamp,counts:ff.counts,note:String(ff.note||'').trim(),consentAt:s.consentAt||e.fairConsentAt||stamp,snoozeAt:''});e.fairClosedAt=stamp;persist();ff=null;
+  openModal(e.fairName||e.name,'<div class="ff-done"><span class="ff-done-icon" aria-hidden="true">'+icon('check')+'</span><strong>Feira finalizada</strong><span id="ff-done-status">Enviando o relatório…</span></div>','fair-done',null,btn('close-modal','Pronto','success modal-action'));render();
+  const ok=await sendFairReport(e.id,true),el=document.getElementById('ff-done-status');if(el)el.textContent=ok?'Relatório enviado à organização ✓':'Sem internet agora. O app envia sozinho quando a conexão voltar.';}
+});
+
+// Aviso no Vender: a partir de 10 min antes do fim, até finalizar. "Depois" esconde até o próximo horário.
+function fairsToFinish(){const now=Date.now();return model.data.events.filter(e=>e.fairId&&!fairReportState(e).closedAt&&now-fairEventEnd(e)<8*864e5).map(e=>{const times=FR().fairNoticeTimes(fairEventEnd(e)),last=times.filter(t=>t<=now).pop(),s=fairReportState(e);return {e,last,hidden:!last||s.snoozeAt&&Date.parse(s.snoozeAt)>=last};}).filter(x=>!x.hidden);}
+fairReportCard=function(){const x=fairsToFinish()[0];if(!x)return '';const e=x.e,ended=Date.now()>=fairEventEnd(e);return '<section class="fair-card fr-card" role="status"><div class="fc-main fr-main"><span class="fc-date" aria-hidden="true">'+icon('check')+'</span><span class="fc-text"><small>'+(ended?'A feira terminou':'A feira termina às '+escape(e.until||''))+'</small><strong>Finalize a feira</strong><span>'+escape(e.fairName||e.name)+' · confira o que sobrou. O relatório vai sozinho.</span></span></div><div class="fr-actions">'+btn('fair-finish-later','Depois','fin-warn-later',{id:e.id})+btn('fair-finish','Finalizar feira','fin-warn-go',{id:e.id})+'</div></section>';};
+actions['fair-finish-later']=d=>{setFairState(d.id,{snoozeAt:new Date().toISOString()});render();};
+// O cartão também precisa aparecer sem trocar de tela quando chega a hora.
+setInterval(()=>{if(page==='Vender'&&!dialog.open&&fairsToFinish().length&&!document.querySelector('.fr-card'))render();},60000);
+
+// Página do evento (feira oficial): "Finalizar feira" no lugar de "Finalizar evento" e o estado do envio.
+eventDetail=function(id){eventDetailBeforeFair(id);const e=model.data.events.find(v=>v.id===id),body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(!e||!e.fairId||!body)return;const s=fairReportState(e),ended=Date.now()>fairEventEnd(e),when=t=>new Date(t).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+ body.querySelectorAll('[data-action="finish-event"]').forEach(b=>b.remove());
+ body.querySelector('.ev-hero')?.insertAdjacentHTML('beforebegin','<p class="fr-official">✓ Feira oficial · '+escape(e.fairName||'')+'</p>');
+ const status=s.closedAt?'Finalizada em '+when(s.closedAt)+'. '+(s.pending?'Aguardando internet para enviar.':s.sentAt?'Relatório enviado em '+when(s.sentAt)+'.':'Enviando…'):!fairConsent(e)?'Ao finalizar, o relatório vai para a organização.':s.sentAt?'Prévia enviada em '+when(s.sentAt)+'. Finalize para fechar o relatório.':ended?'A feira terminou. Finalize para fechar o relatório.':'Envio automático para a organização ao fim da feira.';
+ const html='<section class="ds-card fr-status"><h3>Relatório para a organização</h3><p class="ds-note">'+escape(status)+'</p>'+(s.closedAt?btn('event-load','O que levei','choice modal-action',{id:e.id}):btn('fair-finish','Finalizar feira','success modal-action',{id:e.id})+btn('event-load','O que vou levar','choice modal-action',{id:e.id}))+'</section>';
+ const hero=body.querySelector('.ev-hero');if(hero)hero.insertAdjacentHTML('afterend',html);else body.insertAdjacentHTML('beforeend',html);};
+actions['fair-report']=d=>eventDetail(d.id);
+// Para as notificações no celular (src/native/shell.js).
+window.TerritorioShell.fairEndings=()=>model.data.events.filter(e=>e.fairId&&Date.now()-fairEventEnd(e)<45*864e5).map(e=>({id:e.id,name:e.fairName||e.name,endAt:fairEventEnd(e),closed:!!fairReportState(e).closedAt,times:FR().fairNoticeTimes(fairEventEnd(e))}));
+window.TerritorioShell.openFairFinish=id=>{closeModal();page='Vender';render();openFairFinish(id);};
+window.TerritorioShell.openFairReport=window.TerritorioShell.openFairFinish;
+window.TerritorioShell.snoozeFairReport=id=>{setFairState(id,{snoozeAt:new Date().toISOString()});render();};
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

@@ -4,7 +4,9 @@
 //   GET  /fairs/:id?key=…                   → página do organizador (protegida pela chave)
 //   GET  /fairs/:id/resumo.csv?key=…        → uma linha por produtor (as perguntas do formulário)
 //   GET  /fairs/:id/produtos.csv?key=…      → uma linha por produto de cada produtor
-//   GET  /fairs/:id/relatorios.json?key=…   → tudo, para a skill do relatório
+//   GET  /fairs/:id/relatorios.json?key=…   → tudo, como o app enviou
+//   GET  /api/eventos/feira-AAAA-MM-DD/export.json?token=…  → um dia de feira no formato da skill de relatórios
+//        (evento, produtores, estoque com reposições, vendas, fechamento, feedback); token = chave do organizador
 // Os relatórios ficam no KV da própria conta (BACKUPS, prefixo "fairrep:") e somem sozinhos em 180 dias.
 // A chave do organizador nunca fica no código: só o SHA-256 dela.
 
@@ -21,10 +23,11 @@ const FAIRS = [
   },
 ];
 const TTL = 180 * 24 * 60 * 60;
-const MAX_BYTES = 96 * 1024;
+const MAX_BYTES = 384 * 1024;
 const REPORT_ID = /^[a-z0-9-]{8,80}$/;
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 export const FAIR_API = /^\/api\/fairs(?:\/([a-z0-9-]{3,48})\/reports)?$/;
+export const FAIR_EXPORT = /^\/api\/eventos\/(?:([a-z0-9-]{3,48}?)-)?(\d{4}-\d{2}-\d{2})\/export\.json$/;
 export const FAIR_PAGE = /^\/fairs\/([a-z0-9-]{3,48})(\/(?:resumo\.csv|produtos\.csv|relatorios\.json))?$/;
 
 const json = (data, status = 200) => new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' } });
@@ -68,6 +71,57 @@ function cleanReport(body, fair) {
     payments: Object.fromEntries(Object.entries(body.payments || {}).slice(0, 10).map(([k, v]) => [text(k, 20), num(v)])),
     hourly: Object.fromEntries(Object.entries(body.hourly || {}).slice(0, 24).map(([k, v]) => [text(k, 5), num(v)])),
     products,
+    status: body.status === 'finalizado' ? 'finalizado' : 'preliminar',
+    finalizedAt: text(body.finalizedAt, 40),
+    contrato: cleanContract(body.contrato),
+  };
+}
+
+// Dados no formato da skill (um produtor). Só os campos conhecidos, com tamanho limitado.
+const PAY = new Set(['PIX', 'DINHEIRO', 'CARTAO_DEBITO', 'CARTAO_CREDITO', 'OUTRO']);
+const HM = /^\d{2}:\d{2}$/;
+function cleanContract(c) {
+  if (!c || typeof c !== 'object') return null;
+  const p = c.produtor || {};
+  const pid = text(p.id, 40);
+  if (!pid) return null;
+  const list = (v, max) => (Array.isArray(v) ? v.slice(0, max) : []);
+  return {
+    produtor: { id: pid, nome: text(p.nome), nome_curto: text(p.nome_curto, 60), comunidade: text(p.comunidade), tenda: p.tenda == null ? null : text(p.tenda, 20) },
+    evento: { data: DAY.test(String(c.evento?.data || '')) ? c.evento.data : '', local: text(c.evento?.local), inicio: text(c.evento?.inicio, 5), fim: text(c.evento?.fim, 5) },
+    estoque: list(c.estoque, 200).map(e => ({
+      produtor_id: pid, produto_id: text(e.produto_id, 60), produto: text(e.produto), categoria: text(e.categoria, 60), unidade: text(e.unidade, 40),
+      preco: num(e.preco), qtd_inicial: num(e.qtd_inicial), reposicoes: list(e.reposicoes, 50).filter(r => HM.test(String(r.hora))).map(r => ({ hora: r.hora, qtd: num(r.qtd) })),
+    })),
+    vendas: list(c.vendas, 2000).map(v => {
+      const out = {
+        id: text(v.id, 60), produtor_id: pid, hora: text(v.hora, 40),
+        itens: list(v.itens, 50).map(i => ({ produto_id: text(i.produto_id, 60), qtd: num(i.qtd), preco_unit: num(i.preco_unit) })),
+        total: num(v.total), pagamento: PAY.has(v.pagamento) ? v.pagamento : 'OUTRO', cancelada: v.cancelada === true,
+      };
+      if (Array.isArray(v.pagamentos)) out.pagamentos = list(v.pagamentos, 6).map(x => ({ forma: PAY.has(x.forma) ? x.forma : 'OUTRO', valor: num(x.valor) }));
+      if (['JOVEM', 'ADULTO', 'IDOSO'].includes(v.publico)) out.publico = v.publico;
+      if (v.lancada_depois === true) { out.lancada_depois = true; out.registrada_em = text(v.registrada_em, 40); }
+      return out;
+    }),
+    fechamento: list(c.fechamento, 200).map(x => ({ produtor_id: pid, produto_id: text(x.produto_id, 60), contado: num(x.contado) })),
+    feedback: list(c.feedback, 3).map(x => ({ produtor_id: pid, observacao: text(x.observacao, 600), citacao_autorizada: x.citacao_autorizada === true })),
+  };
+}
+
+// Junta os relatórios de um dia de feira no contrato da skill. Quem só mandou a prévia fica em "preliminares".
+export function buildExport(fair, reports, day) {
+  const list = reports.filter(r => r.event.start === day && r.contrato);
+  const most = values => Object.entries(values.filter(Boolean).reduce((m, v) => ((m[v] = (m[v] || 0) + 1), m), {})).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+  const pre = list.filter(r => r.status !== 'finalizado');
+  return {
+    evento: { id: `feira-${day}`, edicao: null, data: day, nome: fair.name, local: most(list.map(r => r.contrato.evento.local)), cidade: `${fair.city}/${fair.uf}`, inicio: most(list.map(r => r.contrato.evento.inicio || r.event.from)), fim: most(list.map(r => r.contrato.evento.fim || r.event.until)) },
+    produtores: list.map(r => r.contrato.produtor),
+    estoque: list.flatMap(r => r.contrato.estoque),
+    vendas: list.flatMap(r => r.contrato.vendas.map(v => ({ ...v, sincronizada_em: r.receivedAt }))),
+    fechamento: list.flatMap(r => r.contrato.fechamento),
+    feedback: list.flatMap(r => r.contrato.feedback),
+    situacao: { relatorio_preliminar: pre.length > 0, finalizados: list.length - pre.length, preliminares: pre.map(r => r.contrato.produtor.nome_curto || r.producer.name), gerado_em: new Date().toISOString() },
   };
 }
 
@@ -135,11 +189,18 @@ function organizerPage(fair, reports, key) {
 <style>body{font-family:system-ui,sans-serif;margin:0;background:#0b0b0b;color:#f2f2f2}main{max-width:640px;margin:auto;padding:24px 18px}h1{font-size:24px;margin:0 0 4px}p{color:#a5a5ac}a.b{display:block;margin:10px 0;padding:14px 16px;border-radius:14px;background:#7fa653;color:#14210d;font-weight:700;text-decoration:none;text-align:center}a.s{background:#1c1c1e;color:#a7c97f}section{background:#1c1c1e;border-radius:18px;padding:14px 16px;margin:14px 0}li{margin:6px 0}</style>
 <main><h1>${esc(fair.name)}</h1><p>${esc(fair.organizer)}</p>
 <section><strong>${reports.length} ${reports.length === 1 ? 'relatório recebido' : 'relatórios recebidos'}</strong><p>Faturamento somado: R$ ${brl(total)}</p>
-<ul>${editions.map(e => `<li>${esc(e.split('-').reverse().join('/'))}: ${reports.filter(r => r.event.start === e).map(r => esc(r.producer.name)).join(', ')}</li>`).join('')}</ul></section>
+<ul>${editions.map(e => `<li>${esc(e.split('-').reverse().join('/'))}: ${reports.filter(r => r.event.start === e).map(r => esc(r.producer.name) + (r.status === 'finalizado' ? ' ✓' : ' (prévia)')).join(', ')} · <a href="/api/eventos/feira-${e}/export.json?token=${k}" style="color:#a7c97f">dados do dia</a></li>`).join('')}</ul><p>✓ = finalizou a feira no app. Prévia = enviado sozinho ao fim da feira, ainda sem finalizar.</p></section>
 <a class="b" href="/fairs/${fair.id}/resumo.csv?key=${k}">Baixar resumo (uma linha por produtor)</a>
 <a class="b s" href="/fairs/${fair.id}/produtos.csv?key=${k}">Baixar produtos (uma linha por produto)</a>
 <a class="b s" href="/fairs/${fair.id}/relatorios.json?key=${k}">Baixar tudo para o Claude (JSON)</a>
 <p>Os relatórios são apagados sozinhos 180 dias depois do envio.</p></main></html>`;
+}
+
+export async function serveFairExport(request, env, fairId, day) {
+  const fair = FAIRS.find(f => f.id === (fairId && fairId !== 'feira' ? fairId : FAIRS[0].id));
+  const token = new URL(request.url).searchParams.get('token') || '';
+  if (!(await organizerOk(fair, token))) return json({ error: 'Acesso não autorizado.' }, 401);
+  return json(buildExport(fair, await listReports(env, fair.id), day));
 }
 
 export async function serveFairPage(request, env, fairId, file) {

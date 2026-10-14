@@ -20,7 +20,7 @@
 import { LIMITS, ValidationError, validatePortfolio, referencedImages, isHash, imageType, isPDF } from './schema.js';
 import { renderPortfolio, renderMessage, vcard } from './page.js';
 import { BACKUP_ROUTE, handleBackup } from './backups.js';
-import { FAIR_API, FAIR_PAGE, handleFairsApi, serveFairPage } from './fairs.js';
+import { FAIR_API, FAIR_EXPORT, FAIR_PAGE, handleFairsApi, serveFairExport, serveFairPage } from './fairs.js';
 
 const PAGE_HEADERS = {
   'content-type': 'text/html; charset=utf-8',
@@ -260,6 +260,8 @@ export default {
           for (const [k, v] of Object.entries(cors)) response.headers.set(k, v);
           return response;
         }
+        const fairExport = pathname.match(FAIR_EXPORT);
+        if (fairExport && request.method === 'GET') return serveFairExport(request, env, fairExport[1], fairExport[2]);
         const fairApi = pathname.match(FAIR_API);
         if (fairApi) {
           response = await handleFairsApi(request, env, fairApi[1]);

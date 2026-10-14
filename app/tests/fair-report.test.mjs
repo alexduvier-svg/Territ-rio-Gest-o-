@@ -66,3 +66,46 @@ test('reposição: só conta quando o "o que vou levar" é atualizado depois da 
   const restock = buildFairReport({ event: ev, load: { items, createdAt: at('08:00'), updatedAt: at('11:30') }, sales });
   assert.equal(restock.answers.reposicao, 'CONSEGUI REPOR');
 });
+
+import { fairNoticeTimes, buildFairContract } from '../src/features/fair-report.js';
+const br = ms => new Date(ms).toLocaleString('sv-SE', { timeZone: 'America/Sao_Paulo' }).slice(0, 16);
+
+test('avisos para finalizar: 10 min antes, 20h, depois 12h por 7 dias — nunca de madrugada', () => {
+  const t = fairNoticeTimes(Date.parse('2026-11-21T14:00:00-03:00')).map(br);
+  assert.deepEqual(t, ['2026-11-21 13:50', '2026-11-21 20:00', '2026-11-22 12:00', '2026-11-23 12:00', '2026-11-24 12:00', '2026-11-25 12:00', '2026-11-26 12:00', '2026-11-27 12:00', '2026-11-28 12:00']);
+  for (const x of t) { const h = Number(x.slice(11, 13)); assert.ok(h >= 8 && h <= 21, x); }
+  // Feira à noite: o das 20h ficaria antes do fim e sai.
+  const night = fairNoticeTimes(Date.parse('2026-11-21T21:00:00-03:00')).map(br);
+  assert.equal(night[0], '2026-11-21 20:50');
+  assert.equal(night[1], '2026-11-22 12:00');
+});
+
+test('formato da skill: estoque com reposição, vendas uma a uma, fechamento e observação', () => {
+  const load = { items: [{ productId: 'q', name: 'Queijo minas', unit: 'Unidade', description: 'Unidade', qty: 15, restocks: [{ at: at('11:00'), qty: 5 }] }] };
+  const s1 = { ...sale('09:40', [item('q', 'Queijo minas', 2, 3500, 1800)]), id: 'v1', status: 'completed' };
+  const s2 = { ...sale('10:10', [item('q', 'Queijo minas', 1, 3500, 1800)], 'Dinheiro'), id: 'v2', status: 'returned' };
+  const s3 = { ...sale('13:59', [item('q', 'Queijo minas', 1, 3500, 1800)], 'Crédito'), id: 'v3', status: 'completed', late: true, registeredAt: '2026-11-22T10:00:00.000Z' };
+  const c = buildFairContract({ event: { ...ev, place: 'Praça' }, load, sales: [s3, s1, s2], productOf: () => ({ price: 3500, category: 'Laticínios' }), producer: { id: 'p-jacks', name: 'Jacks Givisiez', community: 'Furriel' }, counts: { q: 10 }, note: 'Faltou sombra' });
+  assert.deepEqual(c.estoque[0], { produtor_id: 'p-jacks', produto_id: 'q', produto: 'Queijo minas', categoria: 'Laticínios', unidade: 'Unidade', preco: 35, qtd_inicial: 10, reposicoes: [{ hora: '11:00', qtd: 5 }] });
+  assert.deepEqual(c.vendas.map(v => v.id), ['v1', 'v2', 'v3']);
+  assert.equal(c.vendas[0].hora, '2026-03-14T09:40:00-03:00');
+  assert.deepEqual(c.vendas[0].itens, [{ produto_id: 'q', qtd: 2, preco_unit: 35 }]);
+  assert.equal(c.vendas[0].total, 70);
+  assert.equal(c.vendas[1].cancelada, true);
+  assert.equal(c.vendas[1].pagamento, 'DINHEIRO');
+  assert.equal(c.vendas[2].pagamento, 'CARTAO_CREDITO');
+  assert.equal(c.vendas[2].lancada_depois, true);
+  assert.deepEqual(c.fechamento, [{ produtor_id: 'p-jacks', produto_id: 'q', contado: 10 }]);
+  assert.equal(c.feedback[0].observacao, 'Faltou sombra');
+  assert.equal(c.produtor.nome_curto, 'Jacks');
+});
+
+test('relatório: reposição com horário e venda além do levado', () => {
+  const load = { items: [{ productId: 'q', name: 'Queijo', unit: 'Unidade', qty: 5, restocks: [{ at: at('11:00'), qty: 2 }] }] };
+  const r = buildFairReport({ event: ev, load, sales: [sale('10:00', [item('q', 'Queijo', 6, 3500, 1800)])] });
+  assert.equal(r.answers.reposicao, 'CONSEGUI REPOR');
+  assert.equal(r.products[0].restocked, 2);
+  const over = buildFairReport({ event: ev, load: { items: [{ productId: 'q', name: 'Queijo', unit: 'Unidade', qty: 3 }] }, sales: [sale('10:00', [item('q', 'Queijo', 5, 3500, 1800)])] });
+  assert.equal(over.products[0].oversold, 2);
+  assert.match(over.answers.vendeuAlemDoLevado, /Queijo: 2 a mais/);
+});

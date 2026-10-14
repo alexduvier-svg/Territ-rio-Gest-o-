@@ -91,7 +91,7 @@ const rating = r => (r >= 0.9 ? 'EXCELENTE SAÍDA' : r >= 0.6 ? 'BOA SAÍDA' : r
 export function buildFairReport({ event, load, sales, productOf = () => null, producer = {}, now = Date.now() }) {
   const lines = new Map();
   const keyOf = (id, unit) => id + '|' + (unit || '');
-  for (const i of load?.items || []) lines.set(keyOf(i.productId, i.unit), { id: i.productId, name: i.name, description: i.description || '', unit: i.unit || '', took: Number(i.qty) || 0, sold: 0, revenue: 0, cost: 0, price: productOf(i.productId)?.price || 0, soldOutAt: '', soldOutIso: '' });
+  for (const i of load?.items || []) lines.set(keyOf(i.productId, i.unit), { id: i.productId, name: i.name, description: i.description || '', unit: i.unit || '', took: Number(i.qty) || 0, restocked: (i.restocks || []).reduce((n, r) => n + (Number(r.qty) || 0), 0), sold: 0, revenue: 0, cost: 0, price: productOf(i.productId)?.price || 0, soldOutAt: '', soldOutIso: '' });
   const ordered = sales.slice().sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
   const payments = {}, hourly = {};
   let revenue = 0;
@@ -117,7 +117,7 @@ export function buildFairReport({ event, load, sales, productOf = () => null, pr
     const took = l.took == null ? l.sold : l.took;
     const left = Math.max(0, took - l.sold);
     const day = l.soldOutIso ? new Date(l.soldOutIso).toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' }) : '';
-    return { ...l, took, left, timeToSellOut: l.soldOutIso ? hm(minutesSince(l.soldOutIso, day, event.from)) : '', ratio: took > 0 ? l.sold / took : 0, restocked: 0 };
+    return { ...l, took, left, oversold: l.took == null ? 0 : Math.max(0, l.sold - l.took), timeToSellOut: l.soldOutIso ? hm(minutesSince(l.soldOutIso, day, event.from)) : '', ratio: took > 0 ? l.sold / took : 0, restocked: l.restocked || 0 };
   });
   const tot = k => products.reduce((n, p) => n + p[k], 0);
   const took = tot('took'), sold = tot('sold'), left = tot('left');
@@ -138,7 +138,7 @@ export function buildFairReport({ event, load, sales, productOf = () => null, pr
   // Reposição = o "o que vou levar" foi atualizado depois da primeira venda (marcar antes de vender, mesmo
   // já na praça, não conta como reposição).
   const firstSale = ordered[0] ? Date.parse(ordered[0].date) : null;
-  const restocked = tookKnown && firstSale != null && load.updatedAt && load.updatedAt !== load.createdAt && Date.parse(load.updatedAt) > firstSale;
+  const restocked = products.some(p => p.restocked > 0) || (tookKnown && firstSale != null && load.updatedAt && load.updatedAt !== load.createdAt && Date.parse(load.updatedAt) > firstSale && !(load.items || []).some(i => i.restocks));
   const reposicao = restocked ? 'CONSEGUI REPOR' : soldOut.length ? 'FIQUEI SEM REPOSIÇÃO' : 'NÃO PRECISEI REPOR';
   const answers = {
     produtos: products.map(label).join(', '),
@@ -152,7 +152,8 @@ export function buildFairReport({ event, load, sales, productOf = () => null, pr
     saidaBarato: tiers[2].length ? rating(tierRatio(tiers[2])) : '',
     tempoEsgotar: lastOut ? lastOut.timeToSellOut : 'NÃO ESGOTOU',
     reposicao,
-    repostos: restocked ? 'Repôs durante a feira (quantidade levada atualizada)' : 'NÃO REPUS',
+    repostos: products.some(p => p.restocked) ? products.filter(p => p.restocked).map(p => `${p.restocked} ${label(p)}`).join(', ') : restocked ? 'Repôs durante a feira (quantidade levada atualizada)' : 'NÃO REPUS',
+    vendeuAlemDoLevado: products.filter(p => p.oversold).map(p => `${label(p)}: ${p.oversold} a mais`).join(', '),
     esgotouPrimeiro: soldOut[0] ? `${label(soldOut[0])} (${soldOut[0].timeToSellOut})` : 'Não esgotou nenhum',
     semVenda: products.filter(p => !p.sold).map(label).join(', ') || 'Todos venderam',
     maiorLucro: products.some(p => p.cost) && profits[0][1] > 0 ? profits[0][0] : '',
@@ -164,7 +165,58 @@ export function buildFairReport({ event, load, sales, productOf = () => null, pr
     event: { name: event.name, start: event.start, end: event.end, from: event.from || '', until: event.until || '' },
     totals: { took, sold, left, revenue, sales: sales.length, ticket: sales.length ? Math.round(revenue / sales.length) : 0, tookKnown: tookKnown ? 1 : 0 },
     answers, payments, hourly,
-    products: products.map(({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked }) => ({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked })),
+    products: products.map(({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, oversold }) => ({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, oversold })),
     builtAt: new Date(now).toISOString(),
+  };
+}
+
+// ------------------------------------------------------------------ avisos para finalizar a feira
+// 10 min antes do fim; 20h do mesmo dia; 12h do dia seguinte e depois 12h por dia, até 7 dias.
+// Horários humanos: nada de madrugada. Devolve instantes (ms) em ordem.
+export function fairNoticeTimes(endAt, days = 7) {
+  const first = endAt - 10 * 60000;
+  const at = (offset, hhmm) => Date.parse(new Date(endAt + offset * 864e5).toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' }) + 'T' + hhmm + ':00-03:00');
+  const times = [first, at(0, '20:00')];
+  for (let d = 1; d <= days; d++) times.push(at(d, '12:00'));
+  return times.filter((t, i) => i === 0 || t - first >= 60 * 60000).sort((a, b) => a - b);
+}
+
+// ------------------------------------------------------------------ dados no formato da skill de relatórios
+// (contrato: produtores, estoque com reposições, vendas uma a uma, fechamento e feedback). Valores em reais.
+const PAY = { Pix: 'PIX', Dinheiro: 'DINHEIRO', 'Débito': 'CARTAO_DEBITO', 'Crédito': 'CARTAO_CREDITO' };
+const reais = c => Math.round(Number(c) || 0) / 100;
+const isoBR = ms => new Date(ms - 3 * 3600e3).toISOString().slice(0, 19) + '-03:00';
+export function buildFairContract({ event, load, sales, productOf = () => null, producer = {}, counts = {}, note = '' }) {
+  const pid = producer.id || 'p1';
+  const nome = String(producer.name || '').trim();
+  const estoque = (load?.items || []).map(i => {
+    const p = productOf(i.productId) || {};
+    const restocks = (i.restocks || []).filter(r => Number(r.qty) > 0);
+    const extra = restocks.reduce((n, r) => n + Number(r.qty), 0);
+    return {
+      produtor_id: pid, produto_id: i.productId, produto: i.name + (i.description && !/^unidade$/i.test(i.description) ? ' ' + i.description : ''),
+      categoria: p.category || '', unidade: i.unit || '', preco: reais(p.price), qtd_inicial: Math.max(0, (Number(i.qty) || 0) - extra),
+      reposicoes: restocks.map(r => ({ hora: brTime(r.at), qtd: Number(r.qty) })),
+    };
+  });
+  const vendas = sales.filter(s => s.status === 'completed' || s.status === 'returned').sort((a, b) => Date.parse(a.date) - Date.parse(b.date)).map(s => {
+    const factor = s.subtotal > 0 ? s.total / s.subtotal : 1;
+    const main = (s.payments || []).slice().sort((a, b) => b.amount - a.amount)[0];
+    const v = {
+      id: s.id, produtor_id: pid, hora: isoBR(Date.parse(s.date)),
+      itens: (s.items || []).map(it => { const net = it.netTotal ?? (it.total || 0) * factor; return { produto_id: it.productId, qtd: it.qty, preco_unit: Math.round(net / (it.qty || 1)) / 100 }; }),
+      total: reais(s.total), pagamento: PAY[main?.method] || 'OUTRO', cancelada: s.status === 'returned',
+    };
+    if ((s.payments || []).length > 1) v.pagamentos = s.payments.map(p => ({ forma: PAY[p.method] || 'OUTRO', valor: reais(p.amount) }));
+    if (s.late) { v.lancada_depois = true; v.registrada_em = s.registeredAt || ''; }
+    return v;
+  });
+  const fechamento = Object.entries(counts).filter(([, v]) => v !== '' && v != null && Number.isFinite(Number(v))).map(([id, v]) => ({ produtor_id: pid, produto_id: id, contado: Number(v) }));
+  const feedback = String(note || '').trim() ? [{ produtor_id: pid, observacao: String(note).trim().slice(0, 600), citacao_autorizada: false }] : [];
+  const first = nome.split(/\s+/)[0] || nome;
+  return {
+    produtor: { id: pid, nome, nome_curto: producer.short || first, comunidade: producer.community || '', tenda: producer.tent ?? null },
+    evento: { data: event.start, local: event.place || '', inicio: event.from || '', fim: event.until || '' },
+    estoque, vendas, fechamento, feedback,
   };
 }

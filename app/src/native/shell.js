@@ -283,50 +283,59 @@ function installFinanceReminder() {
   });
 }
 
-// Fim de feira oficial: notificação na hora de término, com "Enviar relatório" e "Depois" (volta no dia
-// seguinte, às 9h). Some quando o relatório é enviado.
-function fairNoticeId(eventId) {
+// Finalizar feira oficial: aviso 10 min antes do fim, 20h do mesmo dia, 12h do dia seguinte e depois 12h por
+// até 7 dias (src/features/fair-report.js → fairNoticeTimes). Fica na barra até tocar; some ao finalizar.
+function fairNoticeId(eventId, slot = 0) {
   let h = 17;
-  for (const ch of 'fair:' + eventId) h = (h * 33 + ch.charCodeAt(0)) | 0;
+  for (const ch of 'fair:' + eventId + ':' + slot) h = (h * 33 + ch.charCodeAt(0)) | 0;
   return 1000000 + (Math.abs(h) % 900000000);
 }
 async function scheduleFairNotices() {
   const list = window.TerritorioShell?.fairEndings?.() || [];
   try {
+    const now = Date.now();
+    const wanted = new Map();
+    for (const f of list) {
+      if (f.closed) continue;
+      f.times.forEach((at, i) => { if (at > now) wanted.set(fairNoticeId(f.id, i), { f, at, i }); });
+    }
     const { notifications } = await LocalNotifications.getPending();
-    const ours = new Set(list.map(f => fairNoticeId(f.id)));
-    const stale = notifications.filter(n => n.extra?.kind === 'fair' && !ours.has(n.id));
+    const stale = notifications.filter(n => n.extra?.kind === 'fair' && !wanted.has(n.id));
     if (stale.length) await LocalNotifications.cancel({ notifications: stale.map(n => ({ id: n.id })) });
+    // Feira finalizada: tira da barra os avisos que já apareceram.
+    const closedIds = list.filter(f => f.closed).flatMap(f => f.times.map((_, i) => fairNoticeId(f.id, i)));
+    if (closedIds.length) await LocalNotifications.removeDeliveredNotifications({ notifications: closedIds.map(id => ({ id, title: '', body: '' })) }).catch(() => {});
     const status = await LocalNotifications.checkPermissions();
     if (status.display !== 'granted') return;
-    const now = Date.now();
-    const upcoming = list.filter(f => f.endAt > now && !notifications.some(n => n.id === fairNoticeId(f.id)));
-    if (!upcoming.length) return;
+    const missing = [...wanted.entries()].filter(([id]) => !notifications.some(n => n.id === id));
+    if (!missing.length) return;
     await LocalNotifications.schedule({
-      notifications: upcoming.map(f => ({
-        id: fairNoticeId(f.id), channelId: 'financas', title: `${f.name} terminou`, body: 'Envie o relatório da feira: suas vendas já estão nele.',
-        actionTypeId: 'FAIR_REPORT', extra: { kind: 'fair', eventId: f.id }, smallIcon: 'ic_stat_territorio', iconColor: '#7FA653',
-        autoCancel: true, schedule: { at: new Date(f.endAt + 60 * 1000), allowWhileIdle: true }, isExactNotification: false,
+      notifications: missing.map(([id, { f, at, i }]) => ({
+        id, channelId: 'financas',
+        title: i === 0 ? `${f.name} termina em 10 minutos` : `Finalize a ${f.name}`,
+        body: i === 0 ? 'Quando parar de vender, finalize a feira. O relatório vai sozinho.' : 'Confira o que sobrou: leva um minuto. O relatório vai sozinho.',
+        actionTypeId: 'FAIR_FINISH', extra: { kind: 'fair', eventId: f.id }, smallIcon: 'ic_stat_territorio', iconColor: '#7FA653',
+        ongoing: true, autoCancel: true, schedule: { at: new Date(at), allowWhileIdle: true }, isExactNotification: false,
       })),
     });
   } catch (error) {
-    console.warn('Lembrete da feira não agendado', error);
+    console.warn('Aviso da feira não agendado', error);
   }
 }
 function installFairReminder() {
   LocalNotifications.registerActionTypes({
-    types: [{ id: 'FAIR_REPORT', actions: [{ id: 'send', title: 'Enviar relatório', foreground: true }, { id: 'later', title: 'Depois' }] }],
+    types: [{ id: 'FAIR_FINISH', actions: [{ id: 'finish', title: 'Finalizar feira', foreground: true }, { id: 'later', title: 'Depois' }] }],
   }).catch(() => {});
   LocalNotifications.addListener('localNotificationActionPerformed', async action => {
     const extra = action.notification?.extra;
     if (extra?.kind !== 'fair') return;
+    // "Depois": sai da barra; o próximo aviso já está agendado no horário seguinte.
     if (action.actionId === 'later') {
       window.TerritorioShell?.snoozeFairReport?.(extra.eventId);
-      const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1); tomorrow.setHours(9, 0, 0, 0);
-      await LocalNotifications.schedule({ notifications: [{ ...action.notification, id: fairNoticeId(extra.eventId), schedule: { at: tomorrow, allowWhileIdle: true } }] }).catch(() => {});
+      await LocalNotifications.removeDeliveredNotifications({ notifications: [{ id: action.notification.id, title: '', body: '' }] }).catch(() => {});
       return;
     }
-    setTimeout(() => window.TerritorioShell?.openFairReport?.(extra.eventId), 400);
+    setTimeout(() => window.TerritorioShell?.openFairFinish?.(extra.eventId), 400);
   });
   let timer;
   window.addEventListener('territorio:saved', () => { clearTimeout(timer); timer = setTimeout(scheduleFairNotices, 1500); });
