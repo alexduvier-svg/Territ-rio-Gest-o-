@@ -1865,6 +1865,42 @@ eventDetail=function(id){eventDetailBeforeDate(id);const e=model.data.events.fin
 const runAIAnalysisBase=runAIAnalysis;
 runAIAnalysis=async function(){const field=document.getElementById('ai-question');if(field)aiQuestion=field.value;await runAIAnalysisBase();if(aiResult){model.data.ai=model.data.ai||{};model.data.ai.last={question:aiQuestion,answer:aiResult,source:aiResultSource,stamp:aiResultStamp,at:new Date().toISOString()};persist();}};
 (function restoreLastAnalysis(){const last=model.data.ai&&model.data.ai.last;if(!last||aiResult)return;aiQuestion=last.question||aiQuestion;aiResult=last.answer||'';aiResultSource=last.source||aiResultSource;aiResultStamp=last.stamp||aiResultStamp;})();
+// --- Primeira abertura: o app começa zerado. Boas-vindas com nome, negócio, cidade e UF; "Começar do
+// zero" é o caminho principal e "Ver com dados de exemplo" é opcional (apaga-se depois em Ajustes).
+// Aparelhos que já tinham dados (como o de testes) não veem esta tela.
+function initialsAvatar(name){const letters=String(name||'P').trim().split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toLocaleUpperCase('pt-BR')||'P';const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><rect width="96" height="96" rx="48" fill="#4f7a2a"/><text x="48" y="60" font-family="Inter,Arial,sans-serif" font-size="38" font-weight="700" fill="#eef5e6" text-anchor="middle">'+letters.replace(/[<&>]/g,'')+'</text></svg>';return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);}
+function cleanData(info){const name=String(info.name||'').trim()||'Produtor',business=String(info.business||'').trim();return {schema:1,products:[],sales:[],movements:[],clients:[],events:[],expenses:[],profiles:{},contacts:[],eventLoads:[],settings:{businessName:business,producerName:name,phone:'',email:'',city:String(info.city||'').trim(),uf:String(info.uf||'').trim().toUpperCase(),photo:initialsAvatar(name),onboarding:'clean',financialVisible:false,startedAt:new Date().toISOString()},catalog:{title:business,story:'',publicUrl:'',photos:{}}};}
+function welcomeHtml(again){const st=model.data.settings,keep=st.onboarding==='pending'?'':escape(st.producerName||'');
+ return '<div class="wl"><img class="wl-logo" src="'+escape(window.TERRITORIO_ASSETS.appLogo)+'" alt="" aria-hidden="true"><h2 class="wl-title">AGRO Gestão</h2><p class="wl-lead">Vendas, estoque e finanças da sua produção, na palma da mão.</p>'
+ +(again?'<p class="fin-hint">Isto apaga todos os dados deste aparelho (vendas, produtos, clientes, eventos e custos) e começa do zero. Faça uma cópia de segurança antes, se precisar.</p>':'')
+ +field('wl-name','Seu nome',keep,'autocomplete="name" placeholder="Ex.: Maria Souza"')+field('wl-business','Nome do negócio ou sítio (opcional)','','placeholder="Ex.: Sítio Boa Vista"')
+ +'<div class="two">'+field('wl-city','Sua cidade','','autocomplete="address-level2" placeholder="Ex.: Carangola"')+field('wl-uf','UF','','maxlength="2" autocomplete="address-level1" placeholder="MG"')+'</div>'
+ +btn('welcome-clean',again?'Apagar tudo e começar do zero':'Começar do zero','success modal-action wl-go')
+ +(again?btn('close-modal','Cancelar','link wl-demo'):btn('welcome-demo','Ver com dados de exemplo','link wl-demo')+'<p class="ds-note wl-note">Os exemplos mostram como o app funciona. Você pode apagá-los depois em Ajustes → Dados para testes.</p>')+'</div>';}
+function openWelcome(again){openModal('',welcomeHtml(again),again?'welcome-again':'welcome');setTimeout(()=>document.getElementById('wl-name')?.focus(),300);}
+const freshInstall=loaded==null;
+if(freshInstall&&!model.data.settings.onboarding){model.data.settings.onboarding='pending';}
+// A janela de boas-vindas não fecha pelo "voltar" nem tocando fora: é preciso escolher.
+let welcomeLeaving=false;
+dialog.addEventListener('cancel',event=>{if(dialog.dataset.kind==='welcome')event.preventDefault();});
+const closeModalBeforeWelcome=closeModal;
+closeModal=function(...args){if(dialog.open&&dialog.dataset.kind==='welcome'&&!welcomeLeaving)return;try{return closeModalBeforeWelcome(...args);}finally{welcomeLeaving=false;}};
+const dialogCloseNative=dialog.close.bind(dialog);
+dialog.close=function(...args){if(dialog.dataset.kind==='welcome'&&!welcomeLeaving)return;return dialogCloseNative(...args);};
+Object.assign(actions,{
+ 'welcome-clean':()=>{const v=id=>(document.getElementById(id)?.value||'').trim(),name=v('wl-name'),uf=v('wl-uf').toUpperCase();if(!name)return toast('Informe seu nome.');if(uf&&!E.STATES.some(s=>s[0]===uf))return toast('Use a sigla do estado, como MG ou SP.');
+  model=new E.ERPModel(cleanData({name,business:v('wl-business'),city:v('wl-city'),uf}));scope='loja';managementScope='all';filter='Todos';query='';draft=null;page='Vender';
+  if(!persist())return toast('Não foi possível salvar. Libere espaço no aparelho.');welcomeLeaving=true;closeModal();render();toast('Tudo pronto. Cadastre seu primeiro produto.');},
+ 'welcome-demo':()=>{model.data.settings.onboarding='demo';persist();welcomeLeaving=true;closeModal();render();toast('Dados de exemplo carregados.');},
+ 'start-clean':()=>openWelcome(true)
+});
+// Vender sem nenhum produto: um convite claro para o primeiro cadastro.
+const feiraSellListBeforeEmpty=feiraSellList;
+feiraSellList=function(){if(model.data.products.length)return feiraSellListBeforeEmpty();return '<section class="empty-start">'+'<span class="empty-start-icon" aria-hidden="true">'+icon('box')+'</span><strong>Cadastre seu primeiro produto</strong><span>Informe o nome, o preço e quanto custa produzir. O app faz as contas a cada venda.</span>'+btn('new-product',icon('plus')+' Cadastrar produto','success modal-action')+'</section>';};
+// Ajustes → Dados para testes: começar do zero a qualquer momento.
+const testResetModalBeforeClean=testResetModal;
+testResetModal=function(){testResetModalBeforeClean();const body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(body&&!body.querySelector('[data-action="start-clean"]'))body.insertAdjacentHTML('beforeend','<div class="wl-clean">'+btn('start-clean','Apagar tudo e começar do zero','link-row')+'</div>');};
+if(model.data.settings.onboarding==='pending')setTimeout(()=>openWelcome(false),350);
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

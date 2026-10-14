@@ -19,6 +19,7 @@ import { MARKET_CATALOG } from './data/market-catalog.js';
 import * as Finance from './features/finance/finance.js';
 import { runAudit } from './features/finance/audit.js';
 import profilePhoto from './assets/profile.webp';
+import appLogo from './assets/logo.png';
 import catalogPhotosUrl from './assets/catalog.webp';
 import './legacy/erp-core.js';
 import { initStorage } from './native/storage.js';
@@ -44,7 +45,7 @@ async function toDataURL(url) {
 
 try {
   const [catalogPhotos] = await Promise.all([toDataURL(catalogPhotosUrl), initStorage()]);
-  window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos };
+  window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos, appLogo };
   window.TERRITORIO_MARKET = MARKET_CATALOG;
   window.TerritorioFinance = { ...Finance, runAudit };
   window.TERRITORIO_VERSION = version;
