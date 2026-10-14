@@ -299,7 +299,7 @@ export default {
 
     // Painel do organizador (GET e o POST do formulário de nova feira) e a página pública do QR.
     const orgRoute = pathname.match(ORG_ROUTE);
-    if (orgRoute && ['GET', 'POST'].includes(request.method)) return serveOrganizer(request, env, orgRoute[1], orgRoute[2] === 'nova' ? 'nova' : '', orgRoute[3] || '', !!orgRoute[4]);
+    if (orgRoute && ['GET', 'POST'].includes(request.method)) return serveOrganizer(request, env, orgRoute[1], orgRoute[3] ? '' : orgRoute[2] || '', orgRoute[3] || '', orgRoute[4] || '');
     const publicFair = pathname.match(PUBLIC_FAIR);
     if (publicFair && request.method === 'GET') return servePublicFair(request, env, publicFair[1]);
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });

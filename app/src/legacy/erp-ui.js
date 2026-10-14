@@ -2223,6 +2223,18 @@ window.TerritorioShell.joinFairLink=url=>{const ref=parseFairInput(url);if(ref){
 window.addEventListener('online',()=>{model.data.events.forEach(e=>sendFairJoin(e));});
 setTimeout(()=>{ensureWeeklyFairs();model.data.events.forEach(e=>sendFairJoin(e));},3000);
 setInterval(ensureWeeklyFairs,5*60000);
+// Feira cancelada pela organização: não deixa entrar e avisa quem já tinha entrado (confere a cada 6 h).
+const openFairJoinBeforeCancel=openFairJoin;
+openFairJoin=async function(ref){if(ref&&navigator.onLine){try{const found=await fetchFair(ref);if(found.fair.cancelled){joinPending=null;return openModal('Feira cancelada','<section class="fj-card"><small>'+escape(found.fair.organizer||'')+'</small><strong>'+escape(found.fair.name)+'</strong><span>Esta feira foi cancelada pela organização.</span></section>','fair-join',null,btn('close-modal','Entendi','success modal-action'));}}catch(e){}}return openFairJoinBeforeCancel(ref);};
+async function checkCancelledFairs(){const st=model.data.settings,now=Date.now();if(!navigator.onLine||now-(st.fairCancelCheckAt||0)<6*3600e3)return;st.fairCancelCheckAt=now;
+ const list=model.data.events.filter(e=>e.fairServer&&e.status==='active'&&!e.fairCancelled);let changed=false;
+ for(const e of list){try{const r=await fetch(e.fairServer+'/api/fairs/'+encodeURIComponent(e.fairId)+'/info');if(!r.ok)continue;const {fair}=await r.json();if(!fair||!fair.cancelled)continue;
+  const stamp=new Date().toISOString();Object.assign(e,{fairCancelled:true,status:'finished',finishedAt:stamp,closedAutomatically:false,lossReviewedAt:stamp});delete e.lossReviewPending;setFairState(e.id,{closedAt:stamp,cancelled:true});
+  model.data.settings.fairSubs=fairSubs().filter(s=>s.fairId!==e.fairId);if(scope===e.id)scope='loja';changed=true;toast('A organização cancelou a '+(e.fairName||e.name)+'.');}catch(err){}}
+ persist();if(changed)render();}
+setTimeout(checkCancelledFairs,5000);setInterval(checkCancelledFairs,30*60000);window.addEventListener('online',()=>checkCancelledFairs());
+const eventDetailBeforeCancelled=eventDetail;
+eventDetail=function(id){eventDetailBeforeCancelled(id);const e=model.data.events.find(v=>v.id===id),body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(e&&e.fairCancelled&&body)body.insertAdjacentHTML('afterbegin','<p class="fj-cancelled">Cancelada pela organização</p>');};
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

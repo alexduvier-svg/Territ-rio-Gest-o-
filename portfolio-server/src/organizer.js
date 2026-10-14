@@ -11,7 +11,7 @@
 import { ORGS, organizerOk, getFair, allFairs, publicFair, listReports, listJoins } from './fairs.js';
 import { qrSVG } from './qr.js';
 
-export const ORG_ROUTE = /^\/org\/([a-z0-9-]{3,48})(?:\/(nova|f\/([a-z0-9-]{3,64})(\/cartaz)?))?$/;
+export const ORG_ROUTE = /^\/org\/([a-z0-9-]{3,48})(?:\/(nova|entrar|sair|f\/([a-z0-9-]{3,64})(\/cartaz|\/cancelar)?))?$/;
 export const PUBLIC_FAIR = /^\/f\/([a-z0-9-]{3,64})$/;
 export const FAIR_CODE = /^\/api\/fair-code\/([A-Za-z0-9]{6})$/;
 
@@ -60,6 +60,7 @@ input{width:100%;padding:12px 14px;border:0;border-radius:14px;font-family:inher
 .qr{display:grid;place-items:center;padding:14px;margin:6px auto 10px;width:max-content;background:#fff;border-radius:18px}
 .code{font:800 30px/1 ui-monospace,Consolas,monospace;letter-spacing:.18em;text-align:center;margin:6px 0}
 .link{word-break:break-all;font-size:14px;color:var(--accent-ink)}
+.btn.danger{background:rgba(255,69,58,.14);color:#d70015}.tag-off{color:#d70015}@media (prefers-color-scheme:dark){.btn.danger,.tag-off{color:#ff6961}}
 .back{display:inline-block;margin-bottom:10px;color:var(--accent-ink);text-decoration:none;font-weight:600}
 .error{background:rgba(255,69,58,.12);color:#d70015;border-radius:12px;padding:10px 12px;margin-top:10px}
 @media (prefers-color-scheme:dark){.error{color:#ff6961}}
@@ -68,62 +69,108 @@ input{width:100%;padding:12px 14px;border:0;border-radius:14px;font-family:inher
 const unauthorized = () => new Response('Acesso não autorizado.', { status: 401, headers: { ...HEADERS, 'content-type': 'text/plain; charset=utf-8' } });
 const orgFairs = async (env, org) => (await allFairs(env)).filter(f => f.orgId === org.id);
 
-export async function serveOrganizer(request, env, orgId, sub, fairId, poster) {
+// Acesso ao painel: código de acesso (a chave) digitado uma vez; o navegador guarda num cookie por 30 dias.
+// Links antigos com ?key= ainda funcionam: entram, guardam o cookie e tiram a chave do endereço.
+const COOKIE = 'agk';
+export function requestKey(request) {
+  const url = new URL(request.url);
+  const fromQuery = url.searchParams.get('key');
+  if (fromQuery) return fromQuery;
+  const m = (request.headers.get('cookie') || '').match(new RegExp(`(?:^|;\\s*)${COOKIE}=([^;]+)`));
+  return m ? decodeURIComponent(m[1]) : '';
+}
+const keyCookie = (key, url) => `${COOKIE}=${encodeURIComponent(key)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${30 * 86400}${url.protocol === 'https:' ? '; Secure' : ''}`;
+const redirect = (to, cookie) => new Response(null, { status: 303, headers: { location: to, 'cache-control': 'no-store', ...(cookie ? { 'set-cookie': cookie } : {}) } });
+
+function loginPage(org, problem) {
+  return page('Entrar no painel', `<p class="muted small">${esc(org ? org.name : 'Painel do organizador')}</p><h1>Entrar no painel</h1>
+<form method="post" action="/org/${esc(org ? org.id : '')}/entrar" class="card"><label for="code">Código de acesso</label><input id="code" name="code" type="password" required autocomplete="current-password" placeholder="XXXXX-XXXXX-XXXXX-XXXXX">
+${problem ? `<p class="error" role="alert">${esc(problem)}</p>` : ''}<button class="btn" type="submit">Entrar</button>
+<p class="muted small">O navegador lembra o acesso por 30 dias. Em computador compartilhado, toque em "Sair" ao terminar.</p></form>`);
+}
+
+export async function serveOrganizer(request, env, orgId, sub, fairId, extra) {
   const org = ORGS.find(o => o.id === orgId);
   const url = new URL(request.url);
-  let key = url.searchParams.get('key') || '';
-  let form = null;
-  if (request.method === 'POST') { form = await request.formData(); key = String(form.get('key') || ''); }
-  if (!(await organizerOk(org, key))) return unauthorized();
-  const k = encodeURIComponent(key);
-  const base = `/org/${org.id}`;
+  const base = `/org/${orgId}`;
+  if (!org) return unauthorized();
+  if (sub === 'sair') return redirect(base, `${COOKIE}=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0`);
+  if (sub === 'entrar') {
+    if (request.method !== 'POST') return redirect(base);
+    const code = String((await request.formData()).get('code') || '').trim();
+    if (!(await organizerOk(org, code))) return html(loginPage(org, 'Código de acesso incorreto.'), 401);
+    return redirect(base, keyCookie(code, url));
+  }
+  const key = requestKey(request);
+  if (!(await organizerOk(org, key))) return html(loginPage(org, key ? 'O acesso expirou ou o código mudou. Entre de novo.' : ''), 401);
+  // Link antigo com a chave no endereço: guarda o acesso e limpa o endereço.
+  if (url.searchParams.get('key') && request.method === 'GET') { url.searchParams.delete('key'); return redirect(url.pathname + url.search, keyCookie(key, url)); }
+  const form = request.method === 'POST' ? await request.formData() : null;
 
   if (sub === 'nova') {
-    if (request.method === 'POST') {
+    if (form) {
       const v = name => text(form.get(name));
       const fair = { name: v('name'), place: v('place'), city: v('city') || org.city, uf: (v('uf') || org.uf).toUpperCase().slice(0, 2), start: v('start'), from: v('from'), until: v('until'), weekly: form.get('weekly') === 'on' };
       const problem = !fair.name ? 'Informe o nome da feira.' : !DAY.test(fair.start) ? 'Informe a data.' : !HM.test(fair.from) || !HM.test(fair.until) || fair.from >= fair.until ? 'Informe o horário (o fim depois do início).' : '';
-      if (problem) return html(page('Nova feira', newFairForm(org, key, fair, problem)), 400);
+      if (problem) return html(page('Nova feira', newFairForm(org, fair, problem)), 400);
       fair.id = `${slug(fair.name) || 'feira'}-${randomId(4)}`;
       fair.short = fair.name; fair.aliases = []; fair.orgId = org.id; fair.weekday = weekdayOf(fair.start);
       fair.code = randomCode(); fair.createdAt = new Date().toISOString();
       await env.BACKUPS.put(`fairdef:${fair.id}`, JSON.stringify(fair));
       await env.BACKUPS.put(`faircode:${fair.code}`, fair.id);
-      return Response.redirect(`${url.origin}${base}/f/${fair.id}?key=${k}`, 303);
+      return redirect(`${base}/f/${fair.id}`);
     }
-    return html(page('Nova feira', newFairForm(org, key, { city: org.city, uf: org.uf, from: '08:00', until: '13:00' }, '')));
+    return html(page('Nova feira', newFairForm(org, { city: org.city, uf: org.uf, from: '08:00', until: '13:00' }, '')));
   }
 
   if (fairId) {
     const fair = await getFair(env, fairId);
-    if (!fair || fair.orgId !== org.id) return html(page('Feira não encontrada', `<a class="back" href="${base}?key=${k}">‹ Suas feiras</a><h1>Feira não encontrada</h1>`), 404);
+    if (!fair || fair.orgId !== org.id) return html(page('Feira não encontrada', `<a class="back" href="${base}">‹ Suas feiras</a><h1>Feira não encontrada</h1>`), 404);
     const link = `${url.origin}/f/${fair.id}`;
-    if (poster) return html(posterPage(fair, link));
+    if (extra === '/cartaz') return html(posterPage(fair, link));
+    // Cancelar ou reativar (só as feiras criadas no painel; as do código mudam com uma atualização).
+    if (extra === '/cancelar' && form) {
+      const saved = await env.BACKUPS.get(`fairdef:${fair.id}`, 'json');
+      if (saved) {
+        if (form.get('undo') === '1') { delete saved.cancelled; delete saved.cancelledAt; }
+        else if (form.get('confirm') === 'on') { saved.cancelled = true; saved.cancelledAt = new Date().toISOString(); }
+        await env.BACKUPS.put(`fairdef:${fair.id}`, JSON.stringify(saved));
+      }
+      return redirect(`${base}/f/${fair.id}`);
+    }
     const [joins, reports] = await Promise.all([listJoins(env, fair.id), listReports(env, fair.id)]);
     const done = new Set(reports.filter(r => r.status === 'finalizado').map(r => r.contrato?.produtor?.id));
-    return html(page(fair.name, `<a class="back" href="${base}?key=${k}">‹ Suas feiras</a>
-<h1>${esc(fair.name)}</h1><p class="muted">${esc(scheduleText(fair))}${fair.place ? ' · ' + esc(fair.place) : ''}</p>
-<section class="card"><h2>QR da feira</h2><div class="qr">${qrSVG(link, 220)}</div>
+    const editable = !!(await env.BACKUPS.get(`fairdef:${fair.id}`));
+    const cancelBox = !editable ? '' : fair.cancelled
+      ? `<section class="card"><h2>Feira cancelada</h2><p class="muted">Cancelada em ${esc(dateBR(String(fair.cancelledAt || '').slice(0, 10)))}. Quem escanear o QR vê o aviso, e o app avisa quem já tinha entrado.</p>
+<form method="post" action="${base}/f/${fair.id}/cancelar"><input type="hidden" name="undo" value="1"><button class="btn soft" type="submit">Reativar a feira</button></form></section>`
+      : `<section class="card"><h2>Cancelar a feira</h2><p class="muted">Use se a feira não vai acontecer. Os relatórios já recebidos continuam guardados.</p>
+<form method="post" action="${base}/f/${fair.id}/cancelar"><label class="check"><input type="checkbox" name="confirm" required> Confirmo o cancelamento desta feira</label><button class="btn danger" type="submit">Cancelar esta feira</button></form></section>`;
+    return html(page(fair.name, `<a class="back" href="${base}">‹ Suas feiras</a>
+<h1>${esc(fair.name)}</h1><p class="muted">${fair.cancelled ? '<strong class="tag-off">Cancelada</strong> · ' : ''}${esc(scheduleText(fair))}${fair.place ? ' · ' + esc(fair.place) : ''}</p>
+${fair.cancelled ? '' : `<section class="card"><h2>QR da feira</h2><div class="qr">${qrSVG(link, 220)}</div>
 ${fair.code ? `<p class="muted small" style="text-align:center">Código para digitar no app</p><p class="code">${esc(fair.code)}</p>` : ''}
 <p class="link" style="text-align:center">${esc(link)}</p>
-<a class="btn" href="${base}/f/${fair.id}/cartaz?key=${k}">Abrir cartaz para imprimir</a>
-<p class="muted small">Envie o link no grupo dos produtores ou imprima o cartaz. O produtor aponta a câmera, toca em "Entrar com o AGRO Gestão" e a feira aparece pronta no app.</p></section>
+<a class="btn" href="${base}/f/${fair.id}/cartaz">Abrir cartaz para imprimir</a>
+<p class="muted small">Envie o link no grupo dos produtores ou imprima o cartaz. O produtor aponta a câmera, toca em "Entrar com o AGRO Gestão" e a feira aparece pronta no app.</p></section>`}
 <section class="card"><h2>Produtores · ${joins.length} ${joins.length === 1 ? 'entrou' : 'entraram'}</h2>
 ${joins.length ? joins.map(j => `<div class="row"><span><strong>${esc(j.name)}</strong><small>${esc(j.community || '')}</small></span><span class="n">${done.has(j.producerId) ? 'finalizou ✓' : 'na feira'}</span></div>`).join('') : '<p class="muted">Ninguém entrou ainda. Quando um produtor escanear o QR e concordar, ele aparece aqui.</p>'}</section>
 <section class="card"><h2>Dados e relatórios</h2><p class="muted">${reports.length} ${reports.length === 1 ? 'relatório recebido' : 'relatórios recebidos'}.</p>
-<a class="btn soft" href="/fairs/${fair.id}?key=${k}">Abrir relatórios e planilhas</a></section>`));
+<a class="btn soft" href="/fairs/${fair.id}">Abrir relatórios e planilhas</a></section>
+${cancelBox}`));
   }
 
   const fairs = await orgFairs(env, org);
   const counts = await Promise.all(fairs.map(async f => (await listJoins(env, f.id)).length));
   return html(page('Suas feiras', `<p class="muted small">${esc(org.name)}</p><h1>Suas feiras</h1>
-<section class="card">${fairs.length ? fairs.map((f, i) => `<a class="row" href="${base}/f/${f.id}?key=${k}"><span><strong>${esc(f.name)}</strong><small>${esc(f.start || f.weekly ? scheduleText(f) : 'Feira oficial')}</small></span><span class="n">${counts[i]} ${counts[i] === 1 ? 'produtor' : 'produtores'} ›</span></a>`).join('') : '<p class="muted">Nenhuma feira ainda.</p>'}</section>
-<a class="btn" href="${base}/nova?key=${k}">+ Nova feira</a>`));
+<section class="card">${fairs.length ? fairs.map((f, i) => `<a class="row" href="${base}/f/${f.id}"><span><strong>${esc(f.name)}</strong><small>${f.cancelled ? 'Cancelada · ' : ''}${esc(f.start || f.weekly ? scheduleText(f) : 'Feira oficial')}</small></span><span class="n">${counts[i]} ${counts[i] === 1 ? 'produtor' : 'produtores'} ›</span></a>`).join('') : '<p class="muted">Nenhuma feira ainda.</p>'}</section>
+<a class="btn" href="${base}/nova">+ Nova feira</a>
+<p style="text-align:center;margin-top:18px"><a class="back" href="${base}/sair">Sair do painel</a></p>`));
 }
 
-function newFairForm(org, key, f, problem) {
-  return `<a class="back" href="/org/${org.id}?key=${encodeURIComponent(key)}">‹ Suas feiras</a><h1>Nova feira</h1>
-<form method="post" class="card"><input type="hidden" name="key" value="${esc(key)}">
+function newFairForm(org, f, problem) {
+  return `<a class="back" href="/org/${org.id}">‹ Suas feiras</a><h1>Nova feira</h1>
+<form method="post" class="card">
 <label for="name">Nome da feira</label><input id="name" name="name" required maxlength="80" value="${esc(f.name || '')}" placeholder="Feira da Agricultura Familiar">
 <label for="place">Local</label><input id="place" name="place" maxlength="80" value="${esc(f.place || '')}" placeholder="Praça da Matriz">
 <div class="two"><div><label for="city">Município</label><input id="city" name="city" maxlength="60" value="${esc(f.city || '')}"></div><div><label for="uf">UF</label><input id="uf" name="uf" maxlength="2" value="${esc(f.uf || '')}"></div></div>
@@ -153,6 +200,7 @@ export async function servePublicFair(request, env, fairId) {
   const fair = await getFair(env, fairId);
   const url = new URL(request.url);
   if (!fair) return html(page('Feira não encontrada', '<h1>Feira não encontrada</h1><p class="muted">Confira o QR ou peça um novo à organização.</p>'), 404);
+  if (fair.cancelled) return html(page(fair.name, `<p class="muted small">${esc(fair.organizer)}</p><h1>${esc(fair.name)}</h1><section class="card"><h2>Feira cancelada</h2><p>Esta feira foi cancelada pela organização. Para mais informações, fale com a organização.</p></section>`));
   const open = `agrogestao://feira/${encodeURIComponent(fair.id)}?s=${encodeURIComponent(url.origin)}`;
   const when = fair.start || fair.weekly ? scheduleText({ ...fair, start: nextDate(fair) }) : '';
   return html(page(fair.name, `<p class="muted small">${esc(fair.organizer)}</p><h1>${esc(fair.name)}</h1>

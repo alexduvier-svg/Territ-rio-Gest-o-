@@ -247,14 +247,17 @@ function organizerPage(fair, reports, key) {
 
 export async function serveFairExport(request, env, fairId, day) {
   const fair = await getFair(env, fairId && fairId !== 'feira' ? fairId : FAIRS[0].id);
-  const token = new URL(request.url).searchParams.get('token') || '';
+  const cookieKey = ((request.headers.get('cookie') || '').split('; ').find(c => c.startsWith('agk=')) || '').slice(4);
+  const token = new URL(request.url).searchParams.get('token') || decodeURIComponent(cookieKey);
   if (!(await organizerOk(fair, token))) return json({ error: 'Acesso não autorizado.' }, 401);
   return json(buildExport(fair, await listReports(env, fair.id), day));
 }
 
 export async function serveFairPage(request, env, fairId, file) {
   const fair = await getFair(env, fairId);
-  const key = new URL(request.url).searchParams.get('key') || '';
+  // A chave vem do endereço (links antigos) ou do acesso guardado pelo painel (cookie).
+  const cookieKey = ((request.headers.get('cookie') || '').split(/;\s*/).find(c => c.startsWith('agk=')) || '').slice(4);
+  const key = new URL(request.url).searchParams.get('key') || decodeURIComponent(cookieKey);
   const headers = { 'cache-control': 'no-store', 'x-robots-tag': 'noindex', 'referrer-policy': 'no-referrer', 'x-content-type-options': 'nosniff' };
   if (!(await organizerOk(fair, key))) return new Response('Acesso não autorizado.', { status: 401, headers: { ...headers, 'content-type': 'text/plain; charset=utf-8' } });
   const reports = await listReports(env, fair.id);
@@ -262,7 +265,7 @@ export async function serveFairPage(request, env, fairId, file) {
   if (file === '/resumo.csv') return new Response(resumoCsv(reports), { headers: { ...headers, 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="${fair.id}-resumo-${day}.csv"` } });
   if (file === '/produtos.csv') return new Response(produtosCsv(reports), { headers: { ...headers, 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="${fair.id}-produtos-${day}.csv"` } });
   if (file === '/relatorios.json') return new Response(JSON.stringify({ fair: { id: fair.id, name: fair.name, organizer: fair.organizer, city: fair.city, uf: fair.uf }, reports }, null, 2), { headers: { ...headers, 'content-type': 'application/json; charset=utf-8', 'content-disposition': `attachment; filename="${fair.id}-relatorios-${day}.json"` } });
-  return new Response(organizerPage(fair, reports, key), { headers: { ...headers, 'content-type': 'text/html; charset=utf-8', 'content-security-policy': "default-src 'none'; style-src 'unsafe-inline'" } });
+  return new Response(organizerPage(fair, reports, new URL(request.url).searchParams.get('key') || ''), { headers: { ...headers, 'content-type': 'text/html; charset=utf-8', 'content-security-policy': "default-src 'none'; style-src 'unsafe-inline'" } });
 }
 
 // Quem entrou na feira pelo QR (para o painel do organizador).
