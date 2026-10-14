@@ -46,6 +46,14 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 - Valores e quantidades com algarismos de largura fixa (`tabular`).
 - Palavras inteiras: sem hifenização automática.
 
+## Alinhamento (tokens em `src/polish.css`)
+
+- Margem lateral da página: 22 px em todas as telas.
+- Cartões: canto **24** (`--r-card`), recuo interno **18** (`--pad-card`).
+- Blocos dentro de cartões e folhas: canto **16** (`--r-inner`). Controles (busca, campos): canto **14** (`--r-control`).
+- Espaço entre blocos: **16** (`--gap-block`); **20** depois de cartões com relevo 3D (a "espessura" embaixo ocupa 4 px).
+- Título da página → primeiro bloco: 20.
+
 ## Regras de layout (inegociáveis)
 
 1. **Texto nunca sai do botão nem é cortado.** Ver `src/fit.css`.

@@ -989,3 +989,46 @@ dialog[data-kind='story'] .dialog-close { margin: -4px -4px 0 auto; }
 .fin-kinds .chip { min-height: 38px; }
 .fin-check { display: flex; align-items: center; gap: 10px; min-height: 48px; font-size: 15px; }
 .fin-check input { width: 22px; height: 22px; accent-color: var(--action-green, #7fa653); }
+
+/* ------------------------------------------------------------------ alinhamento único (varredura 0.8.1)
+   cartões: canto 24, recuo 18 · blocos internos: canto 16 · controles: canto 14 · espaço entre blocos: 16
+   (20 nos cartões com relevo 3D, por causa da "espessura" embaixo) */
+:root {
+  --r-card: 24px;
+  --r-inner: 16px;
+  --r-control: 14px;
+  --pad-card: 18px;
+  --gap-block: 16px;
+}
+#app .panel,
+#app .mg-list,
+#app .feira-chart,
+#app .mg-period,
+#app .feira-rows,
+#app .catalog-entry,
+#app .clients-summary-toggle,
+#app .fair-card,
+#app .feira-hero,
+.fsh-main { border-radius: var(--r-card); }
+#app .panel { padding: 18px var(--pad-card); margin-bottom: var(--gap-block); }
+#app .mg-list { padding: 2px var(--pad-card); margin-bottom: var(--gap-block); }
+#app .feira-chart { padding: 18px var(--pad-card) 12px; margin-bottom: var(--gap-block); }
+#app .mg-period { padding: 2px var(--pad-card); margin-bottom: var(--gap-block); }
+#app .feira-hero { padding: 20px var(--pad-card) 18px; margin-bottom: 20px; }
+#app .catalog-entry { padding: 15px var(--pad-card); margin-bottom: var(--gap-block); }
+#app .clients-summary-toggle { padding: 14px var(--pad-card); }
+.fsh-main { padding-left: var(--pad-card); }
+.fc-main { padding-left: 16px; }
+#app .feira-sell-hero { margin-bottom: 20px; }
+#app .fair-card { margin-bottom: var(--gap-block); }
+#app .feira-search { border-radius: var(--r-control); margin-bottom: var(--gap-block); }
+#app .feira-chips { margin-bottom: var(--gap-block); }
+#app .feira-stock { margin-bottom: var(--gap-block); }
+#app .products-context, #app .stock-context { margin-bottom: var(--gap-block); }
+#app .page-title { margin-bottom: 20px; }
+#app .feira-group { margin-bottom: var(--gap-block); }
+.ds-card, .sd-list, .mg-scope-list, .fin-warn { border-radius: var(--r-inner); }
+.mg-advisor .panel { margin-bottom: var(--gap-block); }
+#app .clients-layout { row-gap: var(--gap-block); margin-bottom: var(--gap-block); }
+#app .clients-layout > * { margin-top: 0 !important; margin-bottom: 0 !important; }
+#app .reminder-times { margin: 0 2px 12px; }
