@@ -2185,7 +2185,10 @@ function nextFairDate(f){const today=E.dayKey(Date.now());if(!f.start)return tod
 const WEEKDAY_PT=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
 function fairWhen(f){const d=nextFairDate(f),w=new Date(d+'T12:00:00-03:00').toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo',weekday:'long',day:'2-digit',month:'2-digit'});return (f.weekly?(f.weekday===0||f.weekday===6?'Todo ':'Toda ')+WEEKDAY_PT[f.weekday]+' · próxima: ':'')+w+(f.from&&f.until?' · '+f.from+' às '+f.until:'');}
 async function openFairJoin(ref){if(!ref)return toast('Confira o código ou o link da feira.');if(!navigator.onLine)return toast('Sem internet agora. Tente de novo quando conectar.');
- let found;try{found=await fetchFair(ref);}catch(err){return toast(err.message);}joinPending=found;const f=found.fair,host=new URL(found.server).host;
+ let found;try{found=await fetchFair(ref);}catch(err){return toast(err.message);}const f=found.fair,host=new URL(found.server).host;
+ // Feira sem data definida: mostra a feira, mas não cria evento (seria criado para hoje, errado).
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(f.start||'')){joinPending=null;return openModal('Feira encontrada','<section class="fj-card"><small>'+escape(f.organizer||'')+'</small><strong>'+escape(f.name)+'</strong><span>A organização ainda não definiu a próxima data desta feira.</span></section><p class="fj-hint">Quando a data for definida, escaneie o QR de novo ou digite o código.</p>','fair-join',null,btn('close-modal','Entendi','success modal-action'));}
+ joinPending=found;
  openModal('Feira encontrada','<section class="fj-card"><small>'+escape(f.organizer||'')+'</small><strong>'+escape(f.name)+'</strong><span>'+escape(fairWhen(f))+'</span>'+(f.place?'<span>'+escape(f.place)+(f.city?' · '+escape(f.city)+(f.uf?'/'+escape(f.uf):''):'')+'</span>':'')+'</section>'
   +'<p class="fr-consent">Ao entrar, as vendas deste evento vão automaticamente para a organização da feira, com o seu nome. Custos, clientes e outras vendas não vão.'+(f.weekly?' A feira é semanal: o app cria o próximo dia sozinho, e você pode sair quando quiser.':'')+'</p><p class="fj-host">Dados enviados para: '+escape(host)+'</p>',
   'fair-join',null,btn('fair-join-confirm','Concordo e entrar','success modal-action')+btn('close-modal','Agora não','link'));}
