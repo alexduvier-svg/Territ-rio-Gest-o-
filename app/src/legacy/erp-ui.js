@@ -1947,7 +1947,7 @@ function fairReportSheet(id){const e=model.data.events.find(v=>v.id===id);if(!e)
 function setFairState(id,patch){const st=model.data.settings;st.fairReports={...(st.fairReports||{}),[id]:{...(st.fairReports||{})[id],...patch}};persist();}
 async function sendFairReport(id,silent){const e=model.data.events.find(v=>v.id===id);if(!e||!e.fairId)return false;const state=fairReportState(e),report=state.pending?state.payload:null;const body=report||{...fairReportFor(e),consent:{at:new Date().toISOString(),text:FAIR_CONSENT}};
  if(!FAIR_API||!navigator.onLine){setFairState(id,{pending:true,payload:body});if(!silent)toast('Sem internet agora. O app envia sozinho quando a conexão voltar.');return false;}
- try{const res=await fetch(FAIR_API+'/api/fairs/'+encodeURIComponent(e.fairId)+'/reports',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});if(!res.ok){const msg=(await res.json().catch(()=>({}))).error;throw Error(msg||'Erro '+res.status);}
+ try{const res=await fetch((e.fairServer||FAIR_API)+'/api/fairs/'+encodeURIComponent(e.fairId)+'/reports',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});if(!res.ok){const msg=(await res.json().catch(()=>({}))).error;throw Error(msg||'Erro '+res.status);}
   setFairState(id,{pending:false,payload:null,sentAt:new Date().toISOString(),snooze:''});if(!silent){toast('Relatório enviado à organização.');closeModal();render();}return true;}
  catch(err){setFairState(id,{pending:true,payload:body});if(!silent)toast('Não foi possível enviar agora ('+err.message+'). O app tenta de novo sozinho.');return false;}}
 async function flushFairReports(){const st=model.data.settings.fairReports||{};for(const [id,s] of Object.entries(st))if(s&&s.pending)await sendFairReport(id,true);render();}
@@ -2017,8 +2017,8 @@ function fairSignature(e){const s=fairReportState(e),load=eventLoad(e.id),sales=
 function fairConsent(e){const s=fairReportState(e);return s.consentAt||e.fairConsentAt||'';}
 let fairSending=false;
 sendFairReport=async function(id,silent){const e=model.data.events.find(v=>v.id===id);if(!e||!e.fairId)return false;const at=fairConsent(e);if(!at)return false;const sig=fairSignature(e);
- if(!FAIR_API||!navigator.onLine){setFairState(id,{pending:true});return false;}
- try{const body={...fairReportFor(e),consent:{at,text:FAIR_AUTO_NOTE}};const res=await fetch(FAIR_API+'/api/fairs/'+encodeURIComponent(e.fairId)+'/reports',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});if(!res.ok){const msg=(await res.json().catch(()=>({}))).error;throw Error(msg||'Erro '+res.status);}
+ if(!(e.fairServer||FAIR_API)||!navigator.onLine){setFairState(id,{pending:true});return false;}
+ try{const body={...fairReportFor(e),consent:{at,text:FAIR_AUTO_NOTE}};const res=await fetch((e.fairServer||FAIR_API)+'/api/fairs/'+encodeURIComponent(e.fairId)+'/reports',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});if(!res.ok){const msg=(await res.json().catch(()=>({}))).error;throw Error(msg||'Erro '+res.status);}
   setFairState(id,{pending:false,payload:null,sentAt:new Date().toISOString(),sig,lastError:''});if(!silent)render();return true;}
  catch(err){setFairState(id,{pending:true,lastError:String(err.message||err)});return false;}};
 async function syncFairReports(){if(fairSending)return;fairSending=true;try{const now=Date.now();for(const e of model.data.events){if(!e.fairId||!fairConsent(e))continue;const s=fairReportState(e),due=s.closedAt||now>fairEventEnd(e);if(!due||now-fairEventEnd(e)>45*864e5&&!s.pending)continue;if(!model.data.sales.some(v=>v.scope===e.id)&&!s.closedAt)continue;if(s.sig===fairSignature(e)&&!s.pending)continue;const first=!s.sentAt,ok=await sendFairReport(e.id,true);if(ok&&s.closedAt&&!first&&s.sig)toast('Relatório da feira atualizado.');}}finally{fairSending=false;}}
@@ -2168,6 +2168,58 @@ const saveProductBeforeChoices=actions['save-product'];
 actions['save-product']=d=>{const f=productForm;if(f){const coffee=f.category==='Cafés';for(const v of f.variants){const missing=coffee&&!v.type?'o tipo de café':coffee&&!v.format?'o formato':!v.unit?(coffee?'a embalagem':'a embalagem ou unidade de venda'):coffee&&!(v.weight>0)?'o peso':'';if(missing){formError='Escolha '+missing+' em Configurações do produto.';render();setTimeout(()=>document.getElementById('form-error')?.scrollIntoView({block:'center',behavior:'smooth'}),60);return;}}}return saveProductBeforeChoices(d);};
 // Aviso do estoque inicial no cadastro: frase clara, sem número solto.
 function stockNoticeText(v){const n=E.number(v.stockInput);if(!(n>0))return '<span>Sem estoque inicial: o produto começa com 0. Você pode repor depois.</span>';return '<span>Ao salvar, entram <strong>'+escape(E.quantity(n))+(v.unit?' '+escape(E.unitLabel(v.unit,n)):'')+'</strong> no estoque.</span>';}
+// --- Entrar numa feira pelo QR do organizador (portfolio-server/src/organizer.js) ---
+// A câmera do celular lê o QR → página da feira → "Entrar com o AGRO Gestão" abre agrogestao://feira/<id>?s=<servidor>.
+// Sem câmera: Eventos → Entrar numa feira → código de 6 letras (ou o link colado).
+// O evento é criado pronto, ligado à feira, e as vendas dele vão para o servidor DAQUELA feira.
+paths.qrScan='<path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M7 12h10"/>';
+const FAIR_LINK=/^agrogestao:\/\/feira\/([a-z0-9-]{3,64})(?:\?s=([^&#]+))?/i;
+let joinPending=null;
+function fairServerOk(s){try{const u=new URL(s);return u.protocol==='https:'||/^(127\.0\.0\.1|localhost)$/.test(u.hostname);}catch(e){return false;}}
+function parseFairInput(v){v=String(v||'').trim();const m=v.match(FAIR_LINK);if(m)return {id:m[1].toLowerCase(),server:m[2]?decodeURIComponent(m[2]):FAIR_API};
+ try{const u=new URL(v),p=u.pathname.match(/^\/f\/([a-z0-9-]{3,64})\/?$/);if(p)return {id:p[1],server:u.origin};}catch(e){}
+ if(/^[A-Za-z0-9]{6}$/.test(v))return {code:v.toUpperCase(),server:FAIR_API};return null;}
+async function fetchFair(ref){const server=String(ref.server||FAIR_API).replace(/\/$/,'');if(!fairServerOk(server))throw Error('Este endereço de feira não é seguro.');
+ const r=await fetch(ref.code?server+'/api/fair-code/'+ref.code:server+'/api/fairs/'+encodeURIComponent(ref.id)+'/info'),d=await r.json().catch(()=>({}));if(!r.ok||!d.fair)throw Error(d.error||'Feira não encontrada.');return {fair:d.fair,server};}
+function nextFairDate(f){const today=E.dayKey(Date.now());if(!f.start)return today;if(!f.weekly||f.start>=today)return f.start;const t=new Date(today+'T12:00:00-03:00'),diff=((f.weekday||0)-t.getUTCDay()+7)%7;return E.dayKey(t.getTime()+diff*864e5);}
+const WEEKDAY_PT=['domingo','segunda-feira','terça-feira','quarta-feira','quinta-feira','sexta-feira','sábado'];
+function fairWhen(f){const d=nextFairDate(f),w=new Date(d+'T12:00:00-03:00').toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo',weekday:'long',day:'2-digit',month:'2-digit'});return (f.weekly?(f.weekday===0||f.weekday===6?'Todo ':'Toda ')+WEEKDAY_PT[f.weekday]+' · próxima: ':'')+w+(f.from&&f.until?' · '+f.from+' às '+f.until:'');}
+async function openFairJoin(ref){if(!ref)return toast('Confira o código ou o link da feira.');if(!navigator.onLine)return toast('Sem internet agora. Tente de novo quando conectar.');
+ let found;try{found=await fetchFair(ref);}catch(err){return toast(err.message);}joinPending=found;const f=found.fair,host=new URL(found.server).host;
+ openModal('Feira encontrada','<section class="fj-card"><small>'+escape(f.organizer||'')+'</small><strong>'+escape(f.name)+'</strong><span>'+escape(fairWhen(f))+'</span>'+(f.place?'<span>'+escape(f.place)+(f.city?' · '+escape(f.city)+(f.uf?'/'+escape(f.uf):''):'')+'</span>':'')+'</section>'
+  +'<p class="fr-consent">Ao entrar, as vendas deste evento vão automaticamente para a organização da feira, com o seu nome. Custos, clientes e outras vendas não vão.'+(f.weekly?' A feira é semanal: o app cria o próximo dia sozinho, e você pode sair quando quiser.':'')+'</p><p class="fj-host">Dados enviados para: '+escape(host)+'</p>',
+  'fair-join',null,btn('fair-join-confirm','Concordo e entrar','success modal-action')+btn('close-modal','Agora não','link'));}
+function fairSubs(){return model.data.settings.fairSubs=Array.isArray(model.data.settings.fairSubs)?model.data.settings.fairSubs:[];}
+function createFairEvent(f,server,consentAt){const st=model.data.settings,date=nextFairDate(f),dup=model.data.events.find(e=>e.fairId===f.id&&e.start===date);if(dup)return dup;
+ const e={id:E.uid(),name:f.name,place:f.place||'Local não informado',start:date,end:date,from:f.from||'08:00',until:f.until||'18:00',city:f.city||st.city||'',uf:f.uf||st.uf||'',status:'active',qrKind:'catalog',website:'',fairId:f.id,fairName:f.name,fairServer:server,fairConsentAt:consentAt,fairWeekly:!!f.weekly,fairWeekday:f.weekday};
+ model.data.events.push(e);return e;}
+async function sendFairJoin(e){if(!e||!e.fairServer||e.fairJoinedAt||!navigator.onLine)return;const st=model.data.settings;
+ try{const r=await fetch(e.fairServer+'/api/fairs/'+encodeURIComponent(e.fairId)+'/join',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({producerId:fairProducerId(),name:st.producerName||'Produtor',community:st.community||st.city||'',consentAt:e.fairConsentAt,eventStart:e.start})});if(r.ok){e.fairJoinedAt=new Date().toISOString();persist();}}catch(err){}}
+// Feira semanal: cria o próximo dia depois que o anterior acabou; dia sem venda nem "o que vou levar" = não foi (sem avisos).
+function ensureWeeklyFairs(){const now=Date.now();let changed=false;
+ for(const e of model.data.events){if(!e.fairWeekly||fairReportState(e).closedAt||now<fairEventEnd(e))continue;if(!model.data.sales.some(s=>s.scope===e.id)&&!eventLoad(e.id)){setFairState(e.id,{closedAt:new Date().toISOString(),absent:true});changed=true;}}
+ for(const sub of fairSubs()){if(!sub.weekly)continue;const has=model.data.events.some(e=>e.fairId===sub.fairId&&now<fairEventEnd(e));if(!has){const e=createFairEvent({...sub,id:sub.fairId,name:sub.name},sub.server,sub.consentAt);if(e){changed=true;sendFairJoin(e);}}}
+ if(changed){syncEvents();persist();render();}}
+Object.assign(actions,{
+ 'fair-join-start':()=>openModal('Entrar numa feira','<p class="dialog-text">Digite o código de 6 letras do cartaz da feira, ou cole o link que a organização enviou.</p>'+field('fair-code-input','Código ou link','','autocomplete="off" autocapitalize="characters" placeholder="Ex.: YYMUL2"')+'<p class="fj-hint">Com o celular, também dá para apontar a câmera para o QR do cartaz e tocar em "Entrar com o AGRO Gestão".</p>','fair-join-code',null,btn('fair-join-lookup','Procurar feira','success modal-action')),
+ 'fair-join-lookup':()=>openFairJoin(parseFairInput(document.getElementById('fair-code-input')?.value)),
+ 'fair-join-confirm':()=>{const j=joinPending;if(!j)return;const f=j.fair,stamp=new Date().toISOString(),e=createFairEvent(f,j.server,stamp);
+  if(f.weekly){const subs=fairSubs().filter(s=>s.fairId!==f.id);subs.push({fairId:f.id,server:j.server,name:f.name,place:f.place,city:f.city,uf:f.uf,from:f.from,until:f.until,start:f.start,weekly:true,weekday:f.weekday,consentAt:stamp});model.data.settings.fairSubs=subs;}
+  joinPending=null;syncEvents();if(!persist())return toast('Não foi possível salvar. Libere espaço.');sendFairJoin(e);closeModal();page='Eventos';render();toast('Você entrou na '+f.name+'.');
+  if(model.data.products.length)setTimeout(()=>startEventLoad(e.id),350);},
+ 'fair-leave':d=>{const e=model.data.events.find(v=>v.id===d.id);if(!e)return;model.data.settings.fairSubs=fairSubs().filter(s=>s.fairId!==e.fairId);persist();closeModal();render();toast('Você saiu da '+(e.fairName||e.name)+'. O app não cria mais os próximos dias.');}
+});
+// Eventos: a entrada "Entrar numa feira" logo abaixo do título.
+const eventsPageBeforeJoin=eventsPage;
+eventsPage=function(){const h=eventsPageBeforeJoin();return h.replace('<p class="reminder-times">',btn('fair-join-start','<span class="fj-icon" aria-hidden="true">'+icon('qrScan')+'</span><span class="fj-text"><strong>Entrar numa feira</strong><small>Com o QR ou o código da organização</small></span>'+icon('chevron'),'fj-entry')+'<p class="reminder-times">');};
+// Página do evento de feira semanal: sair da feira.
+const eventDetailBeforeLeave=eventDetail;
+eventDetail=function(id){eventDetailBeforeLeave(id);const e=model.data.events.find(v=>v.id===id),body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(!e||!body||!fairSubs().some(s=>s.fairId===e.fairId))return;body.insertAdjacentHTML('beforeend','<div class="fj-leave">'+btn('fair-leave','Não participar mais desta feira','link',{id:e.id})+'</div>');};
+// As vendas de feiras entradas pelo QR vão para o servidor da própria feira.
+window.TerritorioShell.joinFairLink=url=>{const ref=parseFairInput(url);if(ref){closeModal();page='Eventos';render();openFairJoin(ref);}};
+window.addEventListener('online',()=>{model.data.events.forEach(e=>sendFairJoin(e));});
+setTimeout(()=>{ensureWeeklyFairs();model.data.events.forEach(e=>sendFairJoin(e));},3000);
+setInterval(ensureWeeklyFairs,5*60000);
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

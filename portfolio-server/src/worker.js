@@ -21,6 +21,7 @@ import { LIMITS, ValidationError, validatePortfolio, referencedImages, isHash, i
 import { renderPortfolio, renderMessage, vcard } from './page.js';
 import { BACKUP_ROUTE, handleBackup } from './backups.js';
 import { FAIR_API, FAIR_EXPORT, FAIR_PAGE, handleFairsApi, serveFairExport, serveFairPage } from './fairs.js';
+import { ORG_ROUTE, PUBLIC_FAIR, FAIR_CODE, serveOrganizer, servePublicFair, serveFairCode } from './organizer.js';
 
 const PAGE_HEADERS = {
   'content-type': 'text/html; charset=utf-8',
@@ -262,9 +263,15 @@ export default {
         }
         const fairExport = pathname.match(FAIR_EXPORT);
         if (fairExport && request.method === 'GET') return serveFairExport(request, env, fairExport[1], fairExport[2]);
+        const fairCode = pathname.match(FAIR_CODE);
+        if (fairCode && request.method === 'GET') {
+          response = await serveFairCode(request, env, fairCode[1]);
+          for (const [k, v] of Object.entries(cors)) response.headers.set(k, v);
+          return response;
+        }
         const fairApi = pathname.match(FAIR_API);
         if (fairApi) {
-          response = await handleFairsApi(request, env, fairApi[1]);
+          response = await handleFairsApi(request, env, fairApi[1], fairApi[2]);
           for (const [k, v] of Object.entries(cors)) response.headers.set(k, v);
           return response;
         }
@@ -290,6 +297,11 @@ export default {
       }
     }
 
+    // Painel do organizador (GET e o POST do formulário de nova feira) e a página pública do QR.
+    const orgRoute = pathname.match(ORG_ROUTE);
+    if (orgRoute && ['GET', 'POST'].includes(request.method)) return serveOrganizer(request, env, orgRoute[1], orgRoute[2] === 'nova' ? 'nova' : '', orgRoute[3] || '', !!orgRoute[4]);
+    const publicFair = pathname.match(PUBLIC_FAIR);
+    if (publicFair && request.method === 'GET') return servePublicFair(request, env, publicFair[1]);
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
     const page = pathname.match(/^\/p\/([a-z0-9-]{3,48})(\/.*)?$/);
     if (page) return servePublic(request, env, ctx, page[1], page[2] || '', origin);

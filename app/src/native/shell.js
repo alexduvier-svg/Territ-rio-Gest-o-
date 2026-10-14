@@ -149,6 +149,10 @@ function installLifecycle() {
     settle();
     window.dispatchEvent(new Event('territorio:pause'));
   });
+  // Link da feira (agrogestao://feira/<id>?s=<servidor>), vindo do QR do organizador: com o app aberto ou fechado.
+  const openLink = url => { if (url && /^agrogestao:\/\/feira\//i.test(url)) setTimeout(() => window.TerritorioShell?.joinFairLink?.(url), 600); };
+  App.addListener('appUrlOpen', event => openLink(event?.url));
+  App.getLaunchUrl().then(launch => openLink(launch?.url)).catch(() => {});
   // A tela some antes do "pause" do Android: começa a esvaziar a fila o quanto antes.
   document.addEventListener('visibilitychange', () => { if (document.hidden) settle(); });
   window.addEventListener('territorio:storage-error', () => {

@@ -10,9 +10,15 @@
 // Os relatórios ficam no KV da própria conta (BACKUPS, prefixo "fairrep:") e somem sozinhos em 180 dias.
 // A chave do organizador nunca fica no código: só o SHA-256 dela.
 
+// Organizações (quem organiza feiras). A chave de cada uma fica só como SHA-256.
+export const ORGS = [
+  { id: 'carangola', name: 'Secretaria de Cultura, Turismo e Patrimônio Histórico de Carangola', city: 'Carangola', uf: 'MG', keyHash: 'efe57bb5b23949569a0a8277977b313c783930651aea814b6395a389a1363d36' },
+];
+// Feiras fixas no código (as criadas no painel do organizador ficam no KV, prefixo "fairdef:").
 const FAIRS = [
   {
     id: 'feira-inventario',
+    orgId: 'carangola',
     name: 'Feira do Inventário Rural e Cultural',
     short: 'Feira do Inventário',
     aliases: ['feira do inventario', 'feira do inventario rural', 'feira inventario', 'inventario rural', 'feira do inventario rural e cultural'],
@@ -26,7 +32,7 @@ const TTL = 180 * 24 * 60 * 60;
 const MAX_BYTES = 384 * 1024;
 const REPORT_ID = /^[a-z0-9-]{8,80}$/;
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
-export const FAIR_API = /^\/api\/fairs(?:\/([a-z0-9-]{3,48})\/reports)?$/;
+export const FAIR_API = /^\/api\/fairs(?:\/([a-z0-9-]{3,48})\/(reports|join|info))?$/;
 export const FAIR_EXPORT = /^\/api\/eventos\/(?:([a-z0-9-]{3,48}?)-)?(\d{4}-\d{2}-\d{2})\/export\.json$/;
 export const FAIR_PAGE = /^\/fairs\/([a-z0-9-]{3,48})(\/(?:resumo\.csv|produtos\.csv|relatorios\.json))?$/;
 
@@ -39,13 +45,34 @@ async function sha256(value) {
   const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
   return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
 }
-async function organizerOk(fair, key) {
+export async function organizerOk(fair, key) {
   if (!fair || !key) return false;
   const a = await sha256(key.trim().toUpperCase());
   let diff = a.length ^ fair.keyHash.length;
   for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ fair.keyHash.charCodeAt(i);
   return diff === 0;
 }
+
+// Feira pelo id: as fixas do código ou as criadas no painel (KV). Junta os dados da organização.
+const withOrg = f => { const org = ORGS.find(o => o.id === f.orgId) || ORGS[0]; return { ...f, organizer: org.name, keyHash: org.keyHash, orgId: org.id }; };
+export async function getFair(env, id) {
+  const fixed = FAIRS.find(f => f.id === id);
+  if (fixed) return withOrg(fixed);
+  const saved = env.BACKUPS && await env.BACKUPS.get(`fairdef:${id}`, 'json');
+  return saved ? withOrg(saved) : null;
+}
+export async function allFairs(env) {
+  const out = FAIRS.map(withOrg);
+  let cursor;
+  do {
+    const page = await env.BACKUPS.list({ prefix: 'fairdef:', cursor });
+    for (const k of page.keys) { const f = await env.BACKUPS.get(k.name, 'json'); if (f) out.push(withOrg(f)); }
+    cursor = page.list_complete ? null : page.cursor;
+  } while (cursor);
+  return out;
+}
+// Dados públicos de uma feira (sem chave nem organização interna), para o app e a página do QR.
+export const publicFair = ({ keyHash, ...f }) => f;
 
 // O relatório é montado pelo app; aqui só se confere o formato e se corta o que for grande demais.
 function cleanReport(body, fair) {
@@ -125,7 +152,7 @@ export function buildExport(fair, reports, day) {
   };
 }
 
-async function listReports(env, fairId) {
+export async function listReports(env, fairId) {
   const out = [];
   let cursor;
   do {
@@ -136,14 +163,29 @@ async function listReports(env, fairId) {
   return out.sort((a, b) => a.event.start.localeCompare(b.event.start) || a.producer.name.localeCompare(b.producer.name, 'pt-BR'));
 }
 
-export async function handleFairsApi(request, env, fairId) {
+export async function handleFairsApi(request, env, fairId, action = 'reports') {
   if (!fairId) {
     if (request.method !== 'GET') return json({ error: 'Método não permitido.' }, 405);
-    return json({ fairs: FAIRS.map(({ keyHash, organizer, ...f }) => f) });
+    return json({ fairs: (await allFairs(env)).map(publicFair) });
   }
-  const fair = FAIRS.find(f => f.id === fairId);
+  const fair = await getFair(env, fairId);
   if (!fair) return json({ error: 'Feira não encontrada.' }, 404);
+  // Dados da feira para o app (ao entrar pelo QR).
+  if (action === 'info') {
+    if (request.method !== 'GET') return json({ error: 'Método não permitido.' }, 405);
+    return json({ fair: publicFair(fair) });
+  }
   if (request.method !== 'POST') return json({ error: 'Método não permitido.' }, 405);
+  // Entrou na feira pelo QR: o organizador vê quem entrou (só nome e comunidade, com a concordância).
+  if (action === 'join') {
+    let body;
+    try { body = JSON.parse((await request.text()).slice(0, 4096)); } catch { return json({ error: 'Pedido inválido.' }, 400); }
+    const producerId = text(body.producerId, 40);
+    if (!/^p-[a-z0-9]{3,30}$/.test(producerId) || !text(body.name) || !body.consentAt) return json({ error: 'Faltam nome, identificação ou concordância.' }, 400);
+    const record = { producerId, name: text(body.name), community: text(body.community), eventStart: DAY.test(String(body.eventStart || '')) ? body.eventStart : '', consentAt: text(body.consentAt, 40), joinedAt: new Date().toISOString() };
+    await env.BACKUPS.put(`fairjoin:${fair.id}:${producerId}`, JSON.stringify(record), { expirationTtl: TTL * 2 });
+    return json({ ok: true });
+  }
   const raw = await request.text();
   if (raw.length > MAX_BYTES) return json({ error: 'Relatório grande demais.' }, 413);
   let report;
@@ -197,14 +239,14 @@ function organizerPage(fair, reports, key) {
 }
 
 export async function serveFairExport(request, env, fairId, day) {
-  const fair = FAIRS.find(f => f.id === (fairId && fairId !== 'feira' ? fairId : FAIRS[0].id));
+  const fair = await getFair(env, fairId && fairId !== 'feira' ? fairId : FAIRS[0].id);
   const token = new URL(request.url).searchParams.get('token') || '';
   if (!(await organizerOk(fair, token))) return json({ error: 'Acesso não autorizado.' }, 401);
   return json(buildExport(fair, await listReports(env, fair.id), day));
 }
 
 export async function serveFairPage(request, env, fairId, file) {
-  const fair = FAIRS.find(f => f.id === fairId);
+  const fair = await getFair(env, fairId);
   const key = new URL(request.url).searchParams.get('key') || '';
   const headers = { 'cache-control': 'no-store', 'x-robots-tag': 'noindex', 'referrer-policy': 'no-referrer', 'x-content-type-options': 'nosniff' };
   if (!(await organizerOk(fair, key))) return new Response('Acesso não autorizado.', { status: 401, headers: { ...headers, 'content-type': 'text/plain; charset=utf-8' } });
@@ -214,4 +256,16 @@ export async function serveFairPage(request, env, fairId, file) {
   if (file === '/produtos.csv') return new Response(produtosCsv(reports), { headers: { ...headers, 'content-type': 'text/csv; charset=utf-8', 'content-disposition': `attachment; filename="${fair.id}-produtos-${day}.csv"` } });
   if (file === '/relatorios.json') return new Response(JSON.stringify({ fair: { id: fair.id, name: fair.name, organizer: fair.organizer, city: fair.city, uf: fair.uf }, reports }, null, 2), { headers: { ...headers, 'content-type': 'application/json; charset=utf-8', 'content-disposition': `attachment; filename="${fair.id}-relatorios-${day}.json"` } });
   return new Response(organizerPage(fair, reports, key), { headers: { ...headers, 'content-type': 'text/html; charset=utf-8', 'content-security-policy': "default-src 'none'; style-src 'unsafe-inline'" } });
+}
+
+// Quem entrou na feira pelo QR (para o painel do organizador).
+export async function listJoins(env, fairId) {
+  const out = [];
+  let cursor;
+  do {
+    const page = await env.BACKUPS.list({ prefix: `fairjoin:${fairId}:`, cursor });
+    for (const k of page.keys) { const r = await env.BACKUPS.get(k.name, 'json'); if (r) out.push(r); }
+    cursor = page.list_complete ? null : page.cursor;
+  } while (cursor);
+  return out.sort((a, b) => a.name.localeCompare(b.name, 'pt-BR'));
 }
