@@ -121,13 +121,15 @@ function installHaptics() {
 function installKeepAwake() {
   let awake = null;
   const sync = () => {
-    const shouldStayAwake = !document.hidden && SELLING_PAGES.has(window.TerritorioShell?.page());
+    // Tela acesa só na banca: no horário de um evento e numa tela de venda. Em casa, a tela apaga normalmente.
+    const shouldStayAwake = !document.hidden && SELLING_PAGES.has(window.TerritorioShell?.page()) && !!window.TerritorioShell?.eventRunning?.();
     if (shouldStayAwake === awake) return;
     awake = shouldStayAwake;
     (awake ? KeepAwake.keepAwake() : KeepAwake.allowSleep()).catch(() => {});
   };
   new MutationObserver(sync).observe(document.getElementById('app'), { childList: true });
   document.addEventListener('visibilitychange', sync);
+  setInterval(sync, 60000);
   sync();
 }
 
@@ -299,8 +301,10 @@ async function scheduleFairNotices() {
       if (f.closed) continue;
       f.times.forEach((at, i) => { if (at > now) wanted.set(fairNoticeId(f.id, i), { f, at, i }); });
     }
+    // Começo de cada dia de evento (30 min antes, ou no início).
+    for (const st of window.TerritorioShell?.eventStarts?.() || []) if (st.at > now) wanted.set(fairNoticeId('start:' + st.id), { st, at: st.at });
     const { notifications } = await LocalNotifications.getPending();
-    const stale = notifications.filter(n => n.extra?.kind === 'fair' && !wanted.has(n.id));
+    const stale = notifications.filter(n => (n.extra?.kind === 'fair' || n.extra?.kind === 'event-start') && !wanted.has(n.id));
     if (stale.length) await LocalNotifications.cancel({ notifications: stale.map(n => ({ id: n.id })) });
     // Feira finalizada: tira da barra os avisos que já apareceram.
     const closedIds = list.filter(f => f.closed).flatMap(f => f.times.map((_, i) => fairNoticeId(f.id, i)));
@@ -310,10 +314,14 @@ async function scheduleFairNotices() {
     const missing = [...wanted.entries()].filter(([id]) => !notifications.some(n => n.id === id));
     if (!missing.length) return;
     await LocalNotifications.schedule({
-      notifications: missing.map(([id, { f, at, i }]) => ({
+      notifications: missing.map(([id, { f, st, at, i }]) => (st ? {
+        id, channelId: 'financas', title: st.title, body: st.body,
+        extra: { kind: 'event-start', eventId: st.eventId }, smallIcon: 'ic_stat_territorio', iconColor: '#7FA653',
+        autoCancel: true, schedule: { at: new Date(at), allowWhileIdle: true }, isExactNotification: false,
+      } : {
         id, channelId: 'financas',
-        title: i === 0 ? `${f.name} termina em 10 minutos` : `Finalize a ${f.name}`,
-        body: i === 0 ? 'Quando parar de vender, finalize a feira. O relatório vai sozinho.' : 'Confira o que sobrou: leva um minuto. O relatório vai sozinho.',
+        title: i === 0 ? `${f.name} termina em 10 minutos` : f.official ? `Finalize a ${f.name}` : `Finalize o evento ${f.name}`,
+        body: f.official ? (i === 0 ? 'Quando parar de vender, finalize a feira. O relatório vai sozinho.' : 'Confira o que sobrou: leva um minuto. O relatório vai sozinho.') : (i === 0 ? 'Quando parar de vender, finalize o evento e confira o que sobrou.' : 'Confira o que sobrou: leva um minuto.'),
         actionTypeId: 'FAIR_FINISH', extra: { kind: 'fair', eventId: f.id }, smallIcon: 'ic_stat_territorio', iconColor: '#7FA653',
         ongoing: true, autoCancel: true, schedule: { at: new Date(at), allowWhileIdle: true }, isExactNotification: false,
       })),
@@ -328,6 +336,7 @@ function installFairReminder() {
   }).catch(() => {});
   LocalNotifications.addListener('localNotificationActionPerformed', async action => {
     const extra = action.notification?.extra;
+    if (extra?.kind === 'event-start') { setTimeout(() => window.TerritorioShell?.openEvent?.(extra.eventId), 400); return; }
     if (extra?.kind !== 'fair') return;
     // "Depois": sai da barra; o próximo aviso já está agendado no horário seguinte.
     if (action.actionId === 'later') {

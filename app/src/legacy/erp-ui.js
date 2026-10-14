@@ -2083,6 +2083,60 @@ window.TerritorioShell.fairEndings=()=>model.data.events.filter(e=>e.fairId&&Dat
 window.TerritorioShell.openFairFinish=id=>{closeModal();page='Vender';render();openFairFinish(id);};
 window.TerritorioShell.openFairReport=window.TerritorioShell.openFairFinish;
 window.TerritorioShell.snoozeFairReport=id=>{setFairState(id,{snoozeAt:new Date().toISOString()});render();};
+// --- O que vou levar fica no evento; na banca só durante o horário; avisos para todos os eventos ---
+// Eventos criados antes da ligação com a feira oficial: liga pelo nome exato (a concordância vem ao finalizar).
+(()=>{let changed=false;for(const e of model.data.events){if(e.fairId)continue;const n=String(e.name||'').trim().toLocaleLowerCase('pt-BR'),f=officialFairs().find(f=>[f.name,f.short].some(x=>String(x).toLocaleLowerCase('pt-BR')===n));if(f){e.fairId=f.id;e.fairName=f.name;changed=true;}}if(changed)persist();})();
+function runningEvent(){return model.data.events.find(e=>E.eventSellingNow(e,Date.now()))||null;}
+function loadSummary(e){return ffItems(e).map(i=>({...i,label:titleName(i.name)+(i.description&&!/^unidade$/i.test(i.description)?' · '+i.description:'')}));}
+
+// "O que vou levar": botão para limpar a quantidade de cada produto.
+const paintEventLoadBeforeClear=paintEventLoad;
+paintEventLoad=function(){paintEventLoadBeforeClear();document.querySelectorAll('dialog[open] [data-event-load-index]').forEach(input=>{if(input.parentElement.querySelector('.el-clear'))return;input.insertAdjacentHTML('afterend','<button type="button" class="el-clear" data-clear-for="'+input.id+'" aria-label="Limpar quantidade">'+icon('backspace')+'</button>');input.parentElement.classList.add('el-has-clear');input.placeholder='0';});};
+document.addEventListener('click',ev=>{const b=ev.target.closest&&ev.target.closest('.el-clear');if(!b)return;ev.preventDefault();const i=document.getElementById(b.dataset.clearFor);if(i){i.value='';i.dispatchEvent(new Event('input',{bubbles:true}));i.focus();}});
+
+// Página do evento: o que foi separado para ele (antes), na banca (durante) e o que sobrou (depois).
+function eventLoadCard(e){const items=loadSummary(e),now=Date.now(),start=Date.parse(e.start+'T'+(e.from||'00:00')+':00-03:00'),ended=now>=fairEventEnd(e)||e.status!=='active',during=!ended&&now>=start;
+ if(!items.length)return '<section class="ds-card el-card"><h3>O que vou levar</h3><p class="ds-note">Nada separado ainda. Marque com antecedência: o Vender só mostra estes produtos no horário do evento.</p>'+btn('event-load','Marcar o que vou levar','choice modal-action',{id:e.id})+'</section>';
+ const total=items.reduce((n,i)=>n+i.qty,0),sold=items.reduce((n,i)=>n+i.sold,0),head=ended?'Levou · vendeu · sobrou':during?'Na banca agora':'Separado para '+(e.start===E.dayKey(now)?'hoje':new Date(e.start+'T12:00:00-03:00').toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo',weekday:'long',day:'2-digit',month:'2-digit'}));
+ const rows=items.map(i=>'<div class="el-line"><span>'+escape(i.label)+'</span><span class="tabular">'+(ended||during?E.quantity(i.qty)+' · '+E.quantity(i.sold)+' · <strong>'+E.quantity(i.left)+'</strong>':'<strong>'+E.quantity(i.qty)+'</strong> '+escape(shortUnit(i.unit)))+'</span></div>').join('');
+ return '<section class="ds-card el-card"><h3>O que vou levar</h3><p class="ds-note">'+escape(head)+(ended||during?' · levou '+E.quantity(total)+', vendeu '+E.quantity(sold):' · '+grammarCount(items.length,'produto','produtos'))+'</p>'+(ended||during?'<div class="el-line el-head"><span></span><span>levou · vendeu · <strong>sobra</strong></span></div>':'')+'<div class="el-lines">'+rows+'</div>'+(ended?'':btn('event-load',during?'Repor ou corrigir':'Alterar','choice modal-action',{id:e.id}))+'</section>';}
+eventDetail=function(id){eventDetailBeforeFair(id);const e=model.data.events.find(v=>v.id===id),body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(!e||!body)return;const s=fairReportState(e),ended=Date.now()>fairEventEnd(e),when=t=>new Date(t).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+ body.querySelectorAll('[data-action="finish-event"]').forEach(b=>b.remove());
+ const started=Date.now()>=Date.parse(e.start+'T'+(e.from||'00:00')+':00-03:00');let html=eventLoadCard(e);
+ if(e.fairId){body.querySelector('.ev-hero')?.insertAdjacentHTML('beforebegin','<p class="fr-official">✓ Feira oficial · '+escape(e.fairName||'')+'</p>');
+  const status=s.closedAt?'Finalizada em '+when(s.closedAt)+'. '+(s.pending?'Aguardando internet para enviar.':s.sentAt?'Relatório enviado em '+when(s.sentAt)+'.':'Enviando…'):!fairConsent(e)?'Ao finalizar, o relatório vai para a organização.':s.sentAt?'Prévia enviada em '+when(s.sentAt)+'. Finalize para fechar o relatório.':ended?'A feira terminou. Finalize para fechar o relatório.':'Envio automático para a organização ao fim da feira.';
+  html+='<section class="ds-card fr-status"><h3>Relatório para a organização</h3><p class="ds-note">'+escape(status)+'</p>'+(s.closedAt||!started?'':btn('fair-finish','Finalizar feira','success modal-action',{id:e.id}))+'</section>';}
+ else if(!s.closedAt&&e.status==='active'&&started)html+=btn('fair-finish','Finalizar evento','soft-danger modal-action',{id:e.id});
+ const hero=body.querySelector('.ev-hero');if(hero)hero.insertAdjacentHTML('afterend',html);else body.insertAdjacentHTML('beforeend',html);};
+
+// Vender no horário do evento: primeiro o que está na banca (com o que sobra), depois os outros produtos.
+const feiraSellListBeforeBanca=feiraSellList;
+feiraSellList=function(){const ev=runningEvent(),load=ev&&eventLoad(ev.id);if(!model.data.products.length||!load||!load.items.length)return feiraSellListBeforeBanca();
+ const left=new Map(ffItems(ev).map(i=>[i.productId,i]));const groups=new Map();productList(false).forEach(p=>{const k=familyKey(p);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(p);});
+ if(!groups.size)return feiraSellListBeforeBanca();
+ const tile=variants=>{const onStand=variants.filter(v=>left.has(v.id)),live=variants.filter(v=>v.stock>0),pool=onStand.length?onStand:(live.length?live:variants),p=pool.slice().sort((a,b)=>a.price-b.price)[0],out=!live.length,rest=onStand.reduce((n,v)=>n+left.get(v.id).left,0);
+  return btn('sell-product','<strong>'+escape(titleName(p.name))+'</strong><small>'+escape(sellingCardDescription(p))+'</small>'+(out?'<em>Esgotado</em>':onStand.length?'<em class="fc-banca'+(rest>0?'':' is-zero')+'">'+(rest>0?'sobram '+E.quantity(rest):'acabou na banca')+'</em>':'')+'<span class="tabular">'+E.money(p.price)+'</span>','feira-card'+(out?' is-out':''),{id:p.id},out);};
+ const all=[...groups.values()],stand=all.filter(v=>v.some(x=>left.has(x.id))),others=all.filter(v=>!v.some(x=>left.has(x.id)));
+ return '<p class="sell-section">Na banca · '+escape(ev.name)+'</p><div class="feira-grid">'+stand.map(tile).join('')+'</div>'+(others.length?'<details class="sell-others"><summary>Outros produtos <span>'+others.length+'</span></summary><div class="feira-grid">'+others.map(tile).join('')+'</div></details>':'');};
+
+// Finalizar vale para qualquer evento. Feira oficial: envia o relatório; outro evento: só fecha (vendas seguem na Gestão).
+const paintFairFinishBeforeAny=paintFairFinish;
+paintFairFinish=function(){paintFairFinishBeforeAny();const e=ff&&model.data.events.find(v=>v.id===ff.id),dlg=document.querySelector('dialog[open]');if(!e||e.fairId||!dlg)return;const h=dlg.querySelector('#dialog-title');if(h)h.textContent='Finalizar evento';dlg.querySelectorAll('.fr-consent').forEach(x=>x.remove());const t=dlg.querySelector('.ff-title');if(t&&ff.step==='send')t.textContent='Finalizar o evento';const n=dlg.querySelector('.ff-note');if(n)n.remove();const b=dlg.querySelector('[data-action="ff-finish"]');if(b)b.textContent='Finalizar evento';};
+const ffFinishBeforeAny=actions['ff-finish'];
+actions['ff-finish']=async d=>{const e=model.data.events.find(v=>v.id===d.id);if(!e||e.fairId)return ffFinishBeforeAny(d);if(!ff)return;ffCapture();const stamp=new Date().toISOString();setFairState(e.id,{closedAt:stamp,counts:ff.counts,snoozeAt:''});e.fairClosedAt=stamp;e.status='finished';e.finishedAt=stamp;e.closedAutomatically=false;markLossReview(e);if(scope===e.id)scope='loja';persist();ff=null;
+ openModal(e.name,'<div class="ff-done"><span class="ff-done-icon" aria-hidden="true">'+icon('check')+'</span><strong>Evento finalizado</strong><span>As vendas continuam na Gestão. Confira as perdas no Estoque.</span></div>','fair-done',null,btn('close-modal','Pronto','success modal-action'));render();};
+function finishTimes(e){const t=FR().fairNoticeTimes(fairEventEnd(e));return e.fairId?t:t.slice(0,2);}
+fairsToFinish=function(){const now=Date.now();return model.data.events.filter(e=>!fairReportState(e).closedAt&&(e.fairId||e.status==='active'||now-fairEventEnd(e)<864e5)&&now-fairEventEnd(e)<8*864e5).map(e=>{const times=finishTimes(e),last=times.filter(t=>t<=now).pop(),s=fairReportState(e);return {e,last,hidden:!last||s.snoozeAt&&Date.parse(s.snoozeAt)>=last};}).filter(x=>!x.hidden);};
+fairReportCard=function(){const x=fairsToFinish()[0];if(!x)return '';const e=x.e,ended=Date.now()>=fairEventEnd(e),what=e.fairId?'a feira':'o evento';return '<section class="fair-card fr-card" role="status"><div class="fc-main fr-main"><span class="fc-date" aria-hidden="true">'+icon('check')+'</span><span class="fc-text"><small>'+(ended?(e.fairId?'A feira terminou':'O evento terminou'):(e.fairId?'A feira':'O evento')+' termina às '+escape(e.until||''))+'</small><strong>Finalize '+what+'</strong><span>'+escape(e.fairName||e.name)+' · confira o que sobrou.'+(e.fairId?' O relatório vai sozinho.':'')+'</span></span></div><div class="fr-actions">'+btn('fair-finish-later','Depois','fin-warn-later',{id:e.id})+btn('fair-finish',e.fairId?'Finalizar feira':'Finalizar evento','fin-warn-go',{id:e.id})+'</div></section>';};
+
+// Notificações: começo do evento (30 min antes, ou no início se já passou) e "Finalizar" para todos.
+function eventStartNotices(){const now=Date.now(),out=[];for(const e of model.data.events){if(e.status!=='active')continue;const n=loadSummary(e).length;for(let d=Date.parse(e.start+'T12:00:00-03:00');d<=Date.parse(e.end+'T12:00:00-03:00');d+=864e5){const day=new Date(d).toISOString().slice(0,10),start=Date.parse(day+'T'+(e.from||'08:00')+':00-03:00'),early=start-30*60000;if(start<=now)continue;const at=early>now+60000?early:start;out.push({id:e.id+':'+day,eventId:e.id,at,title:at===start?e.name+' começa agora':e.name+' começa às '+(e.from||''),body:n?grammarCount(n,'produto separado','produtos separados')+'. Toque para conferir ou alterar.':'Marque o que vai levar: assim o Vender mostra o que está na banca.'});}}return out;}
+window.TerritorioShell.fairEndings=()=>model.data.events.filter(e=>Date.now()-fairEventEnd(e)<45*864e5&&(e.fairId||e.status==='active'||fairReportState(e).closedAt||Date.now()-fairEventEnd(e)<864e5)).map(e=>({id:e.id,name:e.fairName||e.name,official:!!e.fairId,endAt:fairEventEnd(e),closed:!!fairReportState(e).closedAt,times:finishTimes(e)}));
+window.TerritorioShell.eventStarts=eventStartNotices;
+window.TerritorioShell.openEvent=id=>{closeModal();page='Eventos';render();eventDetail(id);};
+window.TerritorioShell.eventRunning=()=>!!runningEvent();
+// O que vou levar volta a abrir pelo evento (antes era só um aviso).
+actions['event-load']=d=>startEventLoad(d.id||managementScope);
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();
