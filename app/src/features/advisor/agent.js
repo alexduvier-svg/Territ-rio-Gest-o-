@@ -42,6 +42,15 @@ function momentSection(input) {
   return parts;
 }
 
+// "Qual produto dá mais lucro?": o que cada produto deixou depois do custo (venda − custo), do maior ao menor.
+function profitRanking(input) {
+  const list = (input.finance?.margins || []).filter(m => m.margin != null).map(m => ({ ...m, profit: m.revenue - m.cost })).sort((a, b) => b.profit - a.profit);
+  if (!list.length) return [];
+  const pct = r => Math.round(r * 100) + '%';
+  return ['O que mais deixou lucro neste período (venda − custo do produto):',
+    ...list.slice(0, 3).map((m, i) => `${i + 1}. ${m.name}${m.description ? ` (${m.description})` : ''}: ${brl(m.profit)} de lucro em ${brl(m.revenue)} vendidos (margem ${pct(m.margin)}).`)];
+}
+
 function guidanceSection(g, ids) {
   const items = g.all.filter(d => !ids || ids.some(id => d.id.startsWith(id)));
   if (!items.length) return [];
@@ -65,8 +74,8 @@ export function answer(question, input) {
     if (intent === 'previsao') add('Previsão', forecastSection(input));
     if (intent === 'estoque') add('Estoque', [...stockSection(input), ...guidanceSection(g, ['repor', 'encalhe', 'esgotou'])]);
     if (intent === 'preco') {
-      const found = guidanceSection(g, ['prejuizo', 'abaixo-custo', 'campeao-margem', 'sem-custo', 'preco-90']);
-      add('Preço e lucro', found.length ? found : [`${g.situation} Não encontrei problema de preço ou lucro neste período.`]);
+      const found = guidanceSection(g, ['prejuizo', 'abaixo-custo', 'campeao-margem', 'sem-custo', 'fin-margem', 'preco-90']);
+      add('Preço e lucro', [...profitRanking(input), ...(found.length ? found : [`${g.situation} Não encontrei problema de preço ou lucro neste período.`])]);
     }
     if (intent === 'clientes') {
       const found = guidanceSection(g, ['identificar', 'retorno', 'fieis', 'divulgacao', 'qr', 'portfolio']);

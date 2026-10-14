@@ -11,7 +11,8 @@ let selected = [];
 let timer = null;
 let pressed = null;
 let start = null;
-let swallowClick = false;
+let holding = null; // cartão do toque longo, enquanto o dedo não sai
+let swallow = null; // { id, until }: clique de soltar o dedo a ignorar
 let bar = null;
 let toastTimer;
 
@@ -110,7 +111,7 @@ export function installMultiSell() {
       const id = pressed?.dataset.id;
       clearTimer();
       if (!id) return;
-      swallowClick = true; // o "clique" que vem ao soltar o dedo não deve abrir a venda
+      holding = id; // o dedo ainda está no cartão que abriu a seleção
       selected = [id];
       tick();
       paint();
@@ -119,15 +120,23 @@ export function installMultiSell() {
   document.addEventListener('pointermove', event => {
     if (timer && start && Math.hypot(event.clientX - start.x, event.clientY - start.y) > 10) clearTimer(); // rolando a tela
   });
-  for (const type of ['pointerup', 'pointercancel']) document.addEventListener(type, () => { if (timer) clearTimer(); });
+  for (const type of ['pointerup', 'pointercancel']) document.addEventListener(type, () => {
+    if (timer) clearTimer();
+    // Alguns aparelhos geram um "clique" ao soltar o dedo depois do toque longo; outros (Android) não.
+    // Ignora só esse clique, no mesmo cartão e logo em seguida — nunca o próximo toque da pessoa.
+    if (holding) { swallow = { id: holding, until: Date.now() + 450 }; holding = null; }
+  });
 
   // Antes do app: no modo de seleção, tocar no cartão marca/desmarca em vez de abrir a venda.
   document.addEventListener('click', event => {
     const card = cardFrom(event.target);
-    if (swallowClick) {
-      swallowClick = false;
-      if (card) { event.preventDefault(); event.stopImmediatePropagation(); return; }
+    if (swallow && Date.now() <= swallow.until && card && card.dataset.id === swallow.id) {
+      swallow = null;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
     }
+    swallow = null;
     if (!card || !selected.length) return;
     event.preventDefault();
     event.stopImmediatePropagation();
