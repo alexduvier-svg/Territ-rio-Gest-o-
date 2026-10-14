@@ -121,7 +121,7 @@ class ERPModel{
   if(kind==='loss'&&!String(note||'').trim())throw Error('Informe o motivo da perda.');
   if(after===before)throw Error('Não há alteração no estoque.');
   p.stock=Math.round(after*1000)/1000;
-  const m={id:uid(),productId:id,name:p.name,date:new Date().toISOString(),kind,qty:Math.abs(p.stock-before),before,after:p.stock,note:note||'',unit:p.unit};this.data.movements.unshift(m);return m;
+  const m={id:uid(),productId:id,name:p.name,date:new Date().toISOString(),kind,qty:Math.abs(p.stock-before),before,after:p.stock,note:note||'',unit:p.unit,cost:p.cost||0};this.data.movements.unshift(m);return m;
  }
  saveProducts(base,variants,editId){
   if(!String(base.name||'').trim())throw Error('Informe o nome do produto.');

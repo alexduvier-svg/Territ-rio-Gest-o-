@@ -88,3 +88,68 @@ test('agente: margem baixa sugere preço para 40%', () => {
 test('agente responde em frases sobre o dinheiro', () => {
   assert.match(financeLines({ ...base, breakEven: 120000 }).join(' '), /Para empatar o mês/);
 });
+
+import { lossValue } from '../src/features/finance/finance.js';
+
+test('auditoria: devolução entra no dia da devolução e estorna receita e custo, mas não a taxa', () => {
+  const s = statement({
+    sales: [sale({ total: 10000, cost: 4000, payments: [{ method: 'Crédito', amount: 10000 }] })],
+    returns: [{ total: 10000, cost: 4000 }], expenses: [], settings: {}, shares: [],
+  });
+  assert.equal(s.revenue, 0);
+  assert.equal(s.cmv, 0);
+  assert.equal(s.fees, 498);
+  assert.equal(s.result, -498); // a maquininha fica com a taxa
+});
+
+test('auditoria: perdas de estoque entram no resultado (quantidade × custo)', () => {
+  const v = lossValue([{ kind: 'loss', qty: 3, productId: 'a' }, { kind: 'sale', qty: 9 }, { kind: 'loss', qty: 1, cost: 500 }], () => 1000);
+  assert.equal(v, 3500);
+  const s = statement({ sales: [sale()], expenses: [], losses: v, settings: {}, shares: [] });
+  assert.equal(s.result, 10000 - 5000 - 3500);
+  assert.equal(statement({ sales: [sale()], expenses: [], losses: v, settings: {}, shares: [], general: false }).losses, 0);
+});
+
+test('auditoria: retirada lançada substitui a planejada (sem contar duas vezes)', () => {
+  const s = statement({ sales: [sale()], expenses: [{ amount: 150000, kind: 'retirada' }], settings: { drawOn: true, drawMonthly: 150000 }, shares: [{ month: '2026-10', share: 1 }] });
+  assert.equal(s.draw, 150000);
+});
+
+test('auditoria: investimento sai do caixa mas não do resultado; imposto sobre venda entra', () => {
+  const s = statement({ sales: [sale({ payments: [{ method: 'Dinheiro', amount: 10000 }] })], expenses: [{ amount: 80000, kind: 'investimento' }], settings: { salesTaxRate: 1.5 }, shares: [] });
+  assert.equal(s.taxes, 150);
+  assert.equal(s.result, 10000 - 5000 - 150);
+  assert.equal(s.investments, 80000);
+  assert.equal(s.cash, 10000 - 150 - 80000);
+  assert.equal(s.received.Dinheiro, 10000);
+  assert.ok(s.checks);
+});
+
+import { runAudit } from '../src/features/finance/audit.js';
+
+test('conferência: dados corretos passam em tudo', () => {
+  const a = runAudit({
+    sales: [{ status: 'completed', date: '2026-10-13T10:00:00Z', total: 9000, discount: 1000, cost: 4000, payments: [{ method: 'Pix', amount: 9000 }], items: [{ productId: 'p', total: 10000, costTotal: 4000 }] }],
+    products: [{ id: 'p', name: 'Café', price: 5000, cost: 2000, stock: 8 }],
+    movements: [{ productId: 'p', date: '2026-10-13T10:00:00Z', after: 8 }],
+    expenses: [{ title: 'Barraca', amount: 3000, date: '2026-10-13T12:00:00-03:00', scope: 'f' }],
+    today: '2026-10-13', now: Date.parse('2026-10-13T12:00:00Z'), backupAt: '2026-10-12T10:00:00Z',
+  });
+  assert.equal(a.ok, a.total);
+  assert.equal(a.errors, 0);
+  assert.equal(a.warnings, 0);
+});
+
+test('conferência: aponta pagamento errado, estoque divergente, custo em dobro e data futura', () => {
+  const a = runAudit({
+    sales: [{ status: 'completed', date: '2026-10-13T10:00:00Z', total: 9000, payments: [{ method: 'Pix', amount: 8000 }], items: [] }],
+    products: [{ id: 'p', name: 'Café', price: 5000, cost: 2000, stock: 5 }, { id: 'q', name: 'Mel', price: 3000, cost: 0, stock: -1 }],
+    movements: [{ productId: 'p', date: '2026-10-13T10:00:00Z', after: 8 }],
+    expenses: [{ title: 'Barraca', amount: 3000, date: '2026-10-13', scope: 'f' }, { title: 'barraca ', amount: 3000, date: '2026-10-13', scope: 'f' }, { title: 'Gelo', amount: 500, date: '2026-10-20' }],
+    today: '2026-10-13', now: Date.parse('2026-10-13T12:00:00Z'),
+  });
+  const failed = a.checks.filter(c => !c.ok).map(c => c.id).sort();
+  assert.deepEqual(failed, ['copia', 'duplicado', 'estoque', 'futuro', 'negativo', 'pagamentos']);
+  assert.equal(a.errors, 3); // pagamentos, negativo, futuro
+  assert.equal(a.warnings, 3); // estoque, duplicado, cópia
+});

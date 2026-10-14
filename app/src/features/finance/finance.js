@@ -16,14 +16,16 @@ export const COST_KINDS = [
   ['producao', 'Produção e insumos', 'Sementes, ração, adubo, embalagens'],
   ['marketing', 'Divulgação', 'Panfletos, anúncios, brindes'],
   ['retirada', 'Sua retirada', 'Dinheiro do negócio que vai para a casa'],
+  ['investimento', 'Investimentos', 'Equipamento, ferramenta, reforma: sai do caixa, mas não é custo do mês'],
 ];
 export const COST_PRESETS = {
   feira: ['Barraca', 'Transporte', 'Ajudante', 'Alimentação', 'Gelo'],
   producao: ['Embalagens', 'Insumos', 'Ração', 'Sementes', 'Adubo'],
   marketing: ['Panfletos', 'Anúncio', 'Brindes', 'Degustação'],
   retirada: ['Retirada do mês'],
+  investimento: ['Barraca nova', 'Balança', 'Freezer', 'Ferramentas', 'Reforma'],
 };
-export const FIXED_PRESETS = ['Energia', 'Internet', 'Celular', 'Combustível', 'Manutenção', 'Aluguel', 'Contador'];
+export const FIXED_PRESETS = ['Energia', 'Internet', 'Celular', 'Combustível', 'Manutenção', 'Aluguel', 'Contador', 'DAS (MEI)'];
 export const DEFAULT_FEES = { Débito: 1.99, Crédito: 4.98 };
 
 export function financeSettings(raw) {
@@ -34,6 +36,8 @@ export function financeSettings(raw) {
     goal: Math.max(0, Math.round(Number(f.goal) || 0)),
     drawOn: !!f.drawOn,
     drawMonthly: Math.max(0, Math.round(Number(f.drawMonthly) || 0)),
+    // Imposto sobre a venda (ex.: Funrural do produtor pessoa física). Começa em 0: cada caso é um caso.
+    salesTaxRate: Math.min(30, Math.max(0, Number(f.salesTaxRate) || 0)),
     fixedCosts: Array.isArray(f.fixedCosts) ? f.fixedCosts.filter(x => x && x.title && x.amount > 0) : [],
   };
 }
@@ -81,31 +85,54 @@ export function cardFeesOf(sales, settings) {
   return Math.round(fees);
 }
 
-// Demonstrativo. sales = vendas concluídas do período/local; returned = devolvidas do período;
-// expenses = custos lançados no período/local; shares = monthShares(...); general = true quando
-// o local é "Todos" (só então entram fixos e retirada mensal, que não são de uma feira só).
-export function statement({ sales, returned = [], expenses, settings: raw, shares = [], general = true }) {
+// Demonstrativo (regime de competência: cada fato entra no dia em que aconteceu; período fechado não muda).
+//   sales    = vendas feitas no período (inclusive as devolvidas depois: a venda aconteceu naquele dia)
+//   returns  = vendas devolvidas NO período (pela data da devolução): estornam receita e custo do produto
+//   expenses = custos lançados no período/local · losses = valor das perdas de estoque no período
+//   shares   = monthShares(...) · general = local "Todos" (só então entram fixos, perdas e retirada mensal)
+// A taxa do cartão não volta na devolução (a maquininha não devolve a taxa).
+export function statement({ sales, returns = [], expenses, losses = 0, settings: raw, shares = [], general = true }) {
   const settings = financeSettings(raw);
-  const revenue = sales.reduce((n, s) => n + s.total, 0);
+  const grossSales = sales.reduce((n, s) => n + s.total, 0);
+  const returned = returns.reduce((n, s) => n + s.total, 0);
+  const revenue = grossSales - returned;
   const discounts = sales.reduce((n, s) => n + (s.discount || 0), 0);
-  const cmv = sales.reduce((n, s) => n + (s.cost || 0), 0);
+  const cmv = sales.reduce((n, s) => n + (s.cost || 0), 0) - returns.reduce((n, s) => n + (s.cost || 0), 0);
   const fees = cardFeesOf(sales, settings);
-  const contribution = revenue - cmv - fees;
+  const taxes = Math.round(Math.max(0, revenue) * settings.salesTaxRate / 100);
+  const contribution = revenue - cmv - fees - taxes;
   const kinds = Object.fromEntries(COST_KINDS.map(([id]) => [id, 0]));
   for (const x of expenses) kinds[costKind(x)] += x.amount;
   const fixed = general ? fixedFor(settings, shares) : 0;
+  const lossValue = general ? Math.round(losses) : 0;
+  // Retirada: a realizada (lançada) vale mais que a planejada; nunca as duas somadas.
   const drawPlanned = general && settings.drawOn ? Math.round(shares.reduce((n, s) => n + s.share, 0) * settings.drawMonthly) : 0;
-  const draw = drawPlanned + kinds.retirada;
-  const result = contribution - kinds.feira - kinds.producao - kinds.marketing - fixed - draw;
+  const draw = kinds.retirada > 0 ? kinds.retirada : drawPlanned;
+  const operating = kinds.feira + kinds.producao + kinds.marketing;
+  const result = contribution - operating - lossValue - fixed - draw;
   const contributionRate = revenue > 0 ? contribution / revenue : 0;
   const monthlyFixed = fixedMonthly(settings) + (settings.drawOn ? settings.drawMonthly : 0);
+  // Caixa do período (o dinheiro que entrou e saiu, diferente do resultado): recebimentos por forma de
+  // pagamento, menos devoluções pagas, taxas, custos, contas fixas, retirada e investimentos.
+  const received = {};
+  for (const s of sales) for (const p of s.payments || []) received[p.method] = (received[p.method] || 0) + p.amount;
+  const cashIn = grossSales - returned - fees;
+  const cashOut = operating + fixed + draw + kinds.investimento + taxes;
   return {
-    revenue, discounts, returns: returned.reduce((n, s) => n + s.total, 0), cmv, fees, contribution, contributionRate,
-    costs: kinds, fixed, draw, result, salesCount: sales.length,
+    grossSales, returned, revenue, discounts, cmv, fees, taxes, contribution, contributionRate,
+    costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, result, salesCount: sales.length,
+    investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
     monthlyFixed,
     breakEven: contributionRate > 0 && monthlyFixed > 0 ? Math.round(monthlyFixed / contributionRate) : null,
     costsLogged: expenses.length > 0,
+    // Prova real: o resultado é exatamente a soma das linhas do demonstrativo.
+    checks: revenue - cmv - fees - taxes - operating - lossValue - fixed - draw === result,
   };
+}
+
+// Valor das perdas de estoque: quantidade perdida × custo do produto (o gravado na perda ou o atual).
+export function lossValue(movements, costOf) {
+  return Math.round(movements.filter(m => m.kind === 'loss').reduce((n, m) => n + m.qty * (m.cost ?? costOf(m.productId) ?? 0), 0));
 }
 
 // Lucro de cada feira/local: o que a venda deixou menos os custos lançados naquele local.
@@ -114,7 +141,7 @@ export function profitByPlace({ sales, expenses, settings: raw, nameOf }) {
   const places = new Map();
   const get = id => places.get(id) || places.set(id, { id, name: nameOf(id), revenue: 0, cmv: 0, fees: 0, costs: 0, sales: 0 }).get(id);
   for (const s of sales) { const p = get(s.scope || 'loja'); p.revenue += s.total; p.cmv += s.cost || 0; p.fees += cardFeesOf([s], settings); p.sales++; }
-  for (const x of expenses) if (costKind(x) !== 'retirada') get(x.scope || 'loja').costs += x.amount;
+  for (const x of expenses) if (!['retirada', 'investimento'].includes(costKind(x))) get(x.scope || 'loja').costs += x.amount;
   return [...places.values()].map(p => ({ ...p, profit: p.revenue - p.cmv - p.fees - p.costs })).sort((a, b) => b.profit - a.profit);
 }
 

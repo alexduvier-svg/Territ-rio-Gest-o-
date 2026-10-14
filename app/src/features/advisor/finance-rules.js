@@ -144,7 +144,21 @@ function organization({ finance: f }) {
   return out;
 }
 
-export const FINANCE_RULES = [placeLoss, missingCosts, breakEven, lowMargins, cardFees, organization];
+// Conferência dos números com erro: nada vale mais do que corrigir antes de decidir.
+function auditErrors({ audit: a }) {
+  if (!a || !a.errors?.length) return [];
+  return [item('fin-conferencia', 'urgente', {
+    title: 'Há números que não conferem',
+    happened: a.errors.map(e => e.problem).join(' '),
+    todo: a.errors[0].help,
+    why: 'Decisão boa depende de número certo. Corrija primeiro: o resto da orientação fica mais confiável.',
+    topics: ['margemliquida'],
+    cta: { label: 'Ver conferência', action: 'mg-detail', data: { key: 'conferencia' } },
+    impact: 1e9,
+  })];
+}
+
+export const FINANCE_RULES = [auditErrors, placeLoss, missingCosts, breakEven, lowMargins, cardFees, organization];
 
 // Resumo curto das finanças, para o agente responder perguntas de dinheiro.
 export function financeLines(f) {
