@@ -1287,3 +1287,9 @@ dialog[data-kind='event-detail'] [data-action='event-use'] + .two { margin-top: 
 .feira-row .fr-badge.low { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 :root[data-theme='light'] .feira-stock-count.warn strong, :root[data-theme='light'] .feira-row .fr-side b.low { color: #b35f00; }
 :root[data-theme='light'] .feira-stock-count.alert strong { color: #d70015; }
+
+/* Estoque → produto: sem X no topo; "Voltar" discreto abaixo do botão principal */
+dialog[data-kind='movement'] .dialog-close { display: none; }
+.movement-back { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; min-height: 44px; margin-top: 6px; font-size: 15px; font-weight: 600; color: var(--muted); }
+.movement-back svg { width: 18px; height: 18px; }
+.movement-back:active { transform: scale(.97); }

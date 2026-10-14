@@ -2148,6 +2148,9 @@ toast=function(text){const store=window.TerritorioNative;if(!CRITICAL_TOAST.test
 function storageBanner(){const st=window.TerritorioNative?.status?.();let el=document.getElementById('storage-banner');if(!st||!st.failed){if(el)el.remove();return;}if(!el){document.body.insertAdjacentHTML('afterbegin','<div id="storage-banner" class="storage-banner" role="alert"><strong>Dados ainda não gravados</strong><span>O aparelho não conseguiu salvar. Libere espaço; o app tenta de novo a cada 5 segundos.</span></div>');}}
 window.addEventListener('territorio:storage-error',storageBanner);
 window.addEventListener('territorio:storage-ok',()=>{storageBanner();toastBeforeDurable('Dados gravados no aparelho.');});
+// Estoque → produto: sem o X no topo; "Voltar" logo abaixo do botão principal, ao alcance do polegar.
+const paintMovementBeforeBack=paintMovement;
+paintMovement=function(){paintMovementBeforeBack();const dlg=document.querySelector('dialog[open]');if(!dlg||dlg.dataset.kind!=='movement')return;const save=dlg.querySelector('[data-action="save-movement"]');if(save&&!dlg.querySelector('.movement-back'))save.insertAdjacentHTML('afterend',btn('close-modal',icon('back')+'<span>Voltar</span>','movement-back'));};
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();
