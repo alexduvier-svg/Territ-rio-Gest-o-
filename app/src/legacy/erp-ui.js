@@ -1791,6 +1791,76 @@ const filteredMetricsBase=filteredMetrics;
 filteredMetrics=function(sel){sel=sel||selection();const m=filteredMetricsBase(sel);if(!sel.periodMode||!window.TerritorioFinance)return m;try{const st=finStatement(sel).st;Object.assign(m,{revenue:st.revenue,cost:st.cmv,gross:st.revenue-st.cmv,fees:st.fees,taxes:st.taxes,losses:st.losses,fixed:st.fixed,draw:st.draw,expense:st.operating+st.losses+st.fixed+st.draw+st.taxes+st.fees,result:st.result,ticket:m.sales.length?st.revenue/m.sales.length:0,margin:st.revenue?(st.revenue-st.cmv)/st.revenue*100:null});}catch(e){console.error(e);}return m;};
 const reportScopeNameBase=reportScopeName;
 reportScopeName=function(id){return id==='all'?'Todos os locais':reportScopeNameBase(id);};
+// --- Custos de evento integrados: criar na aba Eventos (com a inscrição), lançar no fim do dia pelo
+// Resumo (5 perguntas), conferir e corrigir na página do evento. Tudo grava no mesmo lugar (expenses).
+// Custo do evento inteiro (inscrição/barraca) é rateado pelos dias do evento: o evento leva o valor
+// cheio; cada dia, a sua parte.
+function eventDays(e){const out=[];for(let d=e.start;d<=e.end&&out.length<10;d=shiftDay(d,1))out.push(d);return out;}
+function expandedExpenses(){return model.data.expenses.flatMap(x=>{if(!x.eventWide)return [x];const e=model.data.events.find(v=>v.id===x.scope);if(!e)return [x];const days=eventDays(e);if(days.length<2)return [{...x,date:days[0]+'T12:00:00-03:00'}];const part=Math.floor(x.amount/days.length);return days.map((d,i)=>({...x,id:x.id+'#'+i,amount:i===0?x.amount-part*(days.length-1):part,date:d+'T12:00:00-03:00',title:x.title+' ('+(i+1)+'/'+days.length+')',share:true}));});}
+// O cálculo único passa a usar os custos já rateados.
+const finStatementBeforeEvents=finStatement;
+finStatement=function(sel){const original=model.data.expenses;model.data.expenses=expandedExpenses();try{return finStatementBeforeEvents(sel);}finally{model.data.expenses=original;}};
+const finGapsBeforeEvents=finGaps;
+finGaps=function(){const original=model.data.expenses;model.data.expenses=expandedExpenses();try{return finGapsBeforeEvents();}finally{model.data.expenses=original;}};
+// Excluir uma parte rateada exclui o custo do evento inteiro.
+const finCostDeleteBase=actions['fin-cost-delete'];
+actions['fin-cost-delete']=d=>finCostDeleteBase({...d,id:String(d.id).split('#')[0]});
+
+// Aba Eventos: local opcional e "Quanto pagou para participar?".
+const eventModalBase=eventModal;
+eventModal=function(){eventModalBase();const place=document.getElementById('event-place');if(place){const label=place.closest('.form-field')?.querySelector('label')||document.querySelector('label[for="event-place"]');if(label)label.textContent='Local (opcional)';place.placeholder='Ex.: Praça da Matriz';}
+ const qr=document.querySelector('dialog[open] .event-qr');if(qr)qr.insertAdjacentHTML('beforebegin',field('event-fee','Quanto pagou para participar? (opcional)','','inputmode="decimal" placeholder="Inscrição ou aluguel da barraca"')+'<p class="ds-note">Entra como custo do evento. Nos eventos de vários dias, cada dia leva a sua parte.</p>');};
+const saveEventBase=actions['save-event'];
+actions['save-event']=()=>{const place=document.getElementById('event-place'),city=document.getElementById('event-city');if(place&&!place.value.trim())place.value=(city&&city.value.trim())||'Local não informado';const fee=E.cents(document.getElementById('event-fee')?.value||''),known=new Set(model.data.events.map(e=>e.id));saveEventBase();const e=model.data.events.find(v=>!known.has(v.id));if(e&&Number.isFinite(fee)&&fee>0){model.data.expenses.unshift({id:E.uid(),title:'Inscrição ou barraca',amount:fee,date:e.start+'T12:00:00-03:00',scope:e.id,customerType:'',category:'Operação',kind:'feira',eventWide:true,dayq:'inscricao'});persist();render();}};
+
+// Página do evento: lucro do evento e os custos dele, com lançar e corrigir.
+function eventFinanceHtml(e){const sel={scope:e.id,month:'',year:'',days:eventDays(e),from:'',until:'',periodMode:'evento',periodAnchor:e.start},st=finStatement(sel).st,costs=model.data.expenses.filter(x=>x.scope===e.id),money=E.money;
+ return '<section class="feira-hero ds-hero ev-hero'+(st.result<0?' is-negative':'')+'"><small>Lucro do evento</small><span class="feira-hero-value">'+money(st.result)+'</span><div class="feira-hero-stats ds-stats"><div><small>Vendas</small><strong>'+st.salesCount+'</strong></div><div><small>Vendeu</small><strong>'+money(st.revenue)+'</strong></div></div><p class="ds-hero-note">Vendas − custo dos produtos − taxas − custos do evento.</p></section>'
+ +'<section class="ds-card"><h3>Custos do evento · '+money(costs.reduce((n,x)=>n+x.amount,0))+'</h3>'+(costs.length?costs.map(x=>'<div class="ds-row"><span><strong>'+escape(x.title)+'</strong><small>'+(x.eventWide?'Evento inteiro':dateBR(E.dayKey(x.date)))+'</small></span><span class="ds-num fin-cost-amount"><strong>'+money(x.amount)+'</strong>'+btn('ev-cost-delete',icon('trash')+'<span class="sr-only">Excluir custo</span>','fin-del',{id:x.id,event:e.id})+'</span></div>').join(''):'<p class="ds-empty">Nenhum custo lançado ainda.</p>')+btn('fin-cost-new',icon('plus')+' Lançar ou corrigir custo','ds-add',{place:e.id,day:E.dayKey(Date.now())>e.end?e.end:E.dayKey(Date.now())<e.start?e.start:E.dayKey(Date.now())})+'</section>';}
+const eventDetailBase=eventDetail;
+eventDetail=function(id){eventDetailBase(id);const e=model.data.events.find(v=>v.id===id),body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(!e||!body)return;const first=body.querySelector('p:nth-of-type(2)');const html=hideMoney(eventFinanceHtml(e));if(first)first.outerHTML=html;else body.insertAdjacentHTML('beforeend',html);};
+actions['ev-cost-delete']=d=>{const i=model.data.expenses.findIndex(x=>x.id===d.id);if(i<0)return;const [removed]=model.data.expenses.splice(i,1);if(!persist()){model.data.expenses.splice(i,0,removed);return toast('Não foi possível excluir.');}toast('Custo excluído.');render();eventDetail(d.event);};
+
+// Resumo do dia: "Quanto custou estar aqui hoje?" — 5 perguntas opcionais, total automático.
+const DAY_QUESTIONS=[['inscricao','Inscrição ou barraca'],['transporte','Transporte ou combustível'],['ajudante','Ajudante'],['alimentacao','Alimentação'],['outros','Outros (gelo, sacolas…)']];
+function dayQuestionData(){const day=E.dayKey(Date.now()),mine=model.data.expenses.filter(x=>(x.scope||'loja')===scope&&E.dayKey(x.date)===day&&x.dayq&&!x.eventWide),wide=expandedExpenses().filter(x=>x.share!==undefined||x.eventWide).filter(x=>(x.scope||'loja')===scope&&E.dayKey(x.date)===day);return {day,mine,wide};}
+function dayQuestionsForm(totalOnly){const {mine,wide}=dayQuestionData(),val=k=>{const x=mine.find(m=>m.dayq===k);return x?cashInput(x.amount):'';},wideAmount=wide.reduce((n,x)=>n+x.amount,0),where=scopeName(scope);
+ const rows=DAY_QUESTIONS.map(([k,label])=>k==='inscricao'&&wideAmount?'<div class="dq-row dq-fixed"><span>'+label+'<small>informada no evento</small></span><strong data-dq-fixed="'+wideAmount+'">'+E.money(wideAmount)+'</strong></div>':'<label class="dq-row" for="dq-'+k+'"><span>'+label+'</span><input id="dq-'+k+'" class="dq-input" data-dq="'+k+'" inputmode="decimal" placeholder="0,00" value="'+escape(val(k))+'"></label>').join('');
+ const total=mine.find(m=>m.dayq==='total');
+ return '<div class="dq-form'+(totalOnly?' total-only':'')+'"><p class="dialog-text">'+escape(where)+' · hoje. Deixe em branco o que não teve. O custo dos produtos não entra aqui: ele já vem do Estoque.</p>'
+ +(totalOnly?field('dq-total','Total dos custos de hoje (R$)',total?cashInput(total.amount):'','inputmode="decimal" placeholder="0,00"')+btn('day-cost-mode','Prefiro detalhar','link',{mode:'detail'})
+ :'<div class="dq-list">'+rows+'<div class="dq-row dq-sum"><span>Total</span><strong id="dq-sum">'+E.money(mine.filter(m=>m.dayq!=='total').reduce((n,x)=>n+x.amount,0)+wideAmount)+'</strong></div></div>'+btn('day-cost-mode','Só sei o total','link',{mode:'total'}))
+ +btn('day-cost-save-all','Salvar e ver o lucro do dia','success modal-action')+'</div>';}
+function dqSum(){let n=0;document.querySelectorAll('dialog[open] .dq-input').forEach(i=>{const v=E.cents(i.value||'');if(Number.isFinite(v)&&v>0)n+=v;});document.querySelectorAll('dialog[open] [data-dq-fixed]').forEach(x=>n+=Number(x.dataset.dqFixed)||0);return n;}
+document.addEventListener('input',event=>{if(!event.target.closest?.('.dq-form'))return;const out=document.getElementById('dq-sum');if(out)out.textContent=E.money(dqSum());});
+Object.assign(actions,{
+ 'day-cost':()=>openModal('Quanto custou estar aqui hoje?',dayQuestionsForm(dayQuestionData().mine.some(m=>m.dayq==='total')),'day-cost'),
+ 'day-cost-mode':d=>openModal('Quanto custou estar aqui hoje?',dayQuestionsForm(d.mode==='total'),'day-cost'),
+ 'day-cost-save-all':()=>{const {day,mine}=dayQuestionData(),entries=[];const totalField=document.getElementById('dq-total');
+  if(totalField){const v=E.cents(totalField.value||'');if(totalField.value.trim()&&!(Number.isFinite(v)&&v>=0))return toast('Informe um valor válido.');if(v>0)entries.push(['total','Custos do dia',v]);}
+  else for(const [k,label] of DAY_QUESTIONS){const input=document.getElementById('dq-'+k);if(!input)continue;const raw=input.value.trim(),v=E.cents(raw||'0');if(raw&&!(Number.isFinite(v)&&v>=0))return toast('Confira o valor de '+label+'.');if(v>0)entries.push([k,label.replace(/ \(.*\)$/,''),v]);}
+  const keep=model.data.expenses.filter(x=>!mine.includes(x)),added=entries.map(([k,title,amount])=>({id:E.uid(),title,amount,date:day+'T12:00:00-03:00',scope,customerType:'',category:'Operação',kind:'feira',dayq:k}));
+  const prior=model.data.expenses;model.data.expenses=[...added,...keep];if(!persist()){model.data.expenses=prior;return toast('Não foi possível salvar.');}markDayClosed();toast(added.length?'Custos do dia salvos.':'Sem custos hoje.');render();openDaySummary();}
+});
+// No Resumo, os custos do dia viram um botão que abre as perguntas (com o total já lançado).
+const daySummaryHtmlBeforeQuestions=daySummaryHtml;
+daySummaryHtml=function(){return daySummaryHtmlBeforeQuestions().replace(/<button[^>]*data-action="day-cost"[^>]*>[\s\S]*?<\/button>/,()=>btn('day-cost',icon('plus')+' '+(dayQuestionData().mine.length?'Corrigir custos do dia':'Quanto custou estar aqui hoje?'),'ds-add'));};
+// O Resumo também usa os custos rateados (evento de vários dias: cada dia mostra a sua parte).
+const daySummaryDataBeforeEvents=daySummaryData;
+daySummaryData=function(){const original=model.data.expenses;model.data.expenses=expandedExpenses();try{return daySummaryDataBeforeEvents();}finally{model.data.expenses=original;}};
+
+// Esqueceu de criar o evento antes de vender? Se há evento hoje e as vendas de hoje foram na Loja,
+// o Resumo oferece mover vendas e custos de hoje para o evento (um toque, com confirmação).
+function eventTodayFor(){const day=E.dayKey(Date.now());return model.data.events.filter(e=>e.start<=day&&e.end>=day).sort((a,b)=>a.start.localeCompare(b.start))[0]||null;}
+const daySummaryHtmlBeforeMove=daySummaryHtml;
+daySummaryHtml=function(){const html=daySummaryHtmlBeforeMove(),day=E.dayKey(Date.now()),e=scope!=='loja'?model.data.events.find(v=>v.id===scope):eventTodayFor(),n=model.data.sales.filter(s=>s.status==='completed'&&(s.scope||'loja')==='loja'&&E.dayKey(s.date)===day).length;if(!e||!n)return html;return html+'<section class="fin-warn ds-move"><span class="fin-warn-dot" aria-hidden="true"></span><span class="fin-warn-text-body">'+(scope==='loja'?'Estas vendas foram na '+escape(e.name)+'?':'Hoje também há '+grammarCount(n,'venda','vendas')+' na Loja. Foram na '+escape(e.name)+'?')+'</span><span class="fin-warn-actions">'+btn('day-move-event','Mover para o evento','fin-warn-go',{id:e.id})+'</span></section>';};
+actions['day-move-event']=d=>{const e=model.data.events.find(v=>v.id===d.id),day=E.dayKey(Date.now());if(!e)return;const sales=model.data.sales.filter(s=>(s.scope||'loja')==='loja'&&E.dayKey(s.date)===day),costs=model.data.expenses.filter(x=>(x.scope||'loja')==='loja'&&E.dayKey(x.date)===day);if(!d.confirmed)return openModal('Mover para o evento','<p class="dialog-text">Mover '+grammarCount(sales.length,'venda','vendas')+' e '+grammarCount(costs.length,'custo','custos')+' de hoje da Loja para '+escape(e.name)+'?</p>'+btn('day-move-event','Mover','success modal-action',{id:e.id,confirmed:'1'})+btn('sales-history','Cancelar','link'),'mg-detail');sales.forEach(s=>{s.scope=e.id;s.recipientType='EVENT';});costs.forEach(x=>x.scope=e.id);if(!persist())return toast('Não foi possível mover.');scope=e.id;toast('Vendas de hoje movidas para '+e.name+'.');render();openDaySummary();};
+// Nomes em português: preposições e artigos no meio do nome ficam minúsculos ("Doce de Leite").
+const titleNameBase=titleName;
+titleName=function(value){return titleNameBase(value).replace(/(s)(De|Da|Do|Das|Dos|E|Com|Em|Na|No|Nas|Nos)(?=s)/g,(m,space,word)=>space+word.toLocaleLowerCase('pt-BR'));};
+// Evento de um dia só: mostra a data uma vez.
+const eventDetailBeforeDate=eventDetail;
+eventDetail=function(id){eventDetailBeforeDate(id);const e=model.data.events.find(v=>v.id===id),p=document.querySelector('dialog[open] .dialog-text');if(e&&p&&e.start===e.end)p.innerHTML=p.innerHTML.replace(' a '+dateBR(e.end),'');};
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

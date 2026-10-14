@@ -1080,3 +1080,38 @@ dialog[data-kind='story'] .dialog-close { margin: -4px -4px 0 auto; }
 .ds-hero-note { margin: 12px 0 0; font-size: 12px; line-height: 1.35; color: var(--muted); }
 /* Na tela de Finanças o último bloco é o ponto de equilíbrio: cor neutra, nunca a do resultado. */
 .fin-hero .feira-hero-stats > div:last-child strong, .fin-hero.is-negative .feira-hero-stats > div:last-child strong { color: var(--text); }
+
+/* ------------------------------------------------------------------ "Quanto custou estar aqui hoje?" e custos do evento */
+.dq-list { border-radius: var(--r-inner, 16px); padding: 2px 14px; background: color-mix(in srgb, var(--text) 5%, transparent); }
+.dq-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; border-bottom: 1px solid var(--line); font-size: 15px; }
+.dq-row:last-child { border-bottom: 0; }
+.dq-row > span { display: grid; gap: 2px; min-width: 0; }
+.dq-row small { font-size: 12px; color: var(--accent-ink); }
+.dq-input {
+  flex: none;
+  width: 108px;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 12px;
+  text-align: right;
+  font: 600 16px/1 'Inter Variable', sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  background: var(--field);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.25);
+}
+:root[data-theme='light'] .dq-input { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.12); }
+.dq-input:focus { outline: 2px solid var(--accent); outline-offset: 0; }
+.dq-fixed strong { font-variant-numeric: tabular-nums; }
+.dq-sum { font-weight: 700; }
+.dq-sum strong { color: var(--accent-ink); font: 800 18px/1 'Inter Tight Variable', 'Inter Variable', sans-serif; }
+.dq-form .link { display: block; min-height: 44px; margin: 6px auto; }
+.ev-hero { margin: 4px 0 14px; }
+.ds-move { margin-top: 14px; }
+.ds-row > .fin-cost-amount { display: flex; align-items: center; gap: 4px; }
+.ev-hero .feira-hero-stats > div:last-child strong { color: var(--text); }
+/* Nome do local nunca é cortado: quebra em duas linhas quando o "Hoje" ocupa espaço. */
+.fsh-where strong { white-space: normal; overflow: visible; text-overflow: clip; line-height: 1.15; overflow-wrap: break-word; font-size: 20px; }
+.fsh-main { gap: 10px; }
+.fsh-today { padding: 7px 10px; }

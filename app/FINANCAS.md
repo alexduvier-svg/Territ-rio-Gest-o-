@@ -55,6 +55,25 @@ total vendido, lucro do dia, recebimentos por forma de pagamento (dinheiro para 
 débito/crédito com o valor que cai na conta), descontos e devoluções do dia, o que vendeu, o que sobrou
 e os custos do dia.
 
+## Onde cada custo é informado
+
+| Custo | Onde | Quando entra na conta |
+|---|---|---|
+| Custo do produto (leite, coalho, embalagem de 1 unidade) | Estoque, no cadastro do produto (uma vez) | Em cada venda, em qualquer local |
+| Custo do evento inteiro (inscrição, aluguel da barraca) | Aba Eventos, ao criar o evento: "Quanto pagou para participar?" | Evento: valor cheio. Cada dia: a sua parte (rateio pelos dias) |
+| Custos do dia (combustível, ajudante, almoço, gelo) | Resumo do dia → "Quanto custou estar aqui hoje?" (5 perguntas opcionais ou "Só sei o total") | No dia e no local de venda |
+| Lançar depois, corrigir ou excluir | Página do evento ou Gestão → Custos (escolhe dia e local) | No dia escolhido; o cálculo se refaz |
+| Contas do mês (energia, internet, DAS) | Gestão → Custos → Custos fixos | Rateadas pelo período, em "Todos os locais" |
+
+Todos os caminhos gravam no mesmo lugar: nada conta duas vezes. Quem usa só o Resumo do dia já alimenta a Gestão.
+O "Vendendo em" muda sozinho para o evento enquanto ele acontece. Se o produtor vendeu como Loja e criou o
+evento depois, o Resumo oferece mover as vendas e custos de hoje para o evento (com confirmação).
+
+Exemplo conferido no app (Jacks, laticínios, Festa do Café, 1 dia): vendas R$ 805 (Pix 450, dinheiro 215,
+crédito 140), custo dos produtos R$ 393, taxa R$ 6,97, inscrição R$ 80, combustível 45, almoço 25, gelo 12
+→ lucro do dia e do evento R$ 243,03; crédito cai na conta R$ 133,03. Com o mesmo evento em 2 dias, o dia leva
+R$ 40 da inscrição (lucro do dia R$ 283,03) e o evento continua R$ 243,03.
+
 ## Conferência dos números (12 verificações, a cada abertura)
 
 | # | Verificação | Gravidade |
