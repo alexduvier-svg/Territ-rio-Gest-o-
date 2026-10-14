@@ -1901,6 +1901,78 @@ feiraSellList=function(){if(model.data.products.length)return feiraSellListBefor
 const testResetModalBeforeClean=testResetModal;
 testResetModal=function(){testResetModalBeforeClean();const body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(body&&!body.querySelector('[data-action="start-clean"]'))body.insertAdjacentHTML('beforeend','<div class="wl-clean">'+btn('start-clean','Apagar tudo e começar do zero','link-row')+'</div>');};
 if(model.data.settings.onboarding==='pending')setTimeout(()=>openWelcome(false),350);
+// --- Feiras oficiais e "Enviar relatório" (src/features/fair-report.js; servidor: portfolio-server/src/fairs.js) ---
+// O nome do evento é corrigido por sugestão; se for uma feira oficial, o evento fica ligado a ela.
+// Ao fim da feira, o app lembra de enviar o relatório (montado sozinho das vendas), com concordância.
+const FR=()=>window.TerritorioFairReport;
+const FAIR_API=String(window.TERRITORIO_API||'');
+function officialFairs(){const saved=model.data.settings.officialFairs;return Array.isArray(saved)&&saved.length?saved:FR().OFFICIAL_FAIRS;}
+async function refreshOfficialFairs(){if(!FAIR_API||!navigator.onLine)return;try{const r=await fetch(FAIR_API+'/api/fairs');if(!r.ok)return;const {fairs}=await r.json();if(Array.isArray(fairs)&&fairs.length&&JSON.stringify(fairs)!==JSON.stringify(model.data.settings.officialFairs||[])){model.data.settings.officialFairs=fairs;persist();}}catch(e){}}
+
+// Sugestão enquanto digita o nome do evento.
+function eventNameHint(){const input=document.getElementById('event-name'),box=document.getElementById('event-name-hint');if(!input||!box)return;const typed=input.value.trim();if(typed.length<4){box.innerHTML='';return;}const fair=FR().matchOfficialFair(typed,officialFairs()),fixed=FR().correctEventName(typed),target=fair?fair.name:fixed;
+ box.innerHTML=target&&target!==typed?btn('event-name-pick','<span>'+(fair?'Você quis dizer':'Sugestão')+'</span><strong>'+escape(target)+'</strong>'+(fair?'<small>Feira oficial · '+escape([fair.city,fair.uf].filter(Boolean).join('/'))+'</small>':''),'event-name-suggest',{name:target}):(fair?'<p class="event-name-ok">✓ Feira oficial</p>':'');}
+document.addEventListener('input',e=>{if(e.target&&e.target.id==='event-name')eventNameHint();});
+const eventModalBeforeFair=eventModal;
+eventModal=function(){eventModalBeforeFair();const name=document.getElementById('event-name');if(name&&!document.getElementById('event-name-hint'))(name.closest('.form-field')||name).insertAdjacentHTML('afterend','<div id="event-name-hint" class="event-name-hint" aria-live="polite"></div>');refreshOfficialFairs();};
+actions['event-name-pick']=d=>{const i=document.getElementById('event-name');if(i){i.value=d.name;eventNameHint();i.focus();}};
+// Ao salvar: liga à feira oficial (se o nome for o dela) e abre "O que vou levar".
+const saveEventBeforeFair=actions['save-event'];
+actions['save-event']=()=>{const typed=(document.getElementById('event-name')?.value||'').trim(),fair=FR().matchOfficialFair(typed,officialFairs()),isOfficial=fair&&[fair.name,fair.short].some(n=>n.toLocaleLowerCase('pt-BR')===typed.toLocaleLowerCase('pt-BR')),known=new Set(model.data.events.map(e=>e.id));
+ saveEventBeforeFair();const e=model.data.events.find(v=>!known.has(v.id));if(!e)return;if(isOfficial){e.fairId=fair.id;e.fairName=fair.name;persist();}
+ if(model.data.products.length)setTimeout(()=>startEventLoad(e.id),250);};
+
+// "O que vou levar": a tela de levados com o visual do estoque e o nome do evento no título.
+const paintEventLoadBefore=paintEventLoad;
+paintEventLoad=function(){paintEventLoadBefore();const d=eventLoadDraft,e=d&&model.data.events.find(v=>v.id===d.eventId),dlg=document.querySelector('dialog[open]');if(!e||!dlg)return;const h=dlg.querySelector('h2');if(h)h.textContent='O que vou levar';const help=dlg.querySelector('.event-load-help');if(help)help.innerHTML='<strong class="el-event">'+escape(e.name)+'</strong> · '+escape(dateBR(e.start))+'<br>Marque quanto vai levar de cada produto. Se repor durante a feira, atualize aqui. É isso que mostra o que sobrou.';
+ dlg.querySelectorAll('.event-load-row').forEach((row,i)=>{const p=d.products[i],prod=p&&model.product(p.productId);if(prod&&!row.querySelector('.el-stock'))row.querySelector('span')?.insertAdjacentHTML('beforeend','<small class="el-stock">no estoque: '+E.quantity(prod.stock)+'</small>');});
+ const sel=dlg.querySelector('#event-load-event');if(sel)sel.closest('label')?.classList.add('sr-only');if(sel){const lbl=dlg.querySelector('label[for="event-load-event"]');if(lbl)lbl.classList.add('sr-only');sel.classList.add('sr-only');}
+ const save=dlg.querySelector('[data-action="save-event-load"]');if(save)save.textContent='Salvar o que vou levar';};
+
+// Relatório da feira.
+function fairEventEnd(e){return Date.parse(e.end+'T'+(e.until||'23:59')+':00-03:00');}
+function fairReportState(e){return (model.data.settings.fairReports||{})[e.id]||{};}
+function fairReportFor(e){const st=model.data.settings,load=eventLoad(e.id),sales=model.data.sales.filter(s=>s.status==='completed'&&s.scope===e.id);
+ const r=FR().buildFairReport({event:e,load,sales,productOf:id=>model.product(id),producer:{name:st.producerName,business:st.businessName,community:st.community||st.city||'',city:st.city||'',uf:st.uf||'',app:'AGRO Gestão '+(window.TERRITORIO_VERSION||'')}});
+ return {...r,reportId:(e.id+'-'+(st.startedAt||st.producerName||'p')).toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80),app:'AGRO Gestão '+(window.TERRITORIO_VERSION||'')};}
+const FAIR_CONSENT='Ao enviar, você concorda em compartilhar com a organização da feira os dados de vendas deste evento, com o seu nome: produtos, quantidades, valores, horários e formas de pagamento. Seus custos, clientes e outras vendas não são enviados.';
+function fairReportSheet(id){const e=model.data.events.find(v=>v.id===id);if(!e)return;const r=fairReportFor(e),s=fairReportState(e),money=E.money;
+ const rows=[['Levou · vendeu · restou',r.totals.tookKnown?`${r.totals.took} · ${r.totals.sold} · ${r.totals.left}`:`— · ${r.totals.sold} · —`],['Total vendido',money(r.totals.revenue)],['Vendas',String(r.totals.sales)],['Mais vendeu',r.answers.maisVendido||'—'],['Esgotou primeiro',r.answers.esgotouPrimeiro],['Mais vendeu no',r.answers.metodoPagamento||'—']];
+ openModal('Enviar relatório','<p class="dialog-text"><strong>'+escape(e.fairName||e.name)+'</strong> · '+escape(dateBR(e.start))+(e.end!==e.start?' a '+escape(dateBR(e.end)):'')+'</p>'
+  +(r.totals.tookKnown?'':'<div class="fin-warn"><span class="fin-warn-dot" aria-hidden="true"></span><span class="fin-warn-text-body">Você não marcou o que levou: o relatório não mostra o que sobrou.</span><span class="fin-warn-actions">'+btn('event-load','Marcar agora','fin-warn-go',{id:e.id})+'</span></div>')
+  +'<section class="ds-card fr-summary"><h3>O que vai no relatório</h3>'+rows.map(([k,v])=>'<div class="ds-row"><span>'+escape(k)+'</span><span class="ds-num"><strong>'+escape(v)+'</strong></span></div>').join('')+'</section>'
+  +'<p class="fr-consent">'+escape(FAIR_CONSENT)+'</p>'
+  +(s.sentAt?'<p class="ds-note">Enviado em '+escape(new Date(s.sentAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))+'. Enviar de novo atualiza o mesmo relatório.</p>':s.pending?'<p class="ds-note">Aguardando internet para enviar. O app envia sozinho quando a conexão voltar.</p>':'')
+  +btn('fair-report-send',s.sentAt?'Concordo e enviar de novo':'Concordo e enviar','success modal-action',{id:e.id})+btn('close-modal','Agora não','link'),'fair-report');}
+function setFairState(id,patch){const st=model.data.settings;st.fairReports={...(st.fairReports||{}),[id]:{...(st.fairReports||{})[id],...patch}};persist();}
+async function sendFairReport(id,silent){const e=model.data.events.find(v=>v.id===id);if(!e||!e.fairId)return false;const state=fairReportState(e),report=state.pending?state.payload:null;const body=report||{...fairReportFor(e),consent:{at:new Date().toISOString(),text:FAIR_CONSENT}};
+ if(!FAIR_API||!navigator.onLine){setFairState(id,{pending:true,payload:body});if(!silent)toast('Sem internet agora. O app envia sozinho quando a conexão voltar.');return false;}
+ try{const res=await fetch(FAIR_API+'/api/fairs/'+encodeURIComponent(e.fairId)+'/reports',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});if(!res.ok){const msg=(await res.json().catch(()=>({}))).error;throw Error(msg||'Erro '+res.status);}
+  setFairState(id,{pending:false,payload:null,sentAt:new Date().toISOString(),snooze:''});if(!silent){toast('Relatório enviado à organização.');closeModal();render();}return true;}
+ catch(err){setFairState(id,{pending:true,payload:body});if(!silent)toast('Não foi possível enviar agora ('+err.message+'). O app tenta de novo sozinho.');return false;}}
+async function flushFairReports(){const st=model.data.settings.fairReports||{};for(const [id,s] of Object.entries(st))if(s&&s.pending)await sendFairReport(id,true);render();}
+window.addEventListener('online',()=>flushFairReports());
+setTimeout(()=>{refreshOfficialFairs();flushFairReports();},2500);
+Object.assign(actions,{
+ 'fair-report':d=>fairReportSheet(d.id),
+ 'fair-report-send':d=>{sendFairReport(d.id,false);},
+ 'fair-report-later':d=>{setFairState(d.id,{snooze:E.dayKey(Date.now())});render();}
+});
+// Feiras oficiais encerradas e ainda sem relatório (para o aviso no app e a notificação).
+function fairsToReport(){const now=Date.now(),today=E.dayKey(now);return model.data.events.filter(e=>e.fairId&&now>fairEventEnd(e)&&now-fairEventEnd(e)<45*864e5&&!fairReportState(e).sentAt&&model.data.sales.some(s=>s.status==='completed'&&s.scope===e.id)).map(e=>({e,snoozed:fairReportState(e).snooze===today}));}
+function fairReportCard(){const list=fairsToReport().filter(x=>!x.snoozed);if(!list.length)return '';const e=list[0].e;return '<section class="fair-card fr-card" role="status"><div class="fc-main fr-main"><span class="fc-date" aria-hidden="true">'+icon('upload')+'</span><span class="fc-text"><small>A feira terminou</small><strong>Envie o relatório</strong><span>'+escape(e.fairName||e.name)+' · as vendas já estão no relatório.</span></span></div><div class="fr-actions">'+btn('fair-report-later','Depois','fin-warn-later',{id:e.id})+btn('fair-report','Enviar relatório','fin-warn-go',{id:e.id})+'</div></section>';}
+const feiraSellPageBeforeFair=feiraSellPage;
+feiraSellPage=function(){const html=feiraSellPageBeforeFair(),card=fairReportCard();return card?html.replace('<section class="feira-sell-hero"',card+'<section class="feira-sell-hero"'):html;};
+// Página do evento: estado do relatório e o botão.
+const eventDetailBeforeFair=eventDetail;
+eventDetail=function(id){eventDetailBeforeFair(id);const e=model.data.events.find(v=>v.id===id),body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(!e||!e.fairId||!body)return;const s=fairReportState(e),ended=Date.now()>fairEventEnd(e);
+ body.querySelector('.ev-hero')?.insertAdjacentHTML('beforebegin','<p class="fr-official">✓ Feira oficial · '+escape(e.fairName||'')+'</p>');
+ const hero=body.querySelector('.ev-hero');const html='<section class="ds-card fr-status"><h3>Relatório para a organização</h3><p class="ds-note">'+(s.sentAt?'Enviado em '+escape(new Date(s.sentAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))+'.':s.pending?'Aguardando internet para enviar.':ended?'Pronto para enviar.':'Fica disponível quando a feira terminar.')+'</p>'+(ended?btn('fair-report',s.sentAt?'Ver ou enviar de novo':'Enviar relatório','success modal-action',{id:e.id}):btn('event-load','O que vou levar','choice modal-action',{id:e.id}))+'</section>';
+ if(hero)hero.insertAdjacentHTML('afterend',html);else body.insertAdjacentHTML('beforeend',html);};
+// Para a notificação no celular (src/native/shell.js).
+window.TerritorioShell.fairEndings=()=>model.data.events.filter(e=>e.fairId&&!fairReportState(e).sentAt).map(e=>({id:e.id,name:e.fairName||e.name,endAt:fairEventEnd(e)}));
+window.TerritorioShell.openFairReport=id=>{closeModal();page='Vender';render();fairReportSheet(id);};
+window.TerritorioShell.snoozeFairReport=id=>{setFairState(id,{snooze:E.dayKey(Date.now())});render();};
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

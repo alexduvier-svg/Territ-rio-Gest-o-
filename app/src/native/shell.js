@@ -283,6 +283,56 @@ function installFinanceReminder() {
   });
 }
 
+// Fim de feira oficial: notificação na hora de término, com "Enviar relatório" e "Depois" (volta no dia
+// seguinte, às 9h). Some quando o relatório é enviado.
+function fairNoticeId(eventId) {
+  let h = 17;
+  for (const ch of 'fair:' + eventId) h = (h * 33 + ch.charCodeAt(0)) | 0;
+  return 1000000 + (Math.abs(h) % 900000000);
+}
+async function scheduleFairNotices() {
+  const list = window.TerritorioShell?.fairEndings?.() || [];
+  try {
+    const { notifications } = await LocalNotifications.getPending();
+    const ours = new Set(list.map(f => fairNoticeId(f.id)));
+    const stale = notifications.filter(n => n.extra?.kind === 'fair' && !ours.has(n.id));
+    if (stale.length) await LocalNotifications.cancel({ notifications: stale.map(n => ({ id: n.id })) });
+    const status = await LocalNotifications.checkPermissions();
+    if (status.display !== 'granted') return;
+    const now = Date.now();
+    const upcoming = list.filter(f => f.endAt > now && !notifications.some(n => n.id === fairNoticeId(f.id)));
+    if (!upcoming.length) return;
+    await LocalNotifications.schedule({
+      notifications: upcoming.map(f => ({
+        id: fairNoticeId(f.id), channelId: 'financas', title: `${f.name} terminou`, body: 'Envie o relatório da feira: suas vendas já estão nele.',
+        actionTypeId: 'FAIR_REPORT', extra: { kind: 'fair', eventId: f.id }, smallIcon: 'ic_stat_territorio', iconColor: '#7FA653',
+        autoCancel: true, schedule: { at: new Date(f.endAt + 60 * 1000), allowWhileIdle: true }, isExactNotification: false,
+      })),
+    });
+  } catch (error) {
+    console.warn('Lembrete da feira não agendado', error);
+  }
+}
+function installFairReminder() {
+  LocalNotifications.registerActionTypes({
+    types: [{ id: 'FAIR_REPORT', actions: [{ id: 'send', title: 'Enviar relatório', foreground: true }, { id: 'later', title: 'Depois' }] }],
+  }).catch(() => {});
+  LocalNotifications.addListener('localNotificationActionPerformed', async action => {
+    const extra = action.notification?.extra;
+    if (extra?.kind !== 'fair') return;
+    if (action.actionId === 'later') {
+      window.TerritorioShell?.snoozeFairReport?.(extra.eventId);
+      const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1); tomorrow.setHours(9, 0, 0, 0);
+      await LocalNotifications.schedule({ notifications: [{ ...action.notification, id: fairNoticeId(extra.eventId), schedule: { at: tomorrow, allowWhileIdle: true } }] }).catch(() => {});
+      return;
+    }
+    setTimeout(() => window.TerritorioShell?.openFairReport?.(extra.eventId), 400);
+  });
+  let timer;
+  window.addEventListener('territorio:saved', () => { clearTimeout(timer); timer = setTimeout(scheduleFairNotices, 1500); });
+  setTimeout(scheduleFairNotices, 4000);
+}
+
 export function installShell() {
   if (!Capacitor.isNativePlatform()) return;
   document.documentElement.classList.add('native');
@@ -294,5 +344,6 @@ export function installShell() {
   installLifecycle();
   installStockAlerts();
   installFinanceReminder();
+  installFairReminder();
   requestAnimationFrame(() => SplashScreen.hide({ fadeOutDuration: 200 }).catch(() => {}));
 }

@@ -18,6 +18,8 @@ import './features/advisor/index.js';
 import { MARKET_CATALOG } from './data/market-catalog.js';
 import * as Finance from './features/finance/finance.js';
 import { runAudit } from './features/finance/audit.js';
+import { API } from './features/server.js';
+import * as FairReport from './features/fair-report.js';
 import profilePhoto from './assets/profile.webp';
 import appLogo from './assets/logo.png';
 import catalogPhotosUrl from './assets/catalog.webp';
@@ -48,7 +50,9 @@ try {
   window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos, appLogo };
   window.TERRITORIO_MARKET = MARKET_CATALOG;
   window.TerritorioFinance = { ...Finance, runAudit };
+  window.TerritorioFairReport = FairReport;
   window.TERRITORIO_VERSION = version;
+  window.TERRITORIO_API = API;
   await import('./legacy/erp-ui.js');
   installInterface();
   installMultiSell();

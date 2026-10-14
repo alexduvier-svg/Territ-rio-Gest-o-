@@ -20,6 +20,7 @@
 import { LIMITS, ValidationError, validatePortfolio, referencedImages, isHash, imageType, isPDF } from './schema.js';
 import { renderPortfolio, renderMessage, vcard } from './page.js';
 import { BACKUP_ROUTE, handleBackup } from './backups.js';
+import { FAIR_API, FAIR_PAGE, handleFairsApi, serveFairPage } from './fairs.js';
 
 const PAGE_HEADERS = {
   'content-type': 'text/html; charset=utf-8',
@@ -259,6 +260,12 @@ export default {
           for (const [k, v] of Object.entries(cors)) response.headers.set(k, v);
           return response;
         }
+        const fairApi = pathname.match(FAIR_API);
+        if (fairApi) {
+          response = await handleFairsApi(request, env, fairApi[1]);
+          for (const [k, v] of Object.entries(cors)) response.headers.set(k, v);
+          return response;
+        }
         const match = pathname.match(/^\/api\/portfolios(?:\/([a-z0-9-]{3,48}))?(?:\/(missing|reads)(?:\/([a-z0-9]{6,16}))?)?$/);
         if (!match) response = json({ error: 'Não encontrado.' }, 404);
         else if (!match[1] && !match[2] && request.method === 'POST') response = await createPortfolio(request, env, origin);
@@ -284,6 +291,8 @@ export default {
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
     const page = pathname.match(/^\/p\/([a-z0-9-]{3,48})(\/.*)?$/);
     if (page) return servePublic(request, env, ctx, page[1], page[2] || '', origin);
+    const fairPage = pathname.match(FAIR_PAGE);
+    if (fairPage) return serveFairPage(request, env, fairPage[1], fairPage[2] || '');
     if (pathname === '/') return new Response(renderMessage('Território', 'Portfólios de produtores rurais. Escaneie o QR Code na banca do produtor.'), { headers: PAGE_HEADERS });
     return new Response(renderMessage('Página não encontrada', 'Confira o endereço.'), { status: 404, headers: PAGE_HEADERS });
   },
