@@ -165,7 +165,9 @@ ${fair.code ? `<p class="muted small" style="margin-top:12px">Ou, no app, vá em
 
 // O app acha a feira pelo código digitado.
 export async function serveFairCode(request, env, code) {
-  const id = await env.BACKUPS.get(`faircode:${code.toUpperCase()}`);
+  const wanted = code.toUpperCase();
+  const fixed = (await allFairs(env)).find(f => f.code === wanted);
+  const id = fixed ? fixed.id : await env.BACKUPS.get(`faircode:${wanted}`);
   const fair = id && await getFair(env, id);
   if (!fair) return json({ error: 'Código não encontrado. Confira as 6 letras.' }, 404);
   return json({ fair: publicFair(fair) });

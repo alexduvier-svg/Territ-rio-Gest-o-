@@ -24,6 +24,13 @@ const FAIRS = [
     aliases: ['feira do inventario', 'feira do inventario rural', 'feira inventario', 'inventario rural', 'feira do inventario rural e cultural'],
     city: 'Carangola',
     uf: 'MG',
+    // Próxima edição (atualizar a cada edição).
+    place: 'Praça Coronel Maximiano',
+    start: '2026-12-12',
+    from: '18:00',
+    until: '21:00',
+    weekly: false,
+    code: 'INVENT',
     organizer: 'Secretaria de Cultura, Turismo e Patrimônio Histórico de Carangola',
     keyHash: 'efe57bb5b23949569a0a8277977b313c783930651aea814b6395a389a1363d36',
   },
