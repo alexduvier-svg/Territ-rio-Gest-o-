@@ -13,3 +13,6 @@ keystore.properties
 # Configurações locais
 *.local
 .claude/
+
+# Documentos pessoais e jurídicos (fora do repositório)
+juridico/
