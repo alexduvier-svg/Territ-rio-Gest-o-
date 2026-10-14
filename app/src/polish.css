@@ -1293,3 +1293,92 @@ dialog[data-kind='movement'] .dialog-close { display: none; }
 .movement-back { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; min-height: 44px; margin-top: 6px; font-size: 15px; font-weight: 600; color: var(--muted); }
 .movement-back svg { width: 18px; height: 18px; }
 .movement-back:active { transform: scale(.97); }
+
+/* Página do produto (Novo produto / Editar) no padrão "card 3D de destaque" (0.11.6):
+   cartões com leve luz no topo e espessura embaixo; blocos internos de vidro neutro; cor só nos detalhes. */
+:root[data-page='Produto'] .subview .panel {
+  border-radius: 26px;
+  padding: 20px 18px;
+  margin-bottom: 18px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--text) 6%, var(--panel)) 0%, var(--panel) 70%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 4px 0 rgba(0, 0, 0, 0.55), 0 12px 26px rgba(0, 0, 0, 0.35);
+}
+:root[data-page='Produto'][data-theme='light'] .subview .panel {
+  background: linear-gradient(180deg, #fff 0%, var(--panel) 100%);
+  box-shadow: inset 0 1px 0 #fff, 0 4px 0 rgba(37, 52, 66, 0.12), 0 12px 26px rgba(37, 52, 66, 0.1);
+}
+:root[data-page='Produto'] .subview .panel > h2 { font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 14px; }
+/* Blocos internos (configurações, campos): vidro neutro com relevo de tecla */
+:root[data-page='Produto'] .registration-dimensions { display: grid; gap: 10px; background: transparent; }
+:root[data-page='Produto'] .registration-dimensions .dimension-pill {
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3);
+  border: 0;
+}
+:root[data-page='Produto'][data-theme='light'] .registration-dimensions .dimension-pill { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
+:root[data-page='Produto'] .subview input:not([type='checkbox']):not([type='radio']), :root[data-page='Produto'] .subview select,
+:root[data-page='Produto'] .subview .link-row, :root[data-page='Produto'] .subview .suggestion {
+  border: 0;
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.28), 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+:root[data-page='Produto'][data-theme='light'] .subview input:not([type='checkbox']):not([type='radio']), :root[data-page='Produto'][data-theme='light'] .subview select,
+:root[data-page='Produto'][data-theme='light'] .subview .link-row, :root[data-page='Produto'][data-theme='light'] .subview .suggestion {
+  background: color-mix(in srgb, var(--text) 5%, #fff);
+  box-shadow: inset 0 2px 3px rgba(37, 52, 66, 0.1), 0 1px 0 #fff;
+}
+:root[data-page='Produto'] .subview .suggestion { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3); }
+:root[data-page='Produto'][data-theme='light'] .subview .suggestion { background: color-mix(in srgb, var(--text) 4%, #fff); box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.12); }
+.add-sale-option>.icon, html[data-theme=light] .add-sale-option>.icon { color: var(--accent-ink); }
+/* Aviso do estoque inicial: vidro neutro, cor só no ícone (antes: caixa amarela cheia) */
+:root[data-page='Produto'] .values-stock-panel .notice {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin-top: 14px; padding: 12px 14px; border: 0; border-radius: 16px;
+  font-size: 14px; line-height: 1.45; color: var(--muted);
+  background: color-mix(in srgb, var(--text) 6%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3);
+}
+:root[data-page='Produto'][data-theme='light'] .values-stock-panel .notice { background: color-mix(in srgb, var(--text) 4%, #fff); box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
+:root[data-page='Produto'] .values-stock-panel .notice svg { flex: none; width: 18px; height: 18px; margin-top: 1px; color: var(--accent-ink); }
+:root[data-page='Produto'] .values-stock-panel .notice strong { color: var(--text); font-weight: 700; }
+
+/* Estoque: o "+" (novo produto) junto das ferramentas do topo, com cor só no detalhe */
+.stock-tools > .stock-plus {
+  color: var(--accent-ink);
+  background: color-mix(in srgb, var(--accent) 16%, var(--field));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+:root[data-theme='light'] .stock-tools > .stock-plus { background: color-mix(in srgb, var(--accent) 14%, #fff); box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.12); }
+.stock-tools > .stock-plus > .icon { stroke-width: 2.2; }
+.stock-tools > .stock-plus:active { transform: translateY(1px) scale(.96); }
+.stock-heading .stock-top-tools { display: flex; flex-wrap: nowrap; gap: 6px; grid-template-columns: none; flex: none; }
+.stock-heading { flex-wrap: nowrap; }
+.stock-heading .stock-title { min-width: 0; }
+.stock-heading .stock-top-tools { gap: 5px; }
+.stock-heading .stock-top-tools .round { width: 40px; height: 40px; min-width: 40px; min-height: 40px; flex: 0 0 40px; padding: 9px; }
+.stock-heading .stock-top-tools .round > .icon { width: 22px; height: 22px; }
+
+/* Rodapé · Estoque (0.11.6): ao tocar, a tampa abre, uma fruta cai na caixa e a tampa fecha.
+   Toca uma vez ao entrar (a classe .active entra uma vez; os botões do rodapé são reaproveitados). */
+.box-flap { transition: none; }
+button.active .box-flap-l, button.active .box-flap-r { transform: none; }
+.box-fruit { opacity: 0; transform-box: view-box; }
+.box-fruit circle { fill: currentColor; stroke: none; }
+.box-fruit path { fill: none; stroke-width: 1.4; stroke-linecap: round; }
+.box-body { transform-box: view-box; transform-origin: 12px 22px; }
+button.active .box-flap-l { animation: box-lid-l 1.15s cubic-bezier(0.34, 1.3, 0.64, 1) both; }
+button.active .box-flap-r { animation: box-lid-r 1.15s cubic-bezier(0.34, 1.3, 0.64, 1) both; }
+button.active .box-fruit { animation: box-fruit-drop 1.15s cubic-bezier(0.55, 0, 0.85, 0.35) both; }
+button.active .box-body { animation: box-thud 1.15s ease-out both; }
+@keyframes box-lid-l { 0% { transform: none; } 24%, 70% { transform: rotate(-120deg); } 100% { transform: none; } }
+@keyframes box-lid-r { 0% { transform: none; } 24%, 70% { transform: rotate(120deg); } 100% { transform: none; } }
+@keyframes box-fruit-drop {
+  0%, 22% { opacity: 0; transform: translateY(-7px); }
+  30% { opacity: 1; transform: translateY(-5px); }
+  56% { opacity: 1; transform: translateY(7px); }
+  64%, 100% { opacity: 0; transform: translateY(10px); }
+}
+@keyframes box-thud { 0%, 58% { transform: none; } 64% { transform: scaleY(0.93) translateY(0.4px); } 74% { transform: scaleY(1.02); } 84%, 100% { transform: none; } }
+@media (prefers-reduced-motion: reduce) { button.active .box-flap-l, button.active .box-flap-r, button.active .box-fruit, button.active .box-body { animation: none; } }
+html[data-reduce-effects='true'] button.active .box-flap-l, html[data-reduce-effects='true'] button.active .box-flap-r, html[data-reduce-effects='true'] button.active .box-fruit, html[data-reduce-effects='true'] button.active .box-body { animation: none; }
