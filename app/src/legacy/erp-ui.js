@@ -2235,6 +2235,12 @@ async function checkCancelledFairs(){const st=model.data.settings,now=Date.now()
 setTimeout(checkCancelledFairs,5000);setInterval(checkCancelledFairs,30*60000);window.addEventListener('online',()=>checkCancelledFairs());
 const eventDetailBeforeCancelled=eventDetail;
 eventDetail=function(id){eventDetailBeforeCancelled(id);const e=model.data.events.find(v=>v.id===id),body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(e&&e.fairCancelled&&body)body.insertAdjacentHTML('afterbegin','<p class="fj-cancelled">Cancelada pela organização</p>');};
+// Endereço do servidor mudou (territorio-portfolio → agro-gestao): troca os endereços já guardados
+// (eventos de feira, feiras semanais, portfólio publicado) pelo endereço atual, uma vez.
+(()=>{const OLD='https://territorio-portfolio.territorio-portfolio.workers.dev',NOW=String(window.TERRITORIO_API||'');if(!NOW||NOW===OLD)return;let n=0;
+ const walk=v=>{if(Array.isArray(v)){v.forEach((x,i)=>{if(typeof x==='string'&&x.startsWith(OLD)){v[i]=NOW+x.slice(OLD.length);n++;}else if(x&&typeof x==='object')walk(x);});return;}
+  for(const k of Object.keys(v)){const x=v[k];if(typeof x==='string'&&x.startsWith(OLD)){v[k]=NOW+x.slice(OLD.length);n++;}else if(x&&typeof x==='object')walk(x);}};
+ walk(model.data);if(n)persist();})();
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

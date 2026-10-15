@@ -1,4 +1,4 @@
-name = "territorio-portfolio"
+name = "agro-gestao"
 main = "src/worker.js"
 account_id = "3d6f9032d96936e1c8c8c96a02373733"
 compatibility_date = "2026-09-01"

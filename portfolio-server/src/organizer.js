@@ -41,7 +41,7 @@ const slug = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase
 const randomId = n => [...crypto.getRandomValues(new Uint8Array(n))].map(b => 'abcdefghjkmnpqrstuvwxyz23456789'[b % 31]).join('');
 const randomCode = () => [...crypto.getRandomValues(new Uint8Array(6))].map(b => 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'[b % 32]).join('');
 
-const page = (title, body) => `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(title)}</title>
+const page = (title, body, brandNote = ' · Painel do organizador') => `<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${esc(title)}</title>
 <style>
 :root{--bg:#f2f2f6;--panel:#fff;--text:#16181b;--muted:#6b6b73;--line:#e3e3e8;--accent:#7fa653;--accent-ink:#4f7a2a;--on-accent:#14210d;--glass:rgba(22,24,27,.05);--lift:inset 0 1px 0 #fff,0 3px 0 rgba(37,52,66,.1),0 10px 22px rgba(37,52,66,.08)}
 @media (prefers-color-scheme:dark){:root{--bg:#000;--panel:#1c1c1e;--text:#f2f2f2;--muted:#a1a1a8;--line:#2c2c2e;--accent-ink:#a7c97f;--glass:rgba(255,255,255,.06);--lift:inset 0 1px 0 rgba(255,255,255,.07),0 3px 0 rgba(0,0,0,.55),0 10px 22px rgba(0,0,0,.35)}}
@@ -64,7 +64,8 @@ input{width:100%;padding:12px 14px;border:0;border-radius:14px;font-family:inher
 .back{display:inline-block;margin-bottom:10px;color:var(--accent-ink);text-decoration:none;font-weight:600}
 .error{background:rgba(255,69,58,.12);color:#d70015;border-radius:12px;padding:10px 12px;margin-top:10px}
 @media (prefers-color-scheme:dark){.error{color:#ff6961}}
-</style><main>${body}</main></html>`;
+.brand{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.02em;color:var(--accent-ink)}.brand i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+</style><main><p class="brand"><i></i>AGRO Gestão${brandNote}</p>${body}</main></html>`;
 
 const unauthorized = () => new Response('Acesso não autorizado.', { status: 401, headers: { ...HEADERS, 'content-type': 'text/plain; charset=utf-8' } });
 const orgFairs = async (env, org) => (await allFairs(env)).filter(f => f.orgId === org.id);
@@ -199,8 +200,8 @@ ol{text-align:left;max-width:140mm;margin:24px auto 0;padding-left:28px;font-siz
 export async function servePublicFair(request, env, fairId) {
   const fair = await getFair(env, fairId);
   const url = new URL(request.url);
-  if (!fair) return html(page('Feira não encontrada', '<h1>Feira não encontrada</h1><p class="muted">Confira o QR ou peça um novo à organização.</p>'), 404);
-  if (fair.cancelled) return html(page(fair.name, `<p class="muted small">${esc(fair.organizer)}</p><h1>${esc(fair.name)}</h1><section class="card"><h2>Feira cancelada</h2><p>Esta feira foi cancelada pela organização. Para mais informações, fale com a organização.</p></section>`));
+  if (!fair) return html(page('Feira não encontrada', '<h1>Feira não encontrada</h1><p class="muted">Confira o QR ou peça um novo à organização.</p>', ''), 404);
+  if (fair.cancelled) return html(page(fair.name, `<p class="muted small">${esc(fair.organizer)}</p><h1>${esc(fair.name)}</h1><section class="card"><h2>Feira cancelada</h2><p>Esta feira foi cancelada pela organização. Para mais informações, fale com a organização.</p></section>`, ''));
   const open = `agrogestao://feira/${encodeURIComponent(fair.id)}?s=${encodeURIComponent(url.origin)}`;
   const when = fair.start || fair.weekly ? scheduleText({ ...fair, start: nextDate(fair) }) : '';
   return html(page(fair.name, `<p class="muted small">${esc(fair.organizer)}</p><h1>${esc(fair.name)}</h1>
@@ -208,7 +209,7 @@ export async function servePublicFair(request, env, fairId) {
 <section class="card"><h2>Produtor da feira</h2><p>Toque abaixo para entrar nesta feira com o app. Suas vendas da feira vão para a organização, com o seu nome. Custos, clientes e outras vendas não vão.</p>
 <a class="btn" href="${esc(open)}">Entrar com o AGRO Gestão</a>
 ${fair.code ? `<p class="muted small" style="margin-top:12px">Ou, no app, vá em Eventos → Entrar numa feira e digite o código <strong>${esc(fair.code)}</strong>.</p>` : ''}</section>
-<section class="card"><h2>Ainda não tem o app?</h2><p class="muted">O AGRO Gestão é gratuito para os produtores da feira. Peça o link de instalação à organização.</p></section>`));
+<section class="card"><h2>Ainda não tem o app?</h2><p class="muted">O AGRO Gestão é gratuito para os produtores da feira. Peça o link de instalação à organização.</p></section>`, ''));
 }
 
 // O app acha a feira pelo código digitado.
