@@ -209,7 +209,7 @@ Paleta: navy #1B2A4A, dourado #C9A84C, fundo #F8F9FB, cards brancos com sombra s
 
 ## Modo agendado — buscar no Cloudflare
 1. **Conector Cloudflare** (Developer Platform): consultar o D1 do app, ex.: `SELECT payload FROM exports WHERE evento_id = 'feira-<AAAA-MM-DD>'`, ou montar o JSON a partir das tabelas `produtores`, `estoque`, `vendas`, `fechamento`, `feedback` filtradas pelo evento.
-2. **Endpoint de exportação do Worker** via WebFetch: `https://territorio-portfolio.territorio-portfolio.workers.dev/api/eventos/feira-<AAAA-MM-DD>/export.json?token=<chave do organizador>` (a chave vem no pedido da tarefa agendada; nunca gravar a chave em arquivo nem no relatório).
+2. **Endpoint de exportação do Worker** via WebFetch: `https://agro-gestao.agro-gestao.workers.dev/api/eventos/feira-<AAAA-MM-DD>/export.json?token=<chave do organizador>` (a chave vem no pedido da tarefa agendada; nunca gravar a chave em arquivo nem no relatório).
 3. Sem acesso: avisar em uma frase e pedir o export — nunca inventar dados.
 Se o evento ainda estiver aberto no app ou houver vendas não sincronizadas, gerar com "RELATÓRIO PRELIMINAR" na capa e avisar. Enviar os PDFs com status proativo.
 

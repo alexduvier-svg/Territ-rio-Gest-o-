@@ -1,6 +1,6 @@
 # Território — servidor
 
-Cloudflare Worker do app Território. No ar em **https://territorio-portfolio.territorio-portfolio.workers.dev**.
+Cloudflare Worker do app Território. No ar em **https://agro-gestao.agro-gestao.workers.dev**.
 
 Faz três coisas:
 
@@ -31,7 +31,7 @@ npm test                 # com o dev rodando: 13 verificações do portfólio e 
 node tests/backup.mjs    # 7 verificações do backup criptografado
 ```
 
-Para testar contra o servidor publicado: `BASE=https://territorio-portfolio.territorio-portfolio.workers.dev npm test`.
+Para testar contra o servidor publicado: `BASE=https://agro-gestao.agro-gestao.workers.dev npm test`.
 
 O app em modo dev (`npm run dev` em `../app`) usa este servidor local automaticamente.
 
