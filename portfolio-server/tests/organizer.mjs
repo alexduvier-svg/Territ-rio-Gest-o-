@@ -79,6 +79,14 @@ await step('entrar na feira aparece no painel; pedido sem concordância é recus
   assert.match(page, /1 entrou/);
 });
 
+await step('desistir tira o produtor da lista do organizador', async () => {
+  if (!KEY) return;
+  const res = await fetch(`${BASE}/api/fairs/${fairId}/leave`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ producerId: 'p-teste1' }) });
+  assert.equal(res.status, 200);
+  const page = await (await get(`/org/carangola/f/${fairId}`)).text();
+  assert.match(page, /0 entraram/);
+});
+
 await step('cancelar exige confirmação; cancelada some do QR e reativar volta', async () => {
   if (!KEY) return;
   await post(`/org/carangola/f/${fairId}/cancelar`, {});

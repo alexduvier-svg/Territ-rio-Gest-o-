@@ -2241,6 +2241,35 @@ eventDetail=function(id){eventDetailBeforeCancelled(id);const e=model.data.event
  const walk=v=>{if(Array.isArray(v)){v.forEach((x,i)=>{if(typeof x==='string'&&x.startsWith(OLD)){v[i]=NOW+x.slice(OLD.length);n++;}else if(x&&typeof x==='object')walk(x);});return;}
   for(const k of Object.keys(v)){const x=v[k];if(typeof x==='string'&&x.startsWith(OLD)){v[k]=NOW+x.slice(OLD.length);n++;}else if(x&&typeof x==='object')walk(x);}};
  walk(model.data);if(n)persist();})();
+// --- "Feira encontrada" no visual dos cartões de feira; desistir de uma feira ou excluir um evento ---
+// A feira encontrada aparece como os cartões de feira do app: quadradinho da data, nome, local · data e horário.
+function fairPreview(f){const d=f.start?nextFairDate(f):'',dt=d?new Date(d+'T12:00:00-03:00'):null,month=dt?dt.toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo',month:'short'}).replace('.','').toUpperCase():'';
+ return '<section class="fj-preview">'+(dt?'<span class="fj-date"><strong>'+dt.getUTCDate()+'</strong><small>'+escape(month)+'</small></span>':'')+'<span class="fj-info"><small>'+escape(f.organizer||'')+'</small><strong>'+escape(f.name)+'</strong>'
+  +(d?'<span>'+escape([f.place,dateBR(d)].filter(Boolean).join(' · '))+'</span>':'')+(f.from&&f.until?'<span>'+escape(f.from+' às '+f.until)+' · Brasília</span>':'')+(f.weekly?'<span>'+((f.weekday===0||f.weekday===6)?'Todo ':'Toda ')+escape(WEEKDAY_PT[f.weekday])+'</span>':'')+'</span></section>';}
+const openFairJoinBeforePreview=openFairJoin;
+openFairJoin=async function(ref){await openFairJoinBeforePreview(ref);const dlg=document.querySelector('dialog[open]');if(!dlg||dlg.dataset.kind!=='fair-join')return;const card=dlg.querySelector('.fj-card');if(!card)return;
+ const f=joinPending?joinPending.fair:null;if(f)card.outerHTML=fairPreview(f);};
+
+// Desistir: feira de organizador → "Cancelar participação" (sai da lista da organização); evento próprio → "Excluir evento".
+// Com vendas não apaga (as vendas ficam no histórico): oferece finalizar.
+function eventSalesCount(id){return model.data.sales.filter(s=>s.scope===id).length;}
+function cancelEventSheet(id){const e=model.data.events.find(v=>v.id===id);if(!e)return;const fair=!!e.fairId,sales=eventSalesCount(id),costs=model.data.expenses.filter(x=>x.scope===id),costTotal=costs.reduce((n,x)=>n+x.amount,0);
+ if(sales)return openModal(fair?'Cancelar participação':'Excluir evento','<p class="dialog-text">Este evento já tem '+grammarCount(sales,'venda','vendas')+'. Para não perder o histórico, ele não pode ser apagado. Se a feira acabou para você, finalize.</p>','event-cancel',{id},btn('fair-finish',fair?'Finalizar feira':'Finalizar evento','success modal-action',{id})+btn('close-modal','Voltar','link'));
+ openModal(fair?'Cancelar participação?':'Excluir evento?','<p class="dialog-text"><strong>'+escape(e.fairName||e.name)+'</strong> · '+escape(dateBR(e.start))+'</p><p class="dialog-text">'+(fair?'Você sai desta feira: o evento some do app e a organização deixa de contar você.'+(fairSubs().some(s=>s.fairId===e.fairId)?' A feira semanal para de criar os próximos dias.':''):'O evento some do app.')+(eventLoad(id)?' O que você separou para levar também é apagado.':'')+(costs.length?' O custo lançado ('+E.money(costTotal)+') também é apagado.':'')+'</p>','event-cancel',{id},btn('event-cancel-confirm',fair?'Cancelar participação':'Excluir evento','danger-solid modal-action',{id})+btn('close-modal','Voltar','link'));}
+async function sendFairLeave(e){if(!e.fairServer||!navigator.onLine)return;try{await fetch(e.fairServer+'/api/fairs/'+encodeURIComponent(e.fairId)+'/leave',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({producerId:fairProducerId()})});}catch(err){}}
+Object.assign(actions,{
+ 'event-cancel':d=>cancelEventSheet(d.id),
+ 'event-cancel-confirm':d=>{const e=model.data.events.find(v=>v.id===d.id);if(!e||eventSalesCount(e.id))return;const before=JSON.stringify(model.data);
+  model.data.events=model.data.events.filter(v=>v.id!==e.id);model.data.eventLoads=(model.data.eventLoads||[]).filter(l=>l.eventId!==e.id);model.data.expenses=model.data.expenses.filter(x=>x.scope!==e.id);
+  if(e.fairId){model.data.settings.fairSubs=fairSubs().filter(s=>s.fairId!==e.fairId);}if(model.data.settings.fairReports)delete model.data.settings.fairReports[e.id];if(scope===e.id)scope='loja';
+  if(!persist()){model=new E.ERPModel(JSON.parse(before));return toast('Não foi possível salvar. Libere espaço.');}
+  if(e.fairId)sendFairLeave(e);closeModal();page='Eventos';render();toast(e.fairId?'Você saiu da '+(e.fairName||e.name)+'.':'Evento excluído.');}
+});
+// Página do evento: o botão de desistir no fim (substitui o antigo "Não participar mais desta feira").
+const eventDetailBeforeCancelBtn=eventDetail;
+eventDetail=function(id){eventDetailBeforeCancelBtn(id);const e=model.data.events.find(v=>v.id===id),body=document.querySelector('dialog[open] .dialog-content')||document.querySelector('dialog[open]');if(!e||!body)return;
+ body.querySelectorAll('.fj-leave').forEach(x=>x.remove());if(e.status!=='active'||e.fairCancelled)return;
+ body.insertAdjacentHTML('beforeend','<div class="ev-cancel">'+btn('event-cancel',e.fairId?'Cancelar participação':'Excluir evento','link',{id:e.id})+'</div>');};
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 render();
 })();

@@ -39,7 +39,7 @@ const TTL = 180 * 24 * 60 * 60;
 const MAX_BYTES = 384 * 1024;
 const REPORT_ID = /^[a-z0-9-]{8,80}$/;
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
-export const FAIR_API = /^\/api\/fairs(?:\/([a-z0-9-]{3,48})\/(reports|join|info))?$/;
+export const FAIR_API = /^\/api\/fairs(?:\/([a-z0-9-]{3,48})\/(reports|join|leave|info))?$/;
 export const FAIR_EXPORT = /^\/api\/eventos\/(?:([a-z0-9-]{3,48}?)-)?(\d{4}-\d{2}-\d{2})\/export\.json$/;
 export const FAIR_PAGE = /^\/fairs\/([a-z0-9-]{3,48})(\/(?:resumo\.csv|produtos\.csv|relatorios\.json))?$/;
 
@@ -183,6 +183,15 @@ export async function handleFairsApi(request, env, fairId, action = 'reports') {
     return json({ fair: publicFair(fair) });
   }
   if (request.method !== 'POST') return json({ error: 'Método não permitido.' }, 405);
+  // Desistiu de participar: sai da lista do organizador (o relatório, se já houver, continua).
+  if (action === 'leave') {
+    let body;
+    try { body = JSON.parse((await request.text()).slice(0, 1024)); } catch { return json({ error: 'Pedido inválido.' }, 400); }
+    const producerId = text(body.producerId, 40);
+    if (!/^p-[a-z0-9]{3,30}$/.test(producerId)) return json({ error: 'Identificação inválida.' }, 400);
+    await env.BACKUPS.delete(`fairjoin:${fair.id}:${producerId}`);
+    return json({ ok: true });
+  }
   // Entrou na feira pelo QR: o organizador vê quem entrou (só nome e comunidade, com a concordância).
   if (action === 'join') {
     let body;

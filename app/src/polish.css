@@ -1403,3 +1403,20 @@ html[data-reduce-effects='true'] button.active .box-flap-l, html[data-reduce-eff
 .fj-leave { margin-top: 6px; text-align: center; }
 .fj-leave .link { color: var(--muted); font-size: 14px; }
 .fj-cancelled { margin: 0 0 10px; font-size: 13px; font-weight: 700; color: var(--red); }
+
+/* "Feira encontrada" no visual dos cartões de feira; desistir/excluir evento (0.12.4) */
+.fj-preview { display: flex; align-items: flex-start; gap: 14px; margin: 4px 0 12px; padding: 16px; border-radius: 20px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--text) 6%, var(--panel)) 0%, var(--panel) 70%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 3px 0 rgba(0, 0, 0, 0.45), 0 10px 22px rgba(0, 0, 0, 0.3); }
+:root[data-theme='light'] .fj-preview { background: linear-gradient(180deg, #fff 0%, var(--panel) 100%); box-shadow: inset 0 1px 0 #fff, 0 3px 0 rgba(37, 52, 66, 0.12), 0 10px 22px rgba(37, 52, 66, 0.08); }
+.fj-date { display: grid; place-items: center; flex: none; width: 52px; padding: 7px 0 6px; border-radius: 14px; background: #fff; color: #16181b; box-shadow: 0 2px 0 rgba(0, 0, 0, 0.25); }
+.fj-date strong { font: 800 22px/1 'Inter Tight Variable', 'Inter Variable', sans-serif; }
+.fj-date small { font-size: 11px; font-weight: 700; letter-spacing: .04em; color: #d70015; }
+.fj-info { display: grid; gap: 3px; min-width: 0; }
+.fj-info small { font-size: 12px; font-weight: 600; color: var(--accent-ink); }
+.fj-info strong { font-size: 19px; line-height: 1.25; overflow-wrap: anywhere; }
+.fj-info span { font-size: 14px; color: var(--muted); }
+.ev-cancel { margin-top: 8px; text-align: center; }
+.ev-cancel .link { color: var(--red); font-size: 15px; font-weight: 600; }
+.danger-solid { width: 100%; min-height: 52px; padding: 13px 14px; border-radius: 17px; font-weight: 700; color: #fff; background: var(--red); }
+#dialog .ev-cancel .link { color: var(--red); }
