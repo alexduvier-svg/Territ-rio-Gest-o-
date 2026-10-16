@@ -17,24 +17,24 @@
       "width": 320,
       "geometry": {
         "dialog": {
-          "left": 19.026931762695312,
-          "top": 37.09906005859375,
-          "width": 281.96337890625
+          "left": 20,
+          "top": 37,
+          "width": 280
         },
         "plus": {
-          "left": 36.02471923828125,
-          "top": 56.096588134765625,
-          "width": 47.99375915527344,
-          "height": 47.99375915527344
+          "left": 37,
+          "top": 56,
+          "width": 48,
+          "height": 48
         },
         "label": "Adicionar produto ao estoque da feira",
         "overflow": false,
         "dialogOverflow": false
       },
       "footer": {
-        "x": 36,
+        "x": 37,
         "y": 584,
-        "width": 248,
+        "width": 246,
         "height": 48
       }
     },
@@ -43,24 +43,24 @@
       "width": 360,
       "geometry": {
         "dialog": {
-          "left": 19.028976440429688,
-          "top": 37.13653564453125,
-          "width": 321.9420166015625
+          "left": 20,
+          "top": 37,
+          "width": 320
         },
         "plus": {
-          "left": 40.02519607543945,
-          "top": 56.13311767578125,
-          "width": 47.99135971069336,
-          "height": 47.991355895996094
+          "left": 41,
+          "top": 56,
+          "width": 48,
+          "height": 48
         },
         "label": "Adicionar produto ao estoque da feira",
         "overflow": false,
         "dialogOverflow": false
       },
       "footer": {
-        "x": 40,
+        "x": 41,
         "y": 584,
-        "width": 280,
+        "width": 278,
         "height": 48
       }
     },
@@ -69,24 +69,24 @@
       "width": 320,
       "geometry": {
         "dialog": {
-          "left": 19.036972045898438,
-          "top": 37.13653564453125,
-          "width": 281.94921875
+          "left": 20,
+          "top": 37,
+          "width": 280
         },
         "plus": {
-          "left": 36.033912658691406,
-          "top": 56.13311767578125,
-          "width": 47.991355895996094,
-          "height": 47.991355895996094
+          "left": 37,
+          "top": 56,
+          "width": 48,
+          "height": 48
         },
         "label": "Adicionar produto ao estoque da feira",
         "overflow": false,
         "dialogOverflow": false
       },
       "footer": {
-        "x": 36,
+        "x": 37,
         "y": 584,
-        "width": 248,
+        "width": 246,
         "height": 48
       }
     },
@@ -95,24 +95,24 @@
       "width": 360,
       "geometry": {
         "dialog": {
-          "left": 19.02093505859375,
-          "top": 37.09906005859375,
-          "width": 321.9581298828125
+          "left": 20,
+          "top": 37,
+          "width": 320
         },
         "plus": {
-          "left": 40.01820373535156,
-          "top": 56.096588134765625,
-          "width": 47.99375915527344,
-          "height": 47.99375915527344
+          "left": 41,
+          "top": 56,
+          "width": 48,
+          "height": 48
         },
         "label": "Adicionar produto ao estoque da feira",
         "overflow": false,
         "dialogOverflow": false
       },
       "footer": {
-        "x": 40,
+        "x": 41,
         "y": 584,
-        "width": 280,
+        "width": 278,
         "height": 48
       }
     }
@@ -223,12 +223,6 @@
       "method": "GET",
       "resourceType": "fetch",
       "fixture": "empty inventory"
-    },
-    {
-      "url": "http://127.0.0.1:8787/api/fairs",
-      "method": "GET",
-      "resourceType": "fetch",
-      "fixture": "empty inventory"
     }
   ],
   "consoleErrors": [
@@ -277,19 +271,6 @@
         "lineNumber": 0,
         "columnNumber": 0
       },
-      "classified": true,
-      "expected": "explicit external test isolation"
-    },
-    {
-      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
-      "location": {
-        "url": "http://127.0.0.1:8787/api/fairs",
-        "line": 0,
-        "column": 0,
-        "lineNumber": 0,
-        "columnNumber": 0
-      },
-      "fixture": "empty inventory",
       "classified": true,
       "expected": "explicit external test isolation"
     },
@@ -370,20 +351,11 @@
       "blockedByHarness": true,
       "fixture": "empty inventory",
       "classified": true
-    },
-    {
-      "url": "http://127.0.0.1:8787/api/fairs",
-      "failure": {
-        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
-      },
-      "blockedByHarness": true,
-      "fixture": "empty inventory",
-      "classified": true
     }
   ],
   "errors": [],
   "fairReport": {
-    "app": "AGRO Gestão 0.12.9",
+    "app": "AGRO Gestão 0.12.10",
     "producer": {
       "name": "Luiz Claudio",
       "business": "AGRO Gestão",
@@ -472,7 +444,7 @@
         "oversold": 0
       },
       {
-        "id": "158525c2-bf5f-4d8e-acf9-308584f792d8",
+        "id": "a539e415-7653-4598-975b-c61376dcf4e9",
         "name": "Quiabo QA exclusivo",
         "description": "Venda por maço",
         "unit": "Maço",
@@ -487,7 +459,7 @@
         "oversold": 0
       },
       {
-        "id": "3ffd472f-c652-45e2-893d-d696b567af8b",
+        "id": "e8392b6d-f89e-4ce2-af42-25f98e7a2c6a",
         "name": "Alface lisa",
         "description": "Pé",
         "unit": "Pé",
@@ -502,8 +474,8 @@
         "oversold": 0
       }
     ],
-    "builtAt": "2026-10-16T17:05:59.527Z",
-    "reportId": "90a78c56-49f3-4345-afc1-b330a8ae25a4-luiz-claudio",
+    "builtAt": "2026-10-16T23:17:31.347Z",
+    "reportId": "77dbd0ea-763b-4b2e-8dc9-4f608877023e-luiz-claudio",
     "status": "preliminar",
     "finalizedAt": "",
     "contrato": {
@@ -543,9 +515,9 @@
         },
         {
           "produtor_id": "p-wyffb0",
-          "produto_id": "158525c2-bf5f-4d8e-acf9-308584f792d8",
+          "produto_id": "a539e415-7653-4598-975b-c61376dcf4e9",
           "produto": "Quiabo QA exclusivo Venda por maço",
-          "categoria": "Hortifruti-Granjeiro",
+          "categoria": "Outros",
           "unidade": "Maço",
           "preco": 4,
           "qtd_inicial": 5,
@@ -553,7 +525,7 @@
         },
         {
           "produtor_id": "p-wyffb0",
-          "produto_id": "3ffd472f-c652-45e2-893d-d696b567af8b",
+          "produto_id": "e8392b6d-f89e-4ce2-af42-25f98e7a2c6a",
           "produto": "Alface lisa Pé",
           "categoria": "Hortifruti-Granjeiro",
           "unidade": "Pé",

@@ -2,7 +2,7 @@
 
 App Android (Capacitor 8) com vendas, estoque, clientes, eventos e gestão local. A fonte atual está em `src/`; o mockup original é referência histórica. Não reexecutar a migração sobre o código atual.
 
-A atualização 0.12.9 reúne preparação de feira com rascunho, melhorias de estoque e clientes, privacidade e resumos semanais/mensais. O material adicional de engajamento foi recebido e considerado. Veja `ALTERACOES-0.12.9.md` para os recursos, verificações e limites. Padrões de interface e catálogo são embarcados; dados pessoais apagados precisam de backup para recuperação.
+A atualização 0.12.10 corrige a ordem de famílias na entrada de estoque, cadastro com custo zero, opções de formato/peso e janelas centralizadas com rolagem e tema coerente. Mantém preparação de feira, privacidade e resumos semanais/mensais da 0.12.9. Veja `ALTERACOES-0.12.10.md` para os recursos, verificações e entrega. Padrões de interface e catálogo são embarcados; dados pessoais apagados precisam de backup para recuperação.
 
 ## Estrutura
 
