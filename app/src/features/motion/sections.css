@@ -1,0 +1,12 @@
+/* Height belongs only to the changing section; ancestors of fixed bars stay still. */
+.fluid-section-running { animation: none !important; transition: none !important; }
+.fluid-section-ghost {
+  position: fixed;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none !important;
+  user-select: none;
+  contain: layout paint;
+}
+.fluid-section-ghost, .fluid-section-ghost * { pointer-events: none !important; animation: none !important; transition: none !important; }
+.fluid-section-placeholder { min-height: 0; margin: 0; padding: 0; border: 0; }

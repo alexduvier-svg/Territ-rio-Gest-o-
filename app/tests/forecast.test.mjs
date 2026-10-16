@@ -19,51 +19,59 @@ const daily = [
   { day: '2026-10-11', hour: 9, productId: 'cafe', qty: 4, amount: 10000 },
   { day: '2026-10-12', hour: 15, productId: 'queijo', qty: 1, amount: 3000 },
 ];
-const base = { periodLabel: 'Outubro de 2026', hasCost: true, portfolioPublished: true, today: '2026-10-13', products, events: [], current: { ...empty }, previous: null, history: { events, daily }, upcoming: { name: 'Feira de Sábado', daysUntil: 3, days: 1 } };
+const base = { dataContext: { type: 'real', id: 'forecast-tests' }, periodLabel: 'Outubro de 2026', hasCost: true, portfolioPublished: true, today: '2026-10-13', products, events: [], current: { ...empty }, previous: null, history: { events, daily }, upcoming: { name: 'Feira de Sábado', daysUntil: 3, days: 1 } };
 
-test('previsão da próxima feira: ponderada, ajusta quando esgotou e aponta o que falta', () => {
+test('referência da próxima feira: média ponderada, sem inventar demanda quando esgotou', () => {
   const f = forecastNextEvent(base);
   const cafe = f.lines.find(l => l.id === 'cafe');
-  // (10×1,25×0,4 + 8×0,3) ÷ 0,7 = 10,57 → 11 pacotes; tem 8 → faltam 3
-  assert.equal(cafe.take, 11);
-  assert.equal(cafe.missing, 3);
-  assert.match(cafe.basis, /esgotou/);
-  assert.equal(f.confidence, 'média');
-  assert.ok(f.low < f.revenue && f.revenue < f.high);
+  // (10×0,4 + 8×0,3) ÷ 0,7 = 9,14 → 10 pacotes; tem 8 → faltam 2.
+  assert.equal(cafe.take, 10);
+  assert.equal(cafe.missing, 2);
+  assert.match(cafe.basis, /esgotado/);
+  assert.equal(f.confidence, null);
+  assert.equal(f.rangeKind, 'observed-history');
+  assert.equal(f.limited, true);
+  assert.ok(f.low <= f.revenue && f.revenue <= f.high);
 });
 
 test('sem feiras no histórico usa o ritmo diário', () => {
   const f = forecastNextEvent({ ...base, history: { events: [], daily } });
   assert.ok(f.lines.length > 0);
-  assert.equal(f.confidence, 'muito baixa');
+  assert.equal(f.confidence, null);
+  assert.equal(f.low, null);
+  assert.equal(f.high, null);
+  assert.equal(f.limited, true);
   assert.match(f.lines[0].basis, /ritmo/);
 });
 
 test('ritmo diário e fim do estoque', () => {
   const rate = dailyRates(daily, '2026-10-13');
-  assert.equal(Math.round(rate.get('cafe') * 7), 7); // 7 pacotes em 7 dias observados
+  assert.equal(rate.get('cafe'), 7 / 4); // 7 pacotes de 10 a 13/10: quatro dias corridos.
   const r = runOut(base).find(x => x.id === 'cafe');
-  assert.equal(Math.round(r.days), 8);
+  assert.equal(r.days, 8 / (7 / 4));
+  assert.equal(r.samples, 2);
+  assert.equal(r.limited, true);
   assert.deepEqual(dailyRates([], '2026-10-13').size, 0);
 });
 
 test('melhor dia e horário', () => {
   const m = bestMoments(daily);
   assert.equal(m.hour, 9);
-  assert.equal(m.day, 'domingo'); // 11/10/2026
+  assert.equal(m.day, null); // Um único domingo não sustenta um padrão semanal.
+  assert.equal(m.limited, true);
 });
 
 test('orientação inclui a previsão com botão de repor', () => {
   const g = buildGuidance(base);
   const d = g.all.find(x => x.id === 'previsao-feira');
   assert.ok(d);
-  assert.match(d.todo, /Café Especial \(faltam 3 pct\)/);
+  assert.match(d.todo, /Café Especial \(faltam 2 pct\)/);
   assert.equal(d.cta.action, 'restock-ids');
 });
 
 test('agente responde ao assunto da pergunta', () => {
-  assert.match(answer('O que levar para a feira?', base), /^Previsão\nPara a Feira de Sábado/);
-  assert.match(answer('quando acaba o estoque?', base), /^Estoque\n/);
+  assert.match(answer('O que levar para a feira?', base), /Previsão\nPara a Feira de Sábado/);
+  assert.match(answer('quando acaba o estoque?', base), /Estoque\n/);
   assert.match(answer('qual meu melhor horário?', base), /das 9h às 10h/);
   assert.match(answer('', base), /Faça agora|Previsão:/);
 });

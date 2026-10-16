@@ -1,3 +1,5 @@
+import { ENGAGEMENT_AI_CONTRACT } from '../../data/engagement-guidelines.js';
+
 // Memória do app: o "Material de Apoio — Branding, PDV e KPI's" (Feira de Carangola) reescrito em
 // linguagem simples. Os números do estudo de caso do material são fictícios e NÃO entram aqui:
 // ficam só os conceitos, as ações e as fórmulas. Os números que o produtor vê vêm sempre dos dados
@@ -60,7 +62,7 @@ export const TOPICS = {
   natureza: { area: 'percepcao', title: 'A feira leva a natureza para a cidade', what: 'O produtor traz o campo até a praça — e pode levar até a casa do cliente.',
     how: ['Diga isso na banca: "colhido ontem", "do sítio para a sua mesa".', 'Ofereça lista semanal e entrega pelo WhatsApp.'],
     improves: ['Recompra', 'Clientes fixos'] },
-  lembrancas: { area: 'percepcao', title: 'Compramos com a emoção', what: 'A decisão de compra é emocional; a razão só justifica depois.',
+  lembrancas: { area: 'percepcao', title: 'Compramos com a emoção', what: 'Emoção, necessidade, preço e experiência podem participar da decisão de compra.',
     how: ['Use cheiro, sabor e história antes de falar de preço.', 'Venda reencontro e pertencimento, não só mercadoria.'],
     improves: ['Vendas por visitante'] },
 
@@ -92,7 +94,7 @@ export const TOPICS = {
   pontoquente: { area: 'pdv', title: 'Lugar de maior movimento', what: 'Onde passa mais gente vende mais.',
     how: ['Chegue cedo e observe por onde as pessoas entram e circulam.', 'Se o seu produto chama atenção, negocie com a organização um lugar perto da entrada ou do corredor central.'],
     improves: ['Movimento na banca'] },
-  degustacao: { area: 'pdv', title: 'Degustação', what: 'Quem prova compra mais, e compra mais caro, porque já confia.',
+  degustacao: { area: 'pdv', title: 'Degustação', what: 'Uma amostra permite conhecer o produto; seu efeito nas vendas precisa ser observado.',
     how: ['Prepare amostras antes da feira e nunca deixe acabar.', 'Café na xícara pequena, fatia fina de queijo, doce na colherinha, mel no palito.', 'Plaquinha "Experimente!".'],
     improves: ['Vendas por visitante', 'Ticket médio'] },
   visual: { area: 'pdv', title: 'Banca com uma cara só', what: 'Cores, etiquetas e potes padronizados fazem a banca parecer profissional e justificam preço melhor.',
@@ -122,7 +124,7 @@ export const TOPICS = {
     how: ['Se ficar negativo, olhe primeiro perdas e encalhe, depois despesas.'], improves: [] },
   roi: { area: 'kpi', title: 'Retorno do que você investiu', what: 'Para cada real colocado no negócio, quanto voltou.', formula: '(Receita − custos) ÷ custos', how: [], improves: [] },
   ltv: { area: 'kpi', title: 'Valor do cliente ao longo do tempo', what: 'Quanto um cliente deixa com você somando todas as compras.', formula: 'Ticket médio × compras por cliente',
-    how: ['Regra de ouro: deve ser pelo menos três vezes o custo para conquistar o cliente.', 'Cliente que volta toda semana vale muito mais que o cliente de uma vez só.'], improves: [] },
+    how: ['LTV exige acompanhamento por cliente e prazo definido. A relação 3×CAC é uma referência de alguns modelos, não um critério universal.', 'Cliente que volta toda semana vale muito mais que o cliente de uma vez só.'], improves: [] },
   giro: { area: 'kpi', title: 'Quanto do que você levou foi vendido', what: 'Mostra o encalhe: o que voltou para casa.', formula: 'Vendido ÷ levado para a feira',
     how: ['Leve mais do que esgota e menos do que encalha.', 'Use o que sobra em combos com o produto campeão antes que perca a validade.'], improves: [] },
   perdida: { area: 'kpi', title: 'Venda que ficou na mesa', what: 'Quanto o encalhe teria rendido se fosse vendido.', formula: 'Sobra × preço', how: [], improves: [] },
@@ -144,7 +146,7 @@ export const TOPICS = {
 };
 
 export const CHECKLISTS = {
-  banca: { title: 'Checklist da banca', intro: 'Confira antes de abrir. Cada item marcado é uma venda a mais.', items: [
+  banca: { title: 'Checklist da banca', intro: 'Confira antes de abrir. Use a lista para preparar a banca; avalie o resultado em feiras comparáveis.', items: [
     'Banner ou placa com seu nome visível de longe.',
     'Produto mais bonito na frente, na altura dos olhos.',
     'Preço visível em todos os produtos.',
@@ -172,8 +174,11 @@ export const CHECKLISTS = {
 
 // Resumo enviado à IA externa junto com os dados, para que ela siga o mesmo método.
 export const AI_GUIDE = [
+  ENGAGEMENT_AI_CONTRACT,
+  'O catálogo local é apenas vocabulário para cadastro: não prova disponibilidade, estoque, vendas, preço, custo, composição ou certificação. Use somente as sugestões pertinentes à pergunta. Preserve IDs e apresentações próprias; aliases e plurais não criam novos produtos. Campos ausentes pedem revisão. Maço/molho no campo de unidade não tem peso fixo e não se confunde com molho culinário. Não publique a memória do produtor nem altere cadastros automaticamente.',
   'Você orienta pequenos produtores rurais que vendem em feiras. Responda em português simples, frases curtas, sem jargão.',
   'Formato: 1) o que aconteceu, em uma frase; 2) até três ações práticas para a próxima feira, em ordem de impacto; 3) só depois, se pedirem, os números.',
-  'Use só os números reais do contexto. Nunca invente valores.',
-  'Método de referência (material de apoio da feira): marca (nome com origem, história, cores, embalagem, QR para contato, prova social, escassez verdadeira); percepção (memória afetiva, artesanal vale mais, mostrar o trabalho invisível, vender o sentimento); montagem da banca (primeira impressão, ponta da mesa, destaque fora da mesa, itens pequenos na hora de pagar, combos de produtos que combinam, degustação, preço visível em tudo, banca em degraus, produto que atrai, lista do dia no WhatsApp); números (ticket médio, lucro por produto, encalhe, ponto de equilíbrio, peso de cada produto, custo para conquistar cliente e valor do cliente ao longo do tempo, que deve ser pelo menos três vezes esse custo).',
+  'Use só os números oficiais do motor no mesmo recorte. Não invente valores, causas, impostos, conversão ou LTV. Custo ausente não é zero. Lucro bruto não é caixa disponível. Não altere preço, estoque ou vendas por recomendação.',
+  'Priorize erros e cobertura de custos antes de sugerir crescimento. Diferencie fato, projeção histórica e teste de branding/PDV. Declare amostra, denominador e limitações; não prometa acerto ou aumento de vendas.',
+  'Método de referência (material de apoio da feira): marca (nome com origem, história, cores, embalagem, QR para contato, prova social, escassez verdadeira); percepção (memória afetiva, artesanal vale mais, mostrar o trabalho invisível, vender o sentimento); montagem da banca (primeira impressão, ponta da mesa, destaque fora da mesa, itens pequenos na hora de pagar, combos de produtos que combinam, degustação, preço visível em tudo, banca em degraus, produto que atrai, lista do dia no WhatsApp); números (ticket médio, lucro por produto, encalhe, ponto de equilíbrio, peso de cada produto, custo para conquistar cliente e valor histórico do cliente, sem presumir LTV futuro ou um retorno mínimo universal).',
 ].join('\n');

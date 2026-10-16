@@ -14,6 +14,21 @@ const button = (action, label, cls, attrs) => `<button type="button" data-action
 
 let last = null;
 
+function insights(input) {
+  const g = buildGuidance(input);
+  last = g;
+  const q = g.quality;
+  const context = { real: 'Operação real', demo: 'Exemplo com dados fictícios', simulation: 'Simulação', unconfirmed: 'Origem não confirmada' }[q.context];
+  const c = input.current, f = input.finance;
+  const metrics = q.errors || q.context === 'unconfirmed' ? '' : `<dl class="insight-metrics"><div><dt>Vendas após devoluções</dt><dd>${esc(brlValue(c.revenue))}</dd></div><div><dt>Lucro bruto dos produtos</dt><dd>${q.completeCosts ? esc(brlValue(c.revenue - c.cost)) : 'Custo incompleto'}</dd></div><div><dt>Resultado gerencial</dt><dd>${q.resultIsPartial ? 'Parcial' : esc(brlValue(c.result))}</dd></div><div><dt>Compra média</dt><dd>${c.salesCount ? esc(brlValue(c.ticket)) : 'Sem vendas'}</dd></div></dl>`;
+  return `<section class="insight-overview"><p class="insight-context">${esc(context)}</p><h3>O que os registros mostram</h3><p>${esc(g.situation.replace(/^(Exemplo com dados fictícios|Simulação)\. /,''))}</p>${metrics}<p class="insight-quality">${esc(q.status)}${q.products ? ` · custo conhecido em ${q.knownProducts} de ${q.products} produtos · ${Math.round((q.costCoverage || 0) * 100)}% da receita` : ''}</p></section>
+  <section class="insight-priorities"><h3>Próximos passos</h3><ol class="advisor-actions">${g.actions.map(d => `<li>${button('advisor-detail', `<span class="advisor-dot ${d.level}"></span><span class="advisor-text"><small>${esc(d.level === 'urgente' ? 'Conferir primeiro' : d.level === 'oportunidade' ? 'Sugestão para testar' : 'Revisar registros')}</small><strong>${esc(d.title)}</strong><span>${esc(d.todo)}</span></span><span class="advisor-why" aria-hidden="true">›</span>`, 'advisor-action', {id:d.id})}</li>`).join('')}</ol></section>
+  <div class="advisor-links">${button('advisor-all', 'Ver diagnóstico', 'advisor-link')}${button('advisor-guide', 'Marca e banca', 'advisor-link')}</div><p class="insight-method">Cálculos locais sobre os registros deste recorte. Sugestões de marca e exposição são testes; projeções não garantem vendas. Taxas configuradas e gastos ausentes precisam ser conferidos.</p>`;
+}
+
+const currencyFormat = new Intl.NumberFormat('pt-BR', {style:'currency',currency:'BRL'});
+const brlValue = cents => currencyFormat.format((Number(cents) || 0)/100);
+
 function panel(input) {
   const g = buildGuidance(input);
   last = g;
@@ -50,10 +65,12 @@ function detail(id) {
     : '';
   const learn = d.topics.length ? `<div class="advisor-chips">${d.topics.map(t => button('advisor-topic', esc(TOPICS[t].title), 'chip', { id: t })).join('')}</div>` : '';
   return `<p class="advisor-badge ${d.level}">${LEVEL_NAMES[d.level]}</p>
-<h3 class="advisor-label">O que aconteceu</h3><p class="dialog-text">${esc(d.happened)}</p>
+<h3 class="advisor-label">Fato observado</h3><p class="dialog-text">${esc(d.happened)}</p>
+${d.hypothesis ? `<h3 class="advisor-label">Hipótese a verificar</h3><p class="dialog-text">${esc(d.hypothesis)}</p>` : ''}
 <h3 class="advisor-label">O que fazer</h3><p class="advisor-todo">${esc(d.todo)}</p>
 ${d.steps.length ? `<ul class="advisor-list">${d.steps.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
 ${d.why ? `<h3 class="advisor-label">Por que importa</h3><p class="dialog-text">${esc(d.why)}</p>` : ''}
+${d.evaluation ? `<h3 class="advisor-label">Como avaliar</h3><p class="dialog-text">${esc(d.evaluation)}</p>` : ''}
 ${topicHowTo(d.topics)}
 ${numbers}
 ${learn}`;
@@ -62,7 +79,7 @@ ${learn}`;
 // Botão de ação do item (abrir Estoque, Catálogo, checklist, aviso de WhatsApp).
 function detailAction(id) {
   const d = find(id);
-  return d?.cta ? button('advisor-go', esc(d.cta.label), 'primary modal-action', { target: d.cta.action, ...(d.cta.data || {}) }) : '';
+  return (d?.testable ? button('advisor-plan', 'Planejar próximo teste', 'choice modal-action', {id:d.id}) : '') + (d?.cta ? button('advisor-go', esc(d.cta.label), 'primary modal-action', { target: d.cta.action, ...(d.cta.data || {}) }) : '');
 }
 
 function all() {
@@ -103,6 +120,8 @@ function checklist(id) {
 }
 
 window.TerritorioAdvisor = {
+  insights,
+  planning: id => {const d=find(id);return d?.testable?{id:d.id,title:d.title,hypothesis:d.hypothesis,action:d.todo,measure:d.evaluation,period:last.periodLabel,context:last.quality.context}:null;},
   panel,
   detail,
   detailAction,

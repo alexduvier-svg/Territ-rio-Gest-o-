@@ -51,3 +51,23 @@ test('várias gravações seguidas: grava a última e confirma tudo', async () =
   assert.equal(disk[disk.length - 1], 'c');
   assert.equal(await q.settle(), true);
 });
+
+test('erro síncrono na escrita não prende a fila: nova versão e retry continuam gravando', async () => {
+  let fail = true; const disk = [], timers = [];
+  const q = createSaveQueue({
+    write: json => { if (fail) throw new Error('Filesystem indisponível'); disk.push(json); },
+    setTimer: fn => { timers.push(fn); return 0; },
+  });
+  q.save('antes');
+  assert.equal(await q.durable(), false);
+  assert.deepEqual(q.status(), { pending: true, failed: true });
+  q.save('depois');
+  assert.equal(await q.durable(), false);
+  assert.equal(timers.length, 1, 'handle zero também representa retry agendado');
+  fail = false;
+  const confirmed = q.durable();
+  timers.shift()();
+  assert.equal(await confirmed, true);
+  assert.deepEqual(disk, ['depois']);
+  assert.deepEqual(q.status(), { pending: false, failed: false });
+});

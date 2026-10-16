@@ -1,0 +1,279 @@
+{
+  "unidades": {
+    "un": {
+      "singular": "unidade",
+      "plural": "unidades",
+      "abreviatura": "un",
+      "aliases": [
+        "un",
+        "und",
+        "unid",
+        "unidade",
+        "unidades"
+      ]
+    },
+    "kg": {
+      "singular": "quilo",
+      "plural": "quilos",
+      "abreviatura": "kg",
+      "aliases": [
+        "kg",
+        "quilo",
+        "quilos",
+        "quilograma",
+        "quilogramas"
+      ]
+    },
+    "g": {
+      "singular": "grama",
+      "plural": "gramas",
+      "abreviatura": "g",
+      "aliases": [
+        "g",
+        "grama",
+        "gramas"
+      ]
+    },
+    "l": {
+      "singular": "litro",
+      "plural": "litros",
+      "abreviatura": "L",
+      "aliases": [
+        "l",
+        "L",
+        "litro",
+        "litros"
+      ]
+    },
+    "ml": {
+      "singular": "mililitro",
+      "plural": "mililitros",
+      "abreviatura": "ml",
+      "aliases": [
+        "ml",
+        "mililitro",
+        "mililitros"
+      ]
+    },
+    "maco": {
+      "singular": "maço",
+      "plural": "maços",
+      "abreviatura": "maço",
+      "aliases": [
+        "maço",
+        "maços",
+        "maco",
+        "macos",
+        "molho",
+        "molhos"
+      ],
+      "rotulos_regionais": [
+        {
+          "singular": "molho",
+          "plural": "molhos"
+        }
+      ]
+    },
+    "pe": {
+      "singular": "pé",
+      "plural": "pés",
+      "abreviatura": "pé",
+      "aliases": [
+        "pé",
+        "pés",
+        "pe",
+        "pes"
+      ]
+    },
+    "duzia": {
+      "singular": "dúzia",
+      "plural": "dúzias",
+      "abreviatura": "dz",
+      "aliases": [
+        "dúzia",
+        "dúzias",
+        "duzia",
+        "duzias",
+        "dz"
+      ],
+      "conteudo_unidades": 12
+    },
+    "pacote": {
+      "singular": "pacote",
+      "plural": "pacotes",
+      "abreviatura": "pct",
+      "aliases": [
+        "pacote",
+        "pacotes",
+        "pct"
+      ]
+    },
+    "pote": {
+      "singular": "pote",
+      "plural": "potes",
+      "abreviatura": "pote",
+      "aliases": [
+        "pote",
+        "potes"
+      ]
+    },
+    "garrafa": {
+      "singular": "garrafa",
+      "plural": "garrafas",
+      "abreviatura": "garrafa",
+      "aliases": [
+        "garrafa",
+        "garrafas"
+      ]
+    },
+    "bandeja": {
+      "singular": "bandeja",
+      "plural": "bandejas",
+      "abreviatura": "bandeja",
+      "aliases": [
+        "bandeja",
+        "bandejas"
+      ]
+    },
+    "caixa": {
+      "singular": "caixa",
+      "plural": "caixas",
+      "abreviatura": "cx",
+      "aliases": [
+        "caixa",
+        "caixas",
+        "cx"
+      ]
+    },
+    "saco": {
+      "singular": "saco",
+      "plural": "sacos",
+      "abreviatura": "saco",
+      "aliases": [
+        "saco",
+        "sacos"
+      ]
+    },
+    "cacho": {
+      "singular": "cacho",
+      "plural": "cachos",
+      "abreviatura": "cacho",
+      "aliases": [
+        "cacho",
+        "cachos"
+      ]
+    },
+    "penca": {
+      "singular": "penca",
+      "plural": "pencas",
+      "abreviatura": "penca",
+      "aliases": [
+        "penca",
+        "pencas"
+      ]
+    },
+    "peca": {
+      "singular": "peça",
+      "plural": "peças",
+      "abreviatura": "peça",
+      "aliases": [
+        "peça",
+        "peças",
+        "peca",
+        "pecas"
+      ]
+    },
+    "pedaco": {
+      "singular": "pedaço",
+      "plural": "pedaços",
+      "abreviatura": "pedaço",
+      "aliases": [
+        "pedaço",
+        "pedaços",
+        "pedaco",
+        "pedacos"
+      ]
+    },
+    "fatia": {
+      "singular": "fatia",
+      "plural": "fatias",
+      "abreviatura": "fatia",
+      "aliases": [
+        "fatia",
+        "fatias"
+      ]
+    },
+    "porcao": {
+      "singular": "porção",
+      "plural": "porções",
+      "abreviatura": "porção",
+      "aliases": [
+        "porção",
+        "porções",
+        "porcao",
+        "porcoes"
+      ]
+    },
+    "vaso": {
+      "singular": "vaso",
+      "plural": "vasos",
+      "abreviatura": "vaso",
+      "aliases": [
+        "vaso",
+        "vasos"
+      ]
+    },
+    "muda": {
+      "singular": "muda",
+      "plural": "mudas",
+      "abreviatura": "muda",
+      "aliases": [
+        "muda",
+        "mudas"
+      ]
+    },
+    "rolo": {
+      "singular": "rolo",
+      "plural": "rolos",
+      "abreviatura": "rolo",
+      "aliases": [
+        "rolo",
+        "rolos"
+      ]
+    },
+    "kit": {
+      "singular": "kit",
+      "plural": "kits",
+      "abreviatura": "kit",
+      "aliases": [
+        "kit",
+        "kits"
+      ]
+    },
+    "par": {
+      "singular": "par",
+      "plural": "pares",
+      "abreviatura": "par",
+      "aliases": [
+        "par",
+        "pares"
+      ]
+    }
+  },
+  "regra_quantidade": "Usar singular para 1, plural para outras quantidades, salvo preferir a abreviatura técnica kg/g/L/ml. A contagem segue a unidade de venda, não o nome do produto.",
+  "exemplos": [
+    "1 maço de taioba",
+    "2 maços de taioba",
+    "1 molho de taioba",
+    "2 molhos de taioba",
+    "1 mamão",
+    "3 mamões",
+    "1 pé de alface",
+    "4 pés de alface",
+    "1 pedaço de bolo",
+    "3 pedaços de bolo",
+    "0,5 kg de queijo",
+    "1 bandeja com 12 ovos",
+    "2 bandejas com 12 ovos cada"
+  ]
+}

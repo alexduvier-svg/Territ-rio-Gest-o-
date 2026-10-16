@@ -2,35 +2,31 @@
 // avisos e, no estilo Feira, o cadastro em "lista que expande" (uma configuração aberta por vez,
 // com o valor escolhido à direita; ao escolher, abre a próxima).
 
+import { animatePageChange, animateToast } from './motion/index.js';
+
 const app = () => document.getElementById('app');
 const isFeira = () => document.documentElement.dataset.layout === 'feira';
 const shell = () => window.TerritorioShell;
 
 // ---------------------------------------------------------------- troca de tela
 let lastPage = null;
-let enterTimer;
 function markPageChange() {
   const page = shell()?.page?.();
   if (!page || page === lastPage) return;
   lastPage = page;
-  const el = app();
-  el.classList.remove('page-enter');
-  void el.offsetWidth; // reinicia a animação
-  el.classList.add('page-enter');
-  clearTimeout(enterTimer);
-  enterTimer = setTimeout(() => el.classList.remove('page-enter'), 450);
+  animatePageChange(app());
 }
 
 // ---------------------------------------------------------------- avisos
 const WARN = /^(Não |Estoque não|Nenhum|Informe|Use |Sem |Falta|Máximo)/;
 const SUCCESS = /^(Venda Finalizada|Estoque renovado|QR lido|Página publicada|Backup|Dados de teste zerados|Produto salvo|Cliente salvo)/;
 function classifyToast(toast) {
-  if (toast.hidden) return;
+  if (toast.hidden) { animateToast(toast); return; }
   const text = toast.textContent || '';
   const kind = WARN.test(text) ? 'toast-warn' : SUCCESS.test(text) ? 'toast-success' : '';
   toast.classList.remove('toast-warn', 'toast-success');
-  void toast.offsetWidth; // a mesma mensagem duas vezes também anima
   if (kind) toast.classList.add(kind);
+  animateToast(toast);
 }
 
 // ---------------------------------------------------------------- cadastro em lista que expande
@@ -174,20 +170,6 @@ function detectLite() {
   const memory = navigator.deviceMemory || 8;
   if (cores <= 4 || memory <= 3) document.documentElement.classList.add('lite');
 }
-
-// ---------------------------------------------------------------- mola ao abrir uma seção
-// Só quando a pessoa toca no título; seções que já vêm abertas ao redesenhar não balançam.
-let summaryTapAt = 0;
-document.addEventListener('click', event => { if (event.target.closest?.('summary')) summaryTapAt = Date.now(); }, true);
-document.addEventListener('toggle', event => {
-  const details = event.target;
-  if (!(details instanceof HTMLDetailsElement) || !details.open || Date.now() - summaryTapAt > 800) return;
-  details.classList.remove('just-opened');
-  void details.offsetWidth;
-  details.classList.add('just-opened');
-  clearTimeout(details._springTimer);
-  details._springTimer = setTimeout(() => details.classList.remove('just-opened'), 600);
-}, true);
 
 // ---------------------------------------------------------------- foco visível só com teclado
 // Janela aberta por notificação recebe foco sem toque prévio e o Android desenha a moldura no "x".

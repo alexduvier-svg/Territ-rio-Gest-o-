@@ -1,5 +1,17 @@
 /* Orientação (Resumo): painel, detalhes, guia e checklists. */
 
+.insight-overview { padding: 20px; border-radius: 24px; background: var(--field); margin: 0 0 24px; }
+.insight-context { margin: 0 0 10px; color: var(--accent-ink, var(--green)); font-size: 12px; font-weight: 650; }
+.insight-overview h3, .insight-priorities h3 { margin: 0 0 10px; font-size: 20px; letter-spacing: -.025em; }
+.insight-overview > p:not(.insight-context) { font-size: 14px; line-height: 1.5; }
+.insight-metrics { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px 12px; margin: 22px 0; }
+.insight-metrics dt { font-size: 12px; color: var(--muted); line-height: 1.4; }
+.insight-metrics dd { margin: 5px 0 0; font-size: 18px; font-weight: 650; font-variant-numeric: tabular-nums; letter-spacing: -.03em; overflow-wrap: anywhere; }
+.insight-quality { border-top: 1px solid var(--line); padding-top: 14px; margin-bottom: 0; color: var(--muted); }
+.insight-priorities .advisor-action { background: var(--field); border: 1px solid var(--line); padding: 16px; }
+.insight-priorities .advisor-text small { color: var(--muted); font-size: 11px; margin-bottom: 4px; }
+.insight-method { color: var(--muted); font-size: 12px; line-height: 1.55; margin: 16px 0 24px; }
+
 .advisor {
   border: 1px solid rgba(32, 198, 90, 0.25);
 }

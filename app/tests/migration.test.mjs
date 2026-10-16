@@ -20,3 +20,5 @@ test('atualização de versão: mamão vendido por kg continua em kg (estoque, p
   assert.equal(p.price, 800);
   assert.equal((m.data.productUnitCorrections || []).some(c => c.productId === 'mamao-real'), false);
 });
+
+test('recorte reutiliza o fuso de Brasília na virada do dia, mês e ano',()=>{ assert.equal(E.dayKey('2027-01-01T02:59:59Z'),'2026-12-31'); assert.equal(E.monthKey('2027-01-01T02:59:59Z'),'2026-12'); assert.equal(E.dayKey('2027-01-01T03:00:00Z'),'2027-01-01'); for(let i=0;i<100;i++)assert.equal(E.dayKey('2026-10-15T12:00:00Z'),'2026-10-15'); });

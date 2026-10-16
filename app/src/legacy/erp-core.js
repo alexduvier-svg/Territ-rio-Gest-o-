@@ -9,11 +9,15 @@ const COFFEE_PROFILES={Especial:{format:'Moído',unit:'Pacote',weight:250,price:
 const normalize=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase();
 const number=value=>{if(typeof value==='number')return value;let s=String(value||'').replace(/[^\d,.-]/g,'');if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');return Number(s);};
 const cents=value=>Math.round(number(value)*100);
-const money=value=>(value/100).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-const quantity=value=>Number(value).toLocaleString('pt-BR',{maximumFractionDigits:3});
+const currencyFormatter=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+const quantityFormatter=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:3});
+const money=value=>currencyFormatter.format(value/100);
+const quantity=value=>quantityFormatter.format(Number(value));
 const uid=()=>global.crypto&&global.crypto.randomUUID?global.crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2,9);
-const dayKey=date=>{const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(date));return ['year','month','day'].map(type=>parts.find(p=>p.type===type).value).join('-');};
-const monthKey=date=>{const d=new Date(date);const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit'}).formatToParts(d);return parts.find(p=>p.type==='year').value+'-'+parts.find(p=>p.type==='month').value;};
+const dayFormatter=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'});
+const monthFormatter=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit'});
+const dayKey=date=>{const parts=dayFormatter.formatToParts(new Date(date));return ['year','month','day'].map(type=>parts.find(p=>p.type===type).value).join('-');};
+const monthKey=date=>{const d=new Date(date);const parts=monthFormatter.formatToParts(d);return parts.find(p=>p.type==='year').value+'-'+parts.find(p=>p.type==='month').value;};
 function classify(name){
  const n=normalize(name);
  if(/cafe|coffee|cappuccino/.test(n))return{category:'Cafés',unit:'Pacote',type:'Especial',format:'Moído',weight:250,price:2500,cost:1500,min:5};
@@ -30,9 +34,9 @@ function classify(name){
  if(/abacate|tomate|feijao|alface|laranja|manga|mandioca|hortifruti|legume/.test(n))return{category:'Hortifruti-Granjeiro',unit:/abacate|alface/.test(n)?'Unidade':'kg',price:0,cost:0,min:3,weight:0};
  return{category:'Outros',unit:'Unidade',price:0,cost:0,min:3,weight:0};
 }
-function unitLabel(unit,q){unit=unit==='Cacho'?'Dúzia':unit;const units={Pacote:['pacote','pacotes'],Dúzia:['dúzia','dúzias'],'Meia Dúzia':['meia dúzia','meias dúzias'],Caixa:['caixa','caixas'],Unidade:['unidade','unidades'],Vidro:['vidro','vidros'],Pote:['pote','potes'],kg:['kg','kg'],Litro:['litro','litros'],Sacola:['sacola','sacolas'],Maço:['maço','maços'],Bandeja:['bandeja','bandejas'],Garrafa:['garrafa','garrafas'],Frasco:['frasco','frascos'],Bisnaga:['bisnaga','bisnagas'],Saco:['saco','sacos'],Lata:['lata','latas'],Barra:['barra','barras'],Peça:['peça','peças'],Par:['par','pares'],Pedaço:['pedaço','pedaços'],Fatia:['fatia','fatias'],Kit:['kit','kits'],Rolo:['rolo','rolos']};return(units[unit]||[unit,unit])[q===1?0:1];}
-function description(p){p={...p,unit:p.unit==='Cacho'?'Dúzia':p.unit,contentUnit:EUnits(p.contentUnit)};const measure=p.volume?(p.volume>=1000?quantity(p.volume/1000)+' L':quantity(p.volume)+' ml'):p.weight?(p.weight>=1000&&p.weight%1000===0?quantity(p.weight/1000)+' kg':quantity(p.weight)+' g'):'';return [p.category!=='Cafés'?p.type:'',p.variety&&!normalize(p.baseName||p.name).includes(normalize(p.variety))?p.variety:'',p.flavor,p.material,p.size,p.format,measure,p.unit==='Caixa'&&p.contentCount?quantity(p.contentCount)+' '+(p.contentUnit||'unidades')+' por caixa':''].filter(Boolean).join(' · ')||'Venda por '+p.unit.toLowerCase();}
-function EUnits(value){return String(value==null?'':value).replace(/\bcachos?\b/gi,word=>word[0]===word[0].toUpperCase()?(word.length===6?'Dúzias':'Dúzia'):(word.length===6?'dúzias':'dúzia'));}
+function unitLabel(unit,q){const units={Pacote:['pacote','pacotes'],Dúzia:['dúzia','dúzias'],'Meia Dúzia':['meia dúzia','meias dúzias'],Caixa:['caixa','caixas'],Unidade:['unidade','unidades'],Vidro:['vidro','vidros'],Pote:['pote','potes'],kg:['kg','kg'],g:['g','g'],Litro:['litro','litros'],ml:['ml','ml'],Sacola:['sacola','sacolas'],Maço:['maço','maços'],Molho:['molho','molhos'],Pé:['pé','pés'],Cacho:['cacho','cachos'],Penca:['penca','pencas'],Bandeja:['bandeja','bandejas'],Garrafa:['garrafa','garrafas'],Frasco:['frasco','frascos'],Bisnaga:['bisnaga','bisnagas'],Saco:['saco','sacos'],Lata:['lata','latas'],Barra:['barra','barras'],Peça:['peça','peças'],Par:['par','pares'],Pedaço:['pedaço','pedaços'],Fatia:['fatia','fatias'],Kit:['kit','kits'],Rolo:['rolo','rolos']};return(units[unit]||[unit,unit])[q===1?0:1];}
+function description(p){p={...p,unit:p.unit,contentUnit:EUnits(p.contentUnit)};const measure=p.volume?(p.volume>=1000?quantity(p.volume/1000)+' L':quantity(p.volume)+' ml'):p.weight?(p.weight>=1000&&p.weight%1000===0?quantity(p.weight/1000)+' kg':quantity(p.weight)+' g'):'';return [p.category!=='Cafés'?p.type:'',p.variety&&!normalize(p.baseName||p.name).includes(normalize(p.variety))?p.variety:'',p.flavor,p.material,p.size,p.format,measure,p.unit==='Caixa'&&p.contentCount?quantity(p.contentCount)+' '+(p.contentUnit||'unidades')+' por caixa':''].filter(Boolean).join(' · ')||'Venda por '+p.unit.toLowerCase();}
+function EUnits(value){return String(value==null?'':value);}
 function productKey(p){return[normalize(p.baseName||p.name),normalize(p.category),p.type||'',p.format||'',p.unit,['Pacote','Pote','Vidro'].includes(p.unit)?p.weight||0:0,p.unit==='Vidro'?p.volume||0:0,p.unit==='Caixa'?p.contentCount||0:0,p.unit==='Caixa'?p.contentUnit||'unidades':'','general'].join('|')+((p.variety||p.flavor||p.material||p.size||p.volume&&p.unit!=='Vidro'||p.weight&&!['Pacote','Pote','Vidro','kg','Litro'].includes(p.unit))?'|'+[p.variety||'',p.flavor||'',p.material||'',p.size||'',p.unit!=='Vidro'?p.volume||0:0,!['Pacote','Pote','Vidro','kg','Litro'].includes(p.unit)?p.weight||0:0].join('|'):'');}
 function eventSellingNow(e,now){if(!e||e.status!=='active')return false;const stamp=now==null?Date.now():Number(now),day=dayKey(stamp);if(day<e.start||day>e.end)return false;const start=Date.parse(day+'T'+(e.from||'00:00')+':00-03:00'),end=Date.parse(day+'T'+(e.until||'23:59')+':00-03:00');return Number.isFinite(start)&&Number.isFinite(end)&&stamp>=start&&stamp<end;}
 function seed(){
@@ -69,6 +73,23 @@ class ERPModel{
   this.unifyInventory();
   this.renameSampleBanana();
   this.correctPapayaUnits();
+  this.initProductMemory();
+ }
+ initProductMemory(){
+  const saved=this.data.productMemory,entries=saved&&typeof saved==='object'&&saved.entries&&typeof saved.entries==='object'&&!Array.isArray(saved.entries)?saved.entries:{};
+  this.productMemoryInitialized=!saved;
+  this.data.productMemory={...(saved&&typeof saved==='object'?saved:{}),version:1,scopeId:saved?.scopeId||uid(),entries};
+  if(global.TerritorioCatalogKnowledge&&(!this.data.catalogKnowledge||String(this.data.catalogKnowledge.version||'0').localeCompare(global.TerritorioCatalogKnowledge.version,'en',{numeric:true})<0)){this.data.catalogKnowledge=JSON.parse(JSON.stringify(global.TerritorioCatalogKnowledge));this.catalogKnowledgeInstalled=true;}
+  const guidelines=global.TerritorioInterfaceGuidelines;
+  if(guidelines&&(!this.data.interfaceGuidelines||(Number(this.data.interfaceGuidelines.version)||0)<guidelines.version)){this.data.interfaceGuidelines=JSON.parse(JSON.stringify(guidelines));this.interfaceGuidelinesInstalled=true;}
+  const stockGuidelines=global.TerritorioProductCatalog?.STOCK_CATALOG_GUIDELINES;
+  if(stockGuidelines&&(!this.data.stockCatalogGuidelines||(Number(this.data.stockCatalogGuidelines.version)||0)<stockGuidelines.version)){this.data.stockCatalogGuidelines=JSON.parse(JSON.stringify(stockGuidelines));this.stockCatalogGuidelinesInstalled=true;}
+  const engagement=global.TerritorioEngagementGuidelines;
+  if(engagement&&(!this.data.engagementGuidelines||(Number(this.data.engagementGuidelines.version)||0)<engagement.version)){this.data.engagementGuidelines=JSON.parse(JSON.stringify(engagement));this.engagementGuidelinesInstalled=true;}
+ }
+ rememberProduct(p,{stockEntry=false,at=new Date().toISOString()}={}){
+  const memory=this.data.productMemory,old=memory.entries[p.id]||{},count=Number.isFinite(old.stockEntries)?Math.max(0,Math.floor(old.stockEntries)):0;
+  memory.entries[p.id]={...old,confirmedAt:old.confirmedAt||at,stockEntries:count+(stockEntry?1:0),...(stockEntry?{lastStockAt:at}:{})};
  }
  correctPapayaUnits(){
   // Desligada: era uma correção única de uma versão antiga (já aplicada). Num cadastro real, quem vende
@@ -84,15 +105,13 @@ class ERPModel{
   }
  }
  renameSampleBanana(){
+  if(this.data.settings?.onboarding!=='demo'&&this.data.dataContext?.type!=='demo')return;
   const p=this.data.products.find(p=>p.id==='banana-caixa');if(!p||normalize(p.name)!=='banana prata'||normalize(p.baseName||p.name)!=='banana prata')return;
   p.name='Banana Nanica';p.baseName='Banana Nanica';this.data.profiles[productKey(p)]={...p};
  }
  renamePresentationUnits(){
-  const rename=value=>typeof value==='string'?value.replace(/\bcachos?\b/gi,word=>word[0]===word[0].toUpperCase()?(word.length===6?'Dúzias':'Dúzia'):(word.length===6?'dúzias':'dúzia')):value;
-  const unitFields=p=>{if(!p)return;for(const field of ['unit','contentUnit','description'])if(typeof p[field]==='string')p[field]=rename(p[field]);};
-  this.data.products.forEach(unitFields);this.data.productLibrary.entries.forEach(p=>unitFields(p.defaults));
-  const profiles={};Object.entries(this.data.profiles).forEach(([key,value])=>{unitFields(value);profiles[rename(key)]=value;});this.data.profiles=profiles;
-  Object.keys(this.data.productLibrary.dimensions).forEach(key=>{if(/\|(unit|contentUnit)$/.test(key))this.data.productLibrary.dimensions[key]=[...new Set(this.data.productLibrary.dimensions[key].map(rename))];});
+  // Cacho is a genuine commercial unit. An old display migration must never rewrite it on reload.
+  return;
  }
  unifyInventory(){
   const d=this.data;d.productAliases=d.productAliases||{};
@@ -100,6 +119,7 @@ class ERPModel{
   d.products.forEach(p=>p.category=category(p.category));d.productLibrary.entries.forEach(p=>p.category=category(p.category));
   Object.entries(d.productLibrary.dimensions).forEach(([key,values])=>{if(key.startsWith('Hortifruti|')){const next=key.replace('Hortifruti|','Hortifruti-Granjeiro|');d.productLibrary.dimensions[next]=[...new Set([...(d.productLibrary.dimensions[next]||[]),...values])];delete d.productLibrary.dimensions[key];}});
   if(d.inventoryRevision>=20&&d.products.every(p=>p.stockGroup==='general'))return;
+  if(d.products.every(p=>!p.stockGroup||p.stockGroup==='general')){d.products.forEach(p=>p.stockGroup='general');d.inventoryRevision=20;return;}
   const stamp=new Date().toISOString(),archive=JSON.parse(JSON.stringify(d.products)),groups=new Map(),kept=[];
   d.products.forEach(p=>{const key=productKey({...p,stockGroup:'general'});if(!groups.has(key))groups.set(key,[]);groups.get(key).push(p);});
   groups.forEach(items=>{
@@ -117,37 +137,44 @@ class ERPModel{
  profile(p){const exact=this.data.profiles[productKey(p)]||this.data.products.find(x=>productKey(x)===productKey(p));if(exact)return{...exact};const c=COFFEE_PROFILES[p.type]||COFFEE_PROFILES.Especial;if(p.category==='Cafés'){const factor=(p.unit==='kg'?1000:p.weight||c.weight)/c.weight;return{...c,price:Math.round(c.price*factor),cost:Math.round(c.cost*factor)};}return classify(p.baseName||p.name);}
  move(id,kind,qty,note){
   const p=this.product(id);if(!p)throw Error('Produto não encontrado.');
-  qty=number(qty);if(!Number.isFinite(qty)||qty<0||(!['kg','Litro'].includes(p.unit)&&!Number.isInteger(qty)))throw Error('Informe uma quantidade válida na unidade de venda.');
+  qty=number(qty);if(!Number.isFinite(qty)||qty<0||(!['kg','Litro','g','ml'].includes(p.unit)&&!Number.isInteger(qty)))throw Error('Informe uma quantidade válida na unidade de venda.');
   if(kind!=='correct'&&qty<=0)throw Error('Informe uma quantidade maior que zero.');
   const before=p.stock;const after=kind==='correct'?qty:kind==='loss'?before-qty:before+qty;
   if(after<0)throw Error('A perda é maior que o estoque disponível.');
   if(kind==='loss'&&!String(note||'').trim())throw Error('Informe o motivo da perda.');
   if(after===before)throw Error('Não há alteração no estoque.');
   p.stock=Math.round(after*1000)/1000;
-  const m={id:uid(),productId:id,name:p.name,date:new Date().toISOString(),kind,qty:Math.abs(p.stock-before),before,after:p.stock,note:note||'',unit:p.unit,cost:p.cost||0};this.data.movements.unshift(m);return m;
+  const m={id:uid(),productId:id,name:p.name,date:new Date().toISOString(),kind,qty:Math.abs(p.stock-before),before,after:p.stock,note:note||'',unit:p.unit,cost:p.cost||0};this.data.movements.unshift(m);if(kind==='add')this.rememberProduct(p,{stockEntry:true,at:m.date});return m;
  }
  saveProducts(base,variants,editId){
   if(!String(base.name||'').trim())throw Error('Informe o nome do produto.');
-  const incoming=variants.map(v=>{const p={...v,stockGroup:'general',baseName:base.name.trim(),category:base.category,name:base.category==='Cafés'?base.name.trim().replace(/\s+(especial|gourmet|tradicional|commodity|drip coffee)$/i,'')+' '+(v.type||'Especial').toLowerCase():base.name.trim(),price:cents(v.priceInput),cost:cents(v.costInput),stock:number(v.stockInput),min:number(v.minInput)};
+  const incoming=variants.map(v=>{const p={...v,stockGroup:'general',baseName:base.name.trim(),category:base.category,name:base.category==='Cafés'?base.name.trim().replace(/\s+(especial|gourmet|tradicional|commodity|drip coffee)$/i,'')+' '+(v.type||'Especial').toLowerCase():base.name.trim(),price:cents(v.priceInput),cost:cents(v.costInput),costKnown:String(v.costInput??'').trim()!=='',stock:number(v.stockInput),min:number(v.minInput)};
+   if(!String(p.unit||'').trim())throw Error('Escolha a unidade de venda.');
    if([p.weight,p.volume].some(v=>v!==undefined&&(!Number.isFinite(number(v))||number(v)<0)))throw Error('Informe um peso ou volume válido.');
    if(![p.price,p.cost,p.stock,p.min].every(Number.isFinite)||p.price<0||p.cost<0||p.stock<0||p.min<0)throw Error('Valores e quantidades precisam ser válidos e positivos ou zero.');
-   if(!['kg','Litro'].includes(p.unit)&&(!Number.isInteger(p.stock)||!Number.isInteger(p.min)))throw Error('Use quantidades inteiras para '+p.unit.toLowerCase()+'.');
+   if(!['kg','Litro','g','ml'].includes(p.unit)&&(!Number.isInteger(p.stock)||!Number.isInteger(p.min)))throw Error('Use quantidades inteiras para '+p.unit.toLowerCase()+'.');
    if(p.unit==='Caixa'&&!(number(p.contentCount)>0))throw Error('Informe quantas unidades há na caixa.');
    if(p.unit==='Vidro'&&!(number(p.volume)>0)&&!(number(p.weight)>0))throw Error('Informe o peso ou volume do vidro.');
    if(base.category==='Cafés'&&p.unit==='Pacote'&&!(p.weight>0))throw Error('Informe o peso do pacote.');
    delete p.priceInput;delete p.costInput;delete p.stockInput;delete p.minInput;return p;
   });
-  const keys=new Set();incoming.forEach(p=>{const key=productKey(p);if(keys.has(key))throw Error('Há opções de venda repetidas. Altere formato, peso ou embalagem.');keys.add(key);if(this.data.products.some(x=>x.id!==editId&&productKey(x)===key))throw Error('Essa opção de venda já existe. Abra o card para editar ou repor estoque.');});
+  const catalog=global.TerritorioProductCatalog,keys=new Set();incoming.forEach(p=>{
+   const identity=catalog?.commercialIdentity(p),key=identity?.complete?identity.key:productKey(p);
+   if(keys.has(key))throw Error('Há opções de venda repetidas. Altere formato, peso ou embalagem.');keys.add(key);
+   const others=this.data.products.filter(x=>x.id!==editId),duplicates=catalog?.duplicateCandidates(others,p),exact=duplicates?duplicates.exact?.[0]:others.find(x=>productKey(x)===productKey(p));
+   if(exact){const error=Error('Este produto já está cadastrado.');error.code='DUPLICATE_PRODUCT';error.productId=exact.id;throw error;}
+   if(!editId&&!base.identityReviewConfirmed&&duplicates?.review?.length){const error=Error('Há cadastros parecidos com informações incompletas. Confira antes de criar esta variação.');error.code='INCOMPLETE_IDENTITY_REVIEW';error.candidates=duplicates.review.map(x=>x.id);throw error;}
+  });
   if(editId&&incoming.length!==1)throw Error('Edite uma opção por vez; outras opções podem ser cadastradas em Novo produto.');
-  incoming.forEach(p=>{if(editId){const old=this.product(editId);if(!old)throw Error('Produto não encontrado.');if(p.unit!==old.unit&&old.stock>0)throw Error('Zere o saldo por uma movimentação antes de trocar a unidade de venda.');p.stock=old.stock;Object.assign(old,p);p=old;}else{p.id=uid();this.data.products.push(p);this.data.movements.unshift({id:uid(),productId:p.id,name:p.name,date:new Date().toISOString(),kind:'initial',qty:p.stock,before:0,after:p.stock,note:'Cadastro do produto',unit:p.unit});}this.data.profiles[productKey(p)]={unit:p.unit,type:p.type,variety:p.variety,flavor:p.flavor,material:p.material,size:p.size,format:p.format,weight:p.weight,volume:p.volume,price:p.price,cost:p.cost,min:p.min};});
-  incoming.forEach(p=>{const entry={name:p.baseName,category:p.category,defaults:Object.fromEntries(['type','variety','flavor','material','size','format','unit','weight','volume'].filter(key=>p[key]!==undefined).map(key=>[key,p[key]]))},list=this.data.productLibrary.entries,index=list.findIndex(x=>normalize(x.name)===normalize(entry.name));if(index>=0)list[index]=entry;else list.push(entry);});
+  incoming.forEach(p=>{if(editId){const old=this.product(editId);if(!old)throw Error('Produto não encontrado.');if(p.unit!==old.unit&&old.stock>0)throw Error('Zere o saldo por uma movimentação antes de trocar a unidade de venda.');p.stock=old.stock;Object.assign(old,p);p=old;}else{p.id=uid();this.data.products.push(p);this.data.movements.unshift({id:uid(),productId:p.id,name:p.name,date:new Date().toISOString(),kind:'initial',qty:p.stock,before:0,after:p.stock,note:'Cadastro do produto',unit:p.unit});}this.rememberProduct(p,{stockEntry:!editId&&p.stock>0});this.data.profiles[productKey(p)]={unit:p.unit,type:p.type,variety:p.variety,flavor:p.flavor,material:p.material,size:p.size,format:p.format,weight:p.weight,volume:p.volume,contentCount:p.contentCount,contentUnit:p.contentUnit,price:p.price,cost:p.cost,costKnown:p.costKnown,min:p.min};});
+  incoming.forEach(p=>{const entry={productId:p.id,name:p.baseName,category:p.category,confirmed:true,defaults:Object.fromEntries(['type','variety','flavor','material','size','format','unit','weight','volume','contentCount','contentUnit'].filter(key=>p[key]!==undefined).map(key=>[key,p[key]]))},list=this.data.productLibrary.entries,index=list.findIndex(x=>x.productId===p.id);if(index>=0)list[index]={...list[index],...entry};else list.push(entry);});
   return incoming;
  }
   quote(draft){
    const perItem=draft.discountScope==='item';
    const items=draft.items.map((i,index)=>{
     const p=this.product(i.productId),q=number(i.rawQty),total=p&&Math.round(p.price*q);
-    const item={productId:p&&p.id,name:p&&p.name,unit:p&&p.unit,description:p&&description(p),qty:q,price:p&&p.price,cost:p&&p.cost,total,costTotal:p&&Math.round(p.cost*q)};
+    const item={productId:p&&p.id,name:p&&p.name,unit:p&&p.unit,description:p&&description(p),qty:q,price:p&&p.price,cost:p&&p.cost,costKnown:!!p&&(p.costKnown===true||p.costKnown!==false&&Number.isFinite(p.cost)&&p.cost>0),total,costTotal:p&&Math.round(p.cost*q)};
     if(perItem){
      const active=index===draft.active,mode=(active?draft.discountMode:i.discountMode)||'R$',value=(active?draft.discountValue:i.discountValue)||'',rate=number(value),discount=mode==='%'?Math.round(total*rate/100):cents(value);
      Object.assign(item,{discountMode:mode,discountValue:String(value),discount,netTotal:total-discount,discountValid:['R$','%'].includes(mode)&&Number.isFinite(rate)&&rate>=0&&(mode!=='%'||rate<=100)&&Number.isFinite(discount)&&discount>=0&&discount<=total});
@@ -160,7 +187,7 @@ class ERPModel{
  complete(draft){
   if(draft.recipientType){const running=this.data.events.filter(e=>eventSellingNow(e,Date.now()));if(!['PF','PJ','EVENT'].includes(draft.recipientType))throw Error('Escolha o destinatário da venda.');if(draft.recipientType==='EVENT'&&!running.some(e=>e.id===draft.scope)||draft.recipientType!=='EVENT'&&(running.length||draft.scope!=='loja'))throw Error('O destino da venda não está disponível neste horário.');}
   const quote=this.quote(draft);if(!quote.items.length)throw Error('Adicione um produto.');
-  const seen=new Set();quote.items.forEach(i=>{const p=this.product(i.productId);if(!p||seen.has(p.id))throw Error('Produto inválido ou repetido.');seen.add(p.id);if(!Number.isFinite(i.qty)||i.qty<=0)throw Error('Informe a quantidade de cada produto.');if(!['kg','Litro'].includes(p.unit)&&!Number.isInteger(i.qty))throw Error('A quantidade precisa ser inteira para '+p.unit.toLowerCase()+'.');if(i.qty>p.stock)throw Error('Estoque insuficiente para '+p.name+'. Disponível: '+quantity(p.stock)+' '+unitLabel(p.unit,p.stock)+'.');});
+  const seen=new Set();quote.items.forEach(i=>{const p=this.product(i.productId);if(!p||seen.has(p.id))throw Error('Produto inválido ou repetido.');seen.add(p.id);if(!Number.isFinite(i.qty)||i.qty<=0)throw Error('Informe a quantidade de cada produto.');if(!['kg','Litro','g','ml'].includes(p.unit)&&!Number.isInteger(i.qty))throw Error('A quantidade precisa ser inteira para '+p.unit.toLowerCase()+'.');if(i.qty>p.stock)throw Error('Estoque insuficiente para '+p.name+'. Disponível: '+quantity(p.stock)+' '+unitLabel(p.unit,p.stock)+'.');});
   if(!Number.isFinite(quote.discount)||quote.discount<0||quote.discount>quote.subtotal||quote.total<=0)throw Error('O desconto deve ser válido e menor que o valor dos produtos.');
   if(draft.discountScope==='item'&&quote.items.some(i=>!i.discountValid))throw Error('O desconto de cada produto deve ser válido e não superar seu valor.');
    if(draft.uf&&!STATES.some(s=>s[0]===draft.uf))throw Error('Selecione uma UF válida.');

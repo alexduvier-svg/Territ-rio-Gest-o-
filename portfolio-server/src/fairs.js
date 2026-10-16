@@ -105,9 +105,27 @@ function cleanReport(body, fair) {
     payments: Object.fromEntries(Object.entries(body.payments || {}).slice(0, 10).map(([k, v]) => [text(k, 20), num(v)])),
     hourly: Object.fromEntries(Object.entries(body.hourly || {}).slice(0, 24).map(([k, v]) => [text(k, 5), num(v)])),
     products,
+    check: cleanCheck(body.check),
     status: body.status === 'finalizado' ? 'finalizado' : 'preliminar',
     finalizedAt: text(body.finalizedAt, 40),
     contrato: cleanContract(body.contrato),
+  };
+}
+
+// Retrato da conferência no fechamento. As novas vendas atualizam os totais;
+// o app mantém os números e motivos da conferência original neste campo.
+function cleanCheck(value) {
+  const c = value && typeof value === 'object' ? value : {};
+  const qty = v => Number(Math.max(0, num(v)).toFixed(3));
+  return {
+    conferido: c.conferido === true,
+    corrigido: c.corrigido === true,
+    vendasNaoRegistradas: { qtd: qty(c.vendasNaoRegistradas?.qtd), valor: Math.round(Math.max(0, num(c.vendasNaoRegistradas?.valor))) },
+    perdas: { qtd: qty(c.perdas?.qtd) },
+    itens: (Array.isArray(c.itens) ? c.itens : []).filter(i => i && typeof i === 'object').slice(0, 200).map(i => ({
+      produto: text(i.produto), unidade: text(i.unidade, 40),
+      calculado: qty(i.calculado), real: qty(i.real), motivo: text(i.motivo, 200),
+    })),
   };
 }
 
@@ -136,6 +154,7 @@ function cleanContract(c) {
       if (Array.isArray(v.pagamentos)) out.pagamentos = list(v.pagamentos, 6).map(x => ({ forma: PAY.has(x.forma) ? x.forma : 'OUTRO', valor: num(x.valor) }));
       if (['JOVEM', 'ADULTO', 'IDOSO'].includes(v.publico)) out.publico = v.publico;
       if (v.lancada_depois === true) { out.lancada_depois = true; out.registrada_em = text(v.registrada_em, 40); }
+      if (v.unregistered === true) out.unregistered = true;
       return out;
     }),
     fechamento: list(c.fechamento, 200).map(x => ({ produtor_id: pid, produto_id: text(x.produto_id, 60), contado: num(x.contado) })),

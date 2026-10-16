@@ -1,0 +1,181 @@
+/* Clients and sale locality use one centered surface, with the same physical
+   motion as the app. Depth belongs to the frame; text stays sharp and solid. */
+:root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']) {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: calc(100% - 40px);
+  max-width: 490px;
+  height: fit-content;
+  min-height: 0;
+  max-height: calc(100dvh - var(--safe-area-inset-top, 0px) - var(--safe-area-inset-bottom, 0px) - 72px);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--glass-edge, var(--line));
+  border-radius: 28px;
+  background: linear-gradient(136deg, var(--glass-glint-soft), transparent 48%), var(--field);
+  color: var(--text);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 -1px 0 rgba(0,0,0,.09), 0 20px 46px -12px var(--glass-shadow);
+}
+:root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']):is([open], .fluid-native-exit) {
+  display: flex;
+  flex-direction: column;
+}
+:root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']) > .checkout-header {
+  flex: 0 0 auto;
+  padding: 22px 20px 16px;
+  background: transparent;
+}
+:root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']) .checkout-header h2 {
+  margin: 0;
+  padding: 0;
+  font: 750 26px/1.16 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  letter-spacing: -.025em;
+  overflow-wrap: anywhere;
+}
+:root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']) > .dialog-content {
+  flex: 0 1 auto;
+  min-height: 0;
+  padding: 0 18px 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 16px;
+  background: transparent;
+}
+:root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']) > .checkout-footer {
+  flex: 0 0 auto;
+  padding: 13px 18px 16px;
+  border-top: 1px solid var(--line);
+  background: var(--field);
+  box-shadow: inset 0 1px 0 var(--glass-glint-soft);
+}
+.client-editor-layout { display: grid; gap: 14px; }
+.client-form-surface {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--panel);
+  box-shadow: inset 0 1px 0 var(--glass-glint), 0 3px 9px -6px var(--glass-shadow);
+}
+.sale-option-content > .client-form-surface + .client-form-surface { margin-top: 14px; }
+.client-form-surface h3 {
+  margin: 0 0 17px;
+  font: 700 18px/1.25 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  letter-spacing: -.015em;
+}
+.client-form-surface :is(label:not(.consent-row), .client-field-label) {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 600;
+  text-shadow: none;
+}
+.client-form-surface .form-field { margin: 16px 0 0; }
+.client-form-surface > .form-field:first-child { margin-top: 0; }
+.client-form-surface :is(input:not([type='checkbox']):not([type='hidden']), select) {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--field);
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.35;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.035);
+}
+.client-picker-trigger, .sale-client-choice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 50px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--field);
+  color: var(--text);
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 600;
+}
+.client-picker-trigger > span, .sale-client-choice > span { min-width: 0; overflow-wrap: anywhere; }
+.client-picker-trigger > .icon, .sale-client-choice > .icon { flex: 0 0 19px; width: 19px; height: 19px; color: var(--accent-ink, var(--green)); }
+.sale-client-choices { display: grid; gap: 7px; margin-top: 12px; }
+.sale-client-choice { background: var(--panel); font-weight: 500; }
+.sale-client-choice.selected { border-color: var(--accent-ink, var(--green)); background: color-mix(in srgb, var(--action-green) 10%, var(--panel)); }
+.client-picker-empty { margin: 4px 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.client-form-surface .client-clear-action { width: auto; min-height: 44px; margin-top: 8px; font-size: 14px; }
+.client-form-surface .sale-state-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  max-height: none;
+  margin-top: 12px;
+  overflow: visible;
+}
+.client-form-surface .sale-state-list .state-button {
+  min-width: 0;
+  min-height: 65px;
+  padding: 10px 8px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--field);
+  color: var(--text);
+  text-align: left;
+}
+.client-form-surface .sale-state-list .state-button strong { font-size: 17px; font-weight: 700; }
+.client-form-surface .sale-state-list .state-button small { display: block; margin-top: 3px; color: var(--muted); font-size: 13px; line-height: 1.3; overflow-wrap: anywhere; }
+.client-form-surface .sale-state-list .state-button.selected { background: color-mix(in srgb, var(--action-green) 14%, var(--panel)); border-color: var(--accent-ink, var(--green)); }
+.client-form-surface .locality-pills { gap: 8px; margin: 16px 0; }
+.client-form-surface .locality-pill { border: 1px solid var(--line); font-size: 14px; min-height: 46px; }
+.client-form-surface .neighborhood-list { max-height: none; overflow: visible; }
+.client-form-surface .neighborhood-pill { min-height: 46px; font-size: 14px; }
+.client-consent-surface .consent-row { display: flex; align-items: flex-start; gap: 12px; margin: 14px 0 0; padding: 0; color: var(--muted); font-size: 14px; line-height: 1.5; font-weight: 400; }
+.client-consent-surface input[type='checkbox'] { flex: 0 0 22px; width: 22px; height: 22px; min-height: 22px; margin: 1px 0 0; accent-color: var(--accent-ink, var(--green)); }
+.client-editor-actions { display: grid; gap: 9px; }
+.client-editor-actions > button { min-height: 48px; font-size: 16px; }
+.client-picker-trigger:focus-visible, .sale-client-choice:focus-visible, .client-form-surface .state-button:focus-visible { outline: 2px solid var(--accent-ink, var(--green)); outline-offset: 2px; }
+
+/* Small static highlights give the clients page the app's tactile hierarchy. */
+:root[data-theme][data-layout] #app .clients-layout :is(.upcoming-notice, .catalog-entry, .client-card) {
+  border: 1px solid var(--glass-edge, var(--line));
+  background: linear-gradient(140deg, var(--glass-glint-soft), transparent 46%), var(--panel);
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 -1px 0 rgba(0,0,0,.055), 0 6px 16px -11px var(--glass-shadow);
+}
+.clients-layout .client-avatar { border: 1px solid var(--line); box-shadow: inset 0 1px 0 var(--glass-glint), 0 2px 5px -3px var(--glass-shadow); font-weight: 700; }
+.clients-layout .client-info > strong { font-weight: 650; letter-spacing: -.012em; }
+.clients-layout .client-main { padding-block: 3px; }
+.client-detail-total, .client-product-list { box-shadow: inset 0 1px 0 var(--glass-glint), 0 3px 9px -6px var(--glass-shadow); }
+
+/* Client details follow the chosen app theme instead of the legacy report palette. */
+:root[data-theme] dialog[data-kind='consumption-detail'] {
+  color-scheme: inherit;
+  --bg: inherit; --panel: inherit; --field: inherit; --line: inherit;
+  --text: inherit; --muted: inherit; --blue: inherit; --blue-surface: inherit;
+  --blue-border: inherit; --green: inherit; --red: inherit;
+  --glass-glint: inherit; --glass-glint-soft: inherit; --glass-edge: inherit; --glass-shadow: inherit;
+}
+
+@media (max-width: 359px) {
+  :root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']) > .checkout-header { padding: 20px 16px 14px; }
+  :root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']) > .dialog-content { padding-inline: 14px; }
+  :root[data-theme][data-layout] dialog:is([data-kind='sale-client'], [data-kind='sale-origin'], [data-kind='client'], [data-kind='client-detail'], [data-kind='consumption-detail']) > .checkout-footer { padding-inline: 14px; }
+  .client-form-surface { padding: 13px; border-radius: 18px; }
+  .client-picker-trigger, .sale-client-choice { padding: 11px 10px; font-size: 14px; }
+}
+html[data-large-text='true'] .client-form-surface :is(label:not(.consent-row), .client-field-label) { font-size: 16px; }
+html[data-large-text='true'] :is(.client-picker-trigger, .sale-client-choice, .client-consent-surface .consent-row) { font-size: 17px; }
+html[data-large-text='true'] .client-form-surface :is(input:not([type='checkbox']):not([type='hidden']), select) { font-size: 18px; }
+html[data-large-text='true'] .client-form-surface .sale-state-list { grid-template-columns: minmax(0, 1fr); }
+html[data-large-text='true'] .client-form-surface .sale-state-list .state-button small { font-size: 15px; }

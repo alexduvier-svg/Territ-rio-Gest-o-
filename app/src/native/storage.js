@@ -8,8 +8,9 @@
 //   territorio/backups/AAAA-MM-DD.json    first save of each day, last 14 days kept
 //
 // Each slot is a one-line header followed by the JSON the app produced:
-//   {"seq":42,"savedAt":"2026-10-13T12:00:00.000Z","length":12345}\n{...}
-// `length` lets a truncated write be detected without trusting the payload.
+//   {"seq":42,"savedAt":"2026-10-13T12:00:00.000Z","length":12345,"checksum":"..."}\n{...}
+// Length detects truncation; the checksum also detects same-length damage. Older headers without
+// a checksum remain readable. A write is confirmed only after reading the slot back intact.
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { createSaveQueue } from './save-queue.js';
@@ -25,16 +26,32 @@ let seq = 0;
 let lastBackupDay = '';
 
 const fileOptions = path => ({ path, directory: Directory.Data, encoding: Encoding.UTF8 });
+const dayFormatter = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' });
+
+function checksum(json) {
+  // FNV-1a over JS code units: corruption detection, independent of platform encodings.
+  let value = 2166136261;
+  for (let i = 0; i < json.length; i++) value = Math.imul(value ^ json.charCodeAt(i), 16777619);
+  return (value >>> 0).toString(16).padStart(8, '0');
+}
+
+function validData(json) {
+  try {
+    const data = JSON.parse(json);
+    return data?.schema === 1 && ['products', 'sales', 'clients', 'events', 'movements', 'expenses'].every(key => Array.isArray(data[key]));
+  } catch { return false; }
+}
 
 async function readSlot(name) {
   try {
     const { data } = await Filesystem.readFile(fileOptions(DIR + '/' + name));
     const newline = data.indexOf('\n');
+    if (newline < 0) return null;
     const header = JSON.parse(data.slice(0, newline));
     const json = data.slice(newline + 1);
-    if (!Number.isInteger(header.seq) || json.length !== header.length) return null;
-    const parsed = JSON.parse(json);
-    if (!parsed || parsed.schema !== 1) return null;
+    if (!Number.isSafeInteger(header.seq) || header.seq < 0 || json.length !== header.length) return null;
+    if (header.checksum != null && header.checksum !== checksum(json)) return null;
+    if (!validData(json)) return null;
     return { seq: header.seq, json };
   } catch {
     return null;
@@ -48,7 +65,7 @@ async function readNewestBackup() {
     for (const name of names) {
       try {
         const { data } = await Filesystem.readFile(fileOptions(BACKUP_DIR + '/' + name));
-        if (JSON.parse(data)?.schema === 1) return data;
+        if (validData(data)) return data;
       } catch { /* try the previous day */ }
     }
   } catch { /* no backups yet */ }
@@ -56,13 +73,25 @@ async function readNewestBackup() {
 }
 
 function dayKey(date) {
-  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo' }).format(date);
+  const parts = dayFormatter.formatToParts(date);
+  return ['year', 'month', 'day'].map(type => parts.find(part => part.type === type).value).join('-');
 }
 
 async function writeDailyBackup(json, now) {
   const day = dayKey(now);
   if (day === lastBackupDay) return;
-  await Filesystem.writeFile({ ...fileOptions(BACKUP_DIR + '/' + day + '.json'), data: json, recursive: true });
+  const path = BACKUP_DIR + '/' + day + '.json';
+  let exists = false;
+  try {
+    const current = await Filesystem.readFile(fileOptions(path));
+    exists = validData(current.data);
+  } catch { /* first save today, or an interrupted backup */ }
+  // Preserve the first valid snapshot of the day even after an app restart/update.
+  if (!exists) {
+    await Filesystem.writeFile({ ...fileOptions(path), data: json, recursive: true });
+    const verified = await Filesystem.readFile(fileOptions(path));
+    if (verified.data !== json) throw new Error('A cópia diária não conferiu.');
+  }
   lastBackupDay = day;
   const { files } = await Filesystem.readdir({ path: BACKUP_DIR, directory: Directory.Data });
   const old = files.map(f => f.name).filter(n => /^\d{4}-\d{2}-\d{2}\.json$/.test(n)).sort().slice(0, -BACKUPS_KEPT);
@@ -71,10 +100,14 @@ async function writeDailyBackup(json, now) {
 
 // Cada gravação vai para o slot seguinte (A/B alternados) e, uma vez por dia, para o backup diário.
 async function writeData(json) {
+  if (!validData(json)) throw new Error('Dados inválidos para gravação. A cópia anterior foi preservada.');
   const now = new Date();
   const next = seq + 1;
-  const header = JSON.stringify({ seq: next, savedAt: now.toISOString(), length: json.length });
-  await Filesystem.writeFile({ ...fileOptions(DIR + '/' + SLOTS[next % 2]), data: header + '\n' + json, recursive: true });
+  const name = SLOTS[next % 2];
+  const header = JSON.stringify({ seq: next, savedAt: now.toISOString(), length: json.length, checksum: checksum(json) });
+  await Filesystem.writeFile({ ...fileOptions(DIR + '/' + name), data: header + '\n' + json, recursive: true });
+  const verified = await readSlot(name);
+  if (verified?.seq !== next || verified.json !== json) throw new Error('A gravação no aparelho não conferiu. Vamos tentar novamente.');
   seq = next;
   await writeDailyBackup(json, now).catch(error => console.warn('Backup diário não gravado', error));
 }
@@ -105,7 +138,11 @@ export async function initStorage() {
   } else {
     // Both slots unreadable: fall back to the newest daily backup, then to data from a
     // build that still used localStorage. Only start from the demo data if nothing exists.
-    initialJSON = (await readNewestBackup()) || localStorage.getItem(LEGACY_KEY);
+    initialJSON = await readNewestBackup();
+    if (!initialJSON) {
+      try { const legacy = localStorage.getItem(LEGACY_KEY); if (validData(legacy)) initialJSON = legacy; }
+      catch { /* WebView storage unavailable: do not copy invalid data into the native files. */ }
+    }
     if (initialJSON) save(initialJSON);
   }
   window.TerritorioNative = { isNative: true, initialJSON, save, durable: () => queue.durable(), status: () => queue.status() };

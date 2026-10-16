@@ -74,13 +74,17 @@ function fixedFor(settings, shares) {
   return Math.round(total);
 }
 
-const fixedMonthly = settings => settings.fixedCosts.reduce((n, f) => n + f.amount, 0);
+const fixedMonthly = (settings, referenceMonth) => Math.round(settings.fixedCosts
+  .filter(f => !referenceMonth || !f.since || f.since <= referenceMonth)
+  .reduce((n, f) => n + Number(f.amount), 0));
 
 export function cardFeesOf(sales, settings) {
   let fees = 0;
   for (const s of sales) for (const p of s.payments || []) {
     const rate = settings.cardFees[p.method];
-    if (rate) fees += (p.amount * rate) / 100;
+    // Each recorded payment is a separate charge estimate, rounded to a cent.
+    // This same function is used by the statement and by each sales location.
+    if (rate) fees += Math.round((p.amount * rate) / 100);
   }
   return Math.round(fees);
 }
@@ -111,7 +115,10 @@ export function statement({ sales, returns = [], expenses, losses = 0, settings:
   const operating = kinds.feira + kinds.producao + kinds.marketing;
   const result = contribution - operating - lossValue - fixed - draw;
   const contributionRate = revenue > 0 ? contribution / revenue : 0;
-  const monthlyFixed = fixedMonthly(settings) + (settings.drawOn ? settings.drawMonthly : 0);
+  // Use the selected period, never the machine's current date. Without a reference,
+  // retain the legacy all-costs indicator and expose its unspecified month.
+  const monthlyFixedReference = shares.map(s => s.month).filter(m => /^\d{4}-\d{2}$/.test(m || '')).sort().at(-1) || null;
+  const monthlyFixed = fixedMonthly(settings, monthlyFixedReference) + (settings.drawOn ? settings.drawMonthly : 0);
   // Caixa do período (o dinheiro que entrou e saiu, diferente do resultado): recebimentos por forma de
   // pagamento, menos devoluções pagas, taxas, custos, contas fixas, retirada e investimentos.
   const received = {};
@@ -122,7 +129,12 @@ export function statement({ sales, returns = [], expenses, losses = 0, settings:
     grossSales, returned, revenue, discounts, cmv, fees, taxes, contribution, contributionRate,
     costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, result, salesCount: sales.length,
     investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
-    monthlyFixed,
+    monthlyFixed, monthlyFixedReference,
+    chargeEstimates: {
+      fees: { basis: 'configured-rate-per-recorded-payment', rounding: 'integer-cent-per-payment' },
+      taxes: { basis: 'positive-net-sales-in-selected-period', rate: settings.salesTaxRate },
+      settlementTracked: false,
+    },
     breakEven: contributionRate > 0 && monthlyFixed > 0 ? Math.round(monthlyFixed / contributionRate) : null,
     costsLogged: expenses.length > 0,
     // Prova real: o resultado é exatamente a soma das linhas do demonstrativo.
@@ -158,16 +170,34 @@ export function productMargins(sales, returns = []) {
   const add = (s, sign) => {
     const factor = s.subtotal > 0 ? s.total / s.subtotal : 1;
     for (const i of s.items || []) {
-      const r = by.get(i.productId) || { id: i.productId, name: i.name, description: i.description, revenue: 0, cost: 0, qty: 0 };
-      r.revenue += sign * (i.netTotal ?? i.total ?? 0) * (i.netTotal != null ? 1 : factor);
+      const r = by.get(i.productId) || { id: i.productId, name: i.name, description: i.description, revenue: 0, cost: 0, qty: 0,
+        costKnown: true, unknownCostQty: 0, unknownCostRevenue: 0, observedCostQty: 0, observedCostRevenue: 0 };
+      const revenue = (i.netTotal ?? i.total ?? 0) * (i.netTotal != null ? 1 : factor);
+      r.revenue += sign * revenue;
       r.cost += sign * (i.costTotal || 0);
       r.qty += sign * (i.qty || 0);
+      // Coverage describes the historical line, never today's product registration.
+      // Absolute exposures keep a return from cancelling an unknown-cost warning.
+      const known = i.costKnown !== false && (i.costKnown === true || (Number.isFinite(i.costTotal) && i.costTotal > 0));
+      r.observedCostQty += Math.abs(i.qty || 0);
+      r.observedCostRevenue += Math.abs(revenue);
+      if (!known) {
+        r.costKnown = false;
+        r.unknownCostQty += Math.abs(i.qty || 0);
+        r.unknownCostRevenue += Math.abs(revenue);
+      }
       by.set(i.productId, r);
     }
   };
   for (const s of sales) add(s, 1);
   for (const s of returns) add(s, -1);
-  return [...by.values()].filter(r => r.qty !== 0 || Math.round(r.revenue) !== 0).map(r => ({ ...r, revenue: Math.round(r.revenue), margin: r.revenue > 0 ? (r.revenue - r.cost) / r.revenue : null })).sort((a, b) => b.revenue - a.revenue);
+  return [...by.values()].filter(r => r.qty !== 0 || Math.round(r.revenue) !== 0 || !r.costKnown).map(r => {
+    const { observedCostQty, observedCostRevenue, ...row } = r;
+    const costCoverage = observedCostRevenue > 0 ? 1 - r.unknownCostRevenue / observedCostRevenue
+      : observedCostQty > 0 ? 1 - r.unknownCostQty / observedCostQty : r.costKnown ? 1 : 0;
+    return { ...row, unknownCostRevenue: Math.round(r.unknownCostRevenue), costCoverage: Math.max(0, Math.min(1, costCoverage)),
+      revenue: Math.round(r.revenue), margin: r.revenue > 0 ? (r.revenue - r.cost) / r.revenue : null };
+  }).sort((a, b) => b.revenue - a.revenue);
 }
 
 // Meta do mês: a definida pela pessoa ou, se não houver, a média dos últimos resultados positivos + 10%.

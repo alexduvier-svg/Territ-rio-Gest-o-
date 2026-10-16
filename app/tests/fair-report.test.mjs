@@ -21,7 +21,7 @@ test('reconhece a feira oficial mesmo com erros', () => {
 const ev = { name: 'Feira do Inventário Rural e Cultural', start: '2026-03-14', end: '2026-03-14', from: '09:00', until: '14:00' };
 const at = hhmm => `2026-03-14T${hhmm}:00-03:00`;
 const item = (productId, name, qty, price, cost) => ({ productId, name, unit: 'Unidade', description: 'Unidade', qty, price, total: qty * price, costTotal: qty * cost });
-const sale = (hhmm, items, method = 'Pix') => { const total = items.reduce((n, i) => n + i.total, 0); return { date: at(hhmm), total, subtotal: total, payments: [{ method, amount: total }], items }; };
+const sale = (hhmm, items, method = 'Pix') => { const total = items.reduce((n, i) => n + i.total, 0); return { status: 'completed', date: at(hhmm), total, subtotal: total, payments: [{ method, amount: total }], items }; };
 
 test('relatório do Jacks: levou, vendeu, restou, esgotamento, faixas e pagamento', () => {
   const load = { items: [{ productId: 'q', name: 'Queijo minas', unit: 'Unidade', qty: 15 }, { productId: 'i', name: 'Iogurte', unit: 'Unidade', qty: 15 }, { productId: 'l', name: 'Linguiça', unit: 'Unidade', qty: 10 }], updatedAt: '2026-03-13T20:00:00-03:00' };
@@ -108,4 +108,114 @@ test('relatório: reposição com horário e venda além do levado', () => {
   const over = buildFairReport({ event: ev, load: { items: [{ productId: 'q', name: 'Queijo', unit: 'Unidade', qty: 3 }] }, sales: [sale('10:00', [item('q', 'Queijo', 5, 3500, 1800)])] });
   assert.equal(over.products[0].oversold, 2);
   assert.match(over.answers.vendeuAlemDoLevado, /Queijo: 2 a mais/);
+});
+
+test('conferência ausente: contrato explícito, inclusive evento sem carga', () => {
+  const r = buildFairReport({ event: ev, load: null, sales: [] });
+  assert.deepEqual(r.check, { conferido: false, corrigido: false, vendasNaoRegistradas: { qtd: 0, valor: 0 }, perdas: { qtd: 0 }, itens: [] });
+  assert.equal(r.totals.tookKnown, 0);
+  assert.doesNotThrow(() => JSON.stringify(r)); // Mesmo contrato para fila local sem rede.
+});
+
+test('conferência é copiada e sanitizada sem alterar dados salvos', () => {
+  const check = {
+    conferido: true, corrigido: true, vendasNaoRegistradas: { qtd: '2', valor: '7000.4', privado: 'não enviar' },
+    perdas: { qtd: 1 }, itens: [{ produto: 'Queijo', unidade: 'Unidade', calculado: '5', real: 2, motivo: 'venda', segredo: 'não enviar' }, null],
+    tempoMs: 1400, touchedDirectly: false,
+  };
+  const original = structuredClone(check);
+  const r = buildFairReport({ event: { ...ev, surplusCheck: check }, load: null, sales: [] });
+  assert.deepEqual(r.check, { conferido: true, corrigido: true, vendasNaoRegistradas: { qtd: 2, valor: 7000 }, perdas: { qtd: 1 }, itens: [{ produto: 'Queijo', unidade: 'Unidade', calculado: 5, real: 2, motivo: 'venda' }] });
+  assert.deepEqual(check, original);
+  r.check.itens[0].real = 100;
+  assert.equal(check.itens[0].real, 2);
+  const bad = buildFairReport({ event: { ...ev, surplusCheck: { conferido: 'true', corrigido: 1, vendasNaoRegistradas: { qtd: Infinity, valor: -1 }, perdas: { qtd: 'inválido' }, itens: 'inválido' } }, load: null, sales: [] });
+  assert.deepEqual(bad.check, { conferido: false, corrigido: false, vendasNaoRegistradas: { qtd: 0, valor: 0 }, perdas: { qtd: 0 }, itens: [] });
+});
+
+test('sobra desconta perdas da mesma feira e apresentação, sem contar reposição duas vezes', () => {
+  const event = { ...ev, id: 'feira-a' };
+  const load = { items: [
+    { productId: 'q', name: 'Queijo', unit: 'Unidade', qty: 15, restocks: [{ at: at('11:00'), qty: 5 }] },
+    { productId: 'q', name: 'Queijo', unit: 'kg', qty: 2.5 },
+  ] };
+  const sales = [sale('10:00', [item('q', 'Queijo', 8, 3500, 1800)])];
+  const losses = [
+    { kind: 'loss', eventId: 'feira-a', productId: 'q', unit: 'Unidade', qty: 3 },
+    { kind: 'loss', eventId: 'outra', productId: 'q', unit: 'Unidade', qty: 4 },
+    { kind: 'correct', eventId: 'feira-a', productId: 'q', unit: 'Unidade', qty: 100 },
+    { kind: 'loss', eventId: 'feira-a', productId: 'q', unit: 'kg', qty: 0.35 },
+    { kind: 'loss', eventId: 'feira-a', productId: 'q', unit: 'kg', qty: -4 },
+  ];
+  const r = buildFairReport({ event, load, sales, losses });
+  assert.deepEqual([r.products[0].took, r.products[0].restocked, r.products[0].sold, r.products[0].left], [15, 5, 8, 4]);
+  assert.equal(r.products[1].left, 2.15);
+  assert.equal(r.totals.left, 6.15);
+  assert.equal(r.totals.revenue, 28000);
+  assert.equal(r.answers.tempoEsgotar, 'NÃO ESGOTOU');
+});
+
+test('perda total não é esgotamento por venda, e sobra nunca é negativa', () => {
+  const load = { items: [{ productId: 'q', name: 'Queijo', unit: 'Unidade', qty: 5 }] };
+  const r = buildFairReport({ event: ev, load, sales: [sale('10:00', [item('q', 'Queijo', 2, 3500, 1800)])], losses: [{ kind: 'loss', productId: 'q', unit: 'Unidade', qty: 8 }] });
+  assert.equal(r.products[0].left, 0);
+  assert.equal(r.products[0].oversold, 0);
+  assert.equal(r.answers.tempoEsgotar, 'NÃO ESGOTOU');
+  assert.equal(r.answers.esgotouPrimeiro, 'Não esgotou nenhum');
+});
+
+test('venda não registrada entra uma vez; retornadas e rascunhos não alteram total ou sobra', () => {
+  const load = { items: [{ productId: 'q', name: 'Queijo', unit: 'Unidade', qty: 10 }] };
+  const completed = { ...sale('13:59', [item('q', 'Queijo', 2, 3500, 1800)]), unregistered: true };
+  const returned = { ...sale('11:00', [item('q', 'Queijo', 3, 3500, 1800)]), status: 'returned' };
+  const draft = { ...sale('12:00', [item('q', 'Queijo', 5, 3500, 1800)]), status: 'draft' };
+  const r = buildFairReport({ event: ev, load, sales: [returned, draft, completed] });
+  assert.deepEqual([r.totals.sales, r.totals.sold, r.totals.left, r.totals.revenue, r.totals.ticket], [1, 2, 8, 7000, 7000]);
+  assert.deepEqual(r.payments, { Pix: 7000 });
+  assert.equal(r.hourly[11], undefined);
+});
+
+test('nova venda após fechamento atualiza relatório e mantém histórico da conferência', () => {
+  const check = { conferido: true, corrigido: true, vendasNaoRegistradas: { qtd: 1, valor: 3500 }, perdas: { qtd: 1 }, itens: [{ produto: 'Queijo', unidade: 'Unidade', calculado: 5, real: 3, motivo: 'venda e perda' }] };
+  const event = { ...ev, surplusCheck: check };
+  const load = { items: [{ productId: 'q', name: 'Queijo', unit: 'Unidade', qty: 10 }] };
+  const losses = [{ kind: 'loss', productId: 'q', unit: 'Unidade', qty: 1 }];
+  const sales = [sale('13:50', [item('q', 'Queijo', 6, 3500, 1800)])];
+  const first = buildFairReport({ event, load, sales, losses, now: Date.parse(at('13:59')) });
+  const later = buildFairReport({ event, load, sales: [...sales, sale('14:05', [item('q', 'Queijo', 1, 3500, 1800)])], losses, now: Date.parse(at('14:05')) });
+  assert.equal(first.totals.left, 3);
+  assert.equal(later.totals.left, 2);
+  assert.equal(later.totals.revenue, first.totals.revenue + 3500);
+  assert.equal(later.totals.sales, 2);
+  assert.deepEqual(later.check, first.check);
+  assert.deepEqual(event.surplusCheck, check);
+});
+
+test('carga ajustada pela conferência corrige levou sem inventar reposição', () => {
+  const sales = [sale('10:00', [item('q', 'Queijo', 3, 3500, 1800)])];
+  const load = { items: [{ productId: 'q', name: 'Queijo', unit: 'Unidade', qty: 12, adjustments: [{ at: at('14:00'), qty: 2, reason: 'surplus-check' }] }], createdAt: at('08:00'), updatedAt: at('14:00'), surplusAdjustedAt: at('14:00') };
+  const r = buildFairReport({ event: ev, load, sales });
+  assert.deepEqual([r.totals.took, r.totals.sold, r.totals.left], [12, 3, 9]);
+  assert.equal(r.answers.reposicao, 'NÃO PRECISEI REPOR');
+  assert.equal(r.products[0].restocked, 0);
+  const c = buildFairContract({ event: ev, load, sales });
+  assert.equal(c.estoque[0].qtd_inicial, 12);
+  assert.deepEqual(c.estoque[0].reposicoes, []);
+});
+
+test('venda corrigida leva flag unregistered no contrato da organização', () => {
+  const s = { ...sale('14:00', [item('q', 'Queijo', 1, 3500, 1800)]), id: 'corrigida', unregistered: true, late: true, registeredAt: at('14:00') };
+  const c = buildFairContract({ event: ev, load: null, sales: [s] });
+  assert.equal(c.vendas[0].unregistered, true);
+  assert.equal(c.vendas[0].lancada_depois, true);
+  assert.equal(c.vendas[0].registrada_em, at('14:00'));
+});
+
+test('totais de quantidades decimais não carregam erro de ponto flutuante', () => {
+  const load = { items: [{ productId: 'a', name: 'Tomate', unit: 'kg', qty: 0.3 }, { productId: 'b', name: 'Batata', unit: 'kg', qty: 0.2 }] };
+  const sold = { ...item('a', 'Tomate', 0.2, 1000, 500), unit: 'kg' };
+  const r = buildFairReport({ event: ev, load, sales: [sale('10:00', [sold])] });
+  assert.equal(r.totals.took, 0.5);
+  assert.equal(r.totals.sold, 0.2);
+  assert.equal(r.totals.left, 0.3);
 });

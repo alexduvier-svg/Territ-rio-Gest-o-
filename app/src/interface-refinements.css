@@ -1,0 +1,246 @@
+/* Focused interface refinements. Solid content surfaces keep dense screens cheap. */
+:root[data-theme][data-layout] #nav::before,
+:root[data-theme][data-layout] #nav::after { content: none !important; display: none !important; }
+:root[data-theme][data-layout] #nav button.active { background: transparent !important; box-shadow: none !important; color: var(--glass-muted, var(--muted)) !important; }
+:root[data-theme][data-layout] #nav button.active > span { color: var(--glass-muted, var(--muted)); }
+:root[data-theme][data-layout] #nav button.active > .icon { color: var(--accent-ink, var(--action-green)); }
+
+/* One header, a scrolling body, and a reachable bottom action. */
+:root[data-theme] dialog[data-bottom-back]:is([open], .fluid-native-exit),
+:root[data-theme] dialog[data-kind='restock']:is([open], .fluid-native-exit) { display: flex; flex-direction: column; padding: 0; overflow: hidden; height: auto; max-height: min(90dvh, calc(100dvh - var(--safe-area-inset-top, 0px) - 24px)); }
+:root[data-theme] dialog[data-bottom-back] > .checkout-header,
+:root[data-theme] dialog[data-kind='restock'] > .checkout-header { flex: 0 0 auto; padding: 20px 20px 12px; min-height: 0; }
+:root[data-theme] dialog[data-bottom-back] > .checkout-header h2,
+:root[data-theme] dialog[data-kind='restock'] > .checkout-header h2 { font-size: 24px; line-height: 1.2; letter-spacing: -.5px; margin: 0; padding: 0; overflow-wrap: anywhere; }
+:root[data-theme] dialog[data-kind='restock'] > .checkout-header h2 { padding-right: 38px; }
+:root[data-theme] dialog[data-bottom-back] > .dialog-content,
+:root[data-theme] dialog[data-kind='restock'] > .dialog-content { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 2px 20px 18px; scroll-padding-bottom: 16px; }
+:root[data-theme][data-layout] dialog[data-bottom-back] > .checkout-footer,
+:root[data-theme][data-layout] dialog[data-kind='restock'] > .checkout-footer { flex: 0 0 auto; padding: 12px 20px calc(14px + var(--safe-area-inset-bottom, 0px)); background: var(--field); border-top: 1px solid var(--line); box-shadow: none; }
+.sheet-back { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; min-height: 48px; padding: 11px 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); color: var(--text); font-size: 16px; font-weight: 650; }
+.sheet-back .icon { width: 19px; height: 19px; }
+.sheet-footer-stack { display: grid; gap: 10px; }
+.sheet-footer-stack > button { margin: 0; }
+:root[data-theme] dialog[data-kind='brain'] .brain-footer-actions > .success { background: var(--panel); color: var(--text); border: 1px solid var(--line); box-shadow: none; min-height: 48px; border-radius: 16px; }
+:root[data-theme] dialog[data-kind='story'][data-no-close] { padding-top: 20px; }
+:root[data-theme] dialog[data-kind='story'][data-no-close] > h2:empty { display: none; }
+
+/* Restocking: the entire keypad scrolls above a separate action region. */
+.restock-intro { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 12px; }
+.restock-intro p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.4; }
+.restock-intro > span { flex: none; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+:root[data-theme] dialog[data-kind='restock'] .restock-rows { gap: 8px; margin: 0 0 16px; }
+:root[data-theme] dialog[data-kind='restock'] .restock-row { min-height: 54px; padding: 10px 12px; border-radius: 15px; }
+:root[data-theme] dialog[data-kind='restock'] .rr-name strong { font-size: 15px; line-height: 1.3; overflow-wrap: anywhere; }
+:root[data-theme] dialog[data-kind='restock'] .rr-name small { font-size: 12px; }
+:root[data-theme] dialog[data-kind='restock'] .rr-value .tabular { font-size: 24px; }
+:root[data-theme] dialog[data-kind='restock'] .restock-keypad { gap: 8px; margin: 0 0 5px; }
+:root[data-theme] dialog[data-kind='restock'] .restock-key { min-height: 46px; height: 48px; font-size: 24px; border-radius: 14px; padding: 6px; }
+:root[data-theme] dialog[data-kind='restock'] .restock-erase { font-size: 11px; gap: 2px; }
+.restock-footer-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+.restock-footer-actions:has(.restock-next) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); }
+:root[data-theme] .restock-footer-actions > button { min-width: 0; min-height: 48px; margin: 0; padding: 11px 10px; font-size: 16px; line-height: 1.25; border-radius: 16px; }
+.restock-next { background: var(--panel); color: var(--text); border: 1px solid var(--line); font-weight: 650; }
+
+/* Appearance describes the actual choices; no implementation vocabulary in controls. */
+:root[data-theme][data-layout] dialog .appearance-layout.selected,
+:root[data-theme][data-layout] dialog .appearance-theme.selected { background: color-mix(in srgb,var(--action-green) 8%,var(--panel)) !important; color: var(--text) !important; border-color: var(--action-green) !important; }
+:root[data-theme][data-layout] dialog[data-kind='restock']:is([open],.fluid-native-exit) { min-height: 0; height: fit-content; }
+:root[data-theme][data-layout] dialog[data-kind='restock'] > .dialog-content { flex: 0 1 auto; min-height: 0; }
+:root[data-theme][data-layout] dialog[data-kind='restock'] .restock-row { height: auto; min-height: 64px; }
+.appearance-page { display: grid; gap: 22px; }
+.appearance-section > h3 { margin: 0 0 10px; font-size: 15px; font-weight: 650; color: var(--muted); }
+.appearance-layouts { display: grid; gap: 10px; }
+.appearance-layout { display: flex; align-items: center; gap: 12px; min-width: 0; width: 100%; min-height: 88px; padding: 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); text-align: left; }
+.appearance-layout > span:nth-child(2) { display: grid; gap: 4px; min-width: 0; flex: 1; }
+.appearance-layout strong { font-size: 16px; line-height: 1.25; color: var(--text); }
+.appearance-layout small { font-size: 12px; line-height: 1.4; color: var(--muted); font-weight: 400; }
+.appearance-layout.selected { border-color: var(--action-green); background: color-mix(in srgb, var(--action-green) 8%, var(--panel)); color: var(--text); }
+.appearance-check { display: grid; place-items: center; flex: 0 0 20px; width: 20px; height: 20px; color: var(--accent-ink); }
+.appearance-check .icon { width: 20px; height: 20px; }
+.appearance-layout-preview { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; gap: 3px; flex: 0 0 50px; width: 50px; height: 43px; padding: 6px; border-radius: 10px; background: var(--field); border: 1px solid var(--line); }
+.appearance-layout-preview i { display: block; height: 24px; border: 1px solid color-mix(in srgb, var(--text) 20%, var(--line)); border-radius: 3px; background: var(--panel); }
+.appearance-layout-preview.territorio { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.appearance-layout-preview.territorio i { height: 12px; }
+.appearance-themes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px; }
+.appearance-theme { display: grid; justify-items: center; align-content: center; gap: 9px; min-width: 0; min-height: 102px; padding: 11px 4px; border: 1px solid var(--line); border-radius: 17px; background: var(--panel); }
+.appearance-theme strong { font-size: 12px; line-height: 1.3; color: var(--text); font-weight: 600; }
+.appearance-theme.selected { border-color: var(--action-green); background: color-mix(in srgb, var(--action-green) 8%, var(--panel)); }
+.appearance-theme-preview { display: grid; gap: 4px; width: 42px; height: 40px; padding: 6px; border-radius: 9px; border: 1px solid #77777755; background: #242426; }
+.appearance-theme-preview i { display: block; border-radius: 3px; background: #ffffff22; }
+.appearance-theme-preview.light { background: #f5f5f7; }
+.appearance-theme-preview.light i { background: #1818201a; }
+.appearance-theme-preview.system { background: linear-gradient(90deg, #242426 50%, #f5f5f7 50%); }
+.appearance-theme-preview.system i { background: #94949955; }
+.appearance-preferences { padding: 0 14px; border-radius: 18px; border: 1px solid var(--line); background: var(--panel); }
+.appearance-preference { display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; min-height: 76px; padding: 14px 0; text-align: left; }
+.appearance-preference + .appearance-preference { border-top: 1px solid var(--line); }
+.appearance-preference > span:first-child { display: grid; gap: 4px; min-width: 0; }
+.appearance-preference strong { font-size: 15px; line-height: 1.3; font-weight: 600; }
+.appearance-preference small { color: var(--muted); font-size: 12px; line-height: 1.4; }
+.appearance-preference .switch { flex: none; }
+.appearance-performance { margin: 10px 3px 0; color: var(--muted); font-size: 12px; line-height: 1.4; }
+
+/* Management: one overview list; planning is a smaller, separate pair. */
+.mg-section-title { margin: 24px 2px 10px; font-size: 18px; font-weight: 650; letter-spacing: -.25px; }
+:root[data-theme][data-layout] #app .mg-overview-list { padding: 0 16px; border: 1px solid color-mix(in srgb, var(--line) 65%, transparent); box-shadow: none; }
+.mg-overview-list .mg-row { min-height: 74px; gap: 13px; padding: 14px 0; }
+.mg-overview-list .mg-ico { display: grid; place-items: center; width: 30px; height: 32px; flex: 0 0 30px; color: var(--accent-ink); background: transparent; }
+.mg-overview-list .mg-ico .icon { width: 23px; height: 23px; }
+.mg-overview-list .mg-text { min-width: 0; }
+.mg-overview-list .mg-text strong { font-size: 16px; font-weight: 600; line-height: 1.35; }
+.mg-overview-list .mg-text small { margin-top: 4px; font-size: 12px; line-height: 1.4; }
+.mg-planning { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+.mg-planning .mg-row { position: relative; display: grid; justify-items: start; align-content: start; gap: 10px; min-width: 0; min-height: 128px; margin: 0; padding: 16px; border: 1px solid var(--line); border-radius: 21px; background: var(--panel); }
+.mg-planning .mg-ico { background: transparent; color: var(--accent-ink); }
+.mg-planning .mg-text { min-width: 0; }
+.mg-planning .mg-text strong { display: block; font-size: 16px; font-weight: 650; }
+.mg-planning .mg-text small { display: block; font-size: 12px; line-height: 1.4; margin-top: 5px; }
+.mg-planning .mg-row > .icon { display: none; }
+dialog[data-kind='mg-detail'] .mg-sheet-title { margin: 24px 1px 12px; font-size: 17px; }
+dialog[data-kind='mg-detail'] .mg-sheet-stats > div { padding: 15px 12px; border: 1px solid var(--line); background: var(--panel); border-radius: 17px; }
+dialog[data-kind='mg-detail'] .mg-sheet-stats strong { font-size: 26px; line-height: 1.25; }
+dialog[data-kind='mg-detail'] .mg-sheet-stats small { display: block; margin-top: 5px; line-height: 1.4; }
+dialog[data-kind='mg-detail'] .ds-card { padding: 6px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); box-shadow: none; }
+dialog[data-kind='mg-detail'] .ds-card > h3 { margin: 12px 0 6px; }
+
+/* Clients: compact event invitation, then contact cards with readable totals. */
+.section-kicker { display: block; margin: 0 0 6px; font-size: 12px; font-weight: 600; color: var(--accent-ink); }
+:root[data-theme][data-layout] #app .clients-layout .upcoming-notice { padding: 18px; box-shadow: none; border: 1px solid var(--line); }
+.clients-layout .upcoming-notice h2 { font-size: 20px; line-height: 1.25; margin: 0 0 7px; }
+:root[data-theme] .clients-layout .upcoming-notice p { color: var(--muted); font-size: 13px; line-height: 1.4; margin: 0 0 14px; }
+.client-event-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.client-event-actions > button { display: flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 10px 13px; border-radius: 14px; font-size: 13px; line-height: 1.3; }
+.client-main-action { background: var(--action-green); color: var(--green-text); font-weight: 650; border: 1px solid var(--green-border); }
+.client-main-action .icon { width: 17px; height: 17px; }
+.client-secondary-action { background: var(--field); color: var(--text); border: 1px solid var(--line); }
+.clients-layout .catalog-entry { display: flex; gap: 13px; padding: 16px 18px; border: 1px solid var(--line); box-shadow: none; }
+.catalog-entry-icon { display: grid; place-items: center; flex: 0 0 36px; width: 36px; height: 40px; color: var(--accent-ink); }
+.clients-layout .catalog-entry > span:nth-child(2) { min-width: 0; flex: 1; }
+.clients-layout .catalog-entry strong { font-size: 16px; font-weight: 650; }
+.clients-layout .catalog-entry small { font-size: 12px; line-height: 1.4; margin-top: 4px; }
+:root[data-theme][data-layout] #app .clients-layout .clients-summary-toggle { min-height: 54px; padding: 10px 2px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.clients-summary-toggle > span { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.clients-summary-toggle strong { font-size: 17px; font-weight: 650; }
+.clients-summary-toggle small { font-size: 12px; color: var(--muted); }
+.clients-layout .client-card { padding: 14px; gap: 10px; border: 1px solid var(--line); border-radius: 20px; box-shadow: none; }
+.clients-layout .client-main { display: flex; align-items: flex-start; gap: 11px; min-width: 0; min-height: 60px; }
+.client-avatar { display: grid; place-items: center; flex: 0 0 39px; width: 39px; height: 39px; border-radius: 13px; background: color-mix(in srgb, var(--action-green) 12%, var(--field)); color: var(--accent-ink); font-size: 13px; font-weight: 700; }
+.client-info { display: grid; gap: 4px; min-width: 0; flex: 1; }
+.client-info > strong { font-size: 16px; line-height: 1.3; overflow-wrap: anywhere; }
+.client-info > small { font-size: 12px; line-height: 1.35; color: var(--muted); overflow-wrap: anywhere; }
+.client-purchase-line { display: flex; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--muted); line-height: 1.35; }
+.client-purchase-line .tabular { color: var(--text); font-weight: 600; }
+.client-rank { color: var(--accent-ink); font-size: 10px; font-weight: 600; line-height: 1.3; }
+.clients-layout .client-notice-pill { display: grid; justify-items: center; align-content: center; gap: 4px; min-width: 44px; min-height: 52px; padding: 6px 4px; border: 0; border-radius: 12px; background: transparent; color: var(--muted); font-size: 10px; }
+.client-notice-pill .icon { width: 19px; height: 19px; }
+.clients-layout .anonymous-clients { display: flex; align-items: center; gap: 13px; padding: 14px 2px; background: transparent; }
+.anonymous-client-icon { color: var(--muted); }
+.anonymous-clients > span:last-child { display: grid; gap: 4px; min-width: 0; }
+.anonymous-clients strong { font-size: 14px; font-weight: 600; }
+.anonymous-clients small { color: var(--muted); font-size: 12px; line-height: 1.4; }
+.clients-layout .export-client-row { display: flex; justify-content: center; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--panel); font-size: 14px; }
+
+.client-detail-location { margin: 0 0 18px; color: var(--muted); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+.client-detail-total { padding: 18px; border: 1px solid var(--line); border-radius: 20px; background: var(--panel); }
+.client-detail-total > small { color: var(--muted); font-size: 13px; }
+.client-detail-total > strong { display: block; margin: 6px 0 18px; font: 750 clamp(25px, 7vw, 36px)/1.15 'Inter Tight Variable', 'Inter Variable', sans-serif; letter-spacing: -.6px; overflow-wrap: anywhere; }
+.client-detail-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.client-detail-metrics > span { display: grid; gap: 4px; min-width: 0; }
+.client-detail-metrics b { font-size: 19px; font-weight: 650; overflow-wrap: anywhere; }
+.client-detail-metrics small { color: var(--muted); font-size: 12px; }
+.client-detail-total > p { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.client-detail-total > p strong { color: var(--text); font-weight: 600; }
+.client-product-list { padding: 0 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+.client-product-list .list-row { gap: 12px; padding: 13px 0; }
+.client-product-list .list-row > span { min-width: 0; flex: 1; }
+.client-product-list .list-row strong { font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
+.client-product-list .list-row small { font-size: 12px; line-height: 1.4; }
+.client-product-list .list-row > strong { flex: 0 1 auto; max-width: 42%; text-align: right; }
+.client-detail-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 18px 0 10px; }
+.client-detail-actions > button { display: flex; justify-content: center; align-items: center; gap: 6px; min-width: 0; padding: 10px 8px; font-size: 13px; }
+.client-detail-actions .icon { width: 17px; height: 17px; flex: none; }
+.client-edit-action { display: flex; justify-content: center; align-items: center; gap: 8px; width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--text); font-size: 14px; }
+.client-edit-action .icon { width: 17px; height: 17px; }
+
+/* Fair reminder: a quiet preparation card, with a single clear entry. */
+:root[data-theme][data-layout] #app .fair-card { background: var(--panel); border: 1px solid var(--line); box-shadow: none; }
+:root[data-theme][data-layout] #app .fair-card.is-soon { border-color: color-mix(in srgb, var(--orange) 40%, var(--line)); }
+.fair-prep .fc-main { align-items: flex-start; gap: 13px; padding: 16px 54px 16px 16px; }
+.fair-prep .fc-date { width: 48px; height: 56px; border-radius: 14px; background: var(--field); box-shadow: none; border: 1px solid var(--line); }
+.fair-prep .fc-date b { font-size: 23px; }
+.fair-prep .fc-date small { font-size: 10px; color: var(--muted); }
+.fair-prep .fc-text { gap: 5px; }
+.fair-prep .fc-text > small { white-space: normal; font-size: 11px; letter-spacing: 0; text-transform: none; color: var(--accent-ink); }
+:root[data-theme] .fair-prep.is-soon .fc-text > small { color: var(--muted); }
+.fair-prep .fc-text > strong { font-size: 17px; line-height: 1.25; overflow-wrap: anywhere; }
+.fair-prep .fc-text > span { color: var(--muted); font-size: 12px; line-height: 1.4; }
+.fair-prep .fc-text > .fc-cta { display: flex; align-items: center; gap: 4px; margin-top: 3px; color: var(--accent-ink); font-size: 12px; font-weight: 650; }
+.fc-cta .icon { width: 13px; height: 13px; }
+.fair-card .fc-close { display: grid; place-items: center; width: 44px; height: 44px; right: 3px; top: 3px; background: transparent; }
+.fair-card .fc-close .icon { width: 15px; height: 15px; }
+:root[data-theme] .fr-card .fr-actions { padding: 0 16px 16px; gap: 10px; }
+:root[data-theme] .fr-card .fr-actions > button { min-height: 44px; border-radius: 14px; }
+
+/* Small screens can scroll content while all footer targets remain separate. */
+@media (max-height: 680px) {
+  :root[data-theme] dialog[data-kind='restock'] > .checkout-header { padding-top: 15px; padding-bottom: 10px; }
+  :root[data-theme] dialog[data-kind='restock'] .restock-row { min-height: 48px; padding: 8px 11px; }
+  :root[data-theme] dialog[data-kind='restock'] .restock-key { height: 44px; min-height: 44px; }
+}
+@media (max-width: 359px) {
+  :root[data-theme] dialog[data-bottom-back] > .checkout-header,
+  :root[data-theme] dialog[data-bottom-back] > .dialog-content,
+  :root[data-theme] dialog[data-kind='restock'] > .checkout-header,
+  :root[data-theme] dialog[data-kind='restock'] > .dialog-content { padding-left: 16px; padding-right: 16px; }
+  .appearance-layout { gap: 9px; padding: 12px; }
+  .appearance-layout-preview { flex-basis: 42px; width: 42px; }
+  .mg-planning .mg-row { padding: 13px; }
+  .clients-layout .client-card { padding: 12px; gap: 7px; }
+  .client-avatar { width: 34px; height: 36px; flex-basis: 34px; }
+}
+html[data-large-text='true'] .appearance-layout small,
+html[data-large-text='true'] .appearance-preference small,
+html[data-large-text='true'] .client-info > small,
+html[data-large-text='true'] .client-purchase-line { font-size: 14px; }
+html[data-large-text='true'] .appearance-theme strong { font-size: 14px; }
+html.lite .mg-planning .mg-row,
+html.lite .client-detail-total { box-shadow: none; }
+
+/* Final visual corrections: selected controls stay readable; restocking fits its content. */
+:root[data-theme][data-layout] .appearance-layout.choice.selected,
+:root[data-theme][data-layout] .appearance-theme.choice.selected {
+  background: color-mix(in srgb, var(--action-green) 8%, var(--panel)) !important;
+  color: var(--text);
+  border-color: var(--action-green);
+}
+:root[data-theme][data-layout] .appearance-layout.choice.selected small { color: var(--muted); }
+:root[data-theme] dialog[data-kind='restock']:is([open], .fluid-native-exit) { height: fit-content; min-height: 0; }
+:root[data-theme] dialog[data-kind='restock'] > .dialog-content { flex: 0 1 auto; padding-bottom: 6px; }
+:root[data-theme] dialog[data-kind='restock'] .restock-row { min-height: 68px; }
+:root[data-theme] dialog[data-kind='restock'] .rr-value.empty { padding: 0; }
+:root[data-theme] dialog[data-kind='restock'] .restock-keypad { margin-bottom: 0; }
+:root[data-theme][data-layout] dialog[data-kind='restock'] > .checkout-footer { padding-top: 5px; }
+
+/* Quantity alone stands out while the product, unit and totals retain their colors. */
+dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-items .cart-item-edit > small > .cart-item-quantity {
+  color: #ff7b72;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+:root[data-theme='light'] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-items .cart-item-edit > small > .cart-item-quantity {
+  color: #b42332;
+}
+
+/* Product-registration typography lives with the stock flow in product-stock.css. */
+
+/* The editable quantity has no unit inside it. Color only its digits, also
+   when returning from an item in the cart; captions and money stay neutral. */
+:root[data-theme] #app .sale-compact .quantity-panel #sale-quantity {
+  color: #ff7b72;
+  -webkit-text-fill-color: currentColor;
+  caret-color: currentColor;
+}
+:root[data-theme='light'] #app .sale-compact .quantity-panel #sale-quantity {
+  color: #b42332;
+}

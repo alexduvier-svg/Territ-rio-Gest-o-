@@ -62,8 +62,9 @@ test('tipos de custo, meta sugerida e taxas configuráveis', () => {
   assert.equal(cardFeesOf([sale({ payments: [{ method: 'Débito', amount: 10000 }] })], financeSettings({ cardFees: { Débito: 1 } })), 100);
 });
 
+import { buildGuidance } from '../src/features/advisor/engine.js';
 import { FINANCE_RULES, financeLines } from '../src/features/advisor/finance-rules.js';
-const run = finance => FINANCE_RULES.flatMap(rule => rule({ finance }));
+const run = finance => FINANCE_RULES.flatMap(rule => rule({ finance, quality: {completeCosts:true} }));
 const base = { mode: 'mes', general: true, revenue: 100000, contribution: 50000, contributionRate: 0.5, fees: 0, costs: { feira: 0, producao: 0, marketing: 0, retirada: 0 }, fixed: 0, draw: 0, result: 50000, salesCount: 10, monthlyFixed: 0, breakEven: null, places: [], margins: [], missingDays: [], fixedCount: 1, drawOn: true, goal: null };
 
 test('agente: feira que não pagou os custos é urgente', () => {
@@ -80,8 +81,8 @@ test('agente: ponto de equilíbrio e custos faltando', () => {
 });
 
 test('agente: margem baixa sugere preço para 40%', () => {
-  const out = run({ ...base, margins: [{ id: 'q', name: 'Queijo', revenue: 30000, cost: 25000, qty: 10, margin: 1 / 6 }] });
-  const m = out.find(d => d.id === 'fin-margem-q');
+  const g = buildGuidance({dataContext:{type:'real'},periodLabel:'Teste',hasCost:true,products:[],events:[],current:{revenue:30000,cost:25000,result:5000,salesCount:10,ticket:3000,productsPerSale:1.5,rank:[],identified:10,clients:5,returning:3},finance:{...base,revenue:30000,margins:[{id:'q',name:'Queijo',revenue:30000,cost:25000,qty:10,margin:1/6,costKnown:true}]}});
+  const m = g.all.find(d => d.id === 'campeao-margem');
   assert.match(m.todo, /R\$\s?41,90/); // custo 25,00 ÷ 0,6 = 41,67 → 41,90
 });
 

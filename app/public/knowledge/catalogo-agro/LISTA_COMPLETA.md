@@ -1,0 +1,2550 @@
+# Catálogo de produtos para o AGRO Gestão
+
+2479 apresentações comerciais em 22 categorias. Inclui singular, plural, nomes de busca e unidades. Preço, custo e estoque ficam sem preenchimento.
+
+Maço/maços e molho/molhos são rótulos de unidade de venda, não sabores, molhos culinários ou produtos adicionais. Cada unidade de venda será confirmada pelo produtor.
+
+## Apicultura e meliponicultura — 60 apresentações
+
+- Mel Silvestre — Líquido, 250 g | plural: Méis Silvestre | venda: unidade/unidades
+- Mel Silvestre — Líquido, 500 g | plural: Méis Silvestre | venda: unidade/unidades
+- Mel Silvestre — Líquido, 1000 g | plural: Méis Silvestre | venda: unidade/unidades
+- Mel Eucalipto — Líquido, 250 g | plural: Méis Eucalipto | venda: unidade/unidades
+- Mel Eucalipto — Líquido, 500 g | plural: Méis Eucalipto | venda: unidade/unidades
+- Mel Eucalipto — Líquido, 1000 g | plural: Méis Eucalipto | venda: unidade/unidades
+- Mel Laranjeira — Líquido, 250 g | plural: Méis Laranjeira | venda: unidade/unidades
+- Mel Laranjeira — Líquido, 500 g | plural: Méis Laranjeira | venda: unidade/unidades
+- Mel Laranjeira — Líquido, 1000 g | plural: Méis Laranjeira | venda: unidade/unidades
+- Mel Assa-peixe — Líquido, 250 g | plural: Méis Assa-peixe | venda: unidade/unidades
+- Mel Assa-peixe — Líquido, 500 g | plural: Méis Assa-peixe | venda: unidade/unidades
+- Mel Assa-peixe — Líquido, 1000 g | plural: Méis Assa-peixe | venda: unidade/unidades
+- Mel Cipó-uva — Líquido, 250 g | plural: Méis Cipó-uva | venda: unidade/unidades
+- Mel Cipó-uva — Líquido, 500 g | plural: Méis Cipó-uva | venda: unidade/unidades
+- Mel Cipó-uva — Líquido, 1000 g | plural: Méis Cipó-uva | venda: unidade/unidades
+- Mel Aroeira — Líquido, 250 g | plural: Méis Aroeira | venda: unidade/unidades
+- Mel Aroeira — Líquido, 500 g | plural: Méis Aroeira | venda: unidade/unidades
+- Mel Aroeira — Líquido, 1000 g | plural: Méis Aroeira | venda: unidade/unidades
+- Mel Bracatinga — Líquido, 250 g | plural: Méis Bracatinga | venda: unidade/unidades
+- Mel Bracatinga — Líquido, 500 g | plural: Méis Bracatinga | venda: unidade/unidades
+- Mel Bracatinga — Líquido, 1000 g | plural: Méis Bracatinga | venda: unidade/unidades
+- Mel Café — Líquido, 250 g | plural: Méis Café | venda: unidade/unidades
+- Mel Café — Líquido, 500 g | plural: Méis Café | venda: unidade/unidades
+- Mel Café — Líquido, 1000 g | plural: Méis Café | venda: unidade/unidades
+- Mel Girassol — Líquido, 250 g | plural: Méis Girassol | venda: unidade/unidades
+- Mel Girassol — Líquido, 500 g | plural: Méis Girassol | venda: unidade/unidades
+- Mel Girassol — Líquido, 1000 g | plural: Méis Girassol | venda: unidade/unidades
+- Mel Angico — Líquido, 250 g | plural: Méis Angico | venda: unidade/unidades
+- Mel Angico — Líquido, 500 g | plural: Méis Angico | venda: unidade/unidades
+- Mel Angico — Líquido, 1000 g | plural: Méis Angico | venda: unidade/unidades
+- Mel Vassourinha — Líquido, 250 g | plural: Méis Vassourinha | venda: unidade/unidades
+- Mel Vassourinha — Líquido, 500 g | plural: Méis Vassourinha | venda: unidade/unidades
+- Mel Vassourinha — Líquido, 1000 g | plural: Méis Vassourinha | venda: unidade/unidades
+- Mel Cambará — Líquido, 250 g | plural: Méis Cambará | venda: unidade/unidades
+- Mel Cambará — Líquido, 500 g | plural: Méis Cambará | venda: unidade/unidades
+- Mel Cambará — Líquido, 1000 g | plural: Méis Cambará | venda: unidade/unidades
+- Mel de abelha sem ferrão Jataí — Líquido, 100 ml | plural: Méis de abelha sem ferrão Jataí | venda: unidade/unidades
+- Mel de abelha sem ferrão Jataí — Líquido, 250 ml | plural: Méis de abelha sem ferrão Jataí | venda: unidade/unidades
+- Mel de abelha sem ferrão Mandaçaia — Líquido, 100 ml | plural: Méis de abelha sem ferrão Mandaçaia | venda: unidade/unidades
+- Mel de abelha sem ferrão Mandaçaia — Líquido, 250 ml | plural: Méis de abelha sem ferrão Mandaçaia | venda: unidade/unidades
+- Mel de abelha sem ferrão Uruçu — Líquido, 100 ml | plural: Méis de abelha sem ferrão Uruçu | venda: unidade/unidades
+- Mel de abelha sem ferrão Uruçu — Líquido, 250 ml | plural: Méis de abelha sem ferrão Uruçu | venda: unidade/unidades
+- Mel de abelha sem ferrão Tiúba — Líquido, 100 ml | plural: Méis de abelha sem ferrão Tiúba | venda: unidade/unidades
+- Mel de abelha sem ferrão Tiúba — Líquido, 250 ml | plural: Méis de abelha sem ferrão Tiúba | venda: unidade/unidades
+- Mel de abelha sem ferrão Iraí — Líquido, 100 ml | plural: Méis de abelha sem ferrão Iraí | venda: unidade/unidades
+- Mel de abelha sem ferrão Iraí — Líquido, 250 ml | plural: Méis de abelha sem ferrão Iraí | venda: unidade/unidades
+- Pólen apícola desidratado — Embalado, 100 g | plural: Pólens apícolas desidratados | venda: unidade/unidades
+- Pólen apícola desidratado — Embalado, 250 g | plural: Pólens apícolas desidratados | venda: unidade/unidades
+- Própolis bruta — Embalado, 50 g | plural: Própolis brutas | venda: unidade/unidades
+- Própolis bruta — Embalado, 100 g | plural: Própolis brutas | venda: unidade/unidades
+- Extrato de própolis — Embalado, 20 ml | plural: Extratos de própolis | venda: unidade/unidades
+- Extrato de própolis — Embalado, 30 ml | plural: Extratos de própolis | venda: unidade/unidades
+- Extrato de própolis sem álcool — Embalado, 20 ml | plural: Extratos de própolis sem álcool | venda: unidade/unidades
+- Extrato de própolis sem álcool — Embalado, 30 ml | plural: Extratos de própolis sem álcool | venda: unidade/unidades
+- Geleia real — Embalado, 10 g | plural: Geleias reais | venda: unidade/unidades
+- Geleia real — Embalado, 25 g | plural: Geleias reais | venda: unidade/unidades
+- Cera de abelha em bloco — Embalado, 100 g | plural: Ceras de abelha em bloco | venda: unidade/unidades
+- Cera de abelha em bloco — Embalado, 500 g | plural: Ceras de abelha em bloco | venda: unidade/unidades
+- Mel em favo — Embalado, 250 g | plural: Méis em favo | venda: unidade/unidades
+- Mel em favo — Embalado, 500 g | plural: Méis em favo | venda: unidade/unidades
+
+## Artesanato e utilidades — 70 apresentações
+
+- Vassoura de palha — Peça | plural: Vassouras de palha | venda: unidade/unidades
+- Cesto de bambu — Peça | plural: Cestos de bambu | venda: unidade/unidades
+- Cesto de palha — Peça | plural: Cestos de palha | venda: unidade/unidades
+- Balaio de bambu — Peça | plural: Balaios de bambu | venda: unidade/unidades
+- Peneira de bambu — Peça | plural: Peneiras de bambu | venda: unidade/unidades
+- Esteira de palha — Peça | plural: Esteiras de palha | venda: unidade/unidades
+- Chapéu de palha — Peça | plural: Chapéus de palha | venda: unidade/unidades
+- Bolsa de palha — Peça | plural: Bolsas de palha | venda: unidade/unidades
+- Descanso de panela de palha — Peça | plural: Descansos de panela de palha | venda: unidade/unidades
+- Jogo americano de palha — Peça | plural: Jogos americanos de palha | venda: unidade/unidades
+- Colher de pau — Peça | plural: Colheres de pau | venda: unidade/unidades
+- Espátula de madeira — Peça | plural: Espátulas de madeira | venda: unidade/unidades
+- Tábua de madeira — Peça | plural: Tábuas de madeira | venda: unidade/unidades
+- Gamela de madeira — Peça | plural: Gamelas de madeira | venda: unidade/unidades
+- Pilão de madeira — Peça | plural: Pilões de madeira | venda: unidade/unidades
+- Porta-tempero de madeira — Peça | plural: Porta-temperos de madeira | venda: unidade/unidades
+- Bandeja de madeira — Peça | plural: Bandejas de madeira | venda: unidade/unidades
+- Banco de madeira — Peça | plural: Bancos de madeira | venda: unidade/unidades
+- Cabideiro de madeira — Peça | plural: Cabideiros de madeira | venda: unidade/unidades
+- Porta-chaves de madeira — Peça | plural: Porta-chaves de madeira | venda: unidade/unidades
+- Pano de prato bordado — Peça | plural: Panos de prato bordados | venda: unidade/unidades
+- Pano de prato pintado — Peça | plural: Panos de prato pintados | venda: unidade/unidades
+- Toalha de mesa bordada — Peça | plural: Toalhas de mesa bordadas | venda: unidade/unidades
+- Caminho de mesa de crochê — Peça | plural: Caminhos de mesa de crochê | venda: unidade/unidades
+- Tapete de crochê — Peça | plural: Tapetes de crochê | venda: unidade/unidades
+- Sousplat de crochê — Peça | plural: Sousplats de crochê | venda: unidade/unidades
+- Bolsa de crochê — Peça | plural: Bolsas de crochê | venda: unidade/unidades
+- Porta-copo de crochê — Peça | plural: Porta-copos de crochê | venda: unidade/unidades
+- Capa de almofada bordada — Peça | plural: Capas de almofada bordadas | venda: unidade/unidades
+- Necessaire de tecido — Peça | plural: Necessaires de tecido | venda: unidade/unidades
+- Bolsa de tecido — Peça | plural: Bolsas de tecido | venda: unidade/unidades
+- Avental de tecido — Peça | plural: Aventais de tecido | venda: unidade/unidades
+- Boneca de pano — Peça | plural: Bonecas de pano | venda: unidade/unidades
+- Bicho de pano — Peça | plural: Bichos de pano | venda: unidade/unidades
+- Laço de cabelo artesanal — Peça | plural: Laços de cabelo artesanais | venda: unidade/unidades
+- Tiara artesanal — Peça | plural: Tiaras artesanais | venda: unidade/unidades
+- Brinco artesanal — Peça | plural: Brincos artesanais | venda: unidade/unidades
+- Colar artesanal — Peça | plural: Colares artesanais | venda: unidade/unidades
+- Pulseira artesanal — Peça | plural: Pulseiras artesanais | venda: unidade/unidades
+- Chaveiro artesanal — Peça | plural: Chaveiros artesanais | venda: unidade/unidades
+- Porta-retrato artesanal — Peça | plural: Porta-retratos artesanais | venda: unidade/unidades
+- Vaso de cerâmica — Peça | plural: Vasos de cerâmica | venda: unidade/unidades
+- Caneca de cerâmica — Peça | plural: Canecas de cerâmica | venda: unidade/unidades
+- Prato de cerâmica — Peça | plural: Pratos de cerâmica | venda: unidade/unidades
+- Travessa de cerâmica — Peça | plural: Travessas de cerâmica | venda: unidade/unidades
+- Panela de barro — Peça | plural: Panelas de barro | venda: unidade/unidades
+- Moringa de barro — Peça | plural: Moringas de barro | venda: unidade/unidades
+- Filtro de barro — Peça | plural: Filtros de barro | venda: unidade/unidades
+- Escultura de barro — Peça | plural: Esculturas de barro | venda: unidade/unidades
+- Luminária artesanal — Peça | plural: Luminárias artesanais | venda: unidade/unidades
+- Sabonete artesanal de lavanda — Peça | plural: Sabonetes artesanais de lavanda | venda: unidade/unidades
+- Sabonete artesanal de erva-doce — Peça | plural: Sabonetes artesanais de erva-doce | venda: unidade/unidades
+- Sabonete artesanal de café — Peça | plural: Sabonetes artesanais de café | venda: unidade/unidades
+- Sabonete artesanal de mel — Peça | plural: Sabonetes artesanais de mel | venda: unidade/unidades
+- Vela de cera de abelha — Peça | plural: Velas de cera de abelha | venda: unidade/unidades
+- Vela aromática de lavanda — Peça | plural: Velas aromáticas de lavanda | venda: unidade/unidades
+- Vela aromática de café — Peça | plural: Velas aromáticas de café | venda: unidade/unidades
+- Vela aromática de capim-limão — Peça | plural: Velas aromáticas de capim-limão | venda: unidade/unidades
+- Sachê aromático de lavanda — Peça | plural: Sachês aromáticos de lavanda | venda: unidade/unidades
+- Sachê aromático de ervas — Peça | plural: Sachês aromáticos de ervas | venda: unidade/unidades
+- Marcador de página artesanal — Peça | plural: Marcadores de página artesanais | venda: unidade/unidades
+- Caderno artesanal — Peça | plural: Cadernos artesanais | venda: unidade/unidades
+- Carteira artesanal — Peça | plural: Carteiras artesanais | venda: unidade/unidades
+- Porta-moedas artesanal — Peça | plural: Porta-moedas artesanais | venda: unidade/unidades
+- Enfeite de feltro — Peça | plural: Enfeites de feltro | venda: unidade/unidades
+- Enfeite natalino artesanal — Peça | plural: Enfeites natalinos artesanais | venda: unidade/unidades
+- Imã artesanal — Peça | plural: Ímãs artesanais | venda: unidade/unidades
+- Presépio artesanal — Peça | plural: Presépios artesanais | venda: unidade/unidades
+- Pote de cerâmica — Peça | plural: Potes de cerâmica | venda: unidade/unidades
+- Cachepô artesanal — Peça | plural: Cachepôs artesanais | venda: unidade/unidades
+
+## Bebidas — 28 apresentações
+
+- Suco de uva integral — Líquido, 300 ml | plural: Sucos de uva integrais | venda: unidade/unidades
+- Suco de uva integral — Líquido, 1000 ml | plural: Sucos de uva integrais | venda: unidade/unidades
+- Suco de laranja — Líquido, 300 ml | plural: Sucos de laranja | venda: unidade/unidades
+- Suco de laranja — Líquido, 1000 ml | plural: Sucos de laranja | venda: unidade/unidades
+- Suco de goiaba — Líquido, 300 ml | plural: Sucos de goiaba | venda: unidade/unidades
+- Suco de goiaba — Líquido, 1000 ml | plural: Sucos de goiaba | venda: unidade/unidades
+- Suco de manga — Líquido, 300 ml | plural: Sucos de manga | venda: unidade/unidades
+- Suco de manga — Líquido, 1000 ml | plural: Sucos de manga | venda: unidade/unidades
+- Suco de maracujá — Líquido, 300 ml | plural: Sucos de maracujá | venda: unidade/unidades
+- Suco de maracujá — Líquido, 1000 ml | plural: Sucos de maracujá | venda: unidade/unidades
+- Suco de abacaxi — Líquido, 300 ml | plural: Sucos de abacaxi | venda: unidade/unidades
+- Suco de abacaxi — Líquido, 1000 ml | plural: Sucos de abacaxi | venda: unidade/unidades
+- Suco de acerola — Líquido, 300 ml | plural: Sucos de acerola | venda: unidade/unidades
+- Suco de acerola — Líquido, 1000 ml | plural: Sucos de acerola | venda: unidade/unidades
+- Suco de jabuticaba — Líquido, 300 ml | plural: Sucos de jabuticaba | venda: unidade/unidades
+- Suco de jabuticaba — Líquido, 1000 ml | plural: Sucos de jabuticaba | venda: unidade/unidades
+- Suco de caju — Líquido, 300 ml | plural: Sucos de caju | venda: unidade/unidades
+- Suco de caju — Líquido, 1000 ml | plural: Sucos de caju | venda: unidade/unidades
+- Suco de cajá — Líquido, 300 ml | plural: Sucos de cajá | venda: unidade/unidades
+- Suco de cajá — Líquido, 1000 ml | plural: Sucos de cajá | venda: unidade/unidades
+- Suco de tamarindo — Líquido, 300 ml | plural: Sucos de tamarindo | venda: unidade/unidades
+- Suco de tamarindo — Líquido, 1000 ml | plural: Sucos de tamarindo | venda: unidade/unidades
+- Suco de limão — Líquido, 300 ml | plural: Sucos de limão | venda: unidade/unidades
+- Suco de limão — Líquido, 1000 ml | plural: Sucos de limão | venda: unidade/unidades
+- Caldo de cana — Líquido, 300 ml | plural: Caldos de cana | venda: unidade/unidades
+- Caldo de cana — Líquido, 1000 ml | plural: Caldos de cana | venda: unidade/unidades
+- Água de coco — Líquido, 300 ml | plural: Águas de coco | venda: unidade/unidades
+- Água de coco — Líquido, 1000 ml | plural: Águas de coco | venda: unidade/unidades
+
+## Bolos e confeitaria — 489 apresentações
+
+- Bolo de Chocolate — Inteiro, 500 g | plural: Bolos de Chocolate | venda: unidade/unidades
+- Bolo de Chocolate — Inteiro, 1000 g | plural: Bolos de Chocolate | venda: unidade/unidades
+- Bolo de Chocolate — Inteiro, 2000 g | plural: Bolos de Chocolate | venda: unidade/unidades
+- Bolo de Chocolate — Pedaço, 100 g | plural: Bolos de Chocolate | venda: unidade/unidades
+- Bolo de Chocolate — Pedaço, 150 g | plural: Bolos de Chocolate | venda: unidade/unidades
+- Bolo de Chocolate com brigadeiro — Inteiro, 500 g | plural: Bolos de Chocolate com brigadeiro | venda: unidade/unidades
+- Bolo de Chocolate com brigadeiro — Inteiro, 1000 g | plural: Bolos de Chocolate com brigadeiro | venda: unidade/unidades
+- Bolo de Chocolate com brigadeiro — Inteiro, 2000 g | plural: Bolos de Chocolate com brigadeiro | venda: unidade/unidades
+- Bolo de Chocolate com brigadeiro — Pedaço, 100 g | plural: Bolos de Chocolate com brigadeiro | venda: unidade/unidades
+- Bolo de Chocolate com brigadeiro — Pedaço, 150 g | plural: Bolos de Chocolate com brigadeiro | venda: unidade/unidades
+- Bolo de Chocolate com coco — Inteiro, 500 g | plural: Bolos de Chocolate com coco | venda: unidade/unidades
+- Bolo de Chocolate com coco — Inteiro, 1000 g | plural: Bolos de Chocolate com coco | venda: unidade/unidades
+- Bolo de Chocolate com coco — Inteiro, 2000 g | plural: Bolos de Chocolate com coco | venda: unidade/unidades
+- Bolo de Chocolate com coco — Pedaço, 100 g | plural: Bolos de Chocolate com coco | venda: unidade/unidades
+- Bolo de Chocolate com coco — Pedaço, 150 g | plural: Bolos de Chocolate com coco | venda: unidade/unidades
+- Bolo de Chocolate com morango — Inteiro, 500 g | plural: Bolos de Chocolate com morango | venda: unidade/unidades
+- Bolo de Chocolate com morango — Inteiro, 1000 g | plural: Bolos de Chocolate com morango | venda: unidade/unidades
+- Bolo de Chocolate com morango — Inteiro, 2000 g | plural: Bolos de Chocolate com morango | venda: unidade/unidades
+- Bolo de Chocolate com morango — Pedaço, 100 g | plural: Bolos de Chocolate com morango | venda: unidade/unidades
+- Bolo de Chocolate com morango — Pedaço, 150 g | plural: Bolos de Chocolate com morango | venda: unidade/unidades
+- Bolo de Chocolate com ganache — Inteiro, 500 g | plural: Bolos de Chocolate com ganache | venda: unidade/unidades
+- Bolo de Chocolate com ganache — Inteiro, 1000 g | plural: Bolos de Chocolate com ganache | venda: unidade/unidades
+- Bolo de Chocolate com ganache — Inteiro, 2000 g | plural: Bolos de Chocolate com ganache | venda: unidade/unidades
+- Bolo de Chocolate com ganache — Pedaço, 100 g | plural: Bolos de Chocolate com ganache | venda: unidade/unidades
+- Bolo de Chocolate com ganache — Pedaço, 150 g | plural: Bolos de Chocolate com ganache | venda: unidade/unidades
+- Bolo de Chocolate com café — Inteiro, 500 g | plural: Bolos de Chocolate com café | venda: unidade/unidades
+- Bolo de Chocolate com café — Inteiro, 1000 g | plural: Bolos de Chocolate com café | venda: unidade/unidades
+- Bolo de Chocolate com café — Inteiro, 2000 g | plural: Bolos de Chocolate com café | venda: unidade/unidades
+- Bolo de Chocolate com café — Pedaço, 100 g | plural: Bolos de Chocolate com café | venda: unidade/unidades
+- Bolo de Chocolate com café — Pedaço, 150 g | plural: Bolos de Chocolate com café | venda: unidade/unidades
+- Bolo de Chocolate com amendoim — Inteiro, 500 g | plural: Bolos de Chocolate com amendoim | venda: unidade/unidades
+- Bolo de Chocolate com amendoim — Inteiro, 1000 g | plural: Bolos de Chocolate com amendoim | venda: unidade/unidades
+- Bolo de Chocolate com amendoim — Inteiro, 2000 g | plural: Bolos de Chocolate com amendoim | venda: unidade/unidades
+- Bolo de Chocolate com amendoim — Pedaço, 100 g | plural: Bolos de Chocolate com amendoim | venda: unidade/unidades
+- Bolo de Chocolate com amendoim — Pedaço, 150 g | plural: Bolos de Chocolate com amendoim | venda: unidade/unidades
+- Bolo de Chocolate com castanha-do-pará — Inteiro, 500 g | plural: Bolos de Chocolate com castanha-do-pará | venda: unidade/unidades
+- Bolo de Chocolate com castanha-do-pará — Inteiro, 1000 g | plural: Bolos de Chocolate com castanha-do-pará | venda: unidade/unidades
+- Bolo de Chocolate com castanha-do-pará — Inteiro, 2000 g | plural: Bolos de Chocolate com castanha-do-pará | venda: unidade/unidades
+- Bolo de Chocolate com castanha-do-pará — Pedaço, 100 g | plural: Bolos de Chocolate com castanha-do-pará | venda: unidade/unidades
+- Bolo de Chocolate com castanha-do-pará — Pedaço, 150 g | plural: Bolos de Chocolate com castanha-do-pará | venda: unidade/unidades
+- Bolo de Chocolate com doce de leite — Inteiro, 500 g | plural: Bolos de Chocolate com doce de leite | venda: unidade/unidades
+- Bolo de Chocolate com doce de leite — Inteiro, 1000 g | plural: Bolos de Chocolate com doce de leite | venda: unidade/unidades
+- Bolo de Chocolate com doce de leite — Inteiro, 2000 g | plural: Bolos de Chocolate com doce de leite | venda: unidade/unidades
+- Bolo de Chocolate com doce de leite — Pedaço, 100 g | plural: Bolos de Chocolate com doce de leite | venda: unidade/unidades
+- Bolo de Chocolate com doce de leite — Pedaço, 150 g | plural: Bolos de Chocolate com doce de leite | venda: unidade/unidades
+- Bolo de Cenoura — Inteiro, 500 g | plural: Bolos de Cenoura | venda: unidade/unidades
+- Bolo de Cenoura — Inteiro, 1000 g | plural: Bolos de Cenoura | venda: unidade/unidades
+- Bolo de Cenoura — Inteiro, 2000 g | plural: Bolos de Cenoura | venda: unidade/unidades
+- Bolo de Cenoura — Pedaço, 100 g | plural: Bolos de Cenoura | venda: unidade/unidades
+- Bolo de Cenoura — Pedaço, 150 g | plural: Bolos de Cenoura | venda: unidade/unidades
+- Bolo de Cenoura com chocolate — Inteiro, 500 g | plural: Bolos de Cenoura com chocolate | venda: unidade/unidades
+- Bolo de Cenoura com chocolate — Inteiro, 1000 g | plural: Bolos de Cenoura com chocolate | venda: unidade/unidades
+- Bolo de Cenoura com chocolate — Inteiro, 2000 g | plural: Bolos de Cenoura com chocolate | venda: unidade/unidades
+- Bolo de Cenoura com chocolate — Pedaço, 100 g | plural: Bolos de Cenoura com chocolate | venda: unidade/unidades
+- Bolo de Cenoura com chocolate — Pedaço, 150 g | plural: Bolos de Cenoura com chocolate | venda: unidade/unidades
+- Bolo de Cenoura com brigadeiro — Inteiro, 500 g | plural: Bolos de Cenoura com brigadeiro | venda: unidade/unidades
+- Bolo de Cenoura com brigadeiro — Inteiro, 1000 g | plural: Bolos de Cenoura com brigadeiro | venda: unidade/unidades
+- Bolo de Cenoura com brigadeiro — Inteiro, 2000 g | plural: Bolos de Cenoura com brigadeiro | venda: unidade/unidades
+- Bolo de Cenoura com brigadeiro — Pedaço, 100 g | plural: Bolos de Cenoura com brigadeiro | venda: unidade/unidades
+- Bolo de Cenoura com brigadeiro — Pedaço, 150 g | plural: Bolos de Cenoura com brigadeiro | venda: unidade/unidades
+- Bolo de Laranja — Inteiro, 500 g | plural: Bolos de Laranja | venda: unidade/unidades
+- Bolo de Laranja — Inteiro, 1000 g | plural: Bolos de Laranja | venda: unidade/unidades
+- Bolo de Laranja — Inteiro, 2000 g | plural: Bolos de Laranja | venda: unidade/unidades
+- Bolo de Laranja — Pedaço, 100 g | plural: Bolos de Laranja | venda: unidade/unidades
+- Bolo de Laranja — Pedaço, 150 g | plural: Bolos de Laranja | venda: unidade/unidades
+- Bolo de Laranja com calda — Inteiro, 500 g | plural: Bolos de Laranja com calda | venda: unidade/unidades
+- Bolo de Laranja com calda — Inteiro, 1000 g | plural: Bolos de Laranja com calda | venda: unidade/unidades
+- Bolo de Laranja com calda — Inteiro, 2000 g | plural: Bolos de Laranja com calda | venda: unidade/unidades
+- Bolo de Laranja com calda — Pedaço, 100 g | plural: Bolos de Laranja com calda | venda: unidade/unidades
+- Bolo de Laranja com calda — Pedaço, 150 g | plural: Bolos de Laranja com calda | venda: unidade/unidades
+- Bolo de Limão — Inteiro, 500 g | plural: Bolos de Limão | venda: unidade/unidades
+- Bolo de Limão — Inteiro, 1000 g | plural: Bolos de Limão | venda: unidade/unidades
+- Bolo de Limão — Inteiro, 2000 g | plural: Bolos de Limão | venda: unidade/unidades
+- Bolo de Limão — Pedaço, 100 g | plural: Bolos de Limão | venda: unidade/unidades
+- Bolo de Limão — Pedaço, 150 g | plural: Bolos de Limão | venda: unidade/unidades
+- Bolo de Limão com cobertura — Inteiro, 500 g | plural: Bolos de Limão com cobertura | venda: unidade/unidades
+- Bolo de Limão com cobertura — Inteiro, 1000 g | plural: Bolos de Limão com cobertura | venda: unidade/unidades
+- Bolo de Limão com cobertura — Inteiro, 2000 g | plural: Bolos de Limão com cobertura | venda: unidade/unidades
+- Bolo de Limão com cobertura — Pedaço, 100 g | plural: Bolos de Limão com cobertura | venda: unidade/unidades
+- Bolo de Limão com cobertura — Pedaço, 150 g | plural: Bolos de Limão com cobertura | venda: unidade/unidades
+- Bolo de Maracujá — Inteiro, 500 g | plural: Bolos de Maracujá | venda: unidade/unidades
+- Bolo de Maracujá — Inteiro, 1000 g | plural: Bolos de Maracujá | venda: unidade/unidades
+- Bolo de Maracujá — Inteiro, 2000 g | plural: Bolos de Maracujá | venda: unidade/unidades
+- Bolo de Maracujá — Pedaço, 100 g | plural: Bolos de Maracujá | venda: unidade/unidades
+- Bolo de Maracujá — Pedaço, 150 g | plural: Bolos de Maracujá | venda: unidade/unidades
+- Bolo de Maracujá com chocolate — Inteiro, 500 g | plural: Bolos de Maracujá com chocolate | venda: unidade/unidades
+- Bolo de Maracujá com chocolate — Inteiro, 1000 g | plural: Bolos de Maracujá com chocolate | venda: unidade/unidades
+- Bolo de Maracujá com chocolate — Inteiro, 2000 g | plural: Bolos de Maracujá com chocolate | venda: unidade/unidades
+- Bolo de Maracujá com chocolate — Pedaço, 100 g | plural: Bolos de Maracujá com chocolate | venda: unidade/unidades
+- Bolo de Maracujá com chocolate — Pedaço, 150 g | plural: Bolos de Maracujá com chocolate | venda: unidade/unidades
+- Bolo de Coco — Inteiro, 500 g | plural: Bolos de Coco | venda: unidade/unidades
+- Bolo de Coco — Inteiro, 1000 g | plural: Bolos de Coco | venda: unidade/unidades
+- Bolo de Coco — Inteiro, 2000 g | plural: Bolos de Coco | venda: unidade/unidades
+- Bolo de Coco — Pedaço, 100 g | plural: Bolos de Coco | venda: unidade/unidades
+- Bolo de Coco — Pedaço, 150 g | plural: Bolos de Coco | venda: unidade/unidades
+- Bolo de Coco gelado — Inteiro, 500 g | plural: Bolos de Coco gelado | venda: unidade/unidades
+- Bolo de Coco gelado — Inteiro, 1000 g | plural: Bolos de Coco gelado | venda: unidade/unidades
+- Bolo de Coco gelado — Inteiro, 2000 g | plural: Bolos de Coco gelado | venda: unidade/unidades
+- Bolo de Coco gelado — Pedaço, 100 g | plural: Bolos de Coco gelado | venda: unidade/unidades
+- Bolo de Coco gelado — Pedaço, 150 g | plural: Bolos de Coco gelado | venda: unidade/unidades
+- Bolo de Coco com leite condensado — Inteiro, 500 g | plural: Bolos de Coco com leite condensado | venda: unidade/unidades
+- Bolo de Coco com leite condensado — Inteiro, 1000 g | plural: Bolos de Coco com leite condensado | venda: unidade/unidades
+- Bolo de Coco com leite condensado — Inteiro, 2000 g | plural: Bolos de Coco com leite condensado | venda: unidade/unidades
+- Bolo de Coco com leite condensado — Pedaço, 100 g | plural: Bolos de Coco com leite condensado | venda: unidade/unidades
+- Bolo de Coco com leite condensado — Pedaço, 150 g | plural: Bolos de Coco com leite condensado | venda: unidade/unidades
+- Bolo de Milho — Inteiro, 500 g | plural: Bolos de Milho | venda: unidade/unidades
+- Bolo de Milho — Inteiro, 1000 g | plural: Bolos de Milho | venda: unidade/unidades
+- Bolo de Milho — Inteiro, 2000 g | plural: Bolos de Milho | venda: unidade/unidades
+- Bolo de Milho — Pedaço, 100 g | plural: Bolos de Milho | venda: unidade/unidades
+- Bolo de Milho — Pedaço, 150 g | plural: Bolos de Milho | venda: unidade/unidades
+- Bolo de Milho com coco — Inteiro, 500 g | plural: Bolos de Milho com coco | venda: unidade/unidades
+- Bolo de Milho com coco — Inteiro, 1000 g | plural: Bolos de Milho com coco | venda: unidade/unidades
+- Bolo de Milho com coco — Inteiro, 2000 g | plural: Bolos de Milho com coco | venda: unidade/unidades
+- Bolo de Milho com coco — Pedaço, 100 g | plural: Bolos de Milho com coco | venda: unidade/unidades
+- Bolo de Milho com coco — Pedaço, 150 g | plural: Bolos de Milho com coco | venda: unidade/unidades
+- Bolo de Milho cremoso — Inteiro, 500 g | plural: Bolos de Milho cremoso | venda: unidade/unidades
+- Bolo de Milho cremoso — Inteiro, 1000 g | plural: Bolos de Milho cremoso | venda: unidade/unidades
+- Bolo de Milho cremoso — Inteiro, 2000 g | plural: Bolos de Milho cremoso | venda: unidade/unidades
+- Bolo de Milho cremoso — Pedaço, 100 g | plural: Bolos de Milho cremoso | venda: unidade/unidades
+- Bolo de Milho cremoso — Pedaço, 150 g | plural: Bolos de Milho cremoso | venda: unidade/unidades
+- Bolo de Fubá — Inteiro, 500 g | plural: Bolos de Fubá | venda: unidade/unidades
+- Bolo de Fubá — Inteiro, 1000 g | plural: Bolos de Fubá | venda: unidade/unidades
+- Bolo de Fubá — Inteiro, 2000 g | plural: Bolos de Fubá | venda: unidade/unidades
+- Bolo de Fubá — Pedaço, 100 g | plural: Bolos de Fubá | venda: unidade/unidades
+- Bolo de Fubá — Pedaço, 150 g | plural: Bolos de Fubá | venda: unidade/unidades
+- Bolo de Fubá com goiabada — Inteiro, 500 g | plural: Bolos de Fubá com goiabada | venda: unidade/unidades
+- Bolo de Fubá com goiabada — Inteiro, 1000 g | plural: Bolos de Fubá com goiabada | venda: unidade/unidades
+- Bolo de Fubá com goiabada — Inteiro, 2000 g | plural: Bolos de Fubá com goiabada | venda: unidade/unidades
+- Bolo de Fubá com goiabada — Pedaço, 100 g | plural: Bolos de Fubá com goiabada | venda: unidade/unidades
+- Bolo de Fubá com goiabada — Pedaço, 150 g | plural: Bolos de Fubá com goiabada | venda: unidade/unidades
+- Bolo de Fubá com erva-doce — Inteiro, 500 g | plural: Bolos de Fubá com erva-doce | venda: unidade/unidades
+- Bolo de Fubá com erva-doce — Inteiro, 1000 g | plural: Bolos de Fubá com erva-doce | venda: unidade/unidades
+- Bolo de Fubá com erva-doce — Inteiro, 2000 g | plural: Bolos de Fubá com erva-doce | venda: unidade/unidades
+- Bolo de Fubá com erva-doce — Pedaço, 100 g | plural: Bolos de Fubá com erva-doce | venda: unidade/unidades
+- Bolo de Fubá com erva-doce — Pedaço, 150 g | plural: Bolos de Fubá com erva-doce | venda: unidade/unidades
+- Bolo de Fubá com queijo — Inteiro, 500 g | plural: Bolos de Fubá com queijo | venda: unidade/unidades
+- Bolo de Fubá com queijo — Inteiro, 1000 g | plural: Bolos de Fubá com queijo | venda: unidade/unidades
+- Bolo de Fubá com queijo — Inteiro, 2000 g | plural: Bolos de Fubá com queijo | venda: unidade/unidades
+- Bolo de Fubá com queijo — Pedaço, 100 g | plural: Bolos de Fubá com queijo | venda: unidade/unidades
+- Bolo de Fubá com queijo — Pedaço, 150 g | plural: Bolos de Fubá com queijo | venda: unidade/unidades
+- Bolo de Fubá cremoso — Inteiro, 500 g | plural: Bolos de Fubá cremoso | venda: unidade/unidades
+- Bolo de Fubá cremoso — Inteiro, 1000 g | plural: Bolos de Fubá cremoso | venda: unidade/unidades
+- Bolo de Fubá cremoso — Inteiro, 2000 g | plural: Bolos de Fubá cremoso | venda: unidade/unidades
+- Bolo de Fubá cremoso — Pedaço, 100 g | plural: Bolos de Fubá cremoso | venda: unidade/unidades
+- Bolo de Fubá cremoso — Pedaço, 150 g | plural: Bolos de Fubá cremoso | venda: unidade/unidades
+- Bolo de Mandioca — Inteiro, 500 g | plural: Bolos de Mandioca | venda: unidade/unidades
+- Bolo de Mandioca — Inteiro, 1000 g | plural: Bolos de Mandioca | venda: unidade/unidades
+- Bolo de Mandioca — Inteiro, 2000 g | plural: Bolos de Mandioca | venda: unidade/unidades
+- Bolo de Mandioca — Pedaço, 100 g | plural: Bolos de Mandioca | venda: unidade/unidades
+- Bolo de Mandioca — Pedaço, 150 g | plural: Bolos de Mandioca | venda: unidade/unidades
+- Bolo de Mandioca com coco — Inteiro, 500 g | plural: Bolos de Mandioca com coco | venda: unidade/unidades
+- Bolo de Mandioca com coco — Inteiro, 1000 g | plural: Bolos de Mandioca com coco | venda: unidade/unidades
+- Bolo de Mandioca com coco — Inteiro, 2000 g | plural: Bolos de Mandioca com coco | venda: unidade/unidades
+- Bolo de Mandioca com coco — Pedaço, 100 g | plural: Bolos de Mandioca com coco | venda: unidade/unidades
+- Bolo de Mandioca com coco — Pedaço, 150 g | plural: Bolos de Mandioca com coco | venda: unidade/unidades
+- Bolo de Mandioca com queijo — Inteiro, 500 g | plural: Bolos de Mandioca com queijo | venda: unidade/unidades
+- Bolo de Mandioca com queijo — Inteiro, 1000 g | plural: Bolos de Mandioca com queijo | venda: unidade/unidades
+- Bolo de Mandioca com queijo — Inteiro, 2000 g | plural: Bolos de Mandioca com queijo | venda: unidade/unidades
+- Bolo de Mandioca com queijo — Pedaço, 100 g | plural: Bolos de Mandioca com queijo | venda: unidade/unidades
+- Bolo de Mandioca com queijo — Pedaço, 150 g | plural: Bolos de Mandioca com queijo | venda: unidade/unidades
+- Bolo de Banana — Inteiro, 500 g | plural: Bolos de Banana | venda: unidade/unidades
+- Bolo de Banana — Inteiro, 1000 g | plural: Bolos de Banana | venda: unidade/unidades
+- Bolo de Banana — Inteiro, 2000 g | plural: Bolos de Banana | venda: unidade/unidades
+- Bolo de Banana — Pedaço, 100 g | plural: Bolos de Banana | venda: unidade/unidades
+- Bolo de Banana — Pedaço, 150 g | plural: Bolos de Banana | venda: unidade/unidades
+- Bolo de Banana com canela — Inteiro, 500 g | plural: Bolos de Banana com canela | venda: unidade/unidades
+- Bolo de Banana com canela — Inteiro, 1000 g | plural: Bolos de Banana com canela | venda: unidade/unidades
+- Bolo de Banana com canela — Inteiro, 2000 g | plural: Bolos de Banana com canela | venda: unidade/unidades
+- Bolo de Banana com canela — Pedaço, 100 g | plural: Bolos de Banana com canela | venda: unidade/unidades
+- Bolo de Banana com canela — Pedaço, 150 g | plural: Bolos de Banana com canela | venda: unidade/unidades
+- Bolo de Banana com aveia — Inteiro, 500 g | plural: Bolos de Banana com aveia | venda: unidade/unidades
+- Bolo de Banana com aveia — Inteiro, 1000 g | plural: Bolos de Banana com aveia | venda: unidade/unidades
+- Bolo de Banana com aveia — Inteiro, 2000 g | plural: Bolos de Banana com aveia | venda: unidade/unidades
+- Bolo de Banana com aveia — Pedaço, 100 g | plural: Bolos de Banana com aveia | venda: unidade/unidades
+- Bolo de Banana com aveia — Pedaço, 150 g | plural: Bolos de Banana com aveia | venda: unidade/unidades
+- Bolo de Banana caramelizada — Inteiro, 500 g | plural: Bolos de Banana caramelizada | venda: unidade/unidades
+- Bolo de Banana caramelizada — Inteiro, 1000 g | plural: Bolos de Banana caramelizada | venda: unidade/unidades
+- Bolo de Banana caramelizada — Inteiro, 2000 g | plural: Bolos de Banana caramelizada | venda: unidade/unidades
+- Bolo de Banana caramelizada — Pedaço, 100 g | plural: Bolos de Banana caramelizada | venda: unidade/unidades
+- Bolo de Banana caramelizada — Pedaço, 150 g | plural: Bolos de Banana caramelizada | venda: unidade/unidades
+- Bolo de Maçã — Inteiro, 500 g | plural: Bolos de Maçã | venda: unidade/unidades
+- Bolo de Maçã — Inteiro, 1000 g | plural: Bolos de Maçã | venda: unidade/unidades
+- Bolo de Maçã — Inteiro, 2000 g | plural: Bolos de Maçã | venda: unidade/unidades
+- Bolo de Maçã — Pedaço, 100 g | plural: Bolos de Maçã | venda: unidade/unidades
+- Bolo de Maçã — Pedaço, 150 g | plural: Bolos de Maçã | venda: unidade/unidades
+- Bolo de Maçã com canela — Inteiro, 500 g | plural: Bolos de Maçã com canela | venda: unidade/unidades
+- Bolo de Maçã com canela — Inteiro, 1000 g | plural: Bolos de Maçã com canela | venda: unidade/unidades
+- Bolo de Maçã com canela — Inteiro, 2000 g | plural: Bolos de Maçã com canela | venda: unidade/unidades
+- Bolo de Maçã com canela — Pedaço, 100 g | plural: Bolos de Maçã com canela | venda: unidade/unidades
+- Bolo de Maçã com canela — Pedaço, 150 g | plural: Bolos de Maçã com canela | venda: unidade/unidades
+- Bolo de Maçã com nozes — Inteiro, 500 g | plural: Bolos de Maçã com nozes | venda: unidade/unidades
+- Bolo de Maçã com nozes — Inteiro, 1000 g | plural: Bolos de Maçã com nozes | venda: unidade/unidades
+- Bolo de Maçã com nozes — Inteiro, 2000 g | plural: Bolos de Maçã com nozes | venda: unidade/unidades
+- Bolo de Maçã com nozes — Pedaço, 100 g | plural: Bolos de Maçã com nozes | venda: unidade/unidades
+- Bolo de Maçã com nozes — Pedaço, 150 g | plural: Bolos de Maçã com nozes | venda: unidade/unidades
+- Bolo de Abacaxi — Inteiro, 500 g | plural: Bolos de Abacaxi | venda: unidade/unidades
+- Bolo de Abacaxi — Inteiro, 1000 g | plural: Bolos de Abacaxi | venda: unidade/unidades
+- Bolo de Abacaxi — Inteiro, 2000 g | plural: Bolos de Abacaxi | venda: unidade/unidades
+- Bolo de Abacaxi — Pedaço, 100 g | plural: Bolos de Abacaxi | venda: unidade/unidades
+- Bolo de Abacaxi — Pedaço, 150 g | plural: Bolos de Abacaxi | venda: unidade/unidades
+- Bolo de Abacaxi com coco — Inteiro, 500 g | plural: Bolos de Abacaxi com coco | venda: unidade/unidades
+- Bolo de Abacaxi com coco — Inteiro, 1000 g | plural: Bolos de Abacaxi com coco | venda: unidade/unidades
+- Bolo de Abacaxi com coco — Inteiro, 2000 g | plural: Bolos de Abacaxi com coco | venda: unidade/unidades
+- Bolo de Abacaxi com coco — Pedaço, 100 g | plural: Bolos de Abacaxi com coco | venda: unidade/unidades
+- Bolo de Abacaxi com coco — Pedaço, 150 g | plural: Bolos de Abacaxi com coco | venda: unidade/unidades
+- Bolo de Abacaxi com creme — Inteiro, 500 g | plural: Bolos de Abacaxi com creme | venda: unidade/unidades
+- Bolo de Abacaxi com creme — Inteiro, 1000 g | plural: Bolos de Abacaxi com creme | venda: unidade/unidades
+- Bolo de Abacaxi com creme — Inteiro, 2000 g | plural: Bolos de Abacaxi com creme | venda: unidade/unidades
+- Bolo de Abacaxi com creme — Pedaço, 100 g | plural: Bolos de Abacaxi com creme | venda: unidade/unidades
+- Bolo de Abacaxi com creme — Pedaço, 150 g | plural: Bolos de Abacaxi com creme | venda: unidade/unidades
+- Bolo de Morango — Inteiro, 500 g | plural: Bolos de Morango | venda: unidade/unidades
+- Bolo de Morango — Inteiro, 1000 g | plural: Bolos de Morango | venda: unidade/unidades
+- Bolo de Morango — Inteiro, 2000 g | plural: Bolos de Morango | venda: unidade/unidades
+- Bolo de Morango — Pedaço, 100 g | plural: Bolos de Morango | venda: unidade/unidades
+- Bolo de Morango — Pedaço, 150 g | plural: Bolos de Morango | venda: unidade/unidades
+- Bolo de Morango com creme — Inteiro, 500 g | plural: Bolos de Morango com creme | venda: unidade/unidades
+- Bolo de Morango com creme — Inteiro, 1000 g | plural: Bolos de Morango com creme | venda: unidade/unidades
+- Bolo de Morango com creme — Inteiro, 2000 g | plural: Bolos de Morango com creme | venda: unidade/unidades
+- Bolo de Morango com creme — Pedaço, 100 g | plural: Bolos de Morango com creme | venda: unidade/unidades
+- Bolo de Morango com creme — Pedaço, 150 g | plural: Bolos de Morango com creme | venda: unidade/unidades
+- Bolo de Morango com chocolate branco — Inteiro, 500 g | plural: Bolos de Morango com chocolate branco | venda: unidade/unidades
+- Bolo de Morango com chocolate branco — Inteiro, 1000 g | plural: Bolos de Morango com chocolate branco | venda: unidade/unidades
+- Bolo de Morango com chocolate branco — Inteiro, 2000 g | plural: Bolos de Morango com chocolate branco | venda: unidade/unidades
+- Bolo de Morango com chocolate branco — Pedaço, 100 g | plural: Bolos de Morango com chocolate branco | venda: unidade/unidades
+- Bolo de Morango com chocolate branco — Pedaço, 150 g | plural: Bolos de Morango com chocolate branco | venda: unidade/unidades
+- Bolo de Leite em pó — Inteiro, 500 g | plural: Bolos de Leite em pó | venda: unidade/unidades
+- Bolo de Leite em pó — Inteiro, 1000 g | plural: Bolos de Leite em pó | venda: unidade/unidades
+- Bolo de Leite em pó — Inteiro, 2000 g | plural: Bolos de Leite em pó | venda: unidade/unidades
+- Bolo de Leite em pó — Pedaço, 100 g | plural: Bolos de Leite em pó | venda: unidade/unidades
+- Bolo de Leite em pó — Pedaço, 150 g | plural: Bolos de Leite em pó | venda: unidade/unidades
+- Bolo de Leite em pó com morango — Inteiro, 500 g | plural: Bolos de Leite em pó com morango | venda: unidade/unidades
+- Bolo de Leite em pó com morango — Inteiro, 1000 g | plural: Bolos de Leite em pó com morango | venda: unidade/unidades
+- Bolo de Leite em pó com morango — Inteiro, 2000 g | plural: Bolos de Leite em pó com morango | venda: unidade/unidades
+- Bolo de Leite em pó com morango — Pedaço, 100 g | plural: Bolos de Leite em pó com morango | venda: unidade/unidades
+- Bolo de Leite em pó com morango — Pedaço, 150 g | plural: Bolos de Leite em pó com morango | venda: unidade/unidades
+- Bolo de Leite em pó com chocolate — Inteiro, 500 g | plural: Bolos de Leite em pó com chocolate | venda: unidade/unidades
+- Bolo de Leite em pó com chocolate — Inteiro, 1000 g | plural: Bolos de Leite em pó com chocolate | venda: unidade/unidades
+- Bolo de Leite em pó com chocolate — Inteiro, 2000 g | plural: Bolos de Leite em pó com chocolate | venda: unidade/unidades
+- Bolo de Leite em pó com chocolate — Pedaço, 100 g | plural: Bolos de Leite em pó com chocolate | venda: unidade/unidades
+- Bolo de Leite em pó com chocolate — Pedaço, 150 g | plural: Bolos de Leite em pó com chocolate | venda: unidade/unidades
+- Bolo de Doce de leite — Inteiro, 500 g | plural: Bolos de Doce de leite | venda: unidade/unidades
+- Bolo de Doce de leite — Inteiro, 1000 g | plural: Bolos de Doce de leite | venda: unidade/unidades
+- Bolo de Doce de leite — Inteiro, 2000 g | plural: Bolos de Doce de leite | venda: unidade/unidades
+- Bolo de Doce de leite — Pedaço, 100 g | plural: Bolos de Doce de leite | venda: unidade/unidades
+- Bolo de Doce de leite — Pedaço, 150 g | plural: Bolos de Doce de leite | venda: unidade/unidades
+- Bolo de Doce de leite com ameixa — Inteiro, 500 g | plural: Bolos de Doce de leite com ameixa | venda: unidade/unidades
+- Bolo de Doce de leite com ameixa — Inteiro, 1000 g | plural: Bolos de Doce de leite com ameixa | venda: unidade/unidades
+- Bolo de Doce de leite com ameixa — Inteiro, 2000 g | plural: Bolos de Doce de leite com ameixa | venda: unidade/unidades
+- Bolo de Doce de leite com ameixa — Pedaço, 100 g | plural: Bolos de Doce de leite com ameixa | venda: unidade/unidades
+- Bolo de Doce de leite com ameixa — Pedaço, 150 g | plural: Bolos de Doce de leite com ameixa | venda: unidade/unidades
+- Bolo de Doce de leite com nozes — Inteiro, 500 g | plural: Bolos de Doce de leite com nozes | venda: unidade/unidades
+- Bolo de Doce de leite com nozes — Inteiro, 1000 g | plural: Bolos de Doce de leite com nozes | venda: unidade/unidades
+- Bolo de Doce de leite com nozes — Inteiro, 2000 g | plural: Bolos de Doce de leite com nozes | venda: unidade/unidades
+- Bolo de Doce de leite com nozes — Pedaço, 100 g | plural: Bolos de Doce de leite com nozes | venda: unidade/unidades
+- Bolo de Doce de leite com nozes — Pedaço, 150 g | plural: Bolos de Doce de leite com nozes | venda: unidade/unidades
+- Bolo de Café — Inteiro, 500 g | plural: Bolos de Café | venda: unidade/unidades
+- Bolo de Café — Inteiro, 1000 g | plural: Bolos de Café | venda: unidade/unidades
+- Bolo de Café — Inteiro, 2000 g | plural: Bolos de Café | venda: unidade/unidades
+- Bolo de Café — Pedaço, 100 g | plural: Bolos de Café | venda: unidade/unidades
+- Bolo de Café — Pedaço, 150 g | plural: Bolos de Café | venda: unidade/unidades
+- Bolo de Café com chocolate — Inteiro, 500 g | plural: Bolos de Café com chocolate | venda: unidade/unidades
+- Bolo de Café com chocolate — Inteiro, 1000 g | plural: Bolos de Café com chocolate | venda: unidade/unidades
+- Bolo de Café com chocolate — Inteiro, 2000 g | plural: Bolos de Café com chocolate | venda: unidade/unidades
+- Bolo de Café com chocolate — Pedaço, 100 g | plural: Bolos de Café com chocolate | venda: unidade/unidades
+- Bolo de Café com chocolate — Pedaço, 150 g | plural: Bolos de Café com chocolate | venda: unidade/unidades
+- Bolo de Amendoim — Inteiro, 500 g | plural: Bolos de Amendoim | venda: unidade/unidades
+- Bolo de Amendoim — Inteiro, 1000 g | plural: Bolos de Amendoim | venda: unidade/unidades
+- Bolo de Amendoim — Inteiro, 2000 g | plural: Bolos de Amendoim | venda: unidade/unidades
+- Bolo de Amendoim — Pedaço, 100 g | plural: Bolos de Amendoim | venda: unidade/unidades
+- Bolo de Amendoim — Pedaço, 150 g | plural: Bolos de Amendoim | venda: unidade/unidades
+- Bolo de Paçoca — Inteiro, 500 g | plural: Bolos de Paçoca | venda: unidade/unidades
+- Bolo de Paçoca — Inteiro, 1000 g | plural: Bolos de Paçoca | venda: unidade/unidades
+- Bolo de Paçoca — Inteiro, 2000 g | plural: Bolos de Paçoca | venda: unidade/unidades
+- Bolo de Paçoca — Pedaço, 100 g | plural: Bolos de Paçoca | venda: unidade/unidades
+- Bolo de Paçoca — Pedaço, 150 g | plural: Bolos de Paçoca | venda: unidade/unidades
+- Bolo de Nozes — Inteiro, 500 g | plural: Bolos de Nozes | venda: unidade/unidades
+- Bolo de Nozes — Inteiro, 1000 g | plural: Bolos de Nozes | venda: unidade/unidades
+- Bolo de Nozes — Inteiro, 2000 g | plural: Bolos de Nozes | venda: unidade/unidades
+- Bolo de Nozes — Pedaço, 100 g | plural: Bolos de Nozes | venda: unidade/unidades
+- Bolo de Nozes — Pedaço, 150 g | plural: Bolos de Nozes | venda: unidade/unidades
+- Bolo de Castanha-do-pará — Inteiro, 500 g | plural: Bolos de Castanha-do-pará | venda: unidade/unidades
+- Bolo de Castanha-do-pará — Inteiro, 1000 g | plural: Bolos de Castanha-do-pará | venda: unidade/unidades
+- Bolo de Castanha-do-pará — Inteiro, 2000 g | plural: Bolos de Castanha-do-pará | venda: unidade/unidades
+- Bolo de Castanha-do-pará — Pedaço, 100 g | plural: Bolos de Castanha-do-pará | venda: unidade/unidades
+- Bolo de Castanha-do-pará — Pedaço, 150 g | plural: Bolos de Castanha-do-pará | venda: unidade/unidades
+- Bolo de Castanha-de-caju — Inteiro, 500 g | plural: Bolos de Castanha-de-caju | venda: unidade/unidades
+- Bolo de Castanha-de-caju — Inteiro, 1000 g | plural: Bolos de Castanha-de-caju | venda: unidade/unidades
+- Bolo de Castanha-de-caju — Inteiro, 2000 g | plural: Bolos de Castanha-de-caju | venda: unidade/unidades
+- Bolo de Castanha-de-caju — Pedaço, 100 g | plural: Bolos de Castanha-de-caju | venda: unidade/unidades
+- Bolo de Castanha-de-caju — Pedaço, 150 g | plural: Bolos de Castanha-de-caju | venda: unidade/unidades
+- Bolo de Goiabada — Inteiro, 500 g | plural: Bolos de Goiabada | venda: unidade/unidades
+- Bolo de Goiabada — Inteiro, 1000 g | plural: Bolos de Goiabada | venda: unidade/unidades
+- Bolo de Goiabada — Inteiro, 2000 g | plural: Bolos de Goiabada | venda: unidade/unidades
+- Bolo de Goiabada — Pedaço, 100 g | plural: Bolos de Goiabada | venda: unidade/unidades
+- Bolo de Goiabada — Pedaço, 150 g | plural: Bolos de Goiabada | venda: unidade/unidades
+- Bolo de Goiabada com queijo — Inteiro, 500 g | plural: Bolos de Goiabada com queijo | venda: unidade/unidades
+- Bolo de Goiabada com queijo — Inteiro, 1000 g | plural: Bolos de Goiabada com queijo | venda: unidade/unidades
+- Bolo de Goiabada com queijo — Inteiro, 2000 g | plural: Bolos de Goiabada com queijo | venda: unidade/unidades
+- Bolo de Goiabada com queijo — Pedaço, 100 g | plural: Bolos de Goiabada com queijo | venda: unidade/unidades
+- Bolo de Goiabada com queijo — Pedaço, 150 g | plural: Bolos de Goiabada com queijo | venda: unidade/unidades
+- Bolo de Queijo — Inteiro, 500 g | plural: Bolos de Queijo | venda: unidade/unidades
+- Bolo de Queijo — Inteiro, 1000 g | plural: Bolos de Queijo | venda: unidade/unidades
+- Bolo de Queijo — Inteiro, 2000 g | plural: Bolos de Queijo | venda: unidade/unidades
+- Bolo de Queijo — Pedaço, 100 g | plural: Bolos de Queijo | venda: unidade/unidades
+- Bolo de Queijo — Pedaço, 150 g | plural: Bolos de Queijo | venda: unidade/unidades
+- Bolo de Queijo com coco — Inteiro, 500 g | plural: Bolos de Queijo com coco | venda: unidade/unidades
+- Bolo de Queijo com coco — Inteiro, 1000 g | plural: Bolos de Queijo com coco | venda: unidade/unidades
+- Bolo de Queijo com coco — Inteiro, 2000 g | plural: Bolos de Queijo com coco | venda: unidade/unidades
+- Bolo de Queijo com coco — Pedaço, 100 g | plural: Bolos de Queijo com coco | venda: unidade/unidades
+- Bolo de Queijo com coco — Pedaço, 150 g | plural: Bolos de Queijo com coco | venda: unidade/unidades
+- Bolo de Ameixa — Inteiro, 500 g | plural: Bolos de Ameixa | venda: unidade/unidades
+- Bolo de Ameixa — Inteiro, 1000 g | plural: Bolos de Ameixa | venda: unidade/unidades
+- Bolo de Ameixa — Inteiro, 2000 g | plural: Bolos de Ameixa | venda: unidade/unidades
+- Bolo de Ameixa — Pedaço, 100 g | plural: Bolos de Ameixa | venda: unidade/unidades
+- Bolo de Ameixa — Pedaço, 150 g | plural: Bolos de Ameixa | venda: unidade/unidades
+- Bolo de Ameixa com coco — Inteiro, 500 g | plural: Bolos de Ameixa com coco | venda: unidade/unidades
+- Bolo de Ameixa com coco — Inteiro, 1000 g | plural: Bolos de Ameixa com coco | venda: unidade/unidades
+- Bolo de Ameixa com coco — Inteiro, 2000 g | plural: Bolos de Ameixa com coco | venda: unidade/unidades
+- Bolo de Ameixa com coco — Pedaço, 100 g | plural: Bolos de Ameixa com coco | venda: unidade/unidades
+- Bolo de Ameixa com coco — Pedaço, 150 g | plural: Bolos de Ameixa com coco | venda: unidade/unidades
+- Bolo de Baunilha — Inteiro, 500 g | plural: Bolos de Baunilha | venda: unidade/unidades
+- Bolo de Baunilha — Inteiro, 1000 g | plural: Bolos de Baunilha | venda: unidade/unidades
+- Bolo de Baunilha — Inteiro, 2000 g | plural: Bolos de Baunilha | venda: unidade/unidades
+- Bolo de Baunilha — Pedaço, 100 g | plural: Bolos de Baunilha | venda: unidade/unidades
+- Bolo de Baunilha — Pedaço, 150 g | plural: Bolos de Baunilha | venda: unidade/unidades
+- Bolo de Mesclado de baunilha e chocolate — Inteiro, 500 g | plural: Bolos de Mesclado de baunilha e chocolate | venda: unidade/unidades
+- Bolo de Mesclado de baunilha e chocolate — Inteiro, 1000 g | plural: Bolos de Mesclado de baunilha e chocolate | venda: unidade/unidades
+- Bolo de Mesclado de baunilha e chocolate — Inteiro, 2000 g | plural: Bolos de Mesclado de baunilha e chocolate | venda: unidade/unidades
+- Bolo de Mesclado de baunilha e chocolate — Pedaço, 100 g | plural: Bolos de Mesclado de baunilha e chocolate | venda: unidade/unidades
+- Bolo de Mesclado de baunilha e chocolate — Pedaço, 150 g | plural: Bolos de Mesclado de baunilha e chocolate | venda: unidade/unidades
+- Bolo de Formigueiro — Inteiro, 500 g | plural: Bolos de Formigueiro | venda: unidade/unidades
+- Bolo de Formigueiro — Inteiro, 1000 g | plural: Bolos de Formigueiro | venda: unidade/unidades
+- Bolo de Formigueiro — Inteiro, 2000 g | plural: Bolos de Formigueiro | venda: unidade/unidades
+- Bolo de Formigueiro — Pedaço, 100 g | plural: Bolos de Formigueiro | venda: unidade/unidades
+- Bolo de Formigueiro — Pedaço, 150 g | plural: Bolos de Formigueiro | venda: unidade/unidades
+- Bolo de Tapioca — Inteiro, 500 g | plural: Bolos de Tapioca | venda: unidade/unidades
+- Bolo de Tapioca — Inteiro, 1000 g | plural: Bolos de Tapioca | venda: unidade/unidades
+- Bolo de Tapioca — Inteiro, 2000 g | plural: Bolos de Tapioca | venda: unidade/unidades
+- Bolo de Tapioca — Pedaço, 100 g | plural: Bolos de Tapioca | venda: unidade/unidades
+- Bolo de Tapioca — Pedaço, 150 g | plural: Bolos de Tapioca | venda: unidade/unidades
+- Bolo de Tapioca com coco — Inteiro, 500 g | plural: Bolos de Tapioca com coco | venda: unidade/unidades
+- Bolo de Tapioca com coco — Inteiro, 1000 g | plural: Bolos de Tapioca com coco | venda: unidade/unidades
+- Bolo de Tapioca com coco — Inteiro, 2000 g | plural: Bolos de Tapioca com coco | venda: unidade/unidades
+- Bolo de Tapioca com coco — Pedaço, 100 g | plural: Bolos de Tapioca com coco | venda: unidade/unidades
+- Bolo de Tapioca com coco — Pedaço, 150 g | plural: Bolos de Tapioca com coco | venda: unidade/unidades
+- Bolo de Batata-doce — Inteiro, 500 g | plural: Bolos de Batata-doce | venda: unidade/unidades
+- Bolo de Batata-doce — Inteiro, 1000 g | plural: Bolos de Batata-doce | venda: unidade/unidades
+- Bolo de Batata-doce — Inteiro, 2000 g | plural: Bolos de Batata-doce | venda: unidade/unidades
+- Bolo de Batata-doce — Pedaço, 100 g | plural: Bolos de Batata-doce | venda: unidade/unidades
+- Bolo de Batata-doce — Pedaço, 150 g | plural: Bolos de Batata-doce | venda: unidade/unidades
+- Bolo de Abóbora com coco — Inteiro, 500 g | plural: Bolos de Abóbora com coco | venda: unidade/unidades
+- Bolo de Abóbora com coco — Inteiro, 1000 g | plural: Bolos de Abóbora com coco | venda: unidade/unidades
+- Bolo de Abóbora com coco — Inteiro, 2000 g | plural: Bolos de Abóbora com coco | venda: unidade/unidades
+- Bolo de Abóbora com coco — Pedaço, 100 g | plural: Bolos de Abóbora com coco | venda: unidade/unidades
+- Bolo de Abóbora com coco — Pedaço, 150 g | plural: Bolos de Abóbora com coco | venda: unidade/unidades
+- Bolo de Churros — Inteiro, 500 g | plural: Bolos de Churros | venda: unidade/unidades
+- Bolo de Churros — Inteiro, 1000 g | plural: Bolos de Churros | venda: unidade/unidades
+- Bolo de Churros — Inteiro, 2000 g | plural: Bolos de Churros | venda: unidade/unidades
+- Bolo de Churros — Pedaço, 100 g | plural: Bolos de Churros | venda: unidade/unidades
+- Bolo de Churros — Pedaço, 150 g | plural: Bolos de Churros | venda: unidade/unidades
+- Bolo de Iogurte — Inteiro, 500 g | plural: Bolos de Iogurte | venda: unidade/unidades
+- Bolo de Iogurte — Inteiro, 1000 g | plural: Bolos de Iogurte | venda: unidade/unidades
+- Bolo de Iogurte — Inteiro, 2000 g | plural: Bolos de Iogurte | venda: unidade/unidades
+- Bolo de Iogurte — Pedaço, 100 g | plural: Bolos de Iogurte | venda: unidade/unidades
+- Bolo de Iogurte — Pedaço, 150 g | plural: Bolos de Iogurte | venda: unidade/unidades
+- Bolo de Iogurte com limão — Inteiro, 500 g | plural: Bolos de Iogurte com limão | venda: unidade/unidades
+- Bolo de Iogurte com limão — Inteiro, 1000 g | plural: Bolos de Iogurte com limão | venda: unidade/unidades
+- Bolo de Iogurte com limão — Inteiro, 2000 g | plural: Bolos de Iogurte com limão | venda: unidade/unidades
+- Bolo de Iogurte com limão — Pedaço, 100 g | plural: Bolos de Iogurte com limão | venda: unidade/unidades
+- Bolo de Iogurte com limão — Pedaço, 150 g | plural: Bolos de Iogurte com limão | venda: unidade/unidades
+- Bolo de Pamonha — Inteiro, 500 g | plural: Bolos de Pamonha | venda: unidade/unidades
+- Bolo de Pamonha — Inteiro, 1000 g | plural: Bolos de Pamonha | venda: unidade/unidades
+- Bolo de Pamonha — Inteiro, 2000 g | plural: Bolos de Pamonha | venda: unidade/unidades
+- Bolo de Pamonha — Pedaço, 100 g | plural: Bolos de Pamonha | venda: unidade/unidades
+- Bolo de Pamonha — Pedaço, 150 g | plural: Bolos de Pamonha | venda: unidade/unidades
+- Bolo de Pão de mel — Inteiro, 500 g | plural: Bolos de Pão de mel | venda: unidade/unidades
+- Bolo de Pão de mel — Inteiro, 1000 g | plural: Bolos de Pão de mel | venda: unidade/unidades
+- Bolo de Pão de mel — Inteiro, 2000 g | plural: Bolos de Pão de mel | venda: unidade/unidades
+- Bolo de Pão de mel — Pedaço, 100 g | plural: Bolos de Pão de mel | venda: unidade/unidades
+- Bolo de Pão de mel — Pedaço, 150 g | plural: Bolos de Pão de mel | venda: unidade/unidades
+- Bolo de Red velvet — Inteiro, 500 g | plural: Bolos de Red velvet | venda: unidade/unidades
+- Bolo de Red velvet — Inteiro, 1000 g | plural: Bolos de Red velvet | venda: unidade/unidades
+- Bolo de Red velvet — Inteiro, 2000 g | plural: Bolos de Red velvet | venda: unidade/unidades
+- Bolo de Red velvet — Pedaço, 100 g | plural: Bolos de Red velvet | venda: unidade/unidades
+- Bolo de Red velvet — Pedaço, 150 g | plural: Bolos de Red velvet | venda: unidade/unidades
+- Bolo de Frutas cristalizadas — Inteiro, 500 g | plural: Bolos de Frutas cristalizadas | venda: unidade/unidades
+- Bolo de Frutas cristalizadas — Inteiro, 1000 g | plural: Bolos de Frutas cristalizadas | venda: unidade/unidades
+- Bolo de Frutas cristalizadas — Inteiro, 2000 g | plural: Bolos de Frutas cristalizadas | venda: unidade/unidades
+- Bolo de Frutas cristalizadas — Pedaço, 100 g | plural: Bolos de Frutas cristalizadas | venda: unidade/unidades
+- Bolo de Frutas cristalizadas — Pedaço, 150 g | plural: Bolos de Frutas cristalizadas | venda: unidade/unidades
+- Bolo de Panetone — Inteiro, 500 g | plural: Bolos de Panetone | venda: unidade/unidades
+- Bolo de Panetone — Inteiro, 1000 g | plural: Bolos de Panetone | venda: unidade/unidades
+- Bolo de Panetone — Inteiro, 2000 g | plural: Bolos de Panetone | venda: unidade/unidades
+- Bolo de Panetone — Pedaço, 100 g | plural: Bolos de Panetone | venda: unidade/unidades
+- Bolo de Panetone — Pedaço, 150 g | plural: Bolos de Panetone | venda: unidade/unidades
+- Bolo de Canela — Inteiro, 500 g | plural: Bolos de Canela | venda: unidade/unidades
+- Bolo de Canela — Inteiro, 1000 g | plural: Bolos de Canela | venda: unidade/unidades
+- Bolo de Canela — Inteiro, 2000 g | plural: Bolos de Canela | venda: unidade/unidades
+- Bolo de Canela — Pedaço, 100 g | plural: Bolos de Canela | venda: unidade/unidades
+- Bolo de Canela — Pedaço, 150 g | plural: Bolos de Canela | venda: unidade/unidades
+- Bolo de Chocolate — No pote, 150 g | plural: Bolos de Chocolate | venda: unidade/unidades
+- Bolo de Chocolate — No pote, 250 g | plural: Bolos de Chocolate | venda: unidade/unidades
+- Bolo de Brigadeiro — No pote, 150 g | plural: Bolos de Brigadeiro | venda: unidade/unidades
+- Bolo de Brigadeiro — No pote, 250 g | plural: Bolos de Brigadeiro | venda: unidade/unidades
+- Bolo de Coco — No pote, 150 g | plural: Bolos de Coco | venda: unidade/unidades
+- Bolo de Coco — No pote, 250 g | plural: Bolos de Coco | venda: unidade/unidades
+- Bolo de Prestígio de chocolate com coco — No pote, 150 g | plural: Bolos de Prestígio de chocolate com coco | venda: unidade/unidades
+- Bolo de Prestígio de chocolate com coco — No pote, 250 g | plural: Bolos de Prestígio de chocolate com coco | venda: unidade/unidades
+- Bolo de Morango — No pote, 150 g | plural: Bolos de Morango | venda: unidade/unidades
+- Bolo de Morango — No pote, 250 g | plural: Bolos de Morango | venda: unidade/unidades
+- Bolo de Leite em pó com morango — No pote, 150 g | plural: Bolos de Leite em pó com morango | venda: unidade/unidades
+- Bolo de Leite em pó com morango — No pote, 250 g | plural: Bolos de Leite em pó com morango | venda: unidade/unidades
+- Bolo de Doce de leite — No pote, 150 g | plural: Bolos de Doce de leite | venda: unidade/unidades
+- Bolo de Doce de leite — No pote, 250 g | plural: Bolos de Doce de leite | venda: unidade/unidades
+- Bolo de Abacaxi com coco — No pote, 150 g | plural: Bolos de Abacaxi com coco | venda: unidade/unidades
+- Bolo de Abacaxi com coco — No pote, 250 g | plural: Bolos de Abacaxi com coco | venda: unidade/unidades
+- Bolo de Maracujá — No pote, 150 g | plural: Bolos de Maracujá | venda: unidade/unidades
+- Bolo de Maracujá — No pote, 250 g | plural: Bolos de Maracujá | venda: unidade/unidades
+- Bolo de Limão — No pote, 150 g | plural: Bolos de Limão | venda: unidade/unidades
+- Bolo de Limão — No pote, 250 g | plural: Bolos de Limão | venda: unidade/unidades
+- Bolo de Cenoura com chocolate — No pote, 150 g | plural: Bolos de Cenoura com chocolate | venda: unidade/unidades
+- Bolo de Cenoura com chocolate — No pote, 250 g | plural: Bolos de Cenoura com chocolate | venda: unidade/unidades
+- Bolo de Paçoca — No pote, 150 g | plural: Bolos de Paçoca | venda: unidade/unidades
+- Bolo de Paçoca — No pote, 250 g | plural: Bolos de Paçoca | venda: unidade/unidades
+- Bolo de Café com chocolate — No pote, 150 g | plural: Bolos de Café com chocolate | venda: unidade/unidades
+- Bolo de Café com chocolate — No pote, 250 g | plural: Bolos de Café com chocolate | venda: unidade/unidades
+- Bolo de Ameixa com doce de leite — No pote, 150 g | plural: Bolos de Ameixa com doce de leite | venda: unidade/unidades
+- Bolo de Ameixa com doce de leite — No pote, 250 g | plural: Bolos de Ameixa com doce de leite | venda: unidade/unidades
+- Bolo de Baunilha com frutas — No pote, 150 g | plural: Bolos de Baunilha com frutas | venda: unidade/unidades
+- Bolo de Baunilha com frutas — No pote, 250 g | plural: Bolos de Baunilha com frutas | venda: unidade/unidades
+- Torta de Limão — Inteira, 1000 g | plural: Tortas de Limão | venda: unidade/unidades
+- Torta de Limão — Fatia, 150 g | plural: Tortas de Limão | venda: unidade/unidades
+- Torta de Morango — Inteira, 1000 g | plural: Tortas de Morango | venda: unidade/unidades
+- Torta de Morango — Fatia, 150 g | plural: Tortas de Morango | venda: unidade/unidades
+- Torta de Maracujá — Inteira, 1000 g | plural: Tortas de Maracujá | venda: unidade/unidades
+- Torta de Maracujá — Fatia, 150 g | plural: Tortas de Maracujá | venda: unidade/unidades
+- Torta de Chocolate — Inteira, 1000 g | plural: Tortas de Chocolate | venda: unidade/unidades
+- Torta de Chocolate — Fatia, 150 g | plural: Tortas de Chocolate | venda: unidade/unidades
+- Torta de Banana — Inteira, 1000 g | plural: Tortas de Banana | venda: unidade/unidades
+- Torta de Banana — Fatia, 150 g | plural: Tortas de Banana | venda: unidade/unidades
+- Torta de Maçã — Inteira, 1000 g | plural: Tortas de Maçã | venda: unidade/unidades
+- Torta de Maçã — Fatia, 150 g | plural: Tortas de Maçã | venda: unidade/unidades
+- Torta de Abacaxi — Inteira, 1000 g | plural: Tortas de Abacaxi | venda: unidade/unidades
+- Torta de Abacaxi — Fatia, 150 g | plural: Tortas de Abacaxi | venda: unidade/unidades
+- Torta de Coco — Inteira, 1000 g | plural: Tortas de Coco | venda: unidade/unidades
+- Torta de Coco — Fatia, 150 g | plural: Tortas de Coco | venda: unidade/unidades
+- Torta de Nozes — Inteira, 1000 g | plural: Tortas de Nozes | venda: unidade/unidades
+- Torta de Nozes — Fatia, 150 g | plural: Tortas de Nozes | venda: unidade/unidades
+- Torta de Doce de leite — Inteira, 1000 g | plural: Tortas de Doce de leite | venda: unidade/unidades
+- Torta de Doce de leite — Fatia, 150 g | plural: Tortas de Doce de leite | venda: unidade/unidades
+- Torta de Ricota com goiabada — Inteira, 1000 g | plural: Tortas de Ricota com goiabada | venda: unidade/unidades
+- Torta de Ricota com goiabada — Fatia, 150 g | plural: Tortas de Ricota com goiabada | venda: unidade/unidades
+- Torta de Queijo com frutas vermelhas — Inteira, 1000 g | plural: Tortas de Queijo com frutas vermelhas | venda: unidade/unidades
+- Torta de Queijo com frutas vermelhas — Fatia, 150 g | plural: Tortas de Queijo com frutas vermelhas | venda: unidade/unidades
+- Torta de Amendoim — Inteira, 1000 g | plural: Tortas de Amendoim | venda: unidade/unidades
+- Torta de Amendoim — Fatia, 150 g | plural: Tortas de Amendoim | venda: unidade/unidades
+- Torta de Café — Inteira, 1000 g | plural: Tortas de Café | venda: unidade/unidades
+- Torta de Café — Fatia, 150 g | plural: Tortas de Café | venda: unidade/unidades
+- Torta de Ameixa — Inteira, 1000 g | plural: Tortas de Ameixa | venda: unidade/unidades
+- Torta de Ameixa — Fatia, 150 g | plural: Tortas de Ameixa | venda: unidade/unidades
+- Brigadeiro — Porção individual | plural: Brigadeiros | venda: unidade/unidades
+- Brigadeiro branco — Porção individual | plural: Brigadeiros brancos | venda: unidade/unidades
+- Beijinho — Porção individual | plural: Beijinhos | venda: unidade/unidades
+- Cajuzinho — Porção individual | plural: Cajuzinhos | venda: unidade/unidades
+- Olho de sogra — Porção individual | plural: Olhos de sogra | venda: unidade/unidades
+- Camafeu de nozes — Porção individual | plural: Camafeus de nozes | venda: unidade/unidades
+- Bombom de morango — Porção individual | plural: Bombons de morango | venda: unidade/unidades
+- Bombom de uva — Porção individual | plural: Bombons de uva | venda: unidade/unidades
+- Trufa de chocolate — Porção individual | plural: Trufas de chocolate | venda: unidade/unidades
+- Trufa de maracujá — Porção individual | plural: Trufas de maracujá | venda: unidade/unidades
+- Trufa de coco — Porção individual | plural: Trufas de coco | venda: unidade/unidades
+- Palha italiana — Porção individual | plural: Palhas italianas | venda: unidade/unidades
+- Brownie de chocolate — Porção individual | plural: Brownies de chocolate | venda: unidade/unidades
+- Brownie com nozes — Porção individual | plural: Brownies com nozes | venda: unidade/unidades
+- Brownie com doce de leite — Porção individual | plural: Brownies com doce de leite | venda: unidade/unidades
+- Pão de mel — Porção individual | plural: Pães de mel | venda: unidade/unidades
+- Cupcake de chocolate — Porção individual | plural: Cupcakes de chocolate | venda: unidade/unidades
+- Cupcake de baunilha — Porção individual | plural: Cupcakes de baunilha | venda: unidade/unidades
+- Quindim — Porção individual | plural: Quindins | venda: unidade/unidades
+- Queijadinha — Porção individual | plural: Queijadinhas | venda: unidade/unidades
+- Cocada branca — Porção individual | plural: Cocadas brancas | venda: unidade/unidades
+- Cocada queimada — Porção individual | plural: Cocadas queimadas | venda: unidade/unidades
+- Cocada de maracujá — Porção individual | plural: Cocadas de maracujá | venda: unidade/unidades
+- Pé de moleque — Porção individual | plural: Pés de moleque | venda: unidade/unidades
+- Pé de moça — Porção individual | plural: Pés de moça | venda: unidade/unidades
+- Paçoca de amendoim — Porção individual | plural: Paçocas de amendoim | venda: unidade/unidades
+- Rapadura tradicional — Porção individual | plural: Rapaduras tradicionais | venda: unidade/unidades
+- Rapadura com amendoim — Porção individual | plural: Rapaduras com amendoim | venda: unidade/unidades
+- Rapadura com coco — Porção individual | plural: Rapaduras com coco | venda: unidade/unidades
+
+## Cafés — 62 apresentações
+
+- Café Especial Torra clara — Moído, 250 g | plural: Cafés Especial Torra clara | venda: unidade/unidades
+- Café Especial Torra clara — Moído, 500 g | plural: Cafés Especial Torra clara | venda: unidade/unidades
+- Café Especial Torra clara — Moído, 1000 g | plural: Cafés Especial Torra clara | venda: unidade/unidades
+- Café Especial Torra clara — Em grãos, 250 g | plural: Cafés Especial Torra clara | venda: unidade/unidades
+- Café Especial Torra clara — Em grãos, 500 g | plural: Cafés Especial Torra clara | venda: unidade/unidades
+- Café Especial Torra clara — Em grãos, 1000 g | plural: Cafés Especial Torra clara | venda: unidade/unidades
+- Café Especial Torra média — Moído, 250 g | plural: Cafés Especial Torra média | venda: unidade/unidades
+- Café Especial Torra média — Moído, 500 g | plural: Cafés Especial Torra média | venda: unidade/unidades
+- Café Especial Torra média — Moído, 1000 g | plural: Cafés Especial Torra média | venda: unidade/unidades
+- Café Especial Torra média — Em grãos, 250 g | plural: Cafés Especial Torra média | venda: unidade/unidades
+- Café Especial Torra média — Em grãos, 500 g | plural: Cafés Especial Torra média | venda: unidade/unidades
+- Café Especial Torra média — Em grãos, 1000 g | plural: Cafés Especial Torra média | venda: unidade/unidades
+- Café Especial Torra escura — Moído, 250 g | plural: Cafés Especial Torra escura | venda: unidade/unidades
+- Café Especial Torra escura — Moído, 500 g | plural: Cafés Especial Torra escura | venda: unidade/unidades
+- Café Especial Torra escura — Moído, 1000 g | plural: Cafés Especial Torra escura | venda: unidade/unidades
+- Café Especial Torra escura — Em grãos, 250 g | plural: Cafés Especial Torra escura | venda: unidade/unidades
+- Café Especial Torra escura — Em grãos, 500 g | plural: Cafés Especial Torra escura | venda: unidade/unidades
+- Café Especial Torra escura — Em grãos, 1000 g | plural: Cafés Especial Torra escura | venda: unidade/unidades
+- Café Gourmet Torra clara — Moído, 250 g | plural: Cafés Gourmet Torra clara | venda: unidade/unidades
+- Café Gourmet Torra clara — Moído, 500 g | plural: Cafés Gourmet Torra clara | venda: unidade/unidades
+- Café Gourmet Torra clara — Moído, 1000 g | plural: Cafés Gourmet Torra clara | venda: unidade/unidades
+- Café Gourmet Torra clara — Em grãos, 250 g | plural: Cafés Gourmet Torra clara | venda: unidade/unidades
+- Café Gourmet Torra clara — Em grãos, 500 g | plural: Cafés Gourmet Torra clara | venda: unidade/unidades
+- Café Gourmet Torra clara — Em grãos, 1000 g | plural: Cafés Gourmet Torra clara | venda: unidade/unidades
+- Café Gourmet Torra média — Moído, 250 g | plural: Cafés Gourmet Torra média | venda: unidade/unidades
+- Café Gourmet Torra média — Moído, 500 g | plural: Cafés Gourmet Torra média | venda: unidade/unidades
+- Café Gourmet Torra média — Moído, 1000 g | plural: Cafés Gourmet Torra média | venda: unidade/unidades
+- Café Gourmet Torra média — Em grãos, 250 g | plural: Cafés Gourmet Torra média | venda: unidade/unidades
+- Café Gourmet Torra média — Em grãos, 500 g | plural: Cafés Gourmet Torra média | venda: unidade/unidades
+- Café Gourmet Torra média — Em grãos, 1000 g | plural: Cafés Gourmet Torra média | venda: unidade/unidades
+- Café Gourmet Torra escura — Moído, 250 g | plural: Cafés Gourmet Torra escura | venda: unidade/unidades
+- Café Gourmet Torra escura — Moído, 500 g | plural: Cafés Gourmet Torra escura | venda: unidade/unidades
+- Café Gourmet Torra escura — Moído, 1000 g | plural: Cafés Gourmet Torra escura | venda: unidade/unidades
+- Café Gourmet Torra escura — Em grãos, 250 g | plural: Cafés Gourmet Torra escura | venda: unidade/unidades
+- Café Gourmet Torra escura — Em grãos, 500 g | plural: Cafés Gourmet Torra escura | venda: unidade/unidades
+- Café Gourmet Torra escura — Em grãos, 1000 g | plural: Cafés Gourmet Torra escura | venda: unidade/unidades
+- Café Tradicional Torra clara — Moído, 250 g | plural: Cafés Tradicional Torra clara | venda: unidade/unidades
+- Café Tradicional Torra clara — Moído, 500 g | plural: Cafés Tradicional Torra clara | venda: unidade/unidades
+- Café Tradicional Torra clara — Moído, 1000 g | plural: Cafés Tradicional Torra clara | venda: unidade/unidades
+- Café Tradicional Torra clara — Em grãos, 250 g | plural: Cafés Tradicional Torra clara | venda: unidade/unidades
+- Café Tradicional Torra clara — Em grãos, 500 g | plural: Cafés Tradicional Torra clara | venda: unidade/unidades
+- Café Tradicional Torra clara — Em grãos, 1000 g | plural: Cafés Tradicional Torra clara | venda: unidade/unidades
+- Café Tradicional Torra média — Moído, 250 g | plural: Cafés Tradicional Torra média | venda: unidade/unidades
+- Café Tradicional Torra média — Moído, 500 g | plural: Cafés Tradicional Torra média | venda: unidade/unidades
+- Café Tradicional Torra média — Moído, 1000 g | plural: Cafés Tradicional Torra média | venda: unidade/unidades
+- Café Tradicional Torra média — Em grãos, 250 g | plural: Cafés Tradicional Torra média | venda: unidade/unidades
+- Café Tradicional Torra média — Em grãos, 500 g | plural: Cafés Tradicional Torra média | venda: unidade/unidades
+- Café Tradicional Torra média — Em grãos, 1000 g | plural: Cafés Tradicional Torra média | venda: unidade/unidades
+- Café Tradicional Torra escura — Moído, 250 g | plural: Cafés Tradicional Torra escura | venda: unidade/unidades
+- Café Tradicional Torra escura — Moído, 500 g | plural: Cafés Tradicional Torra escura | venda: unidade/unidades
+- Café Tradicional Torra escura — Moído, 1000 g | plural: Cafés Tradicional Torra escura | venda: unidade/unidades
+- Café Tradicional Torra escura — Em grãos, 250 g | plural: Cafés Tradicional Torra escura | venda: unidade/unidades
+- Café Tradicional Torra escura — Em grãos, 500 g | plural: Cafés Tradicional Torra escura | venda: unidade/unidades
+- Café Tradicional Torra escura — Em grãos, 1000 g | plural: Cafés Tradicional Torra escura | venda: unidade/unidades
+- Café arábica verde — Embalado | plural: Cafés arábica verdes | venda: unidade/unidades
+- Café conilon verde — Embalado | plural: Cafés conilon verdes | venda: unidade/unidades
+- Café descafeinado moído — Embalado | plural: Cafés descafeinados moídos | venda: unidade/unidades
+- Café descafeinado em grãos — Embalado | plural: Cafés descafeinados em grãos | venda: unidade/unidades
+- Café solúvel — Embalado | plural: Cafés solúveis | venda: unidade/unidades
+- Café em cápsulas — Embalado | plural: Cafés em cápsulas | venda: unidade/unidades
+- Drip coffee — Embalado | plural: Drip coffees | venda: unidade/unidades
+- Cascara de café — Embalado | plural: Cascaras de café | venda: unidade/unidades
+
+## Carnes e aves — 44 apresentações
+
+- Pernil suíno — Resfriado | plural: Pernis suínos | venda: quilo/quilos
+- Lombo suíno — Resfriado | plural: Lombos suínos | venda: quilo/quilos
+- Costela suína — Resfriado | plural: Costelas suínas | venda: quilo/quilos
+- Barriga suína — Resfriado | plural: Barrigas suínas | venda: quilo/quilos
+- Paleta suína — Resfriado | plural: Paletas suínas | venda: quilo/quilos
+- Bisteca suína — Resfriado | plural: Bistecas suínas | venda: quilo/quilos
+- Filé-mignon suíno — Resfriado | plural: Filés-mignons suínos | venda: quilo/quilos
+- Pé suíno — Resfriado | plural: Pés suínos | venda: quilo/quilos
+- Orelha suína — Resfriado | plural: Orelhas suínas | venda: quilo/quilos
+- Rabo suíno — Resfriado | plural: Rabos suínos | venda: quilo/quilos
+- Suã suína — Resfriado | plural: Suãs suínas | venda: quilo/quilos
+- Carne suína moída — Resfriado | plural: Carnes suínas moídas | venda: quilo/quilos
+- Acém bovino — Resfriado | plural: Acéns bovinos | venda: quilo/quilos
+- Patinho bovino — Resfriado | plural: Patinhos bovinos | venda: quilo/quilos
+- Músculo bovino — Resfriado | plural: Músculos bovinos | venda: quilo/quilos
+- Coxão mole bovino — Resfriado | plural: Coxões moles bovinos | venda: quilo/quilos
+- Coxão duro bovino — Resfriado | plural: Coxões duros bovinos | venda: quilo/quilos
+- Alcatra bovina — Resfriado | plural: Alcatras bovinas | venda: quilo/quilos
+- Contrafilé bovino — Resfriado | plural: Contrafilés bovinos | venda: quilo/quilos
+- Filé-mignon bovino — Resfriado | plural: Filés-mignons bovinos | venda: quilo/quilos
+- Fraldinha bovina — Resfriado | plural: Fraldinhas bovinas | venda: quilo/quilos
+- Picanha bovina — Resfriado | plural: Picanhas bovinas | venda: quilo/quilos
+- Costela bovina — Resfriado | plural: Costelas bovinas | venda: quilo/quilos
+- Peito bovino — Resfriado | plural: Peitos bovinos | venda: quilo/quilos
+- Carne bovina moída — Resfriado | plural: Carnes bovinas moídas | venda: quilo/quilos
+- Fígado bovino — Resfriado | plural: Fígados bovinos | venda: quilo/quilos
+- Rabada bovina — Resfriado | plural: Rabadas bovinas | venda: quilo/quilos
+- Peito de frango — Resfriado | plural: Peitos de frango | venda: quilo/quilos
+- Filé de peito de frango — Resfriado | plural: Filés de peito de frango | venda: quilo/quilos
+- Coxa de frango — Resfriado | plural: Coxas de frango | venda: quilo/quilos
+- Sobrecoxa de frango — Resfriado | plural: Sobrecoxas de frango | venda: quilo/quilos
+- Asa de frango — Resfriado | plural: Asas de frango | venda: quilo/quilos
+- Coxinha da asa — Resfriado | plural: Coxinhas da asa | venda: quilo/quilos
+- Coração de frango — Resfriado | plural: Corações de frango | venda: quilo/quilos
+- Moela de frango — Resfriado | plural: Moelas de frango | venda: quilo/quilos
+- Fígado de frango — Resfriado | plural: Fígados de frango | venda: quilo/quilos
+- Frango caipira inteiro — Resfriado | plural: Frangos caipiras inteiros | venda: quilo/quilos
+- Frango inteiro — Resfriado | plural: Frangos inteiros | venda: quilo/quilos
+- Pato inteiro — Resfriado | plural: Patos inteiros | venda: quilo/quilos
+- Codorna limpa — Resfriado | plural: Codornas limpas | venda: quilo/quilos
+- Coelho limpo — Resfriado | plural: Coelhos limpos | venda: quilo/quilos
+- Pernil de cordeiro — Resfriado | plural: Pernis de cordeiro | venda: quilo/quilos
+- Costela de cordeiro — Resfriado | plural: Costelas de cordeiro | venda: quilo/quilos
+- Carne caprina — Resfriado | plural: Carnes caprinas | venda: quilo/quilos
+
+## Castanhas e sementes — 60 apresentações
+
+- Castanha-do-pará — Embalado, 100 g | plural: Castanhas-do-pará | venda: unidade/unidades
+- Castanha-do-pará — Embalado, 250 g | plural: Castanhas-do-pará | venda: unidade/unidades
+- Castanha-de-caju natural — Embalado, 100 g | plural: Castanhas-de-caju naturais | venda: unidade/unidades
+- Castanha-de-caju natural — Embalado, 250 g | plural: Castanhas-de-caju naturais | venda: unidade/unidades
+- Castanha-de-caju torrada — Embalado, 100 g | plural: Castanhas-de-caju torradas | venda: unidade/unidades
+- Castanha-de-caju torrada — Embalado, 250 g | plural: Castanhas-de-caju torradas | venda: unidade/unidades
+- Amendoim cru — Embalado, 100 g | plural: Amendoins crus | venda: unidade/unidades
+- Amendoim cru — Embalado, 250 g | plural: Amendoins crus | venda: unidade/unidades
+- Amendoim torrado — Embalado, 100 g | plural: Amendoins torrados | venda: unidade/unidades
+- Amendoim torrado — Embalado, 250 g | plural: Amendoins torrados | venda: unidade/unidades
+- Amendoim torrado com sal — Embalado, 100 g | plural: Amendoins torrados com sal | venda: unidade/unidades
+- Amendoim torrado com sal — Embalado, 250 g | plural: Amendoins torrados com sal | venda: unidade/unidades
+- Amendoim doce — Embalado, 100 g | plural: Amendoins doces | venda: unidade/unidades
+- Amendoim doce — Embalado, 250 g | plural: Amendoins doces | venda: unidade/unidades
+- Amêndoa — Embalado, 100 g | plural: Amêndoas | venda: unidade/unidades
+- Amêndoa — Embalado, 250 g | plural: Amêndoas | venda: unidade/unidades
+- Noz — Embalado, 100 g | plural: Nozes | venda: unidade/unidades
+- Noz — Embalado, 250 g | plural: Nozes | venda: unidade/unidades
+- Noz-pecã — Embalado, 100 g | plural: Nozes-pecãs | venda: unidade/unidades
+- Noz-pecã — Embalado, 250 g | plural: Nozes-pecãs | venda: unidade/unidades
+- Avelã — Embalado, 100 g | plural: Avelãs | venda: unidade/unidades
+- Avelã — Embalado, 250 g | plural: Avelãs | venda: unidade/unidades
+- Macadâmia — Embalado, 100 g | plural: Macadâmias | venda: unidade/unidades
+- Macadâmia — Embalado, 250 g | plural: Macadâmias | venda: unidade/unidades
+- Pistache — Embalado, 100 g | plural: Pistaches | venda: unidade/unidades
+- Pistache — Embalado, 250 g | plural: Pistaches | venda: unidade/unidades
+- Baru torrado — Embalado, 100 g | plural: Barus torrados | venda: unidade/unidades
+- Baru torrado — Embalado, 250 g | plural: Barus torrados | venda: unidade/unidades
+- Semente de abóbora — Embalado, 100 g | plural: Sementes de abóbora | venda: unidade/unidades
+- Semente de abóbora — Embalado, 250 g | plural: Sementes de abóbora | venda: unidade/unidades
+- Semente de girassol — Embalado, 100 g | plural: Sementes de girassol | venda: unidade/unidades
+- Semente de girassol — Embalado, 250 g | plural: Sementes de girassol | venda: unidade/unidades
+- Gergelim branco — Embalado, 100 g | plural: Gergelins brancos | venda: unidade/unidades
+- Gergelim branco — Embalado, 250 g | plural: Gergelins brancos | venda: unidade/unidades
+- Gergelim preto — Embalado, 100 g | plural: Gergelins pretos | venda: unidade/unidades
+- Gergelim preto — Embalado, 250 g | plural: Gergelins pretos | venda: unidade/unidades
+- Linhaça dourada — Embalado, 100 g | plural: Linhaças douradas | venda: unidade/unidades
+- Linhaça dourada — Embalado, 250 g | plural: Linhaças douradas | venda: unidade/unidades
+- Linhaça marrom — Embalado, 100 g | plural: Linhaças marrons | venda: unidade/unidades
+- Linhaça marrom — Embalado, 250 g | plural: Linhaças marrons | venda: unidade/unidades
+- Chia — Embalado, 100 g | plural: Chias | venda: unidade/unidades
+- Chia — Embalado, 250 g | plural: Chias | venda: unidade/unidades
+- Coco ralado seco — Embalado, 100 g | plural: Cocos ralados secos | venda: unidade/unidades
+- Coco ralado seco — Embalado, 250 g | plural: Cocos ralados secos | venda: unidade/unidades
+- Coco em lascas — Embalado, 100 g | plural: Cocos em lascas | venda: unidade/unidades
+- Coco em lascas — Embalado, 250 g | plural: Cocos em lascas | venda: unidade/unidades
+- Uva-passa branca — Embalado, 100 g | plural: Uvas-passas brancas | venda: unidade/unidades
+- Uva-passa branca — Embalado, 250 g | plural: Uvas-passas brancas | venda: unidade/unidades
+- Uva-passa preta — Embalado, 100 g | plural: Uvas-passas pretas | venda: unidade/unidades
+- Uva-passa preta — Embalado, 250 g | plural: Uvas-passas pretas | venda: unidade/unidades
+- Mix de castanhas — Embalado, 100 g | plural: Mix de castanhas | venda: unidade/unidades
+- Mix de castanhas — Embalado, 250 g | plural: Mix de castanhas | venda: unidade/unidades
+- Granola tradicional — Embalado, 100 g | plural: Granolas tradicionais | venda: unidade/unidades
+- Granola tradicional — Embalado, 250 g | plural: Granolas tradicionais | venda: unidade/unidades
+- Granola com mel — Embalado, 100 g | plural: Granolas com mel | venda: unidade/unidades
+- Granola com mel — Embalado, 250 g | plural: Granolas com mel | venda: unidade/unidades
+- Granola com frutas — Embalado, 100 g | plural: Granolas com frutas | venda: unidade/unidades
+- Granola com frutas — Embalado, 250 g | plural: Granolas com frutas | venda: unidade/unidades
+- Granola salgada — Embalado, 100 g | plural: Granolas salgadas | venda: unidade/unidades
+- Granola salgada — Embalado, 250 g | plural: Granolas salgadas | venda: unidade/unidades
+
+## Charcutaria — 170 apresentações
+
+- Linguiça suína frescal — Peça ou porção, 250 g | plural: Linguiças suínas frescais | venda: unidade/unidades
+- Linguiça suína frescal — Peça ou porção, 500 g | plural: Linguiças suínas frescais | venda: unidade/unidades
+- Linguiça suína frescal — Peça ou porção, 1000 g | plural: Linguiças suínas frescais | venda: unidade/unidades
+- Linguiça de pernil — Peça ou porção, 250 g | plural: Linguiças de pernil | venda: unidade/unidades
+- Linguiça de pernil — Peça ou porção, 500 g | plural: Linguiças de pernil | venda: unidade/unidades
+- Linguiça de pernil — Peça ou porção, 1000 g | plural: Linguiças de pernil | venda: unidade/unidades
+- Linguiça de lombo suíno — Peça ou porção, 250 g | plural: Linguiças de lombo suíno | venda: unidade/unidades
+- Linguiça de lombo suíno — Peça ou porção, 500 g | plural: Linguiças de lombo suíno | venda: unidade/unidades
+- Linguiça de lombo suíno — Peça ou porção, 1000 g | plural: Linguiças de lombo suíno | venda: unidade/unidades
+- Linguiça toscana — Peça ou porção, 250 g | plural: Linguiças toscanas | venda: unidade/unidades
+- Linguiça toscana — Peça ou porção, 500 g | plural: Linguiças toscanas | venda: unidade/unidades
+- Linguiça toscana — Peça ou porção, 1000 g | plural: Linguiças toscanas | venda: unidade/unidades
+- Linguiça calabresa — Peça ou porção, 250 g | plural: Linguiças calabresas | venda: unidade/unidades
+- Linguiça calabresa — Peça ou porção, 500 g | plural: Linguiças calabresas | venda: unidade/unidades
+- Linguiça calabresa — Peça ou porção, 1000 g | plural: Linguiças calabresas | venda: unidade/unidades
+- Linguiça portuguesa — Peça ou porção, 250 g | plural: Linguiças portuguesas | venda: unidade/unidades
+- Linguiça portuguesa — Peça ou porção, 500 g | plural: Linguiças portuguesas | venda: unidade/unidades
+- Linguiça portuguesa — Peça ou porção, 1000 g | plural: Linguiças portuguesas | venda: unidade/unidades
+- Linguiça de frango — Peça ou porção, 250 g | plural: Linguiças de frango | venda: unidade/unidades
+- Linguiça de frango — Peça ou porção, 500 g | plural: Linguiças de frango | venda: unidade/unidades
+- Linguiça de frango — Peça ou porção, 1000 g | plural: Linguiças de frango | venda: unidade/unidades
+- Linguiça mista de suíno e bovino — Peça ou porção, 250 g | plural: Linguiças mistas de suíno e bovino | venda: unidade/unidades
+- Linguiça mista de suíno e bovino — Peça ou porção, 500 g | plural: Linguiças mistas de suíno e bovino | venda: unidade/unidades
+- Linguiça mista de suíno e bovino — Peça ou porção, 1000 g | plural: Linguiças mistas de suíno e bovino | venda: unidade/unidades
+- Linguiça de cordeiro — Peça ou porção, 250 g | plural: Linguiças de cordeiro | venda: unidade/unidades
+- Linguiça de cordeiro — Peça ou porção, 500 g | plural: Linguiças de cordeiro | venda: unidade/unidades
+- Linguiça de cordeiro — Peça ou porção, 1000 g | plural: Linguiças de cordeiro | venda: unidade/unidades
+- Linguiça de carne bovina — Peça ou porção, 250 g | plural: Linguiças de carne bovina | venda: unidade/unidades
+- Linguiça de carne bovina — Peça ou porção, 500 g | plural: Linguiças de carne bovina | venda: unidade/unidades
+- Linguiça de carne bovina — Peça ou porção, 1000 g | plural: Linguiças de carne bovina | venda: unidade/unidades
+- Linguiça cuiabana de suíno com queijo — Peça ou porção, 250 g | plural: Linguiças cuiabanas de suíno com queijo | venda: unidade/unidades
+- Linguiça cuiabana de suíno com queijo — Peça ou porção, 500 g | plural: Linguiças cuiabanas de suíno com queijo | venda: unidade/unidades
+- Linguiça cuiabana de suíno com queijo — Peça ou porção, 1000 g | plural: Linguiças cuiabanas de suíno com queijo | venda: unidade/unidades
+- Linguiça suína com queijo — Peça ou porção, 250 g | plural: Linguiças suínas com queijo | venda: unidade/unidades
+- Linguiça suína com queijo — Peça ou porção, 500 g | plural: Linguiças suínas com queijo | venda: unidade/unidades
+- Linguiça suína com queijo — Peça ou porção, 1000 g | plural: Linguiças suínas com queijo | venda: unidade/unidades
+- Linguiça suína com pimenta — Peça ou porção, 250 g | plural: Linguiças suínas com pimenta | venda: unidade/unidades
+- Linguiça suína com pimenta — Peça ou porção, 500 g | plural: Linguiças suínas com pimenta | venda: unidade/unidades
+- Linguiça suína com pimenta — Peça ou porção, 1000 g | plural: Linguiças suínas com pimenta | venda: unidade/unidades
+- Linguiça suína com alho — Peça ou porção, 250 g | plural: Linguiças suínas com alho | venda: unidade/unidades
+- Linguiça suína com alho — Peça ou porção, 500 g | plural: Linguiças suínas com alho | venda: unidade/unidades
+- Linguiça suína com alho — Peça ou porção, 1000 g | plural: Linguiças suínas com alho | venda: unidade/unidades
+- Linguiça suína com ervas — Peça ou porção, 250 g | plural: Linguiças suínas com ervas | venda: unidade/unidades
+- Linguiça suína com ervas — Peça ou porção, 500 g | plural: Linguiças suínas com ervas | venda: unidade/unidades
+- Linguiça suína com ervas — Peça ou porção, 1000 g | plural: Linguiças suínas com ervas | venda: unidade/unidades
+- Linguiça suína com alho-poró — Peça ou porção, 250 g | plural: Linguiças suínas com alho-poró | venda: unidade/unidades
+- Linguiça suína com alho-poró — Peça ou porção, 500 g | plural: Linguiças suínas com alho-poró | venda: unidade/unidades
+- Linguiça suína com alho-poró — Peça ou porção, 1000 g | plural: Linguiças suínas com alho-poró | venda: unidade/unidades
+- Linguiça de frango com queijo — Peça ou porção, 250 g | plural: Linguiças de frango com queijo | venda: unidade/unidades
+- Linguiça de frango com queijo — Peça ou porção, 500 g | plural: Linguiças de frango com queijo | venda: unidade/unidades
+- Linguiça de frango com queijo — Peça ou porção, 1000 g | plural: Linguiças de frango com queijo | venda: unidade/unidades
+- Linguiça de frango com ervas — Peça ou porção, 250 g | plural: Linguiças de frango com ervas | venda: unidade/unidades
+- Linguiça de frango com ervas — Peça ou porção, 500 g | plural: Linguiças de frango com ervas | venda: unidade/unidades
+- Linguiça de frango com ervas — Peça ou porção, 1000 g | plural: Linguiças de frango com ervas | venda: unidade/unidades
+- Linguiça suína fina — Peça ou porção, 250 g | plural: Linguiças suínas finas | venda: unidade/unidades
+- Linguiça suína fina — Peça ou porção, 500 g | plural: Linguiças suínas finas | venda: unidade/unidades
+- Linguiça suína fina — Peça ou porção, 1000 g | plural: Linguiças suínas finas | venda: unidade/unidades
+- Linguiça suína grossa — Peça ou porção, 250 g | plural: Linguiças suínas grossas | venda: unidade/unidades
+- Linguiça suína grossa — Peça ou porção, 500 g | plural: Linguiças suínas grossas | venda: unidade/unidades
+- Linguiça suína grossa — Peça ou porção, 1000 g | plural: Linguiças suínas grossas | venda: unidade/unidades
+- Linguiça suína defumada — Peça ou porção, 250 g | plural: Linguiças suínas defumadas | venda: unidade/unidades
+- Linguiça suína defumada — Peça ou porção, 500 g | plural: Linguiças suínas defumadas | venda: unidade/unidades
+- Linguiça suína defumada — Peça ou porção, 1000 g | plural: Linguiças suínas defumadas | venda: unidade/unidades
+- Linguiça suína curada — Peça ou porção, 250 g | plural: Linguiças suínas curadas | venda: unidade/unidades
+- Linguiça suína curada — Peça ou porção, 500 g | plural: Linguiças suínas curadas | venda: unidade/unidades
+- Linguiça suína curada — Peça ou porção, 1000 g | plural: Linguiças suínas curadas | venda: unidade/unidades
+- Paio — Peça ou porção, 250 g | plural: Paios | venda: unidade/unidades
+- Paio — Peça ou porção, 500 g | plural: Paios | venda: unidade/unidades
+- Paio — Peça ou porção, 1000 g | plural: Paios | venda: unidade/unidades
+- Chouriço — Peça ou porção, 250 g | plural: Chouriços | venda: unidade/unidades
+- Chouriço — Peça ou porção, 500 g | plural: Chouriços | venda: unidade/unidades
+- Chouriço — Peça ou porção, 1000 g | plural: Chouriços | venda: unidade/unidades
+- Morcela — Peça ou porção, 250 g | plural: Morcelas | venda: unidade/unidades
+- Morcela — Peça ou porção, 500 g | plural: Morcelas | venda: unidade/unidades
+- Morcela — Peça ou porção, 1000 g | plural: Morcelas | venda: unidade/unidades
+- Morcela branca — Peça ou porção, 250 g | plural: Morcelas brancas | venda: unidade/unidades
+- Morcela branca — Peça ou porção, 500 g | plural: Morcelas brancas | venda: unidade/unidades
+- Morcela branca — Peça ou porção, 1000 g | plural: Morcelas brancas | venda: unidade/unidades
+- Salame colonial — Peça ou porção, 250 g | plural: Salames coloniais | venda: unidade/unidades
+- Salame colonial — Peça ou porção, 500 g | plural: Salames coloniais | venda: unidade/unidades
+- Salame colonial — Peça ou porção, 1000 g | plural: Salames coloniais | venda: unidade/unidades
+- Salame tipo italiano — Peça ou porção, 250 g | plural: Salames tipo italiano | venda: unidade/unidades
+- Salame tipo italiano — Peça ou porção, 500 g | plural: Salames tipo italiano | venda: unidade/unidades
+- Salame tipo italiano — Peça ou porção, 1000 g | plural: Salames tipo italiano | venda: unidade/unidades
+- Salame com pimenta — Peça ou porção, 250 g | plural: Salames com pimenta | venda: unidade/unidades
+- Salame com pimenta — Peça ou porção, 500 g | plural: Salames com pimenta | venda: unidade/unidades
+- Salame com pimenta — Peça ou porção, 1000 g | plural: Salames com pimenta | venda: unidade/unidades
+- Salame defumado — Peça ou porção, 250 g | plural: Salames defumados | venda: unidade/unidades
+- Salame defumado — Peça ou porção, 500 g | plural: Salames defumados | venda: unidade/unidades
+- Salame defumado — Peça ou porção, 1000 g | plural: Salames defumados | venda: unidade/unidades
+- Salaminho — Peça ou porção, 250 g | plural: Salaminhos | venda: unidade/unidades
+- Salaminho — Peça ou porção, 500 g | plural: Salaminhos | venda: unidade/unidades
+- Salaminho — Peça ou porção, 1000 g | plural: Salaminhos | venda: unidade/unidades
+- Salsichão — Peça ou porção, 250 g | plural: Salsichões | venda: unidade/unidades
+- Salsichão — Peça ou porção, 500 g | plural: Salsichões | venda: unidade/unidades
+- Salsichão — Peça ou porção, 1000 g | plural: Salsichões | venda: unidade/unidades
+- Salsicha artesanal — Peça ou porção, 250 g | plural: Salsichas artesanais | venda: unidade/unidades
+- Salsicha artesanal — Peça ou porção, 500 g | plural: Salsichas artesanais | venda: unidade/unidades
+- Salsicha artesanal — Peça ou porção, 1000 g | plural: Salsichas artesanais | venda: unidade/unidades
+- Codeguim — Peça ou porção, 250 g | plural: Codeguins | venda: unidade/unidades
+- Codeguim — Peça ou porção, 500 g | plural: Codeguins | venda: unidade/unidades
+- Codeguim — Peça ou porção, 1000 g | plural: Codeguins | venda: unidade/unidades
+- Copa suína — Peça ou porção, 250 g | plural: Copas suínas | venda: unidade/unidades
+- Copa suína — Peça ou porção, 500 g | plural: Copas suínas | venda: unidade/unidades
+- Copa suína — Peça ou porção, 1000 g | plural: Copas suínas | venda: unidade/unidades
+- Lombo suíno curado — Peça ou porção, 250 g | plural: Lombos suínos curados | venda: unidade/unidades
+- Lombo suíno curado — Peça ou porção, 500 g | plural: Lombos suínos curados | venda: unidade/unidades
+- Lombo suíno curado — Peça ou porção, 1000 g | plural: Lombos suínos curados | venda: unidade/unidades
+- Lombo suíno defumado — Peça ou porção, 250 g | plural: Lombos suínos defumados | venda: unidade/unidades
+- Lombo suíno defumado — Peça ou porção, 500 g | plural: Lombos suínos defumados | venda: unidade/unidades
+- Lombo suíno defumado — Peça ou porção, 1000 g | plural: Lombos suínos defumados | venda: unidade/unidades
+- Pernil suíno defumado — Peça ou porção, 250 g | plural: Pernis suínos defumados | venda: unidade/unidades
+- Pernil suíno defumado — Peça ou porção, 500 g | plural: Pernis suínos defumados | venda: unidade/unidades
+- Pernil suíno defumado — Peça ou porção, 1000 g | plural: Pernis suínos defumados | venda: unidade/unidades
+- Presunto cozido — Peça ou porção, 250 g | plural: Presuntos cozidos | venda: unidade/unidades
+- Presunto cozido — Peça ou porção, 500 g | plural: Presuntos cozidos | venda: unidade/unidades
+- Presunto cozido — Peça ou porção, 1000 g | plural: Presuntos cozidos | venda: unidade/unidades
+- Presunto cru — Peça ou porção, 250 g | plural: Presuntos crus | venda: unidade/unidades
+- Presunto cru — Peça ou porção, 500 g | plural: Presuntos crus | venda: unidade/unidades
+- Presunto cru — Peça ou porção, 1000 g | plural: Presuntos crus | venda: unidade/unidades
+- Mortadela artesanal — Peça ou porção, 250 g | plural: Mortadelas artesanais | venda: unidade/unidades
+- Mortadela artesanal — Peça ou porção, 500 g | plural: Mortadelas artesanais | venda: unidade/unidades
+- Mortadela artesanal — Peça ou porção, 1000 g | plural: Mortadelas artesanais | venda: unidade/unidades
+- Bacon defumado — Peça ou porção, 250 g | plural: Bacons defumados | venda: unidade/unidades
+- Bacon defumado — Peça ou porção, 500 g | plural: Bacons defumados | venda: unidade/unidades
+- Bacon defumado — Peça ou porção, 1000 g | plural: Bacons defumados | venda: unidade/unidades
+- Pancetta curada — Peça ou porção, 250 g | plural: Pancettas curadas | venda: unidade/unidades
+- Pancetta curada — Peça ou porção, 500 g | plural: Pancettas curadas | venda: unidade/unidades
+- Pancetta curada — Peça ou porção, 1000 g | plural: Pancettas curadas | venda: unidade/unidades
+- Toucinho salgado — Peça ou porção, 250 g | plural: Toucinhos salgados | venda: unidade/unidades
+- Toucinho salgado — Peça ou porção, 500 g | plural: Toucinhos salgados | venda: unidade/unidades
+- Toucinho salgado — Peça ou porção, 1000 g | plural: Toucinhos salgados | venda: unidade/unidades
+- Toucinho defumado — Peça ou porção, 250 g | plural: Toucinhos defumados | venda: unidade/unidades
+- Toucinho defumado — Peça ou porção, 500 g | plural: Toucinhos defumados | venda: unidade/unidades
+- Toucinho defumado — Peça ou porção, 1000 g | plural: Toucinhos defumados | venda: unidade/unidades
+- Torresmo pronto — Peça ou porção, 250 g | plural: Torresmos prontos | venda: unidade/unidades
+- Torresmo pronto — Peça ou porção, 500 g | plural: Torresmos prontos | venda: unidade/unidades
+- Torresmo pronto — Peça ou porção, 1000 g | plural: Torresmos prontos | venda: unidade/unidades
+- Queijo de porco — Peça ou porção, 250 g | plural: Queijos de porco | venda: unidade/unidades
+- Queijo de porco — Peça ou porção, 500 g | plural: Queijos de porco | venda: unidade/unidades
+- Queijo de porco — Peça ou porção, 1000 g | plural: Queijos de porco | venda: unidade/unidades
+- Carne de lata suína — Peça ou porção, 250 g | plural: Carnes de lata suína | venda: unidade/unidades
+- Carne de lata suína — Peça ou porção, 500 g | plural: Carnes de lata suína | venda: unidade/unidades
+- Carne de lata suína — Peça ou porção, 1000 g | plural: Carnes de lata suína | venda: unidade/unidades
+- Carne de sol bovina — Peça ou porção, 250 g | plural: Carnes de sol bovina | venda: unidade/unidades
+- Carne de sol bovina — Peça ou porção, 500 g | plural: Carnes de sol bovina | venda: unidade/unidades
+- Carne de sol bovina — Peça ou porção, 1000 g | plural: Carnes de sol bovina | venda: unidade/unidades
+- Charque bovino — Peça ou porção, 250 g | plural: Charques bovinos | venda: unidade/unidades
+- Charque bovino — Peça ou porção, 500 g | plural: Charques bovinos | venda: unidade/unidades
+- Charque bovino — Peça ou porção, 1000 g | plural: Charques bovinos | venda: unidade/unidades
+- Mucia — Peça ou porção, 500 g | plural: Mucias | venda: unidade/unidades
+- Mucia — Peça ou porção, 1000 g | plural: Mucias | venda: unidade/unidades
+- Salame colonial — Fatiado, 150 g | plural: Salames coloniais | venda: unidade/unidades
+- Salame tipo italiano — Fatiado, 150 g | plural: Salames tipo italiano | venda: unidade/unidades
+- Copa suína — Fatiado, 150 g | plural: Copas suínas | venda: unidade/unidades
+- Lombo suíno defumado — Fatiado, 150 g | plural: Lombos suínos defumados | venda: unidade/unidades
+- Presunto cozido — Fatiado, 150 g | plural: Presuntos cozidos | venda: unidade/unidades
+- Presunto cru — Fatiado, 150 g | plural: Presuntos crus | venda: unidade/unidades
+- Mortadela artesanal — Fatiado, 150 g | plural: Mortadelas artesanais | venda: unidade/unidades
+- Bacon defumado — Fatiado, 150 g | plural: Bacons defumados | venda: unidade/unidades
+- Banha suína — Embalado, 200 g | plural: Banhas suínas | venda: unidade/unidades
+- Banha suína — Embalado, 500 g | plural: Banhas suínas | venda: unidade/unidades
+- Banha suína temperada — Embalado, 200 g | plural: Banhas suínas temperadas | venda: unidade/unidades
+- Banha suína temperada — Embalado, 500 g | plural: Banhas suínas temperadas | venda: unidade/unidades
+- Patê de fígado suíno — Embalado, 200 g | plural: Patês de fígado suíno | venda: unidade/unidades
+- Patê de fígado suíno — Embalado, 500 g | plural: Patês de fígado suíno | venda: unidade/unidades
+- Patê de frango — Embalado, 200 g | plural: Patês de frango | venda: unidade/unidades
+- Patê de frango — Embalado, 500 g | plural: Patês de frango | venda: unidade/unidades
+- Patê de carne defumada — Embalado, 200 g | plural: Patês de carne defumada | venda: unidade/unidades
+- Patê de carne defumada — Embalado, 500 g | plural: Patês de carne defumada | venda: unidade/unidades
+
+## Chás e infusões — 24 apresentações
+
+- Infusão de Camomila — Seca, 25 g | plural: Infusões de Camomila | venda: unidade/unidades
+- Infusão de Camomila — Seca, 50 g | plural: Infusões de Camomila | venda: unidade/unidades
+- Infusão de Erva-cidreira — Seca, 25 g | plural: Infusões de Erva-cidreira | venda: unidade/unidades
+- Infusão de Erva-cidreira — Seca, 50 g | plural: Infusões de Erva-cidreira | venda: unidade/unidades
+- Infusão de Capim-limão — Seca, 25 g | plural: Infusões de Capim-limão | venda: unidade/unidades
+- Infusão de Capim-limão — Seca, 50 g | plural: Infusões de Capim-limão | venda: unidade/unidades
+- Infusão de Hortelã — Seca, 25 g | plural: Infusões de Hortelã | venda: unidade/unidades
+- Infusão de Hortelã — Seca, 50 g | plural: Infusões de Hortelã | venda: unidade/unidades
+- Infusão de Erva-doce — Seca, 25 g | plural: Infusões de Erva-doce | venda: unidade/unidades
+- Infusão de Erva-doce — Seca, 50 g | plural: Infusões de Erva-doce | venda: unidade/unidades
+- Infusão de Hibisco — Seca, 25 g | plural: Infusões de Hibisco | venda: unidade/unidades
+- Infusão de Hibisco — Seca, 50 g | plural: Infusões de Hibisco | venda: unidade/unidades
+- Infusão de Chá-verde — Seca, 25 g | plural: Infusões de Chá-verde | venda: unidade/unidades
+- Infusão de Chá-verde — Seca, 50 g | plural: Infusões de Chá-verde | venda: unidade/unidades
+- Infusão de Chá-preto — Seca, 25 g | plural: Infusões de Chá-preto | venda: unidade/unidades
+- Infusão de Chá-preto — Seca, 50 g | plural: Infusões de Chá-preto | venda: unidade/unidades
+- Infusão de Chá-mate — Seca, 25 g | plural: Infusões de Chá-mate | venda: unidade/unidades
+- Infusão de Chá-mate — Seca, 50 g | plural: Infusões de Chá-mate | venda: unidade/unidades
+- Infusão de Gengibre — Seca, 25 g | plural: Infusões de Gengibre | venda: unidade/unidades
+- Infusão de Gengibre — Seca, 50 g | plural: Infusões de Gengibre | venda: unidade/unidades
+- Infusão de Maçã com canela — Seca, 25 g | plural: Infusões de Maçã com canela | venda: unidade/unidades
+- Infusão de Maçã com canela — Seca, 50 g | plural: Infusões de Maçã com canela | venda: unidade/unidades
+- Infusão de Casca de laranja — Seca, 25 g | plural: Infusões de Casca de laranja | venda: unidade/unidades
+- Infusão de Casca de laranja — Seca, 50 g | plural: Infusões de Casca de laranja | venda: unidade/unidades
+
+## Derivados da cana — 10 apresentações
+
+- Açúcar mascavo — Embalado, 500 g | plural: Açúcares mascavos | venda: unidade/unidades
+- Açúcar mascavo — Embalado, 1000 g | plural: Açúcares mascavos | venda: unidade/unidades
+- Açúcar demerara — Embalado, 500 g | plural: Açúcares demerara | venda: unidade/unidades
+- Açúcar demerara — Embalado, 1000 g | plural: Açúcares demerara | venda: unidade/unidades
+- Melado de cana — Embalado, 500 g | plural: Melados de cana | venda: unidade/unidades
+- Melado de cana — Embalado, 1000 g | plural: Melados de cana | venda: unidade/unidades
+- Rapadura ralada — Embalado, 500 g | plural: Rapaduras raladas | venda: unidade/unidades
+- Rapadura ralada — Embalado, 1000 g | plural: Rapaduras raladas | venda: unidade/unidades
+- Açúcar cristal — Embalado, 500 g | plural: Açúcares cristal | venda: unidade/unidades
+- Açúcar cristal — Embalado, 1000 g | plural: Açúcares cristal | venda: unidade/unidades
+
+## Doces e conservas — 162 apresentações
+
+- Geleia de Morango — Em pote, 150 g | plural: Geleias de Morango | venda: unidade/unidades
+- Geleia de Morango — Em pote, 250 g | plural: Geleias de Morango | venda: unidade/unidades
+- Geleia de Amora — Em pote, 150 g | plural: Geleias de Amora | venda: unidade/unidades
+- Geleia de Amora — Em pote, 250 g | plural: Geleias de Amora | venda: unidade/unidades
+- Geleia de Jabuticaba — Em pote, 150 g | plural: Geleias de Jabuticaba | venda: unidade/unidades
+- Geleia de Jabuticaba — Em pote, 250 g | plural: Geleias de Jabuticaba | venda: unidade/unidades
+- Geleia de Goiaba — Em pote, 150 g | plural: Geleias de Goiaba | venda: unidade/unidades
+- Geleia de Goiaba — Em pote, 250 g | plural: Geleias de Goiaba | venda: unidade/unidades
+- Geleia de Manga — Em pote, 150 g | plural: Geleias de Manga | venda: unidade/unidades
+- Geleia de Manga — Em pote, 250 g | plural: Geleias de Manga | venda: unidade/unidades
+- Geleia de Maracujá — Em pote, 150 g | plural: Geleias de Maracujá | venda: unidade/unidades
+- Geleia de Maracujá — Em pote, 250 g | plural: Geleias de Maracujá | venda: unidade/unidades
+- Geleia de Abacaxi — Em pote, 150 g | plural: Geleias de Abacaxi | venda: unidade/unidades
+- Geleia de Abacaxi — Em pote, 250 g | plural: Geleias de Abacaxi | venda: unidade/unidades
+- Geleia de Abacaxi com pimenta — Em pote, 150 g | plural: Geleias de Abacaxi com pimenta | venda: unidade/unidades
+- Geleia de Abacaxi com pimenta — Em pote, 250 g | plural: Geleias de Abacaxi com pimenta | venda: unidade/unidades
+- Geleia de Laranja — Em pote, 150 g | plural: Geleias de Laranja | venda: unidade/unidades
+- Geleia de Laranja — Em pote, 250 g | plural: Geleias de Laranja | venda: unidade/unidades
+- Geleia de Limão — Em pote, 150 g | plural: Geleias de Limão | venda: unidade/unidades
+- Geleia de Limão — Em pote, 250 g | plural: Geleias de Limão | venda: unidade/unidades
+- Geleia de Tangerina — Em pote, 150 g | plural: Geleias de Tangerina | venda: unidade/unidades
+- Geleia de Tangerina — Em pote, 250 g | plural: Geleias de Tangerina | venda: unidade/unidades
+- Geleia de Pitanga — Em pote, 150 g | plural: Geleias de Pitanga | venda: unidade/unidades
+- Geleia de Pitanga — Em pote, 250 g | plural: Geleias de Pitanga | venda: unidade/unidades
+- Geleia de Uva — Em pote, 150 g | plural: Geleias de Uva | venda: unidade/unidades
+- Geleia de Uva — Em pote, 250 g | plural: Geleias de Uva | venda: unidade/unidades
+- Geleia de Frutas vermelhas — Em pote, 150 g | plural: Geleias de Frutas vermelhas | venda: unidade/unidades
+- Geleia de Frutas vermelhas — Em pote, 250 g | plural: Geleias de Frutas vermelhas | venda: unidade/unidades
+- Geleia de Framboesa — Em pote, 150 g | plural: Geleias de Framboesa | venda: unidade/unidades
+- Geleia de Framboesa — Em pote, 250 g | plural: Geleias de Framboesa | venda: unidade/unidades
+- Geleia de Pêssego — Em pote, 150 g | plural: Geleias de Pêssego | venda: unidade/unidades
+- Geleia de Pêssego — Em pote, 250 g | plural: Geleias de Pêssego | venda: unidade/unidades
+- Geleia de Figo — Em pote, 150 g | plural: Geleias de Figo | venda: unidade/unidades
+- Geleia de Figo — Em pote, 250 g | plural: Geleias de Figo | venda: unidade/unidades
+- Geleia de Banana — Em pote, 150 g | plural: Geleias de Banana | venda: unidade/unidades
+- Geleia de Banana — Em pote, 250 g | plural: Geleias de Banana | venda: unidade/unidades
+- Geleia de Maçã — Em pote, 150 g | plural: Geleias de Maçã | venda: unidade/unidades
+- Geleia de Maçã — Em pote, 250 g | plural: Geleias de Maçã | venda: unidade/unidades
+- Geleia de Acerola — Em pote, 150 g | plural: Geleias de Acerola | venda: unidade/unidades
+- Geleia de Acerola — Em pote, 250 g | plural: Geleias de Acerola | venda: unidade/unidades
+- Geleia de Caju — Em pote, 150 g | plural: Geleias de Caju | venda: unidade/unidades
+- Geleia de Caju — Em pote, 250 g | plural: Geleias de Caju | venda: unidade/unidades
+- Geleia de Cajá — Em pote, 150 g | plural: Geleias de Cajá | venda: unidade/unidades
+- Geleia de Cajá — Em pote, 250 g | plural: Geleias de Cajá | venda: unidade/unidades
+- Geleia de Cupuaçu — Em pote, 150 g | plural: Geleias de Cupuaçu | venda: unidade/unidades
+- Geleia de Cupuaçu — Em pote, 250 g | plural: Geleias de Cupuaçu | venda: unidade/unidades
+- Geleia de Umbu — Em pote, 150 g | plural: Geleias de Umbu | venda: unidade/unidades
+- Geleia de Umbu — Em pote, 250 g | plural: Geleias de Umbu | venda: unidade/unidades
+- Geleia de Cambuci — Em pote, 150 g | plural: Geleias de Cambuci | venda: unidade/unidades
+- Geleia de Cambuci — Em pote, 250 g | plural: Geleias de Cambuci | venda: unidade/unidades
+- Geleia de Uvaia — Em pote, 150 g | plural: Geleias de Uvaia | venda: unidade/unidades
+- Geleia de Uvaia — Em pote, 250 g | plural: Geleias de Uvaia | venda: unidade/unidades
+- Geleia de Araçá — Em pote, 150 g | plural: Geleias de Araçá | venda: unidade/unidades
+- Geleia de Araçá — Em pote, 250 g | plural: Geleias de Araçá | venda: unidade/unidades
+- Geleia de Pimenta — Em pote, 150 g | plural: Geleias de Pimenta | venda: unidade/unidades
+- Geleia de Pimenta — Em pote, 250 g | plural: Geleias de Pimenta | venda: unidade/unidades
+- Geleia de Tomate — Em pote, 150 g | plural: Geleias de Tomate | venda: unidade/unidades
+- Geleia de Tomate — Em pote, 250 g | plural: Geleias de Tomate | venda: unidade/unidades
+- Geleia de Cebola caramelizada — Em pote, 150 g | plural: Geleias de Cebola caramelizada | venda: unidade/unidades
+- Geleia de Cebola caramelizada — Em pote, 250 g | plural: Geleias de Cebola caramelizada | venda: unidade/unidades
+- Doce de leite tradicional — Embalado, 250 g | plural: Doces de leite tradicionais | venda: unidade/unidades
+- Doce de leite tradicional — Embalado, 500 g | plural: Doces de leite tradicionais | venda: unidade/unidades
+- Doce de leite com coco — Embalado, 250 g | plural: Doces de leite com coco | venda: unidade/unidades
+- Doce de leite com coco — Embalado, 500 g | plural: Doces de leite com coco | venda: unidade/unidades
+- Doce de leite com chocolate — Embalado, 250 g | plural: Doces de leite com chocolate | venda: unidade/unidades
+- Doce de leite com chocolate — Embalado, 500 g | plural: Doces de leite com chocolate | venda: unidade/unidades
+- Doce de leite com café — Embalado, 250 g | plural: Doces de leite com café | venda: unidade/unidades
+- Doce de leite com café — Embalado, 500 g | plural: Doces de leite com café | venda: unidade/unidades
+- Doce de leite com ameixa — Embalado, 250 g | plural: Doces de leite com ameixa | venda: unidade/unidades
+- Doce de leite com ameixa — Embalado, 500 g | plural: Doces de leite com ameixa | venda: unidade/unidades
+- Doce de leite com nozes — Embalado, 250 g | plural: Doces de leite com nozes | venda: unidade/unidades
+- Doce de leite com nozes — Embalado, 500 g | plural: Doces de leite com nozes | venda: unidade/unidades
+- Doce de leite em pedaços — Embalado, 250 g | plural: Doces de leite em pedaços | venda: unidade/unidades
+- Doce de leite em pedaços — Embalado, 500 g | plural: Doces de leite em pedaços | venda: unidade/unidades
+- Doce de abóbora cremoso — Embalado, 250 g | plural: Doces de abóbora cremosos | venda: unidade/unidades
+- Doce de abóbora cremoso — Embalado, 500 g | plural: Doces de abóbora cremosos | venda: unidade/unidades
+- Doce de abóbora com coco — Embalado, 250 g | plural: Doces de abóbora com coco | venda: unidade/unidades
+- Doce de abóbora com coco — Embalado, 500 g | plural: Doces de abóbora com coco | venda: unidade/unidades
+- Doce de abóbora em pedaços — Embalado, 250 g | plural: Doces de abóbora em pedaços | venda: unidade/unidades
+- Doce de abóbora em pedaços — Embalado, 500 g | plural: Doces de abóbora em pedaços | venda: unidade/unidades
+- Doce de banana cremoso — Embalado, 250 g | plural: Doces de banana cremosos | venda: unidade/unidades
+- Doce de banana cremoso — Embalado, 500 g | plural: Doces de banana cremosos | venda: unidade/unidades
+- Doce de banana em corte — Embalado, 250 g | plural: Doces de banana em corte | venda: unidade/unidades
+- Doce de banana em corte — Embalado, 500 g | plural: Doces de banana em corte | venda: unidade/unidades
+- Doce de goiaba cremoso — Embalado, 250 g | plural: Doces de goiaba cremosos | venda: unidade/unidades
+- Doce de goiaba cremoso — Embalado, 500 g | plural: Doces de goiaba cremosos | venda: unidade/unidades
+- Goiabada de corte — Embalado, 250 g | plural: Goiabadas de corte | venda: unidade/unidades
+- Goiabada de corte — Embalado, 500 g | plural: Goiabadas de corte | venda: unidade/unidades
+- Goiabada cascão — Embalado, 250 g | plural: Goiabadas cascão | venda: unidade/unidades
+- Goiabada cascão — Embalado, 500 g | plural: Goiabadas cascão | venda: unidade/unidades
+- Marmelada — Embalado, 250 g | plural: Marmeladas | venda: unidade/unidades
+- Marmelada — Embalado, 500 g | plural: Marmeladas | venda: unidade/unidades
+- Doce de mamão verde ralado — Embalado, 250 g | plural: Doces de mamão verde ralado | venda: unidade/unidades
+- Doce de mamão verde ralado — Embalado, 500 g | plural: Doces de mamão verde ralado | venda: unidade/unidades
+- Doce de mamão em pedaços — Embalado, 250 g | plural: Doces de mamão em pedaços | venda: unidade/unidades
+- Doce de mamão em pedaços — Embalado, 500 g | plural: Doces de mamão em pedaços | venda: unidade/unidades
+- Doce de cidra — Embalado, 250 g | plural: Doces de cidra | venda: unidade/unidades
+- Doce de cidra — Embalado, 500 g | plural: Doces de cidra | venda: unidade/unidades
+- Doce de laranja-da-terra — Embalado, 250 g | plural: Doces de laranja-da-terra | venda: unidade/unidades
+- Doce de laranja-da-terra — Embalado, 500 g | plural: Doces de laranja-da-terra | venda: unidade/unidades
+- Doce de batata-doce — Embalado, 250 g | plural: Doces de batata-doce | venda: unidade/unidades
+- Doce de batata-doce — Embalado, 500 g | plural: Doces de batata-doce | venda: unidade/unidades
+- Doce de coco cremoso — Embalado, 250 g | plural: Doces de coco cremosos | venda: unidade/unidades
+- Doce de coco cremoso — Embalado, 500 g | plural: Doces de coco cremosos | venda: unidade/unidades
+- Doce de figo em calda — Embalado, 250 g | plural: Doces de figo em calda | venda: unidade/unidades
+- Doce de figo em calda — Embalado, 500 g | plural: Doces de figo em calda | venda: unidade/unidades
+- Doce de pêssego em calda — Embalado, 250 g | plural: Doces de pêssego em calda | venda: unidade/unidades
+- Doce de pêssego em calda — Embalado, 500 g | plural: Doces de pêssego em calda | venda: unidade/unidades
+- Doce de abacaxi em calda — Embalado, 250 g | plural: Doces de abacaxi em calda | venda: unidade/unidades
+- Doce de abacaxi em calda — Embalado, 500 g | plural: Doces de abacaxi em calda | venda: unidade/unidades
+- Doce de jabuticaba em calda — Embalado, 250 g | plural: Doces de jabuticaba em calda | venda: unidade/unidades
+- Doce de jabuticaba em calda — Embalado, 500 g | plural: Doces de jabuticaba em calda | venda: unidade/unidades
+- Doce de jaca em calda — Embalado, 250 g | plural: Doces de jaca em calda | venda: unidade/unidades
+- Doce de jaca em calda — Embalado, 500 g | plural: Doces de jaca em calda | venda: unidade/unidades
+- Doce de caju em calda — Embalado, 250 g | plural: Doces de caju em calda | venda: unidade/unidades
+- Doce de caju em calda — Embalado, 500 g | plural: Doces de caju em calda | venda: unidade/unidades
+- Doce de manga em calda — Embalado, 250 g | plural: Doces de manga em calda | venda: unidade/unidades
+- Doce de manga em calda — Embalado, 500 g | plural: Doces de manga em calda | venda: unidade/unidades
+- Doce de leite de cabra — Embalado, 250 g | plural: Doces de leite de cabra | venda: unidade/unidades
+- Doce de leite de cabra — Embalado, 500 g | plural: Doces de leite de cabra | venda: unidade/unidades
+- Pepino em conserva — Em conserva, 200 g | plural: Pepinos em conserva | venda: unidade/unidades
+- Pepino em conserva — Em conserva, 400 g | plural: Pepinos em conserva | venda: unidade/unidades
+- Cebola em conserva — Em conserva, 200 g | plural: Cebolas em conserva | venda: unidade/unidades
+- Cebola em conserva — Em conserva, 400 g | plural: Cebolas em conserva | venda: unidade/unidades
+- Cenoura em conserva — Em conserva, 200 g | plural: Cenouras em conserva | venda: unidade/unidades
+- Cenoura em conserva — Em conserva, 400 g | plural: Cenouras em conserva | venda: unidade/unidades
+- Beterraba em conserva — Em conserva, 200 g | plural: Beterrabas em conserva | venda: unidade/unidades
+- Beterraba em conserva — Em conserva, 400 g | plural: Beterrabas em conserva | venda: unidade/unidades
+- Couve-flor em conserva — Em conserva, 200 g | plural: Couve-flores em conserva | venda: unidade/unidades
+- Couve-flor em conserva — Em conserva, 400 g | plural: Couve-flores em conserva | venda: unidade/unidades
+- Ovo de codorna em conserva — Em conserva, 200 g | plural: Ovos de codorna em conserva | venda: unidade/unidades
+- Ovo de codorna em conserva — Em conserva, 400 g | plural: Ovos de codorna em conserva | venda: unidade/unidades
+- Pimenta biquinho em conserva — Em conserva, 200 g | plural: Pimentas biquinho em conserva | venda: unidade/unidades
+- Pimenta biquinho em conserva — Em conserva, 400 g | plural: Pimentas biquinho em conserva | venda: unidade/unidades
+- Pimenta malagueta em conserva — Em conserva, 200 g | plural: Pimentas malagueta em conserva | venda: unidade/unidades
+- Pimenta malagueta em conserva — Em conserva, 400 g | plural: Pimentas malagueta em conserva | venda: unidade/unidades
+- Pimenta dedo-de-moça em conserva — Em conserva, 200 g | plural: Pimentas dedo-de-moças em conserva | venda: unidade/unidades
+- Pimenta dedo-de-moça em conserva — Em conserva, 400 g | plural: Pimentas dedo-de-moças em conserva | venda: unidade/unidades
+- Pimenta de cheiro em conserva — Em conserva, 200 g | plural: Pimentas de cheiro em conserva | venda: unidade/unidades
+- Pimenta de cheiro em conserva — Em conserva, 400 g | plural: Pimentas de cheiro em conserva | venda: unidade/unidades
+- Mix de legumes em conserva — Em conserva, 200 g | plural: Mix de legumes em conserva | venda: unidade/unidades
+- Mix de legumes em conserva — Em conserva, 400 g | plural: Mix de legumes em conserva | venda: unidade/unidades
+- Palmito pupunha em conserva — Em conserva, 200 g | plural: Palmitos pupunhas em conserva | venda: unidade/unidades
+- Palmito pupunha em conserva — Em conserva, 400 g | plural: Palmitos pupunhas em conserva | venda: unidade/unidades
+- Palmito de açaí em conserva — Em conserva, 200 g | plural: Palmitos de açaí em conserva | venda: unidade/unidades
+- Palmito de açaí em conserva — Em conserva, 400 g | plural: Palmitos de açaí em conserva | venda: unidade/unidades
+- Cogumelo em conserva — Em conserva, 200 g | plural: Cogumelos em conserva | venda: unidade/unidades
+- Cogumelo em conserva — Em conserva, 400 g | plural: Cogumelos em conserva | venda: unidade/unidades
+- Tomate seco — Em conserva, 200 g | plural: Tomates secos | venda: unidade/unidades
+- Tomate seco — Em conserva, 400 g | plural: Tomates secos | venda: unidade/unidades
+- Antepasto de berinjela — Em conserva, 200 g | plural: Antepastos de berinjela | venda: unidade/unidades
+- Antepasto de berinjela — Em conserva, 400 g | plural: Antepastos de berinjela | venda: unidade/unidades
+- Antepasto de abobrinha — Em conserva, 200 g | plural: Antepastos de abobrinha | venda: unidade/unidades
+- Antepasto de abobrinha — Em conserva, 400 g | plural: Antepastos de abobrinha | venda: unidade/unidades
+- Pasta de alho — Em conserva, 200 g | plural: Pastas de alho | venda: unidade/unidades
+- Pasta de alho — Em conserva, 400 g | plural: Pastas de alho | venda: unidade/unidades
+- Alho em conserva — Em conserva, 200 g | plural: Alhos em conserva | venda: unidade/unidades
+- Alho em conserva — Em conserva, 400 g | plural: Alhos em conserva | venda: unidade/unidades
+- Azeitona verde temperada — Em conserva, 200 g | plural: Azeitonas verdes temperadas | venda: unidade/unidades
+- Azeitona verde temperada — Em conserva, 400 g | plural: Azeitonas verdes temperadas | venda: unidade/unidades
+- Azeitona preta temperada — Em conserva, 200 g | plural: Azeitonas pretas temperadas | venda: unidade/unidades
+- Azeitona preta temperada — Em conserva, 400 g | plural: Azeitonas pretas temperadas | venda: unidade/unidades
+
+## Frutas — 166 apresentações
+
+- Abacate comum | plural: Abacates comuns | venda: quilo/quilos
+- Abacate hass | plural: Abacates hass | venda: quilo/quilos
+- Abacate fortuna | plural: Abacates fortuna | venda: quilo/quilos
+- Abacate quintal | plural: Abacates quintal | venda: quilo/quilos
+- Abacate manteiga | plural: Abacates manteiga | venda: quilo/quilos
+- Abacaxi pérola | plural: Abacaxis pérola | venda: unidade/unidades
+- Abacaxi havaí | plural: Abacaxis havaí | venda: unidade/unidades
+- Acerola | plural: Acerolas | venda: quilo/quilos
+- Ameixa nacional | plural: Ameixas nacionais | venda: quilo/quilos
+- Ameixa vermelha | plural: Ameixas vermelhas | venda: quilo/quilos
+- Ameixa amarela | plural: Ameixas amarelas | venda: quilo/quilos
+- Amora-preta | plural: Amoras-pretas | venda: quilo/quilos
+- Amora de árvore | plural: Amoras de árvore | venda: quilo/quilos
+- Banana prata | plural: Bananas prata | venda: quilo/quilos
+- Banana nanica | plural: Bananas nanica | venda: quilo/quilos
+- Banana maçã | plural: Bananas maçã | venda: quilo/quilos
+- Banana ouro | plural: Bananas ouro | venda: quilo/quilos
+- Banana da terra | plural: Bananas da terra | venda: quilo/quilos
+- Banana pacovan | plural: Bananas pacovan | venda: quilo/quilos
+- Banana marmelo | plural: Bananas marmelo | venda: quilo/quilos
+- Banana figo | plural: Bananas figo | venda: quilo/quilos
+- Banana são-tomé | plural: Bananas são-tomé | venda: quilo/quilos
+- Caqui rama forte | plural: Caquis rama forte | venda: quilo/quilos
+- Caqui fuyu | plural: Caquis fuyu | venda: quilo/quilos
+- Caqui chocolate | plural: Caquis chocolate | venda: quilo/quilos
+- Carambola | plural: Carambolas | venda: quilo/quilos
+- Cereja | plural: Cerejas | venda: quilo/quilos
+- Coco verde | plural: Cocos verdes | venda: unidade/unidades
+- Coco seco | plural: Cocos secos | venda: unidade/unidades
+- Figo roxo | plural: Figos roxos | venda: quilo/quilos
+- Figo verde | plural: Figos verdes | venda: quilo/quilos
+- Framboesa | plural: Framboesas | venda: quilo/quilos
+- Goiaba vermelha | plural: Goiabas vermelhas | venda: quilo/quilos
+- Goiaba branca | plural: Goiabas brancas | venda: quilo/quilos
+- Graviola | plural: Graviolas | venda: quilo/quilos
+- Jabuticaba sabará | plural: Jabuticabas sabará | venda: quilo/quilos
+- Jabuticaba paulista | plural: Jabuticabas paulistas | venda: quilo/quilos
+- Jabuticaba híbrida | plural: Jabuticabas híbridas | venda: quilo/quilos
+- Jaca dura | plural: Jacas duras | venda: quilo/quilos
+- Jaca mole | plural: Jacas moles | venda: quilo/quilos
+- Jambo vermelho | plural: Jambos vermelhos | venda: quilo/quilos
+- Jambo branco | plural: Jambos brancos | venda: quilo/quilos
+- Jambo amarelo | plural: Jambos amarelos | venda: quilo/quilos
+- Kiwi | plural: Kiwis | venda: quilo/quilos
+- Laranja pera | plural: Laranjas pera | venda: quilo/quilos
+- Laranja lima | plural: Laranjas lima | venda: quilo/quilos
+- Laranja bahia | plural: Laranjas bahia | venda: quilo/quilos
+- Laranja valência | plural: Laranjas valência | venda: quilo/quilos
+- Laranja seleta | plural: Laranjas seletas | venda: quilo/quilos
+- Laranja natal | plural: Laranjas natal | venda: quilo/quilos
+- Laranja sanguínea | plural: Laranjas sanguíneas | venda: quilo/quilos
+- Lima da pérsia | plural: Limas da pérsia | venda: quilo/quilos
+- Limão taiti | plural: Limões taiti | venda: quilo/quilos
+- Limão galego | plural: Limões galegos | venda: quilo/quilos
+- Limão cravo | plural: Limões cravo | venda: quilo/quilos
+- Limão siciliano | plural: Limões sicilianos | venda: quilo/quilos
+- Maçã gala | plural: Maçãs gala | venda: quilo/quilos
+- Maçã fuji | plural: Maçãs fuji | venda: quilo/quilos
+- Maçã verde | plural: Maçãs verdes | venda: quilo/quilos
+- Maçã eva | plural: Maçãs eva | venda: quilo/quilos
+- Mamão papaia | plural: Mamões papaia | venda: unidade/unidades
+- Mamão formosa | plural: Mamões formosa | venda: unidade/unidades
+- Manga palmer | plural: Mangas palmer | venda: quilo/quilos
+- Manga tommy atkins | plural: Mangas tommy atkins | venda: quilo/quilos
+- Manga espada | plural: Mangas espada | venda: quilo/quilos
+- Manga rosa | plural: Mangas rosa | venda: quilo/quilos
+- Manga ubá | plural: Mangas ubá | venda: quilo/quilos
+- Manga haden | plural: Mangas haden | venda: quilo/quilos
+- Manga keitt | plural: Mangas keitt | venda: quilo/quilos
+- Maracujá amarelo | plural: Maracujás amarelos | venda: quilo/quilos
+- Maracujá roxo | plural: Maracujás roxos | venda: quilo/quilos
+- Maracujá doce | plural: Maracujás doces | venda: quilo/quilos
+- Melancia comum | plural: Melancias comuns | venda: unidade/unidades
+- Melancia sem sementes | plural: Melancias sem sementes | venda: unidade/unidades
+- Minimelancia | plural: Minimelancias | venda: unidade/unidades
+- Melão amarelo | plural: Melões amarelos | venda: unidade/unidades
+- Melão cantaloupe | plural: Melões cantaloupe | venda: unidade/unidades
+- Melão pele-de-sapo | plural: Melões pele-de-sapo | venda: unidade/unidades
+- Melão orange | plural: Melões orange | venda: unidade/unidades
+- Morango | plural: Morangos | venda: quilo/quilos
+- Mirtilo | plural: Mirtilos | venda: quilo/quilos
+- Nectarina | plural: Nectarinas | venda: quilo/quilos
+- Nêspera | plural: Nêsperas | venda: quilo/quilos
+- Pera williams | plural: Peras williams | venda: quilo/quilos
+- Pera portuguesa | plural: Peras portuguesas | venda: quilo/quilos
+- Pera asiática | plural: Peras asiáticas | venda: quilo/quilos
+- Pêssego amarelo | plural: Pêssegos amarelos | venda: quilo/quilos
+- Pêssego branco | plural: Pêssegos brancos | venda: quilo/quilos
+- Pêssego de conserva | plural: Pêssegos de conserva | venda: quilo/quilos
+- Romã | plural: Romãs | venda: quilo/quilos
+- Tangerina ponkan | plural: Tangerinas ponkan | venda: quilo/quilos
+- Tangerina murcott | plural: Tangerinas murcott | venda: quilo/quilos
+- Tangerina mexerica rio | plural: Tangerinas mexerica rio | venda: quilo/quilos
+- Tangerina cravo | plural: Tangerinas cravo | venda: quilo/quilos
+- Uva niágara rosada | plural: Uvas niágara rosadas | venda: quilo/quilos
+- Uva niágara branca | plural: Uvas niágara brancas | venda: quilo/quilos
+- Uva isabel | plural: Uvas isabel | venda: quilo/quilos
+- Uva vitória | plural: Uvas vitória | venda: quilo/quilos
+- Uva itália | plural: Uvas itália | venda: quilo/quilos
+- Uva rubi | plural: Uvas rubi | venda: quilo/quilos
+- Uva benitaka | plural: Uvas benitaka | venda: quilo/quilos
+- Uva thompson | plural: Uvas thompson | venda: quilo/quilos
+- Uva crimson | plural: Uvas crimson | venda: quilo/quilos
+- Uva bordô | plural: Uvas bordô | venda: quilo/quilos
+- Uva moscatel | plural: Uvas moscatel | venda: quilo/quilos
+- Açaí | plural: Açaís | venda: quilo/quilos
+- Araçá amarelo | plural: Araçás amarelos | venda: quilo/quilos
+- Araçá vermelho | plural: Araçás vermelhos | venda: quilo/quilos
+- Araçá-boi | plural: Araçás-boi | venda: quilo/quilos
+- Araticum | plural: Araticuns | venda: quilo/quilos
+- Atemoia | plural: Atemoias | venda: quilo/quilos
+- Bacaba | plural: Bacabas | venda: quilo/quilos
+- Bacupari | plural: Bacuparis | venda: quilo/quilos
+- Bacuri | plural: Bacuris | venda: quilo/quilos
+- Biribá | plural: Biribás | venda: quilo/quilos
+- Buriti | plural: Buritis | venda: quilo/quilos
+- Butiá | plural: Butiás | venda: quilo/quilos
+- Cabeludinha | plural: Cabeludinhas | venda: quilo/quilos
+- Cacau | plural: Cacaus | venda: quilo/quilos
+- Cagaita | plural: Cagaitas | venda: quilo/quilos
+- Cajá | plural: Cajás | venda: quilo/quilos
+- Cajá-manga | plural: Cajás-manga | venda: quilo/quilos
+- Caju | plural: Cajus | venda: quilo/quilos
+- Cajuí | plural: Cajuís | venda: quilo/quilos
+- Cambucá | plural: Cambucás | venda: quilo/quilos
+- Cambuci | plural: Cambucis | venda: quilo/quilos
+- Camu-camu | plural: Camus-camus | venda: quilo/quilos
+- Cereja-do-rio-grande | plural: Cerejas-do-rio-grande | venda: quilo/quilos
+- Ciriguela | plural: Ciriguelas | venda: quilo/quilos
+- Cupuaçu | plural: Cupuaçus | venda: quilo/quilos
+- Feijoa | plural: Feijoas | venda: quilo/quilos
+- Fruta-do-conde | plural: Frutas-do-conde | venda: quilo/quilos
+- Fruta-pão | plural: Frutas-pão | venda: unidade/unidades
+- Gabiroba | plural: Gabirobas | venda: quilo/quilos
+- Guabiju | plural: Guabijus | venda: quilo/quilos
+- Guaraná em fruto | plural: Guaranás em fruto | venda: quilo/quilos
+- Ingá | plural: Ingás | venda: quilo/quilos
+- Jatobá | plural: Jatobás | venda: quilo/quilos
+- Jenipapo | plural: Jenipapos | venda: quilo/quilos
+- Juá | plural: Juás | venda: quilo/quilos
+- Juçara em fruto | plural: Juçaras em fruto | venda: quilo/quilos
+- Lichia | plural: Lichias | venda: quilo/quilos
+- Longan | plural: Longans | venda: quilo/quilos
+- Mangaba | plural: Mangabas | venda: quilo/quilos
+- Mangostão | plural: Mangostões | venda: quilo/quilos
+- Murici | plural: Muricis | venda: quilo/quilos
+- Oiti | plural: Oitis | venda: quilo/quilos
+- Pequi | plural: Pequis | venda: quilo/quilos
+- Physalis | plural: Physalis | venda: quilo/quilos
+- Pitanga | plural: Pitangas | venda: quilo/quilos
+- Pitaya de polpa branca | plural: Pitayas de polpa brancas | venda: quilo/quilos
+- Pitaya de polpa vermelha | plural: Pitayas de polpa vermelhas | venda: quilo/quilos
+- Pitaya amarela | plural: Pitayas amarelas | venda: quilo/quilos
+- Pitomba | plural: Pitombas | venda: quilo/quilos
+- Pupunha | plural: Pupunhas | venda: quilo/quilos
+- Rambutã | plural: Rambutãs | venda: quilo/quilos
+- Sapoti | plural: Sapotis | venda: quilo/quilos
+- Tamarindo | plural: Tamarindos | venda: quilo/quilos
+- Tucumã | plural: Tucumãs | venda: quilo/quilos
+- Umbu | plural: Umbus | venda: quilo/quilos
+- Umbu-cajá | plural: Umbus-cajá | venda: quilo/quilos
+- Uvaia | plural: Uvaias | venda: quilo/quilos
+- Abiu | plural: Abius | venda: quilo/quilos
+- Abricó-do-pará | plural: Abricós-do-pará | venda: quilo/quilos
+- Pajurá | plural: Pajurás | venda: quilo/quilos
+- Umari | plural: Umaris | venda: quilo/quilos
+
+## Grãos farinhas e cereais — 146 apresentações
+
+- Feijão carioca — Embalado, 500 g | plural: Feijões cariocas | venda: unidade/unidades
+- Feijão carioca — Embalado, 1000 g | plural: Feijões cariocas | venda: unidade/unidades
+- Feijão preto — Embalado, 500 g | plural: Feijões pretos | venda: unidade/unidades
+- Feijão preto — Embalado, 1000 g | plural: Feijões pretos | venda: unidade/unidades
+- Feijão vermelho — Embalado, 500 g | plural: Feijões vermelhos | venda: unidade/unidades
+- Feijão vermelho — Embalado, 1000 g | plural: Feijões vermelhos | venda: unidade/unidades
+- Feijão branco — Embalado, 500 g | plural: Feijões brancos | venda: unidade/unidades
+- Feijão branco — Embalado, 1000 g | plural: Feijões brancos | venda: unidade/unidades
+- Feijão rosinha — Embalado, 500 g | plural: Feijões rosinhas | venda: unidade/unidades
+- Feijão rosinha — Embalado, 1000 g | plural: Feijões rosinhas | venda: unidade/unidades
+- Feijão roxinho — Embalado, 500 g | plural: Feijões roxinhos | venda: unidade/unidades
+- Feijão roxinho — Embalado, 1000 g | plural: Feijões roxinhos | venda: unidade/unidades
+- Feijão jalo — Embalado, 500 g | plural: Feijões jalos | venda: unidade/unidades
+- Feijão jalo — Embalado, 1000 g | plural: Feijões jalos | venda: unidade/unidades
+- Feijão bolinha — Embalado, 500 g | plural: Feijões bolinhas | venda: unidade/unidades
+- Feijão bolinha — Embalado, 1000 g | plural: Feijões bolinhas | venda: unidade/unidades
+- Feijão fradinho — Embalado, 500 g | plural: Feijões fradinhos | venda: unidade/unidades
+- Feijão fradinho — Embalado, 1000 g | plural: Feijões fradinhos | venda: unidade/unidades
+- Feijão-de-corda — Embalado, 500 g | plural: Feijões-de-corda | venda: unidade/unidades
+- Feijão-de-corda — Embalado, 1000 g | plural: Feijões-de-corda | venda: unidade/unidades
+- Feijão manteiguinha — Embalado, 500 g | plural: Feijões manteiguinhas | venda: unidade/unidades
+- Feijão manteiguinha — Embalado, 1000 g | plural: Feijões manteiguinhas | venda: unidade/unidades
+- Feijão rajado — Embalado, 500 g | plural: Feijões rajados | venda: unidade/unidades
+- Feijão rajado — Embalado, 1000 g | plural: Feijões rajados | venda: unidade/unidades
+- Feijão moyashi — Embalado, 500 g | plural: Feijões moyashis | venda: unidade/unidades
+- Feijão moyashi — Embalado, 1000 g | plural: Feijões moyashis | venda: unidade/unidades
+- Feijão azuki — Embalado, 500 g | plural: Feijões azukis | venda: unidade/unidades
+- Feijão azuki — Embalado, 1000 g | plural: Feijões azukis | venda: unidade/unidades
+- Feijão guandu — Embalado, 500 g | plural: Feijões guandus | venda: unidade/unidades
+- Feijão guandu — Embalado, 1000 g | plural: Feijões guandus | venda: unidade/unidades
+- Feijão cavalo — Embalado, 500 g | plural: Feijões cavalos | venda: unidade/unidades
+- Feijão cavalo — Embalado, 1000 g | plural: Feijões cavalos | venda: unidade/unidades
+- Fava seca — Embalado, 500 g | plural: Favas secas | venda: unidade/unidades
+- Fava seca — Embalado, 1000 g | plural: Favas secas | venda: unidade/unidades
+- Lentilha — Embalado, 500 g | plural: Lentilhas | venda: unidade/unidades
+- Lentilha — Embalado, 1000 g | plural: Lentilhas | venda: unidade/unidades
+- Grão-de-bico — Embalado, 500 g | plural: Grãos-de-bico | venda: unidade/unidades
+- Grão-de-bico — Embalado, 1000 g | plural: Grãos-de-bico | venda: unidade/unidades
+- Ervilha seca — Embalado, 500 g | plural: Ervilhas secas | venda: unidade/unidades
+- Ervilha seca — Embalado, 1000 g | plural: Ervilhas secas | venda: unidade/unidades
+- Soja em grão — Embalado, 500 g | plural: Sojas em grão | venda: unidade/unidades
+- Soja em grão — Embalado, 1000 g | plural: Sojas em grão | venda: unidade/unidades
+- Arroz branco — Embalado, 500 g | plural: Arrozes brancos | venda: unidade/unidades
+- Arroz branco — Embalado, 1000 g | plural: Arrozes brancos | venda: unidade/unidades
+- Arroz integral — Embalado, 500 g | plural: Arrozes integrais | venda: unidade/unidades
+- Arroz integral — Embalado, 1000 g | plural: Arrozes integrais | venda: unidade/unidades
+- Arroz vermelho — Embalado, 500 g | plural: Arrozes vermelhos | venda: unidade/unidades
+- Arroz vermelho — Embalado, 1000 g | plural: Arrozes vermelhos | venda: unidade/unidades
+- Arroz negro — Embalado, 500 g | plural: Arrozes negros | venda: unidade/unidades
+- Arroz negro — Embalado, 1000 g | plural: Arrozes negros | venda: unidade/unidades
+- Arroz cateto — Embalado, 500 g | plural: Arrozes catetos | venda: unidade/unidades
+- Arroz cateto — Embalado, 1000 g | plural: Arrozes catetos | venda: unidade/unidades
+- Arroz agulhinha — Embalado, 500 g | plural: Arrozes agulhinhas | venda: unidade/unidades
+- Arroz agulhinha — Embalado, 1000 g | plural: Arrozes agulhinhas | venda: unidade/unidades
+- Arroz parboilizado — Embalado, 500 g | plural: Arrozes parboilizados | venda: unidade/unidades
+- Arroz parboilizado — Embalado, 1000 g | plural: Arrozes parboilizados | venda: unidade/unidades
+- Arroz arbóreo — Embalado, 500 g | plural: Arrozes arbóreos | venda: unidade/unidades
+- Arroz arbóreo — Embalado, 1000 g | plural: Arrozes arbóreos | venda: unidade/unidades
+- Milho de pipoca — Embalado, 500 g | plural: Milhos de pipoca | venda: unidade/unidades
+- Milho de pipoca — Embalado, 1000 g | plural: Milhos de pipoca | venda: unidade/unidades
+- Milho de canjica branco — Embalado, 500 g | plural: Milhos de canjica brancos | venda: unidade/unidades
+- Milho de canjica branco — Embalado, 1000 g | plural: Milhos de canjica brancos | venda: unidade/unidades
+- Milho de canjica amarelo — Embalado, 500 g | plural: Milhos de canjica amarelos | venda: unidade/unidades
+- Milho de canjica amarelo — Embalado, 1000 g | plural: Milhos de canjica amarelos | venda: unidade/unidades
+- Milho seco em grão — Embalado, 500 g | plural: Milhos secos em grão | venda: unidade/unidades
+- Milho seco em grão — Embalado, 1000 g | plural: Milhos secos em grão | venda: unidade/unidades
+- Aveia em flocos — Embalado, 500 g | plural: Aveias em flocos | venda: unidade/unidades
+- Aveia em flocos — Embalado, 1000 g | plural: Aveias em flocos | venda: unidade/unidades
+- Aveia em flocos finos — Embalado, 500 g | plural: Aveias em flocos finos | venda: unidade/unidades
+- Aveia em flocos finos — Embalado, 1000 g | plural: Aveias em flocos finos | venda: unidade/unidades
+- Cevada em grão — Embalado, 500 g | plural: Cevadas em grão | venda: unidade/unidades
+- Cevada em grão — Embalado, 1000 g | plural: Cevadas em grão | venda: unidade/unidades
+- Trigo em grão — Embalado, 500 g | plural: Trigos em grão | venda: unidade/unidades
+- Trigo em grão — Embalado, 1000 g | plural: Trigos em grão | venda: unidade/unidades
+- Trigo para quibe — Embalado, 500 g | plural: Trigos para quibe | venda: unidade/unidades
+- Trigo para quibe — Embalado, 1000 g | plural: Trigos para quibe | venda: unidade/unidades
+- Quinoa branca — Embalado, 500 g | plural: Quinoas brancas | venda: unidade/unidades
+- Quinoa branca — Embalado, 1000 g | plural: Quinoas brancas | venda: unidade/unidades
+- Quinoa vermelha — Embalado, 500 g | plural: Quinoas vermelhas | venda: unidade/unidades
+- Quinoa vermelha — Embalado, 1000 g | plural: Quinoas vermelhas | venda: unidade/unidades
+- Quinoa preta — Embalado, 500 g | plural: Quinoas pretas | venda: unidade/unidades
+- Quinoa preta — Embalado, 1000 g | plural: Quinoas pretas | venda: unidade/unidades
+- Amaranto — Embalado, 500 g | plural: Amarantos | venda: unidade/unidades
+- Amaranto — Embalado, 1000 g | plural: Amarantos | venda: unidade/unidades
+- Sorgo em grão — Embalado, 500 g | plural: Sorgos em grão | venda: unidade/unidades
+- Sorgo em grão — Embalado, 1000 g | plural: Sorgos em grão | venda: unidade/unidades
+- Painço descascado — Embalado, 500 g | plural: Painços descascados | venda: unidade/unidades
+- Painço descascado — Embalado, 1000 g | plural: Painços descascados | venda: unidade/unidades
+- Farinha de mandioca fina — Embalado, 500 g | plural: Farinhas de mandioca finas | venda: unidade/unidades
+- Farinha de mandioca fina — Embalado, 1000 g | plural: Farinhas de mandioca finas | venda: unidade/unidades
+- Farinha de mandioca grossa — Embalado, 500 g | plural: Farinhas de mandioca grossas | venda: unidade/unidades
+- Farinha de mandioca grossa — Embalado, 1000 g | plural: Farinhas de mandioca grossas | venda: unidade/unidades
+- Farinha de mandioca torrada — Embalado, 500 g | plural: Farinhas de mandioca torradas | venda: unidade/unidades
+- Farinha de mandioca torrada — Embalado, 1000 g | plural: Farinhas de mandioca torradas | venda: unidade/unidades
+- Farinha de mandioca biju — Embalado, 500 g | plural: Farinhas de mandioca biju | venda: unidade/unidades
+- Farinha de mandioca biju — Embalado, 1000 g | plural: Farinhas de mandioca biju | venda: unidade/unidades
+- Farinha de milho — Embalado, 500 g | plural: Farinhas de milho | venda: unidade/unidades
+- Farinha de milho — Embalado, 1000 g | plural: Farinhas de milho | venda: unidade/unidades
+- Farinha de milho biju — Embalado, 500 g | plural: Farinhas de milho biju | venda: unidade/unidades
+- Farinha de milho biju — Embalado, 1000 g | plural: Farinhas de milho biju | venda: unidade/unidades
+- Fubá mimoso — Embalado, 500 g | plural: Fubás mimosos | venda: unidade/unidades
+- Fubá mimoso — Embalado, 1000 g | plural: Fubás mimosos | venda: unidade/unidades
+- Fubá de moinho de pedra — Embalado, 500 g | plural: Fubás de moinho de pedra | venda: unidade/unidades
+- Fubá de moinho de pedra — Embalado, 1000 g | plural: Fubás de moinho de pedra | venda: unidade/unidades
+- Farinha de trigo — Embalado, 500 g | plural: Farinhas de trigo | venda: unidade/unidades
+- Farinha de trigo — Embalado, 1000 g | plural: Farinhas de trigo | venda: unidade/unidades
+- Farinha de trigo integral — Embalado, 500 g | plural: Farinhas de trigo integrais | venda: unidade/unidades
+- Farinha de trigo integral — Embalado, 1000 g | plural: Farinhas de trigo integrais | venda: unidade/unidades
+- Farinha de arroz — Embalado, 500 g | plural: Farinhas de arroz | venda: unidade/unidades
+- Farinha de arroz — Embalado, 1000 g | plural: Farinhas de arroz | venda: unidade/unidades
+- Farinha de aveia — Embalado, 500 g | plural: Farinhas de aveia | venda: unidade/unidades
+- Farinha de aveia — Embalado, 1000 g | plural: Farinhas de aveia | venda: unidade/unidades
+- Farinha de banana verde — Embalado, 500 g | plural: Farinhas de banana verde | venda: unidade/unidades
+- Farinha de banana verde — Embalado, 1000 g | plural: Farinhas de banana verde | venda: unidade/unidades
+- Farinha de batata-doce — Embalado, 500 g | plural: Farinhas de batata-doce | venda: unidade/unidades
+- Farinha de batata-doce — Embalado, 1000 g | plural: Farinhas de batata-doce | venda: unidade/unidades
+- Farinha de coco — Embalado, 500 g | plural: Farinhas de coco | venda: unidade/unidades
+- Farinha de coco — Embalado, 1000 g | plural: Farinhas de coco | venda: unidade/unidades
+- Farinha de amendoim — Embalado, 500 g | plural: Farinhas de amendoim | venda: unidade/unidades
+- Farinha de amendoim — Embalado, 1000 g | plural: Farinhas de amendoim | venda: unidade/unidades
+- Farinha de linhaça — Embalado, 500 g | plural: Farinhas de linhaça | venda: unidade/unidades
+- Farinha de linhaça — Embalado, 1000 g | plural: Farinhas de linhaça | venda: unidade/unidades
+- Farinha de grão-de-bico — Embalado, 500 g | plural: Farinhas de grão-de-bico | venda: unidade/unidades
+- Farinha de grão-de-bico — Embalado, 1000 g | plural: Farinhas de grão-de-bico | venda: unidade/unidades
+- Farinha de amêndoas — Embalado, 500 g | plural: Farinhas de amêndoas | venda: unidade/unidades
+- Farinha de amêndoas — Embalado, 1000 g | plural: Farinhas de amêndoas | venda: unidade/unidades
+- Polvilho doce — Embalado, 500 g | plural: Polvilhos doces | venda: unidade/unidades
+- Polvilho doce — Embalado, 1000 g | plural: Polvilhos doces | venda: unidade/unidades
+- Polvilho azedo — Embalado, 500 g | plural: Polvilhos azedos | venda: unidade/unidades
+- Polvilho azedo — Embalado, 1000 g | plural: Polvilhos azedos | venda: unidade/unidades
+- Goma de tapioca hidratada — Embalado, 500 g | plural: Gomas de tapioca hidratadas | venda: unidade/unidades
+- Goma de tapioca hidratada — Embalado, 1000 g | plural: Gomas de tapioca hidratadas | venda: unidade/unidades
+- Tapioca granulada — Embalado, 500 g | plural: Tapiocas granuladas | venda: unidade/unidades
+- Tapioca granulada — Embalado, 1000 g | plural: Tapiocas granuladas | venda: unidade/unidades
+- Fécula de batata — Embalado, 500 g | plural: Féculas de batata | venda: unidade/unidades
+- Fécula de batata — Embalado, 1000 g | plural: Féculas de batata | venda: unidade/unidades
+- Fécula de mandioca — Embalado, 500 g | plural: Féculas de mandioca | venda: unidade/unidades
+- Fécula de mandioca — Embalado, 1000 g | plural: Féculas de mandioca | venda: unidade/unidades
+- Amido de milho — Embalado, 500 g | plural: Amidos de milho | venda: unidade/unidades
+- Amido de milho — Embalado, 1000 g | plural: Amidos de milho | venda: unidade/unidades
+- Farinha de araruta — Embalado, 500 g | plural: Farinhas de araruta | venda: unidade/unidades
+- Farinha de araruta — Embalado, 1000 g | plural: Farinhas de araruta | venda: unidade/unidades
+- Farinha de alfarroba — Embalado, 500 g | plural: Farinhas de alfarroba | venda: unidade/unidades
+- Farinha de alfarroba — Embalado, 1000 g | plural: Farinhas de alfarroba | venda: unidade/unidades
+- Farinha de centeio — Embalado, 500 g | plural: Farinhas de centeio | venda: unidade/unidades
+- Farinha de centeio — Embalado, 1000 g | plural: Farinhas de centeio | venda: unidade/unidades
+
+## Hortifruti — 149 apresentações
+
+- Alface crespa verde — Pé | plural: Alfaces crespas verdes | venda: pé/pés
+- Alface crespa roxa — Pé | plural: Alfaces crespas roxas | venda: pé/pés
+- Alface lisa — Pé | plural: Alfaces lisas | venda: pé/pés
+- Alface americana — Pé | plural: Alfaces americanas | venda: pé/pés
+- Alface romana — Pé | plural: Alfaces romanas | venda: pé/pés
+- Alface mimosa — Pé | plural: Alfaces mimosas | venda: pé/pés
+- Alface frisée — Pé | plural: Alfaces frisée | venda: pé/pés
+- Alface baby — Pé | plural: Alfaces baby | venda: pé/pés
+- Rúcula — Maço | plural: Rúculas | venda: maço/maços (também molho/molhos)
+- Agrião — Maço | plural: Agriões | venda: maço/maços (também molho/molhos)
+- Almeirão — Maço | plural: Almeirões | venda: maço/maços (também molho/molhos)
+- Almeirão roxo — Maço | plural: Almeirões roxos | venda: maço/maços (também molho/molhos)
+- Chicória — Maço | plural: Chicórias | venda: maço/maços (também molho/molhos)
+- Escarola — Maço | plural: Escarolas | venda: maço/maços (também molho/molhos)
+- Radicchio — Maço | plural: Radicchios | venda: maço/maços (também molho/molhos)
+- Endívia — Maço | plural: Endívias | venda: maço/maços (também molho/molhos)
+- Couve manteiga — Maço | plural: Couves manteiga | venda: maço/maços (também molho/molhos)
+- Couve portuguesa — Maço | plural: Couves portuguesas | venda: maço/maços (também molho/molhos)
+- Couve kale — Maço | plural: Couves kale | venda: maço/maços (também molho/molhos)
+- Couve chinesa — Maço | plural: Couves chinesas | venda: maço/maços (também molho/molhos)
+- Acelga — Maço | plural: Acelgas | venda: maço/maços (também molho/molhos)
+- Espinafre — Maço | plural: Espinafres | venda: maço/maços (também molho/molhos)
+- Mostarda verde — Maço | plural: Mostardas verdes | venda: maço/maços (também molho/molhos)
+- Mostarda roxa — Maço | plural: Mostardas roxas | venda: maço/maços (também molho/molhos)
+- Taioba — Maço | plural: Taiobas | venda: maço/maços (também molho/molhos)
+- Ora-pro-nóbis — Maço | plural: Ora-pro-nóbis | venda: maço/maços (também molho/molhos)
+- Serralha — Maço | plural: Serralhas | venda: maço/maços (também molho/molhos)
+- Beldroega — Maço | plural: Beldroegas | venda: maço/maços (também molho/molhos)
+- Bertalha — Maço | plural: Bertalhas | venda: maço/maços (também molho/molhos)
+- Caruru — Maço | plural: Carurus | venda: maço/maços (também molho/molhos)
+- Azedinha — Maço | plural: Azedinhas | venda: maço/maços (também molho/molhos)
+- Peixinho-da-horta — Maço | plural: Peixinhos-da-horta | venda: maço/maços (também molho/molhos)
+- Folha de beterraba — Maço | plural: Folhas de beterraba | venda: maço/maços (também molho/molhos)
+- Folha de cenoura — Maço | plural: Folhas de cenoura | venda: maço/maços (também molho/molhos)
+- Folha de brócolis — Maço | plural: Folhas de brócolis | venda: maço/maços (também molho/molhos)
+- Folha de couve-flor — Maço | plural: Folhas de couve-flor | venda: maço/maços (também molho/molhos)
+- Salsinha — Maço | plural: Salsinhas | venda: maço/maços (também molho/molhos)
+- Cebolinha — Maço | plural: Cebolinhas | venda: maço/maços (também molho/molhos)
+- Coentro — Maço | plural: Coentros | venda: maço/maços (também molho/molhos)
+- Hortelã — Maço | plural: Hortelãs | venda: maço/maços (também molho/molhos)
+- Manjericão verde — Maço | plural: Manjericões verdes | venda: maço/maços (também molho/molhos)
+- Manjericão roxo — Maço | plural: Manjericões roxos | venda: maço/maços (também molho/molhos)
+- Alecrim — Maço | plural: Alecrins | venda: maço/maços (também molho/molhos)
+- Tomilho — Maço | plural: Tomilhos | venda: maço/maços (também molho/molhos)
+- Orégano fresco — Maço | plural: Oréganos frescos | venda: maço/maços (também molho/molhos)
+- Sálvia — Maço | plural: Sálvias | venda: maço/maços (também molho/molhos)
+- Endro — Maço | plural: Endros | venda: maço/maços (também molho/molhos)
+- Estragão — Maço | plural: Estragões | venda: maço/maços (também molho/molhos)
+- Erva-doce fresca — Maço | plural: Ervas-doces frescas | venda: maço/maços (também molho/molhos)
+- Aipo — Maço | plural: Aipos | venda: maço/maços (também molho/molhos)
+- Salsão — Maço | plural: Salsões | venda: maço/maços (também molho/molhos)
+- Alho-poró — Maço | plural: Alhos-porós | venda: maço/maços (também molho/molhos)
+- Cheiro-verde — Maço | plural: Cheiros-verdes | venda: maço/maços (também molho/molhos)
+- Abóbora cabotiá | plural: Abóboras cabotiá | venda: quilo/quilos
+- Abóbora moranga | plural: Abóboras morangas | venda: quilo/quilos
+- Abóbora menina | plural: Abóboras meninas | venda: quilo/quilos
+- Abóbora de pescoço | plural: Abóboras de pescoço | venda: quilo/quilos
+- Abóbora paulista | plural: Abóboras paulistas | venda: quilo/quilos
+- Abobrinha italiana | plural: Abobrinhas italianas | venda: quilo/quilos
+- Abobrinha brasileira | plural: Abobrinhas brasileiras | venda: quilo/quilos
+- Abobrinha amarela | plural: Abobrinhas amarelas | venda: quilo/quilos
+- Berinjela comum | plural: Berinjelas comuns | venda: quilo/quilos
+- Berinjela japonesa | plural: Berinjelas japonesas | venda: quilo/quilos
+- Berinjela branca | plural: Berinjelas brancas | venda: quilo/quilos
+- Berinjela rajada | plural: Berinjelas rajadas | venda: quilo/quilos
+- Jiló redondo | plural: Jilós redondos | venda: quilo/quilos
+- Jiló comprido | plural: Jilós compridos | venda: quilo/quilos
+- Quiabo | plural: Quiabos | venda: quilo/quilos
+- Chuchu | plural: Chuchus | venda: quilo/quilos
+- Pepino caipira | plural: Pepinos caipiras | venda: quilo/quilos
+- Pepino japonês | plural: Pepinos japoneses | venda: quilo/quilos
+- Pepino para conserva | plural: Pepinos para conserva | venda: quilo/quilos
+- Maxixe | plural: Maxixes | venda: quilo/quilos
+- Tomate italiano | plural: Tomates italianos | venda: quilo/quilos
+- Tomate salada | plural: Tomates saladas | venda: quilo/quilos
+- Tomate caqui | plural: Tomates caqui | venda: quilo/quilos
+- Tomate cereja | plural: Tomates cereja | venda: quilo/quilos
+- Tomate grape | plural: Tomates grape | venda: quilo/quilos
+- Tomate verde | plural: Tomates verdes | venda: quilo/quilos
+- Pimentão verde | plural: Pimentões verdes | venda: quilo/quilos
+- Pimentão vermelho | plural: Pimentões vermelhos | venda: quilo/quilos
+- Pimentão amarelo | plural: Pimentões amarelos | venda: quilo/quilos
+- Pimentão laranja | plural: Pimentões laranja | venda: quilo/quilos
+- Vagem macarrão | plural: Vagens macarrão | venda: quilo/quilos
+- Vagem manteiga | plural: Vagens manteiga | venda: quilo/quilos
+- Vagem holandesa | plural: Vagens holandesas | venda: quilo/quilos
+- Ervilha-torta | plural: Ervilhas-tortas | venda: quilo/quilos
+- Ervilha fresca | plural: Ervilhas frescas | venda: quilo/quilos
+- Milho verde em grãos | plural: Milhos verdes em grãos | venda: quilo/quilos
+- Fava verde | plural: Favas verdes | venda: quilo/quilos
+- Edamame | plural: Edamames | venda: quilo/quilos
+- Couve-flor branca | plural: Couves-flores brancas | venda: unidade/unidades
+- Couve-flor roxa | plural: Couves-flores roxas | venda: unidade/unidades
+- Brócolis ninja | plural: Brócolis ninja | venda: unidade/unidades
+- Brócolis ramoso | plural: Brócolis ramosos | venda: unidade/unidades
+- Repolho verde | plural: Repolhos verdes | venda: unidade/unidades
+- Repolho roxo | plural: Repolhos roxos | venda: unidade/unidades
+- Alcachofra | plural: Alcachofras | venda: unidade/unidades
+- Milho verde em espiga | plural: Milhos verdes em espiga | venda: unidade/unidades
+- Mandioca de mesa | plural: Mandiocas de mesa | venda: quilo/quilos
+- Batata inglesa | plural: Batatas inglesas | venda: quilo/quilos
+- Batata asterix | plural: Batatas asterix | venda: quilo/quilos
+- Batata bolinha | plural: Batatas bolinhas | venda: quilo/quilos
+- Batata-doce branca | plural: Batatas-doces brancas | venda: quilo/quilos
+- Batata-doce roxa | plural: Batatas-doces roxas | venda: quilo/quilos
+- Batata-doce rosada | plural: Batatas-doces rosadas | venda: quilo/quilos
+- Batata-doce alaranjada | plural: Batatas-doces alaranjadas | venda: quilo/quilos
+- Batata-baroa | plural: Batatas-baroas | venda: quilo/quilos
+- Inhame | plural: Inhames | venda: quilo/quilos
+- Cará | plural: Carás | venda: quilo/quilos
+- Cará roxo | plural: Carás roxos | venda: quilo/quilos
+- Cará-moela | plural: Carás-moela | venda: quilo/quilos
+- Taro | plural: Taros | venda: quilo/quilos
+- Cenoura | plural: Cenouras | venda: quilo/quilos
+- Cenoura roxa | plural: Cenouras roxas | venda: quilo/quilos
+- Cenoura baby | plural: Cenouras baby | venda: quilo/quilos
+- Beterraba | plural: Beterrabas | venda: quilo/quilos
+- Nabo | plural: Nabos | venda: quilo/quilos
+- Rabanete vermelho | plural: Rabanetes vermelhos | venda: quilo/quilos
+- Rabanete branco | plural: Rabanetes brancos | venda: quilo/quilos
+- Rabanete melancia | plural: Rabanetes melancia | venda: quilo/quilos
+- Gengibre | plural: Gengibres | venda: quilo/quilos
+- Cúrcuma fresca | plural: Cúrcumas frescas | venda: quilo/quilos
+- Araruta | plural: Ararutas | venda: quilo/quilos
+- Cebola branca | plural: Cebolas brancas | venda: quilo/quilos
+- Cebola roxa | plural: Cebolas roxas | venda: quilo/quilos
+- Cebola pérola | plural: Cebolas pérola | venda: quilo/quilos
+- Alho comum | plural: Alhos comuns | venda: quilo/quilos
+- Alho roxo | plural: Alhos roxos | venda: quilo/quilos
+- Alho-poró baby | plural: Alhos-porós baby | venda: quilo/quilos
+- Pimenta dedo-de-moça | plural: Pimentas dedo-de-moça | venda: quilo/quilos
+- Pimenta malagueta | plural: Pimentas malagueta | venda: quilo/quilos
+- Pimenta biquinho vermelha | plural: Pimentas biquinho vermelhas | venda: quilo/quilos
+- Pimenta biquinho amarela | plural: Pimentas biquinho amarelas | venda: quilo/quilos
+- Pimenta de cheiro | plural: Pimentas de cheiro | venda: quilo/quilos
+- Pimenta cumari | plural: Pimentas cumari | venda: quilo/quilos
+- Pimenta cumari-do-pará | plural: Pimentas cumari-do-parás | venda: quilo/quilos
+- Pimenta bode | plural: Pimentas bode | venda: quilo/quilos
+- Pimenta cambuci | plural: Pimentas cambuci | venda: quilo/quilos
+- Pimenta jalapeño | plural: Pimentas jalapeño | venda: quilo/quilos
+- Pimenta habanero | plural: Pimentas habanero | venda: quilo/quilos
+- Pimenta tabasco | plural: Pimentas tabasco | venda: quilo/quilos
+- Pimenta cayena | plural: Pimentas cayena | venda: quilo/quilos
+- Cogumelo shimeji branco — 200 g, Bandeja | plural: Cogumelos shimeji brancos | venda: unidade/unidades
+- Cogumelo shimeji preto — 200 g, Bandeja | plural: Cogumelos shimeji pretos | venda: unidade/unidades
+- Cogumelo shiitake — 200 g, Bandeja | plural: Cogumelos shiitake | venda: unidade/unidades
+- Cogumelo paris — 200 g, Bandeja | plural: Cogumelos paris | venda: unidade/unidades
+- Cogumelo portobello — 200 g, Bandeja | plural: Cogumelos portobello | venda: unidade/unidades
+- Cogumelo eryngui — 200 g, Bandeja | plural: Cogumelos eryngui | venda: unidade/unidades
+
+## Laticínios — 178 apresentações
+
+- Queijo minas frescal — Peça ou porção, 250 g | plural: Queijos minas frescais | venda: unidade/unidades
+- Queijo minas frescal — Peça ou porção, 500 g | plural: Queijos minas frescais | venda: unidade/unidades
+- Queijo minas frescal — Peça ou porção, 1000 g | plural: Queijos minas frescais | venda: unidade/unidades
+- Queijo minas padrão — Peça ou porção, 250 g | plural: Queijos minas padrão | venda: unidade/unidades
+- Queijo minas padrão — Peça ou porção, 500 g | plural: Queijos minas padrão | venda: unidade/unidades
+- Queijo minas padrão — Peça ou porção, 1000 g | plural: Queijos minas padrão | venda: unidade/unidades
+- Queijo meia cura — Peça ou porção, 250 g | plural: Queijos meia cura | venda: unidade/unidades
+- Queijo meia cura — Peça ou porção, 500 g | plural: Queijos meia cura | venda: unidade/unidades
+- Queijo meia cura — Peça ou porção, 1000 g | plural: Queijos meia cura | venda: unidade/unidades
+- Queijo curado — Peça ou porção, 250 g | plural: Queijos curados | venda: unidade/unidades
+- Queijo curado — Peça ou porção, 500 g | plural: Queijos curados | venda: unidade/unidades
+- Queijo curado — Peça ou porção, 1000 g | plural: Queijos curados | venda: unidade/unidades
+- Queijo tipo canastra — Peça ou porção, 250 g | plural: Queijos tipo canastra | venda: unidade/unidades
+- Queijo tipo canastra — Peça ou porção, 500 g | plural: Queijos tipo canastra | venda: unidade/unidades
+- Queijo tipo canastra — Peça ou porção, 1000 g | plural: Queijos tipo canastra | venda: unidade/unidades
+- Queijo tipo serro — Peça ou porção, 250 g | plural: Queijos tipo serro | venda: unidade/unidades
+- Queijo tipo serro — Peça ou porção, 500 g | plural: Queijos tipo serro | venda: unidade/unidades
+- Queijo tipo serro — Peça ou porção, 1000 g | plural: Queijos tipo serro | venda: unidade/unidades
+- Queijo tipo parmesão — Peça ou porção, 250 g | plural: Queijos tipo parmesão | venda: unidade/unidades
+- Queijo tipo parmesão — Peça ou porção, 500 g | plural: Queijos tipo parmesão | venda: unidade/unidades
+- Queijo tipo parmesão — Peça ou porção, 1000 g | plural: Queijos tipo parmesão | venda: unidade/unidades
+- Queijo tipo provolone — Peça ou porção, 250 g | plural: Queijos tipo provolone | venda: unidade/unidades
+- Queijo tipo provolone — Peça ou porção, 500 g | plural: Queijos tipo provolone | venda: unidade/unidades
+- Queijo tipo provolone — Peça ou porção, 1000 g | plural: Queijos tipo provolone | venda: unidade/unidades
+- Queijo tipo gouda — Peça ou porção, 250 g | plural: Queijos tipo gouda | venda: unidade/unidades
+- Queijo tipo gouda — Peça ou porção, 500 g | plural: Queijos tipo gouda | venda: unidade/unidades
+- Queijo tipo gouda — Peça ou porção, 1000 g | plural: Queijos tipo gouda | venda: unidade/unidades
+- Queijo tipo prato — Peça ou porção, 250 g | plural: Queijos tipo prato | venda: unidade/unidades
+- Queijo tipo prato — Peça ou porção, 500 g | plural: Queijos tipo prato | venda: unidade/unidades
+- Queijo tipo prato — Peça ou porção, 1000 g | plural: Queijos tipo prato | venda: unidade/unidades
+- Queijo muçarela — Peça ou porção, 250 g | plural: Queijos muçarela | venda: unidade/unidades
+- Queijo muçarela — Peça ou porção, 500 g | plural: Queijos muçarela | venda: unidade/unidades
+- Queijo muçarela — Peça ou porção, 1000 g | plural: Queijos muçarela | venda: unidade/unidades
+- Queijo coalho — Peça ou porção, 250 g | plural: Queijos coalho | venda: unidade/unidades
+- Queijo coalho — Peça ou porção, 500 g | plural: Queijos coalho | venda: unidade/unidades
+- Queijo coalho — Peça ou porção, 1000 g | plural: Queijos coalho | venda: unidade/unidades
+- Queijo manteiga — Peça ou porção, 250 g | plural: Queijos manteiga | venda: unidade/unidades
+- Queijo manteiga — Peça ou porção, 500 g | plural: Queijos manteiga | venda: unidade/unidades
+- Queijo manteiga — Peça ou porção, 1000 g | plural: Queijos manteiga | venda: unidade/unidades
+- Queijo cabacinha — Peça ou porção, 250 g | plural: Queijos cabacinha | venda: unidade/unidades
+- Queijo cabacinha — Peça ou porção, 500 g | plural: Queijos cabacinha | venda: unidade/unidades
+- Queijo cabacinha — Peça ou porção, 1000 g | plural: Queijos cabacinha | venda: unidade/unidades
+- Queijo nozinho — Peça ou porção, 250 g | plural: Queijos nozinho | venda: unidade/unidades
+- Queijo nozinho — Peça ou porção, 500 g | plural: Queijos nozinho | venda: unidade/unidades
+- Queijo nozinho — Peça ou porção, 1000 g | plural: Queijos nozinho | venda: unidade/unidades
+- Queijo trançado — Peça ou porção, 250 g | plural: Queijos trançados | venda: unidade/unidades
+- Queijo trançado — Peça ou porção, 500 g | plural: Queijos trançados | venda: unidade/unidades
+- Queijo trançado — Peça ou porção, 1000 g | plural: Queijos trançados | venda: unidade/unidades
+- Queijo defumado — Peça ou porção, 250 g | plural: Queijos defumados | venda: unidade/unidades
+- Queijo defumado — Peça ou porção, 500 g | plural: Queijos defumados | venda: unidade/unidades
+- Queijo defumado — Peça ou porção, 1000 g | plural: Queijos defumados | venda: unidade/unidades
+- Queijo temperado com ervas — Peça ou porção, 250 g | plural: Queijos temperados com ervas | venda: unidade/unidades
+- Queijo temperado com ervas — Peça ou porção, 500 g | plural: Queijos temperados com ervas | venda: unidade/unidades
+- Queijo temperado com ervas — Peça ou porção, 1000 g | plural: Queijos temperados com ervas | venda: unidade/unidades
+- Queijo temperado com pimenta — Peça ou porção, 250 g | plural: Queijos temperados com pimenta | venda: unidade/unidades
+- Queijo temperado com pimenta — Peça ou porção, 500 g | plural: Queijos temperados com pimenta | venda: unidade/unidades
+- Queijo temperado com pimenta — Peça ou porção, 1000 g | plural: Queijos temperados com pimenta | venda: unidade/unidades
+- Queijo temperado com alho — Peça ou porção, 250 g | plural: Queijos temperados com alho | venda: unidade/unidades
+- Queijo temperado com alho — Peça ou porção, 500 g | plural: Queijos temperados com alho | venda: unidade/unidades
+- Queijo temperado com alho — Peça ou porção, 1000 g | plural: Queijos temperados com alho | venda: unidade/unidades
+- Queijo com orégano — Peça ou porção, 250 g | plural: Queijos com orégano | venda: unidade/unidades
+- Queijo com orégano — Peça ou porção, 500 g | plural: Queijos com orégano | venda: unidade/unidades
+- Queijo com orégano — Peça ou porção, 1000 g | plural: Queijos com orégano | venda: unidade/unidades
+- Queijo com azeitona — Peça ou porção, 250 g | plural: Queijos com azeitona | venda: unidade/unidades
+- Queijo com azeitona — Peça ou porção, 500 g | plural: Queijos com azeitona | venda: unidade/unidades
+- Queijo com azeitona — Peça ou porção, 1000 g | plural: Queijos com azeitona | venda: unidade/unidades
+- Queijo com vinho — Peça ou porção, 250 g | plural: Queijos com vinho | venda: unidade/unidades
+- Queijo com vinho — Peça ou porção, 500 g | plural: Queijos com vinho | venda: unidade/unidades
+- Queijo com vinho — Peça ou porção, 1000 g | plural: Queijos com vinho | venda: unidade/unidades
+- Queijo de cabra fresco — Peça ou porção, 250 g | plural: Queijos de cabra frescos | venda: unidade/unidades
+- Queijo de cabra fresco — Peça ou porção, 500 g | plural: Queijos de cabra frescos | venda: unidade/unidades
+- Queijo de cabra fresco — Peça ou porção, 1000 g | plural: Queijos de cabra frescos | venda: unidade/unidades
+- Queijo de cabra curado — Peça ou porção, 250 g | plural: Queijos de cabra curados | venda: unidade/unidades
+- Queijo de cabra curado — Peça ou porção, 500 g | plural: Queijos de cabra curados | venda: unidade/unidades
+- Queijo de cabra curado — Peça ou porção, 1000 g | plural: Queijos de cabra curados | venda: unidade/unidades
+- Queijo de ovelha — Peça ou porção, 250 g | plural: Queijos de ovelha | venda: unidade/unidades
+- Queijo de ovelha — Peça ou porção, 500 g | plural: Queijos de ovelha | venda: unidade/unidades
+- Queijo de ovelha — Peça ou porção, 1000 g | plural: Queijos de ovelha | venda: unidade/unidades
+- Muçarela de búfala — Peça ou porção, 250 g | plural: Muçarelas de búfala | venda: unidade/unidades
+- Muçarela de búfala — Peça ou porção, 500 g | plural: Muçarelas de búfala | venda: unidade/unidades
+- Muçarela de búfala — Peça ou porção, 1000 g | plural: Muçarelas de búfala | venda: unidade/unidades
+- Ricota fresca — Peça ou porção, 250 g | plural: Ricotas frescas | venda: unidade/unidades
+- Ricota fresca — Peça ou porção, 500 g | plural: Ricotas frescas | venda: unidade/unidades
+- Ricota fresca — Peça ou porção, 1000 g | plural: Ricotas frescas | venda: unidade/unidades
+- Ricota temperada — Peça ou porção, 250 g | plural: Ricotas temperadas | venda: unidade/unidades
+- Ricota temperada — Peça ou porção, 500 g | plural: Ricotas temperadas | venda: unidade/unidades
+- Ricota temperada — Peça ou porção, 1000 g | plural: Ricotas temperadas | venda: unidade/unidades
+- Queijo cremoso — Peça ou porção, 250 g | plural: Queijos cremosos | venda: unidade/unidades
+- Queijo cremoso — Peça ou porção, 500 g | plural: Queijos cremosos | venda: unidade/unidades
+- Queijo cremoso — Peça ou porção, 1000 g | plural: Queijos cremosos | venda: unidade/unidades
+- Requeijão de corte — Peça ou porção, 250 g | plural: Requeijões de corte | venda: unidade/unidades
+- Requeijão de corte — Peça ou porção, 500 g | plural: Requeijões de corte | venda: unidade/unidades
+- Requeijão de corte — Peça ou porção, 1000 g | plural: Requeijões de corte | venda: unidade/unidades
+- Requeijão cremoso — Peça ou porção, 250 g | plural: Requeijões cremosos | venda: unidade/unidades
+- Requeijão cremoso — Peça ou porção, 500 g | plural: Requeijões cremosos | venda: unidade/unidades
+- Requeijão cremoso — Peça ou porção, 1000 g | plural: Requeijões cremosos | venda: unidade/unidades
+- Queijo muçarela — Fatiado, 200 g | plural: Queijos muçarela | venda: unidade/unidades
+- Queijo tipo prato — Fatiado, 200 g | plural: Queijos tipo prato | venda: unidade/unidades
+- Queijo tipo provolone — Fatiado, 200 g | plural: Queijos tipo provolone | venda: unidade/unidades
+- Queijo minas padrão — Fatiado, 200 g | plural: Queijos minas padrão | venda: unidade/unidades
+- Queijo de cabra curado — Fatiado, 200 g | plural: Queijos de cabra curados | venda: unidade/unidades
+- Iogurte Natural integral — Refrigerado, 170 ml | plural: Iogurtes Natural integral | venda: unidade/unidades
+- Iogurte Natural integral — Refrigerado, 500 ml | plural: Iogurtes Natural integral | venda: unidade/unidades
+- Iogurte Natural integral — Refrigerado, 1000 ml | plural: Iogurtes Natural integral | venda: unidade/unidades
+- Iogurte Natural desnatado — Refrigerado, 170 ml | plural: Iogurtes Natural desnatado | venda: unidade/unidades
+- Iogurte Natural desnatado — Refrigerado, 500 ml | plural: Iogurtes Natural desnatado | venda: unidade/unidades
+- Iogurte Natural desnatado — Refrigerado, 1000 ml | plural: Iogurtes Natural desnatado | venda: unidade/unidades
+- Iogurte Morango — Refrigerado, 170 ml | plural: Iogurtes Morango | venda: unidade/unidades
+- Iogurte Morango — Refrigerado, 500 ml | plural: Iogurtes Morango | venda: unidade/unidades
+- Iogurte Morango — Refrigerado, 1000 ml | plural: Iogurtes Morango | venda: unidade/unidades
+- Iogurte Coco — Refrigerado, 170 ml | plural: Iogurtes Coco | venda: unidade/unidades
+- Iogurte Coco — Refrigerado, 500 ml | plural: Iogurtes Coco | venda: unidade/unidades
+- Iogurte Coco — Refrigerado, 1000 ml | plural: Iogurtes Coco | venda: unidade/unidades
+- Iogurte Maracujá — Refrigerado, 170 ml | plural: Iogurtes Maracujá | venda: unidade/unidades
+- Iogurte Maracujá — Refrigerado, 500 ml | plural: Iogurtes Maracujá | venda: unidade/unidades
+- Iogurte Maracujá — Refrigerado, 1000 ml | plural: Iogurtes Maracujá | venda: unidade/unidades
+- Iogurte Ameixa — Refrigerado, 170 ml | plural: Iogurtes Ameixa | venda: unidade/unidades
+- Iogurte Ameixa — Refrigerado, 500 ml | plural: Iogurtes Ameixa | venda: unidade/unidades
+- Iogurte Ameixa — Refrigerado, 1000 ml | plural: Iogurtes Ameixa | venda: unidade/unidades
+- Iogurte Pêssego — Refrigerado, 170 ml | plural: Iogurtes Pêssego | venda: unidade/unidades
+- Iogurte Pêssego — Refrigerado, 500 ml | plural: Iogurtes Pêssego | venda: unidade/unidades
+- Iogurte Pêssego — Refrigerado, 1000 ml | plural: Iogurtes Pêssego | venda: unidade/unidades
+- Iogurte Banana — Refrigerado, 170 ml | plural: Iogurtes Banana | venda: unidade/unidades
+- Iogurte Banana — Refrigerado, 500 ml | plural: Iogurtes Banana | venda: unidade/unidades
+- Iogurte Banana — Refrigerado, 1000 ml | plural: Iogurtes Banana | venda: unidade/unidades
+- Iogurte Frutas vermelhas — Refrigerado, 170 ml | plural: Iogurtes Frutas vermelhas | venda: unidade/unidades
+- Iogurte Frutas vermelhas — Refrigerado, 500 ml | plural: Iogurtes Frutas vermelhas | venda: unidade/unidades
+- Iogurte Frutas vermelhas — Refrigerado, 1000 ml | plural: Iogurtes Frutas vermelhas | venda: unidade/unidades
+- Iogurte Abacaxi — Refrigerado, 170 ml | plural: Iogurtes Abacaxi | venda: unidade/unidades
+- Iogurte Abacaxi — Refrigerado, 500 ml | plural: Iogurtes Abacaxi | venda: unidade/unidades
+- Iogurte Abacaxi — Refrigerado, 1000 ml | plural: Iogurtes Abacaxi | venda: unidade/unidades
+- Iogurte Manga — Refrigerado, 170 ml | plural: Iogurtes Manga | venda: unidade/unidades
+- Iogurte Manga — Refrigerado, 500 ml | plural: Iogurtes Manga | venda: unidade/unidades
+- Iogurte Manga — Refrigerado, 1000 ml | plural: Iogurtes Manga | venda: unidade/unidades
+- Iogurte Mel — Refrigerado, 170 ml | plural: Iogurtes Mel | venda: unidade/unidades
+- Iogurte Mel — Refrigerado, 500 ml | plural: Iogurtes Mel | venda: unidade/unidades
+- Iogurte Mel — Refrigerado, 1000 ml | plural: Iogurtes Mel | venda: unidade/unidades
+- Iogurte Baunilha — Refrigerado, 170 ml | plural: Iogurtes Baunilha | venda: unidade/unidades
+- Iogurte Baunilha — Refrigerado, 500 ml | plural: Iogurtes Baunilha | venda: unidade/unidades
+- Iogurte Baunilha — Refrigerado, 1000 ml | plural: Iogurtes Baunilha | venda: unidade/unidades
+- Iogurte Goiaba — Refrigerado, 170 ml | plural: Iogurtes Goiaba | venda: unidade/unidades
+- Iogurte Goiaba — Refrigerado, 500 ml | plural: Iogurtes Goiaba | venda: unidade/unidades
+- Iogurte Goiaba — Refrigerado, 1000 ml | plural: Iogurtes Goiaba | venda: unidade/unidades
+- Iogurte Café — Refrigerado, 170 ml | plural: Iogurtes Café | venda: unidade/unidades
+- Iogurte Café — Refrigerado, 500 ml | plural: Iogurtes Café | venda: unidade/unidades
+- Iogurte Café — Refrigerado, 1000 ml | plural: Iogurtes Café | venda: unidade/unidades
+- Leite integral pasteurizado — Refrigerado, 500 ml | plural: Leites integrais pasteurizados | venda: unidade/unidades
+- Leite integral pasteurizado — Refrigerado, 1000 ml | plural: Leites integrais pasteurizados | venda: unidade/unidades
+- Leite desnatado pasteurizado — Refrigerado, 500 ml | plural: Leites desnatados pasteurizados | venda: unidade/unidades
+- Leite desnatado pasteurizado — Refrigerado, 1000 ml | plural: Leites desnatados pasteurizados | venda: unidade/unidades
+- Leite de cabra pasteurizado — Refrigerado, 500 ml | plural: Leites de cabra pasteurizados | venda: unidade/unidades
+- Leite de cabra pasteurizado — Refrigerado, 1000 ml | plural: Leites de cabra pasteurizados | venda: unidade/unidades
+- Leite de búfala pasteurizado — Refrigerado, 500 ml | plural: Leites de búfala pasteurizados | venda: unidade/unidades
+- Leite de búfala pasteurizado — Refrigerado, 1000 ml | plural: Leites de búfala pasteurizados | venda: unidade/unidades
+- Bebida láctea de morango — Refrigerado, 500 ml | plural: Bebidas lácteas de morango | venda: unidade/unidades
+- Bebida láctea de morango — Refrigerado, 1000 ml | plural: Bebidas lácteas de morango | venda: unidade/unidades
+- Bebida láctea de coco — Refrigerado, 500 ml | plural: Bebidas lácteas de coco | venda: unidade/unidades
+- Bebida láctea de coco — Refrigerado, 1000 ml | plural: Bebidas lácteas de coco | venda: unidade/unidades
+- Bebida láctea de chocolate — Refrigerado, 500 ml | plural: Bebidas lácteas de chocolate | venda: unidade/unidades
+- Bebida láctea de chocolate — Refrigerado, 1000 ml | plural: Bebidas lácteas de chocolate | venda: unidade/unidades
+- Coalhada natural — Refrigerado, 500 ml | plural: Coalhadas naturais | venda: unidade/unidades
+- Coalhada natural — Refrigerado, 1000 ml | plural: Coalhadas naturais | venda: unidade/unidades
+- Coalhada seca — Refrigerado, 200 g | plural: Coalhadas secas | venda: unidade/unidades
+- Coalhada seca — Refrigerado, 500 g | plural: Coalhadas secas | venda: unidade/unidades
+- Kefir de leite — Refrigerado, 500 ml | plural: Kefires de leite | venda: unidade/unidades
+- Kefir de leite — Refrigerado, 1000 ml | plural: Kefires de leite | venda: unidade/unidades
+- Nata — Refrigerado, 200 g | plural: Natas | venda: unidade/unidades
+- Nata — Refrigerado, 500 g | plural: Natas | venda: unidade/unidades
+- Creme de leite fresco — Refrigerado, 200 ml | plural: Cremes de leite frescos | venda: unidade/unidades
+- Creme de leite fresco — Refrigerado, 500 ml | plural: Cremes de leite frescos | venda: unidade/unidades
+- Manteiga com sal — Embalado, 200 g | plural: Manteigas com sal | venda: unidade/unidades
+- Manteiga com sal — Embalado, 500 g | plural: Manteigas com sal | venda: unidade/unidades
+- Manteiga sem sal — Embalado, 200 g | plural: Manteigas sem sal | venda: unidade/unidades
+- Manteiga sem sal — Embalado, 500 g | plural: Manteigas sem sal | venda: unidade/unidades
+- Manteiga de garrafa — Embalado, 200 g | plural: Manteigas de garrafa | venda: unidade/unidades
+- Manteiga de garrafa — Embalado, 500 g | plural: Manteigas de garrafa | venda: unidade/unidades
+- Manteiga clarificada — Embalado, 200 g | plural: Manteigas clarificadas | venda: unidade/unidades
+- Manteiga clarificada — Embalado, 500 g | plural: Manteigas clarificadas | venda: unidade/unidades
+
+## Molhos e temperos — 100 apresentações
+
+- Molho de tomate caseiro — Líquido ou pasta, 150 ml | plural: Molhos de tomate caseiros | venda: unidade/unidades
+- Molho de tomate caseiro — Líquido ou pasta, 300 ml | plural: Molhos de tomate caseiros | venda: unidade/unidades
+- Molho de tomate com manjericão — Líquido ou pasta, 150 ml | plural: Molhos de tomate com manjericão | venda: unidade/unidades
+- Molho de tomate com manjericão — Líquido ou pasta, 300 ml | plural: Molhos de tomate com manjericão | venda: unidade/unidades
+- Molho de pimenta malagueta — Líquido ou pasta, 150 ml | plural: Molhos de pimenta malagueta | venda: unidade/unidades
+- Molho de pimenta malagueta — Líquido ou pasta, 300 ml | plural: Molhos de pimenta malagueta | venda: unidade/unidades
+- Molho de pimenta dedo-de-moça — Líquido ou pasta, 150 ml | plural: Molhos de pimenta dedo-de-moça | venda: unidade/unidades
+- Molho de pimenta dedo-de-moça — Líquido ou pasta, 300 ml | plural: Molhos de pimenta dedo-de-moça | venda: unidade/unidades
+- Molho de pimenta biquinho — Líquido ou pasta, 150 ml | plural: Molhos de pimenta biquinho | venda: unidade/unidades
+- Molho de pimenta biquinho — Líquido ou pasta, 300 ml | plural: Molhos de pimenta biquinho | venda: unidade/unidades
+- Molho de pimenta com manga — Líquido ou pasta, 150 ml | plural: Molhos de pimenta com manga | venda: unidade/unidades
+- Molho de pimenta com manga — Líquido ou pasta, 300 ml | plural: Molhos de pimenta com manga | venda: unidade/unidades
+- Molho de pimenta com abacaxi — Líquido ou pasta, 150 ml | plural: Molhos de pimenta com abacaxi | venda: unidade/unidades
+- Molho de pimenta com abacaxi — Líquido ou pasta, 300 ml | plural: Molhos de pimenta com abacaxi | venda: unidade/unidades
+- Molho de alho — Líquido ou pasta, 150 ml | plural: Molhos de alho | venda: unidade/unidades
+- Molho de alho — Líquido ou pasta, 300 ml | plural: Molhos de alho | venda: unidade/unidades
+- Molho pesto de manjericão — Líquido ou pasta, 150 ml | plural: Molhos pesto de manjericão | venda: unidade/unidades
+- Molho pesto de manjericão — Líquido ou pasta, 300 ml | plural: Molhos pesto de manjericão | venda: unidade/unidades
+- Molho de jabuticaba — Líquido ou pasta, 150 ml | plural: Molhos de jabuticaba | venda: unidade/unidades
+- Molho de jabuticaba — Líquido ou pasta, 300 ml | plural: Molhos de jabuticaba | venda: unidade/unidades
+- Vinagre de maçã — Líquido ou pasta, 150 ml | plural: Vinagres de maçã | venda: unidade/unidades
+- Vinagre de maçã — Líquido ou pasta, 300 ml | plural: Vinagres de maçã | venda: unidade/unidades
+- Vinagre de vinho — Líquido ou pasta, 150 ml | plural: Vinagres de vinho | venda: unidade/unidades
+- Vinagre de vinho — Líquido ou pasta, 300 ml | plural: Vinagres de vinho | venda: unidade/unidades
+- Vinagre de jabuticaba — Líquido ou pasta, 150 ml | plural: Vinagres de jabuticaba | venda: unidade/unidades
+- Vinagre de jabuticaba — Líquido ou pasta, 300 ml | plural: Vinagres de jabuticaba | venda: unidade/unidades
+- Vinagre de abacaxi — Líquido ou pasta, 150 ml | plural: Vinagres de abacaxi | venda: unidade/unidades
+- Vinagre de abacaxi — Líquido ou pasta, 300 ml | plural: Vinagres de abacaxi | venda: unidade/unidades
+- Açafrão-da-terra em pó — Embalado, 50 g | plural: Açafrões-da-terra em pó | venda: unidade/unidades
+- Açafrão-da-terra em pó — Embalado, 100 g | plural: Açafrões-da-terra em pó | venda: unidade/unidades
+- Páprica doce — Embalado, 50 g | plural: Pápricas doces | venda: unidade/unidades
+- Páprica doce — Embalado, 100 g | plural: Pápricas doces | venda: unidade/unidades
+- Páprica picante — Embalado, 50 g | plural: Pápricas picantes | venda: unidade/unidades
+- Páprica picante — Embalado, 100 g | plural: Pápricas picantes | venda: unidade/unidades
+- Páprica defumada — Embalado, 50 g | plural: Pápricas defumadas | venda: unidade/unidades
+- Páprica defumada — Embalado, 100 g | plural: Pápricas defumadas | venda: unidade/unidades
+- Colorau — Embalado, 50 g | plural: Coloraus | venda: unidade/unidades
+- Colorau — Embalado, 100 g | plural: Coloraus | venda: unidade/unidades
+- Cominho em pó — Embalado, 50 g | plural: Cominhos em pó | venda: unidade/unidades
+- Cominho em pó — Embalado, 100 g | plural: Cominhos em pó | venda: unidade/unidades
+- Cominho em grão — Embalado, 50 g | plural: Cominhos em grão | venda: unidade/unidades
+- Cominho em grão — Embalado, 100 g | plural: Cominhos em grão | venda: unidade/unidades
+- Coentro em grão — Embalado, 50 g | plural: Coentros em grão | venda: unidade/unidades
+- Coentro em grão — Embalado, 100 g | plural: Coentros em grão | venda: unidade/unidades
+- Coentro em pó — Embalado, 50 g | plural: Coentros em pó | venda: unidade/unidades
+- Coentro em pó — Embalado, 100 g | plural: Coentros em pó | venda: unidade/unidades
+- Pimenta-do-reino preta em grão — Embalado, 50 g | plural: Pimentas-do-reino pretas em grão | venda: unidade/unidades
+- Pimenta-do-reino preta em grão — Embalado, 100 g | plural: Pimentas-do-reino pretas em grão | venda: unidade/unidades
+- Pimenta-do-reino preta moída — Embalado, 50 g | plural: Pimentas-do-reino pretas moídas | venda: unidade/unidades
+- Pimenta-do-reino preta moída — Embalado, 100 g | plural: Pimentas-do-reino pretas moídas | venda: unidade/unidades
+- Pimenta-do-reino branca — Embalado, 50 g | plural: Pimentas-do-reino brancas | venda: unidade/unidades
+- Pimenta-do-reino branca — Embalado, 100 g | plural: Pimentas-do-reino brancas | venda: unidade/unidades
+- Pimenta calabresa — Embalado, 50 g | plural: Pimentas calabresas | venda: unidade/unidades
+- Pimenta calabresa — Embalado, 100 g | plural: Pimentas calabresas | venda: unidade/unidades
+- Canela em pó — Embalado, 50 g | plural: Canelas em pó | venda: unidade/unidades
+- Canela em pó — Embalado, 100 g | plural: Canelas em pó | venda: unidade/unidades
+- Canela em pau — Embalado, 50 g | plural: Canelas em pau | venda: unidade/unidades
+- Canela em pau — Embalado, 100 g | plural: Canelas em pau | venda: unidade/unidades
+- Cravo-da-índia — Embalado, 50 g | plural: Cravos-da-índia | venda: unidade/unidades
+- Cravo-da-índia — Embalado, 100 g | plural: Cravos-da-índia | venda: unidade/unidades
+- Noz-moscada inteira — Embalado, 50 g | plural: Nozes-moscadas inteiras | venda: unidade/unidades
+- Noz-moscada inteira — Embalado, 100 g | plural: Nozes-moscadas inteiras | venda: unidade/unidades
+- Noz-moscada em pó — Embalado, 50 g | plural: Nozes-moscadas em pó | venda: unidade/unidades
+- Noz-moscada em pó — Embalado, 100 g | plural: Nozes-moscadas em pó | venda: unidade/unidades
+- Gengibre em pó — Embalado, 50 g | plural: Gengibres em pó | venda: unidade/unidades
+- Gengibre em pó — Embalado, 100 g | plural: Gengibres em pó | venda: unidade/unidades
+- Orégano seco — Embalado, 50 g | plural: Oréganos secos | venda: unidade/unidades
+- Orégano seco — Embalado, 100 g | plural: Oréganos secos | venda: unidade/unidades
+- Manjericão seco — Embalado, 50 g | plural: Manjericões secos | venda: unidade/unidades
+- Manjericão seco — Embalado, 100 g | plural: Manjericões secos | venda: unidade/unidades
+- Alecrim seco — Embalado, 50 g | plural: Alecrins secos | venda: unidade/unidades
+- Alecrim seco — Embalado, 100 g | plural: Alecrins secos | venda: unidade/unidades
+- Tomilho seco — Embalado, 50 g | plural: Tomilhos secos | venda: unidade/unidades
+- Tomilho seco — Embalado, 100 g | plural: Tomilhos secos | venda: unidade/unidades
+- Louro seco — Embalado, 50 g | plural: Louros secos | venda: unidade/unidades
+- Louro seco — Embalado, 100 g | plural: Louros secos | venda: unidade/unidades
+- Salsinha desidratada — Embalado, 50 g | plural: Salsinhas desidratadas | venda: unidade/unidades
+- Salsinha desidratada — Embalado, 100 g | plural: Salsinhas desidratadas | venda: unidade/unidades
+- Cebolinha desidratada — Embalado, 50 g | plural: Cebolinhas desidratadas | venda: unidade/unidades
+- Cebolinha desidratada — Embalado, 100 g | plural: Cebolinhas desidratadas | venda: unidade/unidades
+- Alho desidratado — Embalado, 50 g | plural: Alhos desidratados | venda: unidade/unidades
+- Alho desidratado — Embalado, 100 g | plural: Alhos desidratados | venda: unidade/unidades
+- Cebola desidratada — Embalado, 50 g | plural: Cebolas desidratadas | venda: unidade/unidades
+- Cebola desidratada — Embalado, 100 g | plural: Cebolas desidratadas | venda: unidade/unidades
+- Tempero baiano — Embalado, 50 g | plural: Temperos baianos | venda: unidade/unidades
+- Tempero baiano — Embalado, 100 g | plural: Temperos baianos | venda: unidade/unidades
+- Chimichurri — Embalado, 50 g | plural: Chimichurris | venda: unidade/unidades
+- Chimichurri — Embalado, 100 g | plural: Chimichurris | venda: unidade/unidades
+- Curry — Embalado, 50 g | plural: Currys | venda: unidade/unidades
+- Curry — Embalado, 100 g | plural: Currys | venda: unidade/unidades
+- Garam masala — Embalado, 50 g | plural: Garam masala | venda: unidade/unidades
+- Garam masala — Embalado, 100 g | plural: Garam masala | venda: unidade/unidades
+- Sal com ervas — Embalado, 50 g | plural: Sais com ervas | venda: unidade/unidades
+- Sal com ervas — Embalado, 100 g | plural: Sais com ervas | venda: unidade/unidades
+- Sal com alho — Embalado, 50 g | plural: Sais com alho | venda: unidade/unidades
+- Sal com alho — Embalado, 100 g | plural: Sais com alho | venda: unidade/unidades
+- Tempero de alho e sal — Embalado, 50 g | plural: Temperos de alho e sal | venda: unidade/unidades
+- Tempero de alho e sal — Embalado, 100 g | plural: Temperos de alho e sal | venda: unidade/unidades
+- Tempero caseiro verde — Embalado, 50 g | plural: Temperos caseiros verdes | venda: unidade/unidades
+- Tempero caseiro verde — Embalado, 100 g | plural: Temperos caseiros verdes | venda: unidade/unidades
+
+## Ovos — 14 apresentações
+
+- Ovo Galinha caipira — In natura, 6 un, Bandeja | plural: Ovos Galinha caipira | venda: unidade/unidades
+- Ovo Galinha caipira — In natura, 12 un, Bandeja | plural: Ovos Galinha caipira | venda: unidade/unidades
+- Ovo Galinha caipira — In natura, 30 un, Bandeja | plural: Ovos Galinha caipira | venda: unidade/unidades
+- Ovo Galinha de granja — In natura, 6 un, Bandeja | plural: Ovos Galinha de granja | venda: unidade/unidades
+- Ovo Galinha de granja — In natura, 12 un, Bandeja | plural: Ovos Galinha de granja | venda: unidade/unidades
+- Ovo Galinha de granja — In natura, 30 un, Bandeja | plural: Ovos Galinha de granja | venda: unidade/unidades
+- Ovo Codorna — In natura, 12 un, Bandeja | plural: Ovos Codorna | venda: unidade/unidades
+- Ovo Codorna — In natura, 30 un, Bandeja | plural: Ovos Codorna | venda: unidade/unidades
+- Ovo Pata — In natura, 6 un, Bandeja | plural: Ovos Pata | venda: unidade/unidades
+- Ovo Pata — In natura, 12 un, Bandeja | plural: Ovos Pata | venda: unidade/unidades
+- Ovo Pata — In natura, 30 un, Bandeja | plural: Ovos Pata | venda: unidade/unidades
+- Ovo Gansa — In natura, 6 un, Bandeja | plural: Ovos Gansa | venda: unidade/unidades
+- Ovo Gansa — In natura, 12 un, Bandeja | plural: Ovos Gansa | venda: unidade/unidades
+- Ovo Gansa — In natura, 30 un, Bandeja | plural: Ovos Gansa | venda: unidade/unidades
+
+## Panificação — 229 apresentações
+
+- Pão caseiro — Inteiro, 250 g | plural: Pães caseiros | venda: unidade/unidades
+- Pão caseiro — Inteiro, 500 g | plural: Pães caseiros | venda: unidade/unidades
+- Pão de leite — Inteiro, 250 g | plural: Pães de leite | venda: unidade/unidades
+- Pão de leite — Inteiro, 500 g | plural: Pães de leite | venda: unidade/unidades
+- Pão de milho — Inteiro, 250 g | plural: Pães de milho | venda: unidade/unidades
+- Pão de milho — Inteiro, 500 g | plural: Pães de milho | venda: unidade/unidades
+- Pão de fubá — Inteiro, 250 g | plural: Pães de fubá | venda: unidade/unidades
+- Pão de fubá — Inteiro, 500 g | plural: Pães de fubá | venda: unidade/unidades
+- Pão de mandioca — Inteiro, 250 g | plural: Pães de mandioca | venda: unidade/unidades
+- Pão de mandioca — Inteiro, 500 g | plural: Pães de mandioca | venda: unidade/unidades
+- Pão de batata — Inteiro, 250 g | plural: Pães de batata | venda: unidade/unidades
+- Pão de batata — Inteiro, 500 g | plural: Pães de batata | venda: unidade/unidades
+- Pão de batata-doce — Inteiro, 250 g | plural: Pães de batata-doce | venda: unidade/unidades
+- Pão de batata-doce — Inteiro, 500 g | plural: Pães de batata-doce | venda: unidade/unidades
+- Pão de abóbora — Inteiro, 250 g | plural: Pães de abóbora | venda: unidade/unidades
+- Pão de abóbora — Inteiro, 500 g | plural: Pães de abóbora | venda: unidade/unidades
+- Pão de cenoura — Inteiro, 250 g | plural: Pães de cenoura | venda: unidade/unidades
+- Pão de cenoura — Inteiro, 500 g | plural: Pães de cenoura | venda: unidade/unidades
+- Pão de beterraba — Inteiro, 250 g | plural: Pães de beterraba | venda: unidade/unidades
+- Pão de beterraba — Inteiro, 500 g | plural: Pães de beterraba | venda: unidade/unidades
+- Pão de aveia — Inteiro, 250 g | plural: Pães de aveia | venda: unidade/unidades
+- Pão de aveia — Inteiro, 500 g | plural: Pães de aveia | venda: unidade/unidades
+- Pão integral — Inteiro, 250 g | plural: Pães integrais | venda: unidade/unidades
+- Pão integral — Inteiro, 500 g | plural: Pães integrais | venda: unidade/unidades
+- Pão integral com sementes — Inteiro, 250 g | plural: Pães integrais com sementes | venda: unidade/unidades
+- Pão integral com sementes — Inteiro, 500 g | plural: Pães integrais com sementes | venda: unidade/unidades
+- Pão de centeio — Inteiro, 250 g | plural: Pães de centeio | venda: unidade/unidades
+- Pão de centeio — Inteiro, 500 g | plural: Pães de centeio | venda: unidade/unidades
+- Pão de forma — Inteiro, 250 g | plural: Pães de forma | venda: unidade/unidades
+- Pão de forma — Inteiro, 500 g | plural: Pães de forma | venda: unidade/unidades
+- Pão de forma integral — Inteiro, 250 g | plural: Pães de forma integral | venda: unidade/unidades
+- Pão de forma integral — Inteiro, 500 g | plural: Pães de forma integral | venda: unidade/unidades
+- Pão de fermentação natural — Inteiro, 250 g | plural: Pães de fermentação natural | venda: unidade/unidades
+- Pão de fermentação natural — Inteiro, 500 g | plural: Pães de fermentação natural | venda: unidade/unidades
+- Pão de azeitona — Inteiro, 250 g | plural: Pães de azeitona | venda: unidade/unidades
+- Pão de azeitona — Inteiro, 500 g | plural: Pães de azeitona | venda: unidade/unidades
+- Pão de ervas — Inteiro, 250 g | plural: Pães de ervas | venda: unidade/unidades
+- Pão de ervas — Inteiro, 500 g | plural: Pães de ervas | venda: unidade/unidades
+- Pão de cebola — Inteiro, 250 g | plural: Pães de cebola | venda: unidade/unidades
+- Pão de cebola — Inteiro, 500 g | plural: Pães de cebola | venda: unidade/unidades
+- Pão de alho — Inteiro, 250 g | plural: Pães de alho | venda: unidade/unidades
+- Pão de alho — Inteiro, 500 g | plural: Pães de alho | venda: unidade/unidades
+- Pão de torresmo — Inteiro, 250 g | plural: Pães de torresmo | venda: unidade/unidades
+- Pão de torresmo — Inteiro, 500 g | plural: Pães de torresmo | venda: unidade/unidades
+- Pão de queijo — Inteiro, 250 g | plural: Pães de queijo | venda: unidade/unidades
+- Pão de queijo — Inteiro, 500 g | plural: Pães de queijo | venda: unidade/unidades
+- Broa de milho — Inteiro, 250 g | plural: Broas de milho | venda: unidade/unidades
+- Broa de milho — Inteiro, 500 g | plural: Broas de milho | venda: unidade/unidades
+- Broa de fubá — Inteiro, 250 g | plural: Broas de fubá | venda: unidade/unidades
+- Broa de fubá — Inteiro, 500 g | plural: Broas de fubá | venda: unidade/unidades
+- Broa de centeio — Inteiro, 250 g | plural: Broas de centeio | venda: unidade/unidades
+- Broa de centeio — Inteiro, 500 g | plural: Broas de centeio | venda: unidade/unidades
+- Rosca de coco — Inteiro, 250 g | plural: Roscas de coco | venda: unidade/unidades
+- Rosca de coco — Inteiro, 500 g | plural: Roscas de coco | venda: unidade/unidades
+- Rosca de leite condensado — Inteiro, 250 g | plural: Roscas de leite condensado | venda: unidade/unidades
+- Rosca de leite condensado — Inteiro, 500 g | plural: Roscas de leite condensado | venda: unidade/unidades
+- Rosca de canela — Inteiro, 250 g | plural: Roscas de canela | venda: unidade/unidades
+- Rosca de canela — Inteiro, 500 g | plural: Roscas de canela | venda: unidade/unidades
+- Rosca de frutas cristalizadas — Inteiro, 250 g | plural: Roscas de frutas cristalizadas | venda: unidade/unidades
+- Rosca de frutas cristalizadas — Inteiro, 500 g | plural: Roscas de frutas cristalizadas | venda: unidade/unidades
+- Rosca de goiabada — Inteiro, 250 g | plural: Roscas de goiabada | venda: unidade/unidades
+- Rosca de goiabada — Inteiro, 500 g | plural: Roscas de goiabada | venda: unidade/unidades
+- Rosca de doce de leite — Inteiro, 250 g | plural: Roscas de doce de leite | venda: unidade/unidades
+- Rosca de doce de leite — Inteiro, 500 g | plural: Roscas de doce de leite | venda: unidade/unidades
+- Rosca de creme — Inteiro, 250 g | plural: Roscas de creme | venda: unidade/unidades
+- Rosca de creme — Inteiro, 500 g | plural: Roscas de creme | venda: unidade/unidades
+- Rosca de trança — Inteiro, 250 g | plural: Roscas de trança | venda: unidade/unidades
+- Rosca de trança — Inteiro, 500 g | plural: Roscas de trança | venda: unidade/unidades
+- Brioche — Inteiro, 250 g | plural: Brioches | venda: unidade/unidades
+- Brioche — Inteiro, 500 g | plural: Brioches | venda: unidade/unidades
+- Pão doce com coco — Inteiro, 250 g | plural: Pães doces com coco | venda: unidade/unidades
+- Pão doce com coco — Inteiro, 500 g | plural: Pães doces com coco | venda: unidade/unidades
+- Pão doce com creme — Inteiro, 250 g | plural: Pães doces com creme | venda: unidade/unidades
+- Pão doce com creme — Inteiro, 500 g | plural: Pães doces com creme | venda: unidade/unidades
+- Pão australiano — Inteiro, 250 g | plural: Pães australianos | venda: unidade/unidades
+- Pão australiano — Inteiro, 500 g | plural: Pães australianos | venda: unidade/unidades
+- Pão de hambúrguer — Inteiro, 250 g | plural: Pães de hambúrguer | venda: unidade/unidades
+- Pão de hambúrguer — Inteiro, 500 g | plural: Pães de hambúrguer | venda: unidade/unidades
+- Pão de cachorro-quente — Inteiro, 250 g | plural: Pães de cachorro-quente | venda: unidade/unidades
+- Pão de cachorro-quente — Inteiro, 500 g | plural: Pães de cachorro-quente | venda: unidade/unidades
+- Pão sírio — Inteiro, 250 g | plural: Pães sírios | venda: unidade/unidades
+- Pão sírio — Inteiro, 500 g | plural: Pães sírios | venda: unidade/unidades
+- Focaccia de alecrim — Inteiro, 250 g | plural: Focaccias de alecrim | venda: unidade/unidades
+- Focaccia de alecrim — Inteiro, 500 g | plural: Focaccias de alecrim | venda: unidade/unidades
+- Focaccia de tomate — Inteiro, 250 g | plural: Focaccias de tomate | venda: unidade/unidades
+- Focaccia de tomate — Inteiro, 500 g | plural: Focaccias de tomate | venda: unidade/unidades
+- Baguete — Inteiro, 250 g | plural: Baguetes | venda: unidade/unidades
+- Baguete — Inteiro, 500 g | plural: Baguetes | venda: unidade/unidades
+- Ciabatta — Inteiro, 250 g | plural: Ciabattas | venda: unidade/unidades
+- Ciabatta — Inteiro, 500 g | plural: Ciabattas | venda: unidade/unidades
+- Pão francês — Inteiro, 250 g | plural: Pães franceses | venda: unidade/unidades
+- Pão francês — Inteiro, 500 g | plural: Pães franceses | venda: unidade/unidades
+- Pão francês integral — Inteiro, 250 g | plural: Pães franceses integrais | venda: unidade/unidades
+- Pão francês integral — Inteiro, 500 g | plural: Pães franceses integrais | venda: unidade/unidades
+- Biscoito de polvilho doce — Pronto, 100 g | plural: Biscoitos de polvilho doce | venda: unidade/unidades
+- Biscoito de polvilho doce — Pronto, 250 g | plural: Biscoitos de polvilho doce | venda: unidade/unidades
+- Biscoito de polvilho doce — Pronto, 500 g | plural: Biscoitos de polvilho doce | venda: unidade/unidades
+- Biscoito de polvilho azedo — Pronto, 100 g | plural: Biscoitos de polvilho azedo | venda: unidade/unidades
+- Biscoito de polvilho azedo — Pronto, 250 g | plural: Biscoitos de polvilho azedo | venda: unidade/unidades
+- Biscoito de polvilho azedo — Pronto, 500 g | plural: Biscoitos de polvilho azedo | venda: unidade/unidades
+- Biscoito de queijo — Pronto, 100 g | plural: Biscoitos de queijo | venda: unidade/unidades
+- Biscoito de queijo — Pronto, 250 g | plural: Biscoitos de queijo | venda: unidade/unidades
+- Biscoito de queijo — Pronto, 500 g | plural: Biscoitos de queijo | venda: unidade/unidades
+- Biscoito de nata — Pronto, 100 g | plural: Biscoitos de nata | venda: unidade/unidades
+- Biscoito de nata — Pronto, 250 g | plural: Biscoitos de nata | venda: unidade/unidades
+- Biscoito de nata — Pronto, 500 g | plural: Biscoitos de nata | venda: unidade/unidades
+- Biscoito de manteiga — Pronto, 100 g | plural: Biscoitos de manteiga | venda: unidade/unidades
+- Biscoito de manteiga — Pronto, 250 g | plural: Biscoitos de manteiga | venda: unidade/unidades
+- Biscoito de manteiga — Pronto, 500 g | plural: Biscoitos de manteiga | venda: unidade/unidades
+- Biscoito de coco — Pronto, 100 g | plural: Biscoitos de coco | venda: unidade/unidades
+- Biscoito de coco — Pronto, 250 g | plural: Biscoitos de coco | venda: unidade/unidades
+- Biscoito de coco — Pronto, 500 g | plural: Biscoitos de coco | venda: unidade/unidades
+- Biscoito de amendoim — Pronto, 100 g | plural: Biscoitos de amendoim | venda: unidade/unidades
+- Biscoito de amendoim — Pronto, 250 g | plural: Biscoitos de amendoim | venda: unidade/unidades
+- Biscoito de amendoim — Pronto, 500 g | plural: Biscoitos de amendoim | venda: unidade/unidades
+- Biscoito de aveia — Pronto, 100 g | plural: Biscoitos de aveia | venda: unidade/unidades
+- Biscoito de aveia — Pronto, 250 g | plural: Biscoitos de aveia | venda: unidade/unidades
+- Biscoito de aveia — Pronto, 500 g | plural: Biscoitos de aveia | venda: unidade/unidades
+- Biscoito de aveia com banana — Pronto, 100 g | plural: Biscoitos de aveia com banana | venda: unidade/unidades
+- Biscoito de aveia com banana — Pronto, 250 g | plural: Biscoitos de aveia com banana | venda: unidade/unidades
+- Biscoito de aveia com banana — Pronto, 500 g | plural: Biscoitos de aveia com banana | venda: unidade/unidades
+- Biscoito de aveia com mel — Pronto, 100 g | plural: Biscoitos de aveia com mel | venda: unidade/unidades
+- Biscoito de aveia com mel — Pronto, 250 g | plural: Biscoitos de aveia com mel | venda: unidade/unidades
+- Biscoito de aveia com mel — Pronto, 500 g | plural: Biscoitos de aveia com mel | venda: unidade/unidades
+- Biscoito de chocolate — Pronto, 100 g | plural: Biscoitos de chocolate | venda: unidade/unidades
+- Biscoito de chocolate — Pronto, 250 g | plural: Biscoitos de chocolate | venda: unidade/unidades
+- Biscoito de chocolate — Pronto, 500 g | plural: Biscoitos de chocolate | venda: unidade/unidades
+- Biscoito de café — Pronto, 100 g | plural: Biscoitos de café | venda: unidade/unidades
+- Biscoito de café — Pronto, 250 g | plural: Biscoitos de café | venda: unidade/unidades
+- Biscoito de café — Pronto, 500 g | plural: Biscoitos de café | venda: unidade/unidades
+- Biscoito de gengibre — Pronto, 100 g | plural: Biscoitos de gengibre | venda: unidade/unidades
+- Biscoito de gengibre — Pronto, 250 g | plural: Biscoitos de gengibre | venda: unidade/unidades
+- Biscoito de gengibre — Pronto, 500 g | plural: Biscoitos de gengibre | venda: unidade/unidades
+- Biscoito de canela — Pronto, 100 g | plural: Biscoitos de canela | venda: unidade/unidades
+- Biscoito de canela — Pronto, 250 g | plural: Biscoitos de canela | venda: unidade/unidades
+- Biscoito de canela — Pronto, 500 g | plural: Biscoitos de canela | venda: unidade/unidades
+- Biscoito de limão — Pronto, 100 g | plural: Biscoitos de limão | venda: unidade/unidades
+- Biscoito de limão — Pronto, 250 g | plural: Biscoitos de limão | venda: unidade/unidades
+- Biscoito de limão — Pronto, 500 g | plural: Biscoitos de limão | venda: unidade/unidades
+- Biscoito de laranja — Pronto, 100 g | plural: Biscoitos de laranja | venda: unidade/unidades
+- Biscoito de laranja — Pronto, 250 g | plural: Biscoitos de laranja | venda: unidade/unidades
+- Biscoito de laranja — Pronto, 500 g | plural: Biscoitos de laranja | venda: unidade/unidades
+- Biscoito de goiabada — Pronto, 100 g | plural: Biscoitos de goiabada | venda: unidade/unidades
+- Biscoito de goiabada — Pronto, 250 g | plural: Biscoitos de goiabada | venda: unidade/unidades
+- Biscoito de goiabada — Pronto, 500 g | plural: Biscoitos de goiabada | venda: unidade/unidades
+- Biscoito de mel — Pronto, 100 g | plural: Biscoitos de mel | venda: unidade/unidades
+- Biscoito de mel — Pronto, 250 g | plural: Biscoitos de mel | venda: unidade/unidades
+- Biscoito de mel — Pronto, 500 g | plural: Biscoitos de mel | venda: unidade/unidades
+- Biscoito de castanha — Pronto, 100 g | plural: Biscoitos de castanha | venda: unidade/unidades
+- Biscoito de castanha — Pronto, 250 g | plural: Biscoitos de castanha | venda: unidade/unidades
+- Biscoito de castanha — Pronto, 500 g | plural: Biscoitos de castanha | venda: unidade/unidades
+- Biscoito de fubá — Pronto, 100 g | plural: Biscoitos de fubá | venda: unidade/unidades
+- Biscoito de fubá — Pronto, 250 g | plural: Biscoitos de fubá | venda: unidade/unidades
+- Biscoito de fubá — Pronto, 500 g | plural: Biscoitos de fubá | venda: unidade/unidades
+- Biscoito de mandioca — Pronto, 100 g | plural: Biscoitos de mandioca | venda: unidade/unidades
+- Biscoito de mandioca — Pronto, 250 g | plural: Biscoitos de mandioca | venda: unidade/unidades
+- Biscoito de mandioca — Pronto, 500 g | plural: Biscoitos de mandioca | venda: unidade/unidades
+- Biscoito de araruta — Pronto, 100 g | plural: Biscoitos de araruta | venda: unidade/unidades
+- Biscoito de araruta — Pronto, 250 g | plural: Biscoitos de araruta | venda: unidade/unidades
+- Biscoito de araruta — Pronto, 500 g | plural: Biscoitos de araruta | venda: unidade/unidades
+- Sequilho tradicional — Pronto, 100 g | plural: Sequilhos tradicionais | venda: unidade/unidades
+- Sequilho tradicional — Pronto, 250 g | plural: Sequilhos tradicionais | venda: unidade/unidades
+- Sequilho tradicional — Pronto, 500 g | plural: Sequilhos tradicionais | venda: unidade/unidades
+- Sequilho de coco — Pronto, 100 g | plural: Sequilhos de coco | venda: unidade/unidades
+- Sequilho de coco — Pronto, 250 g | plural: Sequilhos de coco | venda: unidade/unidades
+- Sequilho de coco — Pronto, 500 g | plural: Sequilhos de coco | venda: unidade/unidades
+- Sequilho de leite condensado — Pronto, 100 g | plural: Sequilhos de leite condensado | venda: unidade/unidades
+- Sequilho de leite condensado — Pronto, 250 g | plural: Sequilhos de leite condensado | venda: unidade/unidades
+- Sequilho de leite condensado — Pronto, 500 g | plural: Sequilhos de leite condensado | venda: unidade/unidades
+- Sequilho de maracujá — Pronto, 100 g | plural: Sequilhos de maracujá | venda: unidade/unidades
+- Sequilho de maracujá — Pronto, 250 g | plural: Sequilhos de maracujá | venda: unidade/unidades
+- Sequilho de maracujá — Pronto, 500 g | plural: Sequilhos de maracujá | venda: unidade/unidades
+- Rosquinha de coco — Pronto, 100 g | plural: Rosquinhas de coco | venda: unidade/unidades
+- Rosquinha de coco — Pronto, 250 g | plural: Rosquinhas de coco | venda: unidade/unidades
+- Rosquinha de coco — Pronto, 500 g | plural: Rosquinhas de coco | venda: unidade/unidades
+- Rosquinha de nata — Pronto, 100 g | plural: Rosquinhas de nata | venda: unidade/unidades
+- Rosquinha de nata — Pronto, 250 g | plural: Rosquinhas de nata | venda: unidade/unidades
+- Rosquinha de nata — Pronto, 500 g | plural: Rosquinhas de nata | venda: unidade/unidades
+- Rosquinha de canela — Pronto, 100 g | plural: Rosquinhas de canela | venda: unidade/unidades
+- Rosquinha de canela — Pronto, 250 g | plural: Rosquinhas de canela | venda: unidade/unidades
+- Rosquinha de canela — Pronto, 500 g | plural: Rosquinhas de canela | venda: unidade/unidades
+- Rosquinha de laranja — Pronto, 100 g | plural: Rosquinhas de laranja | venda: unidade/unidades
+- Rosquinha de laranja — Pronto, 250 g | plural: Rosquinhas de laranja | venda: unidade/unidades
+- Rosquinha de laranja — Pronto, 500 g | plural: Rosquinhas de laranja | venda: unidade/unidades
+- Rosquinha de fubá — Pronto, 100 g | plural: Rosquinhas de fubá | venda: unidade/unidades
+- Rosquinha de fubá — Pronto, 250 g | plural: Rosquinhas de fubá | venda: unidade/unidades
+- Rosquinha de fubá — Pronto, 500 g | plural: Rosquinhas de fubá | venda: unidade/unidades
+- Rosquinha de pinga — Pronto, 100 g | plural: Rosquinhas de pinga | venda: unidade/unidades
+- Rosquinha de pinga — Pronto, 250 g | plural: Rosquinhas de pinga | venda: unidade/unidades
+- Rosquinha de pinga — Pronto, 500 g | plural: Rosquinhas de pinga | venda: unidade/unidades
+- Cookie de chocolate — Pronto, 100 g | plural: Cookies de chocolate | venda: unidade/unidades
+- Cookie de chocolate — Pronto, 250 g | plural: Cookies de chocolate | venda: unidade/unidades
+- Cookie de chocolate — Pronto, 500 g | plural: Cookies de chocolate | venda: unidade/unidades
+- Cookie com gotas de chocolate — Pronto, 100 g | plural: Cookies com gotas de chocolate | venda: unidade/unidades
+- Cookie com gotas de chocolate — Pronto, 250 g | plural: Cookies com gotas de chocolate | venda: unidade/unidades
+- Cookie com gotas de chocolate — Pronto, 500 g | plural: Cookies com gotas de chocolate | venda: unidade/unidades
+- Cookie de aveia — Pronto, 100 g | plural: Cookies de aveia | venda: unidade/unidades
+- Cookie de aveia — Pronto, 250 g | plural: Cookies de aveia | venda: unidade/unidades
+- Cookie de aveia — Pronto, 500 g | plural: Cookies de aveia | venda: unidade/unidades
+- Cookie de amendoim — Pronto, 100 g | plural: Cookies de amendoim | venda: unidade/unidades
+- Cookie de amendoim — Pronto, 250 g | plural: Cookies de amendoim | venda: unidade/unidades
+- Cookie de amendoim — Pronto, 500 g | plural: Cookies de amendoim | venda: unidade/unidades
+- Cookie de castanha-de-caju — Pronto, 100 g | plural: Cookies de castanha-de-caju | venda: unidade/unidades
+- Cookie de castanha-de-caju — Pronto, 250 g | plural: Cookies de castanha-de-caju | venda: unidade/unidades
+- Cookie de castanha-de-caju — Pronto, 500 g | plural: Cookies de castanha-de-caju | venda: unidade/unidades
+- Amanteigado de goiabada — Pronto, 100 g | plural: Amanteigados de goiabada | venda: unidade/unidades
+- Amanteigado de goiabada — Pronto, 250 g | plural: Amanteigados de goiabada | venda: unidade/unidades
+- Amanteigado de goiabada — Pronto, 500 g | plural: Amanteigados de goiabada | venda: unidade/unidades
+- Amanteigado de chocolate — Pronto, 100 g | plural: Amanteigados de chocolate | venda: unidade/unidades
+- Amanteigado de chocolate — Pronto, 250 g | plural: Amanteigados de chocolate | venda: unidade/unidades
+- Amanteigado de chocolate — Pronto, 500 g | plural: Amanteigados de chocolate | venda: unidade/unidades
+- Amanteigado de baunilha — Pronto, 100 g | plural: Amanteigados de baunilha | venda: unidade/unidades
+- Amanteigado de baunilha — Pronto, 250 g | plural: Amanteigados de baunilha | venda: unidade/unidades
+- Amanteigado de baunilha — Pronto, 500 g | plural: Amanteigados de baunilha | venda: unidade/unidades
+- Broinha de fubá — Pronto, 100 g | plural: Broinhas de fubá | venda: unidade/unidades
+- Broinha de fubá — Pronto, 250 g | plural: Broinhas de fubá | venda: unidade/unidades
+- Broinha de fubá — Pronto, 500 g | plural: Broinhas de fubá | venda: unidade/unidades
+- Torrada caseira — Pronto, 100 g | plural: Torradas caseiras | venda: unidade/unidades
+- Torrada caseira — Pronto, 250 g | plural: Torradas caseiras | venda: unidade/unidades
+- Torrada caseira — Pronto, 500 g | plural: Torradas caseiras | venda: unidade/unidades
+- Torrada integral — Pronto, 100 g | plural: Torradas integrais | venda: unidade/unidades
+- Torrada integral — Pronto, 250 g | plural: Torradas integrais | venda: unidade/unidades
+- Torrada integral — Pronto, 500 g | plural: Torradas integrais | venda: unidade/unidades
+- Grissini de ervas — Pronto, 100 g | plural: Grissinis de ervas | venda: unidade/unidades
+- Grissini de ervas — Pronto, 250 g | plural: Grissinis de ervas | venda: unidade/unidades
+- Grissini de ervas — Pronto, 500 g | plural: Grissinis de ervas | venda: unidade/unidades
+- Cracker de sementes — Pronto, 100 g | plural: Crackers de sementes | venda: unidade/unidades
+- Cracker de sementes — Pronto, 250 g | plural: Crackers de sementes | venda: unidade/unidades
+- Cracker de sementes — Pronto, 500 g | plural: Crackers de sementes | venda: unidade/unidades
+
+## Piscicultura e pescados — 42 apresentações
+
+- Tilápia — Inteiro limpo | plural: Tilápias | venda: quilo/quilos
+- Tilápia — Em postas | plural: Tilápias | venda: quilo/quilos
+- Tilápia — Filé | plural: Tilápias | venda: quilo/quilos
+- Truta — Inteiro limpo | plural: Trutas | venda: quilo/quilos
+- Truta — Em postas | plural: Trutas | venda: quilo/quilos
+- Truta — Filé | plural: Trutas | venda: quilo/quilos
+- Pacu — Inteiro limpo | plural: Pacus | venda: quilo/quilos
+- Pacu — Em postas | plural: Pacus | venda: quilo/quilos
+- Pacu — Filé | plural: Pacus | venda: quilo/quilos
+- Tambaqui — Inteiro limpo | plural: Tambaquis | venda: quilo/quilos
+- Tambaqui — Em postas | plural: Tambaquis | venda: quilo/quilos
+- Tambaqui — Filé | plural: Tambaquis | venda: quilo/quilos
+- Tambacu — Inteiro limpo | plural: Tambacus | venda: quilo/quilos
+- Tambacu — Em postas | plural: Tambacus | venda: quilo/quilos
+- Tambacu — Filé | plural: Tambacus | venda: quilo/quilos
+- Pintado — Inteiro limpo | plural: Pintados | venda: quilo/quilos
+- Pintado — Em postas | plural: Pintados | venda: quilo/quilos
+- Pintado — Filé | plural: Pintados | venda: quilo/quilos
+- Carpa — Inteiro limpo | plural: Carpas | venda: quilo/quilos
+- Carpa — Em postas | plural: Carpas | venda: quilo/quilos
+- Carpa — Filé | plural: Carpas | venda: quilo/quilos
+- Traíra — Inteiro limpo | plural: Traíras | venda: quilo/quilos
+- Traíra — Em postas | plural: Traíras | venda: quilo/quilos
+- Traíra — Filé | plural: Traíras | venda: quilo/quilos
+- Lambari — Inteiro limpo | plural: Lambaris | venda: quilo/quilos
+- Lambari — Em postas | plural: Lambaris | venda: quilo/quilos
+- Lambari — Filé | plural: Lambaris | venda: quilo/quilos
+- Jundiá — Inteiro limpo | plural: Jundiás | venda: quilo/quilos
+- Jundiá — Em postas | plural: Jundiás | venda: quilo/quilos
+- Jundiá — Filé | plural: Jundiás | venda: quilo/quilos
+- Surubim — Inteiro limpo | plural: Surubins | venda: quilo/quilos
+- Surubim — Em postas | plural: Surubins | venda: quilo/quilos
+- Surubim — Filé | plural: Surubins | venda: quilo/quilos
+- Pirapitinga — Inteiro limpo | plural: Pirapitingas | venda: quilo/quilos
+- Pirapitinga — Em postas | plural: Pirapitingas | venda: quilo/quilos
+- Pirapitinga — Filé | plural: Pirapitingas | venda: quilo/quilos
+- Tilápia inteira por unidade — Embalado | plural: Tilápias inteiras por unidade | venda: unidade/unidades
+- Truta inteira por unidade — Embalado | plural: Trutas inteiras por unidade | venda: unidade/unidades
+- Lambari limpo congelado — Embalado | plural: Lambaris limpos congelados | venda: unidade/unidades
+- Camarão de água doce limpo — Embalado | plural: Camarões de água doce limpos | venda: unidade/unidades
+- Bolinho de tilápia congelado — Embalado | plural: Bolinhos de tilápia congelados | venda: unidade/unidades
+- Hambúrguer de tilápia congelado — Embalado | plural: Hambúrgueres de tilápia congelados | venda: unidade/unidades
+
+## Plantas e mudas — 60 apresentações
+
+- Muda de alface — Muda | plural: Mudas de alface | venda: unidade/unidades
+- Muda de couve — Muda | plural: Mudas de couve | venda: unidade/unidades
+- Muda de rúcula — Muda | plural: Mudas de rúcula | venda: unidade/unidades
+- Muda de agrião — Muda | plural: Mudas de agrião | venda: unidade/unidades
+- Muda de cebolinha — Muda | plural: Mudas de cebolinha | venda: unidade/unidades
+- Muda de salsinha — Muda | plural: Mudas de salsinha | venda: unidade/unidades
+- Muda de coentro — Muda | plural: Mudas de coentro | venda: unidade/unidades
+- Muda de manjericão — Muda | plural: Mudas de manjericão | venda: unidade/unidades
+- Muda de hortelã — Muda | plural: Mudas de hortelã | venda: unidade/unidades
+- Muda de alecrim — Muda | plural: Mudas de alecrim | venda: unidade/unidades
+- Muda de tomilho — Muda | plural: Mudas de tomilho | venda: unidade/unidades
+- Muda de orégano — Muda | plural: Mudas de orégano | venda: unidade/unidades
+- Muda de pimenta malagueta — Muda | plural: Mudas de pimenta malagueta | venda: unidade/unidades
+- Muda de pimenta biquinho — Muda | plural: Mudas de pimenta biquinho | venda: unidade/unidades
+- Muda de tomate cereja — Muda | plural: Mudas de tomate cereja | venda: unidade/unidades
+- Muda de berinjela — Muda | plural: Mudas de berinjela | venda: unidade/unidades
+- Muda de abobrinha — Muda | plural: Mudas de abobrinha | venda: unidade/unidades
+- Muda de morango — Muda | plural: Mudas de morango | venda: unidade/unidades
+- Muda de maracujá — Muda | plural: Mudas de maracujá | venda: unidade/unidades
+- Muda de mamão — Muda | plural: Mudas de mamão | venda: unidade/unidades
+- Muda de banana prata — Muda | plural: Mudas de banana prata | venda: unidade/unidades
+- Muda de banana da terra — Muda | plural: Mudas de banana da terra | venda: unidade/unidades
+- Muda de café arábica — Muda | plural: Mudas de café arábica | venda: unidade/unidades
+- Muda de café conilon — Muda | plural: Mudas de café conilon | venda: unidade/unidades
+- Muda de abacate — Muda | plural: Mudas de abacate | venda: unidade/unidades
+- Muda de manga — Muda | plural: Mudas de manga | venda: unidade/unidades
+- Muda de goiaba — Muda | plural: Mudas de goiaba | venda: unidade/unidades
+- Muda de jabuticaba — Muda | plural: Mudas de jabuticaba | venda: unidade/unidades
+- Muda de pitanga — Muda | plural: Mudas de pitanga | venda: unidade/unidades
+- Muda de acerola — Muda | plural: Mudas de acerola | venda: unidade/unidades
+- Muda de limão taiti — Muda | plural: Mudas de limão taiti | venda: unidade/unidades
+- Muda de laranja pera — Muda | plural: Mudas de laranja pera | venda: unidade/unidades
+- Muda de tangerina ponkan — Muda | plural: Mudas de tangerina ponkan | venda: unidade/unidades
+- Muda de coco — Muda | plural: Mudas de coco | venda: unidade/unidades
+- Muda de uva — Muda | plural: Mudas de uva | venda: unidade/unidades
+- Muda de figo — Muda | plural: Mudas de figo | venda: unidade/unidades
+- Muda de amora — Muda | plural: Mudas de amora | venda: unidade/unidades
+- Muda de cambuci — Muda | plural: Mudas de cambuci | venda: unidade/unidades
+- Muda de uvaia — Muda | plural: Mudas de uvaia | venda: unidade/unidades
+- Muda de araçá — Muda | plural: Mudas de araçá | venda: unidade/unidades
+- Suculenta echeveria — Em vaso, Vaso | plural: Suculentas echeveria | venda: unidade/unidades
+- Suculenta jade — Em vaso, Vaso | plural: Suculentas jade | venda: unidade/unidades
+- Suculenta sedum — Em vaso, Vaso | plural: Suculentas sedum | venda: unidade/unidades
+- Cacto pequeno — Em vaso, Vaso | plural: Cactos pequenos | venda: unidade/unidades
+- Orquídea phalaenopsis — Em vaso, Vaso | plural: Orquídeas phalaenopsis | venda: unidade/unidades
+- Orquídea cattleya — Em vaso, Vaso | plural: Orquídeas cattleya | venda: unidade/unidades
+- Violeta — Em vaso, Vaso | plural: Violetas | venda: unidade/unidades
+- Begônia — Em vaso, Vaso | plural: Begônias | venda: unidade/unidades
+- Antúrio — Em vaso, Vaso | plural: Antúrios | venda: unidade/unidades
+- Lírio-da-paz — Em vaso, Vaso | plural: Lírios-da-paz | venda: unidade/unidades
+- Samambaia — Em vaso, Vaso | plural: Samambaias | venda: unidade/unidades
+- Jiboia — Em vaso, Vaso | plural: Jiboias | venda: unidade/unidades
+- Zamioculca — Em vaso, Vaso | plural: Zamioculcas | venda: unidade/unidades
+- Espada-de-são-jorge — Em vaso, Vaso | plural: Espadas-de-são-jorge | venda: unidade/unidades
+- Rosa-do-deserto — Em vaso, Vaso | plural: Rosas-do-deserto | venda: unidade/unidades
+- Rosa em vaso — Em vaso, Vaso | plural: Rosas em vaso | venda: unidade/unidades
+- Gerânio — Em vaso, Vaso | plural: Gerânios | venda: unidade/unidades
+- Petúnia — Em vaso, Vaso | plural: Petúnias | venda: unidade/unidades
+- Kalanchoe — Em vaso, Vaso | plural: Kalanchoes | venda: unidade/unidades
+- Bromélia — Em vaso, Vaso | plural: Bromélias | venda: unidade/unidades
+
+## Polpas e frutas processadas — 142 apresentações
+
+- Polpa de fruta de Abacaxi — Congelada, 100 g | plural: Polpas de fruta de Abacaxi | venda: unidade/unidades
+- Polpa de fruta de Abacaxi — Congelada, 500 g | plural: Polpas de fruta de Abacaxi | venda: unidade/unidades
+- Polpa de fruta de Abacaxi — Congelada, 1000 g | plural: Polpas de fruta de Abacaxi | venda: unidade/unidades
+- Polpa de fruta de Abacaxi com hortelã — Congelada, 100 g | plural: Polpas de fruta de Abacaxi com hortelã | venda: unidade/unidades
+- Polpa de fruta de Abacaxi com hortelã — Congelada, 500 g | plural: Polpas de fruta de Abacaxi com hortelã | venda: unidade/unidades
+- Polpa de fruta de Abacaxi com hortelã — Congelada, 1000 g | plural: Polpas de fruta de Abacaxi com hortelã | venda: unidade/unidades
+- Polpa de fruta de Açaí — Congelada, 100 g | plural: Polpas de fruta de Açaí | venda: unidade/unidades
+- Polpa de fruta de Açaí — Congelada, 500 g | plural: Polpas de fruta de Açaí | venda: unidade/unidades
+- Polpa de fruta de Açaí — Congelada, 1000 g | plural: Polpas de fruta de Açaí | venda: unidade/unidades
+- Polpa de fruta de Acerola — Congelada, 100 g | plural: Polpas de fruta de Acerola | venda: unidade/unidades
+- Polpa de fruta de Acerola — Congelada, 500 g | plural: Polpas de fruta de Acerola | venda: unidade/unidades
+- Polpa de fruta de Acerola — Congelada, 1000 g | plural: Polpas de fruta de Acerola | venda: unidade/unidades
+- Polpa de fruta de Amora — Congelada, 100 g | plural: Polpas de fruta de Amora | venda: unidade/unidades
+- Polpa de fruta de Amora — Congelada, 500 g | plural: Polpas de fruta de Amora | venda: unidade/unidades
+- Polpa de fruta de Amora — Congelada, 1000 g | plural: Polpas de fruta de Amora | venda: unidade/unidades
+- Polpa de fruta de Araçá — Congelada, 100 g | plural: Polpas de fruta de Araçá | venda: unidade/unidades
+- Polpa de fruta de Araçá — Congelada, 500 g | plural: Polpas de fruta de Araçá | venda: unidade/unidades
+- Polpa de fruta de Araçá — Congelada, 1000 g | plural: Polpas de fruta de Araçá | venda: unidade/unidades
+- Polpa de fruta de Bacuri — Congelada, 100 g | plural: Polpas de fruta de Bacuri | venda: unidade/unidades
+- Polpa de fruta de Bacuri — Congelada, 500 g | plural: Polpas de fruta de Bacuri | venda: unidade/unidades
+- Polpa de fruta de Bacuri — Congelada, 1000 g | plural: Polpas de fruta de Bacuri | venda: unidade/unidades
+- Polpa de fruta de Buriti — Congelada, 100 g | plural: Polpas de fruta de Buriti | venda: unidade/unidades
+- Polpa de fruta de Buriti — Congelada, 500 g | plural: Polpas de fruta de Buriti | venda: unidade/unidades
+- Polpa de fruta de Buriti — Congelada, 1000 g | plural: Polpas de fruta de Buriti | venda: unidade/unidades
+- Polpa de fruta de Butiá — Congelada, 100 g | plural: Polpas de fruta de Butiá | venda: unidade/unidades
+- Polpa de fruta de Butiá — Congelada, 500 g | plural: Polpas de fruta de Butiá | venda: unidade/unidades
+- Polpa de fruta de Butiá — Congelada, 1000 g | plural: Polpas de fruta de Butiá | venda: unidade/unidades
+- Polpa de fruta de Cajá — Congelada, 100 g | plural: Polpas de fruta de Cajá | venda: unidade/unidades
+- Polpa de fruta de Cajá — Congelada, 500 g | plural: Polpas de fruta de Cajá | venda: unidade/unidades
+- Polpa de fruta de Cajá — Congelada, 1000 g | plural: Polpas de fruta de Cajá | venda: unidade/unidades
+- Polpa de fruta de Caju — Congelada, 100 g | plural: Polpas de fruta de Caju | venda: unidade/unidades
+- Polpa de fruta de Caju — Congelada, 500 g | plural: Polpas de fruta de Caju | venda: unidade/unidades
+- Polpa de fruta de Caju — Congelada, 1000 g | plural: Polpas de fruta de Caju | venda: unidade/unidades
+- Polpa de fruta de Camu-camu — Congelada, 100 g | plural: Polpas de fruta de Camu-camu | venda: unidade/unidades
+- Polpa de fruta de Camu-camu — Congelada, 500 g | plural: Polpas de fruta de Camu-camu | venda: unidade/unidades
+- Polpa de fruta de Camu-camu — Congelada, 1000 g | plural: Polpas de fruta de Camu-camu | venda: unidade/unidades
+- Polpa de fruta de Ciriguela — Congelada, 100 g | plural: Polpas de fruta de Ciriguela | venda: unidade/unidades
+- Polpa de fruta de Ciriguela — Congelada, 500 g | plural: Polpas de fruta de Ciriguela | venda: unidade/unidades
+- Polpa de fruta de Ciriguela — Congelada, 1000 g | plural: Polpas de fruta de Ciriguela | venda: unidade/unidades
+- Polpa de fruta de Cupuaçu — Congelada, 100 g | plural: Polpas de fruta de Cupuaçu | venda: unidade/unidades
+- Polpa de fruta de Cupuaçu — Congelada, 500 g | plural: Polpas de fruta de Cupuaçu | venda: unidade/unidades
+- Polpa de fruta de Cupuaçu — Congelada, 1000 g | plural: Polpas de fruta de Cupuaçu | venda: unidade/unidades
+- Polpa de fruta de Goiaba — Congelada, 100 g | plural: Polpas de fruta de Goiaba | venda: unidade/unidades
+- Polpa de fruta de Goiaba — Congelada, 500 g | plural: Polpas de fruta de Goiaba | venda: unidade/unidades
+- Polpa de fruta de Goiaba — Congelada, 1000 g | plural: Polpas de fruta de Goiaba | venda: unidade/unidades
+- Polpa de fruta de Graviola — Congelada, 100 g | plural: Polpas de fruta de Graviola | venda: unidade/unidades
+- Polpa de fruta de Graviola — Congelada, 500 g | plural: Polpas de fruta de Graviola | venda: unidade/unidades
+- Polpa de fruta de Graviola — Congelada, 1000 g | plural: Polpas de fruta de Graviola | venda: unidade/unidades
+- Polpa de fruta de Jabuticaba — Congelada, 100 g | plural: Polpas de fruta de Jabuticaba | venda: unidade/unidades
+- Polpa de fruta de Jabuticaba — Congelada, 500 g | plural: Polpas de fruta de Jabuticaba | venda: unidade/unidades
+- Polpa de fruta de Jabuticaba — Congelada, 1000 g | plural: Polpas de fruta de Jabuticaba | venda: unidade/unidades
+- Polpa de fruta de Jambo — Congelada, 100 g | plural: Polpas de fruta de Jambo | venda: unidade/unidades
+- Polpa de fruta de Jambo — Congelada, 500 g | plural: Polpas de fruta de Jambo | venda: unidade/unidades
+- Polpa de fruta de Jambo — Congelada, 1000 g | plural: Polpas de fruta de Jambo | venda: unidade/unidades
+- Polpa de fruta de Jenipapo — Congelada, 100 g | plural: Polpas de fruta de Jenipapo | venda: unidade/unidades
+- Polpa de fruta de Jenipapo — Congelada, 500 g | plural: Polpas de fruta de Jenipapo | venda: unidade/unidades
+- Polpa de fruta de Jenipapo — Congelada, 1000 g | plural: Polpas de fruta de Jenipapo | venda: unidade/unidades
+- Polpa de fruta de Laranja — Congelada, 100 g | plural: Polpas de fruta de Laranja | venda: unidade/unidades
+- Polpa de fruta de Laranja — Congelada, 500 g | plural: Polpas de fruta de Laranja | venda: unidade/unidades
+- Polpa de fruta de Laranja — Congelada, 1000 g | plural: Polpas de fruta de Laranja | venda: unidade/unidades
+- Polpa de fruta de Limão — Congelada, 100 g | plural: Polpas de fruta de Limão | venda: unidade/unidades
+- Polpa de fruta de Limão — Congelada, 500 g | plural: Polpas de fruta de Limão | venda: unidade/unidades
+- Polpa de fruta de Limão — Congelada, 1000 g | plural: Polpas de fruta de Limão | venda: unidade/unidades
+- Polpa de fruta de Mamão — Congelada, 100 g | plural: Polpas de fruta de Mamão | venda: unidade/unidades
+- Polpa de fruta de Mamão — Congelada, 500 g | plural: Polpas de fruta de Mamão | venda: unidade/unidades
+- Polpa de fruta de Mamão — Congelada, 1000 g | plural: Polpas de fruta de Mamão | venda: unidade/unidades
+- Polpa de fruta de Manga — Congelada, 100 g | plural: Polpas de fruta de Manga | venda: unidade/unidades
+- Polpa de fruta de Manga — Congelada, 500 g | plural: Polpas de fruta de Manga | venda: unidade/unidades
+- Polpa de fruta de Manga — Congelada, 1000 g | plural: Polpas de fruta de Manga | venda: unidade/unidades
+- Polpa de fruta de Manga ubá — Congelada, 100 g | plural: Polpas de fruta de Manga ubá | venda: unidade/unidades
+- Polpa de fruta de Manga ubá — Congelada, 500 g | plural: Polpas de fruta de Manga ubá | venda: unidade/unidades
+- Polpa de fruta de Manga ubá — Congelada, 1000 g | plural: Polpas de fruta de Manga ubá | venda: unidade/unidades
+- Polpa de fruta de Mangaba — Congelada, 100 g | plural: Polpas de fruta de Mangaba | venda: unidade/unidades
+- Polpa de fruta de Mangaba — Congelada, 500 g | plural: Polpas de fruta de Mangaba | venda: unidade/unidades
+- Polpa de fruta de Mangaba — Congelada, 1000 g | plural: Polpas de fruta de Mangaba | venda: unidade/unidades
+- Polpa de fruta de Maracujá — Congelada, 100 g | plural: Polpas de fruta de Maracujá | venda: unidade/unidades
+- Polpa de fruta de Maracujá — Congelada, 500 g | plural: Polpas de fruta de Maracujá | venda: unidade/unidades
+- Polpa de fruta de Maracujá — Congelada, 1000 g | plural: Polpas de fruta de Maracujá | venda: unidade/unidades
+- Polpa de fruta de Melancia — Congelada, 100 g | plural: Polpas de fruta de Melancia | venda: unidade/unidades
+- Polpa de fruta de Melancia — Congelada, 500 g | plural: Polpas de fruta de Melancia | venda: unidade/unidades
+- Polpa de fruta de Melancia — Congelada, 1000 g | plural: Polpas de fruta de Melancia | venda: unidade/unidades
+- Polpa de fruta de Melão — Congelada, 100 g | plural: Polpas de fruta de Melão | venda: unidade/unidades
+- Polpa de fruta de Melão — Congelada, 500 g | plural: Polpas de fruta de Melão | venda: unidade/unidades
+- Polpa de fruta de Melão — Congelada, 1000 g | plural: Polpas de fruta de Melão | venda: unidade/unidades
+- Polpa de fruta de Morango — Congelada, 100 g | plural: Polpas de fruta de Morango | venda: unidade/unidades
+- Polpa de fruta de Morango — Congelada, 500 g | plural: Polpas de fruta de Morango | venda: unidade/unidades
+- Polpa de fruta de Morango — Congelada, 1000 g | plural: Polpas de fruta de Morango | venda: unidade/unidades
+- Polpa de fruta de Murici — Congelada, 100 g | plural: Polpas de fruta de Murici | venda: unidade/unidades
+- Polpa de fruta de Murici — Congelada, 500 g | plural: Polpas de fruta de Murici | venda: unidade/unidades
+- Polpa de fruta de Murici — Congelada, 1000 g | plural: Polpas de fruta de Murici | venda: unidade/unidades
+- Polpa de fruta de Pitanga — Congelada, 100 g | plural: Polpas de fruta de Pitanga | venda: unidade/unidades
+- Polpa de fruta de Pitanga — Congelada, 500 g | plural: Polpas de fruta de Pitanga | venda: unidade/unidades
+- Polpa de fruta de Pitanga — Congelada, 1000 g | plural: Polpas de fruta de Pitanga | venda: unidade/unidades
+- Polpa de fruta de Pitaya — Congelada, 100 g | plural: Polpas de fruta de Pitaya | venda: unidade/unidades
+- Polpa de fruta de Pitaya — Congelada, 500 g | plural: Polpas de fruta de Pitaya | venda: unidade/unidades
+- Polpa de fruta de Pitaya — Congelada, 1000 g | plural: Polpas de fruta de Pitaya | venda: unidade/unidades
+- Polpa de fruta de Tamarindo — Congelada, 100 g | plural: Polpas de fruta de Tamarindo | venda: unidade/unidades
+- Polpa de fruta de Tamarindo — Congelada, 500 g | plural: Polpas de fruta de Tamarindo | venda: unidade/unidades
+- Polpa de fruta de Tamarindo — Congelada, 1000 g | plural: Polpas de fruta de Tamarindo | venda: unidade/unidades
+- Polpa de fruta de Umbu — Congelada, 100 g | plural: Polpas de fruta de Umbu | venda: unidade/unidades
+- Polpa de fruta de Umbu — Congelada, 500 g | plural: Polpas de fruta de Umbu | venda: unidade/unidades
+- Polpa de fruta de Umbu — Congelada, 1000 g | plural: Polpas de fruta de Umbu | venda: unidade/unidades
+- Polpa de fruta de Umbu-cajá — Congelada, 100 g | plural: Polpas de fruta de Umbu-cajá | venda: unidade/unidades
+- Polpa de fruta de Umbu-cajá — Congelada, 500 g | plural: Polpas de fruta de Umbu-cajá | venda: unidade/unidades
+- Polpa de fruta de Umbu-cajá — Congelada, 1000 g | plural: Polpas de fruta de Umbu-cajá | venda: unidade/unidades
+- Polpa de fruta de Uva — Congelada, 100 g | plural: Polpas de fruta de Uva | venda: unidade/unidades
+- Polpa de fruta de Uva — Congelada, 500 g | plural: Polpas de fruta de Uva | venda: unidade/unidades
+- Polpa de fruta de Uva — Congelada, 1000 g | plural: Polpas de fruta de Uva | venda: unidade/unidades
+- Polpa de fruta de Uvaia — Congelada, 100 g | plural: Polpas de fruta de Uvaia | venda: unidade/unidades
+- Polpa de fruta de Uvaia — Congelada, 500 g | plural: Polpas de fruta de Uvaia | venda: unidade/unidades
+- Polpa de fruta de Uvaia — Congelada, 1000 g | plural: Polpas de fruta de Uvaia | venda: unidade/unidades
+- Polpa de fruta de Cacau — Congelada, 100 g | plural: Polpas de fruta de Cacau | venda: unidade/unidades
+- Polpa de fruta de Cacau — Congelada, 500 g | plural: Polpas de fruta de Cacau | venda: unidade/unidades
+- Polpa de fruta de Cacau — Congelada, 1000 g | plural: Polpas de fruta de Cacau | venda: unidade/unidades
+- Polpa de fruta de Cagaita — Congelada, 100 g | plural: Polpas de fruta de Cagaita | venda: unidade/unidades
+- Polpa de fruta de Cagaita — Congelada, 500 g | plural: Polpas de fruta de Cagaita | venda: unidade/unidades
+- Polpa de fruta de Cagaita — Congelada, 1000 g | plural: Polpas de fruta de Cagaita | venda: unidade/unidades
+- Polpa de fruta de Cambuci — Congelada, 100 g | plural: Polpas de fruta de Cambuci | venda: unidade/unidades
+- Polpa de fruta de Cambuci — Congelada, 500 g | plural: Polpas de fruta de Cambuci | venda: unidade/unidades
+- Polpa de fruta de Cambuci — Congelada, 1000 g | plural: Polpas de fruta de Cambuci | venda: unidade/unidades
+- Fruta desidratada de Banana — Desidratada, 100 g | plural: Frutas desidratadas de Banana | venda: unidade/unidades
+- Fruta desidratada de Banana — Desidratada, 250 g | plural: Frutas desidratadas de Banana | venda: unidade/unidades
+- Fruta desidratada de Maçã — Desidratada, 100 g | plural: Frutas desidratadas de Maçã | venda: unidade/unidades
+- Fruta desidratada de Maçã — Desidratada, 250 g | plural: Frutas desidratadas de Maçã | venda: unidade/unidades
+- Fruta desidratada de Abacaxi — Desidratada, 100 g | plural: Frutas desidratadas de Abacaxi | venda: unidade/unidades
+- Fruta desidratada de Abacaxi — Desidratada, 250 g | plural: Frutas desidratadas de Abacaxi | venda: unidade/unidades
+- Fruta desidratada de Manga — Desidratada, 100 g | plural: Frutas desidratadas de Manga | venda: unidade/unidades
+- Fruta desidratada de Manga — Desidratada, 250 g | plural: Frutas desidratadas de Manga | venda: unidade/unidades
+- Fruta desidratada de Coco — Desidratada, 100 g | plural: Frutas desidratadas de Coco | venda: unidade/unidades
+- Fruta desidratada de Coco — Desidratada, 250 g | plural: Frutas desidratadas de Coco | venda: unidade/unidades
+- Fruta desidratada de Ameixa — Desidratada, 100 g | plural: Frutas desidratadas de Ameixa | venda: unidade/unidades
+- Fruta desidratada de Ameixa — Desidratada, 250 g | plural: Frutas desidratadas de Ameixa | venda: unidade/unidades
+- Fruta desidratada de Damasco — Desidratada, 100 g | plural: Frutas desidratadas de Damasco | venda: unidade/unidades
+- Fruta desidratada de Damasco — Desidratada, 250 g | plural: Frutas desidratadas de Damasco | venda: unidade/unidades
+- Fruta desidratada de Uva — Desidratada, 100 g | plural: Frutas desidratadas de Uva | venda: unidade/unidades
+- Fruta desidratada de Uva — Desidratada, 250 g | plural: Frutas desidratadas de Uva | venda: unidade/unidades
+- Fruta desidratada de Morango — Desidratada, 100 g | plural: Frutas desidratadas de Morango | venda: unidade/unidades
+- Fruta desidratada de Morango — Desidratada, 250 g | plural: Frutas desidratadas de Morango | venda: unidade/unidades
+- Fruta desidratada de Caqui — Desidratada, 100 g | plural: Frutas desidratadas de Caqui | venda: unidade/unidades
+- Fruta desidratada de Caqui — Desidratada, 250 g | plural: Frutas desidratadas de Caqui | venda: unidade/unidades
+- Fruta desidratada de Figo — Desidratada, 100 g | plural: Frutas desidratadas de Figo | venda: unidade/unidades
+- Fruta desidratada de Figo — Desidratada, 250 g | plural: Frutas desidratadas de Figo | venda: unidade/unidades
+
+## Salgados e refeições — 74 apresentações
+
+- Empada de Queijo — Assado | plural: Empadas de Queijo | venda: unidade/unidades
+- Esfiha de Queijo — Assado | plural: Esfihas de Queijo | venda: unidade/unidades
+- Pastel assado de Queijo — Assado | plural: Pastéis assados de Queijo | venda: unidade/unidades
+- Empada de Frango — Assado | plural: Empadas de Frango | venda: unidade/unidades
+- Esfiha de Frango — Assado | plural: Esfihas de Frango | venda: unidade/unidades
+- Pastel assado de Frango — Assado | plural: Pastéis assados de Frango | venda: unidade/unidades
+- Empada de Carne — Assado | plural: Empadas de Carne | venda: unidade/unidades
+- Esfiha de Carne — Assado | plural: Esfihas de Carne | venda: unidade/unidades
+- Pastel assado de Carne — Assado | plural: Pastéis assados de Carne | venda: unidade/unidades
+- Empada de Palmito — Assado | plural: Empadas de Palmito | venda: unidade/unidades
+- Esfiha de Palmito — Assado | plural: Esfihas de Palmito | venda: unidade/unidades
+- Pastel assado de Palmito — Assado | plural: Pastéis assados de Palmito | venda: unidade/unidades
+- Empada de Espinafre com ricota — Assado | plural: Empadas de Espinafre com ricota | venda: unidade/unidades
+- Esfiha de Espinafre com ricota — Assado | plural: Esfihas de Espinafre com ricota | venda: unidade/unidades
+- Pastel assado de Espinafre com ricota — Assado | plural: Pastéis assados de Espinafre com ricota | venda: unidade/unidades
+- Empada de Calabresa — Assado | plural: Empadas de Calabresa | venda: unidade/unidades
+- Esfiha de Calabresa — Assado | plural: Esfihas de Calabresa | venda: unidade/unidades
+- Pastel assado de Calabresa — Assado | plural: Pastéis assados de Calabresa | venda: unidade/unidades
+- Empada de Tomate com queijo — Assado | plural: Empadas de Tomate com queijo | venda: unidade/unidades
+- Esfiha de Tomate com queijo — Assado | plural: Esfihas de Tomate com queijo | venda: unidade/unidades
+- Pastel assado de Tomate com queijo — Assado | plural: Pastéis assados de Tomate com queijo | venda: unidade/unidades
+- Empada de Legumes — Assado | plural: Empadas de Legumes | venda: unidade/unidades
+- Esfiha de Legumes — Assado | plural: Esfihas de Legumes | venda: unidade/unidades
+- Pastel assado de Legumes — Assado | plural: Pastéis assados de Legumes | venda: unidade/unidades
+- Pastel de Frango — Frito | plural: Pastéis de Frango | venda: unidade/unidades
+- Rissole de Frango — Frito | plural: Rissoles de Frango | venda: unidade/unidades
+- Pastel de Carne — Frito | plural: Pastéis de Carne | venda: unidade/unidades
+- Rissole de Carne — Frito | plural: Rissoles de Carne | venda: unidade/unidades
+- Pastel de Queijo — Frito | plural: Pastéis de Queijo | venda: unidade/unidades
+- Rissole de Queijo — Frito | plural: Rissoles de Queijo | venda: unidade/unidades
+- Pastel de Presunto e queijo — Frito | plural: Pastéis de Presunto e queijo | venda: unidade/unidades
+- Rissole de Presunto e queijo — Frito | plural: Rissoles de Presunto e queijo | venda: unidade/unidades
+- Pastel de Palmito — Frito | plural: Pastéis de Palmito | venda: unidade/unidades
+- Rissole de Palmito — Frito | plural: Rissoles de Palmito | venda: unidade/unidades
+- Pastel de Calabresa — Frito | plural: Pastéis de Calabresa | venda: unidade/unidades
+- Rissole de Calabresa — Frito | plural: Rissoles de Calabresa | venda: unidade/unidades
+- Coxinha de frango — Frito | plural: Coxinhas de frango | venda: unidade/unidades
+- Bolinha de queijo — Frito | plural: Bolinhas de queijo | venda: unidade/unidades
+- Croquete de carne — Frito | plural: Croquetes de carne | venda: unidade/unidades
+- Quibe — Frito | plural: Quibes | venda: unidade/unidades
+- Enroladinho de salsicha — Frito | plural: Enroladinhos de salsicha | venda: unidade/unidades
+- Bolinho de mandioca com carne — Frito | plural: Bolinhos de mandioca com carne | venda: unidade/unidades
+- Bolinho de bacalhau — Frito | plural: Bolinhos de bacalhau | venda: unidade/unidades
+- Bolinho de arroz — Frito | plural: Bolinhos de arroz | venda: unidade/unidades
+- Bolinho de milho — Frito | plural: Bolinhos de milho | venda: unidade/unidades
+- Bolinho de feijão — Frito | plural: Bolinhos de feijão | venda: unidade/unidades
+- Pão de queijo — Congelado, 500 g | plural: Pães de queijo | venda: unidade/unidades
+- Coxinha de frango — Congelado, 500 g | plural: Coxinhas de frango | venda: unidade/unidades
+- Bolinha de queijo — Congelado, 500 g | plural: Bolinhas de queijo | venda: unidade/unidades
+- Quibe — Congelado, 500 g | plural: Quibes | venda: unidade/unidades
+- Pastel de queijo — Congelado, 500 g | plural: Pastéis de queijo | venda: unidade/unidades
+- Pastel de carne — Congelado, 500 g | plural: Pastéis de carne | venda: unidade/unidades
+- Pastel de frango — Congelado, 500 g | plural: Pastéis de frango | venda: unidade/unidades
+- Empada de frango — Congelado, 500 g | plural: Empadas de frango | venda: unidade/unidades
+- Empada de palmito — Congelado, 500 g | plural: Empadas de palmito | venda: unidade/unidades
+- Esfiha de carne — Congelado, 500 g | plural: Esfihas de carne | venda: unidade/unidades
+- Bolinho de mandioca — Congelado, 500 g | plural: Bolinhos de mandioca | venda: unidade/unidades
+- Croquete de carne — Congelado, 500 g | plural: Croquetes de carne | venda: unidade/unidades
+- Torta salgada de frango — Inteiro, 1000 g | plural: Tortas salgadas de frango | venda: unidade/unidades
+- Torta salgada de frango — Fatia, 150 g | plural: Tortas salgadas de frango | venda: unidade/unidades
+- Torta salgada de legumes — Inteiro, 1000 g | plural: Tortas salgadas de legumes | venda: unidade/unidades
+- Torta salgada de legumes — Fatia, 150 g | plural: Tortas salgadas de legumes | venda: unidade/unidades
+- Torta salgada de palmito — Inteiro, 1000 g | plural: Tortas salgadas de palmito | venda: unidade/unidades
+- Torta salgada de palmito — Fatia, 150 g | plural: Tortas salgadas de palmito | venda: unidade/unidades
+- Quiche de alho-poró — Inteiro, 1000 g | plural: Quiches de alho-poró | venda: unidade/unidades
+- Quiche de alho-poró — Fatia, 150 g | plural: Quiches de alho-poró | venda: unidade/unidades
+- Quiche de queijo — Inteiro, 1000 g | plural: Quiches de queijo | venda: unidade/unidades
+- Quiche de queijo — Fatia, 150 g | plural: Quiches de queijo | venda: unidade/unidades
+- Quiche de espinafre — Inteiro, 1000 g | plural: Quiches de espinafre | venda: unidade/unidades
+- Quiche de espinafre — Fatia, 150 g | plural: Quiches de espinafre | venda: unidade/unidades
+- Empadão de frango — Inteiro, 1000 g | plural: Empadões de frango | venda: unidade/unidades
+- Empadão de frango — Fatia, 150 g | plural: Empadões de frango | venda: unidade/unidades
+- Empadão de palmito — Inteiro, 1000 g | plural: Empadões de palmito | venda: unidade/unidades
+- Empadão de palmito — Fatia, 150 g | plural: Empadões de palmito | venda: unidade/unidades

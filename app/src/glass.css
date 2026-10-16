@@ -1,0 +1,187 @@
+/* Liquid Glass: only the app's navigation and floating control surfaces.
+   Keep dense content on its existing solid panels. The sheen is a static
+   background layer, so springs can own transforms without repainting blur. */
+:root {
+  --glass-tint: color-mix(in srgb, var(--panel) 89%, transparent);
+  --glass-sheet: color-mix(in srgb, var(--field) 94%, transparent);
+  --glass-control: color-mix(in srgb, var(--field) 92%, transparent);
+  --glass-glint: rgba(255, 255, 255, 0.12);
+  --glass-glint-soft: rgba(255, 255, 255, 0.025);
+  --glass-edge: rgba(255, 255, 255, 0.16);
+  --glass-shadow: rgba(0, 0, 0, 0.36);
+  --glass-muted: #c2c2c9;
+}
+:root[data-theme='light'] {
+  --glass-tint: color-mix(in srgb, var(--panel) 90%, transparent);
+  --glass-sheet: color-mix(in srgb, var(--panel) 94%, transparent);
+  --glass-control: color-mix(in srgb, var(--panel) 86%, transparent);
+  --glass-glint: rgba(255, 255, 255, 0.84);
+  --glass-glint-soft: rgba(255, 255, 255, 0.14);
+  --glass-edge: rgba(65, 78, 54, 0.14);
+  --glass-shadow: rgba(29, 42, 24, 0.16);
+  --glass-muted: #62626a;
+}
+
+/* Reports intentionally use their own dark palette, even in the light theme. */
+dialog:is([data-kind='brain'], [data-kind='management-report'], [data-kind='consumption'], [data-kind='consumption-detail']) {
+  --glass-sheet: color-mix(in srgb, var(--field) 94%, transparent);
+  --glass-control: color-mix(in srgb, var(--field) 92%, transparent);
+  --glass-glint: rgba(255, 255, 255, 0.12);
+  --glass-glint-soft: rgba(255, 255, 255, 0.025);
+  --glass-edge: rgba(255, 255, 255, 0.16);
+  --glass-shadow: rgba(0, 0, 0, 0.36);
+}
+
+/* The navigation has a firm tint. The full-width fade becomes opaque
+   before reaching the icons, keeping product names and prices out of view. */
+:root[data-theme][data-layout] .nav-glass {
+  background: linear-gradient(to bottom, transparent 0, color-mix(in srgb, var(--bg) 98%, transparent) 20px, var(--bg) 36px);
+  border-top: 0;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:root[data-theme][data-layout] .nav {
+  --glass-tint: color-mix(in srgb, var(--panel) 98%, transparent);
+  --glass-glint: rgba(255, 255, 255, 0.045);
+  --glass-glint-soft: rgba(255, 255, 255, 0.008);
+  background: var(--panel);
+  background: linear-gradient(128deg, var(--glass-glint), transparent 34%, var(--glass-glint-soft) 76%, transparent), var(--glass-tint);
+  border-color: var(--glass-edge);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  backdrop-filter: blur(14px) saturate(1.12);
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 -1px 0 rgba(0, 0, 0, 0.06), 0 10px 28px -6px var(--glass-shadow);
+}
+:root[data-theme='light'][data-layout] .nav {
+  --glass-glint: rgba(255, 255, 255, 0.54);
+  --glass-glint-soft: rgba(255, 255, 255, 0.06);
+}
+:root[data-theme] .nav button:not(.active) { color: var(--glass-muted); }
+:root[data-theme] .nav button.active {
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Reference: a short, wide selection around the icon and its label. */
+:root[data-theme][data-layout] .nav { isolation: isolate; }
+:root[data-theme][data-layout] .nav::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--selection-width, 0px);
+  height: var(--selection-height, 48px);
+  transform: translate3d(var(--selection-x, 0px), var(--selection-y, 15px), 0);
+  border-radius: 22px;
+  background: color-mix(in srgb, var(--action-green) 13%, var(--panel));
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+:root[data-theme][data-layout] .nav.selection-ready::before { opacity: 1; }
+:root[data-theme][data-layout] .nav button { position: relative; z-index: 1; }
+:root[data-theme='light'][data-layout] .nav::before {
+  background: color-mix(in srgb, var(--action-green) 17%, var(--panel));
+}
+
+/* Existing header controls keep their original hit area and layout. */
+:root[data-theme][data-layout] :is(.profile-pill, .scope, .top-actions > .round, .stock-tools > .round, .stock-context > .round, .stock-top-tools > .round) {
+  background: var(--field);
+  background: linear-gradient(138deg, var(--glass-glint), transparent 48%, var(--glass-glint-soft)), var(--glass-control);
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 0 0 1px var(--glass-edge), 0 3px 9px -5px var(--glass-shadow);
+}
+
+/* The frame is translucent; form fields, lists, QR codes and charts keep
+   their solid surfaces. No extra overlay or pseudo-element intercepts taps. */
+:root[data-theme] dialog[open] {
+  background: var(--field);
+  background: linear-gradient(132deg, var(--glass-glint-soft), transparent 32%), var(--glass-sheet);
+  border-color: var(--glass-edge);
+  -webkit-backdrop-filter: blur(16px) saturate(1.08);
+  backdrop-filter: blur(16px) saturate(1.08);
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 -1px 0 rgba(0, 0, 0, 0.10), 0 22px 56px -10px var(--glass-shadow);
+}
+:root[data-theme] dialog.picker-sheet[open] {
+  box-shadow: inset 0 1px 0 var(--glass-glint), 0 -14px 38px -10px var(--glass-shadow);
+}
+/* Dense insight sheets keep the same inexpensive material while open and
+   during native exit retention. Removing [open] must not swap blur or tint. */
+:root[data-theme] dialog:is([data-kind='brain'], [data-kind^='advisor']) {
+  background: var(--field);
+  border-color: var(--glass-edge);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 -1px 0 rgba(0, 0, 0, 0.10), 0 22px 56px -10px var(--glass-shadow);
+}
+:root[data-theme] dialog::backdrop {
+  background: rgba(0, 0, 0, 0.46);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:root[data-theme='light'] dialog::backdrop { background: rgba(20, 29, 17, 0.28); }
+:root[data-theme][data-layout] dialog .checkout-header {
+  background: linear-gradient(180deg, var(--glass-glint-soft), transparent), color-mix(in srgb, var(--field) 78%, transparent);
+  box-shadow: inset 0 1px 0 var(--glass-glint-soft);
+}
+:root[data-theme][data-layout] dialog .checkout-footer {
+  background: linear-gradient(180deg, var(--glass-glint-soft), transparent 40%), color-mix(in srgb, var(--field) 97%, transparent);
+  border-top-color: var(--glass-edge);
+  box-shadow: inset 0 1px 0 var(--glass-glint-soft), 0 -5px 16px -10px var(--glass-shadow);
+}
+:root[data-theme] dialog .dialog-close::before {
+  background: linear-gradient(135deg, var(--glass-glint), transparent), color-mix(in srgb, var(--text) 10%, var(--field));
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 0 0 1px var(--glass-edge);
+  pointer-events: none;
+}
+
+:root[data-theme][data-layout] .sale-dock,
+:root[data-theme][data-layout] .multi-bar,
+:root[data-theme] #number-pad {
+  background: var(--panel);
+  background: linear-gradient(132deg, var(--glass-glint), transparent 35%, var(--glass-glint-soft)), var(--glass-tint);
+  border-color: var(--glass-edge);
+  -webkit-backdrop-filter: blur(12px) saturate(1.08);
+  backdrop-filter: blur(12px) saturate(1.08);
+  box-shadow: inset 0 1px 0 var(--glass-glint), 0 -6px 26px -12px var(--glass-shadow);
+}
+:root[data-theme][data-layout] .multi-bar {
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 0 0 1px var(--glass-edge), 0 10px 28px -6px var(--glass-shadow);
+}
+/* The keypad needs a firmer tint beneath small digits and input values. */
+:root[data-theme] #number-pad { --glass-tint: color-mix(in srgb, var(--panel) 96%, transparent); }
+
+/* A usable opaque material on WebViews without backdrop-filter. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root[data-theme][data-layout] :is(.nav, .sale-dock, .multi-bar),
+  :root[data-theme] #number-pad { background: var(--panel); }
+  :root[data-theme] dialog[open] { background: var(--field); }
+}
+
+/* Settings and low-power devices get solid, inexpensive surfaces. These
+   rules include pre-existing floating bars, not just the new material. */
+html:is(.lite, [data-reduce-effects='true']) :is(.nav, .nav-glass, .sale-dock, .multi-bar, #number-pad, dialog, .checkout-header, .checkout-footer, .profile-pill, .scope, .top-actions > .round, .stock-tools > .round, .stock-context > .round, .stock-top-tools > .round) {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: var(--panel) !important;
+}
+html:is(.lite, [data-reduce-effects='true']) :is(dialog, dialog .checkout-header, dialog .checkout-footer) { background: var(--field) !important; }
+html:is(.lite, [data-reduce-effects='true']) .nav-glass { background: var(--bg) !important; }
+html:is(.lite, [data-reduce-effects='true']) dialog::backdrop {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root[data-theme][data-layout] :is(.nav, .nav-glass, .sale-dock, .multi-bar, .profile-pill, .scope, .top-actions > .round, .stock-tools > .round, .stock-context > .round, .stock-top-tools > .round),
+  :root[data-theme] #number-pad {
+    background: var(--panel) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  :root[data-theme] dialog[open],
+  :root[data-theme][data-layout] dialog :is(.checkout-header, .checkout-footer) {
+    background: var(--field) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  :root[data-theme][data-layout] .nav-glass { background: var(--bg) !important; }
+}

@@ -2,7 +2,8 @@
 // partir de src/features/finance/finance.js) e devolvem decisões no mesmo formato da Orientação.
 // Método: margem de contribuição, custos da feira, custos fixos, ponto de equilíbrio, retirada e taxas.
 
-const brl = cents => (cents / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const currencyFormat = new Intl.NumberFormat('pt-BR', {style:'currency',currency:'BRL'});
+const brl = cents => currencyFormat.format(cents / 100);
 const pct = ratio => Math.round(ratio * 100) + '%';
 const plural = (n, one, many) => `${n.toLocaleString('pt-BR')} ${n === 1 ? one : many}`;
 const LOW_PRODUCT_MARGIN = 0.25;
@@ -49,14 +50,14 @@ function missingCosts({ finance: f }) {
 }
 
 // Ponto de equilíbrio do mês: quanto falta vender para pagar fixos e retirada.
-function breakEven({ finance: f }) {
-  if (!f || f.mode !== 'mes' || !f.general || !f.breakEven) return [];
+function breakEven({ finance: f, quality }) {
+  if (!f || !quality?.completeCosts || f.mode !== 'mes' || !f.general || !f.breakEven) return [];
   if (f.revenue >= f.breakEven) {
     return [item('fin-equilibrio-ok', 'bom', {
-      title: 'O mês já pagou as contas fixas',
+      title: 'Vendas acima da referência de custos fixos',
       happened: `Você vendeu ${brl(f.revenue)}, acima dos ${brl(f.breakEven)} necessários para pagar fixos${f.drawOn ? ' e sua retirada' : ''}.`,
-      todo: 'Daqui para frente, cada venda vira lucro: guarde parte como reserva do negócio.',
-      why: 'Depois do ponto de equilíbrio, a margem de cada venda vai inteira para o resultado.',
+      todo: 'Confira despesas da feira, perdas e recebimentos antes de separar uma reserva.',
+      why: 'A referência divide fixos e retirada pela margem atual. Não inclui outros gastos da feira nem comprova dinheiro disponível; o mix pode mudar.',
       topics: ['equilibrio', 'contribuicao'],
     })];
   }
@@ -65,7 +66,7 @@ function breakEven({ finance: f }) {
     title: `Faltam ${brl(gap)} em vendas para empatar o mês`,
     happened: `Para pagar ${brl(f.monthlyFixed)} de custos fixos${f.drawOn ? ' e retirada' : ''} com margem de ${pct(f.contributionRate)}, o mês precisa vender ${brl(f.breakEven)}.`,
     todo: `Foque nas próximas feiras e nos produtos de maior margem: faltam ${brl(gap)} em vendas.`,
-    why: 'Abaixo do ponto de equilíbrio o mês fecha no prejuízo, mesmo que cada venda pareça lucrativa.',
+    why: 'É uma simulação com a margem atual para cobrir fixos e retirada. Outros gastos e mudanças no mix alteram a necessidade de vendas.',
     topics: ['equilibrio', 'contribuicao', 'custosfixos'],
     numbers: [
       { label: 'Custos fixos + retirada', value: brl(f.monthlyFixed) },
@@ -108,8 +109,8 @@ function cardFees({ finance: f }) {
   return [item('fin-taxas', 'oportunidade', {
     title: `${brl(f.fees)} ficaram com a maquininha`,
     happened: `As taxas de cartão levaram ${pct(f.fees / f.revenue)} do que você vendeu neste período.`,
-    todo: 'Deixe o QR do Pix bem visível na banca e ofereça "preço no Pix" em compras maiores.',
-    why: 'Cada real de taxa sai direto do seu lucro. Trocar parte das vendas para o Pix aumenta a margem sem subir preço.',
+    todo: 'Compare as tarifas contratadas de cartão e Pix antes de oferecer uma condição de pagamento.',
+    why: 'Pix comercial também pode ter tarifa. Um desconto só economiza dinheiro se custar menos que a diferença das taxas; confira margem e contrato.',
     topics: ['taxascartao', 'contribuicao'],
     impact: f.fees,
   })];
@@ -139,7 +140,7 @@ function organization({ finance: f }) {
   if (f.goal && f.mode === 'mes' && f.general) {
     out.push(f.result >= f.goal.value
       ? item('fin-meta-ok', 'bom', { title: 'Meta do mês alcançada', happened: `Resultado de ${brl(f.result)} para uma meta de ${brl(f.goal.value)}.`, todo: 'Guarde o excedente como reserva para os meses fracos.', why: 'Reserva evita aperto quando a feira for ruim ou o tempo atrapalhar.', topics: ['retirada'] })
-      : item('fin-meta', 'oportunidade', { title: `Faltam ${brl(f.goal.value - Math.max(0, f.result))} para a meta do mês`, happened: `Resultado atual ${brl(f.result)}; meta ${brl(f.goal.value)}${f.goal.auto ? ' (sugerida pela média dos últimos meses)' : ''}.`, todo: 'Priorize os produtos de maior margem nas próximas feiras.', why: 'A meta transforma o mês em passos pequenos: cada feira sabe quanto precisa trazer.', topics: ['contribuicao'], impact: 300 }));
+      : item('fin-meta', 'oportunidade', { title: `Faltam ${brl(f.goal.value - f.result)} para a meta do mês`, happened: `Resultado atual ${brl(f.result)}; meta ${brl(f.goal.value)}${f.goal.auto ? ' (cenário pela média dos últimos meses)' : ''}.`, todo: 'Revise custos e priorize produtos com margem conhecida nas próximas feiras.', why: 'A diferença inclui o prejuízo atual. A meta é um objetivo, não uma previsão.', topics: ['contribuicao'], impact: 300 }));
   }
   return out;
 }
@@ -158,7 +159,8 @@ function auditErrors({ audit: a }) {
   })];
 }
 
-export const FINANCE_RULES = [auditErrors, placeLoss, missingCosts, breakEven, lowMargins, cardFees, organization];
+// Historical pricing is handled once in engine.pricing; avoid competing advice for the same item.
+export const FINANCE_RULES = [auditErrors, placeLoss, missingCosts, breakEven, cardFees, organization];
 
 // Resumo curto das finanças, para o agente responder perguntas de dinheiro.
 export function financeLines(f) {
@@ -169,7 +171,7 @@ export function financeLines(f) {
   lines.push(`Resultado: ${brl(f.result)}.`);
   if (f.breakEven) lines.push(`Para empatar o mês é preciso vender ${brl(f.breakEven)}.`);
   const best = f.places.slice().sort((a, b) => b.profit - a.profit);
-  if (best.length > 1) lines.push(`Feira que mais compensa: ${best[0].name} (${brl(best[0].profit)}). Menos: ${best[best.length - 1].name} (${brl(best[best.length - 1].profit)}).`);
+  if (best.length > 1) lines.push(`Maior resultado registrado por local: ${best[0].name} (${brl(best[0].profit)}). Menor: ${best[best.length - 1].name} (${brl(best[best.length - 1].profit)}). Duração, custos ausentes e dias diferentes limitam a comparação.`);
   if (f.missingDays?.length) lines.push(`Atenção: ${plural(f.missingDays.length, 'dia de feira está', 'dias de feira estão')} sem custos lançados, então o resultado pode estar maior que o real.`);
   return lines;
 }

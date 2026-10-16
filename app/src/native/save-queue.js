@@ -13,6 +13,9 @@ export function createSaveQueue({ write, onSaved = () => {}, onError = () => {},
   let waiters = [];
 
   const finish = ok => { const list = waiters; waiters = []; list.forEach(resolve => resolve(ok)); };
+  // Start on the next microtask. A synchronous write error must not leave `writing` pointing
+  // to an already-finished promise after flush has cleared it in its catch handler.
+  const start = () => { writing = Promise.resolve().then(flush); };
 
   async function flush() {
     while (pending !== null) {
@@ -27,7 +30,7 @@ export function createSaveQueue({ write, onSaved = () => {}, onError = () => {},
         writing = null;
         onError(error);
         finish(false);
-        if (!retry) retry = setTimer(() => { retry = null; if (!writing && pending !== null) writing = flush(); }, retryMs);
+        if (retry === null) retry = setTimer(() => { retry = null; if (!writing && pending !== null) start(); }, retryMs);
         return;
       }
     }
@@ -38,7 +41,7 @@ export function createSaveQueue({ write, onSaved = () => {}, onError = () => {},
   return {
     save(json) {
       pending = json;
-      if (!writing) writing = flush();
+      if (!writing) start();
       onSaved();
       return true;
     },
@@ -48,7 +51,7 @@ export function createSaveQueue({ write, onSaved = () => {}, onError = () => {},
     },
     async settle() {
       while (writing) await writing;
-      if (pending !== null) { writing = flush(); await writing; }
+      if (pending !== null) { start(); await writing; }
       return !failed && pending === null;
     },
     status: () => ({ pending: pending !== null || !!writing, failed }),

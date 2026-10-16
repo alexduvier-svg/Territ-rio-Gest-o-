@@ -1,99 +1,149 @@
-/* Movimento: curtas, com mola suave e sempre com propósito. Desligadas em "Reduzir movimento" do
-   celular e em Aparência → Reduzir transparência. */
-
+/* Position and velocity live in features/motion; CSS only supplies the materials.
+   Transform/opacity springs are interruptible and stop requesting frames at rest. */
 :root { --spring: cubic-bezier(0.32, 0.72, 0, 1); }
+button { transition: background-color 0.18s ease, color 0.18s ease; }
 
-/* Janelas sobem de baixo como uma folha. */
-dialog[open] { animation: sheet-in 0.38s var(--spring); }
-dialog[open]::backdrop { animation: fade-in 0.28s ease; }
-@keyframes sheet-in { from { transform: translateY(28px) scale(0.985); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
-
-/* Toque: botões afundam levemente. */
-button { transition: transform 0.14s var(--spring), background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease; }
-button:active:not(:disabled) { transform: scale(0.97); }
-.nav button:active:not(:disabled) { transform: scale(0.92); }
-
-/* Ao trocar de tela (não a cada toque), o conteúdo entra com um leve deslize. */
-#app.page-enter > * { animation: rise-in 0.32s var(--spring) both; }
-#app.page-enter > *:nth-child(2) { animation-delay: 0.02s; }
-#app.page-enter > *:nth-child(3) { animation-delay: 0.04s; }
-#app.page-enter > *:nth-child(4) { animation-delay: 0.06s; }
-@keyframes rise-in { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
-/* Telas internas (venda, produto, ajustes…) têm barras fixas: um "transform" no bloco faria a barra
-   nascer no lugar errado e pular para baixo. Nelas a entrada é só um esmaecimento. */
-#app.page-enter > .subview { animation: fade-in 0.26s ease both; }
-
-/* Avisos: sobem de baixo; os de alerta balançam de leve. */
-.toast:not([hidden]) { animation: toast-in 0.42s var(--spring) both; }
-.toast.toast-warn:not([hidden]) { animation: toast-in 0.42s var(--spring) both, toast-shake 0.5s 0.38s ease both; }
-.toast.toast-success:not([hidden]) { animation: toast-in 0.42s var(--spring) both, toast-pop 0.36s 0.36s var(--spring) both; }
-.toast.toast-warn { box-shadow: 0 0 0 1px color-mix(in srgb, var(--orange) 60%, transparent), 0 12px 30px rgba(0, 0, 0, 0.25); }
-@keyframes toast-in { from { transform: translate(-50%, 140%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
-@keyframes toast-shake {
-  0%, 100% { transform: translate(-50%, 0) rotate(0); }
-  20% { transform: translate(calc(-50% - 7px), 0) rotate(-1.5deg); }
-  40% { transform: translate(calc(-50% + 6px), 0) rotate(1.2deg); }
-  60% { transform: translate(calc(-50% - 4px), 0) rotate(-0.8deg); }
-  80% { transform: translate(calc(-50% + 2px), 0) rotate(0.4deg); }
+html.fluid-motion dialog[open],
+html.fluid-motion dialog[open]::backdrop,
+html.fluid-motion .toast:not([hidden]),
+html.fluid-motion details.just-opened > :not(summary),
+html.fluid-motion .dimension-pill.acc.open .choices,
+html.fluid-motion #nav .active .icon * { animation: none !important; }
+html.fluid-motion dialog[open]::backdrop { opacity: var(--fluid-backdrop-opacity, 1); }
+html.fluid-motion .fluid-animating,
+html.fluid-motion .fluid-press { animation: none !important; transition: none !important; }
+html.fluid-motion :is(button, .product-card):active:not(:disabled) { transform: none !important; }
+/* Glyph parts move inside their own viewBox, without a background or selection capsule. */
+html.fluid-motion #nav .icon { overflow: hidden; }
+html.fluid-motion #nav .nav-physical-part {
+  transform-origin: 0 0 !important;
+  transform-box: view-box !important;
+  animation: none !important;
+  transition: none !important;
 }
-@keyframes toast-pop { 0%, 100% { transform: translate(-50%, 0) scale(1); } 45% { transform: translate(-50%, 0) scale(1.04); } }
+/* Each stock flap has its own outer hinge; the apple is clipped above the opening.
+   The shared physical scheduler moves only transforms/opacity and stops after closing. */
+#nav :is(.nav-box-flap-left, .nav-box-flap-right) { transform-box: view-box; }
+html.fluid-motion #app { overflow-x: clip; }
 
-/* Cadastro em lista que expande (estilo Feira). */
-.dimension-pill.acc.open .choices { animation: expand-in 0.3s var(--spring) both; }
-@keyframes expand-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+/* Discrete top-layer retention lets the actual dialog finish its spring after native close().
+   Only display/overlay are CSS transitions; position, scale and opacity remain physical. */
+html.fluid-motion dialog.fluid-native-exit {
+  transition-property: display, overlay !important;
+  transition-duration: 520ms !important;
+  transition-timing-function: linear !important;
+  transition-behavior: allow-discrete !important;
+}
+html.fluid-motion dialog.fluid-native-exit:not([open]) { pointer-events: none !important; }
+html.fluid-motion dialog.fluid-native-exit:not([open])::backdrop { pointer-events: none !important; }
+html.fluid-motion dialog.fluid-exit-closed:not([open]) {
+  display: none !important;
+  opacity: 0 !important;
+  overlay: none !important;
+  transition: none !important;
+}
+html.fluid-motion dialog.fluid-exit-closed:not([open])::backdrop {
+  display: none !important;
+  opacity: 0 !important;
+  transition: none !important;
+}
+html.fluid-motion dialog.fluid-native-exit::backdrop {
+  background: var(--fluid-backdrop-color, rgba(0, 0, 0, 0.46));
+  opacity: var(--fluid-backdrop-opacity, 1);
+  transition: display 520ms allow-discrete, overlay 520ms allow-discrete;
+}
+/* Small fallback surfaces for older WebViews; large forms are never duplicated on close. */
+.fluid-exit-layer { position: fixed; inset: 0; z-index: 80; overflow: clip; pointer-events: none !important; }
+.fluid-page-exit-layer { position: fixed; inset: 0; z-index: 65; overflow: hidden; pointer-events: none !important; }
+.fluid-page-exit-layer, .fluid-page-exit-layer * { pointer-events: none !important; animation: none !important; transition: none !important; }
+.fluid-page-exit-context { position: fixed !important; inset: 0 !important; width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; }
+.fluid-exit-backdrop { position: absolute; inset: 0; pointer-events: none; }
+dialog.fluid-exit-ghost[open] {
+  position: fixed !important;
+  right: auto !important;
+  bottom: auto !important;
+  margin: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  box-sizing: border-box;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  transform-origin: center;
+}
 
-/* Venda: o produto inteiro é área de toque. */
+.toast.toast-warn { box-shadow: 0 0 0 1px color-mix(in srgb, var(--orange) 60%, transparent), 0 12px 30px rgba(0, 0, 0, 0.25); }
 .sale-product-heading { cursor: pointer; min-height: 52px; }
 .sale-product-group:not(.active) { cursor: pointer; }
 .sale-product-group:not(.active):active { opacity: 0.7; }
 
-/* "Finalize suas vendas": uma venda ficou aberta. A pílula respira e o carrinho dá um balanço
-   a cada poucos segundos — chama a atenção sem incomodar. */
-.draft-resume,
-#app.page-enter > .draft-resume {
-  position: relative;
-  min-height: 52px;
-  font-size: 15px;
-  font-weight: 600;
-  animation: draft-in 0.45s var(--spring) both, draft-breathe 2.6s ease-in-out 0.6s infinite;
-}
-/* Lilás suave do Território (--lilac), legível nos dois temas. */
-.draft-resume,
-html[data-theme='light'] .draft-resume {
+/* The reminder exists only while a sale is pending; lightweight devices keep it static. */
+.draft-resume { position: relative; min-height: 52px; font-size: 15px; font-weight: 600; }
+.draft-resume, html[data-theme='light'] .draft-resume {
   color: var(--lilac-ink, #744b99);
   background: color-mix(in srgb, var(--lilac, #b49acd) 18%, var(--panel));
   border: 1px solid color-mix(in srgb, var(--lilac, #b49acd) 45%, transparent);
 }
-html[data-theme='dark'] .draft-resume {
-  color: #dcc8f0;
-  background: color-mix(in srgb, var(--lilac, #b49acd) 20%, var(--panel));
-}
-.draft-resume .icon,
-.draft-resume > span:last-child > .icon { color: inherit; }
+html[data-theme='dark'] .draft-resume { color: #bddf9e; background: color-mix(in srgb, var(--action-green) 17%, var(--panel)); border-color: color-mix(in srgb, var(--action-green) 40%, transparent); }
+.draft-resume .icon, .draft-resume > span:last-child > .icon { color: inherit; }
 .draft-resume > span:last-child { font-size: 15px; font-weight: 700; }
-.draft-resume .icon:first-child,
-.draft-resume > span:first-child > .icon {
-  transform-origin: 50% 80%;
-  animation: cart-nudge 4s ease-in-out 1.2s infinite;
+
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lite):not([data-reduce-effects='true']) #app .draft-resume:not(.fluid-press):not(.fluid-animating):not(.fluid-section-running) {
+    /* Begin after physical entry settles; leave the press spring in control during a tap. */
+    animation: none !important;
+  }
+  html:not(.lite):not([data-reduce-effects='true']) #app .draft-resume > span:first-child > .icon {
+    transform-origin: 50% 75%;
+    animation: pending-sale-cart 5s ease-in-out infinite;
+  }
 }
-@keyframes draft-in { from { transform: translateY(-8px); opacity: 0; } to { transform: none; opacity: 1; } }
-@keyframes draft-breathe {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--lilac, #b49acd) 0%, transparent); }
-  50% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--lilac, #b49acd) 30%, transparent); }
+@keyframes pending-sale-pulse {
+  0%, 28%, 100% { transform: scale(1); opacity: 1; }
+  10% { transform: scale(1.009); opacity: .94; }
+  19% { transform: scale(1.003); opacity: 1; }
 }
-@keyframes cart-nudge {
-  0%, 82%, 100% { transform: rotate(0) translateX(0); }
-  86% { transform: rotate(-12deg) translateX(-1px); }
-  90% { transform: rotate(10deg) translateX(1px); }
-  94% { transform: rotate(-6deg); }
-  97% { transform: rotate(3deg); }
+@keyframes pending-sale-cart {
+  0%, 28%, 100% { transform: translateY(0) rotate(0); }
+  8% { transform: translateY(-1px) rotate(-8deg); }
+  15% { transform: translateY(-1px) rotate(6deg); }
+  22% { transform: translateY(0) rotate(-2deg); }
+}
+html:is(.lite, [data-reduce-effects='true']) #app .draft-resume,
+html:is(.lite, [data-reduce-effects='true']) #app .draft-resume > span:first-child > .icon {
+  animation: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
+  #app .draft-resume, #app .draft-resume > span:first-child > .icon { animation: none !important; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-delay: 0s !important; transition-duration: 0.01ms !important; }
 }
 html[data-reduce-effects='true'] *, html[data-reduce-effects='true'] *::before, html[data-reduce-effects='true'] *::after {
   animation-duration: 0.01ms !important;
   animation-delay: 0s !important;
+  transition-duration: 0.01ms !important;
 }
+
+/* A small static halo is composited through opacity/scale. Amount animation
+   never changes the quote or business state, and leaves a long rest per cycle. */
+.draft-resume { isolation: isolate; overflow: visible; gap: 10px; }
+.draft-resume::before { content: ''; position: absolute; inset: -3px; border: 2px solid currentColor; border-radius: inherit; pointer-events: none; opacity: 0; box-shadow: 0 0 0 5px color-mix(in srgb,currentColor 8%,transparent); }
+.draft-resume-message { min-width: 0; }
+.draft-resume-message > span { min-width: 0; line-height: 1.3; }
+.draft-resume-total { position: relative; display: flex; align-items: center; justify-content: flex-end; gap: 3px; flex: 0 0 auto; }
+.draft-resume-amount { white-space: nowrap; font-size: 14px; }
+.draft-resume-travel { position: absolute; left: -16px; top: 50%; opacity: 0; pointer-events: none; transform: translate3d(0,-50%,0); }
+.draft-resume-travel .icon,.draft-resume-end .icon { width: 16px; height: 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lite):not([data-reduce-effects='true']) #app .draft-resume:not(.fluid-press):not(.fluid-animating)::before { animation: pending-sale-aura 5s ease-in-out infinite; }
+  html:not(.lite):not([data-reduce-effects='true']) #app .draft-resume-travel { animation: pending-sale-arrow 5s ease-in-out infinite; }
+  html:not(.lite):not([data-reduce-effects='true']) #app .draft-resume-digits { animation: pending-sale-amount 5s ease-in-out infinite; }
+  html:not(.lite):not([data-reduce-effects='true']) #app .draft-resume-end { animation: pending-sale-end 5s ease-in-out infinite; }
+}
+@keyframes pending-sale-aura { 0%,38%,100% { opacity:0; transform:scale(1); } 15% { opacity:.45; transform:scale(1.025); } 28% { opacity:.2; transform:scale(1.045); } }
+@keyframes pending-sale-arrow { 0%,12%,50%,100% { opacity:0; transform:translate3d(0,-50%,0); } 17% { opacity:1; transform:translate3d(0,-50%,0); } 43% { opacity:1; transform:translate3d(clamp(76px,22vw,112px),-50%,0); } 49% { opacity:0; transform:translate3d(clamp(76px,22vw,112px),-50%,0); } }
+@keyframes pending-sale-amount { 0%,30% { opacity:.55; } 44%,56%,68%,100% { opacity:1; } 50%,62% { opacity:.5; } }
+@keyframes pending-sale-end { 0%,44% { opacity:0; } 54%,100% { opacity:1; } }
+html:is(.lite,[data-reduce-effects='true']) #app .draft-resume *,html:is(.lite,[data-reduce-effects='true']) #app .draft-resume::before { animation: none !important; }
+html[data-app-inactive] #app .draft-resume,html[data-app-inactive] #app .draft-resume *,html[data-app-inactive] #app .draft-resume::before { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) { #app .draft-resume *,#app .draft-resume::before { animation: none !important; } }

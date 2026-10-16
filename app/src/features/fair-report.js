@@ -86,13 +86,33 @@ const minutesSince = (iso, day, from) => (Date.parse(iso) - Date.parse(`${day}T$
 const itens = n => `${n} ${n === 1 ? 'item' : 'itens'}`;
 const rating = r => (r >= 0.9 ? 'EXCELENTE SAÍDA' : r >= 0.6 ? 'BOA SAÍDA' : r > 0 ? 'POUCA SAÍDA' : 'NENHUMA SAÍDA');
 
+// A conferência é um retrato do fechamento, não uma projeção da sobra atual.
+// Copiar somente o contrato público também evita enviar campos locais de medição.
+const nonnegative = value => { const n = Number(value); return Number.isFinite(n) && n > 0 ? n : 0; };
+const quantityValue = value => Number(nonnegative(value).toFixed(3));
+const checkText = value => typeof value === 'string' ? value : '';
+function reportCheck(check) {
+  return {
+    conferido: check?.conferido === true,
+    corrigido: check?.corrigido === true,
+    vendasNaoRegistradas: { qtd: quantityValue(check?.vendasNaoRegistradas?.qtd), valor: Math.round(nonnegative(check?.vendasNaoRegistradas?.valor)) },
+    perdas: { qtd: quantityValue(check?.perdas?.qtd) },
+    itens: (Array.isArray(check?.itens) ? check.itens : []).filter(i => i && typeof i === 'object').map(i => ({
+      produto: checkText(i.produto), unidade: checkText(i.unidade),
+      calculado: quantityValue(i.calculado), real: quantityValue(i.real), motivo: checkText(i.motivo),
+    })),
+  };
+}
+
 // event: {name,start,end,from,until}; load: {items:[{productId,name,description,unit,qty}], updatedAt}
 // sales: vendas concluídas do evento (com items[].productId, qty, netTotal/total, costTotal; payments; date)
-export function buildFairReport({ event, load, sales, productOf = () => null, producer = {}, now = Date.now() }) {
+// load.items[].qty já inclui reposições; restocks é apenas o histórico.
+// losses: movimentos de perda do evento, com productId, unit, qty, kind e eventId.
+export function buildFairReport({ event, load, sales, losses = [], productOf = () => null, producer = {}, now = Date.now() }) {
   const lines = new Map();
   const keyOf = (id, unit) => id + '|' + (unit || '');
   for (const i of load?.items || []) lines.set(keyOf(i.productId, i.unit), { id: i.productId, name: i.name, description: i.description || '', unit: i.unit || '', took: Number(i.qty) || 0, restocked: (i.restocks || []).reduce((n, r) => n + (Number(r.qty) || 0), 0), sold: 0, revenue: 0, cost: 0, price: productOf(i.productId)?.price || 0, soldOutAt: '', soldOutIso: '' });
-  const ordered = sales.slice().sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+  const ordered = sales.filter(s => s.status === 'completed').sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
   const payments = {}, hourly = {};
   let revenue = 0;
   for (const s of ordered) {
@@ -112,14 +132,19 @@ export function buildFairReport({ event, load, sales, productOf = () => null, pr
       if (line.took != null && !line.soldOutIso && line.sold >= line.took && line.took > 0) { line.soldOutIso = s.date; line.soldOutAt = brTime(s.date); }
     }
   }
+  for (const loss of losses) {
+    if (loss.kind !== 'loss' || (event.id && loss.eventId !== event.id)) continue;
+    const line = lines.get(keyOf(loss.productId, loss.unit));
+    if (line) line.lost = quantityValue((line.lost || 0) + nonnegative(loss.qty));
+  }
   const tookKnown = !!(load?.items || []).length;
   const products = [...lines.values()].map(l => {
     const took = l.took == null ? l.sold : l.took;
-    const left = Math.max(0, took - l.sold);
+    const left = quantityValue(took - l.sold - (l.lost || 0));
     const day = l.soldOutIso ? new Date(l.soldOutIso).toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' }) : '';
     return { ...l, took, left, oversold: l.took == null ? 0 : Math.max(0, l.sold - l.took), timeToSellOut: l.soldOutIso ? hm(minutesSince(l.soldOutIso, day, event.from)) : '', ratio: took > 0 ? l.sold / took : 0, restocked: l.restocked || 0 };
   });
-  const tot = k => products.reduce((n, p) => n + p[k], 0);
+  const tot = k => quantityValue(products.reduce((n, p) => n + p[k], 0));
   const took = tot('took'), sold = tot('sold'), left = tot('left');
   const byQty = products.slice().sort((a, b) => b.sold - a.sold || b.revenue - a.revenue);
   const label = p => p.name + (p.description && !/^unidade$/i.test(p.description) ? ' (' + p.description + ')' : '');
@@ -132,13 +157,13 @@ export function buildFairReport({ event, load, sales, productOf = () => null, pr
   const tierProfit = g => g.reduce((n, p) => n + p.revenue - p.cost, 0);
   const profits = [['PRODUTOS MAIS CAROS', tierProfit(tiers[0])], ['PRODUTOS DE PREÇO MÉDIO', tierProfit(tiers[1])], ['PRODUTOS MAIS BARATOS', tierProfit(tiers[2])]].sort((a, b) => b[1] - a[1]);
   const soldOut = products.filter(p => p.soldOutIso).sort((a, b) => Date.parse(a.soldOutIso) - Date.parse(b.soldOutIso));
-  const allOut = tookKnown && products.length && products.every(p => p.left === 0);
+  const allOut = tookKnown && products.length && products.every(p => p.took > 0 && p.sold >= p.took);
   const lastOut = allOut ? soldOut[soldOut.length - 1] : null;
   const methods = Object.entries(payments).sort((a, b) => b[1] - a[1]);
   // Reposição = o "o que vou levar" foi atualizado depois da primeira venda (marcar antes de vender, mesmo
   // já na praça, não conta como reposição).
   const firstSale = ordered[0] ? Date.parse(ordered[0].date) : null;
-  const restocked = products.some(p => p.restocked > 0) || (tookKnown && firstSale != null && load.updatedAt && load.updatedAt !== load.createdAt && Date.parse(load.updatedAt) > firstSale && !(load.items || []).some(i => i.restocks));
+  const restocked = products.some(p => p.restocked > 0) || (tookKnown && firstSale != null && load.updatedAt && load.updatedAt !== load.createdAt && load.surplusAdjustedAt !== load.updatedAt && Date.parse(load.updatedAt) > firstSale && !(load.items || []).some(i => i.restocks));
   const reposicao = restocked ? 'CONSEGUI REPOR' : soldOut.length ? 'FIQUEI SEM REPOSIÇÃO' : 'NÃO PRECISEI REPOR';
   const answers = {
     produtos: products.map(label).join(', '),
@@ -163,8 +188,9 @@ export function buildFairReport({ event, load, sales, productOf = () => null, pr
     app: producer.app || '',
     producer: { name: producer.name || '', business: producer.business || '', community: producer.community || '', city: producer.city || '', uf: producer.uf || '' },
     event: { name: event.name, start: event.start, end: event.end, from: event.from || '', until: event.until || '' },
-    totals: { took, sold, left, revenue, sales: sales.length, ticket: sales.length ? Math.round(revenue / sales.length) : 0, tookKnown: tookKnown ? 1 : 0 },
+    totals: { took, sold, left, revenue, sales: ordered.length, ticket: ordered.length ? Math.round(revenue / ordered.length) : 0, tookKnown: tookKnown ? 1 : 0 },
     answers, payments, hourly,
+    check: reportCheck(event.surplusCheck),
     products: products.map(({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, oversold }) => ({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, oversold })),
     builtAt: new Date(now).toISOString(),
   };
@@ -209,6 +235,7 @@ export function buildFairContract({ event, load, sales, productOf = () => null, 
     };
     if ((s.payments || []).length > 1) v.pagamentos = s.payments.map(p => ({ forma: PAY[p.method] || 'OUTRO', valor: reais(p.amount) }));
     if (s.late) { v.lancada_depois = true; v.registrada_em = s.registeredAt || ''; }
+    if (s.unregistered === true) v.unregistered = true;
     return v;
   });
   const fechamento = Object.entries(counts).filter(([, v]) => v !== '' && v != null && Number.isFinite(Number(v))).map(([id, v]) => ({ produtor_id: pid, produto_id: id, contado: Number(v) }));

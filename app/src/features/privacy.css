@@ -1,0 +1,4 @@
+dialog[data-kind='brain'] .insight-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 12px; }
+dialog[data-kind='brain'] .insight-heading :is(h2,h3) { flex: 1; min-width: 0; margin: 0; padding: 0; }
+.insight-privacy-toggle { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; min-height: 48px; padding: 0; border: 1px solid var(--line); border-radius: 16px; color: var(--text); background: var(--panel); box-shadow: inset 0 1px 0 var(--glass-glint-soft),0 2px 5px rgb(0 0 0 / 8%); }
+.insight-privacy-toggle .icon { width: 22px; height: 22px; }

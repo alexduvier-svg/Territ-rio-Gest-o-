@@ -9,7 +9,7 @@ const empty = { revenue: 0, cost: 0, expense: 0, result: 0, salesCount: 0, ticke
 const product = (id, name, price, cost, stock = 10, min = 2) => ({ id, name, price, cost, stock, min, unitLabel: 'unidades' });
 function input(over = {}) {
   return {
-    periodLabel: 'Outubro de 2026', previousLabel: 'Setembro de 2026', hasCost: true, portfolioPublished: true,
+    dataContext:{type:'real',id:'test'}, periodLabel: 'Outubro de 2026', previousLabel: 'Setembro de 2026', hasCost: true, portfolioPublished: true,
     products: [], events: [], upcoming: null,
     ...over,
     current: { ...empty, ...over.current },
@@ -67,7 +67,7 @@ test('encalhe e esgotou por feira, com a sobra em reais', () => {
   const stuck = g.all.find(x => x.id === 'encalhe-f1');
   assert.match(stuck.happened, /4 de 5 Café Tradicional/);
   assert.match(stuck.happened, /R\$\s40,00/);
-  assert.match(stuck.todo, /leve menos Café Tradicional e ofereça a sobra em combo com Café Especial/);
+  assert.match(stuck.todo, /avalie levar menos Café Tradicional e ofereça a sobra em combo com Café Especial/);
   assert.ok(g.all.find(x => x.id === 'esgotou-f1'));
 });
 

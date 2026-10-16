@@ -10,9 +10,8 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { Share } from '@capacitor/share';
 import { SplashScreen } from '@capacitor/splash-screen';
 import { settle } from './storage.js';
+import { notificationChanges, notificationTime } from '../features/day-summary.js';
 
-// Pages where the seller is at the stall: the screen stays on ("Modo Feira").
-const SELLING_PAGES = new Set(['Vender', 'Venda']);
 // Taps that deserve a light tick. Haptics are used sparingly, like on iOS.
 const TICK_ACTIONS = new Set(['nav', 'sell-product', 'quick-category', 'remove-cart-item', 'remove-item']);
 
@@ -118,19 +117,13 @@ function installHaptics() {
   }).observe(toast, { attributes: true, attributeFilter: ['hidden'], childList: true, characterData: true, subtree: true });
 }
 
-function installKeepAwake() {
-  let awake = null;
-  const sync = () => {
-    // Tela acesa só na banca: no horário de um evento e numa tela de venda. Em casa, a tela apaga normalmente.
-    const shouldStayAwake = !document.hidden && SELLING_PAGES.has(window.TerritorioShell?.page()) && !!window.TerritorioShell?.eventRunning?.();
-    if (shouldStayAwake === awake) return;
-    awake = shouldStayAwake;
-    (awake ? KeepAwake.keepAwake() : KeepAwake.allowSleep()).catch(() => {});
-  };
-  new MutationObserver(sync).observe(document.getElementById('app'), { childList: true });
-  document.addEventListener('visibilitychange', sync);
-  setInterval(sync, 60000);
-  sync();
+function installSystemSleep() {
+  // The phone's normal screen timeout applies on every page, including an active
+  // fair or an unfinished sale. Release a wake flag left by a previous app version.
+  const allowSleep = () => KeepAwake.allowSleep().catch(() => {});
+  App.addListener('resume', allowSleep);
+  App.addListener('pause', allowSleep);
+  allowSleep();
 }
 
 function installSystemBars() {
@@ -298,45 +291,68 @@ function fairNoticeId(eventId, slot = 0) {
   for (const ch of 'fair:' + eventId + ':' + slot) h = (h * 33 + ch.charCodeAt(0)) | 0;
   return 1000000 + (Math.abs(h) % 900000000);
 }
+let schedulingFairNotices = false;
+let rescheduleFairNotices = false;
+let eventPermissionAsked = false;
 async function scheduleFairNotices() {
+  if (schedulingFairNotices) { rescheduleFairNotices = true; return; }
+  schedulingFairNotices = true;
   const list = window.TerritorioShell?.fairEndings?.() || [];
   try {
     const now = Date.now();
     const wanted = new Map();
     for (const f of list) {
       if (f.closed) continue;
-      f.times.forEach((at, i) => { if (at > now) wanted.set(fairNoticeId(f.id, i), { f, at, i }); });
+      f.times.forEach((at, i) => {
+        if (at <= now) return;
+        const id = fairNoticeId(f.id, i);
+        wanted.set(id, {
+          id, at, channelId: 'financas',
+          title: i === 0 ? `${f.name} termina em 10 minutos` : f.official ? `Finalize a ${f.name}` : `Finalize o evento ${f.name}`,
+          body: f.official ? (i === 0 ? 'Quando parar de vender, finalize a feira. O relatório vai sozinho.' : 'Confira o que sobrou: leva um minuto. O relatório vai sozinho.') : (i === 0 ? 'Quando parar de vender, finalize o evento e confira o que sobrou.' : 'Confira o que sobrou: leva um minuto.'),
+          actionTypeId: 'FAIR_FINISH', extra: { kind: 'fair', eventId: f.id, reminderAt: at }, ongoing: true,
+        });
+      });
     }
-    // Começo de cada dia de evento (30 min antes, ou no início).
-    for (const st of window.TerritorioShell?.eventStarts?.() || []) if (st.at > now) wanted.set(fairNoticeId('start:' + st.id), { st, at: st.at });
+    // One hour before each event day; no late or retroactive fallback.
+    const starts = window.TerritorioShell?.eventStarts?.({ includePast: true }) || [];
+    const allStarts = new Map(starts.map(st => [fairNoticeId('start:' + st.id), st]));
+    for (const [id, st] of allStarts) if (st.at > now) wanted.set(id, {
+      id, at: st.at, channelId: 'eventos', title: st.title, body: st.body,
+      extra: { kind: 'event-start', eventId: st.eventId, reminderAt: st.at, startAt: st.startAt },
+    });
     const { notifications } = await LocalNotifications.getPending();
-    const stale = notifications.filter(n => (n.extra?.kind === 'fair' || n.extra?.kind === 'event-start') && !wanted.has(n.id));
-    if (stale.length) await LocalNotifications.cancel({ notifications: stale.map(n => ({ id: n.id })) });
+    const changes = notificationChanges(wanted, notifications);
+    if (changes.cancel.length) await LocalNotifications.cancel({ notifications: changes.cancel });
+    // An edited, removed, or finished event must not leave an obsolete reminder
+    // in the notification shade. A matching reminder already delivered can stay.
+    const delivered = (await LocalNotifications.getDeliveredNotifications()).notifications || [];
+    const obsoleteStarts = delivered.filter(n => n.extra?.kind === 'event-start' && (!allStarts.has(n.id) || notificationTime(n) !== allStarts.get(n.id).at || n.title !== allStarts.get(n.id).title || n.body !== allStarts.get(n.id).body));
+    if (obsoleteStarts.length) await LocalNotifications.removeDeliveredNotifications({ notifications: obsoleteStarts }).catch(() => {});
     // Feira finalizada: tira da barra os avisos que já apareceram.
     const closedIds = list.filter(f => f.closed).flatMap(f => f.times.map((_, i) => fairNoticeId(f.id, i)));
     if (closedIds.length) await LocalNotifications.removeDeliveredNotifications({ notifications: closedIds.map(id => ({ id, title: '', body: '' })) }).catch(() => {});
-    const status = await LocalNotifications.checkPermissions();
-    if (status.display !== 'granted') return;
-    const missing = [...wanted.entries()].filter(([id]) => !notifications.some(n => n.id === id));
-    if (!missing.length) return;
+    let status = await LocalNotifications.checkPermissions();
+    if (status.display === 'prompt' && !eventPermissionAsked && changes.schedule.some(n => n.extra.kind === 'event-start')) {
+      eventPermissionAsked = true;
+      status = await LocalNotifications.requestPermissions();
+    }
+    if (status.display !== 'granted' || !changes.schedule.length) return;
     await LocalNotifications.schedule({
-      notifications: missing.map(([id, { f, st, at, i }]) => (st ? {
-        id, channelId: 'financas', title: st.title, body: st.body,
-        extra: { kind: 'event-start', eventId: st.eventId }, smallIcon: 'ic_stat_territorio', iconColor: '#7FA653',
-        autoCancel: true, schedule: { at: new Date(at), allowWhileIdle: true }, isExactNotification: false,
-      } : {
-        id, channelId: 'financas',
-        title: i === 0 ? `${f.name} termina em 10 minutos` : f.official ? `Finalize a ${f.name}` : `Finalize o evento ${f.name}`,
-        body: f.official ? (i === 0 ? 'Quando parar de vender, finalize a feira. O relatório vai sozinho.' : 'Confira o que sobrou: leva um minuto. O relatório vai sozinho.') : (i === 0 ? 'Quando parar de vender, finalize o evento e confira o que sobrou.' : 'Confira o que sobrou: leva um minuto.'),
-        actionTypeId: 'FAIR_FINISH', extra: { kind: 'fair', eventId: f.id }, smallIcon: 'ic_stat_territorio', iconColor: '#7FA653',
-        ongoing: true, autoCancel: true, schedule: { at: new Date(at), allowWhileIdle: true }, isExactNotification: false,
+      notifications: changes.schedule.filter(n => n.at > Date.now()).map(({ at, ...n }) => ({
+        ...n, smallIcon: 'ic_stat_territorio', iconColor: '#7FA653', autoCancel: true,
+        schedule: { at: new Date(at), allowWhileIdle: true }, isExactNotification: false,
       })),
     });
   } catch (error) {
     console.warn('Aviso da feira não agendado', error);
+  } finally {
+    schedulingFairNotices = false;
+    if (rescheduleFairNotices) { rescheduleFairNotices = false; void scheduleFairNotices(); }
   }
 }
 function installFairReminder() {
+  LocalNotifications.createChannel({ id: 'eventos', name: 'Seus eventos', description: 'Lembrete uma hora antes de cada dia do evento.', importance: 4, visibility: 1, vibration: true, lights: true, lightColor: '#7FA653' }).catch(() => {});
   LocalNotifications.registerActionTypes({
     types: [{ id: 'FAIR_FINISH', actions: [{ id: 'finish', title: 'Finalizar feira', foreground: true }, { id: 'later', title: 'Depois' }] }],
   }).catch(() => {});
@@ -354,7 +370,83 @@ function installFairReminder() {
   });
   let timer;
   window.addEventListener('territorio:saved', () => { clearTimeout(timer); timer = setTimeout(scheduleFairNotices, 1500); });
+  App.addListener('resume', () => { clearTimeout(timer); timer = setTimeout(scheduleFairNotices, 500); });
   setTimeout(scheduleFairNotices, 4000);
+}
+
+// Android schedules private invitations only. The JS report is calculated from
+// local records on opening, never claimed ready while the WebView is stopped.
+let schedulingProductPeriods = false;
+let productPeriodsAgain = false;
+let productPeriodPermissionAsked = false;
+function productPeriodNoticeId(periodId) {
+  let h = 5381;
+  for (const ch of periodId) h = Math.imul(h, 33) ^ ch.charCodeAt(0);
+  return 2000000000 + ((h >>> 0) % 147483647);
+}
+async function scheduleProductPeriods() {
+  if (schedulingProductPeriods) { productPeriodsAgain = true; return; }
+  schedulingProductPeriods = true;
+  try {
+    const shell = window.TerritorioShell;
+    if (!shell?.productPeriodNotices) return;
+    let source = shell.productPeriodNotices();
+    const delivered = (await LocalNotifications.getDeliveredNotifications()).notifications || [];
+    // If a planned invitation already arrived, reopening must not send it again.
+    for (const n of delivered.filter(n => n.extra?.kind === 'product-period' && source.validIds.includes(n.extra.periodId))) {
+      await shell.markProductPeriodNotified?.(n.extra.periodKind, n.extra.periodId);
+    }
+    source = shell.productPeriodNotices();
+    const valid = new Set(source.validIds);
+    const obsolete = delivered.filter(n => n.extra?.kind === 'product-period' && !valid.has(n.extra.periodId));
+    if (obsolete.length) await LocalNotifications.removeDeliveredNotifications({ notifications: obsolete }).catch(() => {});
+    const { notifications: pending } = await LocalNotifications.getPending();
+    const wanted = new Map(source.notices.map(n => [productPeriodNoticeId(n.id), n]));
+    const cancel = pending.filter(n => n.extra?.kind === 'product-period' && (!wanted.has(n.id) || Number(n.extra.reminderAt) !== wanted.get(n.id).at && !wanted.get(n.id).due)).map(n => ({ id: n.id }));
+    if (cancel.length) await LocalNotifications.cancel({ notifications: cancel });
+    const cancelled = new Set(cancel.map(n => n.id));
+    const remaining = new Set(pending.filter(n => !cancelled.has(n.id)).map(n => n.id));
+    // Permission is requested by the app's existing notification setup, outside
+    // the sale flow. A denied permission never blocks the in-app summary.
+    let status = await LocalNotifications.checkPermissions();
+    if (status.display === 'prompt' && !productPeriodPermissionAsked && source.notices.length && shell.idle?.()) {
+      productPeriodPermissionAsked = true;
+      status = await LocalNotifications.requestPermissions();
+    }
+    if (status.display !== 'granted') return;
+    // Recheck after native permission/delivery calls: a reset or an edited first
+    // sale during an awaited call cannot create a new obsolete invitation.
+    const eligible = new Set(shell.productPeriodNotices().notices.map(n => n.id));
+    const next = [...wanted].filter(([id, n]) => !remaining.has(id) && eligible.has(n.id));
+    if (!next.length) return;
+    await LocalNotifications.schedule({ notifications: next.map(([id, n]) => ({
+      id, channelId: 'resumos-produtos', title: n.kind === 'weekly' ? 'Seu resumo semanal de produtos' : 'Seu resumo mensal de produtos',
+      body: 'Veja giro, valor vendido e contribuição bruta nos seus registros. Toque para conferir.',
+      extra: { kind: 'product-period', periodKind: n.kind, periodId: n.id, reminderAt: n.at },
+      schedule: { at: new Date(n.at), allowWhileIdle: false }, isExactNotification: false,
+      smallIcon: 'ic_stat_territorio', iconColor: '#7FA653', autoCancel: true, foreground: false,
+    })) });
+    for (const [, n] of next) if (n.due) await shell.markProductPeriodNotified?.(n.kind, n.id);
+  } catch (error) {
+    console.warn('Convite para resumo de produtos não agendado', error);
+  } finally {
+    schedulingProductPeriods = false;
+    if (productPeriodsAgain) { productPeriodsAgain = false; void scheduleProductPeriods(); }
+  }
+}
+function installProductPeriodReminders() {
+  LocalNotifications.createChannel({ id: 'resumos-produtos', name: 'Resumos dos produtos', description: 'Convites semanais e mensais para conferir seus próprios registros.', importance: 3, visibility: 0, vibration: false, lights: false }).catch(() => {});
+  LocalNotifications.addListener('localNotificationActionPerformed', action => {
+    const extra = action.notification?.extra;
+    if (extra?.kind !== 'product-period') return;
+    setTimeout(() => window.TerritorioShell?.openProductPeriod?.(extra.periodKind, extra.periodId), 500);
+  });
+  let timer;
+  const queue = () => { clearTimeout(timer); timer = setTimeout(scheduleProductPeriods, 1600); };
+  window.addEventListener('territorio:saved', queue);
+  window.addEventListener('territorio:product-source-saved', queue);
+  App.addListener('resume', () => { window.dispatchEvent(new Event('territorio:resume')); queue(); });
+  setTimeout(scheduleProductPeriods, 5000);
 }
 
 export function installShell() {
@@ -363,11 +455,12 @@ export function installShell() {
   installBackButton();
   installLinksAndDownloads();
   installHaptics();
-  installKeepAwake();
+  installSystemSleep();
   installSystemBars();
   installLifecycle();
   installStockAlerts();
   installFinanceReminder();
   installFairReminder();
+  installProductPeriodReminders();
   requestAnimationFrame(() => SplashScreen.hide({ fadeOutDuration: 200 }).catch(() => {}));
 }

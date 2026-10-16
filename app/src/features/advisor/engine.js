@@ -7,18 +7,22 @@
 import { TOPICS } from './knowledge.js';
 import { forecastNextEvent, runOut } from './forecast.js';
 import { FINANCE_RULES } from './finance-rules.js';
+import { evidenceQuality } from './quality.js';
+import { explainMethod } from './method.js';
 
 const LEVELS = ['urgente', 'atencao', 'oportunidade', 'bom'];
 const TARGET_MARGIN = 0.4;
 const LOW_MARGIN = 0.3;
 
-export const brl = cents => (cents / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+const currencyFormat = new Intl.NumberFormat('pt-BR', {style:'currency',currency:'BRL'});
+export const brl = cents => currencyFormat.format(cents / 100);
 const pct = ratio => Math.round(ratio * 100) + '%';
 const plural = (n, one, many) => `${n.toLocaleString('pt-BR')} ${n === 1 ? one : many}`;
 const list = names => names.length <= 1 ? names.join('') : names.slice(0, -1).join(', ') + ' e ' + names[names.length - 1];
 
 // Menor preço terminado em 90 centavos que alcança a margem pedida (ex.: 24,90).
 export function priceFor(cost, margin = TARGET_MARGIN) {
+  if (!Number.isFinite(cost) || cost < 0 || !Number.isFinite(margin) || margin < 0 || margin >= 1) throw new RangeError('Custo e margem inválidos');
   const target = cost / (1 - margin);
   return Math.ceil((target + 10) / 100) * 100 - 10;
 }
@@ -45,98 +49,58 @@ function noSales(input) {
 }
 
 function lossPeriod(input) {
-  const c = input.current;
-  if (!c.salesCount || c.revenue <= 0 || c.result >= 0 || !input.hasCost) return [];
-  const profitPerSale = (c.revenue - c.cost) / c.salesCount;
-  const deficit = -c.result;
-  const needed = profitPerSale > 0 ? Math.ceil(deficit / profitPerSale) : null;
+  const c = input.current, f = input.finance;
+  if (!c.salesCount || c.revenue <= 0 || c.result >= 0 || !input.quality.completeCosts) return [];
+  const contribution = f?.contribution ?? c.revenue - c.cost;
+  const perSale = contribution / c.salesCount;
+  const needed = perSale > 0 ? Math.ceil(-c.result / perSale) : null;
   return [item('prejuizo', 'urgente', {
-    title: 'O período fechou no prejuízo',
-    happened: `Você vendeu ${brl(c.revenue)}, mas produtos e despesas custaram ${brl(c.cost + c.expense)}. Faltaram ${brl(deficit)}.`,
-    todo: needed ? `Faltaram cerca de ${plural(needed, 'venda', 'vendas')} para empatar: corte o encalhe e as despesas antes de gastar com divulgação.` : 'Seus preços não cobrem o custo dos produtos: revise os preços antes da próxima feira.',
-    why: 'Prejuízo quase sempre vem de três lugares: produto vendido com pouco lucro, produto que voltou para casa e despesa alta para o tamanho das vendas.',
-    steps: ['Veja abaixo quais produtos têm pouco lucro e quais encalharam.', 'Leve para a feira só o que costuma vender.', 'Adie despesas que não trazem venda.'],
-    topics: ['equilibrio', 'margemliquida', 'giro'],
-    numbers: [
-      { label: 'Receita', value: brl(c.revenue) },
-      { label: 'Custo dos produtos vendidos', value: brl(c.cost) },
-      { label: 'Despesas', value: brl(c.expense) },
-      { label: 'Resultado', value: brl(c.result) },
-      { label: 'Lucro médio por venda', value: brl(Math.round(profitPerSale)), detail: '(receita − custo dos produtos) ÷ vendas' },
-      ...(needed ? [{ label: 'Vendas a mais para empatar', value: String(needed), detail: 'falta ÷ lucro médio por venda' }] : []),
-    ],
-    impact: deficit * 3,
+    title: 'Resultado negativo nos registros',
+    happened: 'O resultado do período é ' + brl(c.result) + (input.quality.resultIsPartial ? ', ainda parcial por falta de despesas.' : ', após os gastos informados.'),
+    todo: needed ? 'No mesmo mix e margem, seriam cerca de ' + plural(needed, 'venda', 'vendas') + ' para empatar. Revise custos, taxas e preços antes de decidir.' : 'A contribuição não cobre os gastos variáveis. Confira custos, descontos e preços.',
+    why: 'Esta simulação mantém a contribuição média por venda. Mudanças de volume, preço, taxas ou mix alteram o resultado; não é uma meta garantida.',
+    topics: ['equilibrio', 'contribuicao'],
+    numbers: [{label:'Vendas líquidas',value:brl(c.revenue)},{label:'Contribuição por venda',value:brl(Math.round(perSale)),detail:'contribuição após taxas e tributos configurados ÷ vendas válidas'},{label:'Resultado informado',value:brl(c.result)}],
+    impact: -c.result * 3,
   })];
 }
 
 function missingCost(input) {
-  const index = productIndex(input);
-  const sold = input.current.rank.map(r => index.get(r.id)).filter(p => p && p.price > 0 && !(p.cost > 0));
-  if (!sold.length) return [];
-  const names = [...new Set(sold.map(p => p.name))].slice(0, 4);
-  const amount = input.current.rank.filter(r => sold.some(p => p.id === r.id)).reduce((n, r) => n + r.amount, 0);
+  const q = input.quality;
+  if (!q.missingProducts) return [];
   return [item('sem-custo', 'atencao', {
-    title: 'Falta o custo de alguns produtos',
-    happened: `${list(names)} ${names.length === 1 ? 'está' : 'estão'} sem custo cadastrado.`,
-    todo: `Cadastre quanto custa produzir ${list(names)}: sem isso o app não sabe se você está lucrando.`,
-    why: 'O custo é o que você gasta para produzir ou comprar uma unidade (insumos, embalagem, transporte). Com ele, o app mostra o lucro real de cada produto.',
-    steps: ['Abra o Estoque, toque no produto e preencha o custo por unidade.', 'Na dúvida, some insumos e embalagem e divida pela quantidade produzida.'],
-    topics: ['margembruta'],
-    cta: { label: 'Abrir o Estoque', action: 'nav', data: { page: 'Estoque' } },
-    impact: amount,
+    title: 'Complete os custos antes de avaliar lucro',
+    happened: q.knownProducts + ' de ' + q.products + ' produtos vendidos têm custo histórico informado; cobertura de ' + pct(q.costCoverage || 0) + ' da receita analisada.',
+    todo: 'Confira o custo de ' + list((input.finance?.margins || input.current.rank).filter(r => input.finance ? !(r.costKnown ?? r.cost > 0) : !((input.products || []).find(p => p.id===r.id)?.cost > 0)).slice(0,3).map(r=>r.name)) + ' no Estoque e revise os registros históricos sem custo.',
+    why: 'Editar o cadastro agora não muda o custo gravado em vendas antigas. Custo ausente não significa custo zero; o lucro total permanece parcial.',
+    topics: ['margembruta'], cta: {label:'Abrir o Estoque',action:'nav',data:{page:'Estoque'}},
+    impact: q.totalRevenue + 1,
+    numbers: [{label:'Receita com custo conhecido',value:brl(Math.round(q.coveredRevenue))},{label:'Receita analisada',value:brl(q.totalRevenue)}],
   })];
 }
 
 function pricing(input) {
-  const index = productIndex(input);
-  const total = input.current.revenue || 0;
-  const out = [];
-  const belowCost = input.current.rank.map(r => ({ r, p: index.get(r.id) })).filter(({ p }) => p && p.cost > 0 && p.price > 0 && p.price <= p.cost);
-  if (belowCost.length) {
-    const names = belowCost.map(({ p }) => p.name);
-    out.push(item('abaixo-custo', 'urgente', {
-      title: 'Produto vendido abaixo do custo',
-      happened: `${list(names)} ${names.length === 1 ? 'custa' : 'custam'} mais para produzir do que o preço de venda.`,
-      todo: belowCost.map(({ p }) => `Suba ${p.name} para ${brl(priceFor(p.cost))}`).join('; ') + '.',
-      why: 'Cada unidade vendida assim tira dinheiro do seu bolso. Quanto mais vende, mais perde.',
-      topics: ['margembruta', 'nomepreco'],
-      numbers: belowCost.map(({ p }) => ({ label: p.name, value: `preço ${brl(p.price)} · custo ${brl(p.cost)}` })),
-      impact: belowCost.reduce((n, { r }) => n + r.amount, 0) * 2,
+  // Prefer historical item costs and net prices after discounts and returns.
+  const rows = input.finance?.margins || input.current.rank.map(r=>{const p=(input.products||[]).find(p=>p.id===r.id);return {...r,revenue:r.amount,cost:(p?.cost||0)*r.qty,costKnown:p?.cost>0};});
+  const eligible = rows.filter(r=>(r.costKnown ?? r.cost>0) && r.qty>0 && r.revenue>0);
+  const out=[];
+  for(const r of eligible) {
+    const margin=(r.revenue-r.cost)/r.revenue;
+    const share=r.revenue/Math.max(1,input.current.revenue);
+    if(margin>=LOW_MARGIN || (margin>=0 && share<0.25))continue;
+    const unitCost=r.cost/r.qty, unitPrice=r.revenue/r.qty;
+    const suggested=priceFor(unitCost), gain=Math.round((suggested-unitPrice)*r.qty);
+    const below=margin<0;
+    out.push(item(below?'abaixo-custo-'+r.id:'campeao-margem',below?'urgente':'atencao',{
+      title: below?r.name+' foi vendido abaixo do custo':r.name+' vende muito, mas dá pouca margem',
+      happened:r.name+' representa '+pct(share)+' da receita. Margem bruta histórica: '+pct(margin)+', após descontos e devoluções.',
+      todo: 'Simule '+r.name+' de '+brl(Math.round(unitPrice))+' para '+brl(suggested)+' e valide aceitação e concorrência antes de alterar o preço.',
+      why:'A margem de 40% é um cenário de análise, não um padrão obrigatório. Taxas, tributos, perecibilidade, demanda e custos da banca precisam entrar na decisão.',
+      steps:['Confira embalagem, insumos e custo histórico por unidade.','Teste origem, história e preço visível na banca sem prometer aumento de vendas.','No mesmo volume, a receita aumentaria '+brl(gain)+'; o volume pode mudar com o preço.'],
+      topics:['margembruta','nomepreco','historia'],
+      numbers:[{label:'Preço médio vendido',value:brl(Math.round(unitPrice))},{label:'Custo histórico por unidade',value:brl(Math.round(unitCost))},{label:'Margem bruta',value:pct(margin)},{label:'Preço sugerido',value:brl(suggested),detail:'simulação: custo ÷ (1 − 40%); antes de taxas e tributos'}],
+      impact: below?r.cost-r.revenue:Math.max(0,gain),
     }));
-  }
-  // O campeão de vendas com pouco lucro (o caso clássico do material).
-  const top = input.current.rank[0];
-  const p = top && index.get(top.id);
-  if (p && p.cost > 0 && p.price > p.cost && total > 0) {
-    const margin = (p.price - p.cost) / p.price;
-    const share = top.amount / total;
-    if (margin < LOW_MARGIN && share >= 0.25) {
-      const ideal = priceFor(p.cost);
-      const step = ideal > p.price * 1.3 ? priceFor(p.cost, Math.min(LOW_MARGIN, margin + 0.1)) : ideal;
-      const gain = Math.round((step - p.price) * top.qty);
-      out.push(item('campeao-margem', margin < 0.15 ? 'urgente' : 'atencao', {
-        title: `${p.name} vende muito, mas dá pouco lucro`,
-        happened: `${p.name} é ${pct(share)} da sua receita, mas de cada ${brl(p.price)} sobram só ${brl(p.price - p.cost)}.`,
-        todo: step < ideal
-          ? `Suba ${p.name} aos poucos: primeiro para ${brl(step)}, depois avalie chegar a ${brl(ideal)}.`
-          : `Suba ${p.name} de ${brl(p.price)} para ${brl(ideal)}, ou consiga um custo menor.`,
-        why: 'Quando o produto que mais vende tem pouco lucro, você trabalha muito e sobra pouco. Um pequeno ajuste no preço do campeão pesa mais no seu bolso do que qualquer outro.',
-        steps: [
-          'Valorize antes de subir: história do produto, nome com origem e degustação.',
-          'Preço terminado em 90 parece menor.',
-          `Com o mesmo volume deste período, o novo preço renderia cerca de ${brl(gain)} a mais.`,
-        ],
-        topics: ['margembruta', 'nomepreco', 'historia', 'degustacao'],
-        numbers: [
-          { label: 'Preço atual', value: brl(p.price) },
-          { label: 'Custo', value: brl(p.cost) },
-          { label: 'Lucro por unidade', value: `${brl(p.price - p.cost)} (${pct(margin)})`, detail: '(preço − custo) ÷ preço' },
-          { label: 'Peso na receita', value: pct(share), detail: 'receita do produto ÷ receita total' },
-          { label: 'Preço sugerido', value: brl(ideal), detail: `para sobrar ${pct(TARGET_MARGIN)} do preço` },
-        ],
-        impact: gain * 2,
-      }));
-    }
   }
   return out;
 }
@@ -153,7 +117,7 @@ function leftovers(input) {
       out.push(item('encalhe-' + event.id, 'atencao', {
         title: `Sobrou produto na ${event.name}`,
         happened: `Voltaram para casa: ${list(stuck.slice(0, 3).map(i => `${i.left.toLocaleString('pt-BR')} de ${i.taken.toLocaleString('pt-BR')} ${i.name}`))}. Isso daria ${brl(lost)}.`,
-        todo: `Na próxima feira, leve menos ${list(stuck.slice(0, 2).map(i => i.name))}${champion ? ` e ofereça a sobra em combo com ${champion}` : ''}.`,
+        todo: `Na próxima feira, avalie levar menos ${list(stuck.slice(0, 2).map(i => i.name))}${champion ? ` e ofereça a sobra em combo com ${champion}` : ''}.`,
         why: 'Produto que volta para casa é dinheiro parado e pode estragar. Ajustar a quantidade levada é a forma mais rápida de melhorar o resultado.',
         steps: ['Leve a quantidade que costuma vender, não a que cabe no carro.', 'O que sobrar vira combo ou kit antes de perder a validade.'],
         topics: ['giro', 'perdida', 'combinacoes'],
@@ -165,8 +129,8 @@ function leftovers(input) {
       out.push(item('esgotou-' + event.id, 'oportunidade', {
         title: `Esgotou na ${event.name}`,
         happened: `${list(soldOut.slice(0, 3).map(i => i.name))} ${soldOut.length === 1 ? 'acabou' : 'acabaram'} durante a feira.`,
-        todo: `Leve mais ${list(soldOut.slice(0, 2).map(i => i.name))} na próxima feira: teve cliente que ficou sem.`,
-        why: 'Produto que esgota mostra procura maior que a oferta. Levar um pouco mais é venda quase garantida.',
+        todo: `Leve mais ${list(soldOut.slice(0, 2).map(i => i.name))} após conferir validade, caixa e demanda. O esgotamento sozinho não prova pedidos perdidos.`,
+        why: 'O saldo zerado é um fato registrado. Só pedidos não atendidos permitem medir demanda perdida; testar reposição exige avaliar prazo e validade.',
         topics: ['giro', 'espaco'],
         impact: soldOut.reduce((n, i) => n + Math.round(i.taken * i.price * 0.25), 0),
       }));
@@ -177,7 +141,7 @@ function leftovers(input) {
 
 function trend(input) {
   const c = input.current, p = input.previous;
-  if (!p || !p.revenue || !c.salesCount) return [];
+  if (input.comparable === false || !p || !p.revenue || !c.salesCount) return [];
   const change = (c.revenue - p.revenue) / p.revenue;
   const numbers = [
     { label: input.periodLabel, value: brl(c.revenue) },
@@ -189,7 +153,7 @@ function trend(input) {
       title: 'As vendas caíram',
       happened: `Você vendeu ${pct(-change)} menos que no período anterior (${brl(c.revenue)} contra ${brl(p.revenue)}).`,
       todo: 'Antes da próxima feira, mande a lista do dia no WhatsApp e capriche na primeira impressão da banca.',
-      why: 'Venda que cai costuma ser menos gente parando na banca ou clientes que não lembraram da feira. As duas coisas se resolvem com aviso antes e banca que chama atenção.',
+      why: 'O registro mostra a diferença, mas não a causa. Compare duração, dias e locais semelhantes. Movimento, clima e comportamento precisam de dados próprios.',
       steps: ['Mande a lista do dia para seus clientes um dia antes.', 'Produto mais bonito na frente, elevado.', 'Preço visível em tudo.'],
       topics: ['encarte', 'impacto', 'precos', 'ancora'],
       numbers,
@@ -235,7 +199,7 @@ function concentration(input) {
 function basket(input) {
   const c = input.current, p = input.previous;
   if (c.salesCount < 5) return [];
-  const ticketDrop = p && p.salesCount >= 5 && p.ticket > 0 ? (p.ticket - c.ticket) / p.ticket : 0;
+  const ticketDrop = input.comparable !== false && p && p.salesCount >= 5 && p.ticket > 0 ? (p.ticket - c.ticket) / p.ticket : 0;
   if (c.productsPerSale >= 1.3 && ticketDrop < 0.15) return [];
   const top = c.rank[0]?.name;
   return [item('ticket', 'oportunidade', {
@@ -259,14 +223,14 @@ function basket(input) {
 function restock(input) {
   const index = productIndex(input);
   const soon = input.upcoming && input.upcoming.daysUntil <= 7;
-  const risky = input.current.rank.slice(0, 6).map(r => index.get(r.id)).filter(p => p && p.stock <= Math.max(p.min || 0, 0));
+  const risky = input.current.rank.filter(r=>r.qty>0).slice(0, 6).map(r => index.get(r.id)).filter(p => p && p.stock <= Math.max(p.min || 0, 0));
   if (!risky.length) return [];
   const empty = risky.filter(p => p.stock <= 0);
   return [item('repor', empty.length && soon ? 'urgente' : 'atencao', {
     title: 'Produto que vende bem está acabando',
     happened: risky.map(p => p.stock <= 0 ? `${p.name} acabou` : `${p.name} tem só ${p.stock.toLocaleString('pt-BR')} ${p.unitLabel || ''}`.trim()).join('; ') + '.',
     todo: `Reponha ${list(risky.slice(0, 3).map(p => p.name))}${soon ? ` antes da ${input.upcoming.name}` : ' antes da próxima feira'}.`,
-    why: 'Faltar o produto que mais vende é a venda perdida mais cara: o cliente veio por ele.',
+    why: 'Estoque baixo merece atenção. Antes de repor, verifique saldo, prazo de entrega, validade, caixa e o histórico disponível; não há venda perdida comprovada.',
     topics: ['giro', 'espaco'],
     numbers: risky.map(p => ({ label: p.name, value: `estoque ${p.stock.toLocaleString('pt-BR')}`, detail: `mínimo ${(p.min || 0).toLocaleString('pt-BR')}` })),
     cta: { label: 'Abrir o Estoque', action: 'nav', data: { page: 'Estoque' } },
@@ -297,7 +261,7 @@ function loyalty(input) {
       return [item('retorno', 'oportunidade', {
         title: 'Poucos clientes voltaram',
         happened: `Dos ${clients} clientes identificados, ${c.returning} já tinham comprado antes.`,
-        todo: 'Avise seus clientes da próxima feira pelo WhatsApp e ofereça "compre 9, ganhe o 10º".',
+        todo: 'Avise seus clientes da próxima feira pelo WhatsApp e teste uma ação de fidelidade cujo custo caiba na margem.',
         why: 'Conquistar um cliente novo custa mais do que manter quem já comprou. Cliente que volta toda feira vale muitas vezes mais.',
         topics: ['contato', 'ltv', 'natureza'],
         numbers: [{ label: 'Clientes que voltaram', value: `${c.returning} de ${clients}`, detail: pct(back) }],
@@ -318,33 +282,16 @@ function loyalty(input) {
 }
 
 function acquisition(input) {
-  const c = input.current;
-  if (!(c.marketing > 0) || !(c.newClients > 0) || !c.ticket) return [];
-  const cac = c.marketing / c.newClients;
-  const ltv = c.ticket * Math.max(1, c.purchasesPerClient || 1);
-  const numbers = [
-    { label: 'Gasto com divulgação', value: brl(c.marketing) },
-    { label: 'Clientes novos', value: String(c.newClients) },
-    { label: 'Custo por cliente novo', value: brl(Math.round(cac)), detail: 'divulgação ÷ clientes novos' },
-    { label: 'Valor do cliente até agora', value: brl(Math.round(ltv)), detail: 'compra média × compras por cliente' },
-  ];
-  if (cac > c.ticket || ltv < 3 * cac) {
-    return [item('divulgacao', 'atencao', {
-      title: 'A divulgação está cara para o retorno',
-      happened: `Cada cliente novo custou ${brl(Math.round(cac))} em divulgação; a compra média é ${brl(c.ticket)}.`,
-      todo: 'Antes de gastar mais com divulgação, faça quem já comprou voltar: aviso no WhatsApp e programa de fidelidade.',
-      why: 'Divulgação só compensa quando o cliente volta. A regra de ouro: o valor que ele deixa ao longo do tempo deve ser pelo menos três vezes o que custou para conquistá-lo.',
-      topics: ['cac', 'ltv', 'contato'],
-      numbers,
-      impact: c.marketing,
-    })];
-  }
-  return [item('divulgacao-ok', 'bom', {
-    title: 'A divulgação está se pagando',
-    happened: `Cada cliente novo custou ${brl(Math.round(cac))} e já deixou ${brl(Math.round(ltv))} em compras.`,
-    todo: 'Mantenha o investimento e continue trazendo os clientes de volta.',
-    numbers,
-    impact: 1,
+  const c=input.current;
+  if(!(c.marketing>0)||!(c.newClients>0))return [];
+  const ratio=Math.round(c.marketing/c.newClients);
+  return [item('divulgacao-medicao','oportunidade',{
+    title:'Meça o retorno da divulgação',
+    happened:'Há '+brl(c.marketing)+' em divulgação e '+c.newClients+' clientes novos identificados neste período.',
+    todo:'Registre de onde vieram os clientes e compare a contribuição das compras atribuídas à campanha com seu custo.',
+    why:'Dividir divulgação por todos os clientes novos dá uma aproximação, não prova aquisição pela campanha. Receita não é lucro e este recorte não mede o valor de vida do cliente (LTV).',
+    topics:['cac','ltv','contato'],
+    numbers:[{label:'Divulgação por cliente novo identificado',value:brl(ratio),detail:'aproximação sem atribuição de campanha; não é retorno comprovado'}],impact:c.marketing,
   })];
 }
 
@@ -387,7 +334,7 @@ function upcomingEvent(input) {
     title: `Prepare a ${u.name}`,
     happened: `A ${u.name} começa ${when}.`,
     todo: 'Repasse o checklist da banca e mande a lista do dia no WhatsApp.',
-    why: 'Banca preparada vende várias vezes mais que banca improvisada, e o cliente avisado já chega decidido.',
+    why: 'Preço visível, organização e contato podem ajudar o atendimento. Compare os resultados em feiras semelhantes para avaliar o efeito.',
     steps: ['Checklist da banca: preço visível, degustação, produtos em degraus, itens pequenos no caixa.', 'Confira o estoque do que mais vende.', 'Mande a lista do dia um dia antes.'],
     topics: ['impacto', 'precos', 'degustacao', 'encarte'],
     cta: { label: 'Abrir checklist da banca', action: 'advisor-checklist', data: { id: 'banca' } },
@@ -419,16 +366,16 @@ function nextEventPlan(input) {
   const missing = f.lines.filter(l => l.missing > 0);
   return [item('previsao-feira', missing.length ? 'atencao' : 'oportunidade', {
     title: `Previsão para a ${u.name}`,
-    happened: `Pelo seu histórico, a ${u.name} deve render entre ${brl(f.low)} e ${brl(f.high)} (confiança ${f.confidence}).`,
+    happened: `Projeção histórica para ${u.name}: ${brl(f.revenue)}. ${f.low != null ? "Faixa observada: " + brl(f.low) + " a " + brl(f.high) + ". " : ""}${f.sampleLabel || "Base histórica limitada"}. Não é garantia de receita.`,
     todo: missing.length
       ? `Reponha antes de sair: ${list(missing.slice(0, 3).map(l => `${l.name} (faltam ${fmtQty(l.missing)} ${l.unit})`))}.`
       : `Leve ${list(f.lines.slice(0, 3).map(l => `${fmtQty(l.take)} ${l.unit} de ${l.name}`))}.`,
-    why: 'A previsão usa o que você vendeu nas últimas feiras, com mais peso para as mais recentes. Quando um produto esgotou, a procura foi maior que a venda, então a previsão sobe. Quanto mais feiras registradas, mais precisa ela fica.',
+    why: 'A previsão usa o que você vendeu nas últimas feiras, com mais peso para as mais recentes e ajuste pela duração. Esgotamento não é convertido em demanda fictícia; validade, clima e caixa ainda exigem revisão.',
     steps: f.lines.slice(0, 8).map(l => `${l.name}: levar ${fmtQty(l.take)} ${l.unit}${l.missing ? ` (você tem ${fmtQty(l.stock)})` : ''} · ${l.basis}`),
     topics: ['giro', 'espaco'],
     numbers: [
-      { label: 'Receita prevista', value: `${brl(f.low)} a ${brl(f.high)}` },
-      { label: 'Confiança', value: f.confidence, detail: f.eventsUsed ? `${f.eventsUsed} ${f.eventsUsed === 1 ? 'feira' : 'feiras'} no histórico` : 'sem feiras no histórico' },
+      { label: 'Projeção histórica', value: brl(f.revenue), detail: 'quantidade histórica projetada × preço atual; não é intervalo de confiança' },
+      { label: 'Base de dados', value: f.sampleLabel || 'histórico disponível', detail: f.eventsUsed ? `${f.eventsUsed} ${f.eventsUsed === 1 ? 'feira' : 'feiras'} no histórico` : 'sem feiras no histórico' },
     ],
     cta: missing.length ? { label: 'Repor agora', action: 'restock-ids', data: { ids: missing.map(l => l.id).join(',') } } : undefined,
     impact: f.revenue,
@@ -442,10 +389,10 @@ function runningOut(input) {
   if (!soon.length) return [];
   const days = r => Math.max(1, Math.round(r.days));
   return [item('acaba-logo', 'atencao', {
-    title: 'Produto vai acabar em poucos dias',
-    happened: list(soon.slice(0, 3).map(r => `${r.name} acaba em ~${plural(days(r), 'dia', 'dias')}`)) + '.',
+    title: 'Projeção de duração do estoque',
+    happened: list(soon.slice(0, 3).map(r => `${r.name}: saldo para ~${plural(days(r), 'dia', 'dias')}`)) + '.',
     todo: `Reponha ${list(soon.slice(0, 3).map(r => r.name))} nesta semana.`,
-    why: 'O cálculo divide o que você tem pelo quanto vende por dia nas últimas semanas.',
+    why: 'O saldo é dividido pelo ritmo observado em dias corridos. É uma projeção, não uma data garantida; sazonalidade, validade e mudanças de demanda podem alterá-la.',
     numbers: soon.map(r => ({ label: r.name, value: `${fmtQty(r.stock)} ${r.unitLabel}`, detail: `vende ${fmtQty(r.perDay)} por dia` })),
     topics: ['giro'],
     cta: { label: 'Repor agora', action: 'restock-ids', data: { ids: soon.map(r => r.id).join(',') } },
@@ -453,33 +400,46 @@ function runningOut(input) {
   })];
 }
 
-const RULES = [noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices];
+function pendingTests(input) {
+  const tests=input.plannedTests||[];
+  if(!tests.length)return [];
+  return [item('test-pending','oportunidade',{title:'Avalie os testes que já planejou',happened:`Há ${tests.length} ${tests.length===1?'teste planejado':'testes planejados'} aguardando avaliação.`,todo:'Registre o resultado observado e as mudanças do período antes de repetir ou iniciar uma ação semelhante.',why:'Uma diferença no resultado não isola a causa. Compare períodos, condições e a medida definida no planejamento.',cta:{label:'Ver testes',action:'advisor-tests'},impact:1})];
+}
+const RULES = [noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests];
 
 // ------------------------------------------------------------------------------------- saída
 
 function situation(input, all) {
+  if(input.quality.errors) return 'A conferência encontrou inconsistências. Corrija os registros antes de avaliar resultado, preço ou crescimento.';
   const c = input.current;
   if (!c.salesCount) return input.upcoming ? `Ainda não há vendas em ${input.periodLabel}. A ${input.upcoming.name} está chegando.` : `Ainda não há vendas registradas em ${input.periodLabel}.`;
   let text = `${brl(c.revenue)} em ${plural(c.salesCount, 'venda', 'vendas')}`;
-  if (input.hasCost) text += c.result >= 0 ? `, com ${brl(c.result)} de lucro` : `, com ${brl(-c.result)} de prejuízo`;
+  if (input.quality.completeCosts) text += c.result >= 0 ? `, com ${brl(c.result)} de resultado gerencial informado` : `, com ${brl(-c.result)} de prejuízo`;
   const p = input.previous;
-  if (p && p.revenue) {
+  if (input.comparable !== false && p && p.revenue) {
     const change = (c.revenue - p.revenue) / p.revenue;
     if (Math.abs(change) >= 0.05) text += ` (${pct(Math.abs(change))} ${change > 0 ? 'acima' : 'abaixo'} do período anterior)`;
   }
-  text += '.';
+  text += input.quality.resultIsPartial ? '. Custos ou despesas incompletos: resultado parcial.' : '.';
   const worst = all.find(d => d.level !== 'bom')?.level;
   text += worst === 'urgente' ? ' Há um ponto urgente para resolver.' : worst === 'atencao' ? ' Dá para melhorar com ajustes simples.' : worst === 'oportunidade' ? ' Bom caminho: veja como crescer mais.' : ' Tudo em ordem: siga assim.';
   return text;
 }
 
 export function buildGuidance(input) {
-  const all = RULES.flatMap(rule => rule(input))
+  input = { ...input, quality: evidenceQuality(input) };
+  if (input.quality.context === 'unconfirmed') {
+    const review = item('origem-dados', 'atencao', {title:'Confirme a origem dos registros',happened:'O conjunto ainda não está identificado como real, demonstração ou simulação.',todo:'Revise a origem da base antes de usar os números para decidir.',why:'Exemplos e registros sem origem confirmada não comprovam o desempenho de um produtor.',topics:[]});
+    return {periodLabel:input.periodLabel,quality:input.quality,situation:'Origem não confirmada. As conclusões sobre o negócio aguardam revisão dos registros.',actions:[review],all:[review]};
+  }
+  const candidates = (input.quality.errors ? RULES.filter(rule => rule.name === 'noSales' || rule.name === 'missingCost' || rule.name === 'auditErrors' || rule.name === 'missingCosts') : RULES);
+  const all = candidates.flatMap(rule => rule(input)).map(explainMethod)
     .sort((a, b) => LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level) || b.impact - a.impact);
   for (const d of all) d.topics = d.topics.filter(id => TOPICS[id]);
   return {
     periodLabel: input.periodLabel,
-    situation: situation(input, all),
+    quality: input.quality,
+    situation: (input.quality.context === 'demo' ? 'Exemplo com dados fictícios. ' : input.quality.context === 'simulation' ? 'Simulação. ' : '') + situation(input, all),
     actions: all.filter(d => d.level !== 'bom').slice(0, 3),
     all,
   };

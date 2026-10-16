@@ -1,0 +1,46 @@
+{
+  "versao": "1.0.0",
+  "idioma": "pt-BR",
+  "tipo": "catalogo_de_sugestoes",
+  "data": "2026-10-15",
+  "total_itens": 2479,
+  "total_categorias": 22,
+  "sem_estoque_sem_preco_sem_custo": true,
+  "descricao": "Produtos e apresentações comerciais sugeridos. Não representa disponibilidade, estoque, autorização de venda, certificação ou composição verificada.",
+  "categorias": {
+    "Apicultura e meliponicultura": 60,
+    "Artesanato e utilidades": 70,
+    "Bebidas": 28,
+    "Bolos e confeitaria": 489,
+    "Cafés": 62,
+    "Carnes e aves": 44,
+    "Castanhas e sementes": 60,
+    "Charcutaria": 170,
+    "Chás e infusões": 24,
+    "Derivados da cana": 10,
+    "Doces e conservas": 162,
+    "Frutas": 166,
+    "Grãos farinhas e cereais": 146,
+    "Hortifruti": 149,
+    "Laticínios": 178,
+    "Molhos e temperos": 100,
+    "Ovos": 14,
+    "Panificação": 229,
+    "Piscicultura e pescados": 42,
+    "Plantas e mudas": 60,
+    "Polpas e frutas processadas": 142,
+    "Salgados e refeições": 74
+  },
+  "fontes_de_apoio": [
+    {
+      "titulo": "Embrapa Espécies frutíferas nativas do Sul do Brasil",
+      "url": "https://www.infoteca.cnptia.embrapa.br/handle/doc/744946"
+    },
+    {
+      "titulo": "MAPA Manual de procedimentos de inspeção e fiscalização de carnes e produtos cárneos",
+      "url": "https://wikisda.agricultura.gov.br/pt-br/Inspe%C3%A7%C3%A3o-Animal/Produto-Origem-Animal/manual_produtos_carneos"
+    }
+  ],
+  "inclui_plurais_e_unidades_regionais": true,
+  "quantidade_produtos_base": 1270
+}

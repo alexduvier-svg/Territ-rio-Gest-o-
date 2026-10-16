@@ -1,0 +1,31 @@
+:root[data-theme][data-layout] dialog[data-kind='fair-finish']:is([open],.fluid-native-exit) { display:flex; flex-direction:column; min-height:0; height:auto; padding:0; overflow:hidden; max-height:90dvh; }
+dialog[data-kind='fair-finish'] > .checkout-header { padding:22px 22px 12px; flex:none; }
+dialog[data-kind='fair-finish'] .checkout-header h2 { margin:0; font-size:25px; letter-spacing:-.04em; }
+dialog[data-kind='fair-finish'] > .dialog-content { padding:0 22px 20px; flex:0 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
+:root[data-theme][data-layout] dialog[data-kind='fair-finish'] > .checkout-footer { padding:12px 22px calc(14px + var(--safe-area-inset-bottom,0px)); background:var(--field); border-top:1px solid var(--line); box-shadow:none; flex:none; }
+.surplus-event { margin:0 0 18px; color:var(--muted); font-size:13px; }
+.surplus-summary { display:flex; gap:18px; padding:0 0 20px; color:var(--muted); font-size:12px; }
+.surplus-summary span { flex:1; display:grid; gap:5px; }
+.surplus-summary strong { color:var(--text); font-size:20px; font-weight:650; font-variant-numeric:tabular-nums; }
+.surplus-check h3 { margin:0 0 12px; font-size:20px; letter-spacing:-.03em; }
+.surplus-rows { padding:0 14px; border:1px solid var(--line); border-radius:18px; background:var(--field); }
+.surplus-row { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:15px 0; font-size:15px; line-height:1.35; }
+.surplus-row + .surplus-row,.surplus-edit-row + .surplus-edit-row { border-top:1px solid var(--line); }
+.surplus-row span { min-width:0; overflow-wrap:anywhere; }
+.surplus-row strong { flex:none; font-size:14px; font-variant-numeric:tabular-nums; }
+.surplus-edit-row { padding:14px 0; }
+.surplus-edit-row .form-field { margin:0; }
+.surplus-edit-row label { font-size:14px; line-height:1.35; }
+.surplus-edit-row > small { display:block; color:var(--muted); font-size:11px; line-height:1.4; margin-top:7px; }
+.surplus-note { margin:12px 0; color:var(--muted); font-size:12px; line-height:1.5; }
+.surplus-question { padding:16px; border-radius:18px; background:var(--field); border:1px solid var(--line); margin-top:16px; }
+.surplus-question h4 { margin:0 0 8px; font-size:17px; }
+.surplus-question p { font-size:14px; line-height:1.5; }
+.surplus-question > div { display:grid; gap:8px; }
+.surplus-question button { min-height:48px; font-size:14px; padding:12px; border:1px solid var(--line); border-radius:14px; }
+.surplus-feedback { display:grid; gap:8px; margin-top:22px; font-size:13px; }
+.surplus-feedback small { color:var(--muted); margin-left:8px; }
+.surplus-actions { display:grid; gap:9px; }
+.surplus-actions > button { width:100%; min-height:48px; margin:0; border-radius:16px; font-size:16px; }
+.surplus-cancel { text-align:center; }
+.surplus-cancel button { min-height:36px; font-size:13px; }

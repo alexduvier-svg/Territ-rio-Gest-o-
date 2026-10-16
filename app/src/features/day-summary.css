@@ -1,0 +1,35 @@
+dialog[data-kind='day-summary'] .ds-head {
+ position:relative;
+ min-height:48px;
+ padding:2px 52px 2px 0;
+ text-align:left;
+ align-content:center;
+}
+.ds-privacy {
+ position:absolute;
+ top:0;
+ right:0;
+ display:grid;
+ place-items:center;
+ width:44px;
+ height:44px;
+ padding:0;
+ border:1px solid var(--line);
+ border-radius:50%;
+ color:var(--accent-ink);
+ background:var(--field);
+}
+.ds-families {
+ border:1px solid var(--line);
+ background:var(--panel);
+ box-shadow:0 2px 5px rgb(0 0 0 / 6%),inset 0 1px 0 rgb(255 255 255 / 5%);
+}
+dialog[data-kind='day-summary'] .ds-card h3 {
+ font:650 14px/1.4 'Inter Variable',sans-serif;
+ letter-spacing:-.01em;
+}
+.ds-family-row .ds-num { min-width:0; white-space:normal; }
+.ds-family-row .ds-num strong { white-space:nowrap; }
+.ds-family-row .ds-num small { display:block; }
+dialog[data-kind='day-cost'] .checkout-footer { gap:8px; }
+.dq-cancel { min-height:48px; width:100%; font-weight:600; color:var(--text); }

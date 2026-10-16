@@ -1,0 +1,80 @@
+/* Solid, inexpensive surfaces. The catalogue does not become sale cards. */
+.stock-product-flow { min-width: 0; --stock-own-ink: #adce79; --stock-suggestion-ink: #f3ae70; }
+:root[data-theme='light'] .stock-product-flow { --stock-own-ink: #466b24; --stock-suggestion-ink: #9b4b12; }
+.stock-product-flow [hidden] { display: none !important; }
+.stock-product-flow .stock-flow-title { color: var(--accent-ink, var(--action-green)); font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; margin: 0 0 12px; }
+.stock-flow-intro { color: var(--muted); font-size: 14px; line-height: 1.5; margin: 0 0 18px; }
+.stock-product-flow .category-scroll-wrap { margin-bottom: 18px; }
+.stock-product-flow .stock-picker-search { margin: 0 0 18px; }
+.stock-picker-search input { min-width: 0; width: 100%; }
+.stock-own-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 4px 0 12px; }
+.stock-own-heading h3,.stock-catalog-heading h3 { margin: 0; font-family: inherit; font-size: 15px; font-weight: 650; line-height: 1.4; letter-spacing: -.015em; color: var(--stock-suggestion-ink); text-shadow: none; }
+.stock-own-heading h3 { color: var(--stock-own-ink); }
+.stock-own-heading > span { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.stock-own-pills { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+.stock-own-pill { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 4px; min-width: 0; min-height: 72px; padding: 10px 12px; text-align: left; border: 1px solid color-mix(in srgb,var(--stock-own-ink) 25%,var(--line)); border-radius: 18px; background: color-mix(in srgb,var(--stock-own-ink) 5%,var(--field)); color: var(--text); }
+.stock-own-pill strong { font-size: 15px; line-height: 1.25; font-weight: 650; color: var(--stock-own-ink); overflow-wrap: anywhere; }
+.stock-own-pill > span,.stock-own-pill > small { display: block; font-size: 12px; line-height: 1.35; color: var(--muted); overflow-wrap: anywhere; }
+.stock-own-pill > small { font-size: 11px; }
+.stock-no-results { font-size: 13px; line-height: 1.5; color: var(--muted); margin: 12px 0 18px; }
+.stock-catalog-heading { display: grid; gap: 5px; margin: 22px 0 10px; }
+.stock-catalog-heading > small { color: var(--muted); font-size: 12px; line-height: 1.4; }
+.stock-catalog-heading.stock-own-heading { display: grid; justify-content: stretch; }
+.stock-own-results .stock-family-option strong { color: var(--stock-own-ink); }
+.stock-family-results { display: grid; }
+.stock-family-option { display: flex; align-items: center; justify-content: space-between; width: 100%; min-width: 0; min-height: 60px; gap: 10px; padding: 12px 2px; text-align: left; color: var(--text); background: transparent; border: 0; border-bottom: 1px solid var(--line); }
+.stock-family-option > span { display: grid; gap: 4px; min-width: 0; }
+.stock-family-option strong { font-size: 15px; line-height: 1.3; overflow-wrap: anywhere; }
+.stock-family-option small { font-size: 12px; color: var(--muted); line-height: 1.4; overflow-wrap: anywhere; }
+.stock-family-option .icon { flex: 0 0 16px; width: 16px; height: 16px; color: var(--muted); }
+.stock-product-flow .stock-custom-product { display: block; width: 100%; min-height: 49px; margin: 18px 0 0; padding: 12px; background: var(--panel); border: 1px solid var(--line); border-radius: 15px; color: var(--accent-ink, var(--action-green)); font-size: 15px; font-weight: 650; }
+.stock-product-flow .stock-custom-product.is-prominent { border-color: color-mix(in srgb,var(--action-green) 65%,var(--line)); background: color-mix(in srgb,var(--action-green) 7%,var(--panel)); }
+.stock-product-flow .stock-results-more { min-height: 44px; margin: 8px 0 0; padding: 10px; font-size: 13px; }
+.stock-presentation-options { display: grid; gap: 9px; }
+.stock-presentation-option { display: grid; gap: 5px; width: 100%; min-width: 0; min-height: 65px; padding: 13px; text-align: left; color: var(--text); background: var(--field); border: 1px solid var(--line); border-radius: 16px; }
+.stock-presentation-option strong { font-size: 15px; line-height: 1.3; overflow-wrap: anywhere; }
+.stock-presentation-option small { font-size: 12px; line-height: 1.4; color: var(--muted); overflow-wrap: anywhere; }
+.stock-unit-confirm { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 13px; margin: 5px 0 16px; border-radius: 15px; border: 1px solid var(--line); background: color-mix(in srgb,var(--action-green) 6%,var(--field)); }
+.stock-unit-confirm > span { font-size: 14px; line-height: 1.4; }
+.stock-unit-confirm > button { min-height: 42px; margin: 0; padding: 10px 12px; font-size: 13px; }
+.stock-duplicate-actions { display: grid; gap: 8px; margin: 14px 0; }
+.stock-duplicate-actions > button { width: 100%; margin: 0; }
+.stock-identity-review { padding: 14px; border-radius: 16px; background: var(--field); border: 1px solid var(--line); margin: 14px 0; }
+.stock-identity-review > p { font-size: 13px; line-height: 1.5; color: var(--muted); margin: 0 0 8px; }
+.stock-identity-review > .choice { width: 100%; margin-top: 12px; min-height: 48px; font-size: 13px; }
+.stock-section-enter { animation: stock-section-reveal 300ms cubic-bezier(.2,.75,.25,1); }
+
+/* Keep the section hierarchy and the existing raised field surfaces. The red
+   identifies four field names; weight and spacing give them the same clarity
+   as the rest of the system, without blurring small letters with text shadows. */
+.stock-product-flow .values-stock-panel { --stock-label-ink: #f08e88; }
+:root[data-theme='light'] .stock-product-flow .values-stock-panel { --stock-label-ink: #a82e3d; }
+:root[data-page='Produto'] .stock-product-flow .values-stock-panel > h2 {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  margin: 0 0 18px;
+  color: var(--accent-ink, var(--action-green));
+  text-shadow: none;
+}
+.stock-product-flow .values-stock-panel label:is([for^='price-'], [for^='cost-'], [for^='initial-'], [for^='minimum-']) {
+  color: var(--stock-label-ink);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -.01em;
+  text-transform: none;
+  text-shadow: none;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+html[data-large-text='true'] .stock-product-flow .values-stock-panel label:is([for^='price-'], [for^='cost-'], [for^='initial-'], [for^='minimum-']) { font-size: 16px; }
+html[data-large-text='true'][data-page='Produto'] .stock-product-flow .values-stock-panel > h2 { font-size: 15px; }
+html[data-large-text='true'] .stock-product-flow :is(.stock-own-heading h3,.stock-catalog-heading h3,.stock-own-pill strong,.stock-custom-product) { font-size: 17px; }
+@keyframes stock-section-reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 350px) { .stock-own-pill { padding: 10px; border-radius: 15px; }.stock-own-pill strong { font-size: 14px; }.stock-product-flow .panel { padding-left: 15px; padding-right: 15px; }.stock-unit-confirm { flex-direction: column; align-items: stretch; } }
+@media (prefers-reduced-motion: reduce) { .stock-section-enter { animation: none; } }
+:root[data-reduce-effects="true"] .stock-section-enter,:root.motion-lite .stock-section-enter { animation: none; }

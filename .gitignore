@@ -17,3 +17,15 @@ keystore.properties
 # Documentos pessoais e jurídicos (fora do repositório)
 juridico/
 privado/
+
+# Ambiente e dados particulares
+.signing/
+password.txt
+credentials.json
+*.idsig
+*.log
+*.pid
+**/.kotlin/
+**/local.properties
+**/native-apk-validation*.json
+**/RETOMADA-*.md
