@@ -1,0 +1,125 @@
+const fs=require('node:fs'),path=require('node:path'),cp=require('node:child_process'),vm=require('node:vm'),assert=require('node:assert/strict');
+const {chromium}=require('C:/Users/alexd/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const app=path.resolve(__dirname,'../app'),node='C:/Users/alexd/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin/node.exe';
+async function main(){
+ const server=cp.spawn(node,[app+'/node_modules/vite/bin/vite.js','preview','--host','127.0.0.1','--port','5183','--strictPort'],{cwd:app,windowsHide:true,stdio:'pipe'});let log='',browser;server.stdout.on('data',d=>log+=d);server.stderr.on('data',d=>log+=d);
+ const report={isolated:true,production:true,version:'0.12.6',errors:[],checks:[]};
+ try{
+  for(let n=0;n<100&&!log.includes('Local:');n++)await new Promise(r=>setTimeout(r,100));if(!log.includes('Local:'))throw Error(log);
+  const core={Date,Math,JSON,Intl};core.window=core;vm.createContext(core);vm.runInContext(fs.readFileSync(app+'/src/legacy/erp-core.js','utf8'),core);
+  const seed=JSON.parse(JSON.stringify(core.ERP.seed()));seed.settings={onboarding:'demo',financialVisible:true,appearance:'light',layout:'feira'};
+  seed.products.push({id:'taioba-test',name:'Taioba',baseName:'Taioba',category:'Hortifruti-Granjeiro',unit:'Molho',stock:0,min:1,price:400,cost:100});
+  seed.productMemory={version:1,entries:{'taioba-test':{stockEntries:3,lastStockAt:new Date().toISOString()}}};
+  browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
+  const context=await browser.newContext({viewport:{width:360,height:740},isMobile:true,hasTouch:true});
+  await context.addInitScript(seed=>{const key='territorio-gestao-prototipo-v1';if(!localStorage.getItem(key))localStorage.setItem(key,JSON.stringify(seed));},seed);
+  await context.route('**/*',r=>r.request().url().startsWith('http://127.0.0.1:5183')||r.request().url().startsWith('data:')?r.continue():r.abort());
+  const page=await context.newPage();page.on('pageerror',e=>report.errors.push(String(e)));page.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
+  await page.goto('http://127.0.0.1:5183');await page.waitForFunction(()=>!!window.ERPPreview);await page.waitForTimeout(300);
+  const act=(action,data={})=>page.evaluate(({action,data})=>window.ERPPreview.actions[action](data),{action,data});
+  const value=()=>page.evaluate(()=>window.ERPPreview.model().data);
+  const original=await value();
+  report.globals=await page.evaluate(()=>({version:window.TERRITORIO_VERSION,catalog:!!window.TerritorioProductCatalog,body:document.getElementById('app').innerText.slice(0,80)}));
+  const referenceBefore=await value();
+  const ref=await page.evaluate(async()=>{await window.TerritorioProductCatalog.loadCatalog();return {info:window.TerritorioProductCatalog.catalogInfo(),documents:window.TerritorioCatalogKnowledge?.documents};});
+  assert.equal(ref.info.total,2479);
+  const referenceAfter=await value();
+  for(const k of ['products','sales','movements'])assert.deepEqual(referenceAfter[k],referenceBefore[k]);
+  const docs=await page.evaluate(async()=>{const names=['INSTRUCOES_PARA_O_CODEX.md','LEIA_PRIMEIRO.md','LISTA_COMPLETA.md','unidades_e_plurais.json','resumo_categorias.json'];return Promise.all(names.map(async name=>{const r=await fetch('/knowledge/catalogo-agro/'+name);return {name,status:r.status,length:(await r.text()).length};}));});
+  assert(docs.every(d=>d.status===200&&d.length>50));report.reference={info:ref.info,documents:docs};
+  report.checks.push('2479 references and all five documents bundled locally; loading never changes products, sales or stock movements');
+  await context.setOffline(true);
+  assert((await page.evaluate(()=>window.TerritorioProductCatalog.searchCatalog('taioba').total))>0);
+  await context.setOffline(false);
+  report.checks.push('loaded reference remains searchable without connectivity');
+  await act('new-product');await page.waitForFunction(()=>window.TerritorioProductCatalog?.isCatalogReady());
+  await act('quick-category',{value:'Hortifruti-Granjeiro'});
+  assert.equal(await page.locator('[data-action="stock-own-pick"]').first().getAttribute('data-id'),'taioba-test');
+  assert.match(await page.locator('#app').innerText(),/Produtos para estoque/i);assert.doesNotMatch(await page.locator('#app').innerText(),/Estoque geral|Categoria sugerida/i);
+  assert((await page.locator('[data-action="stock-own-pick"]').count())<=8);report.checks.push('own shortcuts include zero stock and learned ranking, no redundant category');
+  await page.screenshot({path:path.join(__dirname,'stock-production-picker-light.png')});
+  await act('stock-own-pick',{id:'taioba-test'});assert.equal(await page.locator('#move-quantity').inputValue(),'');
+  await page.locator('#move-quantity').fill('5');await act('save-movement');
+  const after=await value();assert.equal(after.products.find(p=>p.id==='taioba-test').stock,5);assert.equal(after.products.length,original.products.length);assert.equal(after.productMemory.entries['taioba-test'].stockEntries,4);
+  report.checks.push('existing shortcut restocks original product and tracks committed usage');
+  await act('new-product');await act('quick-category',{value:'Hortifruti-Granjeiro'});await page.locator('#stock-picker-search').fill('taiobas');
+  assert(await page.locator('[data-action="stock-family-pick"]').count());assert.equal(await page.locator('[data-action="stock-custom-product"]').innerText(),'+ Insira seu produto');
+  await act('stock-custom-product');assert.equal(await page.locator('#product-name').inputValue(),'taiobas');
+  await page.locator('#product-name').fill('Meu produto exclusivo');assert.equal(await page.evaluate(()=>window.ERPPreview.state().productForm.category),'Hortifruti-Granjeiro');
+  assert.equal(await page.locator('#price-0').inputValue(),'');assert.equal(await page.locator('#cost-0').inputValue(),'');assert.equal(await page.locator('#initial-0').inputValue(),'');
+  report.checks.push('custom product carries search, respects category, no invented values');
+  await act('stock-product-back');await page.locator('#stock-picker-search').fill('taiobas');await page.locator('[data-action="stock-family-pick"]').first().click();
+  if(await page.locator('[data-action="stock-presentation-pick"]').count())await page.locator('[data-action="stock-presentation-pick"]').first().click();
+  assert.equal(await page.locator('#price-0').inputValue(),'');assert.equal(await page.locator('#cost-0').inputValue(),'');
+  await act('save-product');assert.match(await page.locator('#form-error').innerText(),/Confirme a unidade/);
+  await page.locator('[data-action="stock-confirm-unit"]').first().click();assert.equal(await page.evaluate(()=>window.ERPPreview.state().productForm.variants[0].unitConfirmed),true);
+  await page.locator('#price-0').fill('4,00');await page.locator('#cost-0').fill('1,00');await page.locator('#initial-0').fill('2');await act('save-product');
+  // The existing legacy Taioba is deliberately incomplete: require review, never silently merge.
+  if(await page.locator('[data-action="stock-review-create"]').count())await act('stock-review-create');
+  assert.equal((await value()).products.length,original.products.length+1);report.checks.push('catalogue needs unit confirmation; incomplete legacy review does not merge');
+  await act('new-product');await act('quick-category',{value:'Cafés'});await page.locator('#stock-picker-search').fill('café especial');await page.locator('[data-action="stock-family-pick"]').first().click();
+  assert((await page.locator('[data-action="stock-presentation-pick"]').count())>1);assert.equal(await page.locator('#product-presentations').isVisible(),false);
+  report.checks.push('coffee family requires explicit distinct presentation');
+  for(const theme of ['light','dark'])for(const width of [320,360]){
+   await page.setViewportSize({width,height:740});await page.evaluate(theme=>{window.ERPPreview.model().data.settings.appearance=theme;window.ERPPreview.render();},theme);await page.waitForTimeout(100);
+   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);assert.equal(overflow,false);
+   await page.screenshot({path:path.join(__dirname,'stock-production-presentations-'+theme+'-'+width+'.png')});
+  }
+  report.checks.push('light and dark at 320/360px without horizontal overflow');
+  await page.reload();await page.waitForFunction(()=>!!window.ERPPreview);assert.equal((await value()).products.find(p=>p.id==='taioba-test').stock,5);assert.equal((await value()).productMemory.entries['taioba-test'].stockEntries,4);
+  report.checks.push('reload keeps products, stock and private learned frequency');
+  await page.evaluate(()=>{window.TerritorioNative={...window.TerritorioNative,isNative:false,durable:async()=>false};});
+  await act('stock-own-pick',{id:'taioba-test'});await page.locator('#move-quantity').fill('3');
+  await page.evaluate(async()=>{await Promise.all([window.ERPPreview.actions['save-movement'](),window.ERPPreview.actions['save-movement']()]);});
+  assert.equal((await value()).products.find(p=>p.id==='taioba-test').stock,8);assert.match(await page.locator('#move-error').innerText(),/pendente/);
+  await page.evaluate(()=>window.TerritorioNative.durable=async()=>true);await act('save-movement');assert.equal((await value()).products.find(p=>p.id==='taioba-test').stock,8);
+  await page.evaluate(()=>window.TerritorioNative.durable=async()=>false);await act('restock-ids',{ids:'taioba-test'});await act('restock-digit',{digit:'2'});await act('restock-finish');assert.equal((await value()).products.find(p=>p.id==='taioba-test').stock,10);
+  await page.evaluate(()=>window.TerritorioNative.durable=async()=>true);await act('restock-finish');assert.equal((await value()).products.find(p=>p.id==='taioba-test').stock,10);
+  report.checks.push('pending native movement and batch restock retries never duplicate stock or learned count');
+  const productCount=(await value()).products.length;
+  await act('new-product');await act('stock-custom-product');await page.locator('#product-name').fill('Produto teste gravação');await act('unit',{index:0,value:'Unidade'});
+  await page.locator('#price-0').fill('3,00');await page.locator('#cost-0').fill('1,00');await page.locator('#initial-0').fill('1');await page.evaluate(()=>window.TerritorioNative.durable=async()=>false);await act('save-product');
+  assert.equal((await value()).products.length,productCount+1);assert.match(await page.locator('#form-error').innerText(),/não confirmou/);
+  await page.evaluate(()=>window.TerritorioNative.durable=async()=>true);await act('save-product');assert.equal((await value()).products.length,productCount+1);
+  report.checks.push('pending native product save retry never creates a clone');
+  await act('new-product');await act('quick-category',{value:'Hortifruti-Granjeiro'});
+  const beforeCancel=await value();await act('cancel-product');
+  const afterCancel=await value();assert.deepEqual(afterCancel.products,beforeCancel.products);assert.deepEqual(afterCancel.productMemory,beforeCancel.productMemory);assert.deepEqual(afterCancel.sales,beforeCancel.sales);
+  report.checks.push('cancelled selection never changes products, sales or learned entry counters');
+  await context.close();
+
+  // A separate fixture proves displayed order instead of merely invoking the comparator.
+  const coffee=(id,type,format,weight,price=2000)=>({id,name:'Café '+type,baseName:'Café',category:'Cafés',type,format,weight,unit:'Pacote',price,cost:500,costKnown:true,stock:1,min:2});
+  const special=['Moído','Em grãos'].flatMap((format,fi)=>[250,500,1000].map(weight=>coffee('special-'+fi+'-'+weight,'Especial',format,weight,weight*4)));
+  const extra=[coffee('gourmet','Gourmet','Moído',250),coffee('traditional','Tradicional','Moído',250),coffee('commodity','Commodity','Verde',1000),coffee('drip','Drip coffee','Dose individual',10),coffee('decaf','Descafeinado','Moído',250)];
+  const others=[{id:'mandioca',name:'Mandioca',category:'Hortifruti-Granjeiro',unit:'kg',stock:1,min:2,price:700,cost:100}, {id:'fuba1',name:'Fubá Mimoso',category:'Grãos',unit:'Pacote',weight:1000,stock:1,min:2,price:900,cost:100},{id:'fuba2',name:'Fubá de Milho',category:'Grãos',unit:'Pacote',weight:1000,stock:1,min:2,price:600,cost:100}];
+  const orderSeed=JSON.parse(JSON.stringify(seed));orderSeed.products=[special[5],others[1],extra[3],others[0],special[2],extra[0],special[0],extra[1],special[4],extra[2],special[1],others[2],extra[4],special[3]];
+  orderSeed.sales=[];orderSeed.movements=[];orderSeed.events=[];orderSeed.productMemory={version:1,entries:{}};
+  const oc=await browser.newContext({viewport:{width:360,height:740},isMobile:true,hasTouch:true});
+  await oc.addInitScript(seed=>localStorage.setItem('territorio-gestao-prototipo-v1',JSON.stringify(seed)),orderSeed);
+  await oc.route('**/*',r=>r.request().url().startsWith('http://127.0.0.1:5183')||r.request().url().startsWith('data:')?r.continue():r.abort());
+  const op=await oc.newPage();op.on('pageerror',e=>report.errors.push(String(e)));op.on('console',m=>{if(m.type()==='error')report.errors.push(m.text());});
+  await op.goto('http://127.0.0.1:5183');await op.waitForFunction(()=>!!window.ERPPreview);
+  const oa=(action,data={})=>op.evaluate(({action,data})=>window.ERPPreview.actions[action](data),{action,data});
+  await oa('nav',{page:'Estoque'});
+  const panel=await op.locator('#feira-list [data-action="stock-product"]').evaluateAll(es=>es.map(e=>({id:e.dataset.id,text:e.innerText})));
+  const expected=[...special,...extra,...others].map(p=>p.id);assert.deepEqual(panel.map(p=>p.id),expected);report.panelOrder=panel;
+  assert(panel.slice(0,6).every((p,i)=>p.text.includes(i%3===0?'250 g':i%3===1?'500 g':'1 kg')));
+  const tools=await op.locator('.stock-top-tools [data-action]').evaluateAll(es=>es.map(e=>({action:e.dataset.action,x:e.getBoundingClientRect().x})));
+  assert.deepEqual(tools.map(t=>t.action),['new-product','history','search-products','calculator']);assert(tools[0].x<tools.at(-1).x);report.headerOrder=tools;
+  report.checks.push('stock panel groups every coffee type before other categories, Especial→Gourmet→Tradicional plus extra types; ground→beans and 250g→500g→1kg; add occupies former calculator position');
+  await op.screenshot({path:path.join(__dirname,'stock-production-order-light.png'),fullPage:true});
+  const originalOrder=await op.evaluate(()=>JSON.stringify(window.ERPPreview.model().data.products));
+  await oa('feira-restock',{group:'low'});
+  const restock=[];for(let i=0;i<Math.ceil(expected.length/4);i++){restock.push(...await op.locator('dialog[open] [data-action="restock-pick"]').evaluateAll(es=>es.map(e=>e.dataset.id)));if(i<Math.ceil(expected.length/4)-1)await oa('restock-next');}
+  assert.deepEqual(restock,expected);report.restockOrder=restock;
+  await oa('close-modal');await oa('restock-ids',{ids:orderSeed.products.map(p=>p.id).reverse().join(',')});
+  assert.deepEqual(await op.locator('dialog[open] [data-action="restock-pick"]').evaluateAll(es=>es.map(e=>e.dataset.id)),expected.slice(0,4));
+  await oa('close-modal');assert.equal(await op.evaluate(()=>JSON.stringify(window.ERPPreview.model().data.products)),originalOrder);
+  report.checks.push('low stock alert and arbitrary batch replenish both keep the same grouped order without mutating product insertion order');
+  for(const theme of ['light','dark'])for(const width of [320,360]){await op.setViewportSize({width,height:740});await op.evaluate(theme=>{window.ERPPreview.model().data.settings.appearance=theme;window.ERPPreview.render();},theme);assert.equal(await op.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);await op.screenshot({path:path.join(__dirname,'stock-production-order-'+theme+'-'+width+'.png')});}
+  await oc.close();assert.deepEqual(report.errors,[]);report.passed=true;
+ }finally{fs.writeFileSync(path.join(__dirname,'stock-production.e2e.json'),JSON.stringify(report,null,2));await browser?.close();server.kill();}
+ console.log(JSON.stringify(report));
+}
+main().catch(e=>{console.error(e);process.exitCode=1;});

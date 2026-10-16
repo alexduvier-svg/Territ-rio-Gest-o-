@@ -1,0 +1,150 @@
+{
+  "isolated": true,
+  "url": "http://127.0.0.1:5178/",
+  "checks": [
+    "light: partial current stock distinguishes unknown cost from explicit zero; overlapping events, missing load and unit-specific leftovers are read-only",
+    "light: privacy masks money but keeps quantities, selected fair stays scoped by ID outside month, Loja/PF/PJ exclude fairs; all business records unchanged",
+    "dark: partial current stock distinguishes unknown cost from explicit zero; overlapping events, missing load and unit-specific leftovers are read-only",
+    "dark: privacy masks money but keeps quantities, selected fair stays scoped by ID outside month, Loja/PF/PJ exclude fairs; all business records unchanged"
+  ],
+  "views": [
+    {
+      "theme": "light",
+      "scope": "all",
+      "totals": [
+        {
+          "label": "Ao custo atual",
+          "value": "R$ 24,00 · parcial"
+        },
+        {
+          "label": "Potencial de venda",
+          "value": "R$ 72,00"
+        }
+      ],
+      "balances": [
+        {
+          "name": "Café Especial",
+          "qty": "2 pct",
+          "cost": "R$ 24,00 ao custo"
+        },
+        {
+          "name": "Banana Prata",
+          "qty": "1 dz",
+          "cost": "Custo não informado"
+        },
+        {
+          "name": "Fubá",
+          "qty": "3 pct",
+          "cost": "R$ 0,00 ao custo"
+        }
+      ],
+      "cards": [
+        "qa-current",
+        "qa-no-load"
+      ],
+      "remaining": [
+        "5 dz",
+        "5 kg"
+      ]
+    },
+    {
+      "theme": "dark",
+      "scope": "all",
+      "totals": [
+        {
+          "label": "Ao custo atual",
+          "value": "R$ 24,00 · parcial"
+        },
+        {
+          "label": "Potencial de venda",
+          "value": "R$ 72,00"
+        }
+      ],
+      "balances": [
+        {
+          "name": "Café Especial",
+          "qty": "2 pct",
+          "cost": "R$ 24,00 ao custo"
+        },
+        {
+          "name": "Banana Prata",
+          "qty": "1 dz",
+          "cost": "Custo não informado"
+        },
+        {
+          "name": "Fubá",
+          "qty": "3 pct",
+          "cost": "R$ 0,00 ao custo"
+        }
+      ],
+      "cards": [
+        "qa-current",
+        "qa-no-load"
+      ],
+      "remaining": [
+        "5 dz",
+        "5 kg"
+      ]
+    }
+  ],
+  "blockedExternalRequests": [
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "theme": "light",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "external URL explicitly blocked by isolation"
+    },
+    {
+      "theme": "dark",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "external URL explicitly blocked by isolation"
+    }
+  ],
+  "requestFailures": [
+    {
+      "theme": "light",
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "theme": "dark",
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

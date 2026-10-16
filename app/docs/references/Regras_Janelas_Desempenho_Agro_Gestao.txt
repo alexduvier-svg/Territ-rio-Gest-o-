@@ -1,0 +1,321 @@
+Regras de janelas e desempenho do Agro Gestão
+Diretrizes de implementação e qualidade para o Codex
+Destinatário: Codex responsável pelo app Android Agro Gestão. Objetivo: padronizar telas, painéis, diálogos e navegação, protegendo os registros do produtor e mantendo resposta rápida em aparelhos de entrada e com histórico volumoso.
+Decisão principal
+A qualidade será aprovada pelo aparelho básico e pela base de dados ampliada. Um telefone potente serve como referência adicional, mas não comprova eficiência nos demais. Abrir uma janela deve produzir resposta imediata; fechar deve preservar contexto e dados; repetir uma ação nunca pode duplicar uma venda ou movimentação.
+Escopo e limites
+Esta é uma norma proposta para o produto, sem inspeção do código ou do APK nesta entrega. O Codex deve identificar a tecnologia real antes de alterar o app. As metas abaixo precisam de medição em builds de produção; não representam desempenho já comprovado nem promessa de ausência absoluta de travamentos.
+Referência de aparelho informada pelo usuário: OPPO Find X8 Ultra, 12 GB de RAM e processador descrito como Snapdragon geração 8. Confirmar modelo, SoC, Android, ColorOS e frequência de tela no dispositivo antes dos testes. A arquitetura não pode depender desse hardware.
+Origem das regras
+Apple HIG orienta a experiência de interação; a publicação oficial da OPPO descreve objetivos de fluidez do ColorOS; Android Developers fundamenta execução, navegação e diagnóstico. A proposta não pressupõe acesso do app aos motores internos da OPPO. O rigor de engenharia solicitado como analogia à SpaceX será aplicado por rastreabilidade, testes e critérios de liberação; não é uma norma oficial da empresa.
+Como usar este documento
+Entregar o documento completo ao Codex. Executar as etapas na ordem da seção 10 e usar o comando da seção 12. DEVE indica requisito obrigatório; NÃO DEVE indica proibição; PODE indica alternativa dependente de medição. Exceções técnicas exigem justificativa, impacto, evidência e requisito substituto, sem flexibilizar integridade dos dados.
+Índice: 1 Cadeia de comando • 2 Tipos de janela • 3 Abertura • 4 Fechamento • 5 Transições • 6 Metas • 7 Dados e longevidade • 8 Execução e memória • 9 Testes • 10 Implantação • 11 Fontes • 12 Comando para o Codex.
+
+1 Cadeia de comando e responsabilidades
+A ordem de prioridade para resolver conflitos é: integridade dos registros; conclusão da tarefa e acessibilidade; resposta ao toque; consistência de navegação; desempenho sustentado; acabamento visual. A animação cede primeiro quando ameaça uma prioridade superior.
+Papel lógico
+Responsabilidade
+Saída exigida
+Responsável pelo produto
+Define fluxos e recebe o resultado
+Mapa de jornadas e critérios de aceite
+Codex coordenador
+Inspeciona o projeto e ordena as mudanças
+Diagnóstico, plano e vínculo requisito arquivo teste
+Camada de navegação
+Controla destinos, pilha e sobreposições
+Contrato único de abertura e fechamento
+Camada de domínio e dados
+Valida operações e garante consistência
+Transações, idempotência e migrações
+Camada de execução
+Gerencia tarefas, memória e cancelamento
+Orçamentos, limites e instrumentação
+Verificação de qualidade
+Mede fluxos e barra regressões
+Relatório comparável antes e depois
+Esses são papéis de responsabilidade, não exigência de várias pessoas, processos ou agentes. Um único Codex pode executá-los em sequência. Os componentes devem respeitar as fronteiras de responsabilidade da arquitetura já existente.
+Regras de autoridade
+CC01 A tela solicita uma intenção; o domínio decide se a operação é válida; a persistência confirma o resultado. Um efeito visual nunca confirma uma gravação.
+CC02 O controlador de navegação é a fonte única da pilha. Não manter históricos paralelos inconsistentes entre Android, roteador e WebView.
+CC03 Cada requisito deve ter identificador, implementação correspondente e evidência. Requisito sem medição ou teste aplicável permanece pendente.
+CC04 Quando houver falha, reduzir o problema a um caso reproduzível, identificar a causa e corrigir a menor unidade responsável. Não mascarar lentidão com atrasos artificiais.
+CC05 Nenhuma otimização pode apagar registros reais, recalcular valores históricos com preços atuais ou remover validações financeiras.
+Mapa mínimo antes de programar
+Inventariar telas existentes de Produtos ou Vendas, Carrinho, Estoque, Clientes, Eventos e Gestão, quando presentes. Registrar para cada uma: origem, destino, parâmetros, dados editáveis, saída por Voltar, dependências assíncronas e comportamento sem rede. Preservar os nomes reais do projeto.
+
+2 Escolha do tipo de janela
+Usar o componente mais simples capaz de concluir a tarefa. As regras a seguir são decisões do Agro Gestão inspiradas nas referências, adaptadas às convenções Android [1–4].
+Componente
+Quando usar
+Como sair
+Tela de navegação
+Lista, detalhe, formulário longo ou várias etapas
+Voltar para a origem; preservar posição
+Painel inferior
+Filtro, quantidade, desconto ou seleção curta
+Fechar, gesto ou toque externo conforme proteção de dados
+Diálogo
+Decisão curta, risco ou confirmação indispensável
+Ações explícitas; cancelamento sem executar a decisão
+Mensagem transitória
+Confirmação simples sem exigir decisão
+Desaparecer sem capturar foco; histórico quando necessário
+Área expandida na tela
+Informação complementar do item atual
+Recolher no mesmo contexto
+Regras obrigatórias de composição
+JN01 Exibir no máximo uma superfície modal de tarefa. Uma confirmação de descarte pode substituí-la temporariamente, preservando o rascunho; não formar uma pilha de formulários modais.
+JN02 Uma tarefa longa deve usar tela própria ou fluxo explícito. Não obrigar o usuário a navegar por várias janelas pequenas.
+JN03 Toda janela deve declarar título, ação principal e saída visível. Voltar significa retornar; Cancelar não salva alterações; Salvar valida e persiste.
+JN04 Não usar diálogo de sucesso após toda ação rotineira. Confirmar na própria tela, sem novo toque obrigatório.
+JN05 O conteúdo de trás de um modal não recebe toque, rolagem nem foco de acessibilidade. Ao fechar, o foco retorna ao controle de origem ou sucessor lógico.
+JN06 Não apresentar outro formulário por cima do carrinho. Para cadastrar um cliente, salvar o carrinho como rascunho e navegar para o cadastro; ao terminar, restaurar o carrinho com o cliente selecionado.
+Aplicações no Agro Gestão
+Quantidade e desconto: painel curto com teclado apropriado. Venda completa: fluxo com resumo e confirmação. Reposição de estoque: formulário que mostra unidade e saldo previsto, sem esconder a confirmação atrás de painéis. Histórico e relatório extenso: tela própria com paginação. Cérebro ou inteligência: abrir uma área de análise sem bloquear a venda; calcular indicadores fora da interface e explicitar quando faltarem dados.
+Todo registro de teste deve estar identificado como fictício. A inteligência não deve apresentar indicadores de demonstração como resultado real do produtor.
+
+3 Contrato de abertura e concorrência
+Sequência obrigatória
+AB01 Receber a intenção, identificar o destino e criar um identificador da instância. Uma segunda solicitação equivalente deve focar a instância existente, sem adicionar outra à pilha.
+AB02 Dar retorno visual ao toque e mostrar a estrutura leve da tela. Rede, relatórios e imagens não entram no caminho crítico da abertura.
+AB03 Restaurar parâmetros e estado válido: item por identificador, filtros, posição, período e rascunho. Não transportar listas completas entre telas.
+AB04 Carregar somente o necessário para a primeira área visível. Estados vazio, carregando, conteúdo e erro devem ter apresentação própria.
+AB05 Vincular respostas à instância e à versão da consulta. Uma resposta antiga não pode sobrescrever dados novos ou reabrir a tela que já foi fechada.
+AB06 Posicionar o foco de forma previsível. Não abrir teclado automaticamente em telas de consulta. Em edição numérica, abrir apenas quando o campo estiver pronto e visível.
+Máquina de estados
+Adotar um contrato equivalente a: fechada → abrindo → aberta → fechando → fechada. Carregamento de conteúdo é um estado separado. Gravação de negócio também tem estado próprio: rascunho → validando → persistindo → concluída ou falhou. A rota não pode comandar a operação financeira pela duração da animação.
+A implementação deve permitir interromper e reverter a transição com o mecanismo da tecnologia usada. Não criar uma fila infinita de animações. Intenções de navegação são ordenadas; pedidos duplicados são consolidados; a intenção atual válida prevalece, respeitando rascunhos e gravações iniciadas.
+Concorrência e prevenção de duplicidade
+AB07 Durante Salvar ou Finalizar venda, bloquear somente a repetição da mesma operação. Usar chave idempotente persistida e restrição de unicidade no banco; desabilitar botão ou aplicar debounce é proteção visual adicional, insuficiente para integridade.
+AB08 Cancelar busca e leitura que perderam utilidade. Após uma transação financeira ser aceita para gravação, fechar a tela não significa cancelá-la. Consultar o estado pela chave da operação ao retornar, evitando nova tentativa cega.
+Falhas na abertura
+Se o item não existir, exibir explicação e retorno à origem. Se faltar rede, manter funções locais disponíveis. Se houver erro recuperável, oferecer Tentar novamente sem apagar o formulário. Nunca deixar uma camada transparente que intercepte os toques depois de uma falha.
+
+4 Contrato de fechamento e recuperação
+Ordem de resolução do comando Voltar
+FE01 Usar o mecanismo de navegação e de retorno do Android, incluindo gesto preditivo quando suportado [5]. Quando o teclado consumir Voltar, apenas ocultá-lo. Depois, resolver a superfície ativa: diálogo, painel ou tela. Na raiz, permitir a saída normal do app. Um evento não deve fechar duas camadas. A seta da barra retorna ao destino pai conforme o contrato da rota; não deve simular indiscriminadamente o botão do sistema.
+Situação
+Regra de saída
+Resultado esperado
+Consulta sem edição
+Fechar imediatamente
+Restaurar origem e foco
+Formulário sem alterações
+Fechar sem perguntar
+Nenhuma gravação nova
+Formulário alterado
+Manter editando, salvar ou descartar explicitamente
+Nunca perder alteração silenciosamente
+Carrinho em andamento
+Preservar rascunho local antes de sair
+Retomar itens e quantidades
+Gravação iniciada
+Manter estado durável da operação
+Consultar conclusão sem duplicar
+Pagamento externo pendente
+Persistir tentativa e reconciliar retorno
+Não marcar pago por abrir app externo
+Regras de preservação
+FE02 O botão Fechar, gesto de arrastar, toque externo e Voltar devem consultar a mesma política de descarte. Gesto não contorna a proteção do rascunho.
+FE03 Enquanto houver decisão de descarte, manter a edição recuperável. Manter editando deve retornar ao mesmo campo e conteúdo.
+FE04 Salvar deve validar e confirmar a transação local antes de declarar sucesso. Se falhar, manter dados e permitir nova tentativa segura.
+FE05 Rascunhos devem ser persistidos incrementalmente, com debounce inicial de 300 a 500 ms e gravação explícita ao mudar de etapa. Não depender de onDestroy, fechamento do app ou animação para preservar dados.
+FE06 Estado visual leve pode usar mecanismo de estado salvo; carrinho, rascunhos importantes e operações pendentes devem usar armazenamento durável. Dados sensíveis não pertencem a logs ou parâmetros de rota.
+Destruição e liberação
+FE07 Ao remover a instância, cancelar leituras, observadores e timers ligados à tela; liberar imagens, câmera e referências de UI conforme o ciclo de vida. Não cancelar uma gravação de negócio já aceita apenas porque a tela desapareceu. Restaurar foco e rolagem sem remontar toda a aplicação.
+FE08 Testar morte do processo, bloqueio da tela e mudança de app. Se o processo morrer antes de persistir um campo, recuperar o último rascunho confirmado; não afirmar que todo caractere ainda em RAM estava salvo. Registrar o limite conhecido de recuperação.
+
+5 Movimento beleza e acessibilidade
+O acabamento deve ajudar o produtor a perceber origem, destino e resultado. A Apple recomenda movimento com propósito, curto e cancelável; a OPPO descreve continuidade e resposta como objetivos de fluidez [3–4]. Os tempos abaixo são escolhas iniciais do Agro Gestão, não prescrições das marcas.
+Interação
+Faixa inicial
+Comportamento
+Retorno de toque
+60 a 100 ms
+Realce discreto; não atrasar a ação
+Entrada de painel
+180 a 240 ms
+Deslocamento curto e opacidade
+Saída de painel
+140 a 200 ms
+Reversão coerente da entrada
+Troca de tela
+180 a 260 ms
+Transição da plataforma quando possível
+Movimento reduzido
+0 a 100 ms
+Sem deslocamento amplo; feedback permanece
+MV01 Não usar animação para aguardar banco ou rede. A tela pode terminar de entrar e apresentar conteúdo progressivamente.
+MV02 Preferir animações de propriedades baratas para o renderizador. Em WebView, priorizar transform e opacity; em nativo, usar transições do toolkit e medir custo de composição.
+MV03 Evitar blur grande, sombras animadas, partículas, brilho contínuo e múltiplas superfícies translúcidas. O modo básico reduz efeitos mantendo contraste e hierarquia.
+MV04 Respeitar movimento reduzido e escala de animação do sistema. Não reativar efeitos desabilitados pelo usuário. O significado da ação permanece visível com animação desligada.
+MV05 Interrupção deve partir da posição atual. Não reiniciar a entrada a cada toque, acumular molas ou esperar o fim de uma animação para registrar a próxima intenção.
+MV06 Tema claro e escuro devem compartilhar geometria e navegação. Não remontar a aplicação nem limpar carrinho ao alternar o tema.
+Legibilidade e alcance
+MV07 Adotar como requisito de produto alvos de toque de pelo menos 48 dp no Android, fontes escaláveis, foco visível e rótulos para leitor de tela. Validar fonte a 200%, contraste mínimo de 4,5 para 1 em texto comum e 3 para 1 em texto grande e controles relevantes. Não depender apenas de cor: saldo baixo exige também texto ou símbolo.
+MV08 O teclado não pode esconder Salvar, unidade, preço ou campo ativo. Respeitar áreas do sistema, recortes e orientação suportada. Em tela pequena ou fonte ampliada, permitir rolagem em vez de cortar o conteúdo. Validar TalkBack e retorno do foco após fechar um painel.
+Prontidão em ambiente de feira
+Uma ação principal por etapa, números legíveis, unidade explícita, pouca digitação e nenhuma confirmação redundante. Atualizar subtotal de forma localizada; não redesenhar a lista inteira ao mudar uma quantidade. Manter ações de uso frequente alcançáveis com uma mão.
+
+6 Metas mensuráveis de desempenho
+As metas a seguir são orçamentos iniciais próprios do Agro Gestão. Medir no aparelho de entrada com base ampliada, build release, sem depurador. Se a linha de base não atingir a meta, registrar a lacuna e corrigir antes de declarar conformidade. Não são limites oficiais da Apple ou OPPO.
+Métrica
+Meta de liberação proposta
+Como observar
+Resposta visual ao toque
+P95 até 100 ms
+Evento de entrada até primeiro retorno visível
+Tela local útil ao abrir
+P95 até 500 ms
+Toque até campos e conteúdo mínimo utilizáveis
+Fechamento sem descarte
+P95 até 250 ms
+Comando até origem utilizável
+Partida fria
+TTID P95 até 2 s; útil até 3 s
+Processo encerrado; dados locais disponíveis
+Retomada com tela em memória
+P95 até 500 ms
+Retorno ao app até interação útil
+Pesquisa local paginada
+P95 até 300 ms após debounce
+Consulta até primeira página; debounce separado
+Venda local confirmada
+P95 até 500 ms
+Confirmação até commit local e recibo visual
+Quadros em fluxo crítico a 60 Hz
+P95 até 16,7 ms; jank até 2%
+Ferramenta compatível; sem quadro maior que 700 ms
+Memória após 200 ciclos
+Sem retenção linear; até 10% acima do patamar aquecido
+Mesmo estado, mesma coleta e estabilização
+Definição de medição
+P95 é o valor abaixo do qual ficam 95% das amostras. Usar no mínimo 30 partidas frias e 100 amostras por interação principal; registrar também mediana, P99 e máximo. Executar quadros por pelo menos 60 segundos de rolagem e transições repetidas. Separar espera de rede, debounce, animação e tempo de transação; não esconder tempo total percebido.
+A 90 Hz o intervalo é cerca de 11,1 ms; a 120 Hz, 8,3 ms. No OPPO, medir a frequência efetiva; não forçar 120 Hz para cumprir o teste. Medir quadros pela ferramenta adequada à arquitetura. O percentual de jank deve declarar ferramenta e denominador; não comparar métricas incompatíveis.
+Os limites Android vitals para startup excessivo são referências externas de alerta, não metas de qualidade do produto [6]. Qualquer crash, ANR, duplicidade ou perda de dado no roteiro crítico impede a liberação, mesmo que as médias pareçam boas. Essa regra de teste não equivale a prometer taxa zero em todo uso futuro.
+
+7 Dados e leveza após um ano
+Persistência dimensionada
+DT01 Não carregar todo o histórico ao iniciar ou entrar em uma tela. Buscar campos e linhas necessários; paginar listas e consultar agregados no armazenamento. Para grande volume relacional, usar SQLite ou solução transacional equivalente compatível com a stack [7–8].
+DT02 Não usar um JSON único ou localStorage como banco principal de vendas e estoque. Se o app web usar IndexedDB, medir com a base ampliada; se usar ponte SQLite, validar transações e migrações da ponte.
+DT03 Criar índices alinhados aos filtros e ordenações reais, por exemplo data e identificador, cliente e data, produto e data. Verificar plano de execução e custo de escrita; não indexar tudo indiscriminadamente.
+DT04 Começar com páginas de 30 a 50 itens; virtualizar a renderização. Para histórico extenso, preferir cursor estável com desempate por identificador quando adequado. Debounce de busca inicial entre 150 e 250 ms; cancelar consultas obsoletas.
+DT05 Calcular totais, margens e séries por consulta ou resumo incremental validado. Não recalcular um ano inteiro em toda alteração de quantidade. Resumos devem ser reconstruíveis a partir dos registros oficiais.
+Integridade da venda
+DT06 Venda, itens, pagamento local e movimento de estoque devem ser confirmados em uma transação coerente. Usar valores monetários em centavos inteiros e quantidades com precisão definida por unidade, evitando erro de ponto flutuante. Preservar preço e custo históricos. Pagamento externo requer estados e reconciliação; não integra atomicamente a transação do provedor com o banco local.
+Política de crescimento
+DT07 Separar dados do usuário de cache descartável. Como orçamento inicial, limitar cache de miniaturas em disco a 100 MB e logs locais a 10 MB, com rotação e retenção de até 7 dias. Ajustar por evidência. Expirar cache não pode apagar anexos originais ou comprovantes. Definir teto de memória do cache após medir o aparelho básico; evitar percentual alto de toda a RAM do telefone.
+DT08 Anexos devem ser arquivos separados, com miniaturas e tamanho limitado por política explícita. Não decodificar fotos originais para uma lista. Informar espaço ocupado por registros, anexos e cache; permitir limpar somente o descartável sem risco.
+DT09 Nunca apagar automaticamente histórico financeiro para manter velocidade. Implementar backup e restauração verificáveis. Migrações devem ser versionadas e testadas com base antiga; sem fallback destrutivo. Manutenção e compactação não devem bloquear abertura ou ocorrer em toda partida.
+DT10 A simulação de um ano comprova comportamento sob a carga definida, não passagem real do tempo. Revisar resultados a cada versão e conforme o volume real crescer.
+
+8 Execução memória e operação offline
+Arquitetura sem bloqueio
+EX01 Trabalho pesado de banco, imagem, PDF, importação e indicadores não executa na thread de interface. Em JavaScript, async por si só não move cálculo para fora da thread: usar worker ou processamento nativo apropriado.
+EX02 Separar estado de UI, regras de negócio e repositório de dados. Atualizar apenas componentes afetados; identificadores de listas devem ser estáveis. Não criar observadores e requisições a cada renderização.
+EX03 Limitar concorrência e filas. Começar com uma tarefa pesada de exportação ou importação por vez e paginação única por lista. Cancelar operações descartáveis e liberar recursos no ciclo de vida correto.
+EX04 Na partida, inicializar apenas dependências essenciais. Adiar gráficos, inteligência, SDKs opcionais e varreduras; não montar abas invisíveis com histórico completo [9].
+EX05 Gráficos devem receber séries resumidas; exportações devem processar lotes. Evitar concatenar todo o histórico e todas as fotos na RAM para gerar PDF.
+EX06 Não usar largeHeap, limpeza forçada de RAM, coleta de lixo periódica ou expansão virtual de memória como solução de projeto. Medir alocações e corrigir referências retidas [10].
+Adaptação por capacidade
+EX07 Definir modo visual leve por capacidade observada e preferência acessível. Na dúvida, usar efeitos simples. Reduzir blur, tamanho de pré-carregamento e miniaturas, preservando funcionalidade e legibilidade. Não esconder dados ou diminuir precisão para aparentar rapidez. O modo do aparelho não deve mudar durante um gesto.
+EX08 Usar aparelho físico com 2 a 3 GB de RAM, armazenamento de entrada e tela de 60 Hz como classe mínima candidata. Confirmar a versão mínima Android com o projeto; publicar a lista de versões efetivamente testadas. Emulador ajuda, mas não substitui a medição no hardware de entrada.
+Trabalho rural sem conexão
+EX09 Registrar vendas, consultar estoque local e recuperar rascunhos sem rede quando o domínio permitir. Mostrar estados distintos: salvo neste aparelho, pendente de sincronização e sincronizado. Sincronizar em fila persistente, com idempotência, retentativa limitada e backoff; retomar após reinício.
+EX10 Conflitos entre aparelhos não podem ser resolvidos sobrescrevendo silenciosamente estoque ou pagamento. Definir política por entidade e trilha de auditoria. Se não houver backend, não mostrar sincronização inexistente. IA, clima e serviços remotos não podem bloquear a venda local.
+EX11 Em pouco espaço livre, interromper gravações que não podem ser concluídas e explicar a falha sem anunciar sucesso. Priorizar espaço para dados essenciais, limitar downloads e remover apenas cache descartável. Não desativar mecanismos de durabilidade para ganhar velocidade.
+
+9 Matriz de teste e critérios de falha
+Gerar dados sintéticos separados dos dados reais. Executar a mesma versão nos perfis de hardware e nas bases abaixo. Os volumes são uma carga de engenharia proposta, ajustável ao uso esperado, sem reduzir o teste para caber na implementação.
+Base
+Volume proposto
+Finalidade
+Pequena
+100 produtos; 500 vendas; 2 mil itens
+Comparação inicial
+Um ano intenso
+3 mil produtos; 10 mil clientes; 100 mil vendas; 500 mil itens; 1 milhão de movimentos
+Avaliar crescimento e consultas
+Estresse
+3 vezes os registros da base ampliada
+Identificar limite e degradação controlada
+Incluir 365 dias distribuídos, cancelamentos, devoluções, acentos, nomes longos, unidades fracionadas e anexos. Testar 5 mil miniaturas e originais com tamanho conhecido, sem carregá-los todos; registrar o total em disco. Respeitar espaço necessário para banco, backup e migração.
+Roteiros obrigatórios
+QA01 Repetir 200 vezes abrir e fechar Produtos, quantidade, carrinho, cliente, estoque e Gestão. Fazer 20 toques rápidos, alternar destinos e cancelar gestos no meio. Esperado: uma instância, sem camada presa, sem duplicidade.
+QA02 Editar rascunho e testar todas as saídas: botão, gesto, toque externo, Voltar e teclado. Esperado: mesma proteção e recuperação coerente.
+QA03 Encerrar o processo antes, durante e depois de uma venda; repetir a intenção com a mesma chave. Esperado: nenhuma venda parcial, estoque coerente e resultado consultável.
+QA04 Rodar 90 minutos com vendas e navegação, alternando plano de fundo e primeiro plano. Medir aquecimento, memória e quedas de quadros sem carregar continuamente o aparelho.
+QA05 Testar offline, rede instável, modo economia, armazenamento próximo de 90% ocupado e pouco espaço livre. Operação incompleta deve falhar com segurança e sem falsa confirmação.
+QA06 Atualizar a partir de cada esquema suportado, restaurar backup e conferir contagens, totais, estoque e vínculos. Testar migração interrompida e recuperação.
+QA07 Validar temas, fonte ampliada, TalkBack e rotação suportada. Testar links externos, retorno de pagamento e destino inexistente.
+Bloqueios de liberação
+Impedem liberação: perda ou duplicidade de dados; fechamento impossível; tela que recebe resposta antiga; falha de restauração; crash ou ANR no roteiro; meta crítica não atendida no perfil mínimo declarado. Meta sem aparelho ou ferramenta disponível deve aparecer como NÃO VERIFICADA, nunca como aprovada. Regressão acima de 10% no P95 contra a versão anterior exige análise e correção ou revisão explícita do orçamento antes da aprovação.
+
+10 Ordem de atualização pelo Codex
+Etapa 1 Diagnosticar sem alterar comportamento
+Ler as instruções do repositório, identificar stack, versão mínima Android, banco, roteador, estado global e biblioteca de UI. Mapear listeners duplicados, modais aninhados, operações síncronas e consultas sem limite. Medir a versão atual. Produzir diagnóstico e plano por risco; não trocar o framework apenas por preferência.
+Etapa 2 Proteger os registros
+Implementar transações, chaves idempotentes, restrições de unicidade, recuperação de rascunhos e migrações seguras antes de efeitos visuais. Criar casos de interrupção e conferir invariantes: total da venda, soma dos itens, pagamentos e saldo calculado pelos movimentos.
+Etapa 3 Unificar navegação e janelas
+Criar ou consolidar o contrato de rota e de modal. Definir política de descarte por formulário, restauração de foco, retorno do teclado e descarte de respostas obsoletas. Começar por quantidade e carrinho, depois cliente e estoque, depois relatórios. Não acumular várias bibliotecas de navegação.
+Etapa 4 Limitar trabalho e volume
+Adicionar paginação, índices, resumos verificáveis, processamento fora da interface e caches com teto. Fazer atualização localizada e carregamento gradual. Corrigir vazamentos antes de ajustar orçamento de memória.
+Etapa 5 Refinar o movimento
+Aplicar tokens únicos de duração, distância e curva. Reutilizar componentes do sistema quando adequados. Implementar movimento reduzido e modo leve. Testar interrupção em cada transição; escolher o efeito mais simples que cumpra a função visual.
+Etapa 6 Verificar e entregar
+Executar a matriz em release e comparar com a linha de base. Entregar alterações revisáveis, build de teste quando o ambiente permitir, limitações e tabela de requisitos. Não declarar que o app funcionará leve após um ano apenas por abrir rápido em base vazia.
+Evidências exigidas por versão
+Versão, commit, build, data, aparelhos, Android, ColorOS, frequência efetiva e estado de energia.
+Volume do banco e anexos, espaço livre, cenário de rede, quantidade de amostras e ferramenta.
+Antes e depois por métrica: mediana, P95, P99, máximo e falhas; curvas de memória em estado comparável.
+Mapa requisito → arquivos alterados → teste → resultado; pontos não verificados e instrução de reprodução.
+Plano de recuperação: backup restaurável e compatibilidade do esquema. Não instalar app antigo sobre banco migrado sem comprovar compatibilidade.
+Aprovação técnica exige evidência. Publicar ou distribuir uma versão segue a autorização do responsável pelo produto e as regras do ambiente; preparar a implementação e os resultados de teste primeiro.
+
+11 Fontes oficiais e interpretação
+Consulta realizada em 16 de outubro de 2026. As fontes abaixo fundamentam os princípios. Os requisitos numerados, tempos, volumes de teste e tetos de cache deste documento são decisões propostas para o Agro Gestão, a validar no projeto.
+1 Apple HIG Modality
+Uso criterioso de experiências modais, saída clara e proteção contra perda de conteúdo.
+https://developer.apple.com/design/human-interface-guidelines/modality
+2 Apple HIG Sheets
+Tarefas de escopo curto, ações de saída e prevenção de sobreposição de painéis.
+https://developer.apple.com/design/human-interface-guidelines/sheets
+3 Apple HIG Motion
+Movimento com propósito, concisão, acessibilidade e possibilidade de interrupção.
+https://developer.apple.com/design/human-interface-guidelines/motion
+4 OPPO ColorOS 15 Redefining Smooth
+Objetivos de resposta, continuidade e eficiência em recursos. Material do fabricante sobre o sistema, sem fornecer um contrato de API para replicar seus motores em apps.
+https://www.oppo.com/en/newsroom/stories/oppo-coloros-15-launch-smooth/
+5 Android Predictive back
+Integração com retorno do sistema e tratamento de navegação por APIs suportadas.
+https://developer.android.com/guide/navigation/custom-back/predictive-back-gesture
+6 Android vitals App startup time e Slow rendering
+Monitoramento de partida, renderização, ANRs, crashes e recursos. Ver também as páginas de startup e renderização a partir deste índice.
+https://developer.android.com/topic/performance/vitals/
+7 Android SQLite performance best practices
+Consultas restritas, limites e otimização do acesso a dados.
+https://developer.android.com/topic/performance/sqlite-performance-best-practices
+8 Android Paging library overview
+Carregamento e apresentação de grandes listas em partes.
+https://developer.android.com/topic/libraries/architecture/paging/v3-overview
+9 Android App startup analysis and optimization
+Diagnóstico da inicialização, adiamento de trabalho e medição.
+https://developer.android.com/topic/performance/appstartup/analysis-optimization
+10 Android Memory
+Uso de memória e diagnóstico de pressão sobre recursos.
+https://developer.android.com/topic/performance/memory
+
+12 Comando de execução para o Codex
+Copie o texto desta seção junto com o documento para o projeto do Agro Gestão. Esta instrução solicita implementação no repositório; não declara que as alterações já foram feitas.
+Atualize o app Agro Gestão seguindo integralmente esta norma de janelas e desempenho. Antes de editar, leia as instruções do repositório, inspecione a stack real e identifique banco, navegação, estado e versões Android suportadas. Não suponha que o app é nativo, Flutter, React Native ou WebView.
+Trabalhe nesta ordem: diagnóstico e medições iniciais; integridade e rascunhos; navegação; consultas e memória; transições; testes em carga. Preserve as regras atuais de venda, estoque, clientes e eventos, salvo incompatibilidade comprovada com integridade ou acessibilidade. Documente o impacto de qualquer ajuste necessário.
+Implemente uma única fonte de estado para a pilha e para a janela ativa. Garanta abertura idempotente, cancelamento de leituras obsoletas, proteção de descarte, retorno do foco e comportamento consistente de Fechar, Voltar, gesto e toque externo. Não permita modais de tarefa empilhados nem camadas invisíveis capturando toque.
+Separe a transição visual da gravação de negócio. Finalizar venda deve usar transação durável e chave idempotente, com resultado recuperável após interrupção. Não declare sucesso antes do commit local. Pagamento remoto deve ser reconciliado com o provedor. Preserve rascunhos e não baseie a segurança apenas em bloquear o botão.
+Remova trabalho pesado da interface, consultas ilimitadas, listas inteiras em memória e recálculo anual ao navegar. Use armazenamento transacional adequado, paginação, índices justificados, resumos verificáveis e cache limitado. Não apague histórico financeiro para melhorar desempenho. Teste migrações e restauração antes de mudar esquema.
+Aplique transições curtas, interrompíveis, acessíveis e econômicas. Respeite o Android e as preferências de movimento. Use Apple e OPPO como referências de experiência; não tente depender dos motores internos da OPPO. Meça primeiro no celular básico e depois no OPPO do usuário.
+Execute a matriz deste documento em build release com dados sintéticos separados, incluindo a base de um ano intenso. Se não houver aparelho físico básico, declare a validação pendente; avance com testes disponíveis sem inventar resultados. Se uma meta não for alcançada, identifique a causa e mantenha o requisito aberto.
+Ao concluir, entregue: o que mudou e por quê; arquivos alterados; testes executados; métricas antes e depois; matriz de conformidade por identificador; limitações; como reproduzir os testes e recuperar a versão com segurança. Não chame de concluído o que foi apenas desenhado ou simulado.
+Critério final de aceite
+A atualização está pronta para revisão quando uma tarefa pode ser iniciada, interrompida, retomada e concluída sem perda nem duplicação; a navegação permanece previsível; e o desempenho é demonstrado com a carga e o aparelho mínimo declarados. Beleza deve acompanhar esse resultado em cada tela.

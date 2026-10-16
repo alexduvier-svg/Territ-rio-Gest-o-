@@ -1,0 +1,1265 @@
+{
+  "isolated": true,
+  "url": "http://127.0.0.1:5178/",
+  "clock": "2026-10-16T15:00:00.000Z",
+  "checks": [
+    "closed 7/30-day windows anchor to the first real sale, exclude demo/pending/future/repeated IDs and use net discounts/returns with historical known costs",
+    "top/bottom up to three do not overlap, quantity ranks preserve units; cheap volume and expensive gross contribution differ; unknown cost is excluded while known zero remains valid",
+    "state is deterministic and deduplicated; seen/deferred suppress the same invitation, stale IDs revalidate, real-only gates demo/unconfirmed, summaries do not mutate business records",
+    "native notification code schedules private invitations with constant title/body and period ID; ranking is rebuilt only after local opening, not on the lock screen",
+    "light: Gestão/brain/native-invitation entry points revalidate locally; 7/30-day reports, historical rankings, unit groups, small samples, privacy, durable retry and reload stay correct without business mutations",
+    "dark: Gestão/brain/native-invitation entry points revalidate locally; 7/30-day reports, historical rankings, unit groups, small samples, privacy, durable retry and reload stay correct without business mutations",
+    "two-product UI sample has disjoint one/one groups; reset plus reload clears period state/invitations, and demo/unconfirmed contexts never show or notify real summaries"
+  ],
+  "views": [
+    {
+      "theme": "light",
+      "width": 320,
+      "kind": "weekly",
+      "criterion": "profit",
+      "layout": {
+        "width": 282,
+        "height": 666,
+        "cx": 160,
+        "cy": 370,
+        "blur": "none",
+        "overflow": false,
+        "labels": [
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14
+        ],
+        "footer": {
+          "x": 40,
+          "y": 640,
+          "width": 240,
+          "height": 48,
+          "top": 640,
+          "right": 280,
+          "bottom": 688,
+          "left": 40
+        }
+      },
+      "quantityRanks": [
+        {
+          "heading": "Mais vendidos · Unidade",
+          "items": [
+            {
+              "name": "Biscoito Econômico",
+              "values": [
+                "Quantidade: 97 unidades",
+                "Valor vendido: R$ 97,00",
+                "Lucro bruto: R$ 19,40",
+                "Margem bruta: 20%"
+              ]
+            },
+            {
+              "name": "Pão Artesanal",
+              "values": [
+                "Quantidade: 5 unidades",
+                "Valor vendido: R$ 50,00",
+                "Lucro bruto: R$ 40,00",
+                "Margem bruta: 80%"
+              ]
+            },
+            {
+              "name": "Geleia sem Custo Confirmado",
+              "values": [
+                "Quantidade: 4 unidades",
+                "Valor vendido: R$ 80,00",
+                "Lucro bruto: Custo histórico incompleto"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menos vendidos · Unidade",
+          "items": [
+            {
+              "name": "Produto sem Venda",
+              "values": [
+                "Quantidade: 0",
+                "Valor vendido: R$ 0,00",
+                "Lucro bruto: Sem venda registrada"
+              ]
+            },
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            }
+          ]
+        }
+      ],
+      "revenueRanks": [
+        {
+          "heading": "Maior valor vendido",
+          "items": [
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Café Especial",
+              "values": [
+                "Quantidade: 6 pacotes",
+                "Valor vendido: R$ 120,00",
+                "Lucro bruto: R$ 60,00",
+                "Margem bruta: 50%"
+              ]
+            },
+            {
+              "name": "Banana Prata",
+              "values": [
+                "Quantidade: 10 dúzias",
+                "Valor vendido: R$ 100,00",
+                "Lucro bruto: R$ 50,00",
+                "Margem bruta: 50%"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menor valor vendido",
+          "items": [
+            {
+              "name": "Produto sem Venda",
+              "values": [
+                "Quantidade: 0",
+                "Valor vendido: R$ 0,00",
+                "Lucro bruto: Sem venda registrada"
+              ]
+            },
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            },
+            {
+              "name": "Mandioca",
+              "values": [
+                "Quantidade: 7 kg",
+                "Valor vendido: R$ 35,00",
+                "Lucro bruto: R$ 28,00",
+                "Margem bruta: 80%"
+              ]
+            }
+          ]
+        }
+      ],
+      "profitRanks": [
+        {
+          "heading": "Maior contribuição bruta",
+          "items": [
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Café Especial",
+              "values": [
+                "Quantidade: 6 pacotes",
+                "Valor vendido: R$ 120,00",
+                "Lucro bruto: R$ 60,00",
+                "Margem bruta: 50%"
+              ]
+            },
+            {
+              "name": "Banana Prata",
+              "values": [
+                "Quantidade: 10 dúzias",
+                "Valor vendido: R$ 100,00",
+                "Lucro bruto: R$ 50,00",
+                "Margem bruta: 50%"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menor contribuição bruta",
+          "items": [
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            },
+            {
+              "name": "Biscoito Econômico",
+              "values": [
+                "Quantidade: 97 unidades",
+                "Valor vendido: R$ 97,00",
+                "Lucro bruto: R$ 19,40",
+                "Margem bruta: 20%"
+              ]
+            },
+            {
+              "name": "Mandioca",
+              "values": [
+                "Quantidade: 7 kg",
+                "Valor vendido: R$ 35,00",
+                "Lucro bruto: R$ 28,00",
+                "Margem bruta: 80%"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "kind": "weekly",
+      "criterion": "profit",
+      "layout": {
+        "width": 322,
+        "height": 666,
+        "cx": 180,
+        "cy": 370,
+        "blur": "none",
+        "overflow": false,
+        "labels": [
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14
+        ],
+        "footer": {
+          "x": 40,
+          "y": 640,
+          "width": 280,
+          "height": 48,
+          "top": 640,
+          "right": 320,
+          "bottom": 688,
+          "left": 40
+        }
+      },
+      "quantityRanks": [
+        {
+          "heading": "Mais vendidos · Unidade",
+          "items": [
+            {
+              "name": "Biscoito Econômico",
+              "values": [
+                "Quantidade: 97 unidades",
+                "Valor vendido: R$ 97,00",
+                "Lucro bruto: R$ 19,40",
+                "Margem bruta: 20%"
+              ]
+            },
+            {
+              "name": "Pão Artesanal",
+              "values": [
+                "Quantidade: 5 unidades",
+                "Valor vendido: R$ 50,00",
+                "Lucro bruto: R$ 40,00",
+                "Margem bruta: 80%"
+              ]
+            },
+            {
+              "name": "Geleia sem Custo Confirmado",
+              "values": [
+                "Quantidade: 4 unidades",
+                "Valor vendido: R$ 80,00",
+                "Lucro bruto: Custo histórico incompleto"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menos vendidos · Unidade",
+          "items": [
+            {
+              "name": "Produto sem Venda",
+              "values": [
+                "Quantidade: 0",
+                "Valor vendido: R$ 0,00",
+                "Lucro bruto: Sem venda registrada"
+              ]
+            },
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            }
+          ]
+        }
+      ],
+      "revenueRanks": [
+        {
+          "heading": "Maior valor vendido",
+          "items": [
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Café Especial",
+              "values": [
+                "Quantidade: 6 pacotes",
+                "Valor vendido: R$ 120,00",
+                "Lucro bruto: R$ 60,00",
+                "Margem bruta: 50%"
+              ]
+            },
+            {
+              "name": "Banana Prata",
+              "values": [
+                "Quantidade: 10 dúzias",
+                "Valor vendido: R$ 100,00",
+                "Lucro bruto: R$ 50,00",
+                "Margem bruta: 50%"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menor valor vendido",
+          "items": [
+            {
+              "name": "Produto sem Venda",
+              "values": [
+                "Quantidade: 0",
+                "Valor vendido: R$ 0,00",
+                "Lucro bruto: Sem venda registrada"
+              ]
+            },
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            },
+            {
+              "name": "Mandioca",
+              "values": [
+                "Quantidade: 7 kg",
+                "Valor vendido: R$ 35,00",
+                "Lucro bruto: R$ 28,00",
+                "Margem bruta: 80%"
+              ]
+            }
+          ]
+        }
+      ],
+      "profitRanks": [
+        {
+          "heading": "Maior contribuição bruta",
+          "items": [
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Café Especial",
+              "values": [
+                "Quantidade: 6 pacotes",
+                "Valor vendido: R$ 120,00",
+                "Lucro bruto: R$ 60,00",
+                "Margem bruta: 50%"
+              ]
+            },
+            {
+              "name": "Banana Prata",
+              "values": [
+                "Quantidade: 10 dúzias",
+                "Valor vendido: R$ 100,00",
+                "Lucro bruto: R$ 50,00",
+                "Margem bruta: 50%"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menor contribuição bruta",
+          "items": [
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            },
+            {
+              "name": "Biscoito Econômico",
+              "values": [
+                "Quantidade: 97 unidades",
+                "Valor vendido: R$ 97,00",
+                "Lucro bruto: R$ 19,40",
+                "Margem bruta: 20%"
+              ]
+            },
+            {
+              "name": "Mandioca",
+              "values": [
+                "Quantidade: 7 kg",
+                "Valor vendido: R$ 35,00",
+                "Lucro bruto: R$ 28,00",
+                "Margem bruta: 80%"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "kind": "weekly",
+      "criterion": "profit",
+      "layout": {
+        "width": 282,
+        "height": 666,
+        "cx": 160,
+        "cy": 370,
+        "blur": "none",
+        "overflow": false,
+        "labels": [
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14
+        ],
+        "footer": {
+          "x": 40,
+          "y": 640,
+          "width": 240,
+          "height": 48,
+          "top": 640,
+          "right": 280,
+          "bottom": 688,
+          "left": 40
+        }
+      },
+      "quantityRanks": [
+        {
+          "heading": "Mais vendidos · Unidade",
+          "items": [
+            {
+              "name": "Biscoito Econômico",
+              "values": [
+                "Quantidade: 97 unidades",
+                "Valor vendido: R$ 97,00",
+                "Lucro bruto: R$ 19,40",
+                "Margem bruta: 20%"
+              ]
+            },
+            {
+              "name": "Pão Artesanal",
+              "values": [
+                "Quantidade: 5 unidades",
+                "Valor vendido: R$ 50,00",
+                "Lucro bruto: R$ 40,00",
+                "Margem bruta: 80%"
+              ]
+            },
+            {
+              "name": "Geleia sem Custo Confirmado",
+              "values": [
+                "Quantidade: 4 unidades",
+                "Valor vendido: R$ 80,00",
+                "Lucro bruto: Custo histórico incompleto"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menos vendidos · Unidade",
+          "items": [
+            {
+              "name": "Produto sem Venda",
+              "values": [
+                "Quantidade: 0",
+                "Valor vendido: R$ 0,00",
+                "Lucro bruto: Sem venda registrada"
+              ]
+            },
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            }
+          ]
+        }
+      ],
+      "revenueRanks": [
+        {
+          "heading": "Maior valor vendido",
+          "items": [
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Café Especial",
+              "values": [
+                "Quantidade: 6 pacotes",
+                "Valor vendido: R$ 120,00",
+                "Lucro bruto: R$ 60,00",
+                "Margem bruta: 50%"
+              ]
+            },
+            {
+              "name": "Banana Prata",
+              "values": [
+                "Quantidade: 10 dúzias",
+                "Valor vendido: R$ 100,00",
+                "Lucro bruto: R$ 50,00",
+                "Margem bruta: 50%"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menor valor vendido",
+          "items": [
+            {
+              "name": "Produto sem Venda",
+              "values": [
+                "Quantidade: 0",
+                "Valor vendido: R$ 0,00",
+                "Lucro bruto: Sem venda registrada"
+              ]
+            },
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            },
+            {
+              "name": "Mandioca",
+              "values": [
+                "Quantidade: 7 kg",
+                "Valor vendido: R$ 35,00",
+                "Lucro bruto: R$ 28,00",
+                "Margem bruta: 80%"
+              ]
+            }
+          ]
+        }
+      ],
+      "profitRanks": [
+        {
+          "heading": "Maior contribuição bruta",
+          "items": [
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Café Especial",
+              "values": [
+                "Quantidade: 6 pacotes",
+                "Valor vendido: R$ 120,00",
+                "Lucro bruto: R$ 60,00",
+                "Margem bruta: 50%"
+              ]
+            },
+            {
+              "name": "Banana Prata",
+              "values": [
+                "Quantidade: 10 dúzias",
+                "Valor vendido: R$ 100,00",
+                "Lucro bruto: R$ 50,00",
+                "Margem bruta: 50%"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menor contribuição bruta",
+          "items": [
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            },
+            {
+              "name": "Biscoito Econômico",
+              "values": [
+                "Quantidade: 97 unidades",
+                "Valor vendido: R$ 97,00",
+                "Lucro bruto: R$ 19,40",
+                "Margem bruta: 20%"
+              ]
+            },
+            {
+              "name": "Mandioca",
+              "values": [
+                "Quantidade: 7 kg",
+                "Valor vendido: R$ 35,00",
+                "Lucro bruto: R$ 28,00",
+                "Margem bruta: 80%"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "kind": "weekly",
+      "criterion": "profit",
+      "layout": {
+        "width": 322,
+        "height": 666,
+        "cx": 180,
+        "cy": 370,
+        "blur": "none",
+        "overflow": false,
+        "labels": [
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14
+        ],
+        "footer": {
+          "x": 40,
+          "y": 640,
+          "width": 280,
+          "height": 48,
+          "top": 640,
+          "right": 320,
+          "bottom": 688,
+          "left": 40
+        }
+      },
+      "quantityRanks": [
+        {
+          "heading": "Mais vendidos · Unidade",
+          "items": [
+            {
+              "name": "Biscoito Econômico",
+              "values": [
+                "Quantidade: 97 unidades",
+                "Valor vendido: R$ 97,00",
+                "Lucro bruto: R$ 19,40",
+                "Margem bruta: 20%"
+              ]
+            },
+            {
+              "name": "Pão Artesanal",
+              "values": [
+                "Quantidade: 5 unidades",
+                "Valor vendido: R$ 50,00",
+                "Lucro bruto: R$ 40,00",
+                "Margem bruta: 80%"
+              ]
+            },
+            {
+              "name": "Geleia sem Custo Confirmado",
+              "values": [
+                "Quantidade: 4 unidades",
+                "Valor vendido: R$ 80,00",
+                "Lucro bruto: Custo histórico incompleto"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menos vendidos · Unidade",
+          "items": [
+            {
+              "name": "Produto sem Venda",
+              "values": [
+                "Quantidade: 0",
+                "Valor vendido: R$ 0,00",
+                "Lucro bruto: Sem venda registrada"
+              ]
+            },
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            }
+          ]
+        }
+      ],
+      "revenueRanks": [
+        {
+          "heading": "Maior valor vendido",
+          "items": [
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Café Especial",
+              "values": [
+                "Quantidade: 6 pacotes",
+                "Valor vendido: R$ 120,00",
+                "Lucro bruto: R$ 60,00",
+                "Margem bruta: 50%"
+              ]
+            },
+            {
+              "name": "Banana Prata",
+              "values": [
+                "Quantidade: 10 dúzias",
+                "Valor vendido: R$ 100,00",
+                "Lucro bruto: R$ 50,00",
+                "Margem bruta: 50%"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menor valor vendido",
+          "items": [
+            {
+              "name": "Produto sem Venda",
+              "values": [
+                "Quantidade: 0",
+                "Valor vendido: R$ 0,00",
+                "Lucro bruto: Sem venda registrada"
+              ]
+            },
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            },
+            {
+              "name": "Mandioca",
+              "values": [
+                "Quantidade: 7 kg",
+                "Valor vendido: R$ 35,00",
+                "Lucro bruto: R$ 28,00",
+                "Margem bruta: 80%"
+              ]
+            }
+          ]
+        }
+      ],
+      "profitRanks": [
+        {
+          "heading": "Maior contribuição bruta",
+          "items": [
+            {
+              "name": "Queijo Reserva",
+              "values": [
+                "Quantidade: 2 unidades",
+                "Valor vendido: R$ 180,00",
+                "Lucro bruto: R$ 80,00",
+                "Margem bruta: 44.4%"
+              ]
+            },
+            {
+              "name": "Café Especial",
+              "values": [
+                "Quantidade: 6 pacotes",
+                "Valor vendido: R$ 120,00",
+                "Lucro bruto: R$ 60,00",
+                "Margem bruta: 50%"
+              ]
+            },
+            {
+              "name": "Banana Prata",
+              "values": [
+                "Quantidade: 10 dúzias",
+                "Valor vendido: R$ 100,00",
+                "Lucro bruto: R$ 50,00",
+                "Margem bruta: 50%"
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Menor contribuição bruta",
+          "items": [
+            {
+              "name": "Muda Própria",
+              "values": [
+                "Quantidade: 3 unidades",
+                "Valor vendido: R$ 15,00",
+                "Lucro bruto: R$ 15,00",
+                "Margem bruta: 100%"
+              ]
+            },
+            {
+              "name": "Biscoito Econômico",
+              "values": [
+                "Quantidade: 97 unidades",
+                "Valor vendido: R$ 97,00",
+                "Lucro bruto: R$ 19,40",
+                "Margem bruta: 20%"
+              ]
+            },
+            {
+              "name": "Mandioca",
+              "values": [
+                "Quantidade: 7 kg",
+                "Valor vendido: R$ 35,00",
+                "Lucro bruto: R$ 28,00",
+                "Margem bruta: 80%"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "blockedExternalRequests": [
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "theme": "light",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "theme": "light",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "theme": "dark",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "theme": "dark",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "theme": "light",
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    }
+  ],
+  "requestFailures": [
+    {
+      "theme": "light",
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "theme": "light",
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "theme": "dark",
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "theme": "dark",
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "theme": "light",
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    }
+  ],
+  "expected": {
+    "weekly": {
+      "id": "qa-product-period-real:1788264000000:weekly:5",
+      "start": 1791288000000,
+      "end": 1791892800000
+    },
+    "monthly": {
+      "id": "qa-product-period-real:1788264000000:monthly:0",
+      "start": 1788264000000,
+      "end": 1790856000000
+    },
+    "rows": [
+      {
+        "id": "cheap",
+        "quantity": 97,
+        "revenue": 9700,
+        "grossProfit": 1940,
+        "costKnown": true
+      },
+      {
+        "id": "expensive",
+        "quantity": 2,
+        "revenue": 18000,
+        "grossProfit": 8000,
+        "costKnown": true
+      },
+      {
+        "id": "moderate",
+        "quantity": 5,
+        "revenue": 5000,
+        "grossProfit": 4000,
+        "costKnown": true
+      },
+      {
+        "id": "unknown",
+        "quantity": 4,
+        "revenue": 8000,
+        "grossProfit": null,
+        "costKnown": false
+      },
+      {
+        "id": "zero",
+        "quantity": 3,
+        "revenue": 1500,
+        "grossProfit": 1500,
+        "costKnown": true
+      },
+      {
+        "id": "kg",
+        "quantity": 7,
+        "revenue": 3500,
+        "grossProfit": 2800,
+        "costKnown": true
+      },
+      {
+        "id": "dozen",
+        "quantity": 10,
+        "revenue": 10000,
+        "grossProfit": 5000,
+        "costKnown": true
+      },
+      {
+        "id": "packet",
+        "quantity": 6,
+        "revenue": 12000,
+        "grossProfit": 6000,
+        "costKnown": true
+      },
+      {
+        "id": "no-sale",
+        "quantity": 0,
+        "revenue": 0,
+        "grossProfit": null,
+        "costKnown": true
+      }
+    ],
+    "notices": {
+      "notices": [
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:5",
+          "kind": "weekly",
+          "at": 1792162801200,
+          "due": true
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:6",
+          "kind": "weekly",
+          "at": 1792497600000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:7",
+          "kind": "weekly",
+          "at": 1793102400000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:8",
+          "kind": "weekly",
+          "at": 1793707200000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:9",
+          "kind": "weekly",
+          "at": 1794312000000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:10",
+          "kind": "weekly",
+          "at": 1794916800000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:11",
+          "kind": "weekly",
+          "at": 1795521600000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:12",
+          "kind": "weekly",
+          "at": 1796126400000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:weekly:13",
+          "kind": "weekly",
+          "at": 1796731200000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:monthly:0",
+          "kind": "monthly",
+          "at": 1792162801200,
+          "due": true
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:monthly:1",
+          "kind": "monthly",
+          "at": 1793448000000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:monthly:2",
+          "kind": "monthly",
+          "at": 1796040000000,
+          "due": false
+        },
+        {
+          "id": "qa-product-period-real:1788264000000:monthly:3",
+          "kind": "monthly",
+          "at": 1798632000000,
+          "due": false
+        }
+      ],
+      "validIds": [
+        "qa-product-period-real:1788264000000:weekly:5",
+        "qa-product-period-real:1788264000000:weekly:6",
+        "qa-product-period-real:1788264000000:weekly:7",
+        "qa-product-period-real:1788264000000:weekly:8",
+        "qa-product-period-real:1788264000000:weekly:9",
+        "qa-product-period-real:1788264000000:weekly:10",
+        "qa-product-period-real:1788264000000:weekly:11",
+        "qa-product-period-real:1788264000000:weekly:12",
+        "qa-product-period-real:1788264000000:weekly:13",
+        "qa-product-period-real:1788264000000:monthly:0",
+        "qa-product-period-real:1788264000000:monthly:1",
+        "qa-product-period-real:1788264000000:monthly:2",
+        "qa-product-period-real:1788264000000:monthly:3"
+      ]
+    }
+  },
+  "nativeMock": {
+    "scheduled": 13,
+    "pendingAfterDelivery": 11,
+    "cancelledOnReset": 11,
+    "deliveredRemoved": 2,
+    "permissionDeniedRespected": true,
+    "privatePayload": true,
+    "deviceTest": false
+  },
+  "passed": true
+}

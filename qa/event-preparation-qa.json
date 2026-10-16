@@ -1,0 +1,571 @@
+{
+  "isolated": true,
+  "url": "http://127.0.0.1:5178/",
+  "checks": [
+    "actual + opens the stock flow, new custom product and event draft survive durable failure/retry once, other quantities preserved",
+    "existing zero-stock shortcut replenishes the original ID, transfers only the confirmed amount to the event, retry never duplicates quantity or learned entry",
+    "cancelling stock selection returns to the same event with quantities and inventory untouched",
+    "catalog presentation adds one producer product, returns to the same load and transfers its new amount without replacing earlier choices",
+    "Adicionar depois works offline, stays pending instead of committing a load, survives cold reload and resumes two events by ID without cross-event quantities",
+    "defer and load commit wait for durable confirmation; retry keeps one identical event load, preserves other pending event and changes no general stock; report takes the confirmed load",
+    "sale quantity stays red only on 1→12→123 numeric input and cart numeric span in both themes; unit, price and keypad stay neutral; no sale completed",
+    "event creation with zero products still opens preparation; defer/reload/resume and +/cancel remain available without requiring stock"
+  ],
+  "layouts": [
+    {
+      "theme": "light",
+      "width": 320,
+      "geometry": {
+        "dialog": {
+          "left": 19.026931762695312,
+          "top": 37.09906005859375,
+          "width": 281.96337890625
+        },
+        "plus": {
+          "left": 36.02471923828125,
+          "top": 56.096588134765625,
+          "width": 47.99375915527344,
+          "height": 47.99375915527344
+        },
+        "label": "Adicionar produto ao estoque da feira",
+        "overflow": false,
+        "dialogOverflow": false
+      },
+      "footer": {
+        "x": 36,
+        "y": 584,
+        "width": 248,
+        "height": 48
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "geometry": {
+        "dialog": {
+          "left": 19.028976440429688,
+          "top": 37.13653564453125,
+          "width": 321.9420166015625
+        },
+        "plus": {
+          "left": 40.02519607543945,
+          "top": 56.13311767578125,
+          "width": 47.99135971069336,
+          "height": 47.991355895996094
+        },
+        "label": "Adicionar produto ao estoque da feira",
+        "overflow": false,
+        "dialogOverflow": false
+      },
+      "footer": {
+        "x": 40,
+        "y": 584,
+        "width": 280,
+        "height": 48
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "geometry": {
+        "dialog": {
+          "left": 19.036972045898438,
+          "top": 37.13653564453125,
+          "width": 281.94921875
+        },
+        "plus": {
+          "left": 36.033912658691406,
+          "top": 56.13311767578125,
+          "width": 47.991355895996094,
+          "height": 47.991355895996094
+        },
+        "label": "Adicionar produto ao estoque da feira",
+        "overflow": false,
+        "dialogOverflow": false
+      },
+      "footer": {
+        "x": 36,
+        "y": 584,
+        "width": 248,
+        "height": 48
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "geometry": {
+        "dialog": {
+          "left": 19.02093505859375,
+          "top": 37.09906005859375,
+          "width": 321.9581298828125
+        },
+        "plus": {
+          "left": 40.01820373535156,
+          "top": 56.096588134765625,
+          "width": 47.99375915527344,
+          "height": 47.99375915527344
+        },
+        "label": "Adicionar produto ao estoque da feira",
+        "overflow": false,
+        "dialogOverflow": false
+      },
+      "footer": {
+        "x": 40,
+        "y": 584,
+        "width": 280,
+        "height": 48
+      }
+    }
+  ],
+  "cart": [
+    {
+      "theme": "light",
+      "value": "1",
+      "color": "rgb(180, 35, 50)",
+      "legend": "rgb(22, 22, 24)",
+      "unit": "rgb(107, 107, 115)",
+      "price": "rgb(22, 22, 24)",
+      "key": "rgb(22, 22, 24)"
+    },
+    {
+      "theme": "light",
+      "value": "12",
+      "color": "rgb(180, 35, 50)",
+      "legend": "rgb(22, 22, 24)",
+      "unit": "rgb(107, 107, 115)",
+      "price": "rgb(22, 22, 24)",
+      "key": "rgb(22, 22, 24)"
+    },
+    {
+      "theme": "light",
+      "value": "123",
+      "color": "rgb(180, 35, 50)",
+      "legend": "rgb(22, 22, 24)",
+      "unit": "rgb(107, 107, 115)",
+      "price": "rgb(22, 22, 24)",
+      "key": "rgb(22, 22, 24)"
+    },
+    {
+      "theme": "light",
+      "summary": {
+        "text": "123",
+        "color": "rgb(180, 35, 50)",
+        "unitColor": "rgb(107, 107, 115)",
+        "rest": "Venda por dúzia ·  dúzias"
+      }
+    },
+    {
+      "theme": "dark",
+      "value": "1",
+      "color": "rgb(255, 123, 114)",
+      "legend": "rgb(245, 245, 247)",
+      "unit": "rgb(165, 165, 173)",
+      "price": "rgb(245, 245, 247)",
+      "key": "rgb(255, 255, 255)"
+    },
+    {
+      "theme": "dark",
+      "value": "12",
+      "color": "rgb(255, 123, 114)",
+      "legend": "rgb(245, 245, 247)",
+      "unit": "rgb(165, 165, 173)",
+      "price": "rgb(245, 245, 247)",
+      "key": "rgb(255, 255, 255)"
+    },
+    {
+      "theme": "dark",
+      "value": "123",
+      "color": "rgb(255, 123, 114)",
+      "legend": "rgb(245, 245, 247)",
+      "unit": "rgb(165, 165, 173)",
+      "price": "rgb(245, 245, 247)",
+      "key": "rgb(255, 255, 255)"
+    },
+    {
+      "theme": "dark",
+      "summary": {
+        "text": "123",
+        "color": "rgb(255, 123, 114)",
+        "unitColor": "rgb(165, 165, 173)",
+        "rest": "Venda por dúzia ·  dúzias"
+      }
+    }
+  ],
+  "blockedExternalRequests": [
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch",
+      "fixture": "empty inventory"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch",
+      "fixture": "empty inventory"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch",
+      "fixture": "empty inventory"
+    }
+  ],
+  "consoleErrors": [
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "fixture": "empty inventory",
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "fixture": "empty inventory",
+      "classified": true,
+      "expected": "explicit external test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "fixture": "empty inventory",
+      "classified": true,
+      "expected": "explicit external test isolation"
+    }
+  ],
+  "requestFailures": [
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "fixture": "empty inventory",
+      "classified": true
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "fixture": "empty inventory",
+      "classified": true
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "fixture": "empty inventory",
+      "classified": true
+    }
+  ],
+  "errors": [],
+  "fairReport": {
+    "app": "AGRO Gestão 0.12.9",
+    "producer": {
+      "name": "Luiz Claudio",
+      "business": "AGRO Gestão",
+      "community": "Carangola",
+      "city": "Carangola",
+      "uf": "MG"
+    },
+    "event": {
+      "name": "Encontro QA Alfa",
+      "start": "2026-10-17",
+      "end": "2026-10-17",
+      "from": "08:00",
+      "until": "18:00"
+    },
+    "totals": {
+      "took": 20,
+      "sold": 0,
+      "left": 20,
+      "revenue": 0,
+      "sales": 0,
+      "ticket": 0,
+      "tookKnown": 1
+    },
+    "answers": {
+      "produtos": "Banana Prata (Venda por dúzia), Taioba (Venda por maço), Quiabo QA exclusivo (Venda por maço), Alface lisa (Pé)",
+      "levou": "20 itens",
+      "vendeu": "0 itens",
+      "restou": "20 itens: 10 Banana Prata (Venda por dúzia), 3 Taioba (Venda por maço), 5 Quiabo QA exclusivo (Venda por maço), 2 Alface lisa (Pé)",
+      "maisVendido": "Banana Prata (Venda por dúzia)",
+      "menosVendido": "Alface lisa (Pé)",
+      "saidaCaro": "NENHUMA SAÍDA",
+      "saidaMedio": "NENHUMA SAÍDA",
+      "saidaBarato": "NENHUMA SAÍDA",
+      "tempoEsgotar": "NÃO ESGOTOU",
+      "reposicao": "NÃO PRECISEI REPOR",
+      "repostos": "NÃO REPUS",
+      "vendeuAlemDoLevado": "",
+      "esgotouPrimeiro": "Não esgotou nenhum",
+      "semVenda": "Banana Prata (Venda por dúzia), Taioba (Venda por maço), Quiabo QA exclusivo (Venda por maço), Alface lisa (Pé)",
+      "maiorLucro": "",
+      "metodoPagamento": ""
+    },
+    "payments": {},
+    "hourly": {},
+    "check": {
+      "conferido": false,
+      "corrigido": false,
+      "vendasNaoRegistradas": {
+        "qtd": 0,
+        "valor": 0
+      },
+      "perdas": {
+        "qtd": 0
+      },
+      "itens": []
+    },
+    "products": [
+      {
+        "id": "qa-banana",
+        "name": "Banana Prata",
+        "description": "Venda por dúzia",
+        "unit": "Dúzia",
+        "took": 10,
+        "sold": 0,
+        "left": 10,
+        "revenue": 0,
+        "price": 1000,
+        "soldOutAt": "",
+        "timeToSellOut": "",
+        "restocked": 0,
+        "oversold": 0
+      },
+      {
+        "id": "qa-taioba",
+        "name": "Taioba",
+        "description": "Venda por maço",
+        "unit": "Maço",
+        "took": 3,
+        "sold": 0,
+        "left": 3,
+        "revenue": 0,
+        "price": 400,
+        "soldOutAt": "",
+        "timeToSellOut": "",
+        "restocked": 0,
+        "oversold": 0
+      },
+      {
+        "id": "158525c2-bf5f-4d8e-acf9-308584f792d8",
+        "name": "Quiabo QA exclusivo",
+        "description": "Venda por maço",
+        "unit": "Maço",
+        "took": 5,
+        "sold": 0,
+        "left": 5,
+        "revenue": 0,
+        "price": 400,
+        "soldOutAt": "",
+        "timeToSellOut": "",
+        "restocked": 0,
+        "oversold": 0
+      },
+      {
+        "id": "3ffd472f-c652-45e2-893d-d696b567af8b",
+        "name": "Alface lisa",
+        "description": "Pé",
+        "unit": "Pé",
+        "took": 2,
+        "sold": 0,
+        "left": 2,
+        "revenue": 0,
+        "price": 300,
+        "soldOutAt": "",
+        "timeToSellOut": "",
+        "restocked": 0,
+        "oversold": 0
+      }
+    ],
+    "builtAt": "2026-10-16T17:05:59.527Z",
+    "reportId": "90a78c56-49f3-4345-afc1-b330a8ae25a4-luiz-claudio",
+    "status": "preliminar",
+    "finalizedAt": "",
+    "contrato": {
+      "produtor": {
+        "id": "p-wyffb0",
+        "nome": "Luiz Claudio",
+        "nome_curto": "Luiz",
+        "comunidade": "Carangola",
+        "tenda": null
+      },
+      "evento": {
+        "data": "2026-10-17",
+        "local": "Praça QA",
+        "inicio": "08:00",
+        "fim": "18:00"
+      },
+      "estoque": [
+        {
+          "produtor_id": "p-wyffb0",
+          "produto_id": "qa-banana",
+          "produto": "Banana Prata Venda por dúzia",
+          "categoria": "Hortifruti-Granjeiro",
+          "unidade": "Dúzia",
+          "preco": 10,
+          "qtd_inicial": 10,
+          "reposicoes": []
+        },
+        {
+          "produtor_id": "p-wyffb0",
+          "produto_id": "qa-taioba",
+          "produto": "Taioba Venda por maço",
+          "categoria": "Hortifruti-Granjeiro",
+          "unidade": "Maço",
+          "preco": 4,
+          "qtd_inicial": 3,
+          "reposicoes": []
+        },
+        {
+          "produtor_id": "p-wyffb0",
+          "produto_id": "158525c2-bf5f-4d8e-acf9-308584f792d8",
+          "produto": "Quiabo QA exclusivo Venda por maço",
+          "categoria": "Hortifruti-Granjeiro",
+          "unidade": "Maço",
+          "preco": 4,
+          "qtd_inicial": 5,
+          "reposicoes": []
+        },
+        {
+          "produtor_id": "p-wyffb0",
+          "produto_id": "3ffd472f-c652-45e2-893d-d696b567af8b",
+          "produto": "Alface lisa Pé",
+          "categoria": "Hortifruti-Granjeiro",
+          "unidade": "Pé",
+          "preco": 3,
+          "qtd_inicial": 2,
+          "reposicoes": []
+        }
+      ],
+      "vendas": [],
+      "fechamento": [],
+      "feedback": []
+    }
+  },
+  "passed": true
+}

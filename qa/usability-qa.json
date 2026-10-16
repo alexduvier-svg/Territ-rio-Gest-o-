@@ -1,0 +1,1806 @@
+{
+  "isolated": true,
+  "url": "http://127.0.0.1:5178/",
+  "checks": [
+    "one-hour reminders, stable edit/cancel behavior and normal system sleep verified by pure helpers/source; no real alarm was scheduled",
+    "stock separates registered products and new suggestions, exposes Repor and the new CTA, including Tradicional Torra Escura without search",
+    "brain/day privacy hides all displayed monetary amounts; day cost cancel/back preserves expenses; net family groups follow the day total and keep units apart",
+    "client/locality surfaces are centered, sharp and accessible at 320/360 light/dark; custom client/state pickers preserve ID and locality",
+    "pending R$150 stays unchanged while aura/cart/arrow/value animate; no quote recalculation, no stock/sale mutation, reduced/lite/hidden states stop loops",
+    "isolated test reset survives reload with cleared records; restoring demo returns defaults while all 2479 reference suggestions remain available"
+  ],
+  "surfaces": [
+    {
+      "theme": "light",
+      "width": 280,
+      "kind": "client",
+      "left": 20,
+      "top": 36,
+      "height": 668,
+      "centerX": 160,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50.390625,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 48,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 280,
+      "kind": "consumption-detail",
+      "left": 20,
+      "top": 36,
+      "height": 668,
+      "centerX": 160,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": []
+    },
+    {
+      "theme": "light",
+      "width": 280,
+      "kind": "sale-client",
+      "left": 20,
+      "top": 212.125,
+      "height": 315.75,
+      "centerX": 160,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 280,
+      "kind": "sale-origin",
+      "left": 20,
+      "top": 74.578125,
+      "height": 590.84375,
+      "centerX": 160,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "kind": "client",
+      "left": 20,
+      "top": 36,
+      "height": 668,
+      "centerX": 180,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50.390625,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 48,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "kind": "consumption-detail",
+      "left": 20,
+      "top": 36,
+      "height": 668,
+      "centerX": 180,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": []
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "kind": "sale-client",
+      "left": 20,
+      "top": 207.125,
+      "height": 325.75,
+      "centerX": 180,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "kind": "sale-origin",
+      "left": 20,
+      "top": 66.578125,
+      "height": 606.84375,
+      "centerX": 180,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 280,
+      "kind": "client",
+      "left": 20,
+      "top": 36,
+      "height": 668,
+      "centerX": 160,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50.390625,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 48,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 280,
+      "kind": "consumption-detail",
+      "left": 20,
+      "top": 36,
+      "height": 668,
+      "centerX": 160,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": []
+    },
+    {
+      "theme": "dark",
+      "width": 280,
+      "kind": "sale-client",
+      "left": 20,
+      "top": 212.125,
+      "height": 315.75,
+      "centerX": 160,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 280,
+      "kind": "sale-origin",
+      "left": 20,
+      "top": 74.578125,
+      "height": 590.84375,
+      "centerX": 160,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "kind": "client",
+      "left": 20,
+      "top": 36,
+      "height": 668,
+      "centerX": 180,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50.390625,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 48,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "kind": "consumption-detail",
+      "left": 20,
+      "top": 36,
+      "height": 668,
+      "centerX": 180,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "kind": "sale-client",
+      "left": 20,
+      "top": 207.125,
+      "height": 325.75,
+      "centerX": 180,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        },
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "kind": "sale-origin",
+      "left": 20,
+      "top": 66.578125,
+      "height": 606.84375,
+      "centerX": 180,
+      "centerY": 370,
+      "blur": "none",
+      "overflow": false,
+      "inputs": [
+        {
+          "tag": "BUTTON",
+          "height": 50,
+          "visible": true
+        },
+        {
+          "tag": "INPUT",
+          "height": 48,
+          "visible": true
+        }
+      ]
+    }
+  ],
+  "stock": [
+    {
+      "theme": "light",
+      "headings": {
+        "own": "rgb(70, 107, 36)",
+        "suggested": "rgb(155, 75, 18)"
+      },
+      "ownItems": [
+        "Café EspecialMoído · 250 g · Pacote50 pacotes em estoque",
+        "Café GourmetMoído · 250 g · Pacote50 pacotes em estoque",
+        "Café TradicionalMoído · 250 g · Pacote50 pacotes em estoque"
+      ]
+    },
+    {
+      "theme": "dark",
+      "headings": {
+        "own": "rgb(173, 206, 121)",
+        "suggested": "rgb(243, 174, 112)"
+      },
+      "ownItems": [
+        "Café EspecialMoído · 250 g · Pacote50 pacotes em estoque",
+        "Café GourmetMoído · 250 g · Pacote50 pacotes em estoque",
+        "Café TradicionalMoído · 250 g · Pacote50 pacotes em estoque"
+      ]
+    }
+  ],
+  "privacy": [
+    {
+      "theme": "light",
+      "brain": true,
+      "day": true,
+      "noCurrencyLeak": true
+    },
+    {
+      "theme": "dark",
+      "brain": true,
+      "day": true,
+      "noCurrencyLeak": true
+    }
+  ],
+  "families": [
+    {
+      "theme": "light",
+      "families": [
+        {
+          "name": "Cafés",
+          "amount": "R$ 130,00",
+          "units": "2 pct"
+        },
+        {
+          "name": "Bananas",
+          "amount": "R$ 57,00",
+          "units": "3 dz · 1,5 kg"
+        }
+      ],
+      "total": 18700,
+      "cancelPreservedExpenses": true
+    },
+    {
+      "theme": "dark",
+      "families": [
+        {
+          "name": "Cafés",
+          "amount": "R$ 130,00",
+          "units": "2 pct"
+        },
+        {
+          "name": "Bananas",
+          "amount": "R$ 57,00",
+          "units": "3 dz · 1,5 kg"
+        }
+      ],
+      "total": 18700,
+      "cancelPreservedExpenses": true
+    }
+  ],
+  "pending": [
+    {
+      "theme": "light",
+      "quoteCalls": 0,
+      "samples": [
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.182342",
+          "cartTransform": "matrix(0.999578, 0.0290594, -0.0290594, 0.999578, 0, -0.458152)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0.635198, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.331278",
+          "cartTransform": "matrix(0.999412, -0.0342852, 0.0342852, 0.999412, 0, -0.00440245)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 5.17478, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.421104",
+          "cartTransform": "matrix(0.999713, -0.0239434, 0.0239434, 0.999713, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 13.0877, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.45",
+          "cartTransform": "matrix(0.999998, -0.00195001, 0.00195001, 0.999998, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 24.374, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.433646",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 36.1162, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.568447",
+          "auraOpacity": "0.373073",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 49.9582, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.654389",
+          "auraOpacity": "0.287076",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 62.2428, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.775106",
+          "auraOpacity": "0.227388",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 70.5259, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.910237",
+          "auraOpacity": "0.200313",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 76.6076, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.987282",
+          "auraOpacity": "0.177664",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 79.0996, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.972114",
+          "auraOpacity": "0.100154",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 79.2, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.702933",
+          "auraOpacity": "0.0295853",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 79.2, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.5",
+          "auraOpacity": "3.44733e-08",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0.000422719, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.656915",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.971826",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.949446",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.616129",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.502875",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.749184",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.987685",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(0.999998, -0.0018662, 0.0018662, 0.999998, 0, -0.0133656)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(0.999171, -0.0407104, 0.0407104, 0.999171, 0, -0.291647)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(116, 75, 153)",
+          "background": "color(srgb 0.937882 0.916 0.956941)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(0.993419, -0.114535, 0.114535, 0.993419, 0, -0.822101)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        }
+      ],
+      "reducedStatic": true,
+      "liteStatic": true,
+      "hiddenPaused": true
+    },
+    {
+      "theme": "dark",
+      "quoteCalls": 0,
+      "samples": [
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.18223",
+          "cartTransform": "matrix(0.999575, 0.029162, -0.029162, 0.999575, 0, -0.458887)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0.632887, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.300645",
+          "cartTransform": "matrix(0.999574, -0.0291958, 0.0291958, 0.999574, 0, -0.0408707)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 3.77242, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.413246",
+          "cartTransform": "matrix(0.999641, -0.0268106, 0.0268106, 0.999641, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 11.9066, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.448285",
+          "cartTransform": "matrix(0.999984, -0.0055918, 0.0055918, 0.999984, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 21.2773, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0.4381",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 34.3682, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.558035",
+          "auraOpacity": "0.392072",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 46.5559, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.626444",
+          "auraOpacity": "0.308437",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 59.4144, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.738013",
+          "auraOpacity": "0.241444",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 68.4102, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.880234",
+          "auraOpacity": "0.202905",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 75.4245, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.966745",
+          "auraOpacity": "0.192911",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 78.567, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0.133641",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 79.2, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.797533",
+          "auraOpacity": "0.0463735",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 79.2, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.512235",
+          "auraOpacity": "0.00173351",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 60.867, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.579529",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.919361",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.972165",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.702854",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.5",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.656774",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.987661",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "1",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(1, 0, 0, 1, 0, 0)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(0.9997, -0.0245072, 0.0245072, 0.9997, 0, -0.175538)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        },
+        {
+          "text": "150,00",
+          "color": "rgb(189, 223, 158)",
+          "background": "color(srgb 0.175804 0.201804 0.15298)",
+          "amountOpacity": "0.55",
+          "auraOpacity": "0",
+          "cartTransform": "matrix(0.995149, -0.0983747, 0.0983747, 0.995149, 0, -0.705698)",
+          "arrowTransform": "matrix(1, 0, 0, 1, 0, -10.5)",
+          "animations": [
+            "pending-sale-aura",
+            "pending-sale-cart",
+            "pending-sale-arrow",
+            "pending-sale-amount",
+            "pending-sale-end"
+          ]
+        }
+      ],
+      "reducedStatic": true,
+      "liteStatic": true,
+      "hiddenPaused": true
+    }
+  ],
+  "native": {
+    "kind": "pure helper and source evidence; not a device/alarm test",
+    "oneHour": true,
+    "stableEditId": true,
+    "removal": true,
+    "noForcedWake": true,
+    "resumePauseRelease": true
+  },
+  "errors": [],
+  "consoleErrors": [
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "https://geocoding-api.open-meteo.com/v1/search?name=Carangola&count=10&language=pt&format=json&countryCode=BR",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "external request explicitly blocked by test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "external request explicitly blocked by test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "https://geocoding-api.open-meteo.com/v1/search?name=Carangola&count=10&language=pt&format=json&countryCode=BR",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "external request explicitly blocked by test isolation"
+    },
+    {
+      "text": "Failed to load resource: net::ERR_BLOCKED_BY_CLIENT.Inspector",
+      "location": {
+        "url": "http://127.0.0.1:8787/api/fairs",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      },
+      "classified": true,
+      "expected": "external request explicitly blocked by test isolation"
+    }
+  ],
+  "blockedExternalRequests": [
+    {
+      "url": "https://geocoding-api.open-meteo.com/v1/search?name=Carangola&count=10&language=pt&format=json&countryCode=BR",
+      "method": "GET",
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch"
+    },
+    {
+      "url": "https://geocoding-api.open-meteo.com/v1/search?name=Carangola&count=10&language=pt&format=json&countryCode=BR",
+      "method": "GET",
+      "resourceType": "fetch"
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "method": "GET",
+      "resourceType": "fetch"
+    }
+  ],
+  "requestFailures": [
+    {
+      "url": "https://geocoding-api.open-meteo.com/v1/search?name=Carangola&count=10&language=pt&format=json&countryCode=BR",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "url": "https://geocoding-api.open-meteo.com/v1/search?name=Carangola&count=10&language=pt&format=json&countryCode=BR",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    },
+    {
+      "url": "http://127.0.0.1:8787/api/fairs",
+      "failure": {
+        "errorText": "net::ERR_BLOCKED_BY_CLIENT.Inspector"
+      },
+      "blockedByHarness": true,
+      "classified": true
+    }
+  ],
+  "passed": true
+}
