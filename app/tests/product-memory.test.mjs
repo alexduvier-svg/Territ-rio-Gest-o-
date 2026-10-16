@@ -49,7 +49,7 @@ test('regras de cadastro atualizam referências antigas sem perder a memória do
   data.catalogKnowledge={version:'1.0.0',rules:['Texto anterior']};
   const m=new E.ERPModel(data);
   assert.equal(m.catalogKnowledgeInstalled,true);
-  assert.equal(m.data.catalogKnowledge.version,'1.0.1');
+  assert.equal(m.data.catalogKnowledge.version,CATALOG_KNOWLEDGE.version);
   assert.equal(m.data.stockCatalogGuidelines.ownHeading,'Você já tem cadastrado');
   assert.equal(m.stockCatalogGuidelinesInstalled,true);
   const newer=clone(m.data);newer.catalogKnowledge={version:'2.0.0',rules:['Referência posterior']};
@@ -72,9 +72,9 @@ test('premissas visuais acompanham backup e retomada sem substituir uma revisão
   assert.deepEqual(clone(restored.data.products),[]);
   assert.deepEqual(clone(restored.data.sales),[]);
   assert.deepEqual(clone(restored.data.movements),[]);
-  const newer={...clone(restored.data),interfaceGuidelines:{...INTERFACE_GUIDELINES,version:2,extra:'Premissa posterior'}};
+  const newer={...clone(restored.data),interfaceGuidelines:{...INTERFACE_GUIDELINES,version:INTERFACE_GUIDELINES.version+1,extra:'Premissa posterior'}};
   const future=new E.ERPModel(newer);
-  assert.equal(future.data.interfaceGuidelines.version,2);
+  assert.equal(future.data.interfaceGuidelines.version,INTERFACE_GUIDELINES.version+1);
   assert.equal(future.data.interfaceGuidelines.extra,'Premissa posterior');
   assert.notEqual(future.interfaceGuidelinesInstalled,true);
 });
@@ -94,6 +94,29 @@ test('instalar conhecimento e memória deixa produtos e atividade do produtor in
   assert.equal(m.data.catalogKnowledge.type,'suggestions_only');
   assert.equal(m.data.products.length,1,'2.479 referências não viram saldo ou produto ativo');
   assert.equal(Object.keys(m.data.productMemory.entries).length,0,'migração não inventa entradas anteriores');
+});
+
+test('revisão de janelas e estoque migra só premissas e permanece no backup sem alterar os registros',()=>{
+  const E=environment(),p={id:'premise-product',name:'Taioba',baseName:'Taioba',category:'Hortifruti-Granjeiro',unit:'Maço',stock:3,min:0,price:300,cost:0,costKnown:true,stockGroup:'general'};
+  const input=dataset([p]);
+  input.interfaceGuidelines={version:1,type:'interface_premises',motion:'Premissa antiga'};
+  input.stockCatalogGuidelines={version:1,type:'stock_catalog_premises',rules:['Ordenação antiga']};
+  input.catalogKnowledge={version:'1.0.1',total:2479};
+  const records=clone({products:input.products,sales:input.sales,movements:input.movements}),m=new E.ERPModel(input);
+  assert.equal(m.interfaceGuidelinesInstalled,true);
+  assert.equal(m.stockCatalogGuidelinesInstalled,true);
+  assert.equal(m.data.interfaceGuidelines.version,2);
+  assert.match(m.data.interfaceGuidelines.windows.placement,/centralizadas/);
+  assert.match(m.data.interfaceGuidelines.windows.scrolling,/cortar/);
+  assert.equal(m.data.stockCatalogGuidelines.version,2);
+  assert.equal(m.data.catalogKnowledge.sourceTotal,2479);
+  assert.equal(m.data.catalogKnowledge.appAdditions,1);
+  assert.equal(m.data.catalogKnowledge.total,2480);
+  const restored=new E.ERPModel(clone(m.data));
+  assert.notEqual(restored.interfaceGuidelinesInstalled,true);
+  assert.notEqual(restored.stockCatalogGuidelinesInstalled,true);
+  assert.deepEqual(clone(restored.data.interfaceGuidelines),INTERFACE_GUIDELINES);
+  assert.deepEqual(clone({products:restored.data.products,sales:restored.data.sales,movements:restored.data.movements}),records);
 });
 
 test('memória e instruções são idempotentes na reabertura e isoladas por conjunto de dados',()=>{

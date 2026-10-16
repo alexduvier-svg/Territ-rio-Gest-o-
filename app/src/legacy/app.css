@@ -546,12 +546,12 @@ button[data-action="number-pad-close"],html[data-theme=light] button[data-action
 .card-heading>.name{flex:0 1 auto;min-width:0}
 .stock-low-eye{position:static;display:inline-flex;flex:0 0 15px;width:15px;height:15px;margin-top:5px;color:var(--lilac);pointer-events:none;opacity:.9}
 .stock-low-eye>.icon{display:block;width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round}
-dialog:is([data-kind="brain"],[data-kind="management-report"],[data-kind="consumption"],[data-kind="consumption-detail"]){color-scheme:dark;--bg:#1c1c1e;--panel:#232325;--field:#2c2c2e;--line:#45454a;--text:#f5f5f7;--muted:#b4b4bd;--blue:#bfd3e3;--blue-surface:#263e54;--blue-border:#6b849a;--green:#a9d6bd;--red:#ff7b72;background:#262628;color:var(--text);border-color:var(--line)}
-dialog:is([data-kind="brain"],[data-kind="management-report"],[data-kind="consumption"],[data-kind="consumption-detail"]) .dialog-content{background:#262628;color:var(--text)}
-dialog:is([data-kind="brain"],[data-kind="management-report"],[data-kind="consumption"],[data-kind="consumption-detail"]) :is(.checkout-header,.checkout-footer){background:#262628;color:var(--text);border-color:var(--line)}
+dialog:is([data-kind="brain"],[data-kind="management-report"],[data-kind="consumption"],[data-kind="consumption-detail"]){color-scheme:inherit;background:var(--field);color:var(--text);border-color:var(--line)}
+dialog:is([data-kind="brain"],[data-kind="management-report"],[data-kind="consumption"],[data-kind="consumption-detail"]) .dialog-content{background:transparent;color:var(--text)}
+dialog:is([data-kind="brain"],[data-kind="management-report"],[data-kind="consumption"],[data-kind="consumption-detail"]) :is(.checkout-header,.checkout-footer){background:var(--field);color:var(--text);border-color:var(--line)}
 dialog:is([data-kind="brain"],[data-kind="management-report"],[data-kind="consumption"],[data-kind="consumption-detail"]) :is(input,select,textarea){background:var(--field);color:var(--text);border-color:var(--line)}
 dialog:is([data-kind="brain"],[data-kind="management-report"],[data-kind="consumption"],[data-kind="consumption-detail"]) :is(.management-value-row strong,.list-row strong,h2,h3,h4,label){color:var(--text)}
-dialog[data-kind="brain"] .brain-stock-diagnostic,html[data-theme=light] dialog[data-kind="brain"] .brain-stock-diagnostic{background:#232325;color:var(--text);border-color:var(--red)}
+dialog[data-kind="brain"] .brain-stock-diagnostic,html[data-theme=light] dialog[data-kind="brain"] .brain-stock-diagnostic{background:var(--panel);color:var(--text);border-color:var(--red)}
 dialog[data-kind="brain"] .brain-stock-heading h3,html[data-theme=light] dialog[data-kind="brain"] .brain-stock-heading h3{color:var(--red)}
 dialog[data-kind="brain"] .brain-stock-line .brain-stock-product>span,html[data-theme=light] dialog[data-kind="brain"] .brain-stock-line .brain-stock-product>span{color:var(--text)}
 dialog[data-kind="brain"] .brain-stock-line .brain-stock-product>small{color:var(--muted)}

@@ -14,12 +14,29 @@ test('catalog is lazy, offline, repeatable, and has no producer transactions', a
   assert.equal(loadCatalog(),promise);
   await promise;
   assert.equal(isCatalogReady(),true);
-  assert.equal(catalogInfo().total,2479);
+  assert.equal(catalogInfo().total,2480);
+  assert.equal(catalogInfo().sourceTotal,2479);
+  assert.equal(catalogInfo().appAdditions,1);
   assert.equal(Object.keys(catalogInfo().categories).length,22);
   assert.equal(catalogInfo().sourceFamilyCount,1270);
-  assert.equal(catalogInfo().families,1269);
-  assert.equal(searchFamilies('',{limit:1}).total,1269);
+  assert.equal(catalogInfo().families,1270);
+  assert.equal(searchFamilies('',{limit:1}).total,1270);
   assert.equal(catalogInfo().rules.some(rule=>rule.includes('Não presuma peso fixo')),true);
+});
+
+test('queijo ralado 50 g is an offline app addition without replacing the supplied catalogue', async()=>{
+  await loadCatalog();
+  const result=searchCatalog('queijos ralados',{category:'Laticínios'});
+  assert.equal(result.total,1);
+  const record=result.items[0],p=toProductSuggestion(record);
+  assert.equal(record.id,'agro_app_queijo_ralado_pacote_50g_v1');
+  assert.equal(p.format,'Ralado');assert.equal(p.unit,'Pacote');assert.equal(p.weight,50);
+  assert.equal(commercialIdentity(record).key,commercialIdentity(p).key);
+  assert.equal(searchFamilies('queijo ralado').total,1);
+  assert.equal(catalogInfo().categories['Laticínios'],catalogInfo().sourceCategories['Laticínios']+1);
+  for(const field of ['price','cost','stock','min'])assert.equal(Object.hasOwn(p,field),false,field);
+  const first=importWithoutDuplicates([], [record]);
+  assert.equal(importWithoutDuplicates(first.products,[record]).report.ignored.length,1);
 });
 
 test('plural, diacritic and alias searches retain the intended families',async()=>{

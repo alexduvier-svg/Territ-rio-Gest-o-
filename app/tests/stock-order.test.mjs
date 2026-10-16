@@ -17,3 +17,14 @@ test('categorias e famílias ficam contíguas e preço desempata apresentações
  const input=[{id:'f1',name:'Fubá Mimoso',category:'Grãos',unit:'Pacote',price:700},{id:'b',name:'Banana Prata',category:'Hortifruti-Granjeiro',unit:'Dúzia'}, {id:'a',name:'Arroz',category:'Grãos',unit:'Pacote'}, {id:'f2',name:'Fubá de Milho',category:'Grãos',unit:'Pacote',price:1200}];
  assert.deepEqual(orderStockProducts(input).map(p=>p.id),['b','a','f2','f1']);
 });
+
+test('linhas de café permanecem juntas sem cultivar intercalar pesos da linha Especial',()=>{
+ const standard=['Moído','Em grão'].flatMap(format=>[250,500,1000].map(weight=>({...coffee('especial-'+format+'-'+weight,'Especial',format,weight),baseName:'Café Especial'})));
+ const catuai={...coffee('catuai','Especial','Em grão',500),baseName:'Café Catuaí Especial',name:'Café Catuaí Especial'};
+ const gourmet=coffee('gourmet','Gourmet','Moído',250);
+ const input=[gourmet,standard[2],catuai,standard[4],standard[0],standard[5],standard[1],standard[3]];
+ const before=JSON.stringify(input),sorted=orderStockProducts(input);
+ assert.deepEqual(sorted.slice(0,6).map(p=>p.id),standard.map(p=>p.id));
+ assert.deepEqual(sorted.slice(6).map(p=>p.id),['catuai','gourmet']);
+ assert.equal(JSON.stringify(input),before);
+});

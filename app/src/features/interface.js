@@ -37,6 +37,7 @@ function decorateDimensions() {
   const pills = [...app().querySelectorAll('.registration-dimensions .dimension-pill')];
   if (!pills.length || !isFeira()) {
     pills.forEach(p => p.classList.remove('acc', 'open'));
+    if (!pills.length) { openIndex = null; advanceFrom = null; formKey = ''; }
     return;
   }
   const key = pills.map(p => p.querySelector('h3')?.textContent).join('|');
@@ -90,6 +91,17 @@ document.addEventListener('click', event => {
     advanceFrom = Number(choice.closest('.dimension-pill').dataset.accIndex);
   }
 }, true);
+
+// The same selection can come from the inline choices or from the + dialog.
+// A semantic event survives the legacy redraw and also covers a custom weight.
+document.addEventListener('territorio:product-presentation-selected', event => {
+  const { index, field } = event.detail || {};
+  const pills = [...(app()?.querySelectorAll('.registration-dimensions .dimension-pill') || [])];
+  const chosenIndex = pills.findIndex(p => p.dataset.dimensionField === field && Number(p.dataset.dimensionVariant) === index);
+  if (chosenIndex < 0) return;
+  advanceFrom = chosenIndex;
+  decorateDimensions();
+});
 
 // Venda com vários produtos: tocar em qualquer parte do produto (inclusive no preço, à direita,
 // onde alcança o polegar de quem é destro) o ativa para digitar a quantidade.

@@ -1,6 +1,6 @@
 # Premissas permanentes de interface — AGRO Gestão
 
-Versão 1, definida pelo produtor em 16/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
+Versão 2, atualizada pelo produtor em 16/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
 
 - **Volume:** hierarquia coerente por tamanho, peso e espaçamento. Não simular volume com excesso de negrito ou relevo nas letras.
 - **Nitidez:** leitura clara e contraste nos temas claro e escuro. Sem blur ou brilho nas letras. Rótulos de formulário com pelo menos 14 px, respeitando texto ampliado.
@@ -9,6 +9,10 @@ Versão 1, definida pelo produtor em 16/10/2026. Aplica-se a todos os títulos, 
 - **Profundidade:** bordas, luz e sombras discretas nos painéis e controles. Preservar desempenho em celulares mais simples.
 
 Abertura e fechamento usam expansão curta e física contínua, com leve acomodação de mola, sem trocar material durante a animação. Respeitar modo leve, Reduzir efeitos e movimento reduzido do sistema.
+
+Janelas de informação e edição abrem centralizadas, com margens reais nas laterais, no alto e embaixo. O conteúdo longo rola dentro de uma altura limitada; a janela não ocupa a tela inteira. Títulos, textos e botões não podem ficar cortados. Ações do rodapé precisam caber ou quebrar linha, inclusive Enviar no WhatsApp. O cérebro e os relatórios acompanham o tema claro/escuro escolhido. O fundo externo é atenuado e o material tem acabamento liquid glass discreto, sem blur nas letras nem custo alto de desfoque durante a animação. Verificar pouca altura e teclado aberto, além das larguras e fontes habituais.
+
+O padrão deve funcionar em celulares de 6,3, 6,5 e 6,8 polegadas. A diagonal não substitui a área útil: considerar resolução, escala, barras do Android e tamanho de fonte. Conferir larguras lógicas de 320, 360, 393 e 412 px e adaptar a altura disponível, preservando margens, rolagem e acesso às ações.
 
 Antes de entregar, conferir claro/escuro, largura de 320 px, texto ampliado, contraste, quebras de linha e fluidez. Cor de destaque não substitui hierarquia tipográfica. Em Valores e estoque, os quatro rótulos de preço, custo, estoque inicial e estoque mínimo usam vermelho com contraste adequado; valores digitados mantêm a cor de texto do sistema.
 

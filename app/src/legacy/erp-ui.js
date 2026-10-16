@@ -104,24 +104,24 @@ const EGG_PRESENTATION={type:['Caipira','Granja','Codorna','Pato','Ganso','Galin
 const PRESENTATION_PROFILES={
  'Bolos':{type:['Caseiro','Recheado','Decorado','Integral','Sem lactose','Sem glúten'],flavor:['Chocolate','Cenoura','Fubá','Milho','Laranja','Limão','Coco','Mandioca','Banana','Maçã','Maracujá','Morango','Abacaxi','Café','Baunilha','Nozes','Amendoim','Castanha','Aveia','Iogurte','Queijo','Leite','Mel'],format:['Inteiro','Pedaço','Fatia','No pote','Mini'],unit:['Unidade','Pedaço','Fatia','kg','Bandeja','Pote','Caixa','Pacote'],weight:[50,100,150,250,500,1000,2000]},
  'Panificação':{type:['Caseiro','Integral','Fermentação natural','Sem lactose','Sem glúten'],flavor:['Natural','Queijo','Coco','Chocolate','Milho','Canela','Frutas','Ervas'],format:['Inteiro','Fatiado','Pedaço','Mini'],unit:['Unidade','Pacote','Bandeja','Caixa','kg'],weight:[50,100,150,250,500,1000]},
- 'Cafés':{type:['Especial','Gourmet','Tradicional','Commodity','Drip coffee','Descafeinado','Orgânico','Microlote','Blend'],format:['Moído','Em grão','Verde','Dose individual','Solúvel','Cápsula'],unit:['Pacote','Caixa','Pote','Vidro','Saco','Lata'],weight:[10,100,250,500,1000,2000,5000]},
+ 'Cafés':{type:['Especial','Gourmet','Tradicional','Commodity','Drip coffee','Descafeinado','Orgânico','Microlote','Blend'],format:['Moído','Em grão','Verde','Dose individual','Solúvel','Cápsula'],unit:['Pacote','Caixa','Pote','Vidro','Saco','Lata'],weight:[10,50,100,250,500,1000,2000,5000]},
  'Hortifruti-Granjeiro':{type:['Fresco','Orgânico','Convencional'],format:['Inteiro','Cortado','Descascado','Picado','Congelado','Desidratado'],unit:['Dúzia','Unidade','kg','Caixa','Maço','Bandeja','Pacote','Saco'],weight:[100,250,500,1000,2000,5000]},
  'Grãos':{type:['Tradicional','Integral','Orgânico'],format:['Em grão','Farinha','Flocos','Farelo','Partido','Cozido','Em conserva','Congelado','Torrado'],unit:['kg','Pacote','Saco','Caixa','Pote','Vidro'],weight:[100,250,500,1000,2000,5000,10000,25000,50000]},
- 'Laticínios':{type:['Integral','Desnatado','Semidesnatado','Sem lactose','Grego','Fresco','Curado','Defumado','Artesanal'],flavor:['Natural','Morango','Coco','Maracujá','Ameixa','Banana','Pêssego','Frutas vermelhas','Mel','Baunilha','Manga','Abacaxi','Jabuticaba','Chocolate','Café','Granola'],format:['Cremoso','Líquido','Inteiro','Fatiado','Ralado','Em cubos','Em pó'],unit:['Pote','Litro','Garrafa','Vidro','Caixa','Pacote','Unidade','kg','Frasco'],weight:[100,170,200,250,500,1000,2000],volume:[100,170,200,250,500,750,1000,1500,2000,5000]},
+ 'Laticínios':{type:['Integral','Desnatado','Semidesnatado','Sem lactose','Grego','Fresco','Curado','Defumado','Artesanal'],flavor:['Natural','Morango','Coco','Maracujá','Ameixa','Banana','Pêssego','Frutas vermelhas','Mel','Baunilha','Manga','Abacaxi','Jabuticaba','Chocolate','Café','Granola'],format:['Cremoso','Barra','Inteiro','Ralado','Líquido','Fatiado','Em cubos','Em pó'],unit:['Pote','Litro','Garrafa','Vidro','Caixa','Pacote','Unidade','kg','Frasco'],weight:[50,100,170,200,250,500,1000,2000],volume:[100,170,200,250,500,750,1000,1500,2000,5000]},
  'Charcutaria':{type:['Artesanal','Fresco','Curado','Defumado','Cozido'],format:['Inteiro','Fatiado','Em cubos','Em peça','Porcionado','Moído'],unit:['Pacote','kg','Peça','Unidade','Bandeja','Caixa','Vidro','Pote'],weight:[100,200,250,500,1000,2000,5000]},
  'Artesanato':{type:['Artesanal','Decorativo','Utilitário','Personalizado'],material:['Tecido','Barro','Cerâmica','Cera','Cera de abelha','Cera de soja','Cera de coco','Parafina','Madeira','Linha','Cordão','Feltro','Palha','Bambu','Resina','Vidro','Porcelana','Couro','Papel','Pedra','Metal'],format:['Peça','Conjunto','Miniatura','Escultura','Bordado','Crochê','Macramê','Moldado'],flavor:['Sem fragrância','Lavanda','Baunilha','Capim-limão','Alecrim','Eucalipto','Canela','Café','Laranja','Jasmim','Rosas','Sândalo','Cedro','Patchouli','Citronela'],unit:['Peça','Unidade','Par','Kit','Caixa','Pacote'],size:['Pequeno','Médio','Grande','Único'],weight:[50,100,150,200,250,500,1000]},
  'Beleza':{type:['Artesanal','Natural','Sólido','Líquido','Em creme','Em pó'],flavor:['Sem fragrância','Lavanda','Alecrim','Camomila','Erva-doce','Capim-limão','Coco','Café','Baunilha','Rosas','Laranja','Eucalipto','Jasmim'],format:['Barra','Sólido','Líquido','Creme','Bálsamo','Óleo','Gel','Pó','Bastão','Roll-on'],unit:['Barra','Pote','Frasco','Bisnaga','Garrafa','Vidro','Lata','Pacote','Kit','Unidade'],weight:[12,30,45,50,60,70,75,100,115,150,200,250,500],volume:[10,30,50,100,150,200,250,500,1000]},
  'Piscicultura':{type:['Para consumo','Ornamental'],format:['Inteiro','Filé','Posta','Limpo','Congelado','Vivo'],unit:['Sacola','Unidade','kg','Pacote','Bandeja','Caixa'],weight:[500,1000,250,2000]},
  'Doces':{type:['Artesanal','Tradicional','Sem adição de açúcar','Compota','Geleia','Doce de corte','Bombom'],flavor:['Natural','Morango','Coco','Maracujá','Ameixa','Goiaba','Jabuticaba','Amora','Banana','Abóbora','Mel'],format:['Barra','Cremoso','Pedaços','Compota','Geleia'],unit:['Bandeja','Pote','Vidro','Pacote','Unidade','Caixa','kg'],weight:[50,100,150,200,250,500,1000]},
  'Bebidas':{type:['Natural','Integral','Artesanal'],flavor:['Natural','Uva','Laranja','Maracujá','Acerola','Abacaxi','Manga','Goiaba','Limão','Coco'],format:['Líquido','Concentrado','Polpa'],unit:['Garrafa','Litro','Vidro','Caixa','Lata','Frasco','Pacote'],volume:[100,200,250,300,350,500,600,750,1000,1500,2000,5000]},
- 'Outros':{type:['Artesanal','Tradicional'],format:['Inteiro','Porcionado'],unit:['Unidade','Pacote','Caixa','Pote','Vidro','kg','Litro','Peça'],weight:[100,250,500,1000],volume:[100,250,500,1000]}
+ 'Outros':{type:['Artesanal','Tradicional'],format:['Inteiro','Porcionado','Barra'],unit:['Unidade','Pacote','Caixa','Pote','Vidro','kg','Litro','Peça'],weight:[50,100,250,500,1000],volume:[100,250,500,1000]}
 };
 const DIMENSION_TITLES={type:'Tipo',variety:'Variedade',flavor:'Sabor',format:'Formato',unit:'Emb./Unid.',weight:'Peso',volume:'Volume',material:'Material',size:'Tamanho'};
 function presentationProfile(){if(productForm.category==='Hortifruti-Granjeiro'&&/^ovos?\b/.test(E.normalize(productForm.name)))return EGG_PRESENTATION;return PRESENTATION_PROFILES[productForm.category]||PRESENTATION_PROFILES.Outros;}
 function relatedCatalog(){const category=productForm.category,key=E.normalize(productForm.name),stem=key.split(/[\s-]/)[0];return PRODUCT_BANK.filter(p=>p.category===category&&(!stem||E.normalize(p.name).split(/[\s-]/)[0]===stem));}
 function catalogDimensionValues(field){const related=relatedCatalog();return related.map(p=>catalogDefaults(p)[field]).filter(value=>value!==undefined&&value!==''&&value!==0);}
 function dimensionOptions(field,index){const v=productForm.variants[index],profile=presentationProfile(),key=productForm.category+'|'+field,custom=learnedCatalog().dimensions[key]||[],registered=model.data.products.filter(p=>p.category===productForm.category).map(p=>p[field]).filter(x=>x!==undefined&&x!==''&&x!==0),all=[...(profile[field]||[]),...catalogDimensionValues(field),...custom,...registered,...(v[field]?[v[field]]:[])],seen=new Set();return all.filter(x=>{const key=E.normalize(x);if(seen.has(key))return false;seen.add(key);return true;});}
-function dimensionLabel(field,value){if(field==='weight')return Number(value)>=1000?E.quantity(Number(value)/1000)+' kg':E.quantity(value)+' g';if(field==='volume')return Number(value)>=1000?E.quantity(Number(value)/1000)+' L':E.quantity(value)+' ml';return String(value);}
+function dimensionLabel(field,value){if(field==='format'&&value==='Barra')return 'Em barras';if(field==='weight')return Number(value)>=1000?E.quantity(Number(value)/1000)+' kg':E.quantity(value)+' g';if(field==='volume')return Number(value)>=1000?E.quantity(Number(value)/1000)+' L':E.quantity(value)+' ml';return String(value);}
 function dimensionTitle(field){if(field==='type'&&productForm.category==='Cafés')return'Tipo de café';if(field==='type'&&/^ovos?\b/.test(E.normalize(productForm.name)))return'Tipo de Ovo';if(field==='unit'&&productForm.category==='Cafés')return'Embalagem';if(field==='flavor'&&['Artesanato','Beleza'].includes(productForm.category))return'Fragrância';return DIMENSION_TITLES[field];}
 function dimensionAction(field){return {type:productForm.category==='Cafés'?'coffee-type':'presentation-pick',format:'format',unit:'unit',weight:'weight'}[field]||'presentation-pick';}
 function dimensionButtons(field,index,values){const v=productForm.variants[index];return '<div class="choices">'+values.map(value=>btn(dimensionAction(field),escape(dimensionLabel(field,value)),'choice'+(String(v[field])===String(value)?' selected':''),{field,index,value})).join('')+'</div>';}
@@ -132,7 +132,7 @@ function registrationDimensions(v,index,isCoffee){
  return '<div class="registration-dimensions">'+fields.map(field=>{
   let values=dimensionOptions(field,index),limit=field==='weight'&&['Bolos','Panificação'].includes(category)?6:field==='type'&&isCoffee?5:field==='weight'||field==='volume'?3:field==='flavor'?6:field==='material'?6:4;
   values=values.slice(0,limit);if(v[field]&&!values.some(x=>String(x)===String(v[field])))values=[v[field],...values.slice(0,limit-1)];
-  return '<div class="dimension-pill"><div class="dimension-heading"><h3>'+dimensionTitle(field)+'</h3>'+btn('presentation-more',icon('plus')+'<span class="sr-only">Mais opções de '+escape(dimensionTitle(field).toLowerCase())+'</span>','dimension-add',{field,index})+'</div>'+dimensionButtons(field,index,values)+'</div>';
+  return '<div class="dimension-pill" data-dimension-field="'+field+'" data-dimension-variant="'+index+'"><div class="dimension-heading"><h3>'+dimensionTitle(field)+'</h3>'+btn('presentation-more',icon('plus')+'<span class="sr-only">Mais opções de '+escape(dimensionTitle(field).toLowerCase())+'</span>','dimension-add',{field,index})+'</div>'+dimensionButtons(field,index,values)+'</div>';
  }).join('')+(v.unit==='Dúzia'?'<p class="form-help">1 dúzia = 12 unidades.</p>':v.unit==='Meia Dúzia'?'<p class="form-help">1 meia dúzia = 6 unidades.</p>':'')+'</div>';
 }
 function setPresentation(index,field,value){
@@ -152,7 +152,7 @@ function rememberDimension(category,field,value){const lib=learnedCatalog(),key=
 function categoryPills(){return rankedCategories().map(c=>btn('quick-category',escape(c),'chip'+(c===productForm.category?' selected':''),{value:c})).join('');}
 function categorySuggestion(){const c=productForm.category;return btn('category','<span>'+icon(categoryIcon(c))+' '+escape(c)+'</span><span class="blue">Alterar '+icon('chevron')+'</span>','suggestion');}
 
-function numericValue(id,value){return !numericTouched.has(id)&&/^0+(?:[,.]0+)?$/.test(String(value))?'':value;}
+function numericValue(id,value){return !/^(price|cost|initial|minimum)-\d+$/.test(id)&&!numericTouched.has(id)&&/^0+(?:[,.]0+)?$/.test(String(value))?'':value;}
 function numericField(id,label,value,extra){const numeric=/inputmode="(?:decimal|numeric)"|type="number"/.test(extra||''),readonly=/readonly/.test(extra||'');if(!numeric)return '<div class="form-field"><label for="'+id+'">'+label+'</label><input id="'+id+'" value="'+escape(value)+'" '+(extra||'')+'></div>';const precision=/^(price-|cost-|expense-value|pay-value)/.test(id)?2:/inputmode="numeric"|step="1"/.test(extra||'')?0:3;return '<div class="form-field numeric-field"><label for="'+id+'">'+label+'</label><div class="numeric-input-row"><input id="'+id+'" value="'+escape(readonly?value:numericValue(id,value))+'" '+String(extra||'').replace(/inputmode="(?:decimal|numeric)"/,'inputmode="none"')+' data-numeric="'+precision+'" placeholder="Digite" autocomplete="off">'+btn('number-tools',icon(/^(price-|cost-)/.test(id)?'down':'calculator'),'number-tools',{input:id},readonly)+'</div></div>';}
 function numberKeypad(id,precision){return '<div class="number-keypad" aria-label="Teclado numérico">'+[1,2,3,4,5,6,7,8,9,0].map(n=>btn('number-key',String(n),'number-key',{input:id,token:n})).join('')+'</div><div class="number-keypad-tools">'+btn('number-key','Limpar','choice',{input:id,token:'clear'})+btn('number-key',icon('backspace')+'<span class="sr-only">Apagar último dígito</span>','choice',{input:id,token:'erase'})+(precision?btn('number-key',', Decimal','choice',{input:id,token:','}):'')+'</div>';}
 function showNumberPad(id,presets){const el=document.getElementById(id);if(!el||el.readOnly)return;const opening=numericActiveId!==id;numericActiveId=id;numericPresetsOpen=!!presets;if(opening)el.setSelectionRange?.(0,el.value.length);paintNumberPad();}
@@ -387,11 +387,11 @@ function render(preserve){if(page!=='Gestão')managementExpanded.delete('detail-
 }
 function openModal(title,body,kind,data,footer){
  modal={kind,data};dialog.setAttribute('data-kind',kind||'');
- const bottomBack=['mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','fair-finish','event-load'].includes(kind)||String(kind||'').startsWith('advisor'),registered=kind==='story'&&data&&data.pending===false;
+ const bottomBack=['mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load'].includes(kind)||String(kind||'').startsWith('advisor'),registered=kind==='story'&&data&&data.pending===false;
  if(bottomBack){body=body.replace(/<button\b[^>]*data-action="close-modal"[^>]*>[\s\S]*?<\/button>/g,'');if(!footer)footer=btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back');}
  dialog.toggleAttribute('data-bottom-back',bottomBack);dialog.toggleAttribute('data-no-close',bottomBack||registered);
  const heading=(bottomBack||registered?'':btn('close-modal',icon('close'),'dialog-close'))+'<h2 id="dialog-title">'+escape(title)+'</h2>',footerLabel=kind==='movement'?'Ações do estoque':kind==='restock'?'Reposição do estoque':kind==='calculator'?'Ações da calculadora':bottomBack?'Ações da janela':'Finalização da venda';
- dialog.innerHTML=(footer?'<div class="checkout-header">'+heading+'</div>':heading)+'<div class="dialog-content"'+(footer?' id="checkout-scroll"':'')+'>'+body+'</div>'+(footer?'<div class="checkout-footer" role="region" aria-label="'+footerLabel+'">'+footer+'</div>':'')+'<aside id="dialog-number-pad" class="modal-number-pad" hidden aria-label="Teclado numérico"></aside>';
+ dialog.innerHTML='<div class="checkout-header">'+heading+'</div><div class="dialog-content" id="checkout-scroll">'+body+'</div>'+(footer?'<div class="checkout-footer" role="region" aria-label="'+footerLabel+'">'+footer+'</div>':'')+'<aside id="dialog-number-pad" class="modal-number-pad" hidden aria-label="Teclado numérico"></aside>';
  if(!dialog.open)dialog.showModal();dialog.dispatchEvent(new CustomEvent('territorio:sheet',{bubbles:true,detail:{kind:kind||'',title:String(title||''),data:data||null}}));
 }
 
@@ -412,11 +412,11 @@ function saleDetail(id){const s=model.data.sales.find(s=>s.id===id);if(!s)return
 function checkoutSummary(d){const q=model.quote(d);return{...q,id:pendingCheckout&&pendingCheckout.id||E.uid(),scope:d.scope,customerId:d.clientId,customerName:d.clientName||'',customerCity:d.city||'',customerNeighborhood:d.neighborhood||'',customerUF:d.uf||'',payments:d.split?d.parts.map(v=>({method:v.method,amount:E.cents(v.value)})):[{method:d.payment,amount:q.total}]};}
 function receiptPayload(s){return[model.data.settings.businessName,'RESUMO DA COMPRA '+s.id.slice(0,8),...s.items.map(i=>E.quantity(i.qty)+' x '+saleDisplayName(model.product(i.productId)||i)+' | '+i.description+' | '+E.money(i.total)),s.discount?'Desconto '+E.money(s.discount):'', 'Total '+E.money(s.total),s.payments.map(p=>p.method+' '+E.money(p.amount)).join(' + '),s.customerName?'Cliente: '+s.customerName:'', [s.customerCity,s.customerNeighborhood,s.customerUF].filter(Boolean).join(' / '),'Aguardando confirmacao do produtor'].filter(Boolean).join('\n');}
 function paintCheckout(){
- if(!draft||!pendingCheckout)return;splitUpdate();const s=checkoutSummary(draft),error=saleError(),sameReview=modal&&['cart','checkout'].includes(modal.kind)&&modal.data&&modal.data.checkoutId===pendingCheckout.id,focused=sameReview&&document.activeElement&&/^pay-(value|method)-[0-9]+$/.test(document.activeElement.id)?{id:document.activeElement.id,start:document.activeElement.selectionStart,end:document.activeElement.selectionEnd}:null,scroll=sameReview&&(s.items.length>1||draft.split)?(document.getElementById('checkout-scroll')||{}).scrollTop||0:0;
+ if(!draft||!pendingCheckout)return;splitUpdate();const s=checkoutSummary(draft),error=saleError(),sameReview=modal&&['cart','checkout'].includes(modal.kind)&&modal.data&&modal.data.checkoutId===pendingCheckout.id,focused=sameReview&&document.activeElement&&/^pay-(value|method)-[0-9]+$/.test(document.activeElement.id)?{id:document.activeElement.id,start:document.activeElement.selectionStart,end:document.activeElement.selectionEnd}:null,scroll=sameReview?(document.getElementById('checkout-scroll')||{}).scrollTop||0:0;
  pendingCheckout.summary=s;pendingCheckout.payload=receiptPayload(s);
  const items=s.items.map((i,index)=>'<div class="cart-line">'+btn('edit-cart-item','<span class="cart-item-heading"><strong class="cart-item-name">'+escape(saleDisplayName(model.product(i.productId)))+'</strong><strong class="cart-item-total tabular">'+E.money(i.total)+'</strong></span><small>'+escape(i.description)+' · <span class="cart-item-quantity tabular">'+E.quantity(i.qty)+'</span> '+E.unitLabel(i.unit,i.qty)+'</small>','cart-item-edit',{index})+btn('remove-cart-item',icon('trash'),'cart-item-remove red',{index})+'</div>').join('');
- const body='<div class="checkout-items'+(s.items.length===1?' one-product':'')+'" aria-label="Produtos da venda">'+items+'</div>'+(s.discount?'<div class="checkout-discount-line"><span class="discount-applied-label"><span class="discount-applied-dot" aria-hidden="true"></span>Desconto</span><span>'+E.money(s.discount)+'</span></div>':'')+checkoutSplitFields();
- const footer='<div class="checkout-middle-payment">'+checkoutPaymentControls()+'</div><div class="checkout-total total-pill"><span>Total</span><strong class="tabular">'+E.money(s.total)+'</strong></div>'+'<div id="checkout-payment-error" class="'+(error?'error checkout-validation':'sr-only')+'" role="status">'+escape(error)+'</div><div class="sale-actions checkout-actions">'+btn('reject-sale','Cancelar Venda','danger')+btn('finalize-purchase','Finalizar Venda','success',null,!!error)+'</div>';
+ const body='<div class="checkout-items'+(s.items.length===1?' one-product':'')+'" aria-label="Produtos da venda">'+items+'</div>'+(s.discount?'<div class="checkout-discount-line"><span class="discount-applied-label"><span class="discount-applied-dot" aria-hidden="true"></span>Desconto</span><span>'+E.money(s.discount)+'</span></div>':'')+'<div class="checkout-middle-payment">'+checkoutPaymentControls()+'</div>'+checkoutSplitFields()+'<div id="checkout-payment-error" class="'+(error?'error checkout-validation':'sr-only')+'" role="status">'+escape(error)+'</div>';
+ const footer='<div class="checkout-total total-pill"><span>Total</span><strong class="tabular">'+E.money(s.total)+'</strong></div><div class="sale-actions checkout-actions">'+btn('reject-sale','Cancelar Venda','danger')+btn('finalize-purchase','Finalizar Venda','success',null,!!error)+'</div>';
  dialog.setAttribute('data-compact-review',String(s.items.length===1&&!draft.split));
  openModal('Finalizar Venda',body,'cart',{checkoutId:pendingCheckout.id},footer);
  const scroller=document.getElementById('checkout-scroll');if(scroller)scroller.scrollTop=scroll;
@@ -1709,9 +1709,8 @@ function daySummaryHtml(){const {day,sales,costs,m}=daySummaryData(),visible=!!m
  const familyRows=m.families.length?m.families.map(f=>'<div class="ds-row ds-family-row"><span><strong>'+escape(titleName(f.name))+'</strong><small>'+f.units.filter(u=>u.qty!==0).map(u=>E.quantity(u.qty)+' '+escape(shortUnit(u.unit))).join(' · ')+'</small></span><span class="ds-num"><strong>'+money(f.amount)+'</strong></span></div>').join(''):'<p class="ds-empty">Nenhuma venda hoje aqui.</p>';
  const costRows=(costs.length?costs.map(x=>'<div class="ds-row"><span><strong>'+escape(x.title)+'</strong></span><span class="ds-num"><strong>− '+money(x.amount)+'</strong></span></div>').join(''):'<p class="ds-empty">Sem custos registrados hoje.</p>')+btn('day-cost',icon('plus')+' Adicionar custo do dia','ds-add');
  return head+hero+'<section class="ds-card ds-families"><h3>Vendas por família</h3>'+familyRows+'</section>'+dayCashHtml(m,money)+'<section class="ds-card"><h3>O que vendeu</h3>'+soldRows+'</section><section class="ds-card"><h3>Custos do dia</h3>'+costRows+'</section>'
- +btn('day-summary-share',icon('upload')+' Enviar no WhatsApp','success modal-action ds-share')
  +'<div class="ds-links">'+btn('day-summary-sales','Ver cada venda ('+sales.length+')','link')+btn('day-summary-gestao','Análise completa na Gestão','link')+'</div>';}
-function openDaySummary(markClosed=true){if(markClosed)markDayClosed();openModal('Resumo do dia',daySummaryHtml(),'day-summary');}
+function openDaySummary(markClosed=true){if(markClosed)markDayClosed();openModal('Resumo do dia',daySummaryHtml(),'day-summary',null,btn('day-summary-share',icon('upload')+'<span>Enviar no WhatsApp</span>','success ds-share')+btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back'));}
 function daySummaryText(){const {sales,costs,m}=daySummaryData(),money=v=>model.data.settings.financialVisible?E.money(v):'••••••',lines=['*Resumo do dia · '+scopeName(scope)+'*',new Date().toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo'}),'','Total vendido: '+money(m.revenue),'Vendas: '+sales.length,'Lucro do dia: '+money(m.result)];
  if(m.families.length){lines.push('','*Vendas por família*');m.families.forEach(f=>lines.push('• '+titleName(f.name)+': '+money(f.amount)));}
  if(m.received){const rec=E.PAYMENTS.filter(k=>m.received[k]);if(rec.length){lines.push('','*Recebimentos*');rec.forEach(k=>lines.push('• '+k+': '+money(m.received[k])));}}
@@ -2372,11 +2371,12 @@ let stockProductFlow={stage:'pick',category:'',search:'',ownLimit:8,familyLimit:
 const stockCatalog=()=>window.TerritorioProductCatalog;
 const stockNormalize=value=>E.normalize(String(value||'')).replace(/\s+/g,' ').trim();
 function ownStockProducts(value,category){
- const key=stockNormalize(value),canonical=stockCatalog()?.normalizeProductName(value)||key,memory=model.data.productMemory?.entries||{};
- return model.data.products.filter(p=>!category||p.category===category).filter(p=>{
+ const key=stockNormalize(value),canonical=stockCatalog()?.normalizeProductName(value)||key;
+ const matches=model.data.products.filter(p=>!category||p.category===category).filter(p=>{
   if(!key)return true;const rec=p.catalogId&&stockCatalog()?.getCatalogRecord(p.catalogId);
   return stockNormalize([p.name,p.baseName,p.category,E.description(p),...(rec?.aliases||[]),rec?.nome_plural,rec?.nome_busca_plural].filter(Boolean).join(' ')).includes(key)||(stockCatalog()?.normalizeProductName(p.name)||stockNormalize(p.name)).includes(canonical)||(stockCatalog()?.normalizeProductName(p.baseName)||stockNormalize(p.baseName)).includes(canonical);
- }).sort((a,b)=>(memory[b.id]?.stockEntries||0)-(memory[a.id]?.stockEntries||0)||String(memory[b.id]?.lastStockAt||'').localeCompare(String(memory[a.id]?.lastStockAt||''))||a.name.localeCompare(b.name,'pt-BR'));
+ });
+ return window.TerritorioStockOrder?window.TerritorioStockOrder.orderStockProducts(matches):matches.slice().sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
 }
 function stockFlowCategories(){const api=stockCatalog(),categories=api?.catalogInfo()?.categories||{},names=Array.isArray(categories)?categories:Object.keys(categories);return [...new Set([...E.CATEGORIES,...names.map(c=>typeof c==='string'?(api?.categoryFor(c)||c):c.appCategory||c.category||c.name),...model.data.products.map(p=>p.category)].filter(Boolean))];}
 function stockFlowCategoryPills(){const category=stockProductFlow.stage==='pick'?stockProductFlow.category:productForm.category;return stockFlowCategories().map(c=>btn('quick-category',escape(c),'chip'+(c===category?' selected':''),{value:c})).join('');}
@@ -2441,7 +2441,7 @@ autoValues=function(index){
 updateProductName=function(value,complete,event){
  const f=productForm;if(!f)return;value=String(value||'').slice(0,120);const changed=stockNormalize(value)!==stockNormalize(f.name);f.name=value;productNamePrefix=value;formError='';
  if(changed&&!f.editId){stockProductFlow.familyKey='';f.catalogSelected=false;f.identityReviewConfirmed=false;f.duplicateProductId='';f.reviewProductIds=[];if(!f.presentationTouched){const previous=f.variants[0],s=E.classify(value),v={...newVariant({unit:''}),unit:'',minInput:''};v.stockInput=previous.stockInput;for(const field of ['priceInput','costInput','minInput'])v[field]=previous[field];v.suggestedUnit=stockNormalize(value).length>=2?s.unit:'';f.variants=[v];}else f.variants.forEach(v=>{for(const k of ['catalogId','catalogBase','catalogForm','catalogPackaging','catalogVersion','catalogIdentityComplete'])delete v[k];});}
- if(!f.manualCategory&&!f.editId&&!event?.isComposing)f.category=E.classify(value).category||'Outros';
+ if(!f.manualCategory&&!f.editId&&!event?.isComposing)f.category=stockNormalize(value).length>=2?E.classify(value).category||'Outros':'';
  const input=document.getElementById('product-name');if(input&&input.value!==value)input.value=value;
  const clear=document.querySelector('[data-action="clear-product-name"]');if(clear)clear.disabled=!value;
  const category=document.getElementById('product-category-pills');if(category)category.innerHTML=stockFlowCategoryPills();
@@ -2461,7 +2461,7 @@ productPresentationPanels=function(){let index=0;return stockPresentationPanelsB
 const stockDimensionOptionsBeforeFlow=dimensionOptions;
 dimensionOptions=function(field,index){const values=stockDimensionOptionsBeforeFlow(field,index);if(field==='unit'&&productForm?.category==='Hortifruti-Granjeiro'&&!values.includes('Molho'))values.push('Molho');return values;};
 const stockSetPresentationBeforeFlow=setPresentation;
-setPresentation=function(index,field,value){const f=productForm,v=f?.variants[index];if(!v)return;if(field==='unit')v.unitConfirmed=true;if(field==='unit'&&value==='Molho'){v.weight=0;v.volume=0;}return stockSetPresentationBeforeFlow(index,field,value);};
+setPresentation=function(index,field,value){const f=productForm,v=f?.variants[index];if(!v)return;captureStockFormValues();if(field==='unit')v.unitConfirmed=true;if(field==='unit'&&value==='Molho'){v.weight=0;v.volume=0;}const result=stockSetPresentationBeforeFlow(index,field,value);if(productForm===f)document.dispatchEvent(new CustomEvent('territorio:product-presentation-selected',{detail:{index:Number(index),field}}));return result;};
 function chooseStockFamily(key){
  const api=stockCatalog(),records=api?.familyPresentations(key)||[];if(!records.length)return;
  if(stockProductFlow.stage==='pick')beginCustomStockProduct('');
@@ -2475,9 +2475,9 @@ function chooseStockPresentation(id){
  f.name=suggestion.baseName||suggestion.name;f.category=f.manualCategory?f.category:suggestion.category;f.variants=[v];f.catalogSelected=true;f.presentationTouched=true;productNamePrefix='';formError='';render();
 }
 function beginCustomStockProduct(value){
- const category=stockProductFlow.category;stockProductFlow.stage='form';stockProductFlow.familyKey='';productNamePrefix='';formError='';
- productForm={name:String(value||'').slice(0,120),category:category||'Outros',manualCategory:!!category,editId:null,more:false,stockGroup:'general',stockGroupChosen:true,variants:[{...newVariant({unit:''}),unit:'',minInput:''}]};
- if(productForm.name){const suggestion=E.classify(productForm.name);if(!category)productForm.category=suggestion.category;productForm.variants[0].suggestedUnit=suggestion.unit;}
+ const category='';stockProductFlow.stage='form';stockProductFlow.familyKey='';productNamePrefix='';formError='';numericTouched.clear();closeNumberPad();
+ productForm={name:String(value||'').slice(0,120),category:'',manualCategory:false,editId:null,more:false,stockGroup:'general',stockGroupChosen:true,variants:[{...newVariant({unit:''}),unit:'',minInput:''}]};
+ if(productForm.name){const suggestion=E.classify(productForm.name);productForm.variants[0].suggestedUnit=suggestion.unit;}
  render();requestStockCatalog();document.getElementById('product-name')?.focus({preventScroll:true});
 }
 function pickOwnStockProduct(id){if(!model.product(id))return;closeNumberPad();stockProductFlow.stage='pick';productForm=null;page='Estoque';filter='Todos';query='';render();stockDialog(id);}
@@ -2498,13 +2498,34 @@ Object.assign(actions,{
  'stock-review-create':()=>{if(!productForm)return;productForm.identityReviewConfirmed=true;productForm.reviewProductIds=[];return actions['save-product']();}
 });
 document.addEventListener('input',event=>{if(event.target.id!=='stock-picker-search'||!productForm)return;stockProductFlow.search=String(event.target.value||'').slice(0,120);stockProductFlow.ownLimit=8;stockProductFlow.familyLimit=8;const results=document.getElementById('stock-picker-results');if(results)results.innerHTML=stockPickerResults();requestStockCatalog();});
+// Native keyboards/autofill may commit with change only. Capture the visible
+// values before validation and before a presentation redraw; explicit 0 stays 0.
+function captureStockFormValues(){
+ const f=productForm;if(!f)return;
+ for(const [index,v] of f.variants.entries())for(const [prefix,key] of [['price','priceInput'],['cost','costInput'],['initial','stockInput'],['minimum','minInput']]){
+  const el=document.getElementById(prefix+'-'+index);if(!el||el.readOnly)continue;
+  v[key]=String(el.value??'');if(v[key].trim()!=='')numericTouched.add(el.id);
+ }
+}
+document.addEventListener('change',event=>{const t=event.target;if(productForm&&t.dataset?.variant!==undefined&&['priceInput','costInput','stockInput','minInput'].includes(t.dataset.field))handleAppInput(event);});
 const stockSaveProductBeforeFlow=actions['save-product'];
 actions['save-product']=async d=>{
  const f=productForm;if(!f||f.saving)return;formError='';f.duplicateProductId='';
  try{
   if(f.pendingSaved){f.saving=true;const durable=window.TerritorioNative?.durable;if(durable&&!await durable())throw Error('A gravação ainda está pendente. Libere espaço; o app tenta novamente.');if(eventStockContext){await returnFromEventStock({saved:true});toast('Produto salvo. Incluído na preparação da feira.');return;}productForm=null;page='Estoque';filter='Todos';query='';render();toast('Produto salvo. Estoque atualizado.');return;}
-  if(stockNormalize(f.name).length<2)throw Error('Informe o nome do produto.');
-  for(const v of f.variants){if(!v.unit)throw Error('Escolha a unidade de venda.');if(!f.editId&&!v.unitConfirmed)throw Error('Confirme a unidade de venda sugerida ou escolha outra.');if(f.category==='Cafés'&&(!v.type||!v.format))throw Error('Escolha o tipo e o formato do café.');if(f.category==='Cafés'&&!(v.weight>0))throw Error('Informe o peso do café.');if(v.priceInput.trim()===''||(v.costInput.trim()===''&&(!f.editId||v.costKnown!==false)))throw Error('Informe o preço e o custo reais. Se não houver custo, digite 0.');if(v.stockInput.trim()==='')v.stockInput='0';if(v.minInput.trim()==='')v.minInput='0';if(!f.editId)v.identityComplete=true;}
+  captureStockFormValues();if(stockNormalize(f.name).length<2)throw Error('Informe o nome do produto.');if(!f.category)throw Error('Escolha a categoria do produto.');
+  for(const [index,v] of f.variants.entries()){
+   if(!v.unit)throw Error('Escolha a unidade de venda.');
+   if(!f.editId&&!v.unitConfirmed)throw Error('Confirme a unidade de venda sugerida ou escolha outra.');
+   if(f.category==='Cafés'&&(!v.type||!v.format))throw Error('Escolha o tipo e o formato do café.');
+   if(f.category==='Cafés'&&!(v.weight>0))throw Error('Informe o peso do café.');
+   const option=f.variants.length>1?' na opção de venda '+(index+1):'';
+   if(String(v.priceInput??'').trim()==='')throw Error('Informe o preço real'+option+'.');
+   if(String(v.costInput??'').trim()===''&&(!f.editId||v.costKnown!==false))throw Error('Informe o custo real'+option+'. Se não houver custo, digite 0.');
+   if(String(v.stockInput??'').trim()==='')v.stockInput='0';
+   if(String(v.minInput??'').trim()==='')v.minInput='0';
+   if(!f.editId)v.identityComplete=true;
+  }
   f.saving=true;const dataBefore=JSON.stringify(model.data),draftBefore=eventLoadDraft&&JSON.stringify(eventLoadDraft);
   try{const saved=model.saveProducts(f,f.variants,f.editId);if(eventStockContext)stageStockForEvent(saved.filter(p=>!f.editId).map(p=>({productId:p.id,unit:p.unit,qty:p.stock})));if(!persist())throw Error('Não foi possível salvar. Libere espaço no dispositivo.');}
   catch(error){model=new E.ERPModel(JSON.parse(dataBefore));if(draftBefore)eventLoadDraft=JSON.parse(draftBefore);throw error;}

@@ -1,0 +1,209 @@
+/* One floating frame for app dialogs. Lists scroll inside the frame; the app's
+   main pages remain pages. The material never changes when [open] is removed.
+   VisualViewport dimensions are updated only on resize/keyboard events. */
+:root[data-theme][data-layout] dialog:not(.fluid-exit-ghost),
+:root[data-theme][data-layout] dialog#date-picker-dialog {
+  --dialog-space-x: 20px;
+  --dialog-space-y: 36px;
+  position: fixed;
+  top: calc(var(--dialog-viewport-top, 0px) + var(--safe-area-inset-top, 0px));
+  bottom: max(0px, calc(100dvh - var(--dialog-viewport-top, 0px) - var(--dialog-viewport-height, 100dvh) + var(--safe-area-inset-bottom, 0px)));
+  left: calc(var(--dialog-viewport-left, 0px) + var(--safe-area-inset-left, 0px));
+  right: max(0px, calc(100vw - var(--dialog-viewport-left, 0px) - var(--dialog-viewport-width, 100vw) + var(--safe-area-inset-right, 0px)));
+  margin: auto;
+  box-sizing: border-box;
+  width: calc(var(--dialog-viewport-width, 100vw) - var(--dialog-space-x) * 2 - var(--safe-area-inset-left, 0px) - var(--safe-area-inset-right, 0px));
+  max-width: 520px;
+  height: fit-content;
+  min-height: 0;
+  max-height: min(calc(var(--dialog-viewport-height, 100dvh) * .82), calc(var(--dialog-viewport-height, 100dvh) - var(--safe-area-inset-top, 0px) - var(--safe-area-inset-bottom, 0px) - var(--dialog-space-y) * 2));
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--glass-edge, var(--line));
+  border-radius: 28px;
+  background: linear-gradient(136deg, var(--glass-glint-soft), transparent 46%), var(--field);
+  color: var(--text);
+  color-scheme: inherit;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: inset 0 1px 0 var(--glass-glint), inset 0 -1px 0 rgb(0 0 0 / 8%), 0 5px 0 -2px color-mix(in srgb, var(--text) 9%, transparent), 0 20px 44px -14px var(--glass-shadow);
+}
+:root[data-theme][data-layout] dialog:not(.fluid-exit-ghost):is([open], .fluid-native-exit) {
+  display: flex;
+  flex-direction: column;
+}
+:root[data-theme][data-layout] dialog::backdrop {
+  background: rgb(8 14 10 / 42%);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:root[data-theme='light'][data-layout] dialog::backdrop { background: rgb(36 45 35 / 29%); }
+
+:root[data-theme][data-layout] dialog > .checkout-header {
+  position: relative;
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: calc(var(--dialog-viewport-height, 100dvh) * .27);
+  overflow-y: auto;
+  padding: 22px 20px 16px;
+  color: var(--text);
+  background: transparent;
+  border-bottom: 1px solid var(--line);
+  box-shadow: none;
+}
+:root[data-theme][data-layout] dialog .checkout-header > h2 {
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  color: var(--text);
+  font: 750 25px/1.18 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  letter-spacing: -.025em;
+  overflow-wrap: anywhere;
+}
+:root[data-theme][data-layout] dialog .checkout-header:has(.dialog-close) > h2 { padding-right: 44px; }
+:root[data-theme][data-layout] dialog > .checkout-header .dialog-close {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  float: none;
+  width: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  margin: 0;
+  padding: 10px;
+  color: var(--muted);
+}
+:root[data-theme][data-layout] dialog > .dialog-content {
+  flex: 0 1 auto;
+  min-height: 0;
+  min-width: 0;
+  padding: 18px 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 18px;
+  scrollbar-width: thin;
+  color: var(--text);
+  background: transparent;
+}
+:root[data-theme][data-layout] dialog > .checkout-footer {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-height: 0;
+  max-height: calc(var(--dialog-viewport-height, 100dvh) * .42);
+  margin: 0;
+  padding: 14px 20px 18px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-top: 1px solid var(--line);
+  color: var(--text);
+  background: var(--field);
+  box-shadow: inset 0 1px 0 var(--glass-glint-soft);
+}
+:root[data-theme][data-layout] dialog > .checkout-footer > * { min-width: 0; max-width: 100%; }
+:root[data-theme][data-layout] dialog > .checkout-footer > button,
+:root[data-theme][data-layout] dialog > .checkout-footer > :is(.checkout-actions, .brain-footer-actions, .movement-secondary, .checkout-total, .checkout-payment-controls, .checkout-validation) { width: 100%; }
+:root[data-theme][data-layout] dialog > .checkout-footer button {
+  min-width: 0;
+  max-width: 100%;
+  min-height: 48px;
+  height: auto;
+  margin-top: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.35;
+}
+:root[data-theme][data-layout] dialog > .checkout-footer button > .icon { flex: 0 0 auto; }
+:root[data-theme][data-layout] dialog > .checkout-footer :is(.two, .checkout-actions) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+:root[data-theme][data-layout] dialog > .modal-number-pad:not([hidden]) {
+  position: static;
+  flex: 0 1 auto;
+  min-height: 0;
+  max-height: calc(var(--dialog-viewport-height, 100dvh) * .43);
+  margin: 0;
+  padding: 12px 20px 18px;
+  overflow-y: auto;
+  border-top: 1px solid var(--line);
+}
+
+/* The previous brain palette forced dark surfaces in the light theme. Keep
+   the same theme tokens on the frame, cards, readable text and controls. */
+:root[data-theme][data-layout] dialog:is([data-kind='brain'], [data-kind^='advisor']) :is(h2, h3, h4, label, summary) { color: var(--text); }
+:root[data-theme][data-layout] dialog:is([data-kind='brain'], [data-kind^='advisor']) :is(.brain-fact, .brain-comparison, .insight-overview, .insight-priorities .advisor-action, .product-period-rank) {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--glass-glint-soft), 0 3px 8px -5px var(--glass-shadow);
+}
+:root[data-theme][data-layout] dialog[data-kind='brain'] :is(.brain-context, .brain-refresh, .brain-fact p, .brain-comparison p) { color: var(--muted); }
+:root[data-theme][data-layout] dialog[data-kind='brain'] :is(.choice, select) { background: var(--field); color: var(--text); }
+:root[data-theme][data-layout] dialog[data-kind='brain'] .brain-no-base { color: var(--orange) !important; }
+:root[data-theme][data-layout] dialog .dialog-content :is(input, select, textarea, .two, .list-row) { min-width: 0; max-width: 100%; }
+:root[data-theme][data-layout] dialog .dialog-content :is(p, small, strong, label, .advisor-text) { overflow-wrap: anywhere; }
+:root[data-theme][data-layout] dialog .dialog-content label { font-size: max(14px, 1em); }
+:root[data-theme][data-layout] dialog[data-kind='day-summary'] .ds-row { flex-wrap: wrap; }
+:root[data-theme][data-layout] dialog[data-kind='day-summary'] .ds-row > span:first-child { flex: 1 1 120px; }
+:root[data-theme][data-layout] dialog[data-kind='day-summary'] .ds-num { flex: 0 1 auto; max-width: 100%; }
+:root[data-theme][data-layout] dialog[data-kind='day-summary'] .ds-num strong { white-space: normal; }
+:root[data-theme][data-layout] dialog[data-kind='day-summary'] .ds-share { padding: 12px; }
+:root[data-theme][data-layout] dialog[data-kind='day-summary'] .ds-share > span { min-width: 0; }
+
+/* Pickers and calendars share the floating frame. Their own list is the
+   scroll area, rather than an edge-to-edge Android-style bottom sheet. */
+:root[data-theme][data-layout] dialog.picker-sheet { padding: 18px; }
+:root[data-theme][data-layout] dialog.picker-sheet .picker-grab { display: none; }
+:root[data-theme][data-layout] dialog.picker-sheet > h2 { flex: 0 0 auto; margin: 0 0 14px; overflow-wrap: anywhere; }
+:root[data-theme][data-layout] dialog.picker-sheet .picker-list { flex: 0 1 auto; min-height: 0; overscroll-behavior: contain; }
+:root[data-theme][data-layout] dialog.picker-sheet .picker-option { white-space: normal; overflow-wrap: anywhere; }
+:root[data-theme][data-layout] dialog#date-picker-dialog { display: block; padding: 18px; overflow-y: auto; }
+:root[data-theme][data-layout] dialog#date-picker-dialog:not([open]):not(.fluid-native-exit) { display: none; }
+
+html:is(.lite, [data-reduce-effects='true']) dialog:not(.fluid-exit-ghost) { box-shadow: inset 0 1px 0 var(--glass-glint-soft), 0 5px 12px -7px var(--glass-shadow); }
+@media (max-width: 359px) {
+  :root[data-theme][data-layout] dialog > .checkout-header { padding: 18px 16px 14px; }
+  :root[data-theme][data-layout] dialog .checkout-header > h2 { font-size: 23px; }
+  :root[data-theme][data-layout] dialog > .dialog-content { padding: 16px; }
+  :root[data-theme][data-layout] dialog > .checkout-footer { padding: 12px 16px 16px; }
+  :root[data-theme][data-layout] dialog > .modal-number-pad:not([hidden]) { padding-inline: 16px; }
+  :root[data-theme][data-layout] dialog > .checkout-footer :is(.two, .checkout-actions) { grid-template-columns: 1fr; }
+}
+@media (max-height: 420px) {
+  :root[data-theme][data-layout] dialog:not(.fluid-exit-ghost) { --dialog-space-y: 20px; }
+  :root[data-theme][data-layout] dialog > .checkout-header { padding-block: 12px; }
+  :root[data-theme][data-layout] dialog > .checkout-footer { padding-block: 10px; }
+}
+
+/* Payment selection can grow to many rows (especially with enlarged text or
+   a split payment). It belongs in the scroll body, leaving the total and the
+   two concluding actions visible without scrolling the footer. */
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) > .checkout-footer {
+  flex: 0 0 auto;
+  max-height: none;
+  overflow: visible;
+}
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) > .checkout-footer .checkout-actions {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-total.total-pill { margin: 0; }
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-payment-controls {
+  margin: 16px 0 0;
+  padding: 13px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-payment-controls h2 {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.35;
+}
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-payment-controls .sale-payment-heading { margin: 0 0 10px; }
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-payment-controls .choice {
+  min-width: 0;
+  min-height: 48px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-split-body { margin-top: 16px; }
+:root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-validation { margin: 14px 0 0; }

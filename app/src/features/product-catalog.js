@@ -1,5 +1,6 @@
 import policy from '../data/product-catalog-policy.json' with { type: 'json' };
 import { STOCK_CATALOG_GUIDELINES } from '../data/stock-catalog-guidelines.js';
+import { PRODUCT_CATALOG_ADDITIONS } from '../data/product-catalog-additions.js';
 export { STOCK_CATALOG_GUIDELINES };
 
 /** Vocabulary is bundled offline. Loading it never creates a producer product. */
@@ -40,7 +41,9 @@ export function quantityLabel(quantity, unit, options) {
   return `${numberFormatter.format(Number(quantity))} ${unidadeLabel(quantity, unit, options)}`;
 }
 export function catalogInfo() {
-  return { version: policy.version, total: policy.total, families: ready ? families.length : policy.familyCount, sourceFamilyCount: policy.familyCount, categories: { ...policy.categories }, categoryMap: { ...policy.categoryMap }, ready, rules: [...policy.rules], sourceSha256: policy.sourceSha256 };
+  const categories = { ...policy.categories };
+  for (const record of PRODUCT_CATALOG_ADDITIONS) categories[record.categoria] = (categories[record.categoria] || 0) + 1;
+  return { version: policy.version, total: policy.total + PRODUCT_CATALOG_ADDITIONS.length, sourceTotal: policy.total, appAdditions: PRODUCT_CATALOG_ADDITIONS.length, families: ready ? families.length : policy.familyCount, sourceFamilyCount: policy.familyCount, categories, sourceCategories: { ...policy.categories }, categoryMap: { ...policy.categoryMap }, ready, rules: [...policy.rules], sourceSha256: policy.sourceSha256 };
 }
 export const isCatalogReady = () => ready;
 const familyKeyOf = record => JSON.stringify([normalizeProductName(record.nome_base), normalize(record.sabor), normalize(record.variedade)]);
@@ -53,18 +56,21 @@ function decodePacked(packed) {
       const value = row[i];
       return [field, numeric.has(field) ? value : Array.isArray(value) ? value.map(k => packed.strings[k]) : value == null ? null : packed.strings[value]];
     }));
+    return finishRecord(record);
+  });
+}
+function finishRecord(record) {
     record.status = 'sugestao_catalogo';
     record.appCategory = categoryFor(record.categoria, record);
     record.familyKey = familyKeyOf(record);
     record.unidade_rotulos = policy.units[normalizeUnit(record.unidade_venda)] || null;
     Object.freeze(record.aliases); Object.freeze(record.unidades_permitidas);
     return Object.freeze(record);
-  });
 }
 export function loadCatalog() {
   if (ready) return Promise.resolve(catalogInfo());
   if (!pending) pending = import('../data/product-catalog-data.js').then(module => {
-    const decoded = decodePacked(module.default), ids = new Map(), groups = new Map(), nextIndex = [];
+    const decoded = [...decodePacked(module.default), ...PRODUCT_CATALOG_ADDITIONS.map(record => finishRecord({ ...record, aliases:[...record.aliases], unidades_permitidas:[...record.unidades_permitidas] }))], ids = new Map(), groups = new Map(), nextIndex = [];
     for (const record of decoded) {
       if (!record.id || ids.has(record.id)) throw Error('ID duplicado no catálogo de referência');
       ids.set(record.id, record);

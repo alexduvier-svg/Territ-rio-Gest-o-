@@ -43,6 +43,7 @@ import * as DaySummary from './features/day-summary.js';
 import * as ProductPeriodReports from './features/product-period-reports.js';
 import './features/product-period-reports.css';
 import './features/fair-surplus-ui.js';
+import './dialog-system.css';
 import profilePhoto from './assets/profile.webp';
 import appLogo from './assets/logo.png';
 import catalogPhotosUrl from './assets/catalog.webp';

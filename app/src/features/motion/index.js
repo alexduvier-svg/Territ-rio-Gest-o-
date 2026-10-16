@@ -107,13 +107,13 @@ function captureMotionSource(event) {
 }
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-const isInsightSheet = kind => ['brain', 'sale-client', 'sale-origin', 'client', 'client-detail', 'consumption-detail'].includes(kind) || String(kind || '').startsWith('advisor');
-function dialogGeometry(bounds, source, kind) {
-  return isInsightSheet(kind) ? insightSheetGeometry(bounds, source, limited()) : sourceGeometryFromBounds(bounds, source);
+function dialogGeometry(bounds, source) {
+  // Every floating sheet expands a short distance. A small launch icon must
+  // never pull the text at the opposite edge through a long screen journey.
+  return insightSheetGeometry(bounds, source, limited());
 }
 function dialogSpring(kind, closing = false) {
-  if (isInsightSheet(kind)) return closing ? { stiffness: 720, damping: 52 } : { stiffness: 560, damping: limited() ? 47 : 35 };
-  return closing ? { stiffness: 600, damping: 44 } : { stiffness: 420, damping: limited() ? 42 : 30 };
+  return closing ? { stiffness: 720, damping: 52 } : { stiffness: 560, damping: limited() ? 47 : 35 };
 }
 function sourceGeometryFromBounds(bounds, source, page = false) {
   const lite = limited();
@@ -400,13 +400,13 @@ function installDialogs() {
       document.body.append(layer);
       if (clone) {
         const motion = animateElement(clone, from, to, {
-          origin: close.origin, config: isInsightSheet(state.kind) ? dialogSpring(state.kind, true) : { stiffness: 650, damping: 47 },
+          origin: close.origin, config: dialogSpring(state.kind, true),
           onRest: () => { if (state.ghost === layer) discardGhost(state); },
         });
         inheritVelocity(motion, pose);
       }
       animateElement(shade, { opacity: backdropOpacity }, { opacity: 0 }, {
-        config: isInsightSheet(state.kind) ? dialogSpring(state.kind, true) : { stiffness: 650, damping: 47 },
+        config: dialogSpring(state.kind, true),
         onRest: () => { if (!clone && state.ghost === layer) discardGhost(state); },
       });
     };
@@ -434,7 +434,7 @@ function installDialogs() {
       const source = getMotionSource();
       state.source = fresh ? source : source || state.source;
       const entry = dialogGeometry(dialog.getBoundingClientRect(), state.source, kind);
-      animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, opacity: fresh ? 0.05 : 0.3 },
+      animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, opacity: fresh ? 0.72 : 0.82 },
         { x: 0, y: 0, scale: 1, opacity: 1 }, {
           origin: entry.origin, config: dialogSpring(kind),
           onUpdate: value => dialog.style.setProperty('--fluid-backdrop-opacity', fresh ? clamp(value.opacity, 0, 1) : 1),
@@ -625,6 +625,33 @@ function installMotionBudget(listen) {
   evaluate();
 }
 
+function installDialogViewport(listen) {
+  const viewport = window.visualViewport;
+  const names = ['--dialog-viewport-height', '--dialog-viewport-width', '--dialog-viewport-top', '--dialog-viewport-left'];
+  const saved = names.map(name => [name, root().style.getPropertyValue(name)]);
+  let pending = 0;
+  const sync = () => {
+    pending = 0;
+    const values = [viewport?.height || window.innerHeight, viewport?.width || window.innerWidth, viewport?.offsetTop || 0, viewport?.offsetLeft || 0];
+    names.forEach((name, i) => root().style.setProperty(name, Math.max(0, values[i]).toFixed(2) + 'px'));
+    // Resize/keyboard changes are occasional geometry changes, never part of
+    // an animation frame. Keep the focused control in its own scroll area.
+    const active = document.activeElement;
+    if (active?.matches?.('input, textarea, select') && active.closest('dialog[open] > .dialog-content')) active.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'instant' });
+  };
+  const queue = () => { if (!pending) pending = requestAnimationFrame(sync); };
+  sync();
+  listen(window, 'resize', queue, { passive: true });
+  if (viewport) {
+    listen(viewport, 'resize', queue, { passive: true });
+    listen(viewport, 'scroll', queue, { passive: true });
+  }
+  return () => {
+    if (pending) cancelAnimationFrame(pending);
+    for (const [name, value] of saved) value ? root().style.setProperty(name, value) : root().style.removeProperty(name);
+  };
+}
+
 export function installFluidMotion() {
   if (installed) return () => {};
   installed = true;
@@ -632,6 +659,7 @@ export function installFluidMotion() {
   root().classList.add('fluid-motion');
   const cleanups = [];
   const listen = (target, type, fn, options) => { target.addEventListener(type, fn, options); cleanups.push(() => target.removeEventListener(type, fn, options)); };
+  cleanups.push(installDialogViewport(listen));
   installMotionBudget(listen);
   listen(document, 'pointerdown', captureMotionSource, { capture: true, passive: true });
   listen(document, 'click', captureMotionSource, true);

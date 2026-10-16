@@ -16,13 +16,17 @@ function descriptor(p){
  else if(/^fuba\b/.test(name))family='fuba';
  else if(/^(mandioca|aipim|macaxeira)\b/.test(name))family='mandioca';
  const type=normalize(p.type||p.variety||(coffee?['especial','gourmet','tradicional','commodity','drip coffee'].find(t=>normalize(p.name).includes(t))||p.catalogBase||p.name:''));
+ // A cultivar/named line stays together inside its quality tier. Comparing
+ // only type + weight interleaved Catuaí 500 g with ordinary Especial 500 g.
+ const coffeeFamily=coffee?name.replace(/^cafes?\s*/, '').replace(/\b(especial|gourmet|tradicional|commodity|drip coffee|moido|em graos?|graos?|pacote)\b/g,'').replace(/\b\d+(?:[.,]\d+)?\s*(?:kg|g)\b/g,'').replace(/\s+/g,' ').trim():'';
  const format=normalize(p.format||p.catalogForm),formatRank=/moido/.test(format)?0:/graos?|grao/.test(format)?1:/verde/.test(format)?2:3;
  const unit=normalize(p.unit),weight=positive(p.weight),volume=positive(p.volume),content=positive(p.contentCount);
- return {p,category,categoryRank:rank(categoryRanks,category),family,coffee,type,typeRank:coffee?rank(coffeeRanks,type):0,format,formatRank,unit,weight,volume,content,price:positive(p.price)};
+ return {p,category,categoryRank:rank(categoryRanks,category),family,coffee,coffeeFamily,type,typeRank:coffee?rank(coffeeRanks,type):0,format,formatRank,unit,weight,volume,content,price:positive(p.price)};
 }
 function compareDescriptors(a,b){
  return a.categoryRank-b.categoryRank||compare(a.category,b.category)||compare(a.family,b.family)
   ||(a.coffee&&b.coffee?(a.typeRank-b.typeRank||compare(a.type,b.type)):compare(a.type,b.type))
+  ||(a.coffee&&b.coffee?compare(a.coffeeFamily,b.coffeeFamily):0)
   ||(a.coffee&&b.coffee?a.formatRank-b.formatRank:0)||compare(a.format,b.format)
   ||compare(a.unit,b.unit)||a.weight-b.weight||a.volume-b.volume||a.content-b.content
   ||b.price-a.price||compare(a.p.flavor||'',b.p.flavor||'')||compare(a.p.name,b.p.name)||compare(a.p.id,b.p.id);

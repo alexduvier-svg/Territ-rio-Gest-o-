@@ -22,15 +22,7 @@
   --glass-muted: #62626a;
 }
 
-/* Reports intentionally use their own dark palette, even in the light theme. */
-dialog:is([data-kind='brain'], [data-kind='management-report'], [data-kind='consumption'], [data-kind='consumption-detail']) {
-  --glass-sheet: color-mix(in srgb, var(--field) 94%, transparent);
-  --glass-control: color-mix(in srgb, var(--field) 92%, transparent);
-  --glass-glint: rgba(255, 255, 255, 0.12);
-  --glass-glint-soft: rgba(255, 255, 255, 0.025);
-  --glass-edge: rgba(255, 255, 255, 0.16);
-  --glass-shadow: rgba(0, 0, 0, 0.36);
-}
+/* Reports inherit the chosen app theme, including its glass highlights. */
 
 /* The navigation has a firm tint. The full-width fade becomes opaque
    before reaching the icons, keeping product names and prices out of view. */
