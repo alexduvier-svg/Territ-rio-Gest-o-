@@ -42,3 +42,9 @@ html {
 .native .link {
   min-height: 48px;
 }
+
+/* The legacy sale page sets its own compact padding, which dropped the status-bar inset:
+   "Voltar" sat under the clock. Keep the compact 14px, below the status bar. */
+html[data-page="Venda"] body #app {
+  padding-top: calc(14px + var(--safe-area-inset-top, env(safe-area-inset-top, 0px)));
+}
