@@ -119,7 +119,11 @@ function captureMotionSource(event) {
   const surface = sourceSurface(control);
   const bounds = surface.getBoundingClientRect();
   if (!bounds.width || !bounds.height) return;
+  const sheet = control.closest('dialog[open]');
   latestSource = {
+    sheet: sheet ? { dialog: sheet, children: [...sheet.children], surface: surfaceState(sheet), kind: sheet.dataset.kind || '',
+      scrollTop: sheet.querySelector('.dialog-content')?.scrollTop || 0 } : null,
+    sheetSelector: sheet ? sourceSelector(control) : '',
     selector: control.closest('dialog') ? '' : sourceSelector(control),
     radius: parseFloat(getComputedStyle(surface).borderTopLeftRadius) || 0,
     left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
@@ -609,6 +613,85 @@ function installDialogs() {
     };
     return token;
   };
+  // A sheet opened from a row of another sheet (a cost inside the day summary, a topic inside the
+  // brain) is born from that row, while the previous sheet recedes behind it. Going back, the
+  // nested sheet shrinks whole into the row it came from, above the restored parent sheet.
+  const sheetGhost = (old, onTop) => {
+    const layer = document.createElement('div');
+    layer.className = onTop ? 'fluid-sheet-ghost-layer' : 'fluid-exit-layer';
+    layer.inert = true;
+    layer.setAttribute('aria-hidden', 'true');
+    const shell = document.createElement('dialog');
+    shell.setAttribute('open', '');
+    shell.className = 'fluid-exit-ghost';
+    if (old.kind) shell.dataset.kind = old.kind;
+    placeSurface(shell, old.surface);
+    shell.style.display = old.surface.display;
+    shell.style.transform = 'none';
+    shell.style.overflow = 'hidden';
+    for (const child of old.children) child.querySelectorAll?.('[name]').forEach(node => node.removeAttribute('name'));
+    shell.append(...old.children);
+    layer.append(shell);
+    document.body.append(layer);
+    if (onTop) {
+      layer.setAttribute('popover', 'manual');
+      try { layer.showPopover(); } catch { layer.remove(); return null; }
+    }
+    const content = shell.querySelector('.dialog-content');
+    if (content) content.scrollTop = old.scrollTop;
+    return { layer, shell };
+  };
+  const rowInSheet = (dialog, source) => {
+    const row = source?.sheetSelector && [...dialog.querySelectorAll(source.sheetSelector)].find(el => el.getClientRects().length);
+    if (!row) return source;
+    const bounds = row.getBoundingClientRect();
+    return { ...source, left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
+      cx: bounds.left + bounds.width / 2, cy: bounds.top + bounds.height / 2 };
+  };
+  const nestedSheet = (dialog, state, source, signature) => {
+    const old = source.sheet;
+    const detached = old.children.length > 0 && old.children.every(child => !child.isConnected);
+    const radius = parseFloat(getComputedStyle(dialog).borderTopLeftRadius) || 28;
+    const back = state.trail.findLastIndex(step => step.signature === signature);
+    if (back >= 0) {
+      const step = state.trail[back];
+      state.trail.length = back;
+      // The parent comes back where it was scrolled when the row was tapped.
+      const parentContent = dialog.querySelector('.dialog-content');
+      if (parentContent && step.source.sheet) parentContent.scrollTop = step.source.sheet.scrollTop;
+      const ghost = detached && typeof HTMLElement.prototype.showPopover === 'function' ? sheetGhost(old, true) : null;
+      if (!ghost) return false;
+      state.ghost = ghost.layer;
+      const shut = morphGeometry(old.surface.rect, rowInSheet(dialog, step.source), radius);
+      if (!shut) { discardGhost(state); return false; }
+      const motion = animateElement(ghost.shell, { x: 0, y: 0, scale: 1, reveal: 1 }, { x: shut.x, y: shut.y, scale: shut.scale, reveal: 0 }, {
+        origin: shut.origin, config: dialogSpring(state.kind, true),
+        onUpdate: value => { applyReveal(ghost.shell, shut.clip, value.reveal); ghost.shell.style.opacity = closingOpacity(value.reveal).toFixed(4); },
+        onRest: () => { if (state.ghost === ghost.layer) discardGhost(state); },
+      });
+      if (!motion) discardGhost(state);
+      // The parent sheet comes forward from just behind.
+      animateElement(dialog, { scale: limited() ? 0.985 : 0.965 }, { scale: 1 }, { config: dialogSpring(state.kind) });
+      return true;
+    }
+    const entry = morphGeometry(dialog.getBoundingClientRect(), source, radius);
+    if (!entry) return false;
+    state.trail.push({ signature: state.signature, source });
+    const ghost = detached ? sheetGhost(old, false) : null;
+    if (ghost) {
+      state.ghost = ghost.layer;
+      animateElement(ghost.shell, { scale: 1, opacity: 1 }, { scale: limited() ? 0.985 : 0.95, opacity: 0 }, {
+        config: dialogSpring(state.kind),
+        onRest: () => { if (state.ghost === ghost.layer) discardGhost(state); },
+      });
+    }
+    animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, reveal: 0 }, { x: 0, y: 0, scale: 1, reveal: 1 }, {
+      origin: entry.origin, config: dialogSpring(state.kind),
+      onUpdate: value => applyReveal(dialog, entry.clip, value.reveal),
+      onRest: () => dialog.style.removeProperty('clip-path'),
+    });
+    return true;
+  };
   const identity = data => {
     if (data === null || data === undefined) return '';
     if (typeof data !== 'object') return String(data);
@@ -629,6 +712,11 @@ function installDialogs() {
       discardGhost(state);
       elementMotions.get(dialog)?.cancel();
       const source = getMotionSource();
+      if (fresh) state.trail = [];
+      if (!fresh && source?.sheet?.dialog === dialog && nestedSheet(dialog, state, source, signature)) {
+        state.kind = kind; state.title = title; state.identity = dataKey; state.signature = signature;
+        return;
+      }
       state.source = fresh ? source : source || state.source;
       // Only a fresh opening morphs; new content inside an open sheet keeps the short settle.
       if (fresh) state.morph = true;
@@ -664,7 +752,7 @@ function installDialogs() {
   const bind = dialog => {
     if (!(dialog instanceof HTMLDialogElement) || states.has(dialog) || dialog.classList.contains('fluid-exit-ghost')) return;
     const nativeClose = dialog.close;
-    const state = { open: false, ghost: null, closing: null, descriptor: Object.getOwnPropertyDescriptor(dialog, 'close'), openMethods: [], source: null, kind: '', title: '', identity: '', signature: '' };
+    const state = { trail: [], open: false, ghost: null, closing: null, descriptor: Object.getOwnPropertyDescriptor(dialog, 'close'), openMethods: [], source: null, kind: '', title: '', identity: '', signature: '' };
     state.close = function (...args) {
       if (this !== dialog) return nativeClose.apply(this, args);
       const closing = exit(dialog, state);
@@ -716,9 +804,9 @@ function installDialogs() {
       }
       const target = record.target.nodeType === 1 ? record.target : record.target.parentElement;
       const dialog = target?.closest('dialog');
-      if (dialog && !dialog.closest('.fluid-exit-layer, .fluid-page-exit-layer')) changed.set(dialog, true);
+      if (dialog && !dialog.closest('.fluid-exit-layer, .fluid-page-exit-layer, .fluid-sheet-ghost-layer')) changed.set(dialog, true);
       for (const node of record.addedNodes || []) {
-        if (node.nodeType !== 1 || node.closest('.fluid-exit-layer, .fluid-page-exit-layer')) continue;
+        if (node.nodeType !== 1 || node.closest('.fluid-exit-layer, .fluid-page-exit-layer, .fluid-sheet-ghost-layer')) continue;
         if (node.matches('dialog')) bind(node);
         node.querySelectorAll('dialog').forEach(bind);
       }
