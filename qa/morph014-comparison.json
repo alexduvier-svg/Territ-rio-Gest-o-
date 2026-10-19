@@ -1,0 +1,216 @@
+{
+  "referencePassed": true,
+  "targetPassed": true,
+  "checks": [
+    {
+      "theme": "light",
+      "label": "settings opens",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "settings returns",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "stock product opens",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "stock product closes",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "day summary opens",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "day cost nested",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "day cost returns to summary",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "day summary closes",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "brain opens",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "guide nested",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "topic nested twice",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "topic returns to brain",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "brain closes",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "sale page opens",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "light",
+      "label": "sale page returns",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "settings opens",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "settings returns",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "stock product opens",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "stock product closes",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "day summary opens",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "day cost nested",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "day cost returns to summary",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "day summary closes",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "brain opens",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "guide nested",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "topic nested twice",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "topic returns to brain",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "brain closes",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "sale page opens",
+      "maxBoundsDelta": 0.0,
+      "scaleDelta": 0.0,
+      "clipIdentical": true
+    },
+    {
+      "theme": "dark",
+      "label": "sale page returns",
+      "maxBoundsDelta": 0,
+      "scaleDelta": 0,
+      "clipIdentical": true
+    }
+  ]
+}

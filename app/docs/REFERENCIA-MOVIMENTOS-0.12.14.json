@@ -1,0 +1,19 @@
+{
+  "referenceAPK": "AGRO-Gestao-0.12.14.apk",
+  "referenceSHA256": "2e5848959c5bc381c74a706e1bf4440be01bceb390072db7f88f32ea53d52b02",
+  "referencePackage": "br.com.territorio.gestao",
+  "referenceVersion": "0.12.14",
+  "referenceCode": 54,
+  "distAssetsCompared": 30,
+  "distAssetsDifferent": [],
+  "targetPackage": "br.com.territorio.gestao2",
+  "targetVersion": "0.12.14",
+  "targetCode": 54,
+  "originalSourceHashes": {
+    "src/features/motion/index.js": "465074332618446cbc40c8babe290f4662e8935a13ed987356c1b90ab42290db",
+    "src/features/motion/geometry.js": "cd43447af4bd57c83ee37412a99edb7f4e5a849c783e6f9b3c0321554b8011ab",
+    "src/motion.css": "b3d5232ef249725e49122c613213dc82aa7b31410b8e6880bf4cc4d5680a5022",
+    "src/shell.css": "1d68e3acac47fc79f7f37789bac12530b92728fb5003fc7c7fa42909aa0ddbd8"
+  },
+  "scope": "Porta somente movimento, estilos relacionados e correção de safe area. Preserva domínio, persistência e identidade da variante 2."
+}

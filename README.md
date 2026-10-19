@@ -2,7 +2,7 @@
 
 Código do app em [app](app/), servidor em [portfolio-server](portfolio-server/). As referências, o mockup original e os materiais anteriores foram preservados. A fonte atual do aplicativo é app/src; não gerar novamente a partir do mockup.
 
-A revisão 0.12.11 unifica a física dos painéis de cada página, preserva conteúdo rolado no fechamento e evita prolongar movimentos por quadros atrasados. Mantém estoque, feiras, catálogo e privacidade anteriores. Veja [alterações](app/ALTERACOES-0.12.11.md), [verificação e limites](app/docs/QA-FLUIDEZ-2026-10-19.md) e [instruções de desenvolvimento](app/README.md).
+A revisão 0.12.14 integra a abertura/fechamento aprovados no APK fornecido: janelas e páginas nascem do card tocado e voltam inteiras à origem, incluindo subjanelas. Preserva transparência discreta, degradê, claro/escuro e modo leve. Mantém os recursos da base0.12.11. Veja [alterações](app/ALTERACOES-0.12.14.md), [origem, comparação e validação](app/docs/INTEGRACAO-MOVIMENTOS-0.12.14.md) e [instruções de desenvolvimento](app/README.md).
 
 Este ramo contém o AGRO Gestão **2**, pacote br.com.territorio.gestao2. O main contém a evolução independente do AGRO Gestão sem 2.
 

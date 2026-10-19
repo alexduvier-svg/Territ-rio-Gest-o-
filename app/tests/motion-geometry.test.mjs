@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { naturalRect, reanchorPose, insightSheetGeometry } from '../src/features/motion/geometry.js';
+import { naturalRect, reanchorPose, insightSheetGeometry, morphGeometry, revealClip, closingOpacity } from '../src/features/motion/geometry.js';
 import { stepSpring } from '../src/features/motion/spring.js';
 
 const near = (a, b) => assert.ok(Math.abs(a - b) < 1e-9, `${a} ~= ${b}`);
+const nearPx = (a, b) => assert.ok(Math.abs(a - b) < 0.01, `${a} ~= ${b}px`);
 const screenPoint = (rect, pose, x, y) => ({
   x: rect.left + pose.x + pose.originX + (x - pose.originX) * pose.scale,
   y: rect.top + pose.y + pose.originY + (y - pose.originY) * pose.scale,
@@ -79,4 +80,47 @@ test('insight close is visually finished within 350 ms without visible opacity r
     if (state.position < 0.01) invisible = true;
     if (invisible) assert.ok(state.position < 0.01);
   }
+});
+
+test('a tapped card is the first frame of the sheet: same place, size and corners, title on top', () => {
+  const rect = { left: 20, top: 120, width: 350, height: 600 };
+  const source = { cx: 90, cy: 400, width: 130, height: 160, radius: 22 };
+  const g = morphGeometry(rect, source, 28);
+  const [originX, originY] = g.origin.split(' ').map(parseFloat);
+  const pose = { x: g.x, y: g.y, scale: g.scale, originX, originY };
+  // The visible window starts at the sheet's top edge, where the title lives.
+  const topLeft = screenPoint(rect, pose, g.clip.x, 0);
+  const bottomRight = screenPoint(rect, pose, rect.width - g.clip.x, rect.height - g.clip.bottom);
+  nearPx(topLeft.x, source.cx - source.width / 2); nearPx(topLeft.y, source.cy - source.height / 2);
+  nearPx(bottomRight.x, source.cx + source.width / 2); nearPx(bottomRight.y, source.cy + source.height / 2);
+  near(g.clip.radius * g.scale, 22);
+  assert.equal(revealClip(g.clip, 1), 'inset(0px 0.00px 0.00px round 28.00px)');
+  assert.equal(revealClip(g.clip, 1.04), 'inset(0px 0.00px 0.00px round 28.00px)');
+  assert.ok(revealClip(g.clip, 0).startsWith('inset(0px '));
+});
+
+test('a top-bar chip keeps the sheet title inside the screen from the first frame', () => {
+  const rect = { left: 20, top: 60, width: 335, height: 640 };
+  const chip = { cx: 105, cy: 57, width: 160, height: 44, radius: 22 };
+  const g = morphGeometry(rect, chip);
+  const [originX, originY] = g.origin.split(' ').map(parseFloat);
+  const titleTop = screenPoint(rect, { x: g.x, y: g.y, scale: g.scale, originX, originY }, 0, 0).y;
+  nearPx(titleTop, chip.cy - chip.height / 2);
+  assert.ok(titleTop >= 0);
+});
+
+test('a small icon starts from a bounded scale, and a wide card never enlarges the sheet', () => {
+  const rect = { left: 20, top: 120, width: 350, height: 600 };
+  assert.equal(morphGeometry(rect, { cx: 360, cy: 40, width: 44, height: 44 }).scale, 0.18);
+  const wide = morphGeometry(rect, { cx: 195, cy: 300, width: 390, height: 100, radius: 24 });
+  assert.equal(wide.scale, 1);
+  assert.equal(wide.clip.x, 0);
+  assert.equal(wide.clip.bottom, 500);
+  assert.equal(morphGeometry(rect, null), null);
+});
+
+test('a closing sheet stays whole until it is back at its source', () => {
+  for (const reveal of [1, 0.6, 0.3, 0.1, 0.08]) assert.equal(closingOpacity(reveal), 1);
+  assert.ok(closingOpacity(0.04) < 1 && closingOpacity(0.04) > 0);
+  assert.equal(closingOpacity(0), 0);
 });

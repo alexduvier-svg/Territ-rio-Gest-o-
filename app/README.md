@@ -2,7 +2,7 @@
 
 App Android (Capacitor 8) com vendas, estoque, clientes, eventos e gestão local. A fonte atual está em `src/`; o mockup original é referência histórica. Não reexecutar a migração sobre o código atual.
 
-A atualização 0.12.11 unifica o movimento dos cards por página, preserva o conteúdo rolado no fechamento e faz a física acompanhar quadros atrasados. Mantém estoque, preparação de feira, privacidade e resumos anteriores. Veja `ALTERACOES-0.12.11.md` e `docs/QA-FLUIDEZ-2026-10-19.md` para verificações e limites. Padrões de interface e catálogo são embarcados; dados pessoais apagados precisam de backup para recuperação.
+A atualização 0.12.14 traz a abertura e o fechamento aprovados no APK de referência: janelas e páginas crescem do card tocado e voltam inteiras à origem, inclusive nas subjanelas. Mantém estoque, preparação de feira, privacidade e resumos anteriores. Veja `ALTERACOES-0.12.14.md` e `docs/INTEGRACAO-MOVIMENTOS-0.12.14.md` para verificações e limites. Padrões de interface/catálogo são embarcados; dados pessoais apagados precisam de backup para recuperação.
 
 ## Estrutura
 
