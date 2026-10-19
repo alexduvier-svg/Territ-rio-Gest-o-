@@ -1,5 +1,5 @@
 import { stepSpring, springAtRest } from './spring.js';
-import { naturalRect, reanchorPose, insightSheetGeometry, morphGeometry, revealClip } from './geometry.js';
+import { naturalRect, reanchorPose, insightSheetGeometry, morphGeometry, revealClip, closingOpacity } from './geometry.js';
 
 // One frame loop for the whole interface. Idle springs do not request frames.
 const running = new Set();
@@ -93,25 +93,47 @@ export function getMotionSource(maxAge = 5000) {
   return latestSource && performance.now() - latestSource.time < maxAge ? { ...latestSource } : null;
 }
 
+const sourceSurface = control => control.closest('.product-card, .feira-card, .feira-stock-count, .feira-row, .kpi-item') || control;
+function sourceSelector(control) {
+  if (!control.dataset.action) return '';
+  return [...control.attributes].filter(attr => attr.name.startsWith('data-'))
+    .map(attr => `[${attr.name}="${CSS.escape(attr.value)}"]`).join('');
+}
+
+// The page behind a sheet or a page may re-render while it is open (a pending-sale banner appears,
+// a list reorders). On return, find the same control again and aim at where it is now.
+function locateSource(source) {
+  if (!source?.selector) return source;
+  const control = [...document.querySelectorAll(source.selector)]
+    .find(el => !el.closest('dialog, .fluid-page-morph-layer, .fluid-exit-layer, .fluid-page-exit-layer') && el.getClientRects().length);
+  if (!control) return source;
+  const bounds = sourceSurface(control).getBoundingClientRect();
+  if (!bounds.width || !bounds.height) return source;
+  return { ...source, left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
+    cx: bounds.left + bounds.width / 2, cy: bounds.top + bounds.height / 2 };
+}
+
 function captureMotionSource(event) {
   const control = event.target.closest?.('[data-action], summary, select, [role="button"], a[href]');
   if (!control || control.disabled || control.closest('[inert]')) return;
-  const surface = control.closest('.product-card, .feira-card, .feira-stock-count, .feira-row, .kpi-item') || control;
+  const surface = sourceSurface(control);
   const bounds = surface.getBoundingClientRect();
   if (!bounds.width || !bounds.height) return;
   latestSource = {
+    selector: control.closest('dialog') ? '' : sourceSelector(control),
     radius: parseFloat(getComputedStyle(surface).borderTopLeftRadius) || 0,
     left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
     cx: bounds.left + bounds.width / 2, cy: bounds.top + bounds.height / 2,
-    time: performance.now(), insideDialog: !!control.closest('dialog'), action: control.dataset.action || '',
+    time: performance.now(), insideDialog: !!control.closest('dialog'), inNav: !!control.closest('#nav'), action: control.dataset.action || '',
   };
 }
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 function dialogGeometry(bounds, source, dialog, morph = true) {
   // A sheet opened by a tap grows out of the tapped surface and returns to it on close, clipped
-  // to that surface's shape. Lite devices and sheets without a source keep the short expansion.
-  if (morph && source && !limited()) {
+  // to that surface's shape. Lite devices morph too, with a critically damped spring (dialogSpring).
+  // Sheets opened without a tap keep the short expansion.
+  if (morph && source) {
     const sheetRadius = dialog ? parseFloat(getComputedStyle(dialog).borderTopLeftRadius) || 28 : 28;
     const geometry = morphGeometry(bounds, source, sheetRadius);
     if (geometry) return geometry;
@@ -164,12 +186,129 @@ function animateElement(element, from, to, options = {}) {
   return motion;
 }
 
+// ---------------------------------------------------------------- page morph
+// Pages opened from a card (Venda, Produto, Ajustes…) behave like the sheets: the whole page grows
+// out of the tapped card and, on return, shrinks back into it whole. #app and its fixed bars are
+// never transformed; a detached visual copy inside one fixed layer carries the movement instead.
+const freezeProperties = ['display', 'box-sizing', 'width', 'height', 'padding', 'margin', 'background-color', 'background-image',
+  'color', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-radius', 'box-shadow', 'font', 'gap',
+  'flex', 'grid-template-columns', 'align-items', 'justify-content', 'opacity', 'visibility'];
+let pendingPageEntry = null;
+
+// Copy elements for a moving page. Ids stay so id-based styles still apply (the real nodes come
+// first in the document, so lookups keep finding them); names and actions are removed so a copied
+// radio or button can never touch real state. With freeze, computed styles are pinned first, for
+// copies that must keep their look after html[data-page] changes. All reads happen before writes.
+function pageCopies(elements, freeze, limit = 1500) {
+  const pairs = [], roots = [];
+  for (const element of elements) {
+    const copy = element.cloneNode(true);
+    roots.push(copy);
+    pairs.push([element, copy]);
+    const originals = element.querySelectorAll('*'), copies = copy.querySelectorAll('*');
+    for (let i = 0; i < originals.length; i++) pairs.push([originals[i], copies[i]]);
+    if (pairs.length > limit) return null;
+  }
+  const styles = freeze ? pairs.map(([original]) => { const computed = getComputedStyle(original); return freezeProperties.map(p => computed.getPropertyValue(p)); }) : null;
+  pairs.forEach(([original, copy], i) => {
+    if (original.matches?.('input, textarea, select') && copy.type !== 'file') copy.value = original.value;
+    if ('checked' in original) copy.checked = original.checked;
+    for (const attr of ['name', 'autofocus', 'for', 'data-action']) copy.removeAttribute(attr);
+    copy.classList?.remove('fluid-animating', 'fluid-press', 'fluid-section-running');
+    if (styles) freezeProperties.forEach((p, j) => { if (styles[i][j]) copy.style.setProperty(p, styles[i][j]); });
+  });
+  return roots;
+}
+
+function pageContext(app, copies) {
+  const rect = app.getBoundingClientRect(), computed = getComputedStyle(app);
+  const context = document.createElement('div');
+  context.id = 'app';
+  context.className = app.className + ' fluid-page-morph-context';
+  Object.assign(context.style, { top: rect.top + 'px', left: rect.left + 'px', width: rect.width + 'px', padding: computed.padding });
+  context.append(...copies);
+  return context;
+}
+
+function pageLayer() {
+  const layer = document.createElement('div');
+  layer.className = 'fluid-page-morph-layer';
+  layer.inert = true;
+  layer.setAttribute('aria-hidden', 'true');
+  layer.style.setProperty('--page-morph-bg', getComputedStyle(document.body).backgroundColor);
+  return layer;
+}
+
+function capturePageEntry(app, source) {
+  pendingPageEntry = null;
+  if (!enabled() || !source || source.insideDialog || source.inNav) return;
+  const chrome = ['nav-glass', 'nav'].map(id => document.getElementById(id)).filter(el => el && el.getClientRects().length);
+  const parts = [...app.children], copies = pageCopies([...parts, ...chrome], true);
+  if (!copies) return;
+  const backdrop = document.createElement('div');
+  backdrop.className = 'fluid-page-morph-surface';
+  backdrop.append(pageContext(app, copies.slice(0, parts.length)), ...copies.slice(parts.length));
+  pendingPageEntry = { backdrop, source, time: performance.now() };
+  requestAnimationFrame(() => { pendingPageEntry = null; });
+}
+
+function morphPage(card, shade, layer, source, closing) {
+  const geometry = morphGeometry({ left: 0, top: 0, width: innerWidth, height: innerHeight }, source, 0);
+  if (!geometry) return false;
+  // Lite devices clip with square corners, the cheapest clip to repaint.
+  const clip = limited() ? { ...geometry.clip, radius: 0 } : geometry.clip;
+  const open = { x: 0, y: 0, scale: 1, reveal: 1 }, shut = { x: geometry.x, y: geometry.y, scale: geometry.scale, reveal: 0 };
+  const motion = animateElement(card, closing ? open : shut, closing ? shut : open, {
+    origin: geometry.origin, config: dialogSpring('page', closing),
+    onUpdate: value => {
+      applyReveal(card, clip, value.reveal);
+      shade.style.opacity = clamp(value.reveal, 0, 1).toFixed(4);
+      if (closing) card.style.opacity = closingOpacity(value.reveal).toFixed(4);
+    },
+    onRest: () => layer.remove(),
+  });
+  return motion ? { motion, geometry } : null;
+}
+
+function animatePageEntry(app) {
+  const pending = pendingPageEntry;
+  pendingPageEntry = null;
+  if (!pending || performance.now() - pending.time > 1000 || !app.querySelector(':scope > .subview')) return false;
+  const copies = pageCopies([...app.children], false);
+  if (!copies) return false;
+  const layer = pageLayer(), shade = document.createElement('div'), card = document.createElement('div');
+  shade.className = 'fluid-page-morph-shade';
+  card.className = 'fluid-page-morph-surface';
+  card.append(pageContext(app, copies));
+  layer.append(pending.backdrop, shade, card);
+  document.body.append(layer);
+  if (!morphPage(card, shade, layer, pending.source, false)) { layer.remove(); return false; }
+  return true;
+}
+
+function animatePageReturn(app, source) {
+  if (!enabled()) return null;
+  const copies = pageCopies([...app.children], true);
+  if (!copies) return null;
+  const layer = pageLayer(), shade = document.createElement('div'), card = document.createElement('div');
+  shade.className = 'fluid-page-morph-shade';
+  card.className = 'fluid-page-morph-surface';
+  card.append(pageContext(app, copies));
+  layer.append(shade, card);
+  document.body.append(layer);
+  const morph = morphPage(card, shade, layer, source, true);
+  if (morph) return { layer, ...morph };
+  layer.remove();
+  return null;
+}
+
 // The legacy renderer rewrites the page even for input changes: the caller tracks the route and
 // invokes this only when it changes. Neither #app nor .subview is ever transformed: their fixed
 // bars keep their viewport anchor. Only children without fixed descendants can expand.
 export function animatePageChange(app) {
   if (skipNextPageEntry) { skipNextPageEntry = false; return; }
   if (!app || !enabled()) return;
+  if (animatePageEntry(app)) return;
   const source = getMotionSource();
   const candidates = [...app.children].flatMap(el => el.classList.contains('subview') ? [...el.children] : [el]);
   // Read all geometry before writing any transforms. Otherwise every card forces
@@ -343,15 +482,17 @@ function installDialogs() {
     // One bounds read and one computed-style read, with no writes between them.
     const surface = surfaceState(dialog);
     if (!surface.rect.width || !surface.rect.height) return null;
+    if (state.morph) state.source = locateSource(state.source);
     const close = dialogGeometry(surface.rect, state.source, dialog, state.morph);
     const clip = close.clip;
     const reveal = elementMotions.get(dialog)?.values.reveal?.position ?? 1;
     const origin = close.origin.split(' ').map((value, i) => value.includes('%') ? parseFloat(value) / 100 * (i ? surface.rect.height : surface.rect.width) : parseFloat(value));
     const pose = reanchorPose(surface.pose, origin[0], origin[1]);
-    // A morphing sheet stays solid on its way back and only dissolves into the card at the end.
+    // A morphing sheet stays whole and solid on its way back and only merges into the source at the end.
     const from = clip ? { x: pose.x, y: pose.y, scale: pose.scale, reveal } : { x: pose.x, y: pose.y, scale: pose.scale, opacity: pose.opacity };
     const to = clip ? { x: close.x, y: close.y, scale: close.scale, reveal: 0 } : { x: close.x, y: close.y, scale: close.scale, opacity: 0 };
-    const fade = value => clip ? clamp(value.reveal / 0.35, 0, 1) * pose.opacity : value.opacity;
+    const fade = value => clip ? closingOpacity(value.reveal, pose.opacity) : value.opacity;
+    const shadeLevel = value => clamp((clip ? value.reveal : value.opacity / Math.max(0.001, pose.opacity)), 0, 1) * backdropOpacity;
     const backdrop = getComputedStyle(dialog, '::backdrop');
     const backdropColor = backdrop.backgroundColor;
     const backdropOpacity = Number(backdrop.opacity);
@@ -383,17 +524,57 @@ function installDialogs() {
       token.motion = animateElement(dialog, from, to, {
         origin: close.origin, config: dialogSpring(state.kind, true),
         onUpdate: value => {
-          dialog.style.setProperty('--fluid-backdrop-opacity', clamp((clip ? value.reveal : value.opacity / Math.max(0.001, pose.opacity)), 0, 1) * backdropOpacity);
+          dialog.style.setProperty('--fluid-backdrop-opacity', shadeLevel(value));
           if (clip) dialog.style.opacity = fade(value).toFixed(4);
           applyReveal(dialog, clip, value.reveal);
         },
         onRest: restore,
       });
       inheritVelocity(token.motion, pose);
+      // The shared legacy dialog is often emptied or rewritten right after close() (cancelling a
+      // product option, for example). Keep a detached copy of what was on screen; if the content
+      // changes mid-flight, the copy finishes the same return instead of the sheet falling apart.
+      const copy = boundedSurface(dialog, 1200) ? makeVisualCopy(dialog) : null;
+      const scrollTop = dialog.querySelector('.dialog-content')?.scrollTop || 0;
+      token.swap = () => {
+        const motion = token.motion;
+        if (!copy || !motion || state.closing !== token || !running.has(motion)) return false;
+        const now = Object.fromEntries(Object.entries(motion.values).map(([key, spring]) => [key, { ...spring }]));
+        const layer = document.createElement('div');
+        layer.className = 'fluid-exit-layer';
+        layer.inert = true;
+        layer.setAttribute('aria-hidden', 'true');
+        const shade = document.createElement('div');
+        shade.className = 'fluid-exit-backdrop';
+        shade.style.background = backdropColor;
+        shade.style.opacity = shadeLevel(Object.fromEntries(Object.entries(now).map(([key, spring]) => [key, spring.position])));
+        copy.classList.add('fluid-exit-ghost');
+        placeSurface(copy, surface);
+        copy.style.display = surface.display;
+        copy.style.transform = 'none';
+        layer.append(shade, copy);
+        discardGhost(state);
+        state.ghost = layer;
+        document.body.append(layer);
+        const content = copy.querySelector('.dialog-content');
+        if (content) content.scrollTop = scrollTop;
+        motion.cancel();
+        const ghost = animateElement(copy, Object.fromEntries(Object.entries(now).map(([key, spring]) => [key, spring.position])), to, {
+          origin: close.origin, config: dialogSpring(state.kind, true),
+          onUpdate: value => {
+            shade.style.opacity = shadeLevel(value);
+            copy.style.opacity = fade(value).toFixed(4);
+            applyReveal(copy, clip, value.reveal);
+          },
+          onRest: () => { if (state.ghost === layer) discardGhost(state); },
+        });
+        if (ghost) for (const [key, spring] of Object.entries(now)) if (ghost.values[key]) ghost.values[key].velocity = spring.velocity;
+        return true;
+      };
       return token;
     }
     // Older WebViews get a bounded fallback. Never duplicate a large form or receipt on close.
-    const clone = !limited() && boundedSurface(dialog, 80) ? makeVisualCopy(dialog) : null;
+    const clone = boundedSurface(dialog, 1200) ? makeVisualCopy(dialog) : null;
     const layer = document.createElement('div');
     layer.className = 'fluid-exit-layer';
     layer.inert = true;
@@ -438,7 +619,7 @@ function installDialogs() {
   const update = (dialog, detail, contentChanged = false) => {
     const state = states.get(dialog);
     if (!state) return;
-    if (state.closing && !dialog.open && contentChanged) state.closing.motion?.cancel();
+    if (state.closing && !dialog.open && contentChanged && !state.closing.swap?.()) state.closing.motion?.cancel();
     const kind = String(detail?.kind ?? dialog.dataset.kind ?? '');
     const title = String(detail?.title ?? dialog.querySelector('h2')?.textContent ?? '').trim();
     const dataKey = detail ? identity(detail.data) : state.kind === kind && state.title === title ? state.identity : '';
@@ -453,8 +634,8 @@ function installDialogs() {
       if (fresh) state.morph = true;
       const entry = dialogGeometry(dialog.getBoundingClientRect(), state.source, dialog, fresh);
       const clip = entry.clip;
-      animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, opacity: clip ? 0.45 : fresh ? 0.72 : 0.82, ...(clip && { reveal: 0 }) },
-        { x: 0, y: 0, scale: 1, opacity: 1, ...(clip && { reveal: 1 }) }, {
+      animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, ...(clip ? { reveal: 0 } : { opacity: fresh ? 0.72 : 0.82 }) },
+        { x: 0, y: 0, scale: 1, ...(clip ? { reveal: 1 } : { opacity: 1 }) }, {
           origin: entry.origin, config: dialogSpring(kind),
           onUpdate: value => {
             dialog.style.setProperty('--fluid-backdrop-opacity', fresh ? clamp(clip ? value.reveal : value.opacity, 0, 1) : 1);
@@ -570,56 +751,23 @@ function installPageExits(listen) {
     if (goingBack && subview) {
       // Revealing the existing parent is the return transition. Do not animate it as a new launch.
       skipNextPageEntry = true;
-      // A checkout already closes its own native sheet; a second page copy would flash stale sale
-      // content over the newly registered sale. Lite devices also avoid page copies altogether.
-      if (enabled() && !limited() && !source?.insideDialog) {
-        const captures = [];
-        let nodes = 0;
-        for (const part of subview.children) {
-          if (captures.length >= 2 || nodes >= 160) break;
-          if (part.hidden || part.matches('script, style') || part.matches(fixedContentSelector) || part.querySelector(fixedContentSelector)) continue;
-          if (!boundedSurface(part, 80)) continue;
-          const surface = surfaceState(part);
-          const rect = surface.rect;
-          if (surface.display === 'none' || !rect.width || !rect.height || rect.top >= innerHeight || rect.top + rect.height <= 0) continue;
-          if (surface.position === 'fixed') continue;
-          captures.push({ part, surface });
-          nodes += part.getElementsByTagName('*').length + 1;
-        }
-        // All layout reads finish before any insertion/style mutation. At most two small visible
-        // flow panels are copied; never #app, .subview, fixed bars or a complete long form.
-        if (captures.length) {
-          const layer = document.createElement('div');
-          layer.className = 'fluid-page-exit-layer';
-          layer.inert = true;
-          layer.setAttribute('aria-hidden', 'true');
-          const context = document.createElement('div');
-          context.className = subview.className + ' fluid-page-exit-context';
-          layer.append(context);
-          const prepared = captures.map(({ part, surface }) => {
-            const copy = makeVisualCopy(part);
-            placeSurface(copy, surface);
-            copy.style.transform = 'none';
-            context.append(copy);
-            return { copy, surface };
-          });
-          document.body.append(layer);
-          ghosts.add(layer);
-          let remaining = prepared.length;
-          for (const { copy, surface } of prepared) {
-            const close = sourceGeometryFromBounds(surface.rect, previous?.source || source, true);
-            const origin = close.origin.split(' ').map((value, i) => value.includes('%') ? parseFloat(value) / 100 * (i ? surface.rect.height : surface.rect.width) : parseFloat(value));
-            const pose = reanchorPose(surface.pose, origin[0], origin[1]);
-            const motion = animateElement(copy, { x: pose.x, y: pose.y, scale: pose.scale, opacity: pose.opacity },
-              { x: close.x, y: close.y, scale: close.scale, opacity: 0 }, {
-                origin: close.origin, config: { stiffness: 600, damping: 44 },
-                onRest: () => { if (--remaining === 0) { layer.remove(); ghosts.delete(layer); } },
-              });
-            inheritVelocity(motion, pose);
-          }
-        }
+      pendingPageEntry = null;
+      // The page returns whole into the card that opened it. A checkout already closes its own
+      // native sheet, so a page copy would flash stale sale content over the registered sale.
+      const target = previous?.source;
+      const back = target && !source?.insideDialog ? animatePageReturn(app, target) : null;
+      if (back) {
+        ghosts.add(back.layer);
+        // The parent page is rendered right after this event, before the next frame. Re-aim at
+        // the card's new place while keeping the spring's position and velocity.
+        queueMicrotask(() => {
+          const fresh = locateSource(target);
+          if (fresh === target) return;
+          const aim = morphGeometry({ left: 0, top: 0, width: innerWidth, height: innerHeight }, fresh, 0);
+          if (aim && Math.abs(aim.scale - back.geometry.scale) < 0.01) back.motion.retarget({ x: aim.x, y: aim.y });
+        });
       }
-    }
+    } else if (!goingBack) capturePageEntry(app, source);
     if (goingBack) {
       const index = history.findLastIndex(entry => entry.from === nextPage);
       if (index >= 0) history.splice(index); else history.pop();

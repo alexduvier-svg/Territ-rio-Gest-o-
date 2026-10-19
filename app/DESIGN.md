@@ -64,7 +64,9 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 
 ## Movimento (`src/motion.css`, `src/polish.css`)
 
-- Janelas nascem do cartão ou botão tocado (estilo iOS / ColorOS): começam no lugar, no tamanho e com os cantos dele, crescem até a janela com mola sutil (passam um pouco e assentam) e, ao fechar, voltam sólidas para o mesmo lugar e só somem no fim. O material da janela não muda durante o movimento. Sem toque de origem, ou no modo leve, a janela faz só a expansão curta (`features/motion/geometry.js`).
+- Janelas nascem do cartão ou botão tocado (estilo iOS / ColorOS): começam no lugar, no tamanho e com os cantos dele, mostrando primeiro o topo (o título nunca some nem pisca), e crescem até a janela com mola sutil (passam um pouco e assentam). Nascem e voltam sólidas: ao fechar, a janela continua inteira até chegar de novo ao cartão e só some no fim. Se o conteúdo da janela for trocado durante o fechamento, uma cópia termina o caminho. O material da janela não muda durante o movimento (`features/motion/geometry.js`).
+- Páginas abertas por um cartão (Venda, Produto, Ajustes…) fazem o mesmo: a página inteira nasce do cartão e, em Voltar/Cancelar, encolhe inteira de volta para ele, procurando o cartão no lugar onde ele está agora. Uma cópia visual numa camada fixa faz o movimento; `#app` e suas barras fixas nunca são transformados.
+- Modo leve (celulares mais simples): o mesmo caminho, com mola sem rebote e recorte de cantos retos na página. Sem toque de origem, a janela faz só a expansão curta. "Reduzir movimento" desliga tudo.
 - Seções abertas pelo toque quicam uma vez; botões afundam no toque.
 - Rodapé: cada ícone faz um gesto curto ao entrar (carrinho rola, caixa abre/fecha, pessoas pulam, calendário vira, barras crescem).
 - Conteúdo desliza **só na troca de tela**.

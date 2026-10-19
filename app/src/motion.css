@@ -147,3 +147,14 @@ html[data-reduce-effects='true'] *, html[data-reduce-effects='true'] *::before, 
 html:is(.lite,[data-reduce-effects='true']) #app .draft-resume *,html:is(.lite,[data-reduce-effects='true']) #app .draft-resume::before { animation: none !important; }
 html[data-app-inactive] #app .draft-resume,html[data-app-inactive] #app .draft-resume *,html[data-app-inactive] #app .draft-resume::before { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) { #app .draft-resume *,#app .draft-resume::before { animation: none !important; } }
+
+/* Page morph: one fixed layer carries a detached copy of the page while it grows out of the
+   tapped card or shrinks back into it. Only this layer moves; #app and its fixed bars never do. */
+.fluid-page-morph-layer { position: fixed; inset: 0; z-index: 90; overflow: hidden; contain: strict; pointer-events: none !important; }
+.fluid-page-morph-layer * { pointer-events: none !important; animation: none !important; transition: none !important; }
+/* Each part is its own stacking context: a copied nav bar (z-index 30) stays inside the backdrop. */
+.fluid-page-morph-layer > * { isolation: isolate; z-index: 0; }
+.fluid-page-morph-surface { position: absolute; inset: 0; overflow: hidden; background: var(--page-morph-bg, #000); }
+.fluid-page-morph-shade { position: absolute; inset: 0; background: rgb(0 0 0 / 42%); opacity: 0; }
+:root[data-theme='light'] .fluid-page-morph-shade { background: rgb(36 45 35 / 24%); }
+.fluid-page-morph-context { position: absolute !important; margin: 0 !important; max-width: none !important; min-height: 0 !important; box-sizing: border-box; }

@@ -22,22 +22,25 @@ export function reanchorPose(pose, originX, originY) {
   };
 }
 
-// Container transform (iOS / ColorOS): the sheet is born from the tapped surface. It starts at
-// the source's centre and scale, clipped to the source's own shape and corners, then the clip
-// opens while the spring carries it to rest. `reveal` 0 = source shape, 1 = the whole sheet.
+// Container transform (iOS / ColorOS): the sheet is born from the tapped surface. Its top edge
+// (title included) starts inside the source, scaled to the source and clipped to the source's own
+// shape and corners; the clip then opens downward while the spring carries it to rest. Showing the
+// top first keeps the title on screen for the whole movement instead of popping in at the end.
+// `reveal` 0 = source shape, 1 = the whole sheet.
 export function morphGeometry(rect, source, sheetRadius = 28) {
   if (!source?.width || !source?.height || !rect.width || !rect.height) return null;
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   const { left, top, width, height } = rect;
   const scale = clamp(Math.max(source.width / width, source.height / height), 0.18, 1);
+  const visibleWidth = Math.min(width, source.width / scale), visibleHeight = Math.min(height, source.height / scale);
   return {
     x: source.cx - (left + width / 2),
-    y: source.cy - (top + height / 2),
+    y: source.cy - (top + visibleHeight / 2),
     scale,
-    origin: `${(width / 2).toFixed(2)}px ${(height / 2).toFixed(2)}px`,
+    origin: `${(width / 2).toFixed(2)}px ${(visibleHeight / 2).toFixed(2)}px`,
     clip: {
-      x: Math.max(0, (width - source.width / scale) / 2),
-      y: Math.max(0, (height - source.height / scale) / 2),
+      x: (width - visibleWidth) / 2,
+      bottom: height - visibleHeight,
       radius: (source.radius ?? 16) / scale,
       sheetRadius,
     },
@@ -49,7 +52,13 @@ export function revealClip(clip, reveal) {
   const open = Math.max(0, Math.min(1, reveal));
   const rest = 1 - open;
   const radius = clip.radius + (clip.sheetRadius - clip.radius) * open;
-  return `inset(${(clip.y * rest).toFixed(2)}px ${(clip.x * rest).toFixed(2)}px round ${Math.max(0, radius).toFixed(2)}px)`;
+  return `inset(0px ${(clip.x * rest).toFixed(2)}px ${(clip.bottom * rest).toFixed(2)}px round ${Math.max(0, radius).toFixed(2)}px)`;
+}
+
+// A closing sheet stays whole and solid on its way back; it only merges into the source during
+// the last few percent of the return, so it never dissolves mid-flight.
+export function closingOpacity(reveal, base = 1) {
+  return Math.max(0, Math.min(1, reveal / 0.08)) * base;
 }
 
 // A large insight sheet comes from a small toolbar glyph. Scaling the entire text surface down
