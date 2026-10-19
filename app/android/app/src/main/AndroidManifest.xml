@@ -49,6 +49,17 @@
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Vender por voz: o microfone só é usado enquanto o botão de voz está ativo; nada é gravado. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- Sem microfone o app continua instalável: a venda manual não depende da voz. -->
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <!-- Avisos de estoque são imediatos: o alarme exato do plugin não é usado (e a Play Store o restringe). -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" tools:node="remove" />
+
+    <!-- Visibilidade do serviço de reconhecimento de voz do Android (Android 11+). -->
+    <queries>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
 </manifest>

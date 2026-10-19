@@ -8,3 +8,4 @@ Documentos originais recebidos do produtor. O app embarca só os resumos em `app
 - `Regras_Janelas_Desempenho_Agro_Gestao.docx` — janelas, desempenho e testes
 - `Politica_dados_demonstracao_operacao_real.docx` — separação entre demonstração e operação real
 - `Guia_Apple_HIG_para_criar_apps_no_Codex.docx` — guia de interface no estilo Apple
+- `Agro_Gestao_Diretrizes_Voz_Vosk_Android.docx` — vender por voz (Android + Vosk offline); versão 1.2 com a revisão da implementação

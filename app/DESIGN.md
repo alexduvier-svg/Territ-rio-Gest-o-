@@ -78,3 +78,9 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 
 - Ideias de layout novas: **desenhar as telas primeiro** (mockup clicável) e implementar depois da escolha.
 - Testar em tamanho de celular no navegador e no aparelho real antes de entregar.
+
+## Voz (`src/features/voice/`, plugin `VoicePlugin.java`)
+
+- Microfone à esquerda das categorias, abaixo do cartão "Vendendo em" (estilo Feira). Repouso: linhas cinza. Ouvindo: azul nos dois temas (#0A84FF escuro, #007AFF claro) com três ondas no estilo Shazam que respiram com a voz; modo leve e movimento reduzido ficam só com a cor.
+- A voz só propõe: abre a Venda com a quantidade preenchida; o registro segue os botões da venda. Diretrizes em `docs/diretrizes/Agro_Gestao_Diretrizes_Voz_Vosk_Android.docx` (v1.2).
+- Modelo Vosk fora do Git: `node tools/fetch-vosk-model.mjs` antes do build Android.

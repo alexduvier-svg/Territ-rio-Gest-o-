@@ -1,0 +1,57 @@
+/* Vender por voz: microfone à esquerda das categorias na aba Produtos.
+   Repouso: linhas cinza, discreto. Ouvindo: azul nos dois temas, com ondas no estilo Shazam que
+   respiram com a voz. Volta ao normal quando a fala termina. */
+:root { --voice-blue: #0a84ff; --voice-blue-soft: rgb(10 132 255 / 34%); }
+:root[data-theme='light'] { --voice-blue: #007aff; --voice-blue-soft: rgb(0 122 255 / 26%); }
+
+#app .voice-row { display: flex; align-items: center; gap: 10px; margin-bottom: var(--gap-block, 14px); position: relative; }
+/* As categorias continuam rolando até a borda direita da tela; à esquerda ficam coladas no microfone. */
+#app .voice-row .feira-chips { flex: 1; min-width: 0; margin: 0 -22px 0 0 !important; padding: 2px 22px 2px 0; position: relative; z-index: 1; }
+
+#app .voice-mic {
+  position: relative; flex: none; width: 40px; height: 40px; min-height: 40px; padding: 0;
+  display: grid; place-items: center; border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--muted, #8e8e93) 55%, transparent);
+  background: transparent; color: var(--muted, #8e8e93);
+  transition: background-color .22s ease, border-color .22s ease, color .22s ease, transform .09s linear;
+  -webkit-tap-highlight-color: transparent;
+}
+.voice-mic-icon { position: relative; z-index: 2; width: 21px; height: 21px; }
+#app .voice-mic.is-listening, #app .voice-mic.is-busy {
+  background: var(--voice-blue); border-color: var(--voice-blue); color: #fff;
+  transform: scale(calc(1 + var(--voice-level, 0) * .12));
+  box-shadow: 0 6px 18px var(--voice-blue-soft);
+}
+#app .voice-mic.is-busy { animation: voice-thinking 1s ease-in-out infinite; }
+
+/* Ondas: três anéis que nascem do botão e se dissolvem, um atrás do outro. */
+.voice-ring { position: absolute; inset: 0; border-radius: 50%; background: var(--voice-blue-soft); opacity: 0; pointer-events: none; z-index: 0; }
+.voice-mic.is-listening .voice-ring { animation: voice-wave 1.8s cubic-bezier(.2, .6, .35, 1) infinite; }
+.voice-mic.is-listening .voice-ring:nth-child(2) { animation-delay: .6s; }
+.voice-mic.is-listening .voice-ring:nth-child(3) { animation-delay: 1.2s; }
+@keyframes voice-wave { 0% { transform: scale(1); opacity: .65; } 100% { transform: scale(2.2); opacity: 0; } }
+@keyframes voice-thinking { 50% { opacity: .72; } }
+
+/* Celular simples, "Reduzir efeitos" e movimento reduzido: só a cor azul, sem ondas. */
+:root.lite .voice-mic .voice-ring,
+:root[data-reduce-effects='true'] .voice-mic .voice-ring { display: none; }
+@media (prefers-reduced-motion: reduce) { .voice-mic .voice-ring { display: none; } .voice-mic.is-busy { animation: none; } }
+
+/* Legenda da escuta: o que foi ouvido e o próximo passo, numa linha discreta. */
+#app .voice-caption { margin: -6px 2px var(--gap-block, 14px); font-size: 14px; line-height: 1.35; color: var(--muted); }
+#app .voice-caption p { margin: 0; overflow-wrap: anywhere; }
+#app .voice-caption.is-listening p { color: var(--voice-blue); }
+#app .voice-caption.is-warn p { color: var(--text); }
+#app .voice-caption-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+#app .voice-caption-action {
+  min-height: 34px; padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  background: var(--field); color: var(--text); border: 1px solid color-mix(in srgb, var(--muted) 25%, transparent);
+}
+
+/* Escolha quando a fala serve para mais de um produto/apresentação. */
+.voice-choices { display: grid; gap: 8px; }
+.voice-choice {
+  width: 100%; min-height: 48px; padding: 12px 16px; border-radius: 16px; text-align: left;
+  font-size: 16px; font-weight: 600; background: var(--field); color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--muted) 22%, transparent);
+}

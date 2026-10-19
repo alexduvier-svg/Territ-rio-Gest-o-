@@ -1299,7 +1299,7 @@ function feiraSellList(){const groups=new Map();productList(false).forEach(p=>{c
   return btn('sell-product','<strong>'+escape(titleName(p.name))+'</strong><small>'+escape(sellingCardDescription(p))+'</small>'+(out?'<em>Esgotado</em>':'')+'<span class="tabular">'+E.money(p.price)+'</span>','feira-card'+(out?' is-out':''),{id:p.id},out);}).join('')+'</div>';}
 function feiraSellPage(){const today=E.dayKey(new Date()),sales=model.data.sales.filter(s=>s.status==='completed'&&s.scope===scope&&E.dayKey(s.date)===today),visible=model.data.settings.financialVisible;
  return top()+reminderBanner()+'<section class="feira-sell-hero">'+btn('weekly-sales','<span class="fsh-where"><span><small>Vendendo em</small><strong>'+escape(scopeName(scope))+'</strong></span></span><span class="fsh-today"><small>Hoje · '+grammarCount(sales.length,'venda','vendas')+'</small><strong class="tabular">'+(visible?E.money(sales.reduce((n,s)=>n+s.total,0)):'••••••')+'</strong></span>','fsh-main')+'<button type="button" data-action="toggle-financial" class="fsh-eye" aria-label="'+(visible?'Ocultar':'Mostrar')+' valores" aria-pressed="'+visible+'">'+icon(visible?'eye':'eyeOff')+'</button></section>'
- +draftResumeBanner()+feiraSearch()+feiraChips()+'<div id="feira-list">'+feiraSellList()+'</div>';}
+ +draftResumeBanner()+(window.TerritorioVoice?window.TerritorioVoice.row(feiraChips(),feiraSearch(),query):feiraSearch()+feiraChips())+'<div id="feira-list">'+feiraSellList()+'</div>';}
 function stockGroups(){const ok=[],low=[],out=[],products=window.TerritorioStockOrder?window.TerritorioStockOrder.orderStockProducts(model.data.products):model.data.products;products.forEach(p=>(p.stock<=0?out:p.stock<=(p.min||0)?low:ok).push(p));return{ok,low,out};}
 function feiraStockStatus(){const g=stockGroups();if(!model.data.products.length)return '';const tile=(key,label,list,cls)=>btn('feira-restock','<small>'+label+'</small><strong class="tabular">'+list.length+'</strong>','feira-stock-count '+key+(list.length&&cls?' '+cls:''),{group:key},!list.length);
  return '<section class="feira-stock" aria-label="Situação do estoque"><div class="feira-stock-counts">'+tile('ok','Em dia',g.ok,'')+tile('low','Baixo',g.low,'warn')+tile('out','Esgotado',g.out,'alert')+'</div><p class="feira-stock-hint">Toque para repor.</p></section>';}
@@ -2721,6 +2721,13 @@ window.TerritorioShell.markProductPeriodNotified=(kind,id)=>markProductPeriod(ki
 window.ERPPreview.productPeriodState=()=>({view:productPeriodView&&{...productPeriodView},reports:productPeriodCache,state:model.data.productPeriodReports});
 queueProductPeriods();
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
+// Vender por voz (features/voice): a voz só abre a venda com a quantidade; o registro segue os botões da venda.
+window.TerritorioVoice?.install({
+ getModel:()=>model,page:()=>page,getDraft:()=>draft,render,toast,openModal,closeModal,
+ money:E.money,quantity:E.quantity,unitLabel:E.unitLabel,titleName,
+ openSale:(id,qty)=>{actions['sell-product']({id});if(qty&&draft&&page==='Venda'){draft.items[draft.active].rawQty=String(qty).replace('.',',');render();}},
+ setQuantity:qty=>{if(page!=='Venda'||!draft||!draft.items[draft.active])return false;draft.items[draft.active].rawQty=String(qty).replace('.',',');render();return true;}
+});
 window.TerritorioSurplusUI.install({
  getModel:()=>model,setModel:value=>{model=value;},Model:E.ERPModel,uid:E.uid,
  escape,button:btn,money:E.money,quantity:E.quantity,titleName,shortUnit,numericField,icon,

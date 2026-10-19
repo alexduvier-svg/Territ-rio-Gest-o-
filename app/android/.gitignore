@@ -99,3 +99,6 @@ app/src/main/assets/public
 app/src/main/assets/capacitor.config.json
 app/src/main/assets/capacitor.plugins.json
 app/src/main/res/xml/config.xml
+
+# Modelo de voz Vosk (32 MB): gerado por node tools/fetch-vosk-model.mjs
+app/src/main/assets/model-pt
