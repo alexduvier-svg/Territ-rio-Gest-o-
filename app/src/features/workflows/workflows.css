@@ -1,0 +1,25 @@
+.workflow-client-line,.workflow-origin-line{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:end}
+.workflow-client-line>div{min-width:0}.workflow-client-line label{font-size:14px;font-weight:600;display:block;margin-bottom:8px}
+.workflow-client-line input{width:100%;min-width:0;box-sizing:border-box}.workflow-client-line button{margin:0;min-height:54px;white-space:normal}
+.workflow-origin-line button{margin:0;white-space:normal;min-height:56px}.workflow-neighborhoods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:18px}
+.workflow-neighborhoods button{min-width:0;white-space:normal;overflow-wrap:anywhere}
+.workflow-product-summary{display:grid;gap:6px;margin-top:10px;color:var(--muted);font-size:14px}.workflow-product-summary b{color:var(--red,#b63745);font-weight:750}
+.workflow-quantity-done{margin-top:10px;width:100%;font-weight:700}.workflow-stock-hint{font-size:13px;line-height:1.45;color:var(--red,#c94451);margin:8px 4px 14px}
+.workflow-stock-family{margin-bottom:18px}.workflow-stock-more,.workflow-last-fair{margin:12px 0;padding:14px;border-radius:22px;border:1px solid var(--line,#7773);background:var(--field);box-shadow:inset 0 1px 0 #ffffff18,0 3px 5px #0000000a}
+.workflow-stock-more summary,.workflow-last-fair summary{font-size:14px;font-weight:650;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer;list-style:none}
+.workflow-stock-more .feira-rows{margin-top:12px}.workflow-last-fair p{font-size:14px;line-height:1.55}.workflow-rank{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.workflow-rank h4{font-size:14px;margin:12px 0}.workflow-rank small{color:var(--muted)}
+.workflow-demand-signal{border-top:1px solid var(--line,#7773);padding-top:12px}.workflow-demand-row label{display:block;font-size:14px;font-weight:600;margin:12px 0 8px}.workflow-demand-row input,.workflow-demand-row select{box-sizing:border-box;width:100%;min-width:0}.workflow-demand-row small{display:block;font-size:13px;margin-top:8px;color:var(--muted)}
+.fair-history{border-radius:28px!important}.fair-history>.link-row{padding:4px!important}.fair-history-list{margin-top:16px}.fair-history-list .event-card:last-child{margin-bottom:0}
+.workflow-inline-cost{display:flex;gap:10px;margin-top:14px}.workflow-inline-cost input{min-width:0;width:100%;flex:1}.workflow-inline-cost button{flex:none;padding:10px;min-height:48px}.workflow-day-cost h3{text-transform:none}
+.workflow-sale-done .sd-head{padding:8px 0 14px}.workflow-sale-done .sd-head strong{font-size:clamp(24px,7vw,32px)}.workflow-sale-done .sd-check{width:64px;height:64px;margin-bottom:12px}
+#dialog[data-kind="story"][data-no-close] .checkout-footer{display:grid;gap:8px}#dialog[data-kind="story"] .sd-new{width:100%;margin:0;min-height:52px}#dialog[data-kind="story"] .sd-pdf{font-size:14px;padding:10px}
+.workflow-client-tools h2{font-size:20px;margin:0 0 12px}.workflow-client-tools .choice{width:100%;white-space:normal}.workflow-recipient-list{max-height:28dvh;overflow:auto;margin:12px 0;border-block:1px solid var(--line,#7773)}
+#workflow-broadcast-message{min-height:130px;width:100%;box-sizing:border-box}.workflow-settings-back{width:100%;margin:18px 0}
+#dialog[data-kind="event-load"] .event-load-row input{inputmode:none;background:linear-gradient(150deg,var(--field),var(--panel));border:1px solid var(--line,#7773);box-shadow:inset 0 2px 4px #0000000e,0 2px 0 #00000012;border-radius:16px;min-height:48px}
+#dialog[data-kind="event-load"] .checkout-footer{display:grid;grid-template-columns:1fr 1fr;gap:8px}#dialog[data-kind="event-load"] .checkout-footer>button{margin:0;min-height:44px;font-size:14px;white-space:normal}#dialog[data-kind="event-load"] .checkout-footer>.success{grid-column:1/-1}
+#dialog[data-kind="event-load"] .modal-number-pad:not([hidden]){position:relative;inset:auto;margin:0;padding:10px;max-height:38dvh;overflow:auto;flex-shrink:0}#dialog[data-kind="event-load"] .number-key{min-height:34px;padding:6px}
+:root[data-theme][data-layout] dialog[data-kind="event-load"]{overflow:clip!important}
+:root[data-theme][data-layout] dialog[data-kind="event-load"]>.modal-number-pad:not([hidden]){flex:0 0 auto;max-height:38dvh;padding:10px 16px;height:auto}
+:root[data-theme][data-layout] dialog[data-kind="event-load"]>.checkout-header{position:relative;flex:0 0 auto}
+@media(max-width:350px){.workflow-client-line{grid-template-columns:minmax(0,1fr) minmax(100px,.8fr)}.workflow-origin-line{gap:6px}.workflow-origin-line button{font-size:14px}.workflow-rank{gap:8px}}
+@media(max-height:600px){#dialog[data-kind="event-load"] .event-load-help{font-size:13px}#dialog[data-kind="event-load"] .checkout-footer>button{min-height:36px;padding:8px}#dialog[data-kind="event-load"] .checkout-header{padding-block:10px}}

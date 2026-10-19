@@ -76,6 +76,8 @@ export function validatePortfolio(input) {
         unavailable: g?.unavailable === true,
         variants: (Array.isArray(g?.variants) ? g.variants.slice(0, LIMITS.variants) : [])
           .map(v => ({
+            productId: text(v?.productId, 100),
+            unit: text(v?.unit, 30),
             label: text(v?.label, 80),
             price: Number.isInteger(v?.price) && v.price >= 0 && v.price <= 100_000_000 ? v.price : null,
           }))

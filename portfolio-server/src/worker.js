@@ -22,6 +22,9 @@ import { renderPortfolio, renderMessage, vcard } from './page.js';
 import { BACKUP_ROUTE, handleBackup } from './backups.js';
 import { FAIR_API, FAIR_EXPORT, FAIR_PAGE, handleFairsApi, serveFairExport, serveFairPage } from './fairs.js';
 import { ORG_ROUTE, PUBLIC_FAIR, FAIR_CODE, serveOrganizer, servePublicFair, serveFairCode } from './organizer.js';
+import { routeShop } from './shop.js';
+import { renderShop } from './shop-page.js';
+export { ProducerShop } from './shop.js';
 
 const PAGE_HEADERS = {
   'content-type': 'text/html; charset=utf-8',
@@ -177,9 +180,10 @@ async function readKeys(env, slug) {
 }
 
 async function deletePortfolio(env, slug, meta) {
+  if(env.SHOPS){const shop=env.SHOPS.get(env.SHOPS.idFromName(slug)),cleared=await shop.fetch(new Request('https://shop.internal/erase',{method:'PUT',headers:{'x-shop-owner':'verified','content-type':'application/json'},body:'{}'}));if(!cleared.ok)return cleared;}
   const images = ownedImages(meta).map(h => `img:${slug}:${h}`);
   const reads = (await readKeys(env, slug)).map(k => k.name);
-  await Promise.all([...images, ...reads, 'doc:' + slug, 'pdf:' + slug, 'meta:' + slug].map(key => env.PORTFOLIOS.delete(key)));
+  await Promise.all([...images, ...reads, 'doc:' + slug, 'pdf:' + slug, 'meta:' + slug, 'shop-config:'+slug].map(key => env.PORTFOLIOS.delete(key)));
   return new Response(null, { status: 204 });
 }
 
@@ -211,6 +215,7 @@ async function servePublic(request, env, ctx, slug, rest, origin) {
   if (rest === '' || rest === '/') {
     const doc = await env.PORTFOLIOS.get('doc:' + slug, 'json');
     if (!doc) return new Response(renderMessage('Página não encontrada', 'Este portfólio não existe ou foi retirado do ar pelo produtor.'), { status: 404, headers: PAGE_HEADERS });
+    const shopConfig=await env.PORTFOLIOS.get('shop-config:'+slug,'json');if(shopConfig?.enabled)doc.shopURL=origin+'/s/'+slug;
     const ref = new URL(request.url).searchParams.get('r');
     if (request.method === 'GET' && ref && READ_REF.test(ref) && !LINK_PREVIEW.test(request.headers.get('user-agent') || '')) {
       ctx.waitUntil(recordRead(env, slug, ref).catch(error => console.error('Leitura não registrada', error)));
@@ -255,6 +260,9 @@ export default {
       if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
       try {
         let response;
+        if(pathname==='/api/shops/_capabilities'&&request.method==='GET')return json({version:1,available:!!env.SHOPS},200,cors);
+        const shop=pathname.match(/^\/api\/shops\/([a-z0-9-]{3,48})\/(catalog|orders(?:\/[\w-]+)?|track|inventory)$/);
+        if(shop){response=await routeShop(request,env,shop[1],shop[2],authorize);for(const[k,v]of Object.entries(cors))response.headers.set(k,v);return response;}
         const backup = pathname.match(BACKUP_ROUTE);
         if (backup) {
           response = await handleBackup(request, env, backup[1], !!backup[2]);
@@ -303,6 +311,8 @@ export default {
     const publicFair = pathname.match(PUBLIC_FAIR);
     if (publicFair && request.method === 'GET') return servePublicFair(request, env, publicFair[1]);
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
+    const shopPage=pathname.match(/^\/s\/([a-z0-9-]{3,48})$/);
+    if(shopPage){const doc=await env.PORTFOLIOS.get('doc:'+shopPage[1],'json');if(!doc)return new Response(renderMessage('Loja não encontrada','Confira o link enviado pelo produtor.'),{status:404,headers:PAGE_HEADERS});const nonce=randomToken(18);return new Response(renderShop(doc,shopPage[1],nonce),{headers:{...PAGE_HEADERS,'cache-control':'no-store','referrer-policy':'no-referrer','content-security-policy':"default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'nonce-"+nonce+"'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"}});}
     const page = pathname.match(/^\/p\/([a-z0-9-]{3,48})(\/.*)?$/);
     if (page) return servePublic(request, env, ctx, page[1], page[2] || '', origin);
     const fairPage = pathname.match(FAIR_PAGE);

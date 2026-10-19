@@ -12,6 +12,8 @@ const PRODUCT_SIZE = 800;
 const PORTRAIT_SIZE = 512;
 
 let busy = false;
+const actor=()=>window.ERPPreview?.model?.()?.data?.dataContext?.id||window.ERPPreview?.model?.()?.data?.productMemory?.scopeId;
+const sameActor=id=>{if(id!==actor())throw Error('O produtor mudou. Reabra o portfólio.');};
 const shell = () => window.TerritorioShell;
 
 function loadImage(src) {
@@ -93,8 +95,9 @@ async function upload(state, doc, images, pdf) {
   return api(`/api/portfolios/${state.slug}`, { method: 'PUT', token: state.token, body: form });
 }
 
-async function create(name) {
+async function create(name,owner) {
   const created = await api('/api/portfolios', { json: { name } });
+  sameActor(owner);
   const state = { slug: created.slug, token: created.token, url: created.url, publishedAt: null };
   // Keep the token right away: if the upload fails, the next attempt reuses this page.
   shell().setPortfolio(state);
@@ -102,26 +105,27 @@ async function create(name) {
 }
 
 async function publish() {
+  const owner=actor();
   if (busy || !API) return;
   busy = true;
   shell().refresh();
   try {
     const source = shell().portfolioSource();
     const { doc, images } = await buildDocument(source);
-    const pdf = await source.pdf().catch(() => null);
+    const pdf = await source.pdf().catch(() => null);sameActor(owner);
 
     let state = shell().portfolioState();
-    if (!state || !state.token) state = await create(doc.business.name);
+    if (!state || !state.token) state = await create(doc.business.name,owner);
     let result;
     try {
       result = await upload(state, doc, images, pdf);
     } catch (error) {
       // The page was removed on the server (or the data came from another install): start a new one.
       if (!(error instanceof AuthError)) throw error;
-      state = await create(doc.business.name);
+      state = await create(doc.business.name,owner);
       result = await upload(state, doc, images, pdf);
     }
-    shell().setPortfolio({ ...state, url: result.url, publishedAt: result.updatedAt });
+    sameActor(owner);shell().setPortfolio({ ...state, url: result.url, publishedAt: result.updatedAt,productImages:Object.fromEntries(doc.groups.flatMap(g=>g.variants.filter(v=>v.productId).map(v=>[v.productId,g.image]))) });
     return result.url;
   } finally {
     busy = false;

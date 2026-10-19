@@ -32,4 +32,5 @@ function compareDescriptors(a,b){
   ||b.price-a.price||compare(a.p.flavor||'',b.p.flavor||'')||compare(a.p.name,b.p.name)||compare(a.p.id,b.p.id);
 }
 export const stockProductComparator=(a,b)=>compareDescriptors(descriptor(a),descriptor(b));
+export const stockFamily=p=>descriptor(p).family;
 export function orderStockProducts(products){return [...(products||[])].map(descriptor).sort(compareDescriptors).map(d=>d.p);}

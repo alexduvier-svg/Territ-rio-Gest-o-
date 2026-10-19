@@ -1,0 +1,15 @@
+{
+  "synthetic": true,
+  "checks": [
+    "producer publishes an individual shop entirely inside the app",
+    "customer checks out in the public store without account or subscription",
+    "request arrives and reserves stock without recording a sale",
+    "manual checkout records one sale and synchronizes remaining stock once",
+    "all four delivery stages require producer actions and update the private link",
+    "WhatsApp is a reviewed draft, never an automatic send",
+    "customer tracking works by link without an account or other tool",
+    "shop, order and receipt survive restart",
+    "unpublishing a completed shop keeps local order and sale history after restart"
+  ],
+  "errors": []
+}

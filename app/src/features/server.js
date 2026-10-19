@@ -6,17 +6,17 @@ export class AuthError extends Error {}
 export class NetworkError extends Error {}
 
 // JSON in/out by default; `body` sends raw bytes or FormData; `raw` returns the Response itself.
-export async function request(path, { token, json, body, method = 'POST', raw = false } = {}) {
+export async function request(path, { token, json, body, method = 'POST', raw = false, timeoutMs = 0 } = {}) {
   const headers = {};
   if (token) headers.authorization = 'Bearer ' + token;
   if (json) headers['content-type'] = 'application/json';
   if (body instanceof Uint8Array) headers['content-type'] = 'application/octet-stream';
-  let response;
+  let response;const controller=timeoutMs?new AbortController():null,timer=controller?setTimeout(()=>controller.abort(),timeoutMs):null;
   try {
-    response = await fetch(API + path, { method, headers, body: json ? JSON.stringify(json) : body, cache: 'no-store' });
+    response = await fetch(API + path, { method, headers, body: json ? JSON.stringify(json) : body, cache: 'no-store',...(controller?{signal:controller.signal}:{}) });
   } catch {
     throw new NetworkError('Sem conexão com a internet. Tente de novo quando tiver sinal.');
-  }
+  } finally {if(timer)clearTimeout(timer);}
   if (response.status === 401) throw new AuthError('Sem permissão.');
   if (!response.ok) {
     let message = '';

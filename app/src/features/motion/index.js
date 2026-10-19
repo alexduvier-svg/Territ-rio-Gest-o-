@@ -1,5 +1,5 @@
 import { stepSpring, springAtRest } from './spring.js';
-import { naturalRect, reanchorPose, insightSheetGeometry, morphGeometry, revealClip, closingOpacity } from './geometry.js';
+import { naturalRect, reanchorPose, insightSheetGeometry, navigationEntryGeometry, morphGeometry, revealClip, closingOpacity } from './geometry.js';
 
 // One frame loop for the whole interface. Idle springs do not request frames.
 const running = new Set();
@@ -303,7 +303,8 @@ export function animatePageChange(app) {
   if (skipNextPageEntry) { skipNextPageEntry = false; return; }
   if (!app || !enabled()) return;
   if (animatePageEntry(app)) return;
-  const entry = insightSheetGeometry({left:0,top:0,width:innerWidth,height:innerHeight}, getMotionSource(), limited());
+  const source=getMotionSource(900),navigation=!!source?.inNav;
+  const entry = navigation?navigationEntryGeometry(innerWidth,innerHeight,source,limited()):insightSheetGeometry({left:0,top:0,width:innerWidth,height:innerHeight},source,limited());
   const pivot = entry.origin.split(' ').map(parseFloat);
   const candidates = [...app.children].flatMap(el => el.classList.contains('subview') ? [...el.children] : [el]);
   const prepared = candidates.filter(el => !el.hidden && !el.matches('script, style')).map(element => {
@@ -334,7 +335,7 @@ export function animatePageChange(app) {
       element.style.opacity = opacity;
       if (!fixed) { element.style.translate = translate; element.style.scale = scale; }
     }
-  },clean,dialogSpring('page'));
+  },clean,navigation?{stiffness:460,damping:limited()?42:25}:dialogSpring('page'));
   pageEntryMotion = motion;
   for (const {element} of prepared) elementMotions.set(element,motion);
 }
@@ -844,7 +845,8 @@ function installPageExits(listen) {
     if (!nextPage || nextPage === currentPage) return;
     discard();
     const source = getMotionSource(), previous = history.at(-1);
-    const goingBack = previous?.from === nextPage || /back|cancel-product|cancel-sale/.test(source?.action || '');
+    const goingBack = !source?.inNav&&(previous?.from === nextPage || /back|cancel-product|cancel-sale/.test(source?.action || ''));
+    if(source?.inNav)history.length=0;
     const subview = app.querySelector(':scope > .subview');
     if (goingBack && subview) {
       // Revealing the existing parent is the return transition. Do not animate it as a new launch.

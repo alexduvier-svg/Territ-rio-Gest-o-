@@ -127,6 +127,7 @@ export function renderPortfolio(doc, { base }) {
 </header>`;
 
   const secondary = [
+    doc.shopURL ? `<a class="button primary" href="${escape(doc.shopURL)}">Ver produtos e fazer pedido</a>` : '',
     doc.hasPdf ? `<a class="button secondary" href="${base}/portfolio.pdf">${icon('download')}Baixar PDF</a>` : '',
     hasContact ? `<a class="button secondary" href="${base}/contato.vcf">${icon('contact')}Salvar contato</a>` : '',
   ].filter(Boolean);

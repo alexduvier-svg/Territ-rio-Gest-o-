@@ -24,6 +24,10 @@ export function familySales(rows, products=[]){
 
 // Current inventory only. Missing cost is never silently valued at zero; an
 // explicit known zero cost remains a valid cost. Units are not added together.
+export function categorySales(rows=[],products=[]){
+ const byId=new Map(products.map(p=>[p.id,p])),groups=new Map();for(const row of rows){const p=byId.get(row.productId),category=p?.category||row.category||'Categoria não informada';if(!groups.has(category))groups.set(category,{key:category,name:category,amount:0,units:new Map()});const g=groups.get(category);g.amount+=Math.round(Number(row.amount)||0);const unit=row.unit||p?.unit||'Unidade';g.units.set(unit,Math.round(((g.units.get(unit)||0)+(Number(row.qty)||0))*1000)/1000);}
+ return [...groups.values()].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR')).map(g=>({...g,units:[...g.units].map(([unit,qty])=>({unit,qty}))}));
+}
 export function currentStockValue(products=[]){
  const rows=orderStockProducts(products).map(p=>{
   const qty=Number.isFinite(p.stock)?Math.max(0,p.stock):null,hasBalance=qty===null||qty>0;

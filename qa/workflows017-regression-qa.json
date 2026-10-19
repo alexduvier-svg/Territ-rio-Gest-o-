@@ -1,0 +1,277 @@
+{
+  "synthetic": true,
+  "checks": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "brainIntegrated": true,
+      "stockQuery": true,
+      "reconciledFair": true,
+      "threePrioritiesMax": true,
+      "multiitemClarification": true,
+      "onlyFinalCheckoutMutates": true,
+      "receiptPersisted": true,
+      "doubleTapSafe": true,
+      "consentAndManualMessage": true,
+      "preferencesRestart": true
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "brainIntegrated": true,
+      "stockQuery": true,
+      "reconciledFair": true,
+      "threePrioritiesMax": true,
+      "multiitemClarification": true,
+      "onlyFinalCheckoutMutates": true,
+      "receiptPersisted": true,
+      "doubleTapSafe": true,
+      "consentAndManualMessage": true,
+      "preferencesRestart": true
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "brainIntegrated": true,
+      "stockQuery": true,
+      "reconciledFair": true,
+      "threePrioritiesMax": true,
+      "multiitemClarification": true,
+      "onlyFinalCheckoutMutates": true,
+      "receiptPersisted": true,
+      "doubleTapSafe": true,
+      "consentAndManualMessage": true,
+      "preferencesRestart": true
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "brainIntegrated": true,
+      "stockQuery": true,
+      "reconciledFair": true,
+      "threePrioritiesMax": true,
+      "multiitemClarification": true,
+      "onlyFinalCheckoutMutates": true,
+      "receiptPersisted": true,
+      "doubleTapSafe": true,
+      "consentAndManualMessage": true,
+      "preferencesRestart": true
+    }
+  ],
+  "surfaces": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "geo": {
+        "x": 20,
+        "y": 74.53125,
+        "right": 300,
+        "bottom": 665.453125,
+        "footerBottom": 664.453125,
+        "scrollHeight": 383,
+        "clientHeight": 383,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 531.953125,
+              "width": 238,
+              "height": 60.5,
+              "top": 531.953125,
+              "right": 279,
+              "bottom": 592.453125,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 602.453125,
+              "width": 238,
+              "height": 48,
+              "top": 602.453125,
+              "right": 279,
+              "bottom": 650.453125,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          }
+        ],
+        "background": "rgb(233, 233, 238)"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "geo": {
+        "x": 20,
+        "y": 100.59375,
+        "right": 340,
+        "bottom": 691.390625,
+        "footerBottom": 690.390625,
+        "scrollHeight": 387,
+        "clientHeight": 387,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 570.390625,
+              "width": 278,
+              "height": 48,
+              "top": 570.390625,
+              "right": 319,
+              "bottom": 618.390625,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 628.390625,
+              "width": 278,
+              "height": 48,
+              "top": 628.390625,
+              "right": 319,
+              "bottom": 676.390625,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          }
+        ],
+        "background": "rgb(44, 44, 46)"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "geo": {
+        "x": 20,
+        "y": 66.59375,
+        "right": 373,
+        "bottom": 673.390625,
+        "footerBottom": 672.390625,
+        "scrollHeight": 409,
+        "clientHeight": 403,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 552.390625,
+              "width": 311,
+              "height": 48,
+              "top": 552.390625,
+              "right": 352,
+              "bottom": 600.390625,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 610.390625,
+              "width": 311,
+              "height": 48,
+              "top": 610.390625,
+              "right": 352,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          }
+        ],
+        "background": "rgb(233, 233, 238)"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "geo": {
+        "x": 20,
+        "y": 55.796875,
+        "right": 392,
+        "bottom": 564.1875,
+        "footerBottom": 563.1875,
+        "scrollHeight": 408,
+        "clientHeight": 305,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 443.1875,
+              "width": 330,
+              "height": 48,
+              "top": 443.1875,
+              "right": 371,
+              "bottom": 491.1875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 501.1875,
+              "width": 330,
+              "height": 48,
+              "top": 501.1875,
+              "right": 371,
+              "bottom": 549.1875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          }
+        ],
+        "background": "rgb(44, 44, 46)"
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": "Desktop Chrome fixture. Native microphone and entry-level Android performance not measured."
+}

@@ -30,6 +30,10 @@ import { INTERFACE_GUIDELINES } from './data/interface-guidelines.js';
 import { VOICE_GUIDELINES } from './data/voice-guidelines.js';
 import { installVoice } from './features/voice/index.js';
 import { installAgent } from './features/agent/index.js';
+import { installWorkflows } from './features/workflows/index.js';
+import './features/workflows/workflows.css';
+import { installStore } from './features/store/index.js';
+import './features/store/store.css';
 import './features/voice/voice.css';
 import { ENGAGEMENT_GUIDELINES } from './data/engagement-guidelines.js';
 import './features/product-stock.css';
@@ -106,6 +110,8 @@ try {
   installInterface();
   installSectionMotion();
   installMultiSell();
+  installWorkflows();
+  installStore();
   installShell();
 } catch (error) {
   // Never leave the seller stuck on the splash screen.

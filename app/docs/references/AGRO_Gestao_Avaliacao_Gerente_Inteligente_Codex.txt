@@ -1,0 +1,55 @@
+AGRO Gestão | Proposta de Gerente Inteligente
+Documento de consulta e diagnóstico técnico para o Codex
+Objetivo: descobrir se a coordenação de especialistas já existe no projeto e avaliar se sua criação ou consolidação é realmente recomendável. Este documento NÃO autoriza implementação automática.
+1. Pergunta inicial obrigatória ao Codex
+Antes de modificar qualquer arquivo, responda: o AGRO Gestão já possui um sistema equivalente a um Gerente Inteligente que coordena módulos especialistas (Finanças, Estoque e outros), mesmo que com outro nome? Se não possui, a criação é recomendável frente à arquitetura atual, aos custos, ao uso offline e à manutenção? Justifique com evidências do código.
+2. Auditoria do que já existe — somente leitura
+Examinar arquitetura, pastas, serviços, regras de negócio, banco local, fluxos de voz, respostas de IA, interfaces, testes e documentação existente.
+Localizar lógica de finanças, cálculo de lucro/custo, precificação, conferência de valores, estoque, reposição, eventos, clientes, agenda e alertas.
+Identificar módulos especialistas, roteador de intenções, orquestrador, motor de regras, serviço de IA, persistência e mecanismos de execução offline.
+Para cada recurso: indicar existente / parcial / ausente, caminhos dos arquivos, classes ou funções relevantes, responsáveis por cálculos e principais dependências.
+Procurar redundância ou regras conflitantes, sobretudo entre telas, voz, inteligência e documentos de diretrizes. Não considerar documentos como prova de funcionalidade implementada.
+Confirmar o que já funciona no APK versus o que existe apenas no código, em mocks ou no planejamento. Não presumir recursos não verificados.
+3. Decisão técnica fundamentada
+Comparar três alternativas: (A) manter a estrutura atual; (B) adicionar apenas uma camada leve de coordenação sobre os serviços existentes; (C) desenvolver arquitetura multiagente mais ampla. Recomendar a opção de menor complexidade que demonstre benefício real.
+Avaliar manutenção, desempenho em aparelhos Android modestos, bateria, memória, custo operacional, confiabilidade, testes, privacidade e uso sem internet.
+Distinguir “agente” de um módulo determinístico: não criar múltiplos modelos de linguagem quando funções, consultas e regras bastarem.
+Considerar que integração com IA generativa é opcional, futura e não deve bloquear recursos essenciais offline.
+Estabelecer critérios claros para NÃO criar a camada, caso já exista solução equivalente ou o custo supere o benefício.
+4. Desenho proposto — somente se houver justificativa
+Fase 1 | Gerente + Finanças + Estoque
+Um ponto único de conversa (voz e texto, aproveitando a voz já integrada) recebe a intenção do usuário, consulta serviços existentes e compõe uma resposta curta, auditável e baseada em números calculados localmente. O Gerente não recalcula nem inventa valores: usa as fontes de verdade do aplicativo.
+Fase 2 | Feiras + Clientes + Agenda
+Somente após validar a Fase 1, integrar desempenho de feiras, histórico e comunicação com clientes e compromissos, além de alertas contextualizados. Mensagens externas e alterações de dados requerem confirmação.
+Interface e experiência
+Não criar uma aba para cada especialista. Manter uma única interface limpa do Gerente, com pergunta/resposta, sugestões relevantes e um bloco discreto e expansível “Especialistas consultados”. Evitar cartões repetidos, poluição visual e duplicação de ações já disponíveis nas telas existentes. Preservar temas claro/escuro, linguagem acessível e padrões atuais.
+5. Requisitos inegociáveis
+Não alterar vendas, estoque, carrinho, forma de pagamento, cadastro ou regras financeiras durante esta análise.
+Sem executar comandos destrutivos, criar chaves/API ou transmitir dados reais do produtor para serviços externos.
+Operações críticas — enviar mensagens, alterar preço, registrar vendas, excluir ou atualizar estoque — dependem de confirmação explícita.
+Informar origem dos dados, período analisado e grau de confiança; dados insuficientes geram “não há dados suficientes”, não conclusões inventadas.
+Suportar nomes locais, fala coloquial, singular/plural e sinônimos já previstos nas diretrizes e no catálogo do aplicativo.
+Evitar análise meteorológica “ao vivo” sem conexão; se usar cache, informar o horário da atualização.
+Prever testes unitários, integração, regressão e funcionamento offline; impedir quebra dos fluxos existentes.
+6. Entregáveis exigidos antes de qualquer implementação
+Resumo executivo: JÁ EXISTE / EXISTE PARCIALMENTE / NÃO EXISTE e RECOMENDO / NÃO RECOMENDO, com justificativa.
+Mapa dos componentes atuais: arquivos/caminhos, funções, fluxos de dados, reutilização possível e lacunas.
+Tabela “recurso atual × proposta × duplicidade × ação recomendada”.
+Comparação das alternativas A/B/C, incluindo riscos e impacto de desempenho/manutenção.
+Proposta mínima de arquitetura, sequência de integração e testes — apenas se recomendada.
+Lista explícita dos arquivos que seriam alterados, migrações necessárias, riscos de regressão e estratégia de reversão.
+Perguntas pendentes realmente impeditivas. Encerrar e aguardar autorização antes de editar arquivos ou gerar um novo APK.
+7. Formato sugerido para a resposta do Codex
+Item
+Resposta esperada
+Sistema equivalente já implementado?
+Sim / Parcial / Não + evidências
+É recomendável criar?
+Sim / Não / Apenas consolidar + motivos
+O que pode ser reaproveitado?
+Classes, serviços, regras e referências
+Riscos prioritários
+Regressões, duplicações, offline e custo
+Próximo passo mínimo
+Plano sem alterações automáticas
+INSTRUÇÃO FINAL AO CODEX: nesta execução, faça apenas inspeção, diagnóstico e recomendação. Não implemente o Gerente, não altere código, não gere APK e não instale dependências sem aprovação posterior.

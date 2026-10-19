@@ -75,3 +75,10 @@ export function insightSheetGeometry(rect, source, lite = false) {
     origin: `${clamp((source?.cx ?? cx) - left, width * 0.35, width * 0.65).toFixed(2)}px ${clamp((source?.cy ?? cy) - top, height * 0.35, height * 0.65).toFixed(2)}px`,
   };
 }
+
+// Navigation gets a visible expansion from the touched tab. All panels share
+// this pivot; no independent stagger, font blur, or full-page DOM copy.
+export function navigationEntryGeometry(width,height,source,lite=false){
+ const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+ return {x:0,y:0,scale:lite?.96:.88,origin:`${clamp(source?.cx??width/2,0,width).toFixed(2)}px ${clamp(source?.cy??height*.85,0,height).toFixed(2)}px`};
+}

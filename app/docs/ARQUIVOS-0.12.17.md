@@ -1,0 +1,53 @@
+# Arquivos alterados — 0.12.17
+
+Caminhos relativos ao repositório publicado; `app/` corresponde a `agro-gestao/` no workspace local.
+
+- `AGENTS.md`
+- `app/android/app/build.gradle`
+- `app/docs/ARQUIVOS-0.12.17.md`
+- `app/docs/ENTREGA-0.12.17.md`
+- `app/docs/GERENTE-AVALIACAO-0.12.17.md`
+- `app/docs/references/AGRO_Gestao_Avaliacao_Gerente_Inteligente_Codex.txt`
+- `app/package-lock.json`
+- `app/package.json`
+- `app/src/features/agent/agent.css`
+- `app/src/features/agent/core.js`
+- `app/src/features/agent/index.js`
+- `app/src/features/day-summary.js`
+- `app/src/features/event-learning.js`
+- `app/src/features/interface.js`
+- `app/src/features/motion/geometry.js`
+- `app/src/features/motion/index.js`
+- `app/src/features/portfolio.js`
+- `app/src/features/server.js`
+- `app/src/features/stock-order.js`
+- `app/src/features/store/index.js`
+- `app/src/features/store/store.css`
+- `app/src/features/workflows/index.js`
+- `app/src/features/workflows/workflows.css`
+- `app/src/legacy/erp-core.js`
+- `app/src/legacy/erp-ui.js`
+- `app/src/main.js`
+- `app/tests/event-learning.test.mjs`
+- `app/tests/store-manager-motion.test.mjs`
+- `portfolio-server/src/page.js`
+- `portfolio-server/src/schema.js`
+- `portfolio-server/src/shop-page.js`
+- `portfolio-server/src/shop.js`
+- `portfolio-server/src/worker.js`
+- `portfolio-server/tests/shop-smoke.mjs`
+- `portfolio-server/tests/shop.test.mjs`
+- `portfolio-server/wrangler.toml`
+- `qa/events017-summary-qa.cjs`
+- `qa/events017-summary-qa.json`
+- `qa/store017-journey.cjs`
+- `qa/store017-journey.json`
+- `qa/unit-workflows017.txt`
+- `qa/workflows017-durable-qa.cjs`
+- `qa/workflows017-durable-qa.json`
+- `qa/workflows017-qa.cjs`
+- `qa/workflows017-qa.json`
+- `qa/workflows017-regression-qa.json`
+- `qa/workflows017-regression.cjs`
+- `qa/workflows017-voice-qa.cjs`
+- `qa/workflows017-voice-qa.json`

@@ -6,7 +6,7 @@ compatibility_date = "2026-09-01"
 # Allowed browser origins for the publishing API: the Android app (Capacitor serves from https://localhost)
 # and the local dev server.
 [vars]
-APP_ORIGINS = "https://localhost,http://localhost:5173,http://localhost:5174"
+APP_ORIGINS = "https://localhost,http://localhost:5173,http://localhost:5174,http://localhost:5178,http://127.0.0.1:5178"
 
 # Create with: npx wrangler kv namespace create PORTFOLIOS — then paste the id below.
 [[kv_namespaces]]
@@ -17,3 +17,11 @@ id = "3ec2ae7ef3bf4abdba0fe941ca1c9d9b"
 [[kv_namespaces]]
 binding = "BACKUPS"
 id = "197924e88f61493f9e670718ccb5ee02"
+
+[[durable_objects.bindings]]
+name = "SHOPS"
+class_name = "ProducerShop"
+
+[[migrations]]
+tag = "shop-v1"
+new_sqlite_classes = ["ProducerShop"]

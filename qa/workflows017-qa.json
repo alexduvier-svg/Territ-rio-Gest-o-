@@ -1,0 +1,2631 @@
+{
+  "synthetic": true,
+  "checks": [
+    "fresh installation is empty, actor persists",
+    "320 multi-sale all collapsed",
+    "320 client and locality",
+    "320 exact stock alert",
+    "320 event preparation and cancel",
+    "320 observed demand persisted",
+    "320 in-app photos and consented bulk messages",
+    "320 double tap opens the selected stock",
+    "320 category summary and idempotent daily cost",
+    "320 + Products on right and visible New sale without QR",
+    "320 return from store history hides values",
+    "320 stock family shows five and safely collapses extras",
+    "320 coherent tab spring settles and stops scheduling frames",
+    "320 manager uses sources and leaves business records unchanged",
+    "360 multi-sale all collapsed",
+    "360 client and locality",
+    "360 exact stock alert",
+    "360 event preparation and cancel",
+    "360 observed demand persisted",
+    "360 in-app photos and consented bulk messages",
+    "360 double tap opens the selected stock",
+    "360 category summary and idempotent daily cost",
+    "360 + Products on right and visible New sale without QR",
+    "360 return from store history hides values",
+    "360 stock family shows five and safely collapses extras",
+    "360 coherent tab spring settles and stops scheduling frames",
+    "360 manager uses sources and leaves business records unchanged",
+    "393 multi-sale all collapsed",
+    "393 client and locality",
+    "393 exact stock alert",
+    "393 event preparation and cancel",
+    "393 observed demand persisted",
+    "393 in-app photos and consented bulk messages",
+    "393 double tap opens the selected stock",
+    "393 category summary and idempotent daily cost",
+    "393 + Products on right and visible New sale without QR",
+    "393 return from store history hides values",
+    "393 stock family shows five and safely collapses extras",
+    "393 coherent tab spring settles and stops scheduling frames",
+    "393 manager uses sources and leaves business records unchanged",
+    "412 multi-sale all collapsed",
+    "412 client and locality",
+    "412 exact stock alert",
+    "412 event preparation and cancel",
+    "412 observed demand persisted",
+    "412 in-app photos and consented bulk messages",
+    "412 double tap opens the selected stock",
+    "412 category summary and idempotent daily cost",
+    "412 + Products on right and visible New sale without QR",
+    "412 return from store history hides values",
+    "412 stock family shows five and safely collapses extras",
+    "412 coherent tab spring settles and stops scheduling frames",
+    "412 manager uses sources and leaves business records unchanged"
+  ],
+  "surfaces": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "client",
+      "g": {
+        "rect": {
+          "x": 20.008407592773438,
+          "y": 222.7354278564453,
+          "width": 279.983154296875,
+          "height": 294.7322998046875,
+          "top": 222.7354278564453,
+          "right": 299.99156188964844,
+          "bottom": 517.4677276611328,
+          "left": 20.008407592773438
+        },
+        "footer": {
+          "x": 21.00834846496582,
+          "y": 438.47247314453125,
+          "width": 277.9832763671875,
+          "height": 77.99530029296875,
+          "top": 438.47247314453125,
+          "right": 298.9916248321533,
+          "bottom": 516.4677734375,
+          "left": 21.00834846496582
+        },
+        "header": {
+          "x": 21.00834846496582,
+          "y": 223.73536682128906,
+          "width": 277.9832763671875,
+          "height": 65.15232849121094,
+          "top": 223.73536682128906,
+          "right": 298.9916248321533,
+          "bottom": 288.8876953125,
+          "left": 21.00834846496582
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 35.00750732421875,
+              "y": 452.47161865234375,
+              "width": 249.9849853515625,
+              "height": 47.99713134765625,
+              "top": 452.47161865234375,
+              "right": 284.99249267578125,
+              "bottom": 500.46875,
+              "left": 35.00750732421875
+            },
+            "scroll": 248,
+            "client": 248
+          }
+        ],
+        "scroll": 150,
+        "client": 150
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "origin",
+      "g": {
+        "rect": {
+          "x": 20.011199951171875,
+          "y": 195.30191040039062,
+          "width": 279.97760009765625,
+          "height": 349.7063903808594,
+          "top": 195.30191040039062,
+          "right": 299.9888000488281,
+          "bottom": 545.00830078125,
+          "left": 20.011199951171875
+        },
+        "footer": {
+          "x": 21.011119842529297,
+          "y": 466.0146179199219,
+          "width": 277.977783203125,
+          "height": 77.99380493164062,
+          "top": 466.0146179199219,
+          "right": 298.9889030456543,
+          "bottom": 544.0084228515625,
+          "left": 21.011119842529297
+        },
+        "header": {
+          "x": 21.011119842529297,
+          "y": 196.3018341064453,
+          "width": 277.977783203125,
+          "height": 65.15104675292969,
+          "top": 196.3018341064453,
+          "right": 298.9889030456543,
+          "bottom": 261.452880859375,
+          "left": 21.011119842529297
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 35.01000213623047,
+              "y": 480.0135192871094,
+              "width": 249.97998046875,
+              "height": 47.996124267578125,
+              "top": 480.0135192871094,
+              "right": 284.98998260498047,
+              "bottom": 528.0096435546875,
+              "left": 35.01000213623047
+            },
+            "scroll": 248,
+            "client": 248
+          }
+        ],
+        "scroll": 205,
+        "client": 205
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "neighborhood",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 66.59375,
+          "width": 280,
+          "height": 606.796875,
+          "top": 66.59375,
+          "right": 300,
+          "bottom": 673.390625,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 597.390625,
+          "width": 278,
+          "height": 75,
+          "top": 597.390625,
+          "right": 299,
+          "bottom": 672.390625,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 67.59375,
+          "width": 278,
+          "height": 60.125,
+          "top": 67.59375,
+          "right": 299,
+          "bottom": 127.71875,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 610.390625,
+              "width": 238,
+              "height": 48,
+              "top": 610.390625,
+              "right": 279,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          }
+        ],
+        "scroll": 813,
+        "client": 470
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "create-event",
+      "g": {
+        "rect": {
+          "x": 20.009796142578125,
+          "y": 66.86842346191406,
+          "width": 279.98040771484375,
+          "height": 606.75439453125,
+          "top": 66.86842346191406,
+          "right": 299.9902038574219,
+          "bottom": 673.6228179931641,
+          "left": 20.009796142578125
+        },
+        "footer": {
+          "x": 21.00972557067871,
+          "y": 536.6949462890625,
+          "width": 277.98052978515625,
+          "height": 135.92791748046875,
+          "top": 536.6949462890625,
+          "right": 298.99025535583496,
+          "bottom": 672.6228637695312,
+          "left": 21.00972557067871
+        },
+        "header": {
+          "x": 21.00972557067871,
+          "y": 67.86835479736328,
+          "width": 277.98052978515625,
+          "height": 60.12079620361328,
+          "top": 67.86835479736328,
+          "right": 298.99025535583496,
+          "bottom": 127.98915100097656,
+          "left": 21.00972557067871
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41.00832748413086,
+              "y": 549.6940307617188,
+              "width": 237.98333740234375,
+              "height": 50.93389892578125,
+              "top": 549.6940307617188,
+              "right": 278.9916648864746,
+              "bottom": 600.6279296875,
+              "left": 41.00832748413086
+            },
+            "scroll": 236,
+            "client": 236
+          },
+          {
+            "rect": {
+              "x": 41.00832748413086,
+              "y": 610.6272583007812,
+              "width": 237.98333740234375,
+              "height": 47.99664306640625,
+              "top": 610.6272583007812,
+              "right": 278.9916648864746,
+              "bottom": 658.6239013671875,
+              "left": 41.00832748413086
+            },
+            "scroll": 236,
+            "client": 236
+          }
+        ],
+        "scroll": 891,
+        "client": 409
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "event-load-keypad",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 37,
+          "width": 280,
+          "height": 666,
+          "top": 37,
+          "right": 300,
+          "bottom": 703,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 348.140625,
+          "width": 278,
+          "height": 139.671875,
+          "top": 348.140625,
+          "right": 299,
+          "bottom": 487.8125,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 38,
+          "width": 278,
+          "height": 79,
+          "top": 38,
+          "right": 299,
+          "bottom": 117,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 37,
+              "y": 361.140625,
+              "width": 246,
+              "height": 46.890625,
+              "top": 361.140625,
+              "right": 283,
+              "bottom": 408.03125,
+              "left": 37
+            },
+            "scroll": 244,
+            "client": 244
+          },
+          {
+            "rect": {
+              "x": 37,
+              "y": 416.03125,
+              "width": 119,
+              "height": 57.78125,
+              "top": 416.03125,
+              "right": 156,
+              "bottom": 473.8125,
+              "left": 37
+            },
+            "scroll": 117,
+            "client": 117
+          },
+          {
+            "rect": {
+              "x": 164,
+              "y": 416.03125,
+              "width": 119,
+              "height": 57.78125,
+              "top": 416.03125,
+              "right": 283,
+              "bottom": 473.8125,
+              "left": 164
+            },
+            "scroll": 117,
+            "client": 117
+          }
+        ],
+        "scroll": 1506,
+        "client": 231
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "bulk-review",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 193.859375,
+          "width": 280,
+          "height": 352.28125,
+          "top": 193.859375,
+          "right": 300,
+          "bottom": 546.140625,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 470.140625,
+          "width": 278,
+          "height": 75,
+          "top": 470.140625,
+          "right": 299,
+          "bottom": 545.140625,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 194.859375,
+          "width": 278,
+          "height": 60.125,
+          "top": 194.859375,
+          "right": 299,
+          "bottom": 254.984375,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 483.140625,
+              "width": 238,
+              "height": 48,
+              "top": 483.140625,
+              "right": 279,
+              "bottom": 531.140625,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          }
+        ],
+        "scroll": 215,
+        "client": 215
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "brand-and-photos",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 66.59375,
+          "width": 280,
+          "height": 606.796875,
+          "top": 66.59375,
+          "right": 300,
+          "bottom": 673.390625,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 494.5,
+          "width": 278,
+          "height": 177.890625,
+          "top": 494.5,
+          "right": 299,
+          "bottom": 672.390625,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 67.59375,
+          "width": 278,
+          "height": 60.125,
+          "top": 67.59375,
+          "right": 299,
+          "bottom": 127.71875,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 507.5,
+              "width": 238,
+              "height": 44,
+              "top": 507.5,
+              "right": 279,
+              "bottom": 551.5,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 559.5,
+              "width": 238,
+              "height": 46.890625,
+              "top": 559.5,
+              "right": 279,
+              "bottom": 606.390625,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 614.390625,
+              "width": 238,
+              "height": 44,
+              "top": 614.390625,
+              "right": 279,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          }
+        ],
+        "scroll": 1210,
+        "client": 367
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "day-summary-extra-cost",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 66.59375,
+          "width": 280,
+          "height": 606.796875,
+          "top": 66.59375,
+          "right": 300,
+          "bottom": 673.390625,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 597.390625,
+          "width": 278,
+          "height": 75,
+          "top": 597.390625,
+          "right": 299,
+          "bottom": 672.390625,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 67.59375,
+          "width": 278,
+          "height": 60.125,
+          "top": 67.59375,
+          "right": 299,
+          "bottom": 127.71875,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 610.390625,
+              "width": 238,
+              "height": 48,
+              "top": 610.390625,
+              "right": 279,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          }
+        ],
+        "scroll": 736,
+        "client": 470
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "name": "registered-sale",
+      "g": {
+        "rect": {
+          "x": 20.001602172851562,
+          "y": 135.59681701660156,
+          "width": 279.89080810546875,
+          "height": 469.0045166015625,
+          "top": 135.59681701660156,
+          "right": 299.8924102783203,
+          "bottom": 604.6013336181641,
+          "left": 20.001602172851562
+        },
+        "footer": {
+          "x": 21.00121307373047,
+          "y": 466.6551513671875,
+          "width": 277.8916015625,
+          "height": 136.94659423828125,
+          "top": 466.6551513671875,
+          "right": 298.89281463623047,
+          "bottom": 603.6017456054688,
+          "left": 21.00121307373047
+        },
+        "header": {
+          "x": 21.00121307373047,
+          "y": 136.59642028808594,
+          "width": 277.8916015625,
+          "height": 32.98713684082031,
+          "top": 136.59642028808594,
+          "right": 298.89281463623047,
+          "bottom": 169.58355712890625,
+          "left": 21.00121307373047
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 36.994972229003906,
+              "y": 479.65008544921875,
+              "width": 245.90408325195312,
+              "height": 51.979736328125,
+              "top": 479.65008544921875,
+              "right": 282.89905548095703,
+              "bottom": 531.6298217773438,
+              "left": 36.994972229003906
+            },
+            "scroll": 244,
+            "client": 244
+          },
+          {
+            "rect": {
+              "x": 36.994972229003906,
+              "y": 539.626708984375,
+              "width": 245.90408325195312,
+              "height": 47.98126220703125,
+              "top": 539.626708984375,
+              "right": 282.89905548095703,
+              "bottom": 587.6079711914062,
+              "left": 36.994972229003906
+            },
+            "scroll": 246,
+            "client": 246
+          }
+        ],
+        "scroll": 297,
+        "client": 297
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "client",
+      "g": {
+        "rect": {
+          "x": 20.012802124023438,
+          "y": 243.78993225097656,
+          "width": 319.974365234375,
+          "height": 304.72564697265625,
+          "top": 243.78993225097656,
+          "right": 339.98716735839844,
+          "bottom": 548.5155792236328,
+          "left": 20.012802124023438
+        },
+        "footer": {
+          "x": 21.01272201538086,
+          "y": 469.5218811035156,
+          "width": 317.9745788574219,
+          "height": 77.99374389648438,
+          "top": 469.5218811035156,
+          "right": 338.98730087280273,
+          "bottom": 547.515625,
+          "left": 21.01272201538086
+        },
+        "header": {
+          "x": 21.01272201538086,
+          "y": 244.78985595703125,
+          "width": 317.9745788574219,
+          "height": 69.15069580078125,
+          "top": 244.78985595703125,
+          "right": 338.98730087280273,
+          "bottom": 313.9405517578125,
+          "left": 21.01272201538086
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 39.01128387451172,
+              "y": 483.520751953125,
+              "width": 281.9774169921875,
+              "height": 47.99615478515625,
+              "top": 483.520751953125,
+              "right": 320.9887008666992,
+              "bottom": 531.5169067382812,
+              "left": 39.01128387451172
+            },
+            "scroll": 280,
+            "client": 280
+          }
+        ],
+        "scroll": 156,
+        "client": 156
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "origin",
+      "g": {
+        "rect": {
+          "x": 20.012802124023438,
+          "y": 213.20855712890625,
+          "width": 319.974365234375,
+          "height": 365.92388916015625,
+          "top": 213.20855712890625,
+          "right": 339.98716735839844,
+          "bottom": 579.1324462890625,
+          "left": 20.012802124023438
+        },
+        "footer": {
+          "x": 21.01272201538086,
+          "y": 500.13873291015625,
+          "width": 317.9745788574219,
+          "height": 77.99371337890625,
+          "top": 500.13873291015625,
+          "right": 338.98730087280273,
+          "bottom": 578.1324462890625,
+          "left": 21.01272201538086
+        },
+        "header": {
+          "x": 21.01272201538086,
+          "y": 214.20848083496094,
+          "width": 317.9745788574219,
+          "height": 69.15071105957031,
+          "top": 214.20848083496094,
+          "right": 338.98730087280273,
+          "bottom": 283.35919189453125,
+          "left": 21.01272201538086
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 39.01128387451172,
+              "y": 514.1375732421875,
+              "width": 281.9774169921875,
+              "height": 47.9962158203125,
+              "top": 514.1375732421875,
+              "right": 320.9887008666992,
+              "bottom": 562.1337890625,
+              "left": 39.01128387451172
+            },
+            "scroll": 280,
+            "client": 280
+          }
+        ],
+        "scroll": 217,
+        "client": 217
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "neighborhood",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 71.28125,
+          "width": 320,
+          "height": 649.4375,
+          "top": 71.28125,
+          "right": 340,
+          "bottom": 720.71875,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 644.71875,
+          "width": 318,
+          "height": 75,
+          "top": 644.71875,
+          "right": 339,
+          "bottom": 719.71875,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 72.28125,
+          "width": 318,
+          "height": 68.5,
+          "top": 72.28125,
+          "right": 339,
+          "bottom": 140.78125,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 657.71875,
+              "width": 278,
+              "height": 48,
+              "top": 657.71875,
+              "right": 319,
+              "bottom": 705.71875,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          }
+        ],
+        "scroll": 787,
+        "client": 504
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "create-event",
+      "g": {
+        "rect": {
+          "x": 20.012802124023438,
+          "y": 71.60118103027344,
+          "width": 319.974365234375,
+          "height": 649.3855590820312,
+          "top": 71.60118103027344,
+          "right": 339.98716735839844,
+          "bottom": 720.9867401123047,
+          "left": 20.012802124023438
+        },
+        "footer": {
+          "x": 21.01272201538086,
+          "y": 584.0601806640625,
+          "width": 317.9745788574219,
+          "height": 135.9266357421875,
+          "top": 584.0601806640625,
+          "right": 338.98730087280273,
+          "bottom": 719.98681640625,
+          "left": 21.01272201538086
+        },
+        "header": {
+          "x": 21.01272201538086,
+          "y": 72.60110473632812,
+          "width": 317.9745788574219,
+          "height": 68.4945068359375,
+          "top": 72.60110473632812,
+          "right": 338.98730087280273,
+          "bottom": 141.09561157226562,
+          "left": 21.01272201538086
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41.01112365722656,
+              "y": 597.0591430664062,
+              "width": 277.977783203125,
+              "height": 50.9334716796875,
+              "top": 597.0591430664062,
+              "right": 318.98890686035156,
+              "bottom": 647.9926147460938,
+              "left": 41.01112365722656
+            },
+            "scroll": 276,
+            "client": 276
+          },
+          {
+            "rect": {
+              "x": 41.01112365722656,
+              "y": 657.9917602539062,
+              "width": 277.977783203125,
+              "height": 47.9962158203125,
+              "top": 657.9917602539062,
+              "right": 318.98890686035156,
+              "bottom": 705.9879760742188,
+              "left": 41.01112365722656
+            },
+            "scroll": 276,
+            "client": 276
+          }
+        ],
+        "scroll": 895,
+        "client": 443
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "event-load-keypad",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 39.59375,
+          "width": 320,
+          "height": 712.796875,
+          "top": 39.59375,
+          "right": 340,
+          "bottom": 752.390625,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 405.53125,
+          "width": 318,
+          "height": 139.671875,
+          "top": 405.53125,
+          "right": 339,
+          "bottom": 545.203125,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 40.59375,
+          "width": 318,
+          "height": 79,
+          "top": 40.59375,
+          "right": 339,
+          "bottom": 119.59375,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 418.53125,
+              "width": 278,
+              "height": 46.890625,
+              "top": 418.53125,
+              "right": 319,
+              "bottom": 465.421875,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 473.421875,
+              "width": 135,
+              "height": 57.78125,
+              "top": 473.421875,
+              "right": 176,
+              "bottom": 531.203125,
+              "left": 41
+            },
+            "scroll": 133,
+            "client": 133
+          },
+          {
+            "rect": {
+              "x": 184,
+              "y": 473.421875,
+              "width": 135,
+              "height": 57.78125,
+              "top": 473.421875,
+              "right": 319,
+              "bottom": 531.203125,
+              "left": 184
+            },
+            "scroll": 133,
+            "client": 133
+          }
+        ],
+        "scroll": 1286,
+        "client": 286
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "bulk-review",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 213.671875,
+          "width": 320,
+          "height": 364.65625,
+          "top": 213.671875,
+          "right": 340,
+          "bottom": 578.328125,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 502.328125,
+          "width": 318,
+          "height": 75,
+          "top": 502.328125,
+          "right": 339,
+          "bottom": 577.328125,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 214.671875,
+          "width": 318,
+          "height": 68.5,
+          "top": 214.671875,
+          "right": 339,
+          "bottom": 283.171875,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 515.328125,
+              "width": 278,
+              "height": 48,
+              "top": 515.328125,
+              "right": 319,
+              "bottom": 563.328125,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          }
+        ],
+        "scroll": 219,
+        "client": 219
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "brand-and-photos",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 71.28125,
+          "width": 320,
+          "height": 649.4375,
+          "top": 71.28125,
+          "right": 340,
+          "bottom": 720.71875,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 541.828125,
+          "width": 318,
+          "height": 177.890625,
+          "top": 541.828125,
+          "right": 339,
+          "bottom": 719.71875,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 72.28125,
+          "width": 318,
+          "height": 68.5,
+          "top": 72.28125,
+          "right": 339,
+          "bottom": 140.78125,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 554.828125,
+              "width": 278,
+              "height": 44,
+              "top": 554.828125,
+              "right": 319,
+              "bottom": 598.828125,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 606.828125,
+              "width": 278,
+              "height": 46.890625,
+              "top": 606.828125,
+              "right": 319,
+              "bottom": 653.71875,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 661.71875,
+              "width": 278,
+              "height": 44,
+              "top": 661.71875,
+              "right": 319,
+              "bottom": 705.71875,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          }
+        ],
+        "scroll": 1214,
+        "client": 401
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "day-summary-extra-cost",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 71.28125,
+          "width": 320,
+          "height": 649.4375,
+          "top": 71.28125,
+          "right": 340,
+          "bottom": 720.71875,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 644.71875,
+          "width": 318,
+          "height": 75,
+          "top": 644.71875,
+          "right": 339,
+          "bottom": 719.71875,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 72.28125,
+          "width": 318,
+          "height": 68.5,
+          "top": 72.28125,
+          "right": 339,
+          "bottom": 140.78125,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 657.71875,
+              "width": 278,
+              "height": 48,
+              "top": 657.71875,
+              "right": 319,
+              "bottom": 705.71875,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          }
+        ],
+        "scroll": 723,
+        "client": 504
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "name": "registered-sale",
+      "g": {
+        "rect": {
+          "x": 20.001388549804688,
+          "y": 153.85739135742188,
+          "width": 319.87518310546875,
+          "height": 484.4360046386719,
+          "top": 153.85739135742188,
+          "right": 339.87657165527344,
+          "bottom": 638.2933959960938,
+          "left": 20.001388549804688
+        },
+        "footer": {
+          "x": 21.000999450683594,
+          "y": 496.3487548828125,
+          "width": 317.8759460449219,
+          "height": 140.945068359375,
+          "top": 496.3487548828125,
+          "right": 338.87694549560547,
+          "bottom": 637.2938232421875,
+          "left": 21.000999450683594
+        },
+        "header": {
+          "x": 21.000999450683594,
+          "y": 154.85699462890625,
+          "width": 317.8759460449219,
+          "height": 38.98480224609375,
+          "top": 154.85699462890625,
+          "right": 338.87694549560547,
+          "bottom": 193.841796875,
+          "left": 21.000999450683594
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 40.99319839477539,
+              "y": 511.3429260253906,
+              "width": 277.8915710449219,
+              "height": 51.979705810546875,
+              "top": 511.3429260253906,
+              "right": 318.88476943969727,
+              "bottom": 563.3226318359375,
+              "left": 40.99319839477539
+            },
+            "scroll": 276,
+            "client": 276
+          },
+          {
+            "rect": {
+              "x": 40.99319839477539,
+              "y": 571.3195190429688,
+              "width": 277.8915710449219,
+              "height": 47.98126220703125,
+              "top": 571.3195190429688,
+              "right": 318.88476943969727,
+              "bottom": 619.30078125,
+              "left": 40.99319839477539
+            },
+            "scroll": 278,
+            "client": 278
+          }
+        ],
+        "scroll": 303,
+        "client": 303
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "client",
+      "g": {
+        "rect": {
+          "x": 20.008819580078125,
+          "y": 213.76107788085938,
+          "width": 352.98236083984375,
+          "height": 312.6250305175781,
+          "top": 213.76107788085938,
+          "right": 372.9911804199219,
+          "bottom": 526.3861083984375,
+          "left": 20.008819580078125
+        },
+        "footer": {
+          "x": 21.008769989013672,
+          "y": 447.3900146484375,
+          "width": 350.9824523925781,
+          "height": 77.99609375,
+          "top": 447.3900146484375,
+          "right": 371.9912223815918,
+          "bottom": 525.3861083984375,
+          "left": 21.008769989013672
+        },
+        "header": {
+          "x": 21.008769989013672,
+          "y": 214.7610321044922,
+          "width": 350.9824523925781,
+          "height": 69.15278625488281,
+          "top": 214.7610321044922,
+          "right": 371.9912223815918,
+          "bottom": 283.913818359375,
+          "left": 21.008769989013672
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 39.007869720458984,
+              "y": 461.3893127441406,
+              "width": 314.9842529296875,
+              "height": 47.99761962890625,
+              "top": 461.3893127441406,
+              "right": 353.9921226501465,
+              "bottom": 509.3869323730469,
+              "left": 39.007869720458984
+            },
+            "scroll": 313,
+            "client": 313
+          }
+        ],
+        "scroll": 163,
+        "client": 163
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "origin",
+      "g": {
+        "rect": {
+          "x": 20.014114379882812,
+          "y": 181.5937957763672,
+          "width": 352.9718017578125,
+          "height": 377.11041259765625,
+          "top": 181.5937957763672,
+          "right": 372.9859161376953,
+          "bottom": 558.7042083740234,
+          "left": 20.014114379882812
+        },
+        "footer": {
+          "x": 21.014034271240234,
+          "y": 479.7105712890625,
+          "width": 350.971923828125,
+          "height": 77.9937744140625,
+          "top": 479.7105712890625,
+          "right": 371.98595809936523,
+          "bottom": 557.704345703125,
+          "left": 21.014034271240234
+        },
+        "header": {
+          "x": 21.014034271240234,
+          "y": 182.59371948242188,
+          "width": 350.971923828125,
+          "height": 69.15071105957031,
+          "top": 182.59371948242188,
+          "right": 371.98595809936523,
+          "bottom": 251.7444305419922,
+          "left": 21.014034271240234
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 39.012596130371094,
+              "y": 493.70947265625,
+              "width": 314.9748229980469,
+              "height": 47.99615478515625,
+              "top": 493.70947265625,
+              "right": 353.98741912841797,
+              "bottom": 541.7056274414062,
+              "left": 39.012596130371094
+            },
+            "scroll": 313,
+            "client": 313
+          }
+        ],
+        "scroll": 228,
+        "client": 228
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "neighborhood",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 66.59375,
+          "width": 353,
+          "height": 606.796875,
+          "top": 66.59375,
+          "right": 373,
+          "bottom": 673.390625,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 597.390625,
+          "width": 351,
+          "height": 75,
+          "top": 597.390625,
+          "right": 372,
+          "bottom": 672.390625,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 67.59375,
+          "width": 351,
+          "height": 68.5,
+          "top": 67.59375,
+          "right": 372,
+          "bottom": 136.09375,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 610.390625,
+              "width": 311,
+              "height": 48,
+              "top": 610.390625,
+              "right": 352,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          }
+        ],
+        "scroll": 756,
+        "client": 461
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "create-event",
+      "g": {
+        "rect": {
+          "x": 20.005294799804688,
+          "y": 66.71646881103516,
+          "width": 352.9893798828125,
+          "height": 606.7786865234375,
+          "top": 66.71646881103516,
+          "right": 372.9946746826172,
+          "bottom": 673.4951553344727,
+          "left": 20.005294799804688
+        },
+        "footer": {
+          "x": 21.005264282226562,
+          "y": 533.8587036132812,
+          "width": 350.989501953125,
+          "height": 138.636474609375,
+          "top": 533.8587036132812,
+          "right": 371.99476623535156,
+          "bottom": 672.4951782226562,
+          "left": 21.005264282226562
+        },
+        "header": {
+          "x": 21.005264282226562,
+          "y": 67.71643829345703,
+          "width": 350.989501953125,
+          "height": 68.4979476928711,
+          "top": 67.71643829345703,
+          "right": 371.99476623535156,
+          "bottom": 136.21438598632812,
+          "left": 21.005264282226562
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41.00466537475586,
+              "y": 546.8583374023438,
+              "width": 310.9906921386719,
+              "height": 53.6390380859375,
+              "top": 546.8583374023438,
+              "right": 351.99535751342773,
+              "bottom": 600.4973754882812,
+              "left": 41.00466537475586
+            },
+            "scroll": 309,
+            "client": 309
+          },
+          {
+            "rect": {
+              "x": 41.00466537475586,
+              "y": 610.4970703125,
+              "width": 310.9906921386719,
+              "height": 47.99853515625,
+              "top": 610.4970703125,
+              "right": 351.99535751342773,
+              "bottom": 658.49560546875,
+              "left": 41.00466537475586
+            },
+            "scroll": 309,
+            "client": 309
+          }
+        ],
+        "scroll": 901,
+        "client": 398
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "event-load-keypad",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 37,
+          "width": 353,
+          "height": 666,
+          "top": 37,
+          "right": 373,
+          "bottom": 703,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 361.921875,
+          "width": 351,
+          "height": 125.890625,
+          "top": 361.921875,
+          "right": 372,
+          "bottom": 487.8125,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 38,
+          "width": 351,
+          "height": 79,
+          "top": 38,
+          "right": 372,
+          "bottom": 117,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 374.921875,
+              "width": 311,
+              "height": 46.890625,
+              "top": 374.921875,
+              "right": 352,
+              "bottom": 421.8125,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 429.8125,
+              "width": 151.5,
+              "height": 44,
+              "top": 429.8125,
+              "right": 192.5,
+              "bottom": 473.8125,
+              "left": 41
+            },
+            "scroll": 150,
+            "client": 150
+          },
+          {
+            "rect": {
+              "x": 200.5,
+              "y": 429.8125,
+              "width": 151.5,
+              "height": 44,
+              "top": 429.8125,
+              "right": 352,
+              "bottom": 473.8125,
+              "left": 200.5
+            },
+            "scroll": 150,
+            "client": 150
+          }
+        ],
+        "scroll": 1085,
+        "client": 245
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "bulk-review",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 199.5625,
+          "width": 353,
+          "height": 340.859375,
+          "top": 199.5625,
+          "right": 373,
+          "bottom": 540.421875,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 464.421875,
+          "width": 351,
+          "height": 75,
+          "top": 464.421875,
+          "right": 372,
+          "bottom": 539.421875,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 200.5625,
+          "width": 351,
+          "height": 68.5,
+          "top": 200.5625,
+          "right": 372,
+          "bottom": 269.0625,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 477.421875,
+              "width": 311,
+              "height": 48,
+              "top": 477.421875,
+              "right": 352,
+              "bottom": 525.421875,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          }
+        ],
+        "scroll": 195,
+        "client": 195
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "brand-and-photos",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 66.59375,
+          "width": 353,
+          "height": 606.796875,
+          "top": 66.59375,
+          "right": 373,
+          "bottom": 673.390625,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 494.5,
+          "width": 351,
+          "height": 177.890625,
+          "top": 494.5,
+          "right": 372,
+          "bottom": 672.390625,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 67.59375,
+          "width": 351,
+          "height": 68.5,
+          "top": 67.59375,
+          "right": 372,
+          "bottom": 136.09375,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 507.5,
+              "width": 311,
+              "height": 44,
+              "top": 507.5,
+              "right": 352,
+              "bottom": 551.5,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 559.5,
+              "width": 311,
+              "height": 46.890625,
+              "top": 559.5,
+              "right": 352,
+              "bottom": 606.390625,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 614.390625,
+              "width": 311,
+              "height": 44,
+              "top": 614.390625,
+              "right": 352,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          }
+        ],
+        "scroll": 1193,
+        "client": 358
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "day-summary-extra-cost",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 66.59375,
+          "width": 353,
+          "height": 606.796875,
+          "top": 66.59375,
+          "right": 373,
+          "bottom": 673.390625,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 597.390625,
+          "width": 351,
+          "height": 75,
+          "top": 597.390625,
+          "right": 372,
+          "bottom": 672.390625,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 67.59375,
+          "width": 351,
+          "height": 68.5,
+          "top": 67.59375,
+          "right": 372,
+          "bottom": 136.09375,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 610.390625,
+              "width": 311,
+              "height": 48,
+              "top": 610.390625,
+              "right": 352,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          }
+        ],
+        "scroll": 729,
+        "client": 461
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "name": "registered-sale",
+      "g": {
+        "rect": {
+          "x": 20.000411987304688,
+          "y": 125.52134704589844,
+          "width": 352.961181640625,
+          "height": 488.99310302734375,
+          "top": 125.52134704589844,
+          "right": 372.9615936279297,
+          "bottom": 614.5144500732422,
+          "left": 20.000411987304688
+        },
+        "footer": {
+          "x": 21.000301361083984,
+          "y": 470.88958740234375,
+          "width": 350.96142578125,
+          "height": 142.62493896484375,
+          "top": 470.88958740234375,
+          "right": 371.961727142334,
+          "bottom": 613.5145263671875,
+          "left": 21.000301361083984
+        },
+        "header": {
+          "x": 21.000301361083984,
+          "y": 126.521240234375,
+          "width": 350.96142578125,
+          "height": 38.99571228027344,
+          "top": 126.521240234375,
+          "right": 371.961727142334,
+          "bottom": 165.51695251464844,
+          "left": 21.000301361083984
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 40.99810028076172,
+              "y": 485.887939453125,
+              "width": 310.9658203125,
+              "height": 53.634765625,
+              "top": 485.887939453125,
+              "right": 351.9639205932617,
+              "bottom": 539.522705078125,
+              "left": 40.99810028076172
+            },
+            "scroll": 309,
+            "client": 309
+          },
+          {
+            "rect": {
+              "x": 40.99810028076172,
+              "y": 547.5217895507812,
+              "width": 310.9658203125,
+              "height": 47.9947509765625,
+              "top": 547.5217895507812,
+              "right": 351.9639205932617,
+              "bottom": 595.5165405273438,
+              "left": 40.99810028076172
+            },
+            "scroll": 311,
+            "client": 311
+          }
+        ],
+        "scroll": 305,
+        "client": 305
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "client",
+      "g": {
+        "rect": {
+          "x": 20.01116943359375,
+          "y": 153.74729919433594,
+          "width": 371.9776611328125,
+          "height": 312.621826171875,
+          "top": 153.74729919433594,
+          "right": 391.98883056640625,
+          "bottom": 466.36912536621094,
+          "left": 20.01116943359375
+        },
+        "footer": {
+          "x": 21.011110305786133,
+          "y": 387.3739013671875,
+          "width": 369.977783203125,
+          "height": 77.99530029296875,
+          "top": 387.3739013671875,
+          "right": 390.98889350891113,
+          "bottom": 465.36920166015625,
+          "left": 21.011110305786133
+        },
+        "header": {
+          "x": 21.011110305786133,
+          "y": 154.7472381591797,
+          "width": 369.977783203125,
+          "height": 69.152099609375,
+          "top": 154.7472381591797,
+          "right": 390.98889350891113,
+          "bottom": 223.8993377685547,
+          "left": 21.011110305786133
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 39.01002883911133,
+              "y": 401.373046875,
+              "width": 333.9799499511719,
+              "height": 47.99713134765625,
+              "top": 401.373046875,
+              "right": 372.9899787902832,
+              "bottom": 449.37017822265625,
+              "left": 39.01002883911133
+            },
+            "scroll": 332,
+            "client": 332
+          }
+        ],
+        "scroll": 163,
+        "client": 163
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "origin",
+      "g": {
+        "rect": {
+          "x": 20.013015747070312,
+          "y": 121.54254150390625,
+          "width": 371.9739990234375,
+          "height": 377.1142272949219,
+          "top": 121.54254150390625,
+          "right": 391.9870147705078,
+          "bottom": 498.6567687988281,
+          "left": 20.013015747070312
+        },
+        "footer": {
+          "x": 21.0129451751709,
+          "y": 419.66229248046875,
+          "width": 369.97412109375,
+          "height": 77.99456787109375,
+          "top": 419.66229248046875,
+          "right": 390.9870662689209,
+          "bottom": 497.6568603515625,
+          "left": 21.0129451751709
+        },
+        "header": {
+          "x": 21.0129451751709,
+          "y": 122.54247283935547,
+          "width": 369.97412109375,
+          "height": 69.15140533447266,
+          "top": 122.54247283935547,
+          "right": 390.9870662689209,
+          "bottom": 191.69387817382812,
+          "left": 21.0129451751709
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 39.011688232421875,
+              "y": 433.66131591796875,
+              "width": 333.9766540527344,
+              "height": 47.99664306640625,
+              "top": 433.66131591796875,
+              "right": 372.98834228515625,
+              "bottom": 481.657958984375,
+              "left": 39.011688232421875
+            },
+            "scroll": 332,
+            "client": 332
+          }
+        ],
+        "scroll": 228,
+        "client": 228
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "neighborhood",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 55.796875,
+          "width": 372,
+          "height": 508.390625,
+          "top": 55.796875,
+          "right": 392,
+          "bottom": 564.1875,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 488.1875,
+          "width": 370,
+          "height": 75,
+          "top": 488.1875,
+          "right": 391,
+          "bottom": 563.1875,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 56.796875,
+          "width": 370,
+          "height": 68.5,
+          "top": 56.796875,
+          "right": 391,
+          "bottom": 125.296875,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 501.1875,
+              "width": 330,
+              "height": 48,
+              "top": 501.1875,
+              "right": 371,
+              "bottom": 549.1875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          }
+        ],
+        "scroll": 756,
+        "client": 363
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "create-event",
+      "g": {
+        "rect": {
+          "x": 20.01116943359375,
+          "y": 55.944305419921875,
+          "width": 371.9776611328125,
+          "height": 508.3601379394531,
+          "top": 55.944305419921875,
+          "right": 391.98883056640625,
+          "bottom": 564.304443359375,
+          "left": 20.01116943359375
+        },
+        "footer": {
+          "x": 21.011110305786133,
+          "y": 424.67218017578125,
+          "width": 369.977783203125,
+          "height": 138.63226318359375,
+          "top": 424.67218017578125,
+          "right": 390.98889350891113,
+          "bottom": 563.304443359375,
+          "left": 21.011110305786133
+        },
+        "header": {
+          "x": 21.011110305786133,
+          "y": 56.944244384765625,
+          "width": 369.977783203125,
+          "height": 68.49588775634766,
+          "top": 56.944244384765625,
+          "right": 390.98889350891113,
+          "bottom": 125.44013214111328,
+          "left": 21.011110305786133
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41.009910583496094,
+              "y": 437.67138671875,
+              "width": 329.9801940917969,
+              "height": 53.637420654296875,
+              "top": 437.67138671875,
+              "right": 370.99010467529297,
+              "bottom": 491.3088073730469,
+              "left": 41.009910583496094
+            },
+            "scroll": 328,
+            "client": 328
+          },
+          {
+            "rect": {
+              "x": 41.009910583496094,
+              "y": 501.3081970214844,
+              "width": 329.9801940917969,
+              "height": 47.997100830078125,
+              "top": 501.3081970214844,
+              "right": 370.99010467529297,
+              "bottom": 549.3052978515625,
+              "left": 41.009910583496094
+            },
+            "scroll": 328,
+            "client": 328
+          }
+        ],
+        "scroll": 901,
+        "client": 299
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "event-load-keypad",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 31,
+          "width": 372,
+          "height": 558,
+          "top": 31,
+          "right": 392,
+          "bottom": 589,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 255.921875,
+          "width": 370,
+          "height": 125.890625,
+          "top": 255.921875,
+          "right": 391,
+          "bottom": 381.8125,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 32,
+          "width": 370,
+          "height": 79,
+          "top": 32,
+          "right": 391,
+          "bottom": 111,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 268.921875,
+              "width": 330,
+              "height": 46.890625,
+              "top": 268.921875,
+              "right": 371,
+              "bottom": 315.8125,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 323.8125,
+              "width": 161,
+              "height": 44,
+              "top": 323.8125,
+              "right": 202,
+              "bottom": 367.8125,
+              "left": 41
+            },
+            "scroll": 159,
+            "client": 159
+          },
+          {
+            "rect": {
+              "x": 210,
+              "y": 323.8125,
+              "width": 161,
+              "height": 44,
+              "top": 323.8125,
+              "right": 371,
+              "bottom": 367.8125,
+              "left": 210
+            },
+            "scroll": 159,
+            "client": 159
+          }
+        ],
+        "scroll": 995,
+        "client": 145
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "bulk-review",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 139.5625,
+          "width": 372,
+          "height": 340.859375,
+          "top": 139.5625,
+          "right": 392,
+          "bottom": 480.421875,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 404.421875,
+          "width": 370,
+          "height": 75,
+          "top": 404.421875,
+          "right": 391,
+          "bottom": 479.421875,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 140.5625,
+          "width": 370,
+          "height": 68.5,
+          "top": 140.5625,
+          "right": 391,
+          "bottom": 209.0625,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 417.421875,
+              "width": 330,
+              "height": 48,
+              "top": 417.421875,
+              "right": 371,
+              "bottom": 465.421875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          }
+        ],
+        "scroll": 195,
+        "client": 195
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "brand-and-photos",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 55.796875,
+          "width": 372,
+          "height": 508.390625,
+          "top": 55.796875,
+          "right": 392,
+          "bottom": 564.1875,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 385.296875,
+          "width": 370,
+          "height": 177.890625,
+          "top": 385.296875,
+          "right": 391,
+          "bottom": 563.1875,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 56.796875,
+          "width": 370,
+          "height": 68.5,
+          "top": 56.796875,
+          "right": 391,
+          "bottom": 125.296875,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 398.296875,
+              "width": 330,
+              "height": 44,
+              "top": 398.296875,
+              "right": 371,
+              "bottom": 442.296875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 450.296875,
+              "width": 330,
+              "height": 46.890625,
+              "top": 450.296875,
+              "right": 371,
+              "bottom": 497.1875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 505.1875,
+              "width": 330,
+              "height": 44,
+              "top": 505.1875,
+              "right": 371,
+              "bottom": 549.1875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          }
+        ],
+        "scroll": 1193,
+        "client": 260
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "day-summary-extra-cost",
+      "g": {
+        "rect": {
+          "x": 20,
+          "y": 55.796875,
+          "width": 372,
+          "height": 508.390625,
+          "top": 55.796875,
+          "right": 392,
+          "bottom": 564.1875,
+          "left": 20
+        },
+        "footer": {
+          "x": 21,
+          "y": 488.1875,
+          "width": 370,
+          "height": 75,
+          "top": 488.1875,
+          "right": 391,
+          "bottom": 563.1875,
+          "left": 21
+        },
+        "header": {
+          "x": 21,
+          "y": 56.796875,
+          "width": 370,
+          "height": 68.5,
+          "top": 56.796875,
+          "right": 391,
+          "bottom": 125.296875,
+          "left": 21
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 501.1875,
+              "width": 330,
+              "height": 48,
+              "top": 501.1875,
+              "right": 371,
+              "bottom": 549.1875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          }
+        ],
+        "scroll": 729,
+        "client": 363
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "name": "registered-sale",
+      "g": {
+        "rect": {
+          "x": 20.00146484375,
+          "y": 64.72140502929688,
+          "width": 371.9590759277344,
+          "height": 490.5867004394531,
+          "top": 64.72140502929688,
+          "right": 391.9605407714844,
+          "bottom": 555.30810546875,
+          "left": 20.00146484375
+        },
+        "footer": {
+          "x": 21.001354217529297,
+          "y": 411.6832580566406,
+          "width": 369.9593200683594,
+          "height": 142.62496948242188,
+          "top": 411.6832580566406,
+          "right": 390.9606742858887,
+          "bottom": 554.3082275390625,
+          "left": 21.001354217529297
+        },
+        "header": {
+          "x": 21.001354217529297,
+          "y": 65.72129821777344,
+          "width": 369.9593200683594,
+          "height": 38.99571228027344,
+          "top": 65.72129821777344,
+          "right": 390.9606742858887,
+          "bottom": 104.71701049804688,
+          "left": 21.001354217529297
+        },
+        "rootScroll": 0,
+        "controls": [
+          {
+            "rect": {
+              "x": 40.99915313720703,
+              "y": 426.6816101074219,
+              "width": 329.9637145996094,
+              "height": 53.63470458984375,
+              "top": 426.6816101074219,
+              "right": 370.9628677368164,
+              "bottom": 480.3163146972656,
+              "left": 40.99915313720703
+            },
+            "scroll": 328,
+            "client": 328
+          },
+          {
+            "rect": {
+              "x": 40.99915313720703,
+              "y": 488.3154296875,
+              "width": 329.9637145996094,
+              "height": 47.9947509765625,
+              "top": 488.3154296875,
+              "right": 370.9628677368164,
+              "bottom": 536.3101806640625,
+              "left": 40.99915313720703
+            },
+            "scroll": 330,
+            "client": 330
+          }
+        ],
+        "scroll": 307,
+        "client": 307
+      }
+    }
+  ],
+  "errors": [],
+  "lastGeometry": {
+    "cfg": {
+      "theme": "dark",
+      "width": 412,
+      "height": 620,
+      "large": true
+    },
+    "name": "registered-sale",
+    "g": {
+      "rect": {
+        "x": 20.00146484375,
+        "y": 64.72140502929688,
+        "width": 371.9590759277344,
+        "height": 490.5867004394531,
+        "top": 64.72140502929688,
+        "right": 391.9605407714844,
+        "bottom": 555.30810546875,
+        "left": 20.00146484375
+      },
+      "footer": {
+        "x": 21.001354217529297,
+        "y": 411.6832580566406,
+        "width": 369.9593200683594,
+        "height": 142.62496948242188,
+        "top": 411.6832580566406,
+        "right": 390.9606742858887,
+        "bottom": 554.3082275390625,
+        "left": 21.001354217529297
+      },
+      "header": {
+        "x": 21.001354217529297,
+        "y": 65.72129821777344,
+        "width": 369.9593200683594,
+        "height": 38.99571228027344,
+        "top": 65.72129821777344,
+        "right": 390.9606742858887,
+        "bottom": 104.71701049804688,
+        "left": 21.001354217529297
+      },
+      "rootScroll": 0,
+      "controls": [
+        {
+          "rect": {
+            "x": 40.99915313720703,
+            "y": 426.6816101074219,
+            "width": 329.9637145996094,
+            "height": 53.63470458984375,
+            "top": 426.6816101074219,
+            "right": 370.9628677368164,
+            "bottom": 480.3163146972656,
+            "left": 40.99915313720703
+          },
+          "scroll": 328,
+          "client": 328
+        },
+        {
+          "rect": {
+            "x": 40.99915313720703,
+            "y": 488.3154296875,
+            "width": 329.9637145996094,
+            "height": 47.9947509765625,
+            "top": 488.3154296875,
+            "right": 370.9628677368164,
+            "bottom": 536.3101806640625,
+            "left": 40.99915313720703
+          },
+          "scroll": 330,
+          "client": 330
+        }
+      ],
+      "scroll": 307,
+      "client": 307
+    }
+  }
+}

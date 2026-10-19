@@ -103,6 +103,8 @@ document.addEventListener('territorio:product-presentation-selected', event => {
   decorateDimensions();
 });
 
+document.addEventListener('territorio:collapse-configurations',()=>{openIndex=-1;advanceFrom=null;decorateDimensions();});
+
 // Venda com vários produtos: tocar em qualquer parte do produto (inclusive no preço, à direita,
 // onde alcança o polegar de quem é destro) o ativa para digitar a quantidade.
 document.addEventListener('click', event => {

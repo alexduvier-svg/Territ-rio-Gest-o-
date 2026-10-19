@@ -1,3 +1,7 @@
+# Entrega atual — AGRO Gestão 2 0.12.17/code57
+
+Instalada em19/10/2026 às19:51:27 com adb install-r, preservando dados e instalação original. APK assinado na pasta local solicitada. Checklist0–23 em app/docs/ENTREGA-0.12.17.md: item4 adiado expressamente pelo usuário; demais implementados e validados em fixtures claro/escuro. Gerente local consolidado, mola de abas restaurada e loja por produtor publicada no servidor existente. Não afirmar qualidade acústica/FPS/Android básico medidos. Cada nova instalação começa vazia e aprende com confirmações próprias. Publicar somente codex/atualizacao-agro-gestao2; main é linha independente e deve ser preservado. Entregas futuras: validar, APK local, adb install-r, commit/push.
+
 # Continuidade atual — AGRO Gestão 2 0.12.16
 
 Tarefa do agente offline concluída e instalada em19/10/2026às15:32:09/code56 com adb install-r; firstInstallTime14/10/2026 18:17:06 preservado. APK original AGRO-Gestao-2-0.12.16.apk (56345020bytes), SHA25645460979ad56ede83dc8ea6b1fb80788ee1ae8a91b963f37e5ba97e69751d51b. Ler app/docs/AGENTE-REVISAO-0.12.16.md. Versões abaixo são históricas; não reinstalar nem reiniciar tarefas por pendências antigas. 275testes;13conjuntos sintéticos/9superfícies PASS. Registros reais preservados; sem captura acústica/FPS/Android básico medidos. Voz permanece offline conforme escolha explícita; agente usa regras/ferramentas locais, não LLM/API paga. Publicar somente ramo AGRO2.
