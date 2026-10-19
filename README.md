@@ -1,4 +1,4 @@
-# AGRO Gestão 2
+# AGRO Gestão
 
 Código do app em [app](app/), servidor em [portfolio-server](portfolio-server/). As referências, o mockup original e os materiais anteriores foram preservados. A fonte atual do aplicativo é app/src; não gerar novamente a partir do mockup.
 

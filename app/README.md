@@ -1,4 +1,4 @@
-# AGRO Gestão 2 — app Android
+# AGRO Gestão — app Android
 
 App Android (Capacitor 8) com vendas, estoque, clientes, eventos e gestão local. A fonte atual está em `src/`; o mockup original é referência histórica. Não reexecutar a migração sobre o código atual.
 
@@ -39,4 +39,4 @@ Em aparelho de desenvolvimento, com depuração autorizada:
 adb install -r android/app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Para atualizar o AGRO Gestão 2 já instalado, gerar um release assinado com o certificado original e usar `adb install -r` no APK verificado. Um APK debug assinado com outra chave não atualiza essa instalação. Não desinstalar nem limpar os dados para contornar incompatibilidade de assinatura.
+Para atualizar o AGRO Gestão já instalado, usar `npm run apk:debug` (chave debug deste PC, a mesma das versões anteriores) e `adb install -r`. O AGRO Gestão 2 (pacote br.com.territorio.gestao2, outra chave) fica no ramo `codex/atualizacao-agro-gestao2`. Não desinstalar nem limpar os dados para contornar incompatibilidade de assinatura.

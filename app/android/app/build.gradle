@@ -4,7 +4,7 @@ android {
     namespace = "br.com.territorio.gestao"
     compileSdk = rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "br.com.territorio.gestao2"
+        applicationId "br.com.territorio.gestao"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 50
