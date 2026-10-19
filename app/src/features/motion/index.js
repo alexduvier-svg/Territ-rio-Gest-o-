@@ -656,9 +656,6 @@ function installDialogs() {
     if (back >= 0) {
       const step = state.trail[back];
       state.trail.length = back;
-      // The parent comes back where it was scrolled when the row was tapped.
-      const parentContent = dialog.querySelector('.dialog-content');
-      if (parentContent && step.source.sheet) parentContent.scrollTop = step.source.sheet.scrollTop;
       const ghost = detached && typeof HTMLElement.prototype.showPopover === 'function' ? sheetGhost(old, true) : null;
       if (!ghost) return false;
       state.ghost = ghost.layer;
@@ -670,6 +667,16 @@ function installDialogs() {
         onRest: () => { if (state.ghost === ghost.layer) discardGhost(state); },
       });
       if (!motion) discardGhost(state);
+      // The parent comes back where it was scrolled when the row was tapped. Its legacy painter
+      // resets the scroll after this event, so restore once it has finished (still before the
+      // next frame) and re-aim the returning sheet at the row's final place.
+      queueMicrotask(() => {
+        const parentContent = dialog.querySelector('.dialog-content');
+        if (!parentContent || !step.source.sheet) return;
+        parentContent.scrollTop = step.source.sheet.scrollTop;
+        const aim = morphGeometry(old.surface.rect, rowInSheet(dialog, step.source), radius);
+        if (motion && aim && Math.abs(aim.scale - shut.scale) < 0.01) motion.retarget({ x: aim.x, y: aim.y });
+      });
       // The parent sheet comes forward from just behind.
       animateElement(dialog, { scale: limited() ? 0.985 : 0.965 }, { scale: 1 }, { config: dialogSpring(state.kind) });
       return true;
