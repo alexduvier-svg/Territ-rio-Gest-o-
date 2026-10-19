@@ -1,5 +1,5 @@
 import { stepSpring, springAtRest } from './spring.js';
-import { naturalRect, reanchorPose, insightSheetGeometry } from './geometry.js';
+import { naturalRect, reanchorPose, insightSheetGeometry, morphGeometry, revealClip } from './geometry.js';
 
 // One frame loop for the whole interface. Idle springs do not request frames.
 const running = new Set();
@@ -35,7 +35,7 @@ function tick(time) {
     for (const [key, spring] of Object.entries(motion.values)) {
       const next = stepSpring(spring, spring.target, seconds, motion.config);
       Object.assign(spring, next);
-      const tolerance = key === 'opacity' || key === 'scale' ? 0.0005 : 0.04;
+      const tolerance = key === 'opacity' || key === 'scale' || key === 'reveal' ? 0.0005 : 0.04;
       if (!springAtRest(spring, spring.target, tolerance, tolerance * 8)) resting = false;
     }
     if (resting || !enabled()) motion.finish();
@@ -100,6 +100,7 @@ function captureMotionSource(event) {
   const bounds = surface.getBoundingClientRect();
   if (!bounds.width || !bounds.height) return;
   latestSource = {
+    radius: parseFloat(getComputedStyle(surface).borderTopLeftRadius) || 0,
     left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
     cx: bounds.left + bounds.width / 2, cy: bounds.top + bounds.height / 2,
     time: performance.now(), insideDialog: !!control.closest('dialog'), action: control.dataset.action || '',
@@ -107,11 +108,17 @@ function captureMotionSource(event) {
 }
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-function dialogGeometry(bounds, source) {
-  // Every floating sheet expands a short distance. A small launch icon must
-  // never pull the text at the opposite edge through a long screen journey.
+function dialogGeometry(bounds, source, dialog, morph = true) {
+  // A sheet opened by a tap grows out of the tapped surface and returns to it on close, clipped
+  // to that surface's shape. Lite devices and sheets without a source keep the short expansion.
+  if (morph && source && !limited()) {
+    const sheetRadius = dialog ? parseFloat(getComputedStyle(dialog).borderTopLeftRadius) || 28 : 28;
+    const geometry = morphGeometry(bounds, source, sheetRadius);
+    if (geometry) return geometry;
+  }
   return insightSheetGeometry(bounds, source, limited());
 }
+const applyReveal = (element, clip, reveal) => { if (clip) element.style.clipPath = revealClip(clip, reveal); };
 function dialogSpring(kind, closing = false) {
   return closing ? { stiffness: 720, damping: 52 } : { stiffness: 560, damping: limited() ? 47 : 35 };
 }
@@ -130,7 +137,7 @@ function sourceGeometryFromBounds(bounds, source, page = false) {
   };
 }
 
-const properties = ['translate', 'scale', 'opacity', 'will-change', 'transform-origin'];
+const properties = ['translate', 'scale', 'opacity', 'will-change', 'transform-origin', 'clip-path'];
 function animateElement(element, from, to, options = {}) {
   elementMotions.get(element)?.cancel();
   if (!enabled()) return null;
@@ -146,7 +153,7 @@ function animateElement(element, from, to, options = {}) {
   };
   element.classList.add('fluid-animating');
   if (options.origin) element.style.transformOrigin = options.origin;
-  element.style.willChange = [...new Set(Object.keys(from).map(k => k === 'x' || k === 'y' ? 'translate' : k))].join(', ');
+  element.style.willChange = [...new Set(Object.keys(from).filter(k => k !== 'reveal').map(k => k === 'x' || k === 'y' ? 'translate' : k))].join(', ');
   const motion = springMotion(element, from, to, value => {
     if ('x' in value || 'y' in value) element.style.translate = `${(value.x || 0).toFixed(3)}px ${(value.y || 0).toFixed(3)}px`;
     if ('scale' in value) element.style.scale = value.scale.toFixed(5);
@@ -336,11 +343,15 @@ function installDialogs() {
     // One bounds read and one computed-style read, with no writes between them.
     const surface = surfaceState(dialog);
     if (!surface.rect.width || !surface.rect.height) return null;
-    const close = dialogGeometry(surface.rect, state.source, state.kind);
+    const close = dialogGeometry(surface.rect, state.source, dialog, state.morph);
+    const clip = close.clip;
+    const reveal = elementMotions.get(dialog)?.values.reveal?.position ?? 1;
     const origin = close.origin.split(' ').map((value, i) => value.includes('%') ? parseFloat(value) / 100 * (i ? surface.rect.height : surface.rect.width) : parseFloat(value));
     const pose = reanchorPose(surface.pose, origin[0], origin[1]);
-    const from = { x: pose.x, y: pose.y, scale: pose.scale, opacity: pose.opacity };
-    const to = { x: close.x, y: close.y, scale: close.scale, opacity: 0 };
+    // A morphing sheet stays solid on its way back and only dissolves into the card at the end.
+    const from = clip ? { x: pose.x, y: pose.y, scale: pose.scale, reveal } : { x: pose.x, y: pose.y, scale: pose.scale, opacity: pose.opacity };
+    const to = clip ? { x: close.x, y: close.y, scale: close.scale, reveal: 0 } : { x: close.x, y: close.y, scale: close.scale, opacity: 0 };
+    const fade = value => clip ? clamp(value.reveal / 0.35, 0, 1) * pose.opacity : value.opacity;
     const backdrop = getComputedStyle(dialog, '::backdrop');
     const backdropColor = backdrop.backgroundColor;
     const backdropOpacity = Number(backdrop.opacity);
@@ -349,7 +360,7 @@ function installDialogs() {
     if (nativeExit) {
       // The browser retains the actual top-layer pixels via discrete display/overlay transitions.
       // close(), returnValue, focus and business handlers still complete synchronously.
-      const saved = [...surfaceProperties, '--fluid-backdrop-opacity', '--fluid-backdrop-color'].map(property => [property, dialog.style.getPropertyValue(property), dialog.style.getPropertyPriority(property)]);
+      const saved = [...surfaceProperties, 'clip-path', '--fluid-backdrop-opacity', '--fluid-backdrop-color'].map(property => [property, dialog.style.getPropertyValue(property), dialog.style.getPropertyPriority(property)]);
       const originalInert = dialog.inert, originalAriaHidden = dialog.getAttribute('aria-hidden');
       const restore = () => {
         if (state.closing !== token) return;
@@ -371,7 +382,11 @@ function installDialogs() {
       dialog.classList.add('fluid-native-exit');
       token.motion = animateElement(dialog, from, to, {
         origin: close.origin, config: dialogSpring(state.kind, true),
-        onUpdate: value => dialog.style.setProperty('--fluid-backdrop-opacity', clamp(value.opacity / Math.max(0.001, pose.opacity), 0, 1) * backdropOpacity),
+        onUpdate: value => {
+          dialog.style.setProperty('--fluid-backdrop-opacity', clamp((clip ? value.reveal : value.opacity / Math.max(0.001, pose.opacity)), 0, 1) * backdropOpacity);
+          if (clip) dialog.style.opacity = fade(value).toFixed(4);
+          applyReveal(dialog, clip, value.reveal);
+        },
         onRest: restore,
       });
       inheritVelocity(token.motion, pose);
@@ -401,6 +416,7 @@ function installDialogs() {
       if (clone) {
         const motion = animateElement(clone, from, to, {
           origin: close.origin, config: dialogSpring(state.kind, true),
+          onUpdate: value => { if (clip) clone.style.opacity = fade(value).toFixed(4); applyReveal(clone, clip, value.reveal); },
           onRest: () => { if (state.ghost === layer) discardGhost(state); },
         });
         inheritVelocity(motion, pose);
@@ -433,12 +449,18 @@ function installDialogs() {
       elementMotions.get(dialog)?.cancel();
       const source = getMotionSource();
       state.source = fresh ? source : source || state.source;
-      const entry = dialogGeometry(dialog.getBoundingClientRect(), state.source, kind);
-      animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, opacity: fresh ? 0.72 : 0.82 },
-        { x: 0, y: 0, scale: 1, opacity: 1 }, {
+      // Only a fresh opening morphs; new content inside an open sheet keeps the short settle.
+      if (fresh) state.morph = true;
+      const entry = dialogGeometry(dialog.getBoundingClientRect(), state.source, dialog, fresh);
+      const clip = entry.clip;
+      animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, opacity: clip ? 0.45 : fresh ? 0.72 : 0.82, ...(clip && { reveal: 0 }) },
+        { x: 0, y: 0, scale: 1, opacity: 1, ...(clip && { reveal: 1 }) }, {
           origin: entry.origin, config: dialogSpring(kind),
-          onUpdate: value => dialog.style.setProperty('--fluid-backdrop-opacity', fresh ? clamp(value.opacity, 0, 1) : 1),
-          onRest: () => dialog.style.removeProperty('--fluid-backdrop-opacity'),
+          onUpdate: value => {
+            dialog.style.setProperty('--fluid-backdrop-opacity', fresh ? clamp(clip ? value.reveal : value.opacity, 0, 1) : 1);
+            applyReveal(dialog, clip, value.reveal);
+          },
+          onRest: () => { dialog.style.removeProperty('--fluid-backdrop-opacity'); if (clip) dialog.style.removeProperty('clip-path'); },
         });
     } else if (!dialog.open && state.open && !state.closing) elementMotions.get(dialog)?.cancel();
     state.open = dialog.open;

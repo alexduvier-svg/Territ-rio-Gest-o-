@@ -64,7 +64,8 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 
 ## Movimento (`src/motion.css`, `src/polish.css`)
 
-- Janelas sobem como folha com mola sutil (passam um pouco e assentam); seções abertas pelo toque quicam uma vez; botões afundam no toque.
+- Janelas nascem do cartão ou botão tocado (estilo iOS / ColorOS): começam no lugar, no tamanho e com os cantos dele, crescem até a janela com mola sutil (passam um pouco e assentam) e, ao fechar, voltam sólidas para o mesmo lugar e só somem no fim. O material da janela não muda durante o movimento. Sem toque de origem, ou no modo leve, a janela faz só a expansão curta (`features/motion/geometry.js`).
+- Seções abertas pelo toque quicam uma vez; botões afundam no toque.
 - Rodapé: cada ícone faz um gesto curto ao entrar (carrinho rola, caixa abre/fecha, pessoas pulam, calendário vira, barras crescem).
 - Conteúdo desliza **só na troca de tela**.
 - Tudo desligado com "reduzir movimento"; celulares simples recebem o modo leve (`html.lite`).

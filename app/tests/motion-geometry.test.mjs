@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { naturalRect, reanchorPose, insightSheetGeometry } from '../src/features/motion/geometry.js';
+import { naturalRect, reanchorPose, insightSheetGeometry, morphGeometry, revealClip } from '../src/features/motion/geometry.js';
 import { stepSpring } from '../src/features/motion/spring.js';
 
 const near = (a, b) => assert.ok(Math.abs(a - b) < 1e-9, `${a} ~= ${b}`);
@@ -79,4 +79,29 @@ test('insight close is visually finished within 350 ms without visible opacity r
     if (state.position < 0.01) invisible = true;
     if (invisible) assert.ok(state.position < 0.01);
   }
+});
+
+test('a tapped card is the first frame of the sheet: same centre, size and corners', () => {
+  const rect = { left: 20, top: 120, width: 350, height: 600 };
+  const source = { cx: 90, cy: 400, width: 130, height: 160, radius: 22 };
+  const g = morphGeometry(rect, source, 28);
+  const [originX, originY] = g.origin.split(' ').map(parseFloat);
+  const pose = { x: g.x, y: g.y, scale: g.scale, originX, originY };
+  const topLeft = screenPoint(rect, pose, g.clip.x, g.clip.y);
+  const bottomRight = screenPoint(rect, pose, rect.width - g.clip.x, rect.height - g.clip.y);
+  near(topLeft.x, source.cx - source.width / 2); near(topLeft.y, source.cy - source.height / 2);
+  near(bottomRight.x, source.cx + source.width / 2); near(bottomRight.y, source.cy + source.height / 2);
+  near(g.clip.radius * g.scale, 22);
+  assert.equal(revealClip(g.clip, 1), 'inset(0.00px 0.00px round 28.00px)');
+  assert.equal(revealClip(g.clip, 1.04), 'inset(0.00px 0.00px round 28.00px)');
+});
+
+test('a small icon starts from a bounded scale, and a wide card never enlarges the sheet', () => {
+  const rect = { left: 20, top: 120, width: 350, height: 600 };
+  assert.equal(morphGeometry(rect, { cx: 360, cy: 40, width: 44, height: 44 }).scale, 0.18);
+  const wide = morphGeometry(rect, { cx: 195, cy: 300, width: 390, height: 100, radius: 24 });
+  assert.equal(wide.scale, 1);
+  assert.equal(wide.clip.x, 0);
+  assert.equal(wide.clip.y, 250);
+  assert.equal(morphGeometry(rect, null), null);
 });
