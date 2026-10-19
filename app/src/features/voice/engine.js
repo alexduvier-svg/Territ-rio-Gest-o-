@@ -38,11 +38,12 @@ export function createVoiceController(handlers) {
       if (!Native) return;
       try { await Native.prepareModel(); } catch { /* o motor do Android pode atender; o erro aparece se faltar os dois */ }
     },
-    async start() {
+    /** vocabulary: palavras possíveis (catálogo, números, medidas) para orientar o motor offline. */
+    async start(vocabulary) {
       if (listening) return;
       listening = true; finished = false;
       if (Native) {
-        try { await Native.startListening({ engine: 'auto' }); }
+        try { await Native.startListening({ engine: 'auto', grammar: vocabulary || [] }); }
         catch (error) {
           listening = false;
           emit('onError', error?.code || 'engine', error?.message || 'A voz não começou.');

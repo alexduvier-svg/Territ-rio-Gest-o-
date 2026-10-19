@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { interpret, readNumber, singular, normalize, detectIntent } from '../src/features/voice/interpreter.js';
+import { interpret, interpretBest, voiceVocabulary, pluralForms, readNumber, singular, normalize, detectIntent } from '../src/features/voice/interpreter.js';
 
 // Catálogo de exemplo das diretrizes de voz (Agro_Gestao_Diretrizes_Voz_Vosk_Android, v1.1).
 const catalog = [
@@ -99,4 +99,24 @@ test('correção natural da proposta aberta: na verdade, foram dois', () => {
   assert.equal(r.status, 'correction');
   assert.equal(r.quantity, 2);
   assert.equal(r.productId, 'esp250');
+});
+
+test('entre as alternativas do motor, vale a que já traz o peso: abre direto, sem perguntar', () => {
+  const best = interpretBest(['vendi dois cafés especiais', 'vendi dois cafés especiais de duzentos e cinquenta gramas'], catalog);
+  assert.equal(best.result.status, 'ok');
+  assert.equal(best.result.productId, 'esp250');
+  assert.equal(best.result.quantity, 2);
+  // Sem peso em nenhuma alternativa: pergunta a apresentação.
+  assert.equal(interpretBest(['vendi três cafés especiais'], catalog).result.status, 'choose');
+  // Empate: a primeira alternativa (a mais provável) vence.
+  assert.equal(interpretBest(['vendi dois queijos minas', 'vendi duas taiobas'], catalog).result.productId, 'queijo');
+});
+
+test('vocabulário para o Vosk: catálogo no singular e no plural, números e medidas', () => {
+  const words = voiceVocabulary(catalog);
+  for (const word of ['café', 'cafés', 'especial', 'especiais', 'mamão', 'mamões', 'taioba', 'taiobas', 'serralha', 'serraia', 'duzentos', 'cinquenta', 'gramas', 'quilo', 'maço', 'maços', 'dúzia', 'vendi', 'não', '[unk]']) {
+    assert.ok(words.includes(word), word);
+  }
+  assert.deepEqual(pluralForms('queijo'), ['queijo', 'queijos']);
+  assert.deepEqual(pluralForms('especial'), ['especial', 'especiais']);
 });

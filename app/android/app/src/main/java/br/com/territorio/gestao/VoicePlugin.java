@@ -44,6 +44,8 @@ public class VoicePlugin extends Plugin {
     private SpeechService voskService;
     private SpeechRecognizer androidRecognizer;
     private String activeEngine;
+    /** Palavras possíveis da venda (catálogo + números + medidas), em JSON, para orientar o Vosk. */
+    private String grammar;
     /** Português local indisponível uma vez nesta sessão: não insistir no motor do Android. */
     private boolean androidLanguageMissing;
 
@@ -110,6 +112,8 @@ public class VoicePlugin extends Plugin {
 
     private void begin(PluginCall call) {
         String engine = call.getString("engine", "auto");
+        JSArray words = call.getArray("grammar");
+        grammar = words != null && words.length() > 0 ? words.toString() : null;
         getActivity().runOnUiThread(() -> {
             releaseAll();
             boolean onDevice = Build.VERSION.SDK_INT >= 31 && SpeechRecognizer.isOnDeviceRecognitionAvailable(getContext()) && !androidLanguageMissing;
@@ -205,7 +209,14 @@ public class VoicePlugin extends Plugin {
             return;
         }
         try {
-            Recognizer recognizer = new Recognizer(voskModel, SAMPLE_RATE);
+            Recognizer recognizer;
+            try {
+                recognizer = grammar != null ? new Recognizer(voskModel, SAMPLE_RATE, grammar) : new Recognizer(voskModel, SAMPLE_RATE);
+            } catch (Exception badGrammar) {
+                recognizer = new Recognizer(voskModel, SAMPLE_RATE);
+            }
+            // Três hipóteses: o app escolhe a que forma a melhor proposta de venda.
+            recognizer.setMaxAlternatives(3);
             voskService = new SpeechService(recognizer, SAMPLE_RATE);
             activeEngine = "vosk";
             voskService.startListening(new org.vosk.android.RecognitionListener() {
@@ -219,16 +230,16 @@ public class VoicePlugin extends Plugin {
                 // O Vosk fecha uma frase ao detectar a pausa: o primeiro resultado com texto é o comando.
                 // Uma pausa sem palavras não encerra: continua ouvindo até o tempo limite ou o toque de parar.
                 @Override public void onResult(String hypothesis) {
-                    String text = field(hypothesis, "text");
-                    if (!text.isEmpty()) finishVosk(text);
+                    JSArray options = voskAlternatives(hypothesis);
+                    if (options.length() > 0 && !options.optString(0, "").isEmpty()) finishVosk(options);
                 }
-                @Override public void onFinalResult(String hypothesis) { finishVosk(field(hypothesis, "text")); }
+                @Override public void onFinalResult(String hypothesis) { finishVosk(voskAlternatives(hypothesis)); }
                 @Override public void onError(Exception exception) {
                     releaseVosk();
                     emitError("audio", "Falha no microfone: " + exception.getMessage());
                     emitState("idle", "vosk");
                 }
-                @Override public void onTimeout() { finishVosk(""); }
+                @Override public void onTimeout() { finishVosk(new JSArray()); }
             }, 12000);
             emitState("listening", "vosk");
             if (call != null) call.resolve(new JSObject().put("engine", "vosk"));
@@ -239,11 +250,31 @@ public class VoicePlugin extends Plugin {
         }
     }
 
-    private void finishVosk(String text) {
+    private void finishVosk(JSArray options) {
         if (voskService == null) return;
         releaseVosk();
-        notifyListeners("voice", new JSObject().put("type", "final").put("engine", "vosk").put("text", text).put("alternatives", new JSArray()));
+        String text = options.length() > 0 ? options.optString(0, "") : "";
+        notifyListeners("voice", new JSObject().put("type", "final").put("engine", "vosk").put("text", text).put("alternatives", options));
         emitState("idle", "vosk");
+    }
+
+    /** {"text":…} ou, com alternativas, {"alternatives":[{"text":…,"confidence":…}]}; "[unk]" fica de fora. */
+    private static JSArray voskAlternatives(String json) {
+        JSArray list = new JSArray();
+        try {
+            JSONObject result = new JSONObject(json);
+            org.json.JSONArray alternatives = result.optJSONArray("alternatives");
+            if (alternatives != null) {
+                for (int i = 0; i < alternatives.length(); i++) {
+                    String text = alternatives.getJSONObject(i).optString("text", "").replace("[unk]", "").trim().replaceAll("\\s+", " ");
+                    if (!text.isEmpty()) list.put(text);
+                }
+            } else {
+                String text = result.optString("text", "").replace("[unk]", "").trim().replaceAll("\\s+", " ");
+                if (!text.isEmpty()) list.put(text);
+            }
+        } catch (Exception ignored) { }
+        return list;
     }
 
     private static String field(String json, String key) {

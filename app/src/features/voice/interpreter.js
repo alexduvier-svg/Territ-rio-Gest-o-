@@ -240,3 +240,59 @@ export function interpret(text, products, options = {}) {
   if (!(quantity > 0)) return { status: 'ask-quantity', productId: product.id, message: 'A quantidade precisa ser maior que zero.' };
   return { status: 'ok', productId: product.id, product, quantity, intent };
 }
+
+// ------------------------------------------------------------------ vocabulário para o Vosk
+// O modelo pequeno de português erra muito com fala livre. Com uma lista das palavras possíveis
+// (comandos, números, medidas, embalagens e os nomes do catálogo do produtor, no singular e no
+// plural) ele escolhe só entre elas; o resto vira "[unk]" e é ignorado pelo interpretador.
+// Palavras que o modelo não conhece são descartadas por ele mesmo, sem erro.
+
+const COMMAND_WORDS = ['vendi', 'vende', 'vender', 'venda', 'vendas', 'registrar', 'registra', 'lança', 'anota', 'não', 'ontem', 'anteontem',
+  'quanto', 'quantos', 'na', 'verdade', 'foram', 'foi', 'era', 'eram', 'corrigir', 'corrige', 'cancela', 'cancelar', 'esquece',
+  'de', 'do', 'da', 'dos', 'das', 'e', 'com', 'o', 'a', 'os', 'as', 'mais', 'só', 'só'];
+const NUMBER_SPOKEN = ['um', 'uma', 'dois', 'duas', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez', 'onze', 'doze', 'treze',
+  'catorze', 'quatorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove', 'vinte', 'trinta', 'quarenta', 'cinquenta', 'cinqüenta',
+  'sessenta', 'setenta', 'oitenta', 'noventa', 'cem', 'cento', 'duzentos', 'duzentas', 'trezentos', 'trezentas', 'quatrocentos',
+  'quinhentos', 'seiscentos', 'setecentos', 'oitocentos', 'novecentos', 'mil', 'meia', 'meio'];
+const MEASURE_SPOKEN = ['grama', 'gramas', 'quilo', 'quilos', 'kilo', 'kilos', 'litro', 'litros', 'mililitros'];
+const PACKAGE_SPOKEN = ['maço', 'maços', 'molho', 'molhos', 'mói', 'dúzia', 'dúzias', 'pacote', 'pacotes', 'caixa', 'caixas', 'saco', 'sacos',
+  'sacola', 'sacolas', 'unidade', 'unidades', 'bandeja', 'bandejas', 'pote', 'potes', 'garrafa', 'garrafas', 'vidro', 'vidros', 'lata', 'latas',
+  'peça', 'peças', 'fatia', 'fatias', 'kit', 'kits', 'cesta', 'cestas'];
+
+// Plural na grafia normal (com acento), como o modelo escreve.
+export function pluralForms(word) {
+  const w = String(word).toLowerCase();
+  if (w.length < 2) return [w];
+  if (w.endsWith('ão')) return [w, w.slice(0, -2) + 'ões', w.slice(0, -2) + 'ães', w.slice(0, -2) + 'ãos'];
+  if (w.endsWith('al')) return [w, w.slice(0, -2) + 'ais'];
+  if (w.endsWith('el')) return [w, w.slice(0, -2) + 'éis', w.slice(0, -2) + 'eis'];
+  if (w.endsWith('ol')) return [w, w.slice(0, -2) + 'óis'];
+  if (w.endsWith('il')) return [w, w.slice(0, -2) + 'is'];
+  if (w.endsWith('m')) return [w, w.slice(0, -1) + 'ns'];
+  if (/[rz]$/.test(w)) return [w, w + 'es'];
+  if (/s$/.test(w)) return [w];
+  return [w, w + 's'];
+}
+
+export function voiceVocabulary(products) {
+  const words = new Set([...COMMAND_WORDS, ...NUMBER_SPOKEN, ...MEASURE_SPOKEN, ...PACKAGE_SPOKEN, ...Object.keys(REGIONAL_ALIASES)]);
+  for (const p of products || []) {
+    for (const field of [p.name, p.baseName, p.type, p.format]) {
+      for (const raw of String(field || '').toLowerCase().split(/[^a-zà-ÿ]+/)) {
+        if (raw.length < 2 || FILLER.has(normalize(raw))) continue;
+        for (const form of pluralForms(raw)) words.add(form);
+      }
+    }
+  }
+  return [...words, '[unk]'];
+}
+
+/** Escolhe, entre as alternativas do reconhecimento, a que forma a melhor proposta. */
+export function interpretBest(texts, products, options = {}) {
+  const tries = [...new Set((texts || []).map(t => String(t || '').trim()).filter(Boolean))];
+  if (!tries.length) return { result: interpret('', products, options), text: '' };
+  const results = tries.map(text => ({ text, result: interpret(text, products, options) }));
+  const rank = { ok: 0, correction: 1, choose: 2, negation: 3, past: 3, question: 3, cancel: 3, 'ask-quantity': 4, 'not-found': 5, empty: 6 };
+  // A primeira alternativa vence empates: é a mais provável para o motor.
+  return results.reduce((best, item) => ((rank[item.result.status] ?? 9) < (rank[best.result.status] ?? 9) ? item : best));
+}

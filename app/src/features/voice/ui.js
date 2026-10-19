@@ -4,7 +4,7 @@
 // e confirmar pelos botões de sempre. Nada é registrado pela voz.
 
 import { createVoiceController } from './engine.js';
-import { interpret } from './interpreter.js';
+import { interpretBest, voiceVocabulary } from './interpreter.js';
 
 const MIC = '<svg class="voice-mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11.5" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21"/><path d="M8.5 21h7"/></svg>';
 
@@ -73,7 +73,7 @@ function label(product, quantity) {
 }
 
 /** Abre a venda do produto com a quantidade dita. O registro continua nos botões da venda. */
-function propose(productId, quantity) {
+function propose(productId, quantity, heard = '') {
   const product = products().find(p => p.id === productId);
   if (!product) return say('Não achei esse produto no cadastro.', 'warn', fallbackActions);
   if (!(product.stock > 0)) return say(`${ctx.titleName ? ctx.titleName(product.name) : product.name} está sem estoque. Nada foi registrado.`, 'warn', fallbackActions);
@@ -81,7 +81,7 @@ function propose(productId, quantity) {
   caption = null;
   ctx.openSale(productId, quantity);
   const total = Math.round((Number(product.price) || 0) * quantity);
-  ctx.toast(`Entendi ${label(product, quantity)}${total ? ` · ${ctx.money(total)}` : ''}. Confira e registre.`);
+  ctx.toast(`${heard ? `Ouvi “${heard}”. ` : ''}Entendi ${label(product, quantity)}${total ? ` · ${ctx.money(total)}` : ''}. Confira e registre.`);
 }
 
 function choose(result) {
@@ -89,14 +89,19 @@ function choose(result) {
   ctx.openModal(result.question || 'Qual produto?', `<p class="dialog-text">${result.quantity ? `Quantidade: ${escape(ctx.quantity ? ctx.quantity(result.quantity) : result.quantity)}. ` : ''}Toque no produto certo.</p><div class="voice-choices">${buttons}</div>`, 'voice-choice');
 }
 
-function handleFinal(text) {
+function handleFinal(heard, alternatives = [], engine = '') {
   setPhase('processing');
   const page = ctx.page();
   const draft = ctx.getDraft();
   const pending = page === 'Venda' && draft?.items?.[draft.active]?.productId;
-  const result = interpret(text, products(), { pendingProductId: pending || null });
+  // As alternativas do motor são tentadas em ordem; vale a que forma a melhor proposta.
+  const best = interpretBest([heard, ...alternatives], products(), { pendingProductId: pending || null });
+  const { result } = best;
+  const text = best.text || heard;
+  // Diagnóstico (sem áudio): motor, o que foi ouvido e o que o app entendeu. Aparece no logcat.
+  console.info('[voz]', JSON.stringify({ engine, heard, alternatives, chosen: text, status: result.status, productId: result.productId || null, quantity: result.quantity ?? null }));
   setPhase('idle');
-  if (result.status === 'ok') return propose(result.productId, result.quantity);
+  if (result.status === 'ok') return propose(result.productId, result.quantity, text);
   if (result.status === 'choose') { say(`Ouvi: “${text}”.`, 'info', [], 4000); return choose(result); }
   if (result.status === 'correction') {
     if (pending && ctx.setQuantity(result.quantity)) return ctx.toast(`Quantidade corrigida para ${ctx.quantity ? ctx.quantity(result.quantity) : result.quantity}. Confira e registre.`);
@@ -105,8 +110,8 @@ function handleFinal(text) {
   if (result.status === 'ask-quantity' && result.productId) {
     return say(`${result.message} Diga de novo com a quantidade, ou toque no produto.`, 'info', fallbackActions);
   }
-  const heard = text ? `Ouvi: “${text}”. ` : '';
-  say(heard + (result.message || 'Não entendi.'), result.status === 'cancel' ? 'info' : 'warn', result.status === 'cancel' ? [] : fallbackActions, result.status === 'cancel' ? 3500 : 0);
+  const heardNote = text ? `Ouvi: “${text}”. ` : '';
+  say(heardNote + (result.message || 'Não entendi.'), result.status === 'cancel' ? 'info' : 'warn', result.status === 'cancel' ? [] : fallbackActions, result.status === 'cancel' ? 3500 : 0);
 }
 
 const errorText = {
@@ -126,7 +131,7 @@ async function toggle() {
   setPhase('starting');
   say('Ouvindo… diga o produto e a quantidade.', 'listening');
   ctx.haptic?.();
-  await controller.start();
+  await controller.start(voiceVocabulary(products()));
 }
 
 function onClick(event) {
@@ -164,7 +169,7 @@ export function installVoice(context) {
       const level = Math.max(0, Math.min(1, (db + 2) / 12));
       document.querySelector('[data-voice-mic]')?.style.setProperty('--voice-level', level.toFixed(2));
     },
-    onFinal: text => { wanted = false; handleFinal(String(text || '').trim()); },
+    onFinal: (text, alternatives, engine) => { wanted = false; handleFinal(String(text || '').trim(), alternatives || [], engine || ''); },
     onError: (code, message) => {
       if (!wanted) return;
       wanted = false;
@@ -185,5 +190,5 @@ window.TerritorioVoice = {
   install: installVoice,
   pageLeft() { if (listeningPhases.has(phase)) controller?.cancel(); typing = false; caption = null; },
   /** Teste no navegador: interpreta um texto como se tivesse sido falado. */
-  simulate(text) { handleFinal(text); },
+  simulate(text, alternatives = []) { handleFinal(text, alternatives, 'teste'); },
 };
