@@ -8,9 +8,11 @@ const lemma = word => Object.hasOwn(lexicon.numerals,word) ? word : ({cafes:'caf
 const tokens = s => norm(s).replace(/(\d)([a-z])/g, '$1 $2').match(/\d+(?:[.,]\d+)?|[a-z]+/g) || [];
 const aliases = lexicon.products.flatMap(p => [p.plural, ...p.aliases].map(a => [norm(a), norm(p.name)]))
   .filter(([a,b]) => a && a !== b).sort((a,b) => b[0].length-a[0].length);
+const aliasMatchers=aliases.map(([from,to])=>[new RegExp('(?<![a-z])'+from.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![a-z])','g'),to]);
+const labelCache=new Map();
 function canonical(text) {
   let result=' '+norm(text)+' ';
-  for (const [from,to] of aliases) result=result.replace(new RegExp('(?<![a-z])'+from.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?![a-z])','g'),to);
+  for (const [pattern,to] of aliasMatchers) result=result.replace(pattern,to);
   return tokens(result).map(lemma);
 }
 const numerals = lexicon.numerals;
@@ -28,7 +30,8 @@ function numberAt(words,start) {
 const ignore = new Set(['vendi','vende','vender','venda','adicionar','adicione','coloca','coloque','quero','eu','de','do','da','o','a','os','as','um','uma','por','favor','no','na','em','e','para','pacote','pacotes','unidade','unidades','pct','un','duzia','dz','maco','molho','quilo','kg','grama','g','litro','l','ml','mililitro']);
 const physical = new Map([['g',1],['grama',1],['kg',1000],['quilo',1000],['ml',1],['mililitro',1],['l',1000],['litro',1000]]);
 export function interpretSpeech(text, products) {
-  const original=cleanSpeech(text),raw=tokens(original),words=canonical(original);
+  const original=cleanSpeech(text),words=canonical(original);
+  for(let i=0;i<words.length;i++){const n=numberAt(words,i);if(n&&['quilo','kg','litro','duzia'].includes(words[n.end])&&words[n.end+1]==='e'&&['meio','meia'].includes(words[n.end+2])){words.splice(i,n.end-i+3,String(n.value+.5),words[n.end]);break;}}
   const fail=message=>({original,status:'review',message,candidates:[],quantity:null});
   if(!original)return fail('Não ouvi uma frase. Tente novamente ou digite.');
   if(words.some(w=>['nao','nunca','ontem','amanha','anteontem','perdi','sobrou','sobraram','levei','devolvi','cancela','cancelar','quanto','custa','custou','sera'].includes(w))||/[?？]/.test(original))return fail('Essa fala não é uma inclusão de produto. Nenhuma venda foi alterada.');
@@ -49,7 +52,7 @@ export function interpretSpeech(text, products) {
   const candidates=[];
   for(const p of products||[]){
     if(!p.id||p.archived||p.active===false)continue;
-    const label=canonical([p.name,p.type,p.format].filter(Boolean).join(' '));
+    const labelKey=[p.id,p.name,p.type,p.format].join('|');if(!labelCache.has(labelKey)){if(labelCache.size>6000)labelCache.clear();labelCache.set(labelKey,canonical([p.name,p.type,p.format].filter(Boolean).join(' ')));}const label=labelCache.get(labelKey);
     if(!request.every(w=>label.includes(w)))continue;
     // All name qualifiers must be spoken, otherwise the person chooses the variety.
     if(measures.length){const m=measures[0],liquid=['l','litro','ml','mililitro'].includes(m.unit),bulk=liquid?['Litro','ml'].includes(p.unit):['kg','g'].includes(p.unit);

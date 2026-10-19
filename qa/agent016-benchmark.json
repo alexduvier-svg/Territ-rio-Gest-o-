@@ -1,0 +1,46 @@
+{
+  "synthetic": true,
+  "environment": {
+    "runtime": "v24.19.0",
+    "os": "win32",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12400F"
+  },
+  "products": 3000,
+  "sales": 10000,
+  "coldParse": {
+    "runs": 1,
+    "minMs": 123.5775,
+    "medianMs": 123.5775,
+    "p95Ms": 123.5775,
+    "maxMs": 123.5775
+  },
+  "warmParse": {
+    "runs": 20,
+    "minMs": 0.7239000000000146,
+    "medianMs": 0.8534999999999968,
+    "p95Ms": 1.262900000000002,
+    "maxMs": 1.9209999999999923
+  },
+  "rules": {
+    "runs": 5,
+    "minMs": 135.7709000000001,
+    "medianMs": 148.12039999999996,
+    "p95Ms": 160.4698,
+    "maxMs": 170.55849999999998
+  },
+  "index": {
+    "runs": 3,
+    "minMs": 1.0668000000000575,
+    "medianMs": 1.25,
+    "p95Ms": 1.25,
+    "maxMs": 2.8431999999999107
+  },
+  "revision": {
+    "runs": 3,
+    "minMs": 7.029899999999998,
+    "medianMs": 8.374900000000025,
+    "p95Ms": 8.374900000000025,
+    "maxMs": 16.940399999999954
+  },
+  "limitations": "Host Node timings only. Browser worker scheduling, model decoding, physical microphone, cheap Android and APK startup are not represented."
+}

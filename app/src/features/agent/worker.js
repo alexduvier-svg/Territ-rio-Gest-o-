@@ -1,0 +1,2 @@
+import { analyze, answerQuery, parseRequest, productIndex } from './core.js';
+self.onmessage=event=>{const {id,type,data,options,text}=event.data;try{let result;if(type==='analyze')result=analyze(data,options);else if(type==='index')result=productIndex(data);else {const request=parseRequest(text,data,options);result=request.intent==='sale'?{intent:'sale',interpretation:request}:answerQuery(data,request,options);}self.postMessage({id,result});}catch(error){self.postMessage({id,error:error.message||'Não foi possível analisar os registros.'});}};

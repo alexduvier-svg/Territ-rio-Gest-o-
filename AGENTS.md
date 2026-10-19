@@ -1,3 +1,7 @@
+# Continuidade atual — AGRO Gestão 2 0.12.16
+
+Tarefa do agente offline concluída e instalada em19/10/2026às15:32:09/code56 com adb install-r; firstInstallTime14/10/2026 18:17:06 preservado. APK original AGRO-Gestao-2-0.12.16.apk (56345020bytes), SHA25645460979ad56ede83dc8ea6b1fb80788ee1ae8a91b963f37e5ba97e69751d51b. Ler app/docs/AGENTE-REVISAO-0.12.16.md. Versões abaixo são históricas; não reinstalar nem reiniciar tarefas por pendências antigas. 275testes;13conjuntos sintéticos/9superfícies PASS. Registros reais preservados; sem captura acústica/FPS/Android básico medidos. Voz permanece offline conforme escolha explícita; agente usa regras/ferramentas locais, não LLM/API paga. Publicar somente ramo AGRO2.
+
 # AGRO Gestão 2
 
 Código atual em `app/`, servidor em `portfolio-server/`. `territorio-gestao-mockup.html` e os materiais anteriores são históricos. Não reexecutar migrações que sobrescrevam src/ nem voltar versões por causa de documentos antigos.

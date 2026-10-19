@@ -29,6 +29,7 @@ import { CATALOG_KNOWLEDGE } from './data/catalog-knowledge.js';
 import { INTERFACE_GUIDELINES } from './data/interface-guidelines.js';
 import { VOICE_GUIDELINES } from './data/voice-guidelines.js';
 import { installVoice } from './features/voice/index.js';
+import { installAgent } from './features/agent/index.js';
 import './features/voice/voice.css';
 import { ENGAGEMENT_GUIDELINES } from './data/engagement-guidelines.js';
 import './features/product-stock.css';
@@ -97,6 +98,7 @@ try {
     window.ERPPreview.persist?.();
     if (window.TerritorioNative?.isNative) await window.TerritorioNative.durable?.();
   }
+  installAgent();
   installVoice();
   installFluidMotion();
   window.TerritorioMotion = Object.freeze({diagnostics:getMotionDiagnostics});

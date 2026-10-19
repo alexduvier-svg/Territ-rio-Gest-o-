@@ -8,8 +8,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 55
-        versionName "0.12.15"
+        versionCode 56
+        versionName "0.12.16"
         // Physical Android phones: retain 32/64-bit ARM; omit unused emulator binaries.
         ndk { abiFilters 'armeabi-v7a', 'arm64-v8a' }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -34,6 +34,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'androidx.work:work-runtime:2.11.2'
     implementation 'com.alphacephei:vosk-android:0.3.75@aar'
     implementation 'net.java.dev.jna:jna:5.18.1@aar'
     implementation fileTree(include: ['*.jar'], dir: 'libs')

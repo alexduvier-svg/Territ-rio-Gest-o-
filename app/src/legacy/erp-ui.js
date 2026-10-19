@@ -267,7 +267,7 @@ function selectDiscountItem(index){if(!draft||!draft.items[index])return;saveAct
 function appliedDiscountLabel(amount){return (amount>0?'<span class="discount-applied-dot" aria-hidden="true"></span>':'')+'Desconto '+E.money(Number.isFinite(amount)?amount:0);}
 function exactItemNet(s){return s.items.every(i=>Number.isFinite(i.netTotal)&&i.netTotal>=0)&&s.items.reduce((n,i)=>n+i.netTotal,0)===s.total;}
 
-function createDraft(id,voiceDelta=0){numericTouched.delete('sale-quantity');if(draft)saveActiveDiscount();if(!draft)draft={scope,items:[],active:0,payment:'Pix',split:false,parts:[],partsManual:false,clientName:'',clientId:null,uf:'',city:'',neighborhood:'',clientExpanded:false,statesExpanded:false,discountScope:'item',discountMode:'R$',discountValue:''};const found=draft.items.findIndex(i=>i.productId===id);if(found>=0)draft.active=found;else{draft.items.push({productId:id,rawQty:'0',discountMode:'R$',discountValue:''});draft.active=draft.items.length-1;}if(voiceDelta>0)draft.items[draft.active].rawQty=String(E.number(draft.items[draft.active].rawQty)+voiceDelta).replace('.',',');loadActiveDiscount();splitUpdate();page='Venda';render();window.scrollTo(0,0);}
+function createDraft(id,voiceDelta=0){numericTouched.delete('sale-quantity');if(draft)saveActiveDiscount();if(!draft)draft={scope,items:[],active:0,payment:'Pix',split:false,parts:[],partsManual:false,clientName:'',clientId:null,uf:'',city:'',neighborhood:'',clientExpanded:false,statesExpanded:false,discountScope:'item',discountMode:'R$',discountValue:''};const found=draft.items.findIndex(i=>i.productId===id);if(found>=0)draft.active=found;else{draft.items.push({productId:id,rawQty:'0',discountMode:'R$',discountValue:''});draft.active=draft.items.length-1;}if(!draft.operationId)draft.operationId=E.uid();if(voiceDelta>0)draft.items[draft.active].rawQty=String(E.number(draft.items[draft.active].rawQty)+voiceDelta).replace('.',',');loadActiveDiscount();splitUpdate();page='Venda';render();window.scrollTo(0,0);}
 function splitUpdate(){if(draft&&draft.split&&!draft.partsManual){const total=Math.max(0,model.quote(draft).total);draft.parts=[{method:draft.parts[0]&&draft.parts[0].method||'Pix',value:cashInput(Math.floor(total/2))},{method:draft.parts[1]&&draft.parts[1].method||'Dinheiro',value:cashInput(total-Math.floor(total/2))}];}}
 function saleError(includePayment=true){if(!draft)return'';const quote=model.quote(draft);for(const i of quote.items){const p=model.product(i.productId);if(!Number.isFinite(i.qty)||i.qty<=0)return'Informe a quantidade dos produtos.';if(!['kg','Litro','g','ml'].includes(p.unit)&&!Number.isInteger(i.qty))return'Use uma quantidade inteira para '+p.name+'.';if(i.qty>p.stock)return'Estoque insuficiente: há '+E.quantity(p.stock)+' '+E.unitLabel(p.unit,p.stock)+' de '+p.name+'.';}if(draft.discountScope==='item'&&quote.items.some(i=>!i.discountValid))return'O desconto de cada produto deve ser válido e não superar seu valor.';if(!Number.isFinite(quote.discount)||quote.discount<0||quote.discount>=quote.subtotal)return'O desconto deve ser válido e menor que o subtotal.';if(includePayment&&draft.split&&(draft.parts.some(p=>!E.PAYMENTS.includes(p.method)||!Number.isFinite(E.cents(p.value))||E.cents(p.value)<=0)||draft.parts.reduce((s,p)=>s+E.cents(p.value),0)!==quote.total))return'A soma dos pagamentos deve ser igual ao total.';return'';}
 
@@ -387,7 +387,7 @@ function render(preserve){if(page!=='Gestão')managementExpanded.delete('detail-
 }
 function openModal(title,body,kind,data,footer){
  modal={kind,data};dialog.setAttribute('data-kind',kind||'');
- const bottomBack=['mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load','voice'].includes(kind)||String(kind||'').startsWith('advisor'),registered=kind==='story'&&data&&data.pending===false;
+ const bottomBack=['mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load','voice'].includes(kind)||(String(kind||'').startsWith('advisor')||String(kind||'').startsWith('agent-')),registered=kind==='story'&&data&&data.pending===false;
  if(bottomBack){body=body.replace(/<button\b[^>]*data-action="close-modal"[^>]*>[\s\S]*?<\/button>/g,'');if(!footer)footer=btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back');}
  dialog.toggleAttribute('data-bottom-back',bottomBack);dialog.toggleAttribute('data-no-close',bottomBack||registered);
  const heading=(bottomBack||registered?'':btn('close-modal',icon('close'),'dialog-close'))+'<h2 id="dialog-title">'+escape(title)+'</h2>',footerLabel=kind==='movement'?'Ações do estoque':kind==='restock'?'Reposição do estoque':kind==='calculator'?'Ações da calculadora':bottomBack?'Ações da janela':'Finalização da venda';
@@ -1201,17 +1201,20 @@ function recipientControls(sale){const state=recipientOptions(),event=sale&&sale
 function saleSourceName(sale){if(sale.scope!=='loja')return scopeName(sale.scope);return recordPersonType(sale)==='PJ'?'Empresa / CNPJ':'Pessoa física';}
 
 function saleQuoteFingerprint(q){return JSON.stringify({subtotal:q.subtotal,discount:q.discount,total:q.total,cost:q.cost,items:q.items.map(i=>({productId:i.productId,qty:i.qty,price:i.price,cost:i.cost,discount:i.discount,netTotal:i.netTotal}))});}
-function chooseSaleRecipient(type,id){
+async function chooseSaleRecipient(type,id){
  if(!recipientPending||recipientPending.busy||!draft||modal?.kind!=='story'||!modal.data?.pending)return;const state=recipientOptions();if(!['PF','PJ','EVENT'].includes(type))return;
  if(type==='EVENT'&&(!state.event||state.eventRecord?.id!==id)||type==='PF'&&!state.pf||type==='PJ'&&!state.pj){storyModal();return toast('O horário do evento mudou. Confira o destino disponível.');}
  if(saleQuoteFingerprint(model.quote(recipientPending.draft))!==saleQuoteFingerprint(recipientPending.summary))return toast('Os valores da compra mudaram. Volte ao carrinho e confira o total.');
- recipientPending.busy=true;const data={...recipientPending.draft,scope:type==='EVENT'?id:'loja',recipientType:type,customerType:type==='EVENT'?(eventCompanyOn()?'PJ':'PF'):type};
+ if(draft.agentProposalRevision&&!model.data.sales.some(s=>s.operationId===draft.operationId)&&(draft.agentProposalActor!==window.TerritorioAgent?.context().actorId||draft.agentProposalRevision!==window.TerritorioAgent?.revision()))return toast('Os registros mudaram desde a prévia. Volte à Inteligência e atualize a proposta.');
+ const committing=recipientPending;recipientPending.busy=true;const data={...recipientPending.draft,scope:type==='EVENT'?id:'loja',recipientType:type,customerType:type==='EVENT'?(eventCompanyOn()?'PJ':'PF'):type};
  try{
   const next=new E.ERPModel(JSON.parse(JSON.stringify(model.data))),sale=next.complete(data),destination=storyDestination(sale.scope);sale.qrKind=destination.kind;sale.qrPayload=storyPayload(destination,recipientPending);sale.qrRef=portfolioTracked(destination)?recipientPending.qrRef:'';sale.qrReadSource=recipientPending.qrReadSource||'';sale.qrTitle=destination.title;sale.qrReadAt=recipientPending.qrReadAt;sale.customerDocument=next.data.clients.find(c=>c.id===sale.customerId)?.document||'';sale.recordedAfterClose=false;
   const prior=model;model=next;if(!persist()){model=prior;recipientPending.busy=false;return toast('Não foi possível salvar a venda. Libere espaço e tente novamente.');}
+  if(window.TerritorioNative?.isNative&&!(await window.TerritorioNative.durable())){if(recipientPending===committing)recipientPending.busy=false;return toast('A gravação ainda não foi confirmada. Tente novamente; a mesma operação não será duplicada.');}
+  if(model!==next||recipientPending!==committing)return sale;
   for(const key of ['products','events','clients']){const known=new Map(prior.data[key].map(record=>[record.id,record]));next.data[key]=next.data[key].map(record=>{const current=known.get(record.id);return current?Object.assign(current,record):record;});}prior.data=next.data;model=prior;
-  recipientPending=null;pendingCheckout=null;draft=null;closeModal();page='Vender';render();toast('Venda Finalizada. Estoque geral atualizado.');
- }catch(error){recipientPending.busy=false;toast(error.message);}
+  recipientPending=null;pendingCheckout=null;draft=null;closeModal();page='Vender';render();toast('Venda Finalizada. Estoque geral atualizado.');saleDoneModal(sale.id);return sale;
+ }catch(error){if(recipientPending===committing)recipientPending.busy=false;toast(error.message);}
 }
 
 function stockDiagnostic(){
@@ -1743,7 +1746,7 @@ Object.assign(actions,{
 // "Foi uma empresa?" ajusta depois, sem refazer a venda.
 const storyModalBase=storyModal;
 storyModal=function(id){
- if(!id&&recipientPending&&!recipientPending.busy){storyModalBase();const state=recipientOptions(),type=state.event?'EVENT':recordPersonType(recipientPending.draft)==='PJ'?'PJ':'PF',known=new Set(model.data.sales.map(s=>s.id));chooseSaleRecipient(type,state.event?state.eventRecord.id:undefined);const sale=model.data.sales.find(s=>!known.has(s.id));if(sale)return saleDoneModal(sale.id);return;}
+ if(!id&&recipientPending&&!recipientPending.busy){storyModalBase();const state=recipientOptions(),type=state.event?'EVENT':recordPersonType(recipientPending.draft)==='PJ'?'PJ':'PF',pending=recipientPending;void chooseSaleRecipient(type,state.event?state.eventRecord.id:undefined);return;}
  const sale=id&&model.data.sales.find(s=>s.id===id);if(sale)return saleDoneModal(id);return storyModalBase(id);};
 function saleDoneModal(id){const sale=model.data.sales.find(s=>s.id===id);if(!sale)return;const destination=storyDestination(sale.scope),payload=sale.qrPayload||storyPayload(destination,null),pj=recordPersonType(sale)==='PJ',methods=[...new Set((sale.payments||[]).map(p=>p.method))].join(' + '),noPortfolio=destination.kind==='catalog'&&!safePublicURL(model.data.catalog.publicUrl);
  const body='<div class="sd">'
@@ -2734,6 +2737,28 @@ window.TerritorioVoiceBridge={
   if(!draft.startedAt)draft.startedAt=new Date().toISOString();
  }
 };
+// One adapter, the existing model, persistence queue and final checkout remain authoritative.
+function agentContext(){const sel=brainContext?.sel||selection(),days=(sel.days||[]).slice().sort(),start=Date.parse((days[0]||sel.month&&sel.month+'-01'||sel.year&&sel.year+'-01-01'||E.dayKey(Date.now()))+'T00:00:00-03:00'),end=days.length?Date.parse(days.at(-1)+'T23:59:59.999-03:00'):sel.year?Date.parse(sel.year+'-12-31T23:59:59.999-03:00'):sel.month?new Date(Number(sel.month.slice(0,4)),Number(sel.month.slice(5)),1).getTime()-1:Date.now();return {scopeId:sel.scope||'all',label:reportScopeName(sel.scope||'all')+' · '+periodText(sel),period:{start,end},selection:sel};}
+window.TerritorioAgentBridge={
+ actions,escape,data:()=>model.data,persist:()=>persist(),context:agentContext,saleScope:()=>scope,scopeLabel:reportScopeName,description:E.description,money:E.money,toast,whatsappNumber,
+ open:(title,body,footer,kind)=>openModal(title,body,kind,null,footer),close:()=>closeModal(),
+ prepare:(items,proposal)=>{
+  syncEvents();if(proposal.scopeId!==scope)throw Error('O local mudou. Confira uma nova prévia.');
+  if(draft?.items?.some(i=>E.number(i.rawQty)>0))throw Error('Há uma venda em andamento. Conclua ou cancele o carrinho antes de preparar outra.');
+  const products=items.map(i=>model.product(i.productId));if(products.some((p,n)=>!p||items[n].quantity>p.stock))throw Error('Confira o estoque antes de continuar.');
+  closeModal();draft=null;createDraft(items[0].productId);draft.operationId=proposal.proposalId;draft.agentProposalRevision=proposal.dataRevision;draft.agentProposalActor=proposal.actorId;
+  draft.items=items.map(i=>({productId:i.productId,rawQty:String(i.quantity).replace('.',','),discountMode:'R$',discountValue:''}));draft.active=0;draft.startedAt=new Date().toISOString();loadActiveDiscount();splitUpdate();page='Venda';render();window.scrollTo(0,0);
+ },
+ financialAnswer:(text,ctx)=>{const sel={...(ctx.selection||selection()),scope:ctx.scopeId},rows=window.TerritorioAgent.validSales('all'),sales=rows.filter(s=>['completed','returned'].includes(s.status)&&matchesSelection(s,sel)),returns=rows.filter(s=>s.status==='returned'&&matchesSelection({...s,date:s.returnedAt||s.date},sel)),expenses=model.data.expenses.filter(e=>window.TerritorioAgent.matchesRecord(e)&&matchesSelection(e,sel)),st=FIN().statement({sales,returns,expenses,settings:model.data.settings.finance,shares:finSharesFor(sel),general:sel.scope==='all'}),known=FIN().productMargins(sales,returns).every(m=>m.costKnown),count=sales.filter(s=>s.status==='completed').length,bruto=st.revenue-st.cmv;return periodText(sel)+' · '+reportScopeName(sel.scope)+'\n'+E.money(st.revenue)+' em vendas após devoluções; '+count+' vendas concluídas.\n'+(count?'Compra média: '+E.money(Math.round(st.revenue/count))+'.':'Sem vendas válidas: não há ticket a calcular.')+'\n'+(known&&st.revenue>0?'Lucro bruto dos produtos: '+E.money(bruto)+'; margem bruta '+(bruto/st.revenue*100).toLocaleString('pt-BR',{maximumFractionDigits:1})+'%, antes de taxas e despesas.':'Dados insuficientes para margem: receita ausente ou custo histórico incompleto.')+'\nTaxas registradas/configuradas: '+E.money(st.fees)+'. Despesas e rateios seguem Finanças; gastos não informados tornam o resultado parcial. Não é lucro líquido garantido.';},
+ evidence:ref=>{if(ref.type==='product')pickOwnStockProduct(ref.id);else if(ref.type==='event')eventDetail(ref.id);else if(ref.type==='sale')saleDetail(ref.id);}
+};
+const paintBrainBeforeAgent=paintBrain;
+paintBrain=function(preserve){paintBrainBeforeAgent(preserve);if(modal?.kind!=='brain'||!window.TerritorioAgent)return;const old=dialog.querySelector('.insight-priorities'),html=window.TerritorioAgent.panel(agentContext());if(old)old.outerHTML=html;else dialog.querySelector('.dialog-content')?.insertAdjacentHTML('afterbegin',html);};
+const clientsPageBeforeAgent=clientsPage;
+clientsPage=function(){const html=clientsPageBeforeAgent();return window.TerritorioAgent?html.replace('<div class="clients-layout">','<div class="clients-layout">'+window.TerritorioAgent.clientEntry()):html;};
+const eventDetailBeforeAgent=eventDetail;
+eventDetail=function(id){eventDetailBeforeAgent(id);if(!window.TerritorioAgent)return;const body=dialog.querySelector('.dialog-content');if(body&&!body.querySelector('[data-action="agent-event"]'))body.insertAdjacentHTML('beforeend',btn('agent-event','Analisar carga e sobra conferida','choice modal-action',{id}));};
+
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 window.TerritorioSurplusUI.install({
  getModel:()=>model,setModel:value=>{model=value;},Model:E.ERPModel,uid:E.uid,

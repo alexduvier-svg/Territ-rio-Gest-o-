@@ -8,7 +8,7 @@ export function installVoice() {
   const bridge=window.TerritorioVoiceBridge;if(!bridge)return;
   const esc=bridge.escape,realNative=Capacitor.isNativePlatform()&&Capacitor.getPlatform()==='android';
   const transport={listen:fn=>native.addListener('voice',fn),start:options=>native.startListening(options),stop:()=>native.stopListening(),cancel:()=>native.cancel()};
-  let opened=false,openingId=0,capabilities={nativePortuguese:false},snapshot=null,proposal=null,selected=null,applied=false,choosing=false;
+  let opened=false,openingId=0,capabilities={nativePortuguese:false},snapshot=null,proposal=null,selected=null,applied=false,choosing=false,queryFinal=null,multiRequest=null;
   const dialog=document.getElementById('dialog');
   function paintState(state) {
     const listening=state.phase==='listening';
@@ -27,7 +27,7 @@ export function installVoice() {
       interpret();const warning=dialog.querySelector('#voice-warning');
       if(warning)warning.textContent=state.result?.lowVolume?'O volume chegou baixo. Confira com cuidado.':state.result?.clipping?'O som saturou. Afaste um pouco o microfone e confira.':state.result?.confidence>=0&&state.result.confidence<0.65?'A fala ficou incerta. Corrija o texto ou escolha o produto antes de continuar.':'';
       if(state.result?.confidence>=0&&state.result.confidence<0.65){selected=null;paintProposal();}
-      else routeSpokenSale(state.result);
+      else if((queryFinal||multiRequest)&&!state.result?.lowVolume&&!state.result?.clipping)forwardFinal();else routeSpokenSale(state.result);
     }
     if(state.phase==='error')invalidate();
   }
@@ -48,10 +48,13 @@ export function installVoice() {
       proposal.message='Qual peso ou apresentação você quer vender?';selected=null;paintProposal();
     }
   }
-  function accept(){const p=chosen(),q=quantity();if(applied||!valid(p,q))return;applied=true;try{bridge.accept({productId:p.id,quantity:q,price:p.price,unit:p.unit,snapshot});cancel();bridge.close();}catch(error){applied=false;const note=dialog.querySelector('#voice-warning');if(note)note.textContent=error.message;paintTotal();}}
+  function forwardFinal(){if(applied)return;applied=true;const text=cleanSpeech(dialog.querySelector('#voice-text')?.value),session=controller.state().session||(crypto.randomUUID?.()||Array.from(crypto.getRandomValues(new Uint8Array(16)),n=>n.toString(16).padStart(2,'0')).join('')),callback=queryFinal;cancel();if(callback)callback(text,{session});else window.TerritorioAgent?.multiVoice(text,session);}
+  function accept(){if(queryFinal||multiRequest)return forwardFinal();const p=chosen(),q=quantity();if(applied||!valid(p,q))return;applied=true;try{bridge.accept({productId:p.id,quantity:q,price:p.price,unit:p.unit,snapshot});cancel();bridge.close();}catch(error){applied=false;const note=dialog.querySelector('#voice-warning');if(note)note.textContent=error.message;paintTotal();}}
   function invalidate(){proposal=null;selected=null;const box=dialog.querySelector('#voice-proposal');if(box)box.replaceChildren();const b=dialog.querySelector('[data-action="voice-accept"]');if(b)b.disabled=true;}
   function interpret() {
-    if(!opened)return;proposal=interpretSpeech(dialog.querySelector('#voice-text')?.value,bridge.products());
+    if(!opened)return;const text=dialog.querySelector('#voice-text')?.value,request=window.TerritorioAgent?.parseSales(text);multiRequest=request?.intent==='sale'&&request.items.length>1?request:null;
+    if(queryFinal||multiRequest){proposal=null;selected=null;dialog.querySelector('#voice-proposal').innerHTML='<p class="voice-explanation">'+(queryFinal?'A consulta usa os registros locais; nenhuma venda será confirmada.':'Ouvi '+multiRequest.items.length+' itens. Vamos conferir todos, com produto, apresentação e quantidade.')+'</p>';const button=dialog.querySelector('[data-action="voice-accept"]');button.disabled=false;button.textContent=queryFinal?'Consultar registros':'Conferir itens';return;}
+    proposal=window.TerritorioAgent?.resolveSingle(text)||interpretSpeech(text,bridge.products());
     selected=proposal.productId;paintProposal();
   }
   function chosen(){return selected&&bridge.products().find(p=>p.id===selected);}
@@ -69,14 +72,14 @@ export function installVoice() {
     const engine=dialog.querySelector('#voice-engine')?.value||'auto',noiseSuppression=dialog.querySelector('#voice-noise')?.checked!==false;
     await controller.start({engine,noiseSuppression,hints:voiceHints(bridge.products())});
   }
-  async function open() {
+  async function open(options={}) {
     if(opened){if(controller.state().phase==='listening')controller.stop();return;}
-    opened=true;const openId=++openingId;applied=false;choosing=false;snapshot=bridge.snapshot();proposal=null;selected=null;
-    const body='<section class="voice-listening-card"><button type="button" class="voice-mic voice-sheet-mic" data-action="voice-stop" aria-label="Concluir escuta" hidden>'+mic+'</button><p id="voice-status" role="status">'+(realNative?'Preparando português…':'Voz disponível no APK Android. Aqui você pode testar digitando a frase.')+'</p><div id="voice-level" class="voice-level" aria-hidden="true" hidden><span></span></div><p id="voice-partial" class="voice-partial"></p></section><p class="voice-help">Um produto por vez. A voz prepara o carrinho; a venda só termina na confirmação habitual.</p><label for="voice-text">O que você disse</label><textarea id="voice-text" rows="2" maxlength="500" placeholder="Três cafés especiais de 250 gramas"></textarea><div id="voice-alternatives" class="voice-alternatives"></div><div class="voice-tools"><button type="button" class="choice" data-action="voice-interpret">Conferir frase</button><button type="button" class="choice" data-action="voice-repeat"'+(!realNative?' disabled':'')+'>Ouvir de novo</button></div><p id="voice-warning" class="voice-warning" role="status"></p><div id="voice-proposal"></div>'+(realNative?'<details class="voice-options"><summary>Ajustes da escuta</summary><label for="voice-engine">Reconhecimento</label><select id="voice-engine"><option value="auto">Automático · português no aparelho</option><option value="offline">Vosk offline · sem Google</option></select><label class="voice-noise"><input id="voice-noise" type="checkbox" checked> Reduzir ruído quando disponível</label><p>Se a redução piorar sua voz, desligue e repita. O modo offline não precisa de internet. Não guardamos o áudio.</p><p id="voice-engine-note"></p></details>':'');
+    queryFinal=options.mode==='agent'&&typeof options.onFinal==='function'?options.onFinal:null;multiRequest=null;opened=true;const openId=++openingId;applied=false;choosing=false;snapshot=bridge.snapshot();proposal=null;selected=null;
+    const body='<section class="voice-listening-card"><button type="button" class="voice-mic voice-sheet-mic" data-action="voice-stop" aria-label="Concluir escuta" hidden>'+mic+'</button><p id="voice-status" role="status">'+(realNative?'Preparando português…':'Voz disponível no APK Android. Aqui você pode testar digitando a frase.')+'</p><div id="voice-level" class="voice-level" aria-hidden="true" hidden><span></span></div><p id="voice-partial" class="voice-partial"></p></section><p class="voice-help">'+(queryFinal?'Pergunte sobre estoque, feira ou recompra. Confira o texto entendido.':'Diga produtos e quantidades. A voz prepara o carrinho; a venda só termina na confirmação habitual.')+'</p><label for="voice-text">O que você disse</label><textarea id="voice-text" rows="2" maxlength="500" placeholder="Três cafés especiais de 250 gramas"></textarea><div id="voice-alternatives" class="voice-alternatives"></div><div class="voice-tools"><button type="button" class="choice" data-action="voice-interpret">Conferir frase</button><button type="button" class="choice" data-action="voice-repeat"'+(!realNative?' disabled':'')+'>Ouvir de novo</button></div><p id="voice-warning" class="voice-warning" role="status"></p><div id="voice-proposal"></div>'+(realNative?'<details class="voice-options"><summary>Ajustes da escuta</summary><label for="voice-engine">Reconhecimento</label><select id="voice-engine"><option value="auto">Automático · português no aparelho</option><option value="offline">Vosk offline · sem Google</option></select><label class="voice-noise"><input id="voice-noise" type="checkbox" checked> Reduzir ruído quando disponível</label><p>Se a redução piorar sua voz, desligue e repita. O modo offline não precisa de internet. Não guardamos o áudio.</p><p id="voice-engine-note"></p></details>':'');
     bridge.open(body,'<button type="button" class="success" data-action="voice-accept" disabled>Levar ao carrinho</button><button type="button" class="sheet-back" data-action="voice-cancel">Voltar</button>');
     if(realNative){try{capabilities=await native.getCapabilities();}catch{capabilities={nativePortuguese:false};}if(!opened||openId!==openingId)return;const note=dialog.querySelector('#voice-engine-note');if(note)note.textContent=capabilities.nativePortuguese?'Português instalado no reconhecedor local do Android.':'Este aparelho usará o português offline embarcado.';await listen();}
   }
-  function cancel(){openingId++;controller.cancel();opened=false;proposal=null;selected=null;}
+  function cancel(){openingId++;controller.cancel();opened=false;proposal=null;selected=null;queryFinal=null;multiRequest=null;}
   function mount(){
     if(!bridge.isHome())return;
     const row=document.querySelector('.feira-chips,.category-pills');if(!row||row.querySelector('.voice-mic'))return;
@@ -96,6 +99,6 @@ export function installVoice() {
   // The existing sheet can be replaced by navigation; no orphan microphone survives it.
   new MutationObserver(()=>{if(opened&&(!dialog.open||dialog.dataset.kind!=='voice'))cancel();mount();}).observe(document.getElementById('app'),{childList:true,subtree:true});
   new MutationObserver(()=>{if(opened&&(!dialog.open||dialog.dataset.kind!=='voice'))cancel();}).observe(dialog,{attributes:true,attributeFilter:['open','data-kind']});
-  window.TerritorioVoice={state:controller.state,capabilities:()=>({...capabilities}),cancel};
+  window.TerritorioVoice={state:controller.state,capabilities:()=>({...capabilities}),cancel,open};
   mount();
 }

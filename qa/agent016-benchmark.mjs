@@ -1,0 +1,10 @@
+import {performance} from 'node:perf_hooks';
+import os from 'node:os';
+import fs from 'node:fs';
+import {parseRequest,analyze,productIndex,revisionOf,ensureAgent} from '../app/src/features/agent/core.js';
+const now=Date.now(),DAY=86400000,data={schema:1,dataContext:{id:'benchmark-fixture',type:'demo'},products:[],sales:[],clients:[],events:[],eventLoads:[],movements:[],expenses:[],settings:{onboarding:'demo'}};
+data.products=Array.from({length:3000},(_,i)=>({id:'p'+i,name:i===0?'Café Especial':'Produto personalizado '+i,format:'Moído',weight:250,unit:'Pacote',price:2500,cost:1000,stock:20,min:2}));
+data.sales=Array.from({length:10000},(_,i)=>({id:'s'+i,date:new Date(now-(i%60)*DAY).toISOString(),scope:i%2?'loja':'fair',status:'completed',total:2500,items:[{productId:'p'+i%3000,qty:1,unit:'Pacote',costTotal:1000,costKnown:true}]}));ensureAgent(data);
+const sample=(fn,n)=>{const values=[];for(let i=0;i<n;i++){const t=performance.now();fn();values.push(performance.now()-t);}values.sort((a,b)=>a-b);return {runs:n,minMs:values[0],medianMs:values[Math.floor(values.length/2)],p95Ms:values[Math.floor((values.length-1)*.95)],maxMs:values.at(-1)};};
+const result={synthetic:true,environment:{runtime:process.version,os:os.platform(),cpu:os.cpus()[0]?.model},products:data.products.length,sales:data.sales.length,coldParse:sample(()=>parseRequest('três cafés especiais 250',data,{scopeId:'loja'}),1),warmParse:sample(()=>parseRequest('três cafés especiais 250',data,{scopeId:'loja'}),20),rules:sample(()=>analyze(data,{scopeId:'all',now}),5),index:sample(()=>productIndex(data),3),revision:sample(()=>revisionOf(data),3),limitations:'Host Node timings only. Browser worker scheduling, model decoding, physical microphone, cheap Android and APK startup are not represented.'};
+fs.writeFileSync(new URL('./agent016-benchmark.json',import.meta.url),JSON.stringify(result,null,2));console.log(JSON.stringify(result));

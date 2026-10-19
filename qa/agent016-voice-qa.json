@@ -1,0 +1,345 @@
+{
+  "synthetic": true,
+  "nativeRPC": "stubbed, no physical microphone or speech accuracy measurement",
+  "checks": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "placement": true,
+      "manualText": true,
+      "bare250": true,
+      "ambiguousWeights": true,
+      "cancel": true,
+      "noBusinessMutation": true,
+      "oneDraftAddition": true,
+      "memorySaved": true
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "nativeRPCStub": true,
+      "multiFinalOneOwner": true,
+      "duplicateFinalIgnored": true,
+      "partialsNoProposal": true,
+      "consultationSameMicrophone": true,
+      "cartPreserved": true,
+      "noBusinessMutation": true
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "nativeRPCStub": true,
+      "blueAndWaves": true,
+      "partialsNoMutation": true,
+      "autoDraft250": true,
+      "chooseWeightOneTap": true,
+      "errorBackToGray": true,
+      "noBusinessMutation": true
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "placement": true,
+      "manualText": true,
+      "bare250": true,
+      "ambiguousWeights": true,
+      "cancel": true,
+      "noBusinessMutation": true,
+      "oneDraftAddition": true,
+      "memorySaved": true
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "nativeRPCStub": true,
+      "multiFinalOneOwner": true,
+      "duplicateFinalIgnored": true,
+      "partialsNoProposal": true,
+      "consultationSameMicrophone": true,
+      "cartPreserved": true,
+      "noBusinessMutation": true
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "nativeRPCStub": true,
+      "blueAndWaves": true,
+      "partialsNoMutation": true,
+      "autoDraft250": true,
+      "chooseWeightOneTap": true,
+      "errorBackToGray": true,
+      "noBusinessMutation": true
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "placement": true,
+      "manualText": true,
+      "bare250": true,
+      "ambiguousWeights": true,
+      "cancel": true,
+      "noBusinessMutation": true,
+      "oneDraftAddition": true,
+      "memorySaved": true
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "placement": true,
+      "manualText": true,
+      "bare250": true,
+      "ambiguousWeights": true,
+      "cancel": true,
+      "noBusinessMutation": true,
+      "oneDraftAddition": true,
+      "memorySaved": true
+    }
+  ],
+  "surfaces": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "geo": {
+        "x": 20,
+        "y": 66.59375,
+        "right": 300,
+        "bottom": 673.390625,
+        "footerBottom": 672.390625,
+        "scrollHeight": 693,
+        "clientHeight": 409,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 549.453125,
+              "width": 238,
+              "height": 50.9375,
+              "top": 549.453125,
+              "right": 279,
+              "bottom": 600.390625,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 610.390625,
+              "width": 238,
+              "height": 48,
+              "top": 610.390625,
+              "right": 279,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          }
+        ],
+        "background": "rgb(233, 233, 238)"
+      },
+      "contrast": {
+        "text": "rgb(22, 22, 24)",
+        "background": "rgb(233, 233, 238)"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 792,
+        "large": false
+      },
+      "geo": {
+        "x": 20,
+        "y": 71.28125,
+        "right": 340,
+        "bottom": 720.71875,
+        "footerBottom": 719.71875,
+        "scrollHeight": 679,
+        "clientHeight": 443,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 596.78125,
+              "width": 278,
+              "height": 50.9375,
+              "top": 596.78125,
+              "right": 319,
+              "bottom": 647.71875,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 657.71875,
+              "width": 278,
+              "height": 48,
+              "top": 657.71875,
+              "right": 319,
+              "bottom": 705.71875,
+              "left": 41
+            },
+            "scroll": 276,
+            "client": 276
+          }
+        ],
+        "background": "rgb(44, 44, 46)"
+      },
+      "contrast": {
+        "text": "rgb(245, 245, 247)",
+        "background": "rgb(44, 44, 46)"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 740,
+        "large": true
+      },
+      "geo": {
+        "x": 20,
+        "y": 66.59375,
+        "right": 373,
+        "bottom": 673.390625,
+        "footerBottom": 672.390625,
+        "scrollHeight": 687,
+        "clientHeight": 398,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 546.75,
+              "width": 311,
+              "height": 53.640625,
+              "top": 546.75,
+              "right": 352,
+              "bottom": 600.390625,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 610.390625,
+              "width": 311,
+              "height": 48,
+              "top": 610.390625,
+              "right": 352,
+              "bottom": 658.390625,
+              "left": 41
+            },
+            "scroll": 309,
+            "client": 309
+          }
+        ],
+        "background": "rgb(233, 233, 238)"
+      },
+      "contrast": {
+        "text": "rgb(22, 22, 24)",
+        "background": "rgb(233, 233, 238)"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 620,
+        "large": true
+      },
+      "geo": {
+        "x": 20,
+        "y": 55.796875,
+        "right": 392,
+        "bottom": 564.1875,
+        "footerBottom": 563.1875,
+        "scrollHeight": 687,
+        "clientHeight": 299,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 437.546875,
+              "width": 330,
+              "height": 53.640625,
+              "top": 437.546875,
+              "right": 371,
+              "bottom": 491.1875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 501.1875,
+              "width": 330,
+              "height": 48,
+              "top": 501.1875,
+              "right": 371,
+              "bottom": 549.1875,
+              "left": 41
+            },
+            "scroll": 328,
+            "client": 328
+          }
+        ],
+        "background": "rgb(44, 44, 46)"
+      },
+      "contrast": {
+        "text": "rgb(245, 245, 247)",
+        "background": "rgb(44, 44, 46)"
+      }
+    }
+  ],
+  "errors": []
+}
