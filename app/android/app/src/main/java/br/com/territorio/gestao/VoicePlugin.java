@@ -281,6 +281,27 @@ public class VoicePlugin extends Plugin {
         try { return new JSONObject(json).optString(key, "").trim(); } catch (Exception e) { return ""; }
     }
 
+    /**
+     * Diário de diagnóstico da voz (texto, nunca áudio): o que foi ouvido, as alternativas e o que o
+     * app entendeu. Fica na pasta privada do app (files/voz-diagnostico.jsonl), só as últimas 300 linhas.
+     */
+    @PluginMethod
+    public void appendDiagnostic(PluginCall call) {
+        String line = call.getString("line", "");
+        if (line == null || line.isEmpty()) { call.resolve(); return; }
+        java.io.File file = new java.io.File(getContext().getFilesDir(), "voz-diagnostico.jsonl");
+        try {
+            java.util.List<String> lines = new java.util.ArrayList<>();
+            if (file.exists()) lines.addAll(java.nio.file.Files.readAllLines(file.toPath(), java.nio.charset.StandardCharsets.UTF_8));
+            lines.add(line.replace('\n', ' '));
+            int from = Math.max(0, lines.size() - 300);
+            java.nio.file.Files.write(file.toPath(), lines.subList(from, lines.size()), java.nio.charset.StandardCharsets.UTF_8);
+            call.resolve();
+        } catch (Exception e) {
+            call.reject("Diário de voz indisponível.");
+        }
+    }
+
     /** Encerra a fala e entrega o que já foi dito. */
     @PluginMethod
     public void stopListening(PluginCall call) {

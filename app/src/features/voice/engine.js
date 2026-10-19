@@ -29,6 +29,11 @@ export function createVoiceController(handlers) {
     available: () => !!Native || !!WebRecognition,
     native: !!Native,
     isListening: () => listening,
+    /** Uma linha de diagnóstico (texto) no diário da voz do aparelho. */
+    diagnostic(entry) {
+      if (!Native) return;
+      Native.appendDiagnostic({ line: JSON.stringify({ at: new Date().toISOString(), ...entry }) }).catch(() => {});
+    },
     async capabilities() {
       if (Native) return Native.getCapabilities();
       return { web: !!WebRecognition };

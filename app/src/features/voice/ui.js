@@ -106,6 +106,13 @@ function choose(result, heard = '', payment = null) {
   ctx.openModal('Finalizar Venda', body, 'voice-sale', null, footer);
 }
 
+// Diagnóstico (sem áudio): vai para o logcat e para o diário da voz no aparelho.
+function note(entry) {
+  const line = { version: window.TERRITORIO_VERSION || '', page: ctx.page(), ...entry };
+  console.info('[voz]', JSON.stringify(line));
+  controller?.diagnostic(line);
+}
+
 function handleFinal(heard, alternatives = [], engine = '') {
   setPhase('processing');
   const page = ctx.page();
@@ -124,12 +131,12 @@ function handleFinal(heard, alternatives = [], engine = '') {
   // Perda, sobra, troca, brinde, reposição…: a voz ainda não lança esses movimentos.
   const otherAction = meaning.action && !['venda', 'fiado', 'cancelar'].includes(meaning.action);
   if (otherAction) {
-    console.info('[voz]', JSON.stringify({ engine, heard, alternatives, chosen: text, status: 'acao-' + meaning.action }));
+    note({ engine, heard, alternatives, chosen: text, status: 'acao-' + meaning.action });
     setPhase('idle');
     return say(`Ouvi: “${meaning.original || heard}”. Entendi ${(meaning.actionLabel || meaning.action).toLowerCase()}. Por voz, o app registra só vendas por enquanto.`, 'warn', fallbackActions);
   }
   // Diagnóstico (sem áudio): motor, o que foi ouvido e o que o app entendeu. Aparece no logcat.
-  console.info('[voz]', JSON.stringify({ engine, heard, alternatives, chosen: text, status: result.status, productId: result.productId || null, quantity: result.quantity ?? null, payment: meaning.payment || null, corrections: meaning.corrections?.length || 0 }));
+  note({ engine, heard, alternatives, chosen: text, status: result.status, productId: result.productId || null, quantity: result.quantity ?? null, payment: meaning.payment || null, corrections: (meaning.corrections || []).map(c => `${c.de}→${c.para}`), candidates: (result.candidates || []).map(c => c.id) });
   setPhase('idle');
   if (result.status === 'ok') return propose(result.productId, result.quantity, meaning.original || heard, meaning.payment);
   if (result.status === 'choose') return choose(result, meaning.original || heard, meaning.payment);
@@ -202,12 +209,13 @@ export function installVoice(context) {
     },
     onFinal: (text, alternatives, engine) => { wanted = false; handleFinal(String(text || '').trim(), alternatives || [], engine || ''); },
     onError: (code, message) => {
+      note({ status: 'erro', code, message, wanted });
       if (!wanted) return;
       wanted = false;
       setPhase('idle');
       say(errorText[code] || message, 'warn', code === 'permission-denied' ? [{ id: 'type', label: 'Digitar' }] : fallbackActions);
     },
-    onEngine: () => say('Usando a voz offline do app.', 'listening'),
+    onEngine: (engine, reason) => { note({ status: 'motor', engine, reason }); say('Usando a voz offline do app.', 'listening'); },
   });
   document.addEventListener('click', onClick, true);
   // Saiu da aba ou do app: a escuta termina, sem resultado.
