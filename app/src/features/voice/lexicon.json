@@ -1,0 +1,1528 @@
+{
+  "meta": {
+    "nome": "Super Dicionário AGRO Gestão — Linguagem e Fala (pt-BR)",
+    "versao": "1.0.0",
+    "data": "2026-10-19",
+    "autor": "Alex Duvier / Território OS",
+    "idioma": "pt-BR",
+    "regiao": "Zona da Mata Mineira",
+    "observacao": "Este léxico é SEMENTE. O catálogo de produtos já existente no app (2 mil+) é a fonte primária e deve ser mesclado via motor.carregarCatalogo()."
+  },
+  "numerals": {
+    "zero": 0,
+    "um": 1,
+    "uma": 1,
+    "hum": 1,
+    "dois": 2,
+    "duas": 2,
+    "doi": 2,
+    "doiz": 2,
+    "duaz": 2,
+    "tres": 3,
+    "treis": 3,
+    "trez": 3,
+    "treiz": 3,
+    "quatro": 4,
+    "quatru": 4,
+    "cuatro": 4,
+    "quato": 4,
+    "cinco": 5,
+    "sinco": 5,
+    "cinko": 5,
+    "cico": 5,
+    "seis": 6,
+    "seiz": 6,
+    "seix": 6,
+    "sete": 7,
+    "seti": 7,
+    "oito": 8,
+    "oitu": 8,
+    "nove": 9,
+    "novi": 9,
+    "dez": 10,
+    "deis": 10,
+    "onze": 11,
+    "onse": 11,
+    "doze": 12,
+    "treze": 13,
+    "trese": 13,
+    "catorze": 14,
+    "quatorze": 14,
+    "quatorse": 14,
+    "quinze": 15,
+    "quinse": 15,
+    "quize": 15,
+    "dezesseis": 16,
+    "dezeseis": 16,
+    "dezasseis": 16,
+    "dezessete": 17,
+    "dezesete": 17,
+    "dezoito": 18,
+    "dezenove": 19,
+    "dezanove": 19,
+    "vinte": 20,
+    "vint": 20,
+    "trinta": 30,
+    "quarenta": 40,
+    "cinquenta": 50,
+    "cincoenta": 50,
+    "sinquenta": 50,
+    "sessenta": 60,
+    "secenta": 60,
+    "setenta": 70,
+    "oitenta": 80,
+    "noventa": 90,
+    "cem": 100,
+    "cento": 100,
+    "duzentos": 200,
+    "duzentas": 200,
+    "trezentos": 300,
+    "trezentas": 300,
+    "quatrocentos": 400,
+    "quinhentos": 500,
+    "quinhentas": 500,
+    "seiscentos": 600,
+    "setecentos": 700,
+    "oitocentos": 800,
+    "novecentos": 900,
+    "mil": 1000,
+    "par": 2,
+    "dezena": 10,
+    "meio": 0.5,
+    "meia": 0.5
+  },
+  "products": [
+    {
+      "name": "café",
+      "plural": "cafés",
+      "aliases": [
+        "cafe",
+        "caffe",
+        "cafée",
+        "cfe",
+        "cf"
+      ]
+    },
+    {
+      "name": "café especial",
+      "plural": "cafés especiais",
+      "aliases": [
+        "cafe espesial",
+        "cafe expecial",
+        "cafe especail",
+        "cafe espcial",
+        "cafe special",
+        "cafe especiau",
+        "cf especial",
+        "cafe esp"
+      ]
+    },
+    {
+      "name": "café gourmet",
+      "plural": "cafés gourmet",
+      "aliases": [
+        "cafe gurme",
+        "cafe gormet",
+        "cafe gourme"
+      ]
+    },
+    {
+      "name": "café tradicional",
+      "plural": "cafés tradicionais",
+      "aliases": [
+        "cafe tradicionau"
+      ]
+    },
+    {
+      "name": "café moído",
+      "plural": "cafés moídos",
+      "aliases": [
+        "cafe muido",
+        "cafe moido",
+        "po de cafe",
+        "cafe em po",
+        "café em pó",
+        "pó de café"
+      ]
+    },
+    {
+      "name": "café em grão",
+      "plural": "cafés em grão",
+      "aliases": [
+        "cafe em grao",
+        "cafe em graos",
+        "cafe grao"
+      ]
+    },
+    {
+      "name": "café torrado",
+      "plural": "cafés torrados",
+      "aliases": [
+        "cafe torado"
+      ]
+    },
+    {
+      "name": "café cru",
+      "plural": "cafés crus",
+      "aliases": [
+        "cafe verde",
+        "café verde"
+      ]
+    },
+    {
+      "name": "café coado",
+      "plural": "cafés coados",
+      "aliases": [
+        "cafe coadu",
+        "cafezinho",
+        "copo de cafe",
+        "cafezinho"
+      ]
+    },
+    {
+      "name": "café com leite",
+      "plural": "cafés com leite",
+      "aliases": [
+        "cafe c leite",
+        "cafe com leiti"
+      ]
+    },
+    {
+      "name": "café drip",
+      "plural": "cafés drip",
+      "aliases": [
+        "drip",
+        "dripe",
+        "cafe dripe"
+      ]
+    },
+    {
+      "name": "queijo",
+      "plural": "queijos",
+      "aliases": [
+        "quejo",
+        "quiejo",
+        "qeijo",
+        "queigo",
+        "queju",
+        "kejo",
+        "qjo"
+      ]
+    },
+    {
+      "name": "queijo minas frescal",
+      "plural": "queijos minas frescal",
+      "aliases": [
+        "queijo frescal",
+        "quejo frescal",
+        "queijo frescau",
+        "queijo fresco",
+        "frescal",
+        "queijo fresco"
+      ]
+    },
+    {
+      "name": "queijo meia cura",
+      "plural": "queijos meia cura",
+      "aliases": [
+        "queijo meia-cura",
+        "quejo meia cura",
+        "meia cura",
+        "queijo meio curado"
+      ]
+    },
+    {
+      "name": "queijo curado",
+      "plural": "queijos curados",
+      "aliases": [
+        "quejo curado",
+        "queijo curadu",
+        "queijo maturado"
+      ]
+    },
+    {
+      "name": "queijo canastra",
+      "plural": "queijos canastra",
+      "aliases": [
+        "quejo canastra"
+      ]
+    },
+    {
+      "name": "queijo parmesão",
+      "plural": "queijos parmesão",
+      "aliases": [
+        "parmesao",
+        "queijo parmesao"
+      ]
+    },
+    {
+      "name": "requeijão",
+      "plural": "requeijões",
+      "aliases": [
+        "requeijao",
+        "requejao",
+        "requeijão cremoso",
+        "requejão"
+      ]
+    },
+    {
+      "name": "requeijão de corte",
+      "plural": "requeijões de corte",
+      "aliases": [
+        "requeijao de corte",
+        "requejao de corte"
+      ]
+    },
+    {
+      "name": "doce de leite",
+      "plural": "doces de leite",
+      "aliases": [
+        "doce de leiti",
+        "doci de leite",
+        "dce de leite",
+        "doce d leite"
+      ]
+    },
+    {
+      "name": "manteiga",
+      "plural": "manteigas",
+      "aliases": [
+        "mantega",
+        "mantêga",
+        "manteica"
+      ]
+    },
+    {
+      "name": "manteiga de garrafa",
+      "plural": "manteigas de garrafa",
+      "aliases": [
+        "mantega de garrafa",
+        "manteiga de garafa"
+      ]
+    },
+    {
+      "name": "iogurte",
+      "plural": "iogurtes",
+      "aliases": [
+        "iorgute",
+        "iogurti",
+        "yogurte",
+        "iogute",
+        "iorgurte",
+        "yogurt"
+      ]
+    },
+    {
+      "name": "leite",
+      "plural": "leites",
+      "aliases": [
+        "leiti"
+      ]
+    },
+    {
+      "name": "nata",
+      "plural": "natas",
+      "aliases": []
+    },
+    {
+      "name": "ricota",
+      "plural": "ricotas",
+      "aliases": [
+        "rricota"
+      ]
+    },
+    {
+      "name": "goiabada",
+      "plural": "goiabadas",
+      "aliases": [
+        "goiabda",
+        "goibada",
+        "guiabada"
+      ]
+    },
+    {
+      "name": "goiabada cascão",
+      "plural": "goiabadas cascão",
+      "aliases": [
+        "goiabada cascao"
+      ]
+    },
+    {
+      "name": "doce de abóbora",
+      "plural": "doces de abóbora",
+      "aliases": [
+        "doce de abobora",
+        "doce de abobra"
+      ]
+    },
+    {
+      "name": "doce de mamão",
+      "plural": "doces de mamão",
+      "aliases": [
+        "doce de mamao"
+      ]
+    },
+    {
+      "name": "doce de figo",
+      "plural": "doces de figo",
+      "aliases": []
+    },
+    {
+      "name": "doce de banana",
+      "plural": "doces de banana",
+      "aliases": [
+        "bananada"
+      ]
+    },
+    {
+      "name": "doce de goiaba",
+      "plural": "doces de goiaba",
+      "aliases": []
+    },
+    {
+      "name": "doce de laranja",
+      "plural": "doces de laranja",
+      "aliases": []
+    },
+    {
+      "name": "doce de cidra",
+      "plural": "doces de cidra",
+      "aliases": [
+        "doce de sidra"
+      ]
+    },
+    {
+      "name": "cocada",
+      "plural": "cocadas",
+      "aliases": [
+        "cocadda",
+        "cucada"
+      ]
+    },
+    {
+      "name": "pé de moleque",
+      "plural": "pés de moleque",
+      "aliases": [
+        "pe de moleque",
+        "pe de muleque",
+        "pé-de-moleque",
+        "pe-de-moleque",
+        "pe d moleque"
+      ]
+    },
+    {
+      "name": "rapadura",
+      "plural": "rapaduras",
+      "aliases": [
+        "rapadudra",
+        "rapadra",
+        "rapaduria"
+      ]
+    },
+    {
+      "name": "melado",
+      "plural": "melados",
+      "aliases": [
+        "meladu",
+        "melado de cana"
+      ]
+    },
+    {
+      "name": "geleia",
+      "plural": "geleias",
+      "aliases": [
+        "geléia",
+        "gelea",
+        "jeleia",
+        "geleía"
+      ]
+    },
+    {
+      "name": "ambrosia",
+      "plural": "ambrosias",
+      "aliases": [
+        "ambrozia"
+      ]
+    },
+    {
+      "name": "paçoca",
+      "plural": "paçocas",
+      "aliases": [
+        "pacoca",
+        "passoca"
+      ]
+    },
+    {
+      "name": "brigadeiro",
+      "plural": "brigadeiros",
+      "aliases": [
+        "brigadero",
+        "brigadeiru",
+        "brigadeito"
+      ]
+    },
+    {
+      "name": "trufa",
+      "plural": "trufas",
+      "aliases": []
+    },
+    {
+      "name": "bombom",
+      "plural": "bombons",
+      "aliases": [
+        "bombon",
+        "bombons"
+      ]
+    },
+    {
+      "name": "pudim",
+      "plural": "pudins",
+      "aliases": [
+        "pudin"
+      ]
+    },
+    {
+      "name": "bala de banana",
+      "plural": "balas de banana",
+      "aliases": []
+    },
+    {
+      "name": "doce de leite em barra",
+      "plural": "doces de leite em barra",
+      "aliases": [
+        "doce de leite de corte",
+        "doce de leite cortado"
+      ]
+    },
+    {
+      "name": "mel",
+      "plural": "méis",
+      "aliases": [
+        "mell",
+        "mel puro"
+      ]
+    },
+    {
+      "name": "própolis",
+      "plural": "própolis",
+      "aliases": [
+        "propolis",
+        "propoles"
+      ]
+    },
+    {
+      "name": "açúcar mascavo",
+      "plural": "açúcares mascavos",
+      "aliases": [
+        "acucar mascavo",
+        "açucar mascavo",
+        "mascavo",
+        "acucar mascavu"
+      ]
+    },
+    {
+      "name": "pão de queijo",
+      "plural": "pães de queijo",
+      "aliases": [
+        "pao de queijo",
+        "pao de quejo",
+        "pão de quejo",
+        "pao d queijo",
+        "paes de queijo",
+        "pao de queijos",
+        "pdq"
+      ]
+    },
+    {
+      "name": "pão de queijo congelado",
+      "plural": "pães de queijo congelados",
+      "aliases": [
+        "pao de queijo congelado"
+      ]
+    },
+    {
+      "name": "biscoito de polvilho",
+      "plural": "biscoitos de polvilho",
+      "aliases": [
+        "biscoito de povilho",
+        "biscoito de polvilio",
+        "biscouto de polvilho",
+        "bicoito de polvilho",
+        "biscoito polvilho",
+        "peta"
+      ]
+    },
+    {
+      "name": "biscoito",
+      "plural": "biscoitos",
+      "aliases": [
+        "biscouto",
+        "bicoito",
+        "biscoitu",
+        "biscoto",
+        "biscoio"
+      ]
+    },
+    {
+      "name": "biscoito de nata",
+      "plural": "biscoitos de nata",
+      "aliases": []
+    },
+    {
+      "name": "biscoito amanteigado",
+      "plural": "biscoitos amanteigados",
+      "aliases": [
+        "biscoito amantegado"
+      ]
+    },
+    {
+      "name": "bolacha",
+      "plural": "bolachas",
+      "aliases": [
+        "bolaxa",
+        "bulacha"
+      ]
+    },
+    {
+      "name": "broa de milho",
+      "plural": "broas de milho",
+      "aliases": [
+        "broa de milio",
+        "broa de mio",
+        "broa milho",
+        "broa"
+      ]
+    },
+    {
+      "name": "bolo",
+      "plural": "bolos",
+      "aliases": [
+        "bolu"
+      ]
+    },
+    {
+      "name": "bolo de fubá",
+      "plural": "bolos de fubá",
+      "aliases": [
+        "bolo de fuba",
+        "bolo fuba"
+      ]
+    },
+    {
+      "name": "bolo de cenoura",
+      "plural": "bolos de cenoura",
+      "aliases": [
+        "bolo de cenora",
+        "bolo cenoura"
+      ]
+    },
+    {
+      "name": "bolo de milho",
+      "plural": "bolos de milho",
+      "aliases": [
+        "bolo de milio",
+        "bolo de mio"
+      ]
+    },
+    {
+      "name": "bolo de mandioca",
+      "plural": "bolos de mandioca",
+      "aliases": [
+        "bolo de aipim"
+      ]
+    },
+    {
+      "name": "bolo de chocolate",
+      "plural": "bolos de chocolate",
+      "aliases": [
+        "bolo de chocolati"
+      ]
+    },
+    {
+      "name": "bolo de laranja",
+      "plural": "bolos de laranja",
+      "aliases": []
+    },
+    {
+      "name": "fatia de bolo",
+      "plural": "fatias de bolo",
+      "aliases": [
+        "pedaco de bolo"
+      ]
+    },
+    {
+      "name": "rosca",
+      "plural": "roscas",
+      "aliases": [
+        "rosca doce",
+        "rosquinha"
+      ]
+    },
+    {
+      "name": "pão caseiro",
+      "plural": "pães caseiros",
+      "aliases": [
+        "pao caseiro",
+        "pao casero"
+      ]
+    },
+    {
+      "name": "pão de mel",
+      "plural": "pães de mel",
+      "aliases": [
+        "pao de mel"
+      ]
+    },
+    {
+      "name": "pamonha",
+      "plural": "pamonhas",
+      "aliases": [
+        "pamonia",
+        "pamoinha"
+      ]
+    },
+    {
+      "name": "curau",
+      "plural": "curaus",
+      "aliases": [
+        "cural"
+      ]
+    },
+    {
+      "name": "pastel",
+      "plural": "pastéis",
+      "aliases": [
+        "pasteu",
+        "pasteis"
+      ]
+    },
+    {
+      "name": "empada",
+      "plural": "empadas",
+      "aliases": [
+        "impada"
+      ]
+    },
+    {
+      "name": "coxinha",
+      "plural": "coxinhas",
+      "aliases": [
+        "cochinha"
+      ]
+    },
+    {
+      "name": "ovo caipira",
+      "plural": "ovos caipiras",
+      "aliases": [
+        "ovo caipra",
+        "ovos caipira",
+        "ovus caipira",
+        "ovo de galinha caipira"
+      ]
+    },
+    {
+      "name": "ovo",
+      "plural": "ovos",
+      "aliases": [
+        "ovu",
+        "ovus"
+      ]
+    },
+    {
+      "name": "ovo de codorna",
+      "plural": "ovos de codorna",
+      "aliases": [
+        "ovo de codorma",
+        "ovo codorna"
+      ]
+    },
+    {
+      "name": "frango caipira",
+      "plural": "frangos caipiras",
+      "aliases": [
+        "frangu caipira",
+        "galinha caipira",
+        "galinha caipira"
+      ]
+    },
+    {
+      "name": "linguiça",
+      "plural": "linguiças",
+      "aliases": [
+        "linguica",
+        "lingüiça",
+        "lingiça",
+        "linguisa",
+        "linguissa",
+        "lingica"
+      ]
+    },
+    {
+      "name": "torresmo",
+      "plural": "torresmos",
+      "aliases": [
+        "torremo",
+        "toresmo",
+        "torresmu"
+      ]
+    },
+    {
+      "name": "carne de lata",
+      "plural": "carnes de lata",
+      "aliases": []
+    },
+    {
+      "name": "lombo",
+      "plural": "lombos",
+      "aliases": []
+    },
+    {
+      "name": "pernil",
+      "plural": "pernis",
+      "aliases": []
+    },
+    {
+      "name": "alface",
+      "plural": "alfaces",
+      "aliases": [
+        "alfaçe",
+        "alfasse",
+        "aface"
+      ]
+    },
+    {
+      "name": "couve",
+      "plural": "couves",
+      "aliases": [
+        "couvi",
+        "cove"
+      ]
+    },
+    {
+      "name": "couve-flor",
+      "plural": "couves-flores",
+      "aliases": [
+        "couve flor",
+        "couveflor"
+      ]
+    },
+    {
+      "name": "brócolis",
+      "plural": "brócolis",
+      "aliases": [
+        "brocolis",
+        "brocoli",
+        "brocolo"
+      ]
+    },
+    {
+      "name": "cebolinha",
+      "plural": "cebolinhas",
+      "aliases": [
+        "sebolinha",
+        "cebolina"
+      ]
+    },
+    {
+      "name": "salsinha",
+      "plural": "salsinhas",
+      "aliases": [
+        "salcinha",
+        "salsa"
+      ]
+    },
+    {
+      "name": "cheiro-verde",
+      "plural": "cheiros-verdes",
+      "aliases": [
+        "cheiro verde",
+        "chero verde",
+        "xeiro verde"
+      ]
+    },
+    {
+      "name": "coentro",
+      "plural": "coentros",
+      "aliases": [
+        "cuentro",
+        "coentru"
+      ]
+    },
+    {
+      "name": "rúcula",
+      "plural": "rúculas",
+      "aliases": [
+        "rucula",
+        "rucola"
+      ]
+    },
+    {
+      "name": "agrião",
+      "plural": "agriões",
+      "aliases": [
+        "agriao"
+      ]
+    },
+    {
+      "name": "espinafre",
+      "plural": "espinafres",
+      "aliases": [
+        "espinafe"
+      ]
+    },
+    {
+      "name": "almeirão",
+      "plural": "almeirões",
+      "aliases": [
+        "almeirao"
+      ]
+    },
+    {
+      "name": "taioba",
+      "plural": "taiobas",
+      "aliases": []
+    },
+    {
+      "name": "ora-pro-nóbis",
+      "plural": "ora-pro-nóbis",
+      "aliases": [
+        "ora pro nobis",
+        "orapronobis",
+        "ora pro nobi"
+      ]
+    },
+    {
+      "name": "hortelã",
+      "plural": "hortelãs",
+      "aliases": [
+        "hortela",
+        "ortelã"
+      ]
+    },
+    {
+      "name": "manjericão",
+      "plural": "manjericões",
+      "aliases": [
+        "manjericao"
+      ]
+    },
+    {
+      "name": "tomate",
+      "plural": "tomates",
+      "aliases": [
+        "tomati",
+        "tumate"
+      ]
+    },
+    {
+      "name": "cebola",
+      "plural": "cebolas",
+      "aliases": [
+        "sebola"
+      ]
+    },
+    {
+      "name": "alho",
+      "plural": "alhos",
+      "aliases": [
+        "aio",
+        "alio"
+      ]
+    },
+    {
+      "name": "mandioca",
+      "plural": "mandiocas",
+      "aliases": [
+        "mandiuca",
+        "mandioka",
+        "aipim",
+        "macaxeira"
+      ]
+    },
+    {
+      "name": "inhame",
+      "plural": "inhames",
+      "aliases": [
+        "inhami",
+        "inhami",
+        "iname"
+      ]
+    },
+    {
+      "name": "batata-doce",
+      "plural": "batatas-doces",
+      "aliases": [
+        "batata doce",
+        "batatadoce"
+      ]
+    },
+    {
+      "name": "batata",
+      "plural": "batatas",
+      "aliases": [
+        "batatta"
+      ]
+    },
+    {
+      "name": "abóbora",
+      "plural": "abóboras",
+      "aliases": [
+        "abobora",
+        "abobra",
+        "abobura",
+        "moranga",
+        "jerimum"
+      ]
+    },
+    {
+      "name": "abobrinha",
+      "plural": "abobrinhas",
+      "aliases": [
+        "abobrinia"
+      ]
+    },
+    {
+      "name": "quiabo",
+      "plural": "quiabos",
+      "aliases": [
+        "quiabu",
+        "kiabo"
+      ]
+    },
+    {
+      "name": "jiló",
+      "plural": "jilós",
+      "aliases": [
+        "jilo",
+        "giló",
+        "gilo"
+      ]
+    },
+    {
+      "name": "chuchu",
+      "plural": "chuchus",
+      "aliases": [
+        "xuxu",
+        "chuxu",
+        "xuchu"
+      ]
+    },
+    {
+      "name": "berinjela",
+      "plural": "berinjelas",
+      "aliases": [
+        "beringela",
+        "berinjella"
+      ]
+    },
+    {
+      "name": "pimentão",
+      "plural": "pimentões",
+      "aliases": [
+        "pimentao"
+      ]
+    },
+    {
+      "name": "pimenta",
+      "plural": "pimentas",
+      "aliases": [
+        "pimenta biquinho",
+        "pimenta malagueta"
+      ]
+    },
+    {
+      "name": "milho verde",
+      "plural": "milhos verdes",
+      "aliases": [
+        "milio verde",
+        "mio verde",
+        "milho verdi"
+      ]
+    },
+    {
+      "name": "cenoura",
+      "plural": "cenouras",
+      "aliases": [
+        "cenora",
+        "senoura"
+      ]
+    },
+    {
+      "name": "beterraba",
+      "plural": "beterrabas",
+      "aliases": [
+        "beterava",
+        "beteraba"
+      ]
+    },
+    {
+      "name": "vagem",
+      "plural": "vagens",
+      "aliases": [
+        "vage"
+      ]
+    },
+    {
+      "name": "pepino",
+      "plural": "pepinos",
+      "aliases": []
+    },
+    {
+      "name": "gengibre",
+      "plural": "gengibres",
+      "aliases": [
+        "jenjibre",
+        "gengibri"
+      ]
+    },
+    {
+      "name": "açafrão",
+      "plural": "açafrões",
+      "aliases": [
+        "acafrao",
+        "açafrao",
+        "cúrcuma"
+      ]
+    },
+    {
+      "name": "feijão",
+      "plural": "feijões",
+      "aliases": [
+        "feijao",
+        "fejão",
+        "fejao",
+        "feijãozinho"
+      ]
+    },
+    {
+      "name": "arroz",
+      "plural": "arrozes",
+      "aliases": [
+        "aros",
+        "arros",
+        "arois"
+      ]
+    },
+    {
+      "name": "fubá",
+      "plural": "fubás",
+      "aliases": [
+        "fuba",
+        "fuba mimoso"
+      ]
+    },
+    {
+      "name": "farinha de mandioca",
+      "plural": "farinhas de mandioca",
+      "aliases": [
+        "farinha de mandiuca",
+        "farinha mandioca"
+      ]
+    },
+    {
+      "name": "farinha de milho",
+      "plural": "farinhas de milho",
+      "aliases": [
+        "farinha de milio"
+      ]
+    },
+    {
+      "name": "polvilho",
+      "plural": "polvilhos",
+      "aliases": [
+        "povilho",
+        "polvilio",
+        "polvilho azedo",
+        "polvilho doce"
+      ]
+    },
+    {
+      "name": "amendoim",
+      "plural": "amendoins",
+      "aliases": [
+        "amendoin",
+        "mendoim",
+        "minduim"
+      ]
+    },
+    {
+      "name": "banana",
+      "plural": "bananas",
+      "aliases": [
+        "bananna",
+        "banan"
+      ]
+    },
+    {
+      "name": "laranja",
+      "plural": "laranjas",
+      "aliases": [
+        "laranija",
+        "laraja"
+      ]
+    },
+    {
+      "name": "limão",
+      "plural": "limões",
+      "aliases": [
+        "limao",
+        "limoes"
+      ]
+    },
+    {
+      "name": "mexerica",
+      "plural": "mexericas",
+      "aliases": [
+        "mexirica",
+        "mixirica",
+        "mexirca",
+        "mixerica",
+        "tangerina",
+        "ponkan",
+        "bergamota"
+      ]
+    },
+    {
+      "name": "abacate",
+      "plural": "abacates",
+      "aliases": [
+        "abacati"
+      ]
+    },
+    {
+      "name": "maracujá",
+      "plural": "maracujás",
+      "aliases": [
+        "maracuja",
+        "maracujar"
+      ]
+    },
+    {
+      "name": "goiaba",
+      "plural": "goiabas",
+      "aliases": [
+        "goiabba",
+        "guiaba"
+      ]
+    },
+    {
+      "name": "mamão",
+      "plural": "mamões",
+      "aliases": [
+        "mamao"
+      ]
+    },
+    {
+      "name": "manga",
+      "plural": "mangas",
+      "aliases": []
+    },
+    {
+      "name": "abacaxi",
+      "plural": "abacaxis",
+      "aliases": [
+        "abacachi"
+      ]
+    },
+    {
+      "name": "morango",
+      "plural": "morangos",
+      "aliases": [
+        "morangu",
+        "moranguinho"
+      ]
+    },
+    {
+      "name": "jabuticaba",
+      "plural": "jabuticabas",
+      "aliases": [
+        "jaboticaba",
+        "jabuticaba"
+      ]
+    },
+    {
+      "name": "caqui",
+      "plural": "caquis",
+      "aliases": [
+        "kaki",
+        "caki"
+      ]
+    },
+    {
+      "name": "uva",
+      "plural": "uvas",
+      "aliases": []
+    },
+    {
+      "name": "melancia",
+      "plural": "melancias",
+      "aliases": [
+        "melansia"
+      ]
+    },
+    {
+      "name": "acerola",
+      "plural": "acerolas",
+      "aliases": []
+    },
+    {
+      "name": "coco",
+      "plural": "cocos",
+      "aliases": [
+        "côco"
+      ]
+    },
+    {
+      "name": "lichia",
+      "plural": "lichias",
+      "aliases": [
+        "lixia",
+        "lichi"
+      ]
+    },
+    {
+      "name": "cachaça",
+      "plural": "cachaças",
+      "aliases": [
+        "cachaca",
+        "caxaça",
+        "caxaca",
+        "cachassa",
+        "pinga",
+        "aguardente"
+      ]
+    },
+    {
+      "name": "licor",
+      "plural": "licores",
+      "aliases": [
+        "licô",
+        "licou",
+        "licor caseiro"
+      ]
+    },
+    {
+      "name": "cerveja artesanal",
+      "plural": "cervejas artesanais",
+      "aliases": [
+        "cerveja artezanal",
+        "cerveija artesanal",
+        "breja artesanal",
+        "cerveja artesanau"
+      ]
+    },
+    {
+      "name": "suco",
+      "plural": "sucos",
+      "aliases": [
+        "sucu"
+      ]
+    },
+    {
+      "name": "garapa",
+      "plural": "garapas",
+      "aliases": [
+        "caldo de cana",
+        "caldo de cana"
+      ]
+    },
+    {
+      "name": "vinho",
+      "plural": "vinhos",
+      "aliases": [
+        "vinho de jabuticaba"
+      ]
+    },
+    {
+      "name": "kombucha",
+      "plural": "kombuchas",
+      "aliases": [
+        "combucha"
+      ]
+    },
+    {
+      "name": "água",
+      "plural": "águas",
+      "aliases": [
+        "agua",
+        "agua mineral"
+      ]
+    },
+    {
+      "name": "tempero caseiro",
+      "plural": "temperos caseiros",
+      "aliases": [
+        "tempero casero",
+        "tempero"
+      ]
+    },
+    {
+      "name": "conserva",
+      "plural": "conservas",
+      "aliases": [
+        "conserva caseira"
+      ]
+    },
+    {
+      "name": "pimenta em conserva",
+      "plural": "pimentas em conserva",
+      "aliases": [
+        "pimenta conserva"
+      ]
+    },
+    {
+      "name": "molho de tomate",
+      "plural": "molhos de tomate",
+      "aliases": [
+        "molho de tomati"
+      ]
+    },
+    {
+      "name": "sal temperado",
+      "plural": "sais temperados",
+      "aliases": []
+    },
+    {
+      "name": "colorau",
+      "plural": "coloraus",
+      "aliases": [
+        "colorao",
+        "colorral"
+      ]
+    },
+    {
+      "name": "artesanato",
+      "plural": "artesanatos",
+      "aliases": [
+        "artezanato",
+        "artesanatu"
+      ]
+    },
+    {
+      "name": "peça de crochê",
+      "plural": "peças de crochê",
+      "aliases": [
+        "croche",
+        "crochê",
+        "crochet",
+        "peca de croche"
+      ]
+    },
+    {
+      "name": "bordado",
+      "plural": "bordados",
+      "aliases": [
+        "bordadu"
+      ]
+    },
+    {
+      "name": "tapete",
+      "plural": "tapetes",
+      "aliases": [
+        "tapeti"
+      ]
+    },
+    {
+      "name": "pano de prato",
+      "plural": "panos de prato",
+      "aliases": [
+        "pano d prato"
+      ]
+    },
+    {
+      "name": "cesto",
+      "plural": "cestos",
+      "aliases": [
+        "cesta",
+        "balaio"
+      ]
+    },
+    {
+      "name": "sabonete artesanal",
+      "plural": "sabonetes artesanais",
+      "aliases": [
+        "sabonete artezanal",
+        "sabonete",
+        "sabonete natural"
+      ]
+    },
+    {
+      "name": "vela",
+      "plural": "velas",
+      "aliases": [
+        "vela aromatica"
+      ]
+    },
+    {
+      "name": "bolsa",
+      "plural": "bolsas",
+      "aliases": []
+    },
+    {
+      "name": "quadro",
+      "plural": "quadros",
+      "aliases": []
+    },
+    {
+      "name": "boneca de pano",
+      "plural": "bonecas de pano",
+      "aliases": []
+    },
+    {
+      "name": "muda",
+      "plural": "mudas",
+      "aliases": [
+        "mudinha",
+        "muda de planta"
+      ]
+    },
+    {
+      "name": "planta",
+      "plural": "plantas",
+      "aliases": [
+        "vaso de planta"
+      ]
+    },
+    {
+      "name": "orquídea",
+      "plural": "orquídeas",
+      "aliases": [
+        "orquidea",
+        "orquidia"
+      ]
+    },
+    {
+      "name": "suculenta",
+      "plural": "suculentas",
+      "aliases": []
+    },
+    {
+      "name": "flor",
+      "plural": "flores",
+      "aliases": [
+        "fror",
+        "flô"
+      ]
+    },
+    {
+      "name": "lenha",
+      "plural": "lenhas",
+      "aliases": []
+    },
+    {
+      "name": "esterco",
+      "plural": "estercos",
+      "aliases": [
+        "estrume",
+        "adubo organico"
+      ]
+    },
+    {
+      "name": "serralha",
+      "plural": "serralhas",
+      "aliases": [
+        "serraia"
+      ]
+    }
+  ]
+}

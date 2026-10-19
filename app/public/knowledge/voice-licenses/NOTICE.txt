@@ -1,0 +1,6 @@
+AGRO Gestão 2 — Voz offline
+Vosk API / vosk-android 0.3.75 — Alpha Cephei e contribuidores, Apache License 2.0. https://github.com/alphacep/vosk-api
+Modelo vosk-model-small-pt-0.3 — Apache License 2.0 conforme https://alphacephei.com/vosk/models
+JNA 5.18.1 — contribuidores JNA; usada sob Apache License 2.0 (licenciamento dual). https://github.com/java-native-access/jna
+Dicionário linguístico derivado do material fornecido por Alex Duvier / Território OS, versão 1.0.0, 19/10/2026. Não é cadastro de produtos reais.
+Texto da licença: Apache-2.0.txt. Integridade e versões: docs/VOZ-REVISAO-0.12.15.md.

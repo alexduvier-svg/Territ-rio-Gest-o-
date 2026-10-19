@@ -267,7 +267,7 @@ function selectDiscountItem(index){if(!draft||!draft.items[index])return;saveAct
 function appliedDiscountLabel(amount){return (amount>0?'<span class="discount-applied-dot" aria-hidden="true"></span>':'')+'Desconto '+E.money(Number.isFinite(amount)?amount:0);}
 function exactItemNet(s){return s.items.every(i=>Number.isFinite(i.netTotal)&&i.netTotal>=0)&&s.items.reduce((n,i)=>n+i.netTotal,0)===s.total;}
 
-function createDraft(id){numericTouched.delete('sale-quantity');if(draft)saveActiveDiscount();if(!draft)draft={scope,items:[],active:0,payment:'Pix',split:false,parts:[],partsManual:false,clientName:'',clientId:null,uf:'',city:'',neighborhood:'',clientExpanded:false,statesExpanded:false,discountScope:'item',discountMode:'R$',discountValue:''};const found=draft.items.findIndex(i=>i.productId===id);if(found>=0)draft.active=found;else{draft.items.push({productId:id,rawQty:'0',discountMode:'R$',discountValue:''});draft.active=draft.items.length-1;}loadActiveDiscount();splitUpdate();page='Venda';render();window.scrollTo(0,0);}
+function createDraft(id,voiceDelta=0){numericTouched.delete('sale-quantity');if(draft)saveActiveDiscount();if(!draft)draft={scope,items:[],active:0,payment:'Pix',split:false,parts:[],partsManual:false,clientName:'',clientId:null,uf:'',city:'',neighborhood:'',clientExpanded:false,statesExpanded:false,discountScope:'item',discountMode:'R$',discountValue:''};const found=draft.items.findIndex(i=>i.productId===id);if(found>=0)draft.active=found;else{draft.items.push({productId:id,rawQty:'0',discountMode:'R$',discountValue:''});draft.active=draft.items.length-1;}if(voiceDelta>0)draft.items[draft.active].rawQty=String(E.number(draft.items[draft.active].rawQty)+voiceDelta).replace('.',',');loadActiveDiscount();splitUpdate();page='Venda';render();window.scrollTo(0,0);}
 function splitUpdate(){if(draft&&draft.split&&!draft.partsManual){const total=Math.max(0,model.quote(draft).total);draft.parts=[{method:draft.parts[0]&&draft.parts[0].method||'Pix',value:cashInput(Math.floor(total/2))},{method:draft.parts[1]&&draft.parts[1].method||'Dinheiro',value:cashInput(total-Math.floor(total/2))}];}}
 function saleError(includePayment=true){if(!draft)return'';const quote=model.quote(draft);for(const i of quote.items){const p=model.product(i.productId);if(!Number.isFinite(i.qty)||i.qty<=0)return'Informe a quantidade dos produtos.';if(!['kg','Litro','g','ml'].includes(p.unit)&&!Number.isInteger(i.qty))return'Use uma quantidade inteira para '+p.name+'.';if(i.qty>p.stock)return'Estoque insuficiente: há '+E.quantity(p.stock)+' '+E.unitLabel(p.unit,p.stock)+' de '+p.name+'.';}if(draft.discountScope==='item'&&quote.items.some(i=>!i.discountValid))return'O desconto de cada produto deve ser válido e não superar seu valor.';if(!Number.isFinite(quote.discount)||quote.discount<0||quote.discount>=quote.subtotal)return'O desconto deve ser válido e menor que o subtotal.';if(includePayment&&draft.split&&(draft.parts.some(p=>!E.PAYMENTS.includes(p.method)||!Number.isFinite(E.cents(p.value))||E.cents(p.value)<=0)||draft.parts.reduce((s,p)=>s+E.cents(p.value),0)!==quote.total))return'A soma dos pagamentos deve ser igual ao total.';return'';}
 
@@ -387,7 +387,7 @@ function render(preserve){if(page!=='Gestão')managementExpanded.delete('detail-
 }
 function openModal(title,body,kind,data,footer){
  modal={kind,data};dialog.setAttribute('data-kind',kind||'');
- const bottomBack=['mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load'].includes(kind)||String(kind||'').startsWith('advisor'),registered=kind==='story'&&data&&data.pending===false;
+ const bottomBack=['mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load','voice'].includes(kind)||String(kind||'').startsWith('advisor'),registered=kind==='story'&&data&&data.pending===false;
  if(bottomBack){body=body.replace(/<button\b[^>]*data-action="close-modal"[^>]*>[\s\S]*?<\/button>/g,'');if(!footer)footer=btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back');}
  dialog.toggleAttribute('data-bottom-back',bottomBack);dialog.toggleAttribute('data-no-close',bottomBack||registered);
  const heading=(bottomBack||registered?'':btn('close-modal',icon('close'),'dialog-close'))+'<h2 id="dialog-title">'+escape(title)+'</h2>',footerLabel=kind==='movement'?'Ações do estoque':kind==='restock'?'Reposição do estoque':kind==='calculator'?'Ações da calculadora':bottomBack?'Ações da janela':'Finalização da venda';
@@ -1292,7 +1292,7 @@ Object.assign(actions,{'restock-ids':d=>openRestock(String(d.ids||'').split(',')
 
 // --- Estilo Feira: Vender e Estoque com a estrutura do ERPIA ---
 function feiraSearch(){return '<label class="feira-search">'+icon('search')+'<span class="sr-only">Buscar produto</span><input id="feira-search" type="search" placeholder="Buscar produto" value="'+escape(query)+'" autocomplete="off" spellcheck="false"></label>';}
-function feiraChips(){const cats=[...new Set(model.data.products.map(p=>p.category))];if(cats.length<2)return '';return '<div class="feira-chips" role="group" aria-label="Categorias">'+['Todos',...cats].map(c=>btn('feira-filter',escape(c),'chip'+(filter===c?' selected':''),{value:c})).join('')+'</div>';}
+function feiraChips(){const cats=[...new Set(model.data.products.map(p=>p.category))];if(cats.length<2&&page!=='Vender')return '';return '<div class="feira-chips" role="group" aria-label="Categorias">'+['Todos',...cats].map(c=>btn('feira-filter',escape(c),'chip'+(filter===c?' selected':''),{value:c})).join('')+'</div>';}
 function feiraSellList(){const groups=new Map();productList(false).forEach(p=>{const k=familyKey(p);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(p);});
  if(!groups.size)return '<div class="empty"><strong>'+(model.data.products.length?'Nada encontrado':'Nenhum produto ainda')+'</strong><p>'+(model.data.products.length?'Tente outro nome ou categoria.':'Cadastre seus produtos no Estoque para começar a vender.')+'</p></div>';
  return '<div class="feira-grid">'+[...groups.values()].map(variants=>{const live=variants.filter(v=>v.stock>0),p=(live.length?live:variants).slice().sort((a,b)=>a.price-b.price)[0],out=!live.length,many=new Set(variants.map(v=>v.price)).size>1;
@@ -2720,6 +2720,20 @@ window.TerritorioShell.openProductPeriod=(kind,id)=>{closeModal();page='Gestão'
 window.TerritorioShell.markProductPeriodNotified=(kind,id)=>markProductPeriod(kind,id,'lastNotifiedAt');
 window.ERPPreview.productPeriodState=()=>({view:productPeriodView&&{...productPeriodView},reports:productPeriodCache,state:model.data.productPeriodReports});
 queueProductPeriods();
+// Voice proposes one draft item; normal checkout alone commits sales/stock/reports.
+function voiceSnapshot(){return JSON.stringify({scope,draft,products:model.data.products.map(p=>[p.id,p.price,p.unit,p.stock,p.weight,p.volume])});}
+window.TerritorioVoiceBridge={
+ actions,escape,description:E.description,money:E.money,products:()=>model.data.products,isHome:()=>page==='Vender',snapshot:voiceSnapshot,
+ open:(body,footer)=>openModal('Falar produto',body,'voice',null,footer),close:()=>closeModal(),
+ accept:({productId,quantity,price,unit,snapshot})=>{
+  syncEvents();
+  if(page!=='Vender'||snapshot!==voiceSnapshot())throw Error('O carrinho ou estoque mudou. Feche a voz e abra novamente para conferir.');
+  const p=model.product(productId),current=draft?.items.find(i=>i.productId===productId),prior=current?E.number(current.rawQty):0;
+  if(!p||p.price!==price||p.unit!==unit||!Number.isFinite(quantity)||quantity<=0||!Number.isFinite(prior)||prior<0||quantity+prior>p.stock||(!['kg','g','Litro','ml'].includes(unit)&&!Number.isInteger(quantity)))throw Error('Confira o produto, quantidade e estoque antes de continuar.');
+  createDraft(productId,quantity);
+  if(!draft.startedAt)draft.startedAt=new Date().toISOString();
+ }
+};
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
 window.TerritorioSurplusUI.install({
  getModel:()=>model,setModel:value=>{model=value;},Model:E.ERPModel,uid:E.uid,

@@ -1,0 +1,225 @@
+Voz no Agro Gestão
+Diretrizes de instalação, interpretação e validação no Android
+Versão 1.1  |  18 de outubro de 2026
+Objetivo: permitir que o produtor fale uma venda, confira o entendimento e confirme o registro no mesmo fluxo que atualiza estoque, histórico e métricas do Agro Gestão.
+Decisão de implementação
+Integrar dois motores: reconhecimento nativo do Android e Vosk offline. Ambos devem usar o catálogo já salvo no app, o mesmo interpretador de comandos e o mesmo serviço de vendas. A primeira versão deve funcionar sem conta do ChatGPT e oferecer digitação quando a voz falhar.
+Referência de experiência de voz
+Buscar a facilidade de conversar que o produtor percebe no modo de voz do ChatGPT: fala espontânea, pausas, variações regionais e correções como “na verdade, foram dois”. Essa é uma referência de experiência, não uma promessa de precisão equivalente. O ChatGPT também pode interpretar mal ruído e falas sobrepostas. [11]
+Separar três resultados: reconhecer as palavras, entender produto e quantidade e responder de forma natural. Melhorar a voz de resposta não melhora, por si só, a compreensão da venda. O Vosk transcreve áudio; a interpretação comercial será implementada no Agro Gestão.
+O que fica na memória do app
+Conteúdo
+Local e finalidade
+Modelo de português
+Arquivos privados do app, preparados a partir do modelo distribuído com a instalação.
+Catálogo e correções confirmadas
+Banco persistente já usado pelo app: produtos, variantes, unidades, apelidos e revisão do vocabulário.
+Áudio de uma tentativa
+Buffer temporário durante a escuta. Sem gravação permanente por padrão.
+Diretrizes para Work/Codex
+Requisitos para virar código, configuração e testes no projeto Android.
+Escopo inicial: uma venda de um produto por comando, com confirmação explícita. Vários itens na mesma frase e conversa aberta entram depois da validação desse fluxo.
+Dois motores, um fluxo de vendas
+Um controlador de voz deve gerenciar disponibilidade, permissão, estado da escuta e troca de motor. A interface não deve depender diretamente de um fornecedor de reconhecimento.
+Condição
+Comportamento recomendado
+Android com serviço local e português disponível
+Usar reconhecimento nativo local, mantendo a opção de escolher Vosk.
+Serviço local ausente ou idioma indisponível
+Usar Vosk com o modelo preparado no aparelho.
+Somente serviço nativo remoto disponível
+Usar apenas se o produtor ativar a opção online; manter Vosk como alternativa offline.
+Nenhum motor pronto ou microfone negado
+Explicar o motivo em uma frase e permitir entrada manual.
+Regras técnicas do Android
+Em API 31 ou superior, consultar isOnDeviceRecognitionAvailable e usar createOnDeviceSpeechRecognizer quando adequado. A existência do serviço local não garante que pt-BR já esteja baixado. Verificar suporte ao idioma quando a API permitir e tratar idioma indisponível. EXTRA_PREFER_OFFLINE é uma preferência que o provedor pode ignorar. [1, 2]
+Solicitar RECORD_AUDIO no manifesto e em tempo de execução. Declarar a consulta ao serviço android.speech.RecognitionService quando exigida pela visibilidade de pacotes. Respeitar a thread principal nas chamadas do serviço e executar destroy() ao liberar o reconhecimento. [1]
+Uma escuta por vez
+Nunca iniciar Vosk e reconhecimento nativo simultaneamente no microfone. Encerrar e liberar o motor antes da troca.
+No serviço nativo, o áudio normalmente é controlado pelo provedor. Se falhar, pedir que o produtor repita a frase no outro motor; não pressupor que o mesmo áudio pode ser reaproveitado.
+Ignorar resultados parciais para fins de estoque. Só o resultado final pode gerar uma proposta de venda, ainda sem efetivá-la.
+Integração com o projeto existente
+Se o app for nativo, implementar módulos Kotlin/Java. Se usar Capacitor, criar um plugin Android que exponha getCapabilities, prepareModel, startListening, stopListening e cancel, com eventos partial, final e error. Essas interfaces são uma proposta para o projeto. Um HTML isolado não substitui essa camada nativa. [7]
+Estados visíveis: Pronto, Ouvindo, Interpretando, Confirmar Venda e Erro. O botão de cancelar encerra a tentativa sem alterar o estoque.
+Instalação e distribuição pela Play Store
+Modelo de português candidato
+Avaliar vosk-model-small-pt-0.3. A lista oficial o apresenta como modelo leve para Android, com download de 31 MB e licença Apache 2.0. O tamanho instalado e o consumo de memória devem ser medidos no app. Os índices publicados de erro variam bastante entre bases; não representam a precisão dos comandos do Agro Gestão. [3]
+O modelo português maior, de 1,6 GB, tem outra licença e não deve ser adotado como substituição automática. Escolher modelo por teste de comandos, tamanho, memória e licença, e não apenas pelo nome. [3]
+Roteiro para incorporar ao aplicativo
+Inspecionar o projeto real, framework, banco do catálogo, minSdk, Gradle e serviço atual de vendas antes de adicionar dependências.
+Usar o demo oficial como referência. Na consulta deste guia, ele declara vosk-android:0.3.75@aar e jna:5.18.1@aar. Fixar versões após verificar compatibilidade; evitar versões flutuantes com “+”. [4]
+Baixar o modelo da fonte oficial na preparação do build. Registrar nome, versão, licença, origem e SHA-256 real do arquivo aprovado; não preencher checksum fictício.
+Distribuir o modelo nos assets da instalação. Na primeira abertura, copiar/descompactar em pasta privada, em segundo plano, validar integridade e carregar somente após conclusão. Mostrar progresso e tratar falta de espaço.
+Gerar APK para testes e AAB para a Play Store. Testar também a instalação entregue pela loja, com seus splits e bibliotecas nativas.
+Funcionamento em muitos celulares
+O produtor não precisa instalar um app Vosk separado. A biblioteca e o modelo precisam acompanhar a entrega do Agro Gestão. O reconhecimento local usa o aparelho e não depende de uma cota de chamadas de voz em servidor. Compatibilidade depende de versão Android, ABI, memória, armazenamento e microfone.
+Para garantir primeiro uso offline, entregar o modelo com a instalação. Se houver download posterior, mostrar que ele ainda não está pronto. Entrega fast-follow ou on-demand pode terminar depois da instalação; não presumir disponibilidade imediata. [8]
+Validar todas as bibliotecas .so, inclusive Vosk e JNA, para páginas de memória de 16 KB. Atualizar Gradle/NDK não corrige sozinho uma biblioteca pré-compilada incompatível. Confirmar as regras atuais da Play Store antes de publicar. [9]
+Vocabulário e correções na memória do app
+Aproveitar o catálogo persistente como fonte principal. Cada interpretação deve resolver productId e variantId válidos, além de quantidade e unidade. Preservar os nomes originais na tela; retirar acentos e normalizar plurais apenas no índice de busca.
+Expressão falada
+Regra de interpretação
+“café especial” / “cafés especiais”
+Apontar para o mesmo produto; exigir a variante quando houver mais de uma compatível.
+“duzentos e cinquenta gramas” / “250 g”
+Peso da variante. Não converter em 250 itens vendidos.
+“um quilo” / “mil gramas”
+Comparar com a variante de 1 kg; preservar a unidade de venda do cadastro.
+“mamão papaia” / “mamões papaia”
+Quantidade em unidades, conforme a regra de cadastro do Agro Gestão.
+“dúzia” / “meia dúzia”
+Distinguir embalagem cadastrada de uma quantidade de unidades; não converter duas vezes.
+Apelido confirmado pelo produtor
+Salvar associação ao produto/variante. Pedir confirmação se o apelido corresponder a mais de um item.
+Gramática de comandos
+Começar por famílias curtas: “vendi {quantidade} {produto} {variante}”, “registrar {quantidade} {produto}” e “corrigir quantidade para {quantidade}”. Aceitar variações testadas de ordem, singular/plural e palavras de apoio. A tolerância deve ser comprovada por exemplos, sem substituir números por aproximação.
+Nos modelos Vosk compatíveis, uma gramática restrita pode favorecer o vocabulário da tarefa. Confirmar o suporte do modelo português escolhido: nem todo modelo aceita reconfiguração dinâmica. Uma lista JSON de palavras não ensina automaticamente novas pronúncias ao modelo. [5]
+Aprendizado controlado
+Atualizar o índice quando um produto for salvo ou alterado. Versionar a revisão do catálogo usada em cada proposta de venda.
+Salvar apenas correções confirmadas e vinculadas ao produtor. “Três” não deve passar a significar “seis” porque isso ocorreu uma vez.
+Para nomes desconhecidos pelo modelo, oferecer seleção manual ou outro motor. Alterar léxico/modelo acústico exige trabalho próprio e validação, além do dicionário local. [5]
+Não é necessário baixar um livro de gramática portuguesa. São necessários o modelo de fala em português, o vocabulário do catálogo e regras de interpretação comercial bem testadas.
+Cruzamento autônomo da memória
+O Agro Gestão já possui na memória diretrizes de linguagem e um documento com mais de 2.500 produtos. A implementação deve cruzar esses acervos automaticamente antes do uso e novamente durante a venda, aproveitando o catálogo operacional e as correções confirmadas do produtor.
+Antes da venda
+Localizar as versões atuais dos documentos. Extrair nomes, variações linguísticas, unidades e apelidos para uma base estruturada local, vinculada aos IDs do cadastro. Executar essa preparação na instalação, importação ou atualização do acervo.
+Construir um índice de busca com termos canônicos e formas de fala, incluindo numeral com nome no singular. Preservar variantes comerciais diferentes, como cafés de 250 g e 500 g. Unificar apenas duplicidades que representem o mesmo produto e a mesma apresentação.
+Versionar documentos, índice e associações. Atualizar o índice em segundo plano quando houver alteração de produto, diretriz ou correção confirmada. Manter a última versão íntegra enquanto a nova é preparada; evitar reler o documento inteiro a cada frase.
+Essa preparação é autônoma. Associações explícitas e inequívocas do acervo podem ser indexadas automaticamente; relações incertas permanecem candidatas e não devem substituir nomes ou unidades de forma silenciosa.
+No momento da venda
+Fonte
+Papel no entendimento
+Diretrizes de linguagem
+Interpretar fala regional, singular/plural, pausas e formas de expressar quantidade.
+Documento com mais de 2.500 produtos
+Fornecer vocabulário e apresentações possíveis; não define, sozinho, o que o produtor tem à venda.
+Cadastro operacional e saldo atual
+Resolver produto ativo, apresentação, preço e disponibilidade reais.
+Correções confirmadas do produtor
+Priorizar apelidos e associações locais no escopo correto.
+A cada frase final, consultar o índice preparado, cruzar com o catálogo ativo e montar candidatos. Perguntar somente quando faltar informação ou houver ambiguidade. Exibir a interpretação completa para revisão e revalidar o saldo no momento de confirmar o lançamento.
+O cruzamento e a preparação do índice podem acontecer sem intervenção do produtor. Registrar a venda, alterar estoque ou executar outra decisão crítica exige autorização humana para a operação exibida. O índice linguístico auxilia a interpretação; não treina automaticamente a pronúncia do modelo acústico.
+Fala regional e concordância livre
+A quantidade deve ser extraída do número falado, mesmo quando o substantivo ou o adjetivo permanecer no singular. O produtor não precisa adaptar sua fala à norma escrita para vender. Não exigir concordância de plural como condição de reconhecimento ou confirmação.
+Fala de uso real
+Interpretação que deve ser testada
+“Vendi 3 mamão” / “vendi três mamões”
+Quantidade 3. Unidade do cadastro. Se houver mais de um tipo de mamão, perguntar qual; não assumir automaticamente Papaia.
+“Vendi 3 café especial” / “três cafés especiais”
+Quantidade 3, produto Café Especial. Perguntar peso ou apresentação se houver mais de uma variante compatível.
+“Vendi 3 taioba” / “três taiobas”
+Quantidade 3. Usar Maço se essa for a única unidade de venda cadastrada para a taioba; se houver opções, perguntar.
+“Vendi 5 mói de serraia”
+Com o dicionário local configurado: quantidade 5, produto Serralha, unidade Maço. Exibir “5 Maços de Serralha” para conferência.
+Dicionário local por produtor
+Cadastrar “serraia” como apelido de Serralha neste contexto local. Para folhas vendidas em maços, admitir as formas confirmadas “mói”, “molho”, “molhos”, “maço” e “maços”. Essas associações dependem do produto e do cadastro do produtor; “molho” não deve transformar um molho de tomate em maço.
+Guardar apelido, nome canônico, produto, unidade, escopo do produtor e versão da associação. Indexar automaticamente as equivalências explícitas do acervo existente. Para hipóteses ambíguas, perguntar na revisão da venda e memorizar somente a correção confirmada. O produtor pode revisar ou remover uma associação incorreta.
+Reconhecer áudio e interpretar texto
+Testar tanto a transcrição quanto a interpretação dos áudios reais com “mói” e “serraia”. A camada local pode interpretar o texto recebido por meio dos apelidos, mas isso não garante que o motor acústico transcreva essas pronúncias corretamente. Se o modelo não reconhecer o termo, oferecer escolha ou repetição; não forçar a palavra mais parecida. [5]
+Critérios obrigatórios de teste
+As versões com numeral e nome no singular devem produzir a mesma quantidade que as versões no plural, quando produto e unidade forem os mesmos.
+A resposta deve mostrar a interpretação canônica com respeito à fala do produtor, sem dar aula de gramática ou exigir que ele repita a frase “corretamente”.
+Distinguir “três vendas de café” de “três cafés vendidos”. Se a frase não definir a quantidade de itens, perguntar antes de montar o lançamento.
+Registrar os exemplos locais no conjunto de teste com pessoas de diferentes idades e comunidades. Medir acerto por grupo de fala, além da média geral.
+Fala natural e ruído de feira
+Como traduzir a referência do ChatGPT em requisitos
+Aceitar frases completas e formas curtas: “vendi três cafés especiais de duzentos e cinquenta gramas” e “três cafés especiais, duzentos e cinquenta”.
+Permitir pausas curtas sem encerrar cedo demais. Ajustar o detector de fim da fala com testes de produtores, mantendo um botão para encerrar.
+Tratar “na verdade” e “corrigir” como revisão da proposta pendente. Exibir a nova quantidade e pedir confirmação novamente.
+Fazer uma pergunta por vez: “É o de 250 gramas ou o de 500?” Não inventar variante, preço, destinatário ou pagamento.
+Responder de forma breve: “Entendi três Cafés Especiais de 250 gramas. Total de 75 reais. Confira para registrar.” Oferecer texto e resposta falada opcional.
+Captação e redução de ruído
+Começar com toque para falar, em primeiro plano, e comandos curtos. Orientar microfone próximo, evitar cobri-lo e experimentar fone com microfone em feira. Tratar silêncio, saturação, vento e outra pessoa falando como situações de repetição, sem completar uma venda por suposição.
+No caminho Vosk, conferir o formato exigido pelo modelo. PCM mono de 16 bits a 16 kHz é um ponto de partida comum, sujeito à configuração do modelo e captura efetiva. Se necessário, reamostrar corretamente; não rotular áudio de outra taxa como 16 kHz.
+Avaliar NoiseSuppressor apenas na captura AudioRecord controlada pelo app: consultar isAvailable, tratar create() nulo e liberar o efeito. Isso não oferece acesso automático ao áudio interno do SpeechRecognizer. Comparar áudio processado e original, pois o filtro pode prejudicar consoantes e números. [6]
+Parar a fala sintetizada antes de ouvir uma confirmação. Na primeira versão, não escutar enquanto o próprio app estiver falando. Várias vozes próximas podem continuar confundindo qualquer motor, inclusive serviços online.
+Quando avaliar uma opção de IA online
+Se o teste local não atingir os objetivos, comparar serviços de transcrição ou voz conversacional por API com as mesmas tarefas. Uma API pode permitir compreensão mais flexível, mas exige conexão, avaliação de custo e tratamento dos dados enviados. A assinatura do ChatGPT e o uso da API são separados; a conta gratuita pessoal não é uma licença para incorporar o modo de voz ao APK. [12, 13]
+A opção online deve ser explícita, manter o modo offline disponível e usar o mesmo fluxo de confirmação. A chave secreta do serviço deve ficar em backend apropriado, não embutida no APK.
+Da frase à venda confirmada
+Exemplo: o produtor diz “vendi três cafés especiais de 250 gramas”. O app encontra a variante cadastrada, lê seu preço atual de R$ 25,00 e propõe 3 itens, total de R$ 75,00. Esse exemplo ilustra o fluxo; preços devem vir do cadastro.
+Sequência obrigatória
+Transcrever e identificar intenção. Resultados parciais não geram lançamentos. Negação, dúvida e relato histórico exigem tratamento específico.
+Resolver produto, variante, quantidade e unidade no catálogo. Se houver duas opções compatíveis, perguntar qual delas. Verificar disponibilidade sem baixar o saldo ainda.
+Montar uma proposta e recolher os campos que faltam, como Método de Pagamento e destino da venda. Aplicar a regra atual de evento: durante seu horário, somente o destino dourado permitido fica habilitado.
+Exibir quantidade, variante e total. Permitir Corrigir e Cancelar. A escolha final de Pessoa Física, Empresa ou Evento, no fluxo atual do QR, pode ser a confirmação; a voz não deve registrar antes dela nem exigir uma segunda venda.
+Efetivar pelo serviço já existente de vendas. Revalidar saldo e regras no momento da gravação. Registrar venda, movimento de estoque e origem em uma transação coerente; atualizar as métricas a partir desse mesmo lançamento.
+Confirmação humana por voz
+Após exibir a proposta, abrir uma escuta curta e visível para “sim”, “confirmar”, “confirmar venda”, “ok” ou “pode confirmar”. A autorização vale somente para aquela versão da venda. Corrigir quantidade, produto, pagamento ou destino invalida a escuta anterior. Fora dessa etapa, essas palavras não autorizam um lançamento. Silêncio, ruído e resposta ambígua não confirmam. Ao fechar, sair do app ou terminar o tempo, desligar a escuta; manter o botão de confirmação na tela.
+Proteção contra duplicidade e perdas
+Atribuir um identificador único à operação confirmada. Callback repetido, toque duplo, retorno de tela ou repetição de evento de rede não podem criar outra venda.
+Usar transação atômica no banco local ou mecanismo equivalente no backend. A voz não deve manter um saldo paralelo ao estoque geral consolidado.
+Se faltar estoque ou ocorrer falha, informar o problema e não deixar venda parcial. Desfazer deve reverter também os movimentos e métricas pelo fluxo de estorno, preservando histórico.
+Frases que não autorizam um lançamento
+“Não vendi três”, “quanto dá três cafés?” e “ontem vendi três” não devem ser convertidas silenciosamente em uma venda atual. Se a intenção estiver incerta, perguntar. “Cancelar” encerra somente a proposta pendente; uma venda já salva segue o estorno existente.
+Registrar para diagnóstico: motor, versão do modelo, revisão do catálogo, resultado corrigido e ID da operação. Não armazenar áudio permanente por padrão. A melhora de reconhecimento deve se apoiar em correções confirmadas, com controle para revisar e apagar apelidos.
+Testes de precisão e critérios de aceite
+Medir o acerto conjunto de produto, variante, quantidade e unidade. Uma frase com quase todas as palavras certas ainda pode baixar o item errado. Separar resultado inicial correto, resultado corrigido e venda efetivamente confirmada.
+Teste
+Resultado esperado
+“Vendi três cafés especiais de 250 gramas”
+3 itens da variante de 250 g; proposta sem baixa imediata.
+“Na verdade, foram dois”
+Revisar a proposta, mostrar 2 e exigir nova confirmação.
+“Vendi dois mamões papaia”
+2 unidades; não assumir kg.
+“Vendi uma sacola de tilápia de um quilo”
+Variante Sacola 1 kg; perguntar se não houver correspondência única.
+“Vendi uma meia dúzia de ovos”
+Resolver a apresentação cadastrada; evitar converter 6 duas vezes.
+“Vendi três cafés” com várias variantes
+Perguntar produto/variante que falta; não escolher por popularidade.
+Produto sem saldo ou final duplicado
+Impedir saldo negativo e segundo lançamento.
+“Não vendi”, silêncio ou fala de outra pessoa
+Nenhuma venda sem confirmação explícita.
+Primeira abertura offline / microfone negado
+Preparar modelo incluído ou oferecer entrada manual com estado claro.
+Metas propostas para o piloto
+Como ponto de partida, buscar pelo menos 95% de acerto conjunto em ambiente silencioso e 90% em ruído moderado de feira. Medir p95 de até 4 segundos entre o fim da fala e a proposta nos aparelhos escolhidos. Essas são metas do projeto, não resultados já obtidos nem garantias dos motores.
+Exigir zero baixas sem confirmação e zero lançamentos duplicados na suíte de segurança transacional. Rever a estratégia se a precisão não passar no piloto, mesmo que a transcrição pareça fluente.
+Amostra e aparelhos
+Usar 5 a 10 produtores, 20 frases por pessoa e 3 ambientes: silencioso, feira moderada e feira intensa. Isso produz 300 a 600 tentativas. Reservar frases e pessoas fora do conjunto usado para ajustes. Gravar amostras somente com autorização; anotar ruído, aparelho, motor e correção necessária.
+Testar celulares de entrada e intermediários, versões Android atendidas, aparelho sem serviço Google, português local ausente, modo avião, pouco espaço, interrupção da escuta e reinício. Validar build release e aparelho/emulador de 16 KB, além do debug.
+Roteiro de execução pelo Work e Codex
+O documento deve orientar o trabalho no projeto Android real. O Work/Codex pode implementar e executar os comandos disponíveis no ambiente configurado; a geração e os testes do app precisam de código-fonte, SDK Android e ferramentas de build. [10]
+Ordem de implementação
+Abrir o projeto e localizar banco do catálogo, histórico e serviço que confirma a venda no QR. Criar um ponto de recuperação antes das alterações.
+Criar uma prova de voz com os dois motores, modelo incluído e teste em modo avião. Confirmar compatibilidade antes de conectar qualquer lançamento.
+Implementar o interpretador local, apelidos confirmados e revisão de catálogo. Adicionar correções naturais e perguntas para ambiguidades.
+Conectar propostas ao fluxo existente de confirmação e à transação de vendas. Testar repetição de callbacks, saldo insuficiente, cancelamento e estorno.
+Gerar APK de teste e avaliar em celulares e feira. Corrigir com base nos erros medidos; comparar uma opção online somente se houver necessidade demonstrada.
+Preparar AAB assinado no processo do projeto, testar no canal interno da Play Store e liberar gradualmente após atender aos critérios de aceite.
+Instrução para copiar no Work/Codex
+Implemente voz no Agro Gestão preservando layout, banco, estoque consolidado, histórico e regras do QR. Inspecione primeiro o projeto e reutilize seu serviço de vendas. Integre reconhecimento nativo Android e Vosk offline, com seleção por capacidade e sem capturas simultâneas. Inclua um modelo português validado na instalação, com versão, licença e integridade registradas. Use o catálogo persistente para resolver produto, variante, quantidade e unidade. Salve apelidos e correções apenas após confirmação do produtor.
+Use a fala natural do ChatGPT como referência: pausas, correções e perguntas curtas. Aceite numeral com nome no singular, como “3 mamão”, “3 café especial” e “3 taioba”. Configure os apelidos locais “mói de serraia” para Maço de Serralha conforme o catálogo do produtor. Não prometa precisão equivalente ao ChatGPT. Trate ambiguidades, negação, silêncio e ruído sem inventar valores. Não lance resultados parciais. Gere uma proposta editável e efetive somente com confirmação humana vinculada à versão exibida, por toque ou escuta curta de confirmação. Preserve evento, origem e métricas, com operação única e transação consistente. Mantenha entrada manual e modo offline. Teste os exemplos locais, ruído real, reinício, duplicidade, permissões, release e bibliotecas de 16 KB. Entregue código, instruções de build, licenças, APK de teste e resultados. Avalie IA online como opção posterior, com custo e envio de dados explícitos.
+Entregas para revisão
+Código e dependências fixadas; modelo e avisos de licença; migração mínima do vocabulário; testes e resultados por motor/aparelho; APK de teste; procedimento de geração do AAB. Publicação em produção segue a conta e o processo de assinatura do projeto.
+Fontes técnicas
+Documentação primária consultada em 18 de outubro de 2026. Os números abaixo correspondem às referências no texto. Versões, disponibilidade de APIs e regras de distribuição devem ser conferidas novamente no momento da implementação.
+[1] Android SpeechRecognizer
+https://developer.android.com/reference/android/speech/SpeechRecognizer
+[2] Android RecognizerIntent e preferência offline
+https://developer.android.com/reference/android/speech/RecognizerIntent
+[3] Vosk Models, modelos de português e licenças
+https://alphacephei.com/vosk/models
+[4] Vosk Android Demo, dependências do módulo app
+https://github.com/alphacep/vosk-android-demo/blob/master/app/build.gradle
+[5] Vosk, adaptação de vocabulário e modelos
+https://alphacephei.com/vosk/adaptation
+[6] Android NoiseSuppressor
+https://developer.android.com/reference/android/media/audiofx/NoiseSuppressor
+[7] Capacitor, criação de plugins Android
+https://capacitorjs.com/docs/plugins/android
+[8] Android, modos de entrega de assets
+https://developer.android.com/guide/playcore/asset-delivery
+[9] Android, compatibilidade com páginas de 16 KB
+https://developer.android.com/guide/practices/page-sizes?hl=pt-br
+[10] ChatGPT, ambiente local de desenvolvimento
+https://learn.chatgpt.com/docs/environments/local-environment
+[11] OpenAI, ChatGPT Voice e suas limitações
+https://help.openai.com/en/articles/20001274-chatgpt-voice
+[12] OpenAI, APIs de áudio e voz
+https://developers.openai.com/api/docs/guides/audio
+[13] OpenAI, cobrança separada de ChatGPT e API
+https://help.openai.com/en/articles/9039756-managing-billing-for-chatgpt-and-the-api-platform

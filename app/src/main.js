@@ -27,6 +27,9 @@ import * as StockOrder from './features/stock-order.js';
 import { catalogReference, isCatalogQuestion } from './features/advisor/catalog-vocabulary.js';
 import { CATALOG_KNOWLEDGE } from './data/catalog-knowledge.js';
 import { INTERFACE_GUIDELINES } from './data/interface-guidelines.js';
+import { VOICE_GUIDELINES } from './data/voice-guidelines.js';
+import { installVoice } from './features/voice/index.js';
+import './features/voice/voice.css';
 import { ENGAGEMENT_GUIDELINES } from './data/engagement-guidelines.js';
 import './features/product-stock.css';
 import * as Finance from './features/finance/finance.js';
@@ -79,6 +82,7 @@ try {
   window.TerritorioCatalogKnowledge = CATALOG_KNOWLEDGE;
   window.TerritorioInterfaceGuidelines = INTERFACE_GUIDELINES;
   window.TerritorioEngagementGuidelines = ENGAGEMENT_GUIDELINES;
+  window.TerritorioVoiceGuidelines = VOICE_GUIDELINES;
   window.TerritorioFinance = { ...Finance, runAudit };
   window.TerritorioFairReport = FairReport;
   window.TerritorioFairSurplus = FairSurplus;
@@ -89,10 +93,11 @@ try {
   window.TERRITORIO_API = API;
   await import('./legacy/erp-ui.js');
   const savedModel = window.ERPPreview?.model?.();
-  if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled) {
+  if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled) {
     window.ERPPreview.persist?.();
     if (window.TerritorioNative?.isNative) await window.TerritorioNative.durable?.();
   }
+  installVoice();
   installFluidMotion();
   window.TerritorioMotion = Object.freeze({diagnostics:getMotionDiagnostics});
   installNavIconMotion();
