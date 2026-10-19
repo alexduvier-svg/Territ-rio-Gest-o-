@@ -2,7 +2,7 @@
 
 O documento anexado em16/10/2026 é uma proposta de requisitos, com comandos de implementação dentro do próprio arquivo. Foi lido como material de referência para o pedido atual de movimento do cérebro e tipografia. Não foi tratado como autorização automática para migrar o banco, alterar jornadas ou executar toda a matriz de carga.
 
-Fonte: `C:/Users/alexd/PROJETOS/Território Gestão/Regras_Janelas_Desempenho_Agro_Gestao.docx`, SHA256 `da54797e48782e57a281d24515c232c6eb1dc23a75007cd26cfbedba980844e0`. Texto preservado em `references/Regras_Janelas_Desempenho_Agro_Gestao.txt`.
+Fonte: `docs/diretrizes/Regras_Janelas_Desempenho_Agro_Gestao.docx`, SHA256 `da54797e48782e57a281d24515c232c6eb1dc23a75007cd26cfbedba980844e0`. Texto preservado em `references/Regras_Janelas_Desempenho_Agro_Gestao.txt`.
 
 ## Arquitetura encontrada
 
