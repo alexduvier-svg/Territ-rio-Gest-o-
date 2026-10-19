@@ -5,6 +5,7 @@
 
 import { createVoiceController } from './engine.js';
 import { interpretBest, voiceVocabulary } from './interpreter.js';
+import { language } from './language.js';
 
 const MIC = '<svg class="voice-mic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11.5" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21"/><path d="M8.5 21h7"/></svg>';
 
@@ -73,15 +74,15 @@ function label(product, quantity) {
 }
 
 /** Abre a venda do produto com a quantidade dita. O registro continua nos botões da venda. */
-function propose(productId, quantity, heard = '') {
+function propose(productId, quantity, heard = '', payment = null) {
   const product = products().find(p => p.id === productId);
   if (!product) return say('Não achei esse produto no cadastro.', 'warn', fallbackActions);
   if (!(product.stock > 0)) return say(`${ctx.titleName ? ctx.titleName(product.name) : product.name} está sem estoque. Nada foi registrado.`, 'warn', fallbackActions);
   if (quantity > product.stock) say(`Só há ${ctx.quantity ? ctx.quantity(product.stock) : product.stock} em estoque. Confira a quantidade.`, 'warn');
   caption = null;
-  ctx.openSale(productId, quantity);
+  ctx.openSale(productId, quantity, payment);
   const total = Math.round((Number(product.price) || 0) * quantity);
-  ctx.toast(`${heard ? `Ouvi “${heard}”. ` : ''}Entendi ${label(product, quantity)}${total ? ` · ${ctx.money(total)}` : ''}. Confira e registre.`);
+  ctx.toast(`${heard ? `Ouvi “${heard}”. ` : ''}Entendi ${label(product, quantity)}${total ? ` · ${ctx.money(total)}` : ''}${payment ? `, no ${payment}` : ''}. Confira e registre.`);
 }
 
 function choose(result) {
@@ -94,15 +95,28 @@ function handleFinal(heard, alternatives = [], engine = '') {
   const page = ctx.page();
   const draft = ctx.getDraft();
   const pending = page === 'Venda' && draft?.items?.[draft.active]?.productId;
-  // As alternativas do motor são tentadas em ordem; vale a que forma a melhor proposta.
-  const best = interpretBest([heard, ...alternatives], products(), { pendingProductId: pending || null });
+  // Camada de linguagem (agro-linguagem): corrige a fala, lê pagamento e ação. Cada alternativa entra
+  // primeiro como foi ouvida e depois corrigida: a correção só vale quando a original não forma venda
+  // (o dicionário não conhece todo o catálogo e pode trocar uma palavra certa, como "azul").
+  const catalog = products();
+  const heardTexts = [heard, ...alternatives].map(t => String(t || '').trim()).filter(Boolean);
+  const understood = heardTexts.map(t => language.understand(t, catalog));
+  const best = interpretBest(understood.flatMap((u, i) => [heardTexts[i], u.text]), catalog, { pendingProductId: pending || null });
   const { result } = best;
   const text = best.text || heard;
+  const meaning = understood.find(u => u.text === text || u.original === text) || understood[0] || {};
+  // Perda, sobra, troca, brinde, reposição…: a voz ainda não lança esses movimentos.
+  const otherAction = meaning.action && !['venda', 'fiado', 'cancelar'].includes(meaning.action);
+  if (otherAction) {
+    console.info('[voz]', JSON.stringify({ engine, heard, alternatives, chosen: text, status: 'acao-' + meaning.action }));
+    setPhase('idle');
+    return say(`Ouvi: “${meaning.original || heard}”. Entendi ${(meaning.actionLabel || meaning.action).toLowerCase()}. Por voz, o app registra só vendas por enquanto.`, 'warn', fallbackActions);
+  }
   // Diagnóstico (sem áudio): motor, o que foi ouvido e o que o app entendeu. Aparece no logcat.
-  console.info('[voz]', JSON.stringify({ engine, heard, alternatives, chosen: text, status: result.status, productId: result.productId || null, quantity: result.quantity ?? null }));
+  console.info('[voz]', JSON.stringify({ engine, heard, alternatives, chosen: text, status: result.status, productId: result.productId || null, quantity: result.quantity ?? null, payment: meaning.payment || null, corrections: meaning.corrections?.length || 0 }));
   setPhase('idle');
-  if (result.status === 'ok') return propose(result.productId, result.quantity, text);
-  if (result.status === 'choose') { say(`Ouvi: “${text}”.`, 'info', [], 4000); return choose(result); }
+  if (result.status === 'ok') return propose(result.productId, result.quantity, meaning.original || heard, meaning.payment);
+  if (result.status === 'choose') { say(`Ouvi: “${heard}”.`, 'info', [], 4000); return choose(result); }
   if (result.status === 'correction') {
     if (pending && ctx.setQuantity(result.quantity)) return ctx.toast(`Quantidade corrigida para ${ctx.quantity ? ctx.quantity(result.quantity) : result.quantity}. Confira e registre.`);
     return say('Não há venda aberta para corrigir. Diga o produto e a quantidade.', 'warn', fallbackActions);
@@ -110,7 +124,7 @@ function handleFinal(heard, alternatives = [], engine = '') {
   if (result.status === 'ask-quantity' && result.productId) {
     return say(`${result.message} Diga de novo com a quantidade, ou toque no produto.`, 'info', fallbackActions);
   }
-  const heardNote = text ? `Ouvi: “${text}”. ` : '';
+  const heardNote = heard ? `Ouvi: “${heard}”. ` : '';
   say(heardNote + (result.message || 'Não entendi.'), result.status === 'cancel' ? 'info' : 'warn', result.status === 'cancel' ? [] : fallbackActions, result.status === 'cancel' ? 3500 : 0);
 }
 
@@ -131,7 +145,7 @@ async function toggle() {
   setPhase('starting');
   say('Ouvindo… diga o produto e a quantidade.', 'listening');
   ctx.haptic?.();
-  await controller.start(voiceVocabulary(products()));
+  await controller.start([...new Set([...voiceVocabulary(products()), ...language.vocabulary()])]);
 }
 
 function onClick(event) {

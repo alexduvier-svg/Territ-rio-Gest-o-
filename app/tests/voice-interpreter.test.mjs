@@ -120,3 +120,20 @@ test('vocabulário para o Vosk: catálogo no singular e no plural, números e me
   assert.deepEqual(pluralForms('queijo'), ['queijo', 'queijos']);
   assert.deepEqual(pluralForms('especial'), ['especial', 'especiais']);
 });
+
+test('preço e pagamento falados não viram quantidade nem peso', () => {
+  ok('vendi três cafés especiais de 250 gramas a 25 no pix', 'esp250', 3);
+  ok('vendi dois queijos minas por 60 em dinheiro', 'queijo', 2);
+  ok('vendi duas dúzias de ovos 30 reais no cartão', 'ovos', 2);
+  ok('vendi um café especial de 500 gramas por 45 reais', 'esp500', 1);
+});
+
+test('palavra do produto que não existe no cadastro: pergunta, não força o mais parecido', () => {
+  const only = [{ id: 'meia', name: 'Queijo meia cura', unit: 'Unidade', stock: 5, price: 2800 }];
+  const r = interpret('vendi dois queijo azul', only);
+  assert.equal(r.status, 'choose');
+  assert.match(r.question, /azul/);
+  assert.deepEqual(r.candidates.map(c => c.id), ['meia']);
+  // Só "queijo", com um único queijo cadastrado: abre direto.
+  assert.equal(interpret('vendi dois queijos', only).status, 'ok');
+});

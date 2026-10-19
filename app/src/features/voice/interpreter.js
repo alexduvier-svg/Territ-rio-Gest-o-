@@ -46,7 +46,10 @@ const PACKAGES = {
 const PACKAGE_OF = Object.fromEntries(Object.entries(PACKAGES).flatMap(([unit, words]) => words.map(word => [word, unit])));
 const PACKAGE_UNITS = { maco: ['maco'], duzia: ['duzia'], pacote: ['pacote'], caixa: ['caixa'], saco: ['saco', 'sacola'], unidade: ['unidade'], bandeja: ['bandeja'], pote: ['pote'], garrafa: ['garrafa'], vidro: ['vidro'], lata: ['lata'], peca: ['peca'], fatia: ['fatia'], kit: ['kit'], cesta: ['cesta'] };
 
-const FILLER = new Set(['vendi', 'vende', 'vender', 'vendeu', 'vendemos', 'venda', 'registrar', 'registra', 'registre', 'lanca', 'lancar', 'lance', 'anota', 'anotar', 'coloca', 'colocar', 'bota', 'botar', 'poe', 'por', 'pra', 'para', 'de', 'do', 'da', 'dos', 'das', 'o', 'a', 'os', 'as', 'e', 'com', 'foi', 'foram', 'eu', 'agora', 'aqui', 'hoje', 'mais', 'favor', 'ai', 'la', 'ta', 'tá', 'entao', 'tipo', 'ne', 'uh', 'hum', 'ok', 'certo', 'isso', 'ja', 'acabei', 'acabou', 'cliente', 'reais', 'real', 'conto', 'contos', 'pila', 'na', 'verdade', 'corrigir', 'corrige', 'corrija', 'quantidade', 'quero', 'gostaria', 'me', 've', 'manda', 'mandar', 'dar', 'da', 'deu', 'levou', 'levaram', 'compraram', 'comprou']);
+const FILLER = new Set(['vendi', 'vende', 'vender', 'vendeu', 'vendemos', 'venda', 'registrar', 'registra', 'registre', 'lanca', 'lancar', 'lance', 'anota', 'anotar', 'coloca', 'colocar', 'bota', 'botar', 'poe', 'por', 'pra', 'para', 'de', 'do', 'da', 'dos', 'das', 'o', 'a', 'os', 'as', 'e', 'com', 'foi', 'foram', 'eu', 'agora', 'aqui', 'hoje', 'mais', 'favor', 'ai', 'la', 'ta', 'tá', 'entao', 'tipo', 'ne', 'uh', 'hum', 'ok', 'certo', 'isso', 'ja', 'acabei', 'acabou', 'cliente', 'reais', 'real', 'conto', 'contos', 'pila', 'na', 'verdade', 'corrigir', 'corrige', 'corrija', 'quantidade', 'quero', 'gostaria', 'me', 've', 'manda', 'mandar', 'dar', 'da', 'deu', 'levou', 'levaram', 'compraram', 'comprou',
+  // Pagamento e preço são lidos pela camada de linguagem; aqui não fazem parte do nome do produto.
+  'pix', 'pics', 'dinheiro', 'cartao', 'credito', 'debito', 'fiado', 'maquininha', 'cada', 'total', 'tudo', 'centavo', 'centavos', 'no', 'em', 'caiu', 'saiu']);
+const PRICE_WORDS = new Set(['reais', 'real', 'conto', 'contos', 'pila', 'pilas', 'centavo', 'centavos']);
 
 // Apelidos regionais confirmados nas diretrizes (escopo: só valem se o produto existir no cadastro).
 // O nome falado continua valendo: o apelido só ajuda se o produtor não tiver um produto com aquele nome.
@@ -135,9 +138,16 @@ export function parseUtterance(text) {
       if (quantity === null || quantity === 1) { quantity = 0.5; quantityHalfDozen = true; }
       pack = 'duzia'; i += 2; continue;
     }
-    const number = readNumber(tokens, i);
+    // "meia"/"meio" só é número antes de medida ou embalagem ("meio quilo"); em "meia cura" é nome.
+    const half = (t === 'meia' || t === 'meio') && !(tokens[i + 1] && (MEASURE_OF[tokens[i + 1]] || PACKAGE_OF[tokens[i + 1]]));
+    const number = half ? null : readNumber(tokens, i);
     if (number) {
       const next = tokens[number.end];
+      // Preço não é quantidade nem peso: "15 reais", "a 25 (cada)", "por 60".
+      if (next && PRICE_WORDS.has(next)) { i = number.end + 1; continue; }
+      if (quantity !== null && (tokens[i - 1] === 'a' || tokens[i - 1] === 'por') && !(next && MEASURE_OF[next])) {
+        i = number.end + (tokens[number.end] === 'cada' ? 1 : 0); continue;
+      }
       const unit = next && MEASURE_OF[next];
       if (unit) {
         const grams = unit === 'kg' ? number.value * 1000 : unit === 'l' ? number.value * 1000 : number.value;
@@ -170,9 +180,10 @@ function scoreProducts(index, words, pack) {
   return index.map(entry => {
     const pool = entry.tokens;
     const matched = pool.filter(token => named.some(w => fits(w, token)));
-    const extra = query.filter(w => !pool.some(token => fits(w, token))).length;
+    const extraWords = query.filter(w => !pool.some(token => fits(w, token))).map(w => w.word);
+    const extra = extraWords.length;
     const packOk = !pack || pack === 'unidade' || (PACKAGE_UNITS[pack] || []).includes(entry.unit) || entry.tokens.includes(pack);
-    return { entry, matched: matched.length, full: matched.length === pool.length, extra, packOk };
+    return { entry, matched: matched.length, full: matched.length === pool.length, extra, extraWords, packOk };
   }).filter(s => s.matched > 0);
 }
 
@@ -231,6 +242,13 @@ export function interpret(text, products, options = {}) {
   if (pool.length > 1) {
     const sizes = pool.map(s => s.entry.product).sort((a, b) => (a.weight || a.volume || 0) - (b.weight || b.volume || 0));
     return { status: 'choose', quantity, question: `É ${sizes.map(p => 'o de ' + describe(p).split(' · ')[1]).filter(Boolean).join(' ou ') || 'qual deles'}?`, candidates: sizes.map(p => ({ id: p.id, label: describe(p) })) };
+  }
+  // Nome pela metade com palavra que não existe no cadastro ("queijo azul" sem Queijo Azul):
+  // não forçar o mais parecido — perguntar.
+  if (!pool[0].full && pool[0].extra > 0) {
+    const near = scored.slice().sort((a, b) => b.matched - a.matched).slice(0, 4).map(s => s.entry.product);
+    return { status: 'choose', quantity, question: `Não tenho “${pool[0].extraWords.join(' ')}” no cadastro. É algum destes?`,
+      candidates: [...new Map(near.map(p => [p.id, p])).values()].map(p => ({ id: p.id, label: describe(p) })) };
   }
   const product = pool[0].entry.product;
   const unit = UNIT_KEY(product.unit);

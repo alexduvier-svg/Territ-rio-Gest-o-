@@ -1,0 +1,4401 @@
+{
+ "meta": {
+  "nome": "Super Dicionário AGRO Gestão — Linguagem e Fala (pt-BR)",
+  "versao": "1.0.0",
+  "data": "2026-10-19",
+  "autor": "Alex Duvier / Território OS",
+  "idioma": "pt-BR",
+  "regiao": "Zona da Mata Mineira",
+  "observacao": "Este léxico é SEMENTE. O catálogo de produtos já existente no app (2 mil+) é a fonte primária e deve ser mesclado via motor.carregarCatalogo()."
+ },
+ "produtos": [
+  {
+   "id": "cafe",
+   "nome": "café",
+   "plural": "cafés",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "pacote",
+   "contavel": false,
+   "variantes": [
+    "cafe",
+    "caffe",
+    "cafée",
+    "cfe",
+    "cf"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cafe_especial",
+   "nome": "café especial",
+   "plural": "cafés especiais",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "cafe espesial",
+    "cafe expecial",
+    "cafe especail",
+    "cafe espcial",
+    "cafe special",
+    "cafe especiau",
+    "cf especial",
+    "cafe esp"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cafe_gourmet",
+   "nome": "café gourmet",
+   "plural": "cafés gourmet",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "cafe gurme",
+    "cafe gormet",
+    "cafe gourme"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cafe_tradicional",
+   "nome": "café tradicional",
+   "plural": "cafés tradicionais",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "cafe tradicionau"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cafe_moido",
+   "nome": "café moído",
+   "plural": "cafés moídos",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "cafe muido",
+    "cafe moido",
+    "po de cafe",
+    "cafe em po"
+   ],
+   "sinonimos": [
+    "café em pó",
+    "pó de café"
+   ]
+  },
+  {
+   "id": "cafe_em_grao",
+   "nome": "café em grão",
+   "plural": "cafés em grão",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "cafe em grao",
+    "cafe em graos",
+    "cafe grao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cafe_torrado",
+   "nome": "café torrado",
+   "plural": "cafés torrados",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "cafe torado"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cafe_cru",
+   "nome": "café cru",
+   "plural": "cafés crus",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "saco",
+   "contavel": false,
+   "variantes": [
+    "cafe verde"
+   ],
+   "sinonimos": [
+    "café verde"
+   ]
+  },
+  {
+   "id": "cafe_coado",
+   "nome": "café coado",
+   "plural": "cafés coados",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "copo",
+   "contavel": true,
+   "variantes": [
+    "cafe coadu",
+    "cafezinho",
+    "copo de cafe"
+   ],
+   "sinonimos": [
+    "cafezinho"
+   ]
+  },
+  {
+   "id": "cafe_com_leite",
+   "nome": "café com leite",
+   "plural": "cafés com leite",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "copo",
+   "contavel": true,
+   "variantes": [
+    "cafe c leite",
+    "cafe com leiti"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cafe_drip",
+   "nome": "café drip",
+   "plural": "cafés drip",
+   "genero": "m",
+   "categoria": "cafe",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "drip",
+    "dripe",
+    "cafe dripe"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "queijo",
+   "nome": "queijo",
+   "plural": "queijos",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "quejo",
+    "quiejo",
+    "qeijo",
+    "queigo",
+    "queju",
+    "kejo",
+    "qjo"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "queijo_minas_frescal",
+   "nome": "queijo minas frescal",
+   "plural": "queijos minas frescal",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "queijo frescal",
+    "quejo frescal",
+    "queijo frescau",
+    "queijo fresco",
+    "frescal"
+   ],
+   "sinonimos": [
+    "queijo fresco"
+   ]
+  },
+  {
+   "id": "queijo_meia_cura",
+   "nome": "queijo meia cura",
+   "plural": "queijos meia cura",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "queijo meia-cura",
+    "quejo meia cura",
+    "meia cura",
+    "queijo meio curado"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "queijo_curado",
+   "nome": "queijo curado",
+   "plural": "queijos curados",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "quejo curado",
+    "queijo curadu",
+    "queijo maturado"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "queijo_canastra",
+   "nome": "queijo canastra",
+   "plural": "queijos canastra",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "quejo canastra"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "queijo_parmesao",
+   "nome": "queijo parmesão",
+   "plural": "queijos parmesão",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "parmesao",
+    "queijo parmesao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "requeijao",
+   "nome": "requeijão",
+   "plural": "requeijões",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "requeijao",
+    "requejao",
+    "requeijão cremoso",
+    "requejão"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "requeijao_de_corte",
+   "nome": "requeijão de corte",
+   "plural": "requeijões de corte",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "requeijao de corte",
+    "requejao de corte"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_leite",
+   "nome": "doce de leite",
+   "plural": "doces de leite",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "doce de leiti",
+    "doci de leite",
+    "dce de leite",
+    "doce d leite"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "manteiga",
+   "nome": "manteiga",
+   "plural": "manteigas",
+   "genero": "f",
+   "categoria": "laticinios",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "mantega",
+    "mantêga",
+    "manteica"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "manteiga_de_garrafa",
+   "nome": "manteiga de garrafa",
+   "plural": "manteigas de garrafa",
+   "genero": "f",
+   "categoria": "laticinios",
+   "unidadePadrao": "garrafa",
+   "contavel": true,
+   "variantes": [
+    "mantega de garrafa",
+    "manteiga de garafa"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "iogurte",
+   "nome": "iogurte",
+   "plural": "iogurtes",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "iorgute",
+    "iogurti",
+    "yogurte",
+    "iogute",
+    "iorgurte",
+    "yogurt"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "leite",
+   "nome": "leite",
+   "plural": "leites",
+   "genero": "m",
+   "categoria": "laticinios",
+   "unidadePadrao": "litro",
+   "contavel": false,
+   "variantes": [
+    "leiti"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "nata",
+   "nome": "nata",
+   "plural": "natas",
+   "genero": "f",
+   "categoria": "laticinios",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "ricota",
+   "nome": "ricota",
+   "plural": "ricotas",
+   "genero": "f",
+   "categoria": "laticinios",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "rricota"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "goiabada",
+   "nome": "goiabada",
+   "plural": "goiabadas",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "goiabda",
+    "goibada",
+    "guiabada"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "goiabada_cascao",
+   "nome": "goiabada cascão",
+   "plural": "goiabadas cascão",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "goiabada cascao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_abobora",
+   "nome": "doce de abóbora",
+   "plural": "doces de abóbora",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "doce de abobora",
+    "doce de abobra"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_mamao",
+   "nome": "doce de mamão",
+   "plural": "doces de mamão",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "doce de mamao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_figo",
+   "nome": "doce de figo",
+   "plural": "doces de figo",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_banana",
+   "nome": "doce de banana",
+   "plural": "doces de banana",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "bananada"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_goiaba",
+   "nome": "doce de goiaba",
+   "plural": "doces de goiaba",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_laranja",
+   "nome": "doce de laranja",
+   "plural": "doces de laranja",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_cidra",
+   "nome": "doce de cidra",
+   "plural": "doces de cidra",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "doce de sidra"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cocada",
+   "nome": "cocada",
+   "plural": "cocadas",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "cocadda",
+    "cucada"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pe_de_moleque",
+   "nome": "pé de moleque",
+   "plural": "pés de moleque",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pe de moleque",
+    "pe de muleque",
+    "pé-de-moleque",
+    "pe-de-moleque",
+    "pe d moleque"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "rapadura",
+   "nome": "rapadura",
+   "plural": "rapaduras",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "rapadudra",
+    "rapadra",
+    "rapaduria"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "melado",
+   "nome": "melado",
+   "plural": "melados",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "garrafa",
+   "contavel": true,
+   "variantes": [
+    "meladu",
+    "melado de cana"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "geleia",
+   "nome": "geleia",
+   "plural": "geleias",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "geléia",
+    "gelea",
+    "jeleia",
+    "geleía"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "ambrosia",
+   "nome": "ambrosia",
+   "plural": "ambrosias",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "ambrozia"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pacoca",
+   "nome": "paçoca",
+   "plural": "paçocas",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pacoca",
+    "passoca"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "brigadeiro",
+   "nome": "brigadeiro",
+   "plural": "brigadeiros",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "brigadero",
+    "brigadeiru",
+    "brigadeito"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "trufa",
+   "nome": "trufa",
+   "plural": "trufas",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "bombom",
+   "nome": "bombom",
+   "plural": "bombons",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "bombon",
+    "bombons"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pudim",
+   "nome": "pudim",
+   "plural": "pudins",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pudin"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bala_de_banana",
+   "nome": "bala de banana",
+   "plural": "balas de banana",
+   "genero": "f",
+   "categoria": "doces",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "doce_de_leite_em_barra",
+   "nome": "doce de leite em barra",
+   "plural": "doces de leite em barra",
+   "genero": "m",
+   "categoria": "doces",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "doce de leite de corte",
+    "doce de leite cortado"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "mel",
+   "nome": "mel",
+   "plural": "méis",
+   "genero": "m",
+   "categoria": "mel",
+   "unidadePadrao": "pote",
+   "contavel": false,
+   "variantes": [
+    "mell",
+    "mel puro"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "propolis",
+   "nome": "própolis",
+   "plural": "própolis",
+   "genero": "m",
+   "categoria": "mel",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "propolis",
+    "propoles"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "acucar_mascavo",
+   "nome": "açúcar mascavo",
+   "plural": "açúcares mascavos",
+   "genero": "m",
+   "categoria": "mel",
+   "unidadePadrao": "pacote",
+   "contavel": false,
+   "variantes": [
+    "acucar mascavo",
+    "açucar mascavo",
+    "mascavo",
+    "acucar mascavu"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pao_de_queijo",
+   "nome": "pão de queijo",
+   "plural": "pães de queijo",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pao de queijo",
+    "pao de quejo",
+    "pão de quejo",
+    "pao d queijo",
+    "paes de queijo",
+    "pao de queijos",
+    "pdq"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pao_de_queijo_congelado",
+   "nome": "pão de queijo congelado",
+   "plural": "pães de queijo congelados",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "pao de queijo congelado"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "biscoito_de_polvilho",
+   "nome": "biscoito de polvilho",
+   "plural": "biscoitos de polvilho",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "biscoito de povilho",
+    "biscoito de polvilio",
+    "biscouto de polvilho",
+    "bicoito de polvilho",
+    "biscoito polvilho",
+    "peta"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "biscoito",
+   "nome": "biscoito",
+   "plural": "biscoitos",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "biscouto",
+    "bicoito",
+    "biscoitu",
+    "biscoto",
+    "biscoio"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "biscoito_de_nata",
+   "nome": "biscoito de nata",
+   "plural": "biscoitos de nata",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "biscoito_amanteigado",
+   "nome": "biscoito amanteigado",
+   "plural": "biscoitos amanteigados",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "biscoito amantegado"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolacha",
+   "nome": "bolacha",
+   "plural": "bolachas",
+   "genero": "f",
+   "categoria": "quitandas",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "bolaxa",
+    "bulacha"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "broa_de_milho",
+   "nome": "broa de milho",
+   "plural": "broas de milho",
+   "genero": "f",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "broa de milio",
+    "broa de mio",
+    "broa milho",
+    "broa"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolo",
+   "nome": "bolo",
+   "plural": "bolos",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "bolu"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolo_de_fuba",
+   "nome": "bolo de fubá",
+   "plural": "bolos de fubá",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "bolo de fuba",
+    "bolo fuba"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolo_de_cenoura",
+   "nome": "bolo de cenoura",
+   "plural": "bolos de cenoura",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "bolo de cenora",
+    "bolo cenoura"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolo_de_milho",
+   "nome": "bolo de milho",
+   "plural": "bolos de milho",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "bolo de milio",
+    "bolo de mio"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolo_de_mandioca",
+   "nome": "bolo de mandioca",
+   "plural": "bolos de mandioca",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "bolo de aipim"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolo_de_chocolate",
+   "nome": "bolo de chocolate",
+   "plural": "bolos de chocolate",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "bolo de chocolati"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolo_de_laranja",
+   "nome": "bolo de laranja",
+   "plural": "bolos de laranja",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "fatia_de_bolo",
+   "nome": "fatia de bolo",
+   "plural": "fatias de bolo",
+   "genero": "f",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pedaco de bolo"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "rosca",
+   "nome": "rosca",
+   "plural": "roscas",
+   "genero": "f",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "rosca doce",
+    "rosquinha"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pao_caseiro",
+   "nome": "pão caseiro",
+   "plural": "pães caseiros",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pao caseiro",
+    "pao casero"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pao_de_mel",
+   "nome": "pão de mel",
+   "plural": "pães de mel",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pao de mel"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pamonha",
+   "nome": "pamonha",
+   "plural": "pamonhas",
+   "genero": "f",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pamonia",
+    "pamoinha"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "curau",
+   "nome": "curau",
+   "plural": "curaus",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "cural"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pastel",
+   "nome": "pastel",
+   "plural": "pastéis",
+   "genero": "m",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pasteu",
+    "pasteis"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "empada",
+   "nome": "empada",
+   "plural": "empadas",
+   "genero": "f",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "impada"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "coxinha",
+   "nome": "coxinha",
+   "plural": "coxinhas",
+   "genero": "f",
+   "categoria": "quitandas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "cochinha"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "ovo_caipira",
+   "nome": "ovo caipira",
+   "plural": "ovos caipiras",
+   "genero": "m",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "dúzia",
+   "contavel": true,
+   "variantes": [
+    "ovo caipra",
+    "ovos caipira",
+    "ovus caipira",
+    "ovo de galinha caipira"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "ovo",
+   "nome": "ovo",
+   "plural": "ovos",
+   "genero": "m",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "dúzia",
+   "contavel": true,
+   "variantes": [
+    "ovu",
+    "ovus"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "ovo_de_codorna",
+   "nome": "ovo de codorna",
+   "plural": "ovos de codorna",
+   "genero": "m",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "cartela",
+   "contavel": true,
+   "variantes": [
+    "ovo de codorma",
+    "ovo codorna"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "frango_caipira",
+   "nome": "frango caipira",
+   "plural": "frangos caipiras",
+   "genero": "m",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "frangu caipira",
+    "galinha caipira"
+   ],
+   "sinonimos": [
+    "galinha caipira"
+   ]
+  },
+  {
+   "id": "linguica",
+   "nome": "linguiça",
+   "plural": "linguiças",
+   "genero": "f",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "linguica",
+    "lingüiça",
+    "lingiça",
+    "linguisa",
+    "linguissa",
+    "lingica"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "torresmo",
+   "nome": "torresmo",
+   "plural": "torresmos",
+   "genero": "m",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "torremo",
+    "toresmo",
+    "torresmu"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "carne_de_lata",
+   "nome": "carne de lata",
+   "plural": "carnes de lata",
+   "genero": "f",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "lata",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "lombo",
+   "nome": "lombo",
+   "plural": "lombos",
+   "genero": "m",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "pernil",
+   "nome": "pernil",
+   "plural": "pernis",
+   "genero": "m",
+   "categoria": "carnes_ovos",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "alface",
+   "nome": "alface",
+   "plural": "alfaces",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "alfaçe",
+    "alfasse",
+    "aface"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "couve",
+   "nome": "couve",
+   "plural": "couves",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "couvi",
+    "cove"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "couve_flor",
+   "nome": "couve-flor",
+   "plural": "couves-flores",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "couve flor",
+    "couveflor"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "brocolis",
+   "nome": "brócolis",
+   "plural": "brócolis",
+   "genero": "m",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "brocolis",
+    "brocoli",
+    "brocolo"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cebolinha",
+   "nome": "cebolinha",
+   "plural": "cebolinhas",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "sebolinha",
+    "cebolina"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "salsinha",
+   "nome": "salsinha",
+   "plural": "salsinhas",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "salcinha",
+    "salsa"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cheiro_verde",
+   "nome": "cheiro-verde",
+   "plural": "cheiros-verdes",
+   "genero": "m",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "cheiro verde",
+    "chero verde",
+    "xeiro verde"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "coentro",
+   "nome": "coentro",
+   "plural": "coentros",
+   "genero": "m",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "cuentro",
+    "coentru"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "rucula",
+   "nome": "rúcula",
+   "plural": "rúculas",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "rucula",
+    "rucola"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "agriao",
+   "nome": "agrião",
+   "plural": "agriões",
+   "genero": "m",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "agriao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "espinafre",
+   "nome": "espinafre",
+   "plural": "espinafres",
+   "genero": "m",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "espinafe"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "almeirao",
+   "nome": "almeirão",
+   "plural": "almeirões",
+   "genero": "m",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "almeirao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "taioba",
+   "nome": "taioba",
+   "plural": "taiobas",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "ora_pro_nobis",
+   "nome": "ora-pro-nóbis",
+   "plural": "ora-pro-nóbis",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "ora pro nobis",
+    "orapronobis",
+    "ora pro nobi"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "hortela",
+   "nome": "hortelã",
+   "plural": "hortelãs",
+   "genero": "f",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "hortela",
+    "ortelã"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "manjericao",
+   "nome": "manjericão",
+   "plural": "manjericões",
+   "genero": "m",
+   "categoria": "hortalicas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "manjericao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "tomate",
+   "nome": "tomate",
+   "plural": "tomates",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "tomati",
+    "tumate"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cebola",
+   "nome": "cebola",
+   "plural": "cebolas",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "sebola"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "alho",
+   "nome": "alho",
+   "plural": "alhos",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "aio",
+    "alio"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "mandioca",
+   "nome": "mandioca",
+   "plural": "mandiocas",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "mandiuca",
+    "mandioka"
+   ],
+   "sinonimos": [
+    "aipim",
+    "macaxeira"
+   ]
+  },
+  {
+   "id": "inhame",
+   "nome": "inhame",
+   "plural": "inhames",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "inhami",
+    "inhami",
+    "iname"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "batata_doce",
+   "nome": "batata-doce",
+   "plural": "batatas-doces",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "batata doce",
+    "batatadoce"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "batata",
+   "nome": "batata",
+   "plural": "batatas",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "batatta"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "abobora",
+   "nome": "abóbora",
+   "plural": "abóboras",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "abobora",
+    "abobra",
+    "abobura"
+   ],
+   "sinonimos": [
+    "moranga",
+    "jerimum"
+   ]
+  },
+  {
+   "id": "abobrinha",
+   "nome": "abobrinha",
+   "plural": "abobrinhas",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "abobrinia"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "quiabo",
+   "nome": "quiabo",
+   "plural": "quiabos",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "quiabu",
+    "kiabo"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "jilo",
+   "nome": "jiló",
+   "plural": "jilós",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "jilo",
+    "giló",
+    "gilo"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "chuchu",
+   "nome": "chuchu",
+   "plural": "chuchus",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "xuxu",
+    "chuxu",
+    "xuchu"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "berinjela",
+   "nome": "berinjela",
+   "plural": "berinjelas",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "beringela",
+    "berinjella"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pimentao",
+   "nome": "pimentão",
+   "plural": "pimentões",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "pimentao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pimenta",
+   "nome": "pimenta",
+   "plural": "pimentas",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "pimenta biquinho",
+    "pimenta malagueta"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "milho_verde",
+   "nome": "milho verde",
+   "plural": "milhos verdes",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "espiga",
+   "contavel": true,
+   "variantes": [
+    "milio verde",
+    "mio verde",
+    "milho verdi"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cenoura",
+   "nome": "cenoura",
+   "plural": "cenouras",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "cenora",
+    "senoura"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "beterraba",
+   "nome": "beterraba",
+   "plural": "beterrabas",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "beterava",
+    "beteraba"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "vagem",
+   "nome": "vagem",
+   "plural": "vagens",
+   "genero": "f",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "vage"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pepino",
+   "nome": "pepino",
+   "plural": "pepinos",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "gengibre",
+   "nome": "gengibre",
+   "plural": "gengibres",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "jenjibre",
+    "gengibri"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "acafrao",
+   "nome": "açafrão",
+   "plural": "açafrões",
+   "genero": "m",
+   "categoria": "legumes",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "acafrao",
+    "açafrao",
+    "cúrcuma"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "feijao",
+   "nome": "feijão",
+   "plural": "feijões",
+   "genero": "m",
+   "categoria": "graos_farinhas",
+   "unidadePadrao": "kg",
+   "contavel": false,
+   "variantes": [
+    "feijao",
+    "fejão",
+    "fejao",
+    "feijãozinho"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "arroz",
+   "nome": "arroz",
+   "plural": "arrozes",
+   "genero": "m",
+   "categoria": "graos_farinhas",
+   "unidadePadrao": "kg",
+   "contavel": false,
+   "variantes": [
+    "aros",
+    "arros",
+    "arois"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "fuba",
+   "nome": "fubá",
+   "plural": "fubás",
+   "genero": "m",
+   "categoria": "graos_farinhas",
+   "unidadePadrao": "kg",
+   "contavel": false,
+   "variantes": [
+    "fuba",
+    "fuba mimoso"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "farinha_de_mandioca",
+   "nome": "farinha de mandioca",
+   "plural": "farinhas de mandioca",
+   "genero": "f",
+   "categoria": "graos_farinhas",
+   "unidadePadrao": "kg",
+   "contavel": false,
+   "variantes": [
+    "farinha de mandiuca",
+    "farinha mandioca"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "farinha_de_milho",
+   "nome": "farinha de milho",
+   "plural": "farinhas de milho",
+   "genero": "f",
+   "categoria": "graos_farinhas",
+   "unidadePadrao": "kg",
+   "contavel": false,
+   "variantes": [
+    "farinha de milio"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "polvilho",
+   "nome": "polvilho",
+   "plural": "polvilhos",
+   "genero": "m",
+   "categoria": "graos_farinhas",
+   "unidadePadrao": "kg",
+   "contavel": false,
+   "variantes": [
+    "povilho",
+    "polvilio",
+    "polvilho azedo",
+    "polvilho doce"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "amendoim",
+   "nome": "amendoim",
+   "plural": "amendoins",
+   "genero": "m",
+   "categoria": "graos_farinhas",
+   "unidadePadrao": "pacote",
+   "contavel": false,
+   "variantes": [
+    "amendoin",
+    "mendoim",
+    "minduim"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "banana",
+   "nome": "banana",
+   "plural": "bananas",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "dúzia",
+   "contavel": true,
+   "variantes": [
+    "bananna",
+    "banan"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "laranja",
+   "nome": "laranja",
+   "plural": "laranjas",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "dúzia",
+   "contavel": true,
+   "variantes": [
+    "laranija",
+    "laraja"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "limao",
+   "nome": "limão",
+   "plural": "limões",
+   "genero": "m",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "limao",
+    "limoes"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "mexerica",
+   "nome": "mexerica",
+   "plural": "mexericas",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "dúzia",
+   "contavel": true,
+   "variantes": [
+    "mexirica",
+    "mixirica",
+    "mexirca",
+    "mixerica"
+   ],
+   "sinonimos": [
+    "tangerina",
+    "ponkan",
+    "bergamota"
+   ]
+  },
+  {
+   "id": "abacate",
+   "nome": "abacate",
+   "plural": "abacates",
+   "genero": "m",
+   "categoria": "frutas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "abacati"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "maracuja",
+   "nome": "maracujá",
+   "plural": "maracujás",
+   "genero": "m",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "maracuja",
+    "maracujar"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "goiaba",
+   "nome": "goiaba",
+   "plural": "goiabas",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "goiabba",
+    "guiaba"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "mamao",
+   "nome": "mamão",
+   "plural": "mamões",
+   "genero": "m",
+   "categoria": "frutas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "mamao"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "manga",
+   "nome": "manga",
+   "plural": "mangas",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "abacaxi",
+   "nome": "abacaxi",
+   "plural": "abacaxis",
+   "genero": "m",
+   "categoria": "frutas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "abacachi"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "morango",
+   "nome": "morango",
+   "plural": "morangos",
+   "genero": "m",
+   "categoria": "frutas",
+   "unidadePadrao": "bandeja",
+   "contavel": true,
+   "variantes": [
+    "morangu",
+    "moranguinho"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "jabuticaba",
+   "nome": "jabuticaba",
+   "plural": "jabuticabas",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "jaboticaba",
+    "jabuticaba"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "caqui",
+   "nome": "caqui",
+   "plural": "caquis",
+   "genero": "m",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "kaki",
+    "caki"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "uva",
+   "nome": "uva",
+   "plural": "uvas",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "melancia",
+   "nome": "melancia",
+   "plural": "melancias",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "melansia"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "acerola",
+   "nome": "acerola",
+   "plural": "acerolas",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "coco",
+   "nome": "coco",
+   "plural": "cocos",
+   "genero": "m",
+   "categoria": "frutas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "côco"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "lichia",
+   "nome": "lichia",
+   "plural": "lichias",
+   "genero": "f",
+   "categoria": "frutas",
+   "unidadePadrao": "kg",
+   "contavel": true,
+   "variantes": [
+    "lixia",
+    "lichi"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cachaca",
+   "nome": "cachaça",
+   "plural": "cachaças",
+   "genero": "f",
+   "categoria": "bebidas",
+   "unidadePadrao": "garrafa",
+   "contavel": true,
+   "variantes": [
+    "cachaca",
+    "caxaça",
+    "caxaca",
+    "cachassa"
+   ],
+   "sinonimos": [
+    "pinga",
+    "aguardente"
+   ]
+  },
+  {
+   "id": "licor",
+   "nome": "licor",
+   "plural": "licores",
+   "genero": "m",
+   "categoria": "bebidas",
+   "unidadePadrao": "garrafa",
+   "contavel": true,
+   "variantes": [
+    "licô",
+    "licou",
+    "licor caseiro"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cerveja_artesanal",
+   "nome": "cerveja artesanal",
+   "plural": "cervejas artesanais",
+   "genero": "f",
+   "categoria": "bebidas",
+   "unidadePadrao": "garrafa",
+   "contavel": true,
+   "variantes": [
+    "cerveja artezanal",
+    "cerveija artesanal",
+    "breja artesanal",
+    "cerveja artesanau"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "suco",
+   "nome": "suco",
+   "plural": "sucos",
+   "genero": "m",
+   "categoria": "bebidas",
+   "unidadePadrao": "copo",
+   "contavel": true,
+   "variantes": [
+    "sucu"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "garapa",
+   "nome": "garapa",
+   "plural": "garapas",
+   "genero": "f",
+   "categoria": "bebidas",
+   "unidadePadrao": "copo",
+   "contavel": true,
+   "variantes": [
+    "caldo de cana"
+   ],
+   "sinonimos": [
+    "caldo de cana"
+   ]
+  },
+  {
+   "id": "vinho",
+   "nome": "vinho",
+   "plural": "vinhos",
+   "genero": "m",
+   "categoria": "bebidas",
+   "unidadePadrao": "garrafa",
+   "contavel": true,
+   "variantes": [
+    "vinho de jabuticaba"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "kombucha",
+   "nome": "kombucha",
+   "plural": "kombuchas",
+   "genero": "f",
+   "categoria": "bebidas",
+   "unidadePadrao": "garrafa",
+   "contavel": true,
+   "variantes": [
+    "combucha"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "agua",
+   "nome": "água",
+   "plural": "águas",
+   "genero": "f",
+   "categoria": "bebidas",
+   "unidadePadrao": "garrafa",
+   "contavel": true,
+   "variantes": [
+    "agua",
+    "agua mineral"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "tempero_caseiro",
+   "nome": "tempero caseiro",
+   "plural": "temperos caseiros",
+   "genero": "m",
+   "categoria": "temperos_conservas",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [
+    "tempero casero",
+    "tempero"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "conserva",
+   "nome": "conserva",
+   "plural": "conservas",
+   "genero": "f",
+   "categoria": "temperos_conservas",
+   "unidadePadrao": "vidro",
+   "contavel": true,
+   "variantes": [
+    "conserva caseira"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pimenta_em_conserva",
+   "nome": "pimenta em conserva",
+   "plural": "pimentas em conserva",
+   "genero": "f",
+   "categoria": "temperos_conservas",
+   "unidadePadrao": "vidro",
+   "contavel": true,
+   "variantes": [
+    "pimenta conserva"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "molho_de_tomate",
+   "nome": "molho de tomate",
+   "plural": "molhos de tomate",
+   "genero": "m",
+   "categoria": "temperos_conservas",
+   "unidadePadrao": "vidro",
+   "contavel": true,
+   "variantes": [
+    "molho de tomati"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "sal_temperado",
+   "nome": "sal temperado",
+   "plural": "sais temperados",
+   "genero": "m",
+   "categoria": "temperos_conservas",
+   "unidadePadrao": "pote",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "colorau",
+   "nome": "colorau",
+   "plural": "coloraus",
+   "genero": "m",
+   "categoria": "temperos_conservas",
+   "unidadePadrao": "pacote",
+   "contavel": true,
+   "variantes": [
+    "colorao",
+    "colorral"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "artesanato",
+   "nome": "artesanato",
+   "plural": "artesanatos",
+   "genero": "m",
+   "categoria": "artesanato",
+   "unidadePadrao": "peça",
+   "contavel": true,
+   "variantes": [
+    "artezanato",
+    "artesanatu"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "peca_de_croche",
+   "nome": "peça de crochê",
+   "plural": "peças de crochê",
+   "genero": "f",
+   "categoria": "artesanato",
+   "unidadePadrao": "peça",
+   "contavel": true,
+   "variantes": [
+    "croche",
+    "crochê",
+    "crochet",
+    "peca de croche"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bordado",
+   "nome": "bordado",
+   "plural": "bordados",
+   "genero": "m",
+   "categoria": "artesanato",
+   "unidadePadrao": "peça",
+   "contavel": true,
+   "variantes": [
+    "bordadu"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "tapete",
+   "nome": "tapete",
+   "plural": "tapetes",
+   "genero": "m",
+   "categoria": "artesanato",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "tapeti"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "pano_de_prato",
+   "nome": "pano de prato",
+   "plural": "panos de prato",
+   "genero": "m",
+   "categoria": "artesanato",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "pano d prato"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "cesto",
+   "nome": "cesto",
+   "plural": "cestos",
+   "genero": "m",
+   "categoria": "artesanato",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "cesta",
+    "balaio"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "sabonete_artesanal",
+   "nome": "sabonete artesanal",
+   "plural": "sabonetes artesanais",
+   "genero": "m",
+   "categoria": "artesanato",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "sabonete artezanal",
+    "sabonete",
+    "sabonete natural"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "vela",
+   "nome": "vela",
+   "plural": "velas",
+   "genero": "f",
+   "categoria": "artesanato",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "vela aromatica"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "bolsa",
+   "nome": "bolsa",
+   "plural": "bolsas",
+   "genero": "f",
+   "categoria": "artesanato",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "quadro",
+   "nome": "quadro",
+   "plural": "quadros",
+   "genero": "m",
+   "categoria": "artesanato",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "boneca_de_pano",
+   "nome": "boneca de pano",
+   "plural": "bonecas de pano",
+   "genero": "f",
+   "categoria": "artesanato",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "muda",
+   "nome": "muda",
+   "plural": "mudas",
+   "genero": "f",
+   "categoria": "plantas",
+   "unidadePadrao": "unidade",
+   "contavel": true,
+   "variantes": [
+    "mudinha",
+    "muda de planta"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "planta",
+   "nome": "planta",
+   "plural": "plantas",
+   "genero": "f",
+   "categoria": "plantas",
+   "unidadePadrao": "vaso",
+   "contavel": true,
+   "variantes": [
+    "vaso de planta"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "orquidea",
+   "nome": "orquídea",
+   "plural": "orquídeas",
+   "genero": "f",
+   "categoria": "plantas",
+   "unidadePadrao": "vaso",
+   "contavel": true,
+   "variantes": [
+    "orquidea",
+    "orquidia"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "suculenta",
+   "nome": "suculenta",
+   "plural": "suculentas",
+   "genero": "f",
+   "categoria": "plantas",
+   "unidadePadrao": "vaso",
+   "contavel": true,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "flor",
+   "nome": "flor",
+   "plural": "flores",
+   "genero": "f",
+   "categoria": "plantas",
+   "unidadePadrao": "maço",
+   "contavel": true,
+   "variantes": [
+    "fror",
+    "flô"
+   ],
+   "sinonimos": []
+  },
+  {
+   "id": "lenha",
+   "nome": "lenha",
+   "plural": "lenhas",
+   "genero": "f",
+   "categoria": "outros",
+   "unidadePadrao": "feixe",
+   "contavel": false,
+   "variantes": [],
+   "sinonimos": []
+  },
+  {
+   "id": "esterco",
+   "nome": "esterco",
+   "plural": "estercos",
+   "genero": "m",
+   "categoria": "outros",
+   "unidadePadrao": "saco",
+   "contavel": false,
+   "variantes": [
+    "estrume",
+    "adubo organico"
+   ],
+   "sinonimos": []
+  }
+ ],
+ "unidades": [
+  {
+   "id": "kg",
+   "singular": "quilo",
+   "plural": "quilos",
+   "simbolo": "kg",
+   "genero": "m",
+   "variantes": [
+    "kg",
+    "kgs",
+    "kilo",
+    "kilos",
+    "quilu",
+    "k",
+    "kl",
+    "kgr",
+    "kilograma",
+    "quilograma",
+    "quilogramas"
+   ]
+  },
+  {
+   "id": "g",
+   "singular": "grama",
+   "plural": "gramas",
+   "simbolo": "g",
+   "genero": "m",
+   "variantes": [
+    "g",
+    "gr",
+    "grs",
+    "gramas",
+    "gm"
+   ]
+  },
+  {
+   "id": "l",
+   "singular": "litro",
+   "plural": "litros",
+   "simbolo": "L",
+   "genero": "m",
+   "variantes": [
+    "l",
+    "lt",
+    "lts",
+    "litru",
+    "litros",
+    "ltr"
+   ]
+  },
+  {
+   "id": "ml",
+   "singular": "mililitro",
+   "plural": "mililitros",
+   "simbolo": "mL",
+   "genero": "m",
+   "variantes": [
+    "ml",
+    "mls"
+   ]
+  },
+  {
+   "id": "unidade",
+   "singular": "unidade",
+   "plural": "unidades",
+   "simbolo": "un.",
+   "genero": "f",
+   "variantes": [
+    "un",
+    "und",
+    "unid",
+    "uni",
+    "u",
+    "unds",
+    "unidadi"
+   ]
+  },
+  {
+   "id": "duzia",
+   "singular": "dúzia",
+   "plural": "dúzias",
+   "simbolo": "dz",
+   "genero": "f",
+   "fator": 12,
+   "variantes": [
+    "dz",
+    "duzia",
+    "dusia",
+    "dúsia",
+    "duzias",
+    "dzs"
+   ]
+  },
+  {
+   "id": "pacote",
+   "singular": "pacote",
+   "plural": "pacotes",
+   "simbolo": "pct",
+   "genero": "m",
+   "variantes": [
+    "pct",
+    "pcts",
+    "pc",
+    "pac",
+    "pacoti",
+    "pacotinho",
+    "pacotinhos"
+   ]
+  },
+  {
+   "id": "caixa",
+   "singular": "caixa",
+   "plural": "caixas",
+   "simbolo": "cx",
+   "genero": "f",
+   "variantes": [
+    "cx",
+    "cxs",
+    "caxa",
+    "caicha",
+    "caixinha"
+   ]
+  },
+  {
+   "id": "saco",
+   "singular": "saco",
+   "plural": "sacos",
+   "simbolo": "sc",
+   "genero": "m",
+   "variantes": [
+    "sc",
+    "saquinho",
+    "saquinhos",
+    "saca",
+    "sacas"
+   ]
+  },
+  {
+   "id": "maco",
+   "singular": "maço",
+   "plural": "maços",
+   "simbolo": "maço",
+   "genero": "m",
+   "variantes": [
+    "maco",
+    "masso",
+    "mço",
+    "molho",
+    "molhos",
+    "macinho",
+    "amarrado",
+    "mollho"
+   ]
+  },
+  {
+   "id": "bandeja",
+   "singular": "bandeja",
+   "plural": "bandejas",
+   "simbolo": "bdj",
+   "genero": "f",
+   "variantes": [
+    "bdj",
+    "badeja",
+    "bandeija",
+    "bandejinha"
+   ]
+  },
+  {
+   "id": "pote",
+   "singular": "pote",
+   "plural": "potes",
+   "simbolo": "pote",
+   "genero": "m",
+   "variantes": [
+    "poti",
+    "potinho",
+    "potinhos"
+   ]
+  },
+  {
+   "id": "vidro",
+   "singular": "vidro",
+   "plural": "vidros",
+   "simbolo": "vd",
+   "genero": "m",
+   "variantes": [
+    "vidrinho",
+    "vd",
+    "vidru"
+   ]
+  },
+  {
+   "id": "garrafa",
+   "singular": "garrafa",
+   "plural": "garrafas",
+   "simbolo": "gf",
+   "genero": "f",
+   "variantes": [
+    "garafa",
+    "grf",
+    "gf",
+    "garrafinha",
+    "litrinho"
+   ]
+  },
+  {
+   "id": "lata",
+   "singular": "lata",
+   "plural": "latas",
+   "simbolo": "lt",
+   "genero": "f",
+   "variantes": [
+    "latinha"
+   ]
+  },
+  {
+   "id": "fatia",
+   "singular": "fatia",
+   "plural": "fatias",
+   "simbolo": "fatia",
+   "genero": "f",
+   "variantes": [
+    "fatiinha",
+    "fatia"
+   ]
+  },
+  {
+   "id": "pedaco",
+   "singular": "pedaço",
+   "plural": "pedaços",
+   "simbolo": "pedaço",
+   "genero": "m",
+   "variantes": [
+    "pedaco",
+    "pdc",
+    "pedacinho",
+    "naco"
+   ]
+  },
+  {
+   "id": "peca",
+   "singular": "peça",
+   "plural": "peças",
+   "simbolo": "pç",
+   "genero": "f",
+   "variantes": [
+    "peca",
+    "pç",
+    "pc.",
+    "pecas"
+   ]
+  },
+  {
+   "id": "cartela",
+   "singular": "cartela",
+   "plural": "cartelas",
+   "simbolo": "ctl",
+   "genero": "f",
+   "variantes": [
+    "cartella",
+    "bandeja de ovo"
+   ]
+  },
+  {
+   "id": "penca",
+   "singular": "penca",
+   "plural": "pencas",
+   "simbolo": "penca",
+   "genero": "f",
+   "variantes": [
+    "pencas",
+    "cacho"
+   ]
+  },
+  {
+   "id": "espiga",
+   "singular": "espiga",
+   "plural": "espigas",
+   "simbolo": "espiga",
+   "genero": "f",
+   "variantes": [
+    "spiga",
+    "espigas"
+   ]
+  },
+  {
+   "id": "copo",
+   "singular": "copo",
+   "plural": "copos",
+   "simbolo": "copo",
+   "genero": "m",
+   "variantes": [
+    "copu",
+    "copinho",
+    "xicara",
+    "xícara"
+   ]
+  },
+  {
+   "id": "forma",
+   "singular": "forma",
+   "plural": "formas",
+   "simbolo": "forma",
+   "genero": "f",
+   "variantes": [
+    "fôrma",
+    "assadeira"
+   ]
+  },
+  {
+   "id": "barra",
+   "singular": "barra",
+   "plural": "barras",
+   "simbolo": "barra",
+   "genero": "f",
+   "variantes": [
+    "tablete",
+    "tabletes"
+   ]
+  },
+  {
+   "id": "vaso",
+   "singular": "vaso",
+   "plural": "vasos",
+   "simbolo": "vaso",
+   "genero": "m",
+   "variantes": [
+    "vasinho"
+   ]
+  },
+  {
+   "id": "feixe",
+   "singular": "feixe",
+   "plural": "feixes",
+   "simbolo": "feixe",
+   "genero": "m",
+   "variantes": [
+    "fecho"
+   ]
+  },
+  {
+   "id": "kit",
+   "singular": "kit",
+   "plural": "kits",
+   "simbolo": "kit",
+   "genero": "m",
+   "variantes": [
+    "quite",
+    "combo"
+   ]
+  }
+ ],
+ "numerais": {
+  "zero": 0,
+  "um": 1,
+  "uma": 1,
+  "hum": 1,
+  "dois": 2,
+  "duas": 2,
+  "doi": 2,
+  "doiz": 2,
+  "duaz": 2,
+  "tres": 3,
+  "treis": 3,
+  "trez": 3,
+  "treiz": 3,
+  "quatro": 4,
+  "quatru": 4,
+  "cuatro": 4,
+  "quato": 4,
+  "cinco": 5,
+  "sinco": 5,
+  "cinko": 5,
+  "cico": 5,
+  "seis": 6,
+  "seiz": 6,
+  "seix": 6,
+  "sete": 7,
+  "seti": 7,
+  "oito": 8,
+  "oitu": 8,
+  "nove": 9,
+  "novi": 9,
+  "dez": 10,
+  "deis": 10,
+  "onze": 11,
+  "onse": 11,
+  "doze": 12,
+  "treze": 13,
+  "trese": 13,
+  "catorze": 14,
+  "quatorze": 14,
+  "quatorse": 14,
+  "quinze": 15,
+  "quinse": 15,
+  "quize": 15,
+  "dezesseis": 16,
+  "dezeseis": 16,
+  "dezasseis": 16,
+  "dezessete": 17,
+  "dezesete": 17,
+  "dezoito": 18,
+  "dezenove": 19,
+  "dezanove": 19,
+  "vinte": 20,
+  "vint": 20,
+  "trinta": 30,
+  "quarenta": 40,
+  "cinquenta": 50,
+  "cincoenta": 50,
+  "sinquenta": 50,
+  "sessenta": 60,
+  "secenta": 60,
+  "setenta": 70,
+  "oitenta": 80,
+  "noventa": 90,
+  "cem": 100,
+  "cento": 100,
+  "duzentos": 200,
+  "duzentas": 200,
+  "trezentos": 300,
+  "trezentas": 300,
+  "quatrocentos": 400,
+  "quinhentos": 500,
+  "quinhentas": 500,
+  "seiscentos": 600,
+  "setecentos": 700,
+  "oitocentos": 800,
+  "novecentos": 900,
+  "mil": 1000,
+  "par": 2,
+  "dezena": 10,
+  "meio": 0.5,
+  "meia": 0.5
+ },
+ "acoes": {
+  "venda": {
+   "rotulo": "Venda",
+   "gatilhos": [
+    "vendi",
+    "vende",
+    "vendeu",
+    "vendemos",
+    "vendemo",
+    "venderam",
+    "vendero",
+    "venderu",
+    "venda",
+    "vendas",
+    "vendido",
+    "vendida",
+    "vendidos",
+    "vendidas",
+    "vemdi",
+    "vndi",
+    "vedi",
+    "vendii",
+    "vemdeu",
+    "vendí",
+    "saiu",
+    "sairam",
+    "sairão",
+    "levaram",
+    "levou",
+    "comprou",
+    "compraram"
+   ],
+   "nota": "'comprou/levou' na boca do produtor = o cliente comprou = VENDA. 'Caiu no Pix' = pagamento recebido, nunca perda."
+  },
+  "estoque_entrada": {
+   "rotulo": "Entrada de estoque (levou para a feira)",
+   "gatilhos": [
+    "levei",
+    "trouxe",
+    "troxe",
+    "truxe",
+    "trouxi",
+    "tenho",
+    "estoque",
+    "coloquei",
+    "botei",
+    "montei",
+    "cheguei com",
+    "levamos",
+    "trouxemos"
+   ]
+  },
+  "sobra": {
+   "rotulo": "Sobra / restou",
+   "gatilhos": [
+    "sobrou",
+    "sobro",
+    "sobrô",
+    "sobraram",
+    "sobraro",
+    "restou",
+    "resto",
+    "restô",
+    "restaram",
+    "ficou",
+    "ficaram",
+    "voltou",
+    "voltaram",
+    "sobra"
+   ]
+  },
+  "perda": {
+   "rotulo": "Perda",
+   "gatilhos": [
+    "perdi",
+    "perda",
+    "estragou",
+    "estragô",
+    "estragado",
+    "estragaram",
+    "quebrou",
+    "quebrô",
+    "venceu",
+    "vencido",
+    "azedou",
+    "mofou",
+    "amassou",
+    "derreteu"
+   ]
+  },
+  "brinde": {
+   "rotulo": "Brinde / degustação",
+   "gatilhos": [
+    "dei",
+    "doei",
+    "brinde",
+    "brindes",
+    "cortesia",
+    "amostra",
+    "degustacao",
+    "degustação",
+    "provinha",
+    "presente",
+    "dado"
+   ]
+  },
+  "troca": {
+   "rotulo": "Troca",
+   "gatilhos": [
+    "troquei",
+    "troca",
+    "trocou",
+    "permuta",
+    "escambo"
+   ]
+  },
+  "reposicao": {
+   "rotulo": "Reposição",
+   "gatilhos": [
+    "repus",
+    "repor",
+    "reponho",
+    "reabasteci",
+    "busquei mais",
+    "buscar mais",
+    "completei"
+   ]
+  },
+  "fiado": {
+   "rotulo": "Venda a prazo (fiado)",
+   "gatilhos": [
+    "fiado",
+    "fiadu",
+    "pendurado",
+    "pendurou",
+    "anotado",
+    "anotei",
+    "depois paga",
+    "paga depois",
+    "a prazo",
+    "prazo"
+   ]
+  },
+  "recebimento": {
+   "rotulo": "Recebimento de fiado",
+   "gatilhos": [
+    "recebi",
+    "recebí",
+    "pagou",
+    "pagô",
+    "acertou",
+    "quitou"
+   ]
+  },
+  "cancelar": {
+   "rotulo": "Cancelar / desfazer último lançamento",
+   "gatilhos": [
+    "cancela",
+    "cancelar",
+    "cancelei",
+    "desfaz",
+    "desfazer",
+    "apaga",
+    "apagar",
+    "errei",
+    "foi errado",
+    "estorna",
+    "estornar"
+   ]
+  }
+ },
+ "pagamentos": {
+  "pix": {
+   "rotulo": "Pix",
+   "gatilhos": [
+    "pix",
+    "pics",
+    "piks",
+    "pixi",
+    "pixx",
+    "px",
+    "pikis",
+    "pis",
+    "chave",
+    "transferencia",
+    "transferência",
+    "qr",
+    "qrcode"
+   ]
+  },
+  "credito": {
+   "rotulo": "Cartão de crédito",
+   "gatilhos": [
+    "credito",
+    "crédito",
+    "cred",
+    "parcelado",
+    "parcelou"
+   ]
+  },
+  "debito": {
+   "rotulo": "Cartão de débito",
+   "gatilhos": [
+    "debito",
+    "débito",
+    "deb"
+   ]
+  },
+  "cartao": {
+   "rotulo": "Cartão (não especificado)",
+   "gatilhos": [
+    "cartao",
+    "cartão",
+    "catão",
+    "catao",
+    "cartaum",
+    "cartaõ",
+    "maquininha",
+    "maquina",
+    "máquina",
+    "maquinha",
+    "aproximacao",
+    "aproximação"
+   ]
+  },
+  "dinheiro": {
+   "rotulo": "Dinheiro",
+   "gatilhos": [
+    "dinheiro",
+    "dinhero",
+    "dinheiru",
+    "dinhêro",
+    "din",
+    "especie",
+    "espécie",
+    "vivo",
+    "nota",
+    "notas",
+    "trocado",
+    "cash",
+    "a vista",
+    "à vista",
+    "avista"
+   ]
+  },
+  "fiado": {
+   "rotulo": "Fiado",
+   "gatilhos": [
+    "fiado",
+    "fiadu",
+    "pendurado"
+   ]
+  }
+ },
+ "abreviacoes": {
+  "vc": "você",
+  "vcs": "vocês",
+  "cê": "você",
+  "ce": "você",
+  "ocê": "você",
+  "q": "que",
+  "pq": "porque",
+  "tb": "também",
+  "tbm": "também",
+  "qnt": "quantidade",
+  "qtd": "quantidade",
+  "qtde": "quantidade",
+  "c": "com",
+  "c/": "com",
+  "s/": "sem",
+  "p": "para",
+  "p/": "para",
+  "pra": "para",
+  "pro": "para o",
+  "pros": "para os",
+  "pras": "para as",
+  "hj": "hoje",
+  "amn": "amanhã",
+  "obg": "obrigado",
+  "blz": "beleza",
+  "msm": "mesmo",
+  "mto": "muito",
+  "mt": "muito",
+  "td": "tudo",
+  "tds": "todos",
+  "n": "não",
+  "nao": "não",
+  "naum": "não",
+  "ñ": "não",
+  "s": "sim",
+  "ss": "sim",
+  "ok": "ok",
+  "vlw": "valeu",
+  "kd": "cadê",
+  "qto": "quanto",
+  "qnto": "quanto",
+  "rs": "reais",
+  "r$": "reais",
+  "reau": "real",
+  "reis": "reais",
+  "rais": "reais",
+  "conto": "reais",
+  "contos": "reais",
+  "pila": "reais",
+  "pilas": "reais",
+  "mango": "reais",
+  "mangos": "reais",
+  "pratas": "reais",
+  "tot": "total",
+  "ttl": "total",
+  "vlr": "valor",
+  "val": "valor",
+  "prç": "preço",
+  "preco": "preço",
+  "unit": "unitário",
+  "cd": "cada"
+ },
+ "preenchimento": [
+  "uai",
+  "so",
+  "sô",
+  "trem",
+  "trens",
+  "no",
+  "nó",
+  "ne",
+  "né",
+  "tipo",
+  "ai",
+  "aí",
+  "entao",
+  "então",
+  "hoje",
+  "agora",
+  "la",
+  "lá",
+  "ja",
+  "já",
+  "so que",
+  "moca",
+  "moça",
+  "moco",
+  "moço",
+  "cliente",
+  "freguês",
+  "fregues",
+  "senhora",
+  "senhor",
+  "dona",
+  "seu",
+  "gente",
+  "agente",
+  "kkk",
+  "kkkk",
+  "rsrs",
+  "hehe",
+  "opa",
+  "oi",
+  "ola",
+  "olá",
+  "bom dia",
+  "boa tarde",
+  "mais",
+  "mas",
+  "tambem",
+  "também"
+ ],
+ "erros": [
+  {
+   "errado": "concerteza",
+   "correto": "com certeza",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "cumcerteza",
+   "correto": "com certeza",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "derrepente",
+   "correto": "de repente",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "agente vendeu",
+   "correto": "a gente vendeu",
+   "tipo": "contexto",
+   "nota": "'agente' é substantivo (agente de saúde); 'a gente' = nós."
+  },
+  {
+   "errado": "menas",
+   "correto": "menos",
+   "tipo": "ortografia",
+   "nota": "'menos' é invariável."
+  },
+  {
+   "errado": "seje",
+   "correto": "seja",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "esteje",
+   "correto": "esteja",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "pra mim vender",
+   "correto": "pra eu vender",
+   "tipo": "contexto",
+   "nota": "Antes de verbo no infinitivo usa-se 'eu'."
+  },
+  {
+   "errado": "pra mim fazer",
+   "correto": "pra eu fazer",
+   "tipo": "contexto",
+   "nota": ""
+  },
+  {
+   "errado": "fazem dois dias",
+   "correto": "faz dois dias",
+   "tipo": "concordancia",
+   "nota": "'Fazer' indicando tempo é impessoal."
+  },
+  {
+   "errado": "fazem tres dias",
+   "correto": "faz três dias",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "houveram",
+   "correto": "houve",
+   "tipo": "concordancia",
+   "nota": "'Haver' = existir é impessoal."
+  },
+  {
+   "errado": "haviam muitos clientes",
+   "correto": "havia muitos clientes",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "vende-se ovos",
+   "correto": "vendem-se ovos",
+   "tipo": "concordancia",
+   "nota": "Voz passiva sintética: o verbo concorda com o sujeito (ovos)."
+  },
+  {
+   "errado": "aluga-se casas",
+   "correto": "alugam-se casas",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "a vista",
+   "correto": "à vista",
+   "tipo": "ortografia",
+   "nota": "Locução adverbial feminina leva crase: pagou à vista."
+  },
+  {
+   "errado": "a prazo",
+   "correto": "a prazo",
+   "tipo": "ortografia",
+   "nota": "Sem crase (prazo é masculino)."
+  },
+  {
+   "errado": "meio duzia",
+   "correto": "meia dúzia",
+   "tipo": "concordancia",
+   "nota": "'Meio/meia' numeral concorda com o substantivo."
+  },
+  {
+   "errado": "meio dúzia",
+   "correto": "meia dúzia",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "meia quilo",
+   "correto": "meio quilo",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "um duzia",
+   "correto": "uma dúzia",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "dois duzia",
+   "correto": "duas dúzias",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "duas queijo",
+   "correto": "dois queijos",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "dois goiabada",
+   "correto": "duas goiabadas",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "tres cafe especial",
+   "correto": "três cafés especiais",
+   "tipo": "concordancia",
+   "nota": "Numeral > 1 exige plural no substantivo e no adjetivo."
+  },
+  {
+   "errado": "vendi tres cafe especial",
+   "correto": "vendi três cafés especiais",
+   "tipo": "concordancia",
+   "nota": "Exemplo-mestre do app."
+  },
+  {
+   "errado": "cafes especial",
+   "correto": "cafés especiais",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "cafe especiais",
+   "correto": "cafés especiais",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "pao de queijos",
+   "correto": "pães de queijo",
+   "tipo": "concordancia",
+   "nota": "Em 'X de Y', só o núcleo (X) vai para o plural."
+  },
+  {
+   "errado": "paes de queijos",
+   "correto": "pães de queijo",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "doces de leites",
+   "correto": "doces de leite",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "doce de leites",
+   "correto": "doces de leite",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "broas de milhos",
+   "correto": "broas de milho",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "biscoitos de polvilhos",
+   "correto": "biscoitos de polvilho",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "pe de moleques",
+   "correto": "pés de moleque",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "batata doces",
+   "correto": "batatas-doces",
+   "tipo": "concordancia",
+   "nota": "Composto substantivo+adjetivo: os dois vão ao plural."
+  },
+  {
+   "errado": "cheiro verdes",
+   "correto": "cheiros-verdes",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "ovos caipira",
+   "correto": "ovos caipiras",
+   "tipo": "concordancia",
+   "nota": "Uso oral aceito; na escrita formal, 'caipiras'."
+  },
+  {
+   "errado": "dois quilo",
+   "correto": "dois quilos",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "tres litro",
+   "correto": "três litros",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "2 kgs",
+   "correto": "2 kg",
+   "tipo": "ortografia",
+   "nota": "Símbolo SI não tem plural nem ponto."
+  },
+  {
+   "errado": "2 kg.",
+   "correto": "2 kg",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "2 Kg",
+   "correto": "2 kg",
+   "tipo": "ortografia",
+   "nota": "Símbolo do quilograma é minúsculo."
+  },
+  {
+   "errado": "2 KG",
+   "correto": "2 kg",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "1 reais",
+   "correto": "1 real",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "dois real",
+   "correto": "dois reais",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "vinte e cinco real",
+   "correto": "vinte e cinco reais",
+   "tipo": "concordancia",
+   "nota": ""
+  },
+  {
+   "errado": "R$25",
+   "correto": "R$ 25,00",
+   "tipo": "ortografia",
+   "nota": "Padrão: R$ + espaço + valor com vírgula decimal."
+  },
+  {
+   "errado": "25.00",
+   "correto": "25,00",
+   "tipo": "ortografia",
+   "nota": "Decimal brasileiro usa vírgula."
+  },
+  {
+   "errado": "geléia",
+   "correto": "geleia",
+   "tipo": "acordo",
+   "nota": "Acordo Ortográfico de 2009: ditongos abertos 'ei/oi' de paroxítonas perdem o acento."
+  },
+  {
+   "errado": "idéia",
+   "correto": "ideia",
+   "tipo": "acordo",
+   "nota": ""
+  },
+  {
+   "errado": "lingüiça",
+   "correto": "linguiça",
+   "tipo": "acordo",
+   "nota": "O trema foi abolido."
+  },
+  {
+   "errado": "pé-de-moleque",
+   "correto": "pé de moleque",
+   "tipo": "acordo",
+   "nota": "Compostos com elemento de ligação perderam o hífen."
+  },
+  {
+   "errado": "pão-de-queijo",
+   "correto": "pão de queijo",
+   "tipo": "acordo",
+   "nota": ""
+  },
+  {
+   "errado": "pão-de-mel",
+   "correto": "pão de mel",
+   "tipo": "acordo",
+   "nota": ""
+  },
+  {
+   "errado": "vôo",
+   "correto": "voo",
+   "tipo": "acordo",
+   "nota": ""
+  },
+  {
+   "errado": "pára",
+   "correto": "para",
+   "tipo": "acordo",
+   "nota": ""
+  },
+  {
+   "errado": "beringela",
+   "correto": "berinjela",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "xuxu",
+   "correto": "chuchu",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "mexirica",
+   "correto": "mexerica",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "salcinha",
+   "correto": "salsinha",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "iorgute",
+   "correto": "iogurte",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "mantega",
+   "correto": "manteiga",
+   "tipo": "fala",
+   "nota": "Monotongação 'ei'→'e' da fala."
+  },
+  {
+   "errado": "quejo",
+   "correto": "queijo",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "dinhero",
+   "correto": "dinheiro",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "fejão",
+   "correto": "feijão",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "cenora",
+   "correto": "cenoura",
+   "tipo": "fala",
+   "nota": "Monotongação 'ou'→'o'."
+  },
+  {
+   "errado": "sobro",
+   "correto": "sobrou",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "restô",
+   "correto": "restou",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "vendero",
+   "correto": "venderam",
+   "tipo": "fala",
+   "nota": "Redução de '-aram' para '-ero' na fala."
+  },
+  {
+   "errado": "fiadu",
+   "correto": "fiado",
+   "tipo": "fala",
+   "nota": "Alçamento de vogal final 'o'→'u'."
+  },
+  {
+   "errado": "leiti",
+   "correto": "leite",
+   "tipo": "fala",
+   "nota": "Alçamento de vogal final 'e'→'i'."
+  },
+  {
+   "errado": "especiau",
+   "correto": "especial",
+   "tipo": "fala",
+   "nota": "Vocalização do 'l' final ('l'→'u')."
+  },
+  {
+   "errado": "artesanau",
+   "correto": "artesanal",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "reau",
+   "correto": "real",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "mio",
+   "correto": "milho",
+   "tipo": "fala",
+   "nota": "Despalatalização 'lh'→'i' (mineirês)."
+  },
+  {
+   "errado": "fio",
+   "correto": "filho",
+   "tipo": "contexto",
+   "nota": ""
+  },
+  {
+   "errado": "muié",
+   "correto": "mulher",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "pobrema",
+   "correto": "problema",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "bicicreta",
+   "correto": "bicicleta",
+   "tipo": "fala",
+   "nota": "Rotacismo 'l'→'r'."
+  },
+  {
+   "errado": "fror",
+   "correto": "flor",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "craro",
+   "correto": "claro",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "mais barato",
+   "correto": "mais barato",
+   "tipo": "contexto",
+   "nota": "'Mais' = quantidade; 'mas' = porém."
+  },
+  {
+   "errado": "mas barato",
+   "correto": "mais barato",
+   "tipo": "contexto",
+   "nota": ""
+  },
+  {
+   "errado": "mal educado",
+   "correto": "mal-educado",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "encima",
+   "correto": "em cima",
+   "tipo": "contexto",
+   "nota": "'Encima' só existe como verbo (encimar)."
+  },
+  {
+   "errado": "acerca de 2 horas",
+   "correto": "há cerca de 2 horas",
+   "tipo": "contexto",
+   "nota": ""
+  },
+  {
+   "errado": "a dois anos",
+   "correto": "há dois anos",
+   "tipo": "contexto",
+   "nota": "Tempo decorrido usa 'há'."
+  },
+  {
+   "errado": "trouxi",
+   "correto": "trouxe",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "troxe",
+   "correto": "trouxe",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "truxe",
+   "correto": "trouxe",
+   "tipo": "fala",
+   "nota": ""
+  },
+  {
+   "errado": "caxaça",
+   "correto": "cachaça",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "cachassa",
+   "correto": "cachaça",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "pacoca",
+   "correto": "paçoca",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "acucar",
+   "correto": "açúcar",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "açucar",
+   "correto": "açúcar",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "fuba",
+   "correto": "fubá",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "rucula",
+   "correto": "rúcula",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "brocolis",
+   "correto": "brócolis",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "jaboticaba",
+   "correto": "jabuticaba",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "pics",
+   "correto": "Pix",
+   "tipo": "ortografia",
+   "nota": "Grafia oficial do Banco Central: 'Pix' (só inicial maiúscula)."
+  },
+  {
+   "errado": "PIX",
+   "correto": "Pix",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "cartao",
+   "correto": "cartão",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "credito",
+   "correto": "crédito",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "debito",
+   "correto": "débito",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "9:00hs",
+   "correto": "9h",
+   "tipo": "ortografia",
+   "nota": "Horas: 9h, 9h30, 14h (sem 's' e sem ponto)."
+  },
+  {
+   "errado": "9hrs",
+   "correto": "9h",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "14:30h",
+   "correto": "14h30",
+   "tipo": "ortografia",
+   "nota": ""
+  },
+  {
+   "errado": "Sabado",
+   "correto": "sábado",
+   "tipo": "ortografia",
+   "nota": "Dias da semana e meses em minúscula."
+  },
+  {
+   "errado": "Outubro",
+   "correto": "outubro",
+   "tipo": "ortografia",
+   "nota": ""
+  }
+ ],
+ "regras_gramaticais": [
+  {
+   "id": "R01",
+   "nome": "Plural após numeral",
+   "regra": "Quantidade maior ou igual a 2 leva substantivo e adjetivo ao plural; entre 1 e menos de 2 (1; 1,5) permanece no singular.",
+   "exemplo": "vendi tres cafe especial → Vendi 3 cafés especiais"
+  },
+  {
+   "id": "R02",
+   "nome": "Concordância do adjetivo",
+   "regra": "Adjetivo acompanha número e gênero do núcleo.",
+   "exemplo": "cafés especial → cafés especiais; ovos caipira → ovos caipiras"
+  },
+  {
+   "id": "R03",
+   "nome": "Composto com preposição",
+   "regra": "Em 'X de Y', 'X em Y', 'X com Y' só o núcleo X flexiona.",
+   "exemplo": "pão de queijos → pães de queijo; doces de leites → doces de leite"
+  },
+  {
+   "id": "R04",
+   "nome": "Composto com hífen",
+   "regra": "Substantivo + adjetivo: os dois flexionam (batatas-doces, cheiros-verdes, couves-flores).",
+   "exemplo": "batata doces → batatas-doces"
+  },
+  {
+   "id": "R05",
+   "nome": "Gênero do numeral",
+   "regra": "um/uma, dois/duas, duzentos/duzentas, meio/meia concordam com o substantivo.",
+   "exemplo": "dois goiabada → duas goiabadas; meio dúzia → meia dúzia"
+  },
+  {
+   "id": "R06",
+   "nome": "Unidade com quantidade",
+   "regra": "Unidade por extenso concorda (2 quilos, 3 dúzias); símbolo SI não flexiona nem leva ponto (2 kg, 500 g, 2 L).",
+   "exemplo": "2 kgs → 2 kg"
+  },
+  {
+   "id": "R07",
+   "nome": "Produto após unidade",
+   "regra": "Depois de 'unidade + de', produto contável vai ao plural e produto de massa fica no singular.",
+   "exemplo": "2 dúzias de bananas; 3 pacotes de café especial; 2 kg de queijo"
+  },
+  {
+   "id": "R08",
+   "nome": "Moeda",
+   "regra": "R$ + espaço + valor com vírgula decimal e ponto de milhar; 'real' no singular só até R$ 1,99.",
+   "exemplo": "25 conto → R$ 25,00; R$1.500 → R$ 1.500,00"
+  },
+  {
+   "id": "R09",
+   "nome": "Crase em 'à vista'",
+   "regra": "Pagamento à vista leva crase; 'a prazo' não.",
+   "exemplo": "pagou a vista → pagou à vista"
+  },
+  {
+   "id": "R10",
+   "nome": "Pix",
+   "regra": "Grafar 'Pix' (marca do Banco Central), nunca 'PIX' ou 'pics'.",
+   "exemplo": "no pics → no Pix"
+  },
+  {
+   "id": "R11",
+   "nome": "Acordo Ortográfico 2009",
+   "regra": "geleia, ideia, linguiça, pé de moleque, pão de queijo (sem hífen), para (sem acento).",
+   "exemplo": "geléia → geleia"
+  },
+  {
+   "id": "R12",
+   "nome": "Verbos impessoais",
+   "regra": "'Fazer' (tempo) e 'haver' (existir) ficam no singular.",
+   "exemplo": "fazem dois dias → faz dois dias"
+  },
+  {
+   "id": "R13",
+   "nome": "Voz passiva sintética",
+   "regra": "Em placas: 'Vendem-se ovos', 'Aceita-se Pix', 'Aceitam-se cartões'.",
+   "exemplo": "vende-se ovos → vendem-se ovos"
+  },
+  {
+   "id": "R14",
+   "nome": "Horas",
+   "regra": "9h, 9h30, 14h; intervalo 'das 9h às 14h' (com crase em 'às').",
+   "exemplo": "9:00hs → 9h"
+  },
+  {
+   "id": "R15",
+   "nome": "Maiúsculas",
+   "regra": "Início de frase, nomes próprios (Carangola, Pix) e nomes de feiras em maiúscula; meses e dias em minúscula.",
+   "exemplo": "Outubro → outubro"
+  },
+  {
+   "id": "R16",
+   "nome": "Preservar a voz do produtor",
+   "regra": "O motor corrige o REGISTRO estruturado; o texto livre de feedback/citação é guardado como foi dito, com a versão corrigida ao lado.",
+   "exemplo": "'nó, vendeu tudo uai' é mantido como citação"
+  }
+ ],
+ "regras_previsao": {
+  "gramatica_da_frase": "[AÇÃO] [QUANTIDADE] [UNIDADE] [de] [PRODUTO] [VARIEDADE] [PREÇO] [cada|o kg|total] [PAGAMENTO]  (repetível com 'e' ou ',')",
+  "transicoes": {
+   "inicio": [
+    [
+     "acao",
+     0.55
+    ],
+    [
+     "quantidade",
+     0.3
+    ],
+    [
+     "produto",
+     0.15
+    ]
+   ],
+   "acao": [
+    [
+     "quantidade",
+     0.8
+    ],
+    [
+     "produto",
+     0.15
+    ],
+    [
+     "tudo",
+     0.05
+    ]
+   ],
+   "quantidade": [
+    [
+     "unidade",
+     0.45
+    ],
+    [
+     "produto",
+     0.55
+    ]
+   ],
+   "unidade": [
+    [
+     "de",
+     0.9
+    ],
+    [
+     "produto",
+     0.1
+    ]
+   ],
+   "de": [
+    [
+     "produto",
+     1.0
+    ]
+   ],
+   "produto": [
+    [
+     "preco_marcador",
+     0.35
+    ],
+    [
+     "pagamento_marcador",
+     0.25
+    ],
+    [
+     "e",
+     0.2
+    ],
+    [
+     "variedade",
+     0.15
+    ],
+    [
+     "fim",
+     0.05
+    ]
+   ],
+   "preco_marcador": [
+    [
+     "valor",
+     1.0
+    ]
+   ],
+   "valor": [
+    [
+     "reais",
+     0.3
+    ],
+    [
+     "cada",
+     0.3
+    ],
+    [
+     "pagamento_marcador",
+     0.3
+    ],
+    [
+     "o kg",
+     0.1
+    ]
+   ],
+   "pagamento_marcador": [
+    [
+     "pagamento",
+     1.0
+    ]
+   ],
+   "pagamento": [
+    [
+     "e",
+     0.4
+    ],
+    [
+     "fim",
+     0.6
+    ]
+   ],
+   "e": [
+    [
+     "quantidade",
+     0.7
+    ],
+    [
+     "produto",
+     0.2
+    ],
+    [
+     "acao",
+     0.1
+    ]
+   ]
+  },
+  "marcadores": {
+   "preco_marcador": [
+    "a",
+    "por",
+    "de",
+    "r$",
+    "valor",
+    "preço",
+    "custou",
+    "saiu a",
+    "saiu por"
+   ],
+   "pagamento_marcador": [
+    "no",
+    "na",
+    "em",
+    "via",
+    "pelo",
+    "pela",
+    "pago no",
+    "pagou no",
+    "pagou em"
+   ],
+   "preco_unitario": [
+    "cada",
+    "a unidade",
+    "o un",
+    "unidade",
+    "a peça",
+    "por unidade"
+   ],
+   "preco_por_kg": [
+    "o kg",
+    "o quilo",
+    "por quilo",
+    "por kg",
+    "kg"
+   ],
+   "preco_total": [
+    "total",
+    "tudo",
+    "no total",
+    "ao todo",
+    "deu",
+    "fechou"
+   ],
+   "separadores": [
+    "e",
+    ",",
+    "+",
+    "mais",
+    ";",
+    "/"
+   ]
+  },
+  "pesos_ranking": {
+   "slot": 0.4,
+   "historico_produtor": 0.3,
+   "frequencia_global": 0.15,
+   "recencia": 0.1,
+   "catalogo_do_app": 0.05,
+   "nota": "Produtos do catálogo do próprio app (2 mil+) entram com boost extra quando pertencem ao produtor logado."
+  },
+  "flexao_na_sugestao": "Se a quantidade anterior for ≥ 2, sugerir a forma plural do produto/unidade; se o produto for feminino, sugerir 'uma/duas'.",
+  "limites": {
+   "sugestoes_max": 5,
+   "min_caracteres_para_completar": 1,
+   "debounce_ms": 80
+  }
+ },
+ "teclado": {
+  "layout": "QWERTY pt-BR (Gboard/teclados de fabricantes chineses)",
+  "linhas": [
+   "qwertyuiop",
+   "asdfghjklç",
+   "zxcvbnm"
+  ],
+  "custo_vizinho": 0.6,
+  "custo_padrao": 1.0,
+  "custo_acento": 0.2
+ },
+ "fonetica": [
+  {
+   "de": "ç",
+   "para": "ss",
+   "exemplo": "Cedilha digitada como 'ss' ou 's' (passoca → paçoca)"
+  },
+  {
+   "de": "ss",
+   "para": "s",
+   "exemplo": ""
+  },
+  {
+   "de": "ch",
+   "para": "x",
+   "exemplo": "xuxu → chuchu"
+  },
+  {
+   "de": "x",
+   "para": "ch",
+   "exemplo": ""
+  },
+  {
+   "de": "j",
+   "para": "g",
+   "exemplo": "giló → jiló"
+  },
+  {
+   "de": "g",
+   "para": "j",
+   "exemplo": ""
+  },
+  {
+   "de": "lh",
+   "para": "li",
+   "exemplo": "polvilio → polvilho"
+  },
+  {
+   "de": "lh",
+   "para": "i",
+   "exemplo": "mio → milho"
+  },
+  {
+   "de": "nh",
+   "para": "ni",
+   "exemplo": "pamonia → pamonha"
+  },
+  {
+   "de": "l$",
+   "para": "u$",
+   "exemplo": "especiau → especial"
+  },
+  {
+   "de": "ei",
+   "para": "e",
+   "exemplo": "quejo → queijo"
+  },
+  {
+   "de": "ou",
+   "para": "o",
+   "exemplo": "sobro → sobrou"
+  },
+  {
+   "de": "o$",
+   "para": "u$",
+   "exemplo": "fiadu → fiado"
+  },
+  {
+   "de": "e$",
+   "para": "i$",
+   "exemplo": "leiti → leite"
+  },
+  {
+   "de": "z$",
+   "para": "s$",
+   "exemplo": "treiz → três"
+  },
+  {
+   "de": "qu",
+   "para": "k",
+   "exemplo": "kejo → queijo"
+  },
+  {
+   "de": "c",
+   "para": "k",
+   "exemplo": ""
+  },
+  {
+   "de": "ão",
+   "para": "aum",
+   "exemplo": "naum → não"
+  },
+  {
+   "de": "ã",
+   "para": "a",
+   "exemplo": "ausência de til"
+  },
+  {
+   "de": "rr",
+   "para": "r",
+   "exemplo": "toresmo → torresmo"
+  }
+ ]
+}

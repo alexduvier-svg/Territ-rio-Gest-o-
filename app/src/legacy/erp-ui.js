@@ -2725,7 +2725,7 @@ queueProductPeriods();
 window.TerritorioVoice?.install({
  getModel:()=>model,page:()=>page,getDraft:()=>draft,render,toast,openModal,closeModal,
  money:E.money,quantity:E.quantity,unitLabel:E.unitLabel,titleName,
- openSale:(id,qty)=>{actions['sell-product']({id});if(qty&&draft&&page==='Venda'){draft.items[draft.active].rawQty=String(qty).replace('.',',');render();}},
+ openSale:(id,qty,payment)=>{actions['sell-product']({id});if(draft&&page==='Venda'&&(qty||payment)){if(qty)draft.items[draft.active].rawQty=String(qty).replace('.',',');if(payment&&E.PAYMENTS.includes(payment))draft.payment=payment;render();}},
  setQuantity:qty=>{if(page!=='Venda'||!draft||!draft.items[draft.active])return false;draft.items[draft.active].rawQty=String(qty).replace('.',',');render();return true;}
 });
 window.TerritorioSurplusUI.install({
