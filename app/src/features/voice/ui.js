@@ -73,7 +73,8 @@ function label(product, quantity) {
   return `${ctx.quantity ? ctx.quantity(quantity) : quantity} ${unit ? unit + ' de ' : ''}${ctx.titleName ? ctx.titleName(product.name) : product.name}${size ? ' ' + size : ''}`;
 }
 
-/** Abre a venda do produto com a quantidade dita. O registro continua nos botões da venda. */
+/** Vai direto para "Finalizar Venda" com o item, a quantidade e o pagamento ditos. Ali o produtor
+ *  corrige (toca no item, troca o pagamento, apaga) e finaliza; a voz não registra sozinha. */
 function propose(productId, quantity, heard = '', payment = null) {
   const product = products().find(p => p.id === productId);
   if (!product) return say('Não achei esse produto no cadastro.', 'warn', fallbackActions);
@@ -81,13 +82,28 @@ function propose(productId, quantity, heard = '', payment = null) {
   if (quantity > product.stock) say(`Só há ${ctx.quantity ? ctx.quantity(product.stock) : product.stock} em estoque. Confira a quantidade.`, 'warn');
   caption = null;
   ctx.openSale(productId, quantity, payment);
-  const total = Math.round((Number(product.price) || 0) * quantity);
-  ctx.toast(`${heard ? `Ouvi “${heard}”. ` : ''}Entendi ${label(product, quantity)}${total ? ` · ${ctx.money(total)}` : ''}${payment ? `, no ${payment}` : ''}. Confira e registre.`);
+  ctx.openCart?.();
+  ctx.toast(`${heard ? `Ouvi “${heard}”. ` : ''}Entendi ${label(product, quantity)}. Confira e finalize.`);
 }
 
-function choose(result) {
-  const buttons = result.candidates.map(c => `<button type="button" class="voice-choice" data-voice-pick="${escape(c.id)}" data-voice-qty="${result.quantity ?? ''}">${escape(c.label)}</button>`).join('');
-  ctx.openModal(result.question || 'Qual produto?', `<p class="dialog-text">${result.quantity ? `Quantidade: ${escape(ctx.quantity ? ctx.quantity(result.quantity) : result.quantity)}. ` : ''}Toque no produto certo.</p><div class="voice-choices">${buttons}</div>`, 'voice-choice');
+/** Falta só escolher a apresentação ou o produto: abre já como "Finalizar Venda", com o que foi
+ *  ouvido, a quantidade e o pagamento. Tocar numa opção transforma a tela na finalização normal. */
+function choose(result, heard = '', payment = null) {
+  const all = products();
+  const buttons = result.candidates.map(c => {
+    const p = all.find(item => item.id === c.id);
+    const price = p && Number(p.price) ? ctx.money(Math.round(p.price * (result.quantity || 1))) : '';
+    const out = p && !(p.stock > 0);
+    return `<button type="button" class="voice-choice${out ? ' is-out' : ''}" data-voice-pick="${escape(c.id)}" data-voice-qty="${result.quantity ?? ''}" data-voice-pay="${escape(payment || '')}"${out ? ' disabled' : ''}>`
+      + `<span>${escape(c.label)}</span><strong>${out ? 'Sem estoque' : escape(price)}</strong></button>`;
+  }).join('');
+  const amount = result.quantity ? `Quantidade: ${escape(ctx.quantity ? ctx.quantity(result.quantity) : result.quantity)}` : 'Quantidade: informe na próxima tela';
+  const body = (heard ? `<p class="voice-heard">Ouvi “${escape(heard)}”</p>` : '')
+    + `<p class="voice-sale-question">${escape(result.question || 'Qual produto?')}</p>`
+    + `<div class="voice-choices">${buttons}</div>`
+    + `<p class="voice-sale-summary">${amount}${payment ? ` · Pagamento: ${escape(payment)}` : ''}</p>`;
+  const footer = '<button type="button" class="voice-sale-cancel" data-action="close-modal">Cancelar Venda</button>';
+  ctx.openModal('Finalizar Venda', body, 'voice-sale', null, footer);
 }
 
 function handleFinal(heard, alternatives = [], engine = '') {
@@ -116,9 +132,9 @@ function handleFinal(heard, alternatives = [], engine = '') {
   console.info('[voz]', JSON.stringify({ engine, heard, alternatives, chosen: text, status: result.status, productId: result.productId || null, quantity: result.quantity ?? null, payment: meaning.payment || null, corrections: meaning.corrections?.length || 0 }));
   setPhase('idle');
   if (result.status === 'ok') return propose(result.productId, result.quantity, meaning.original || heard, meaning.payment);
-  if (result.status === 'choose') { say(`Ouvi: “${heard}”.`, 'info', [], 4000); return choose(result); }
+  if (result.status === 'choose') return choose(result, meaning.original || heard, meaning.payment);
   if (result.status === 'correction') {
-    if (pending && ctx.setQuantity(result.quantity)) return ctx.toast(`Quantidade corrigida para ${ctx.quantity ? ctx.quantity(result.quantity) : result.quantity}. Confira e registre.`);
+    if (pending && ctx.setQuantity(result.quantity)) { ctx.openCart?.(); return ctx.toast(`Quantidade corrigida para ${ctx.quantity ? ctx.quantity(result.quantity) : result.quantity}. Confira e finalize.`); }
     return say('Não há venda aberta para corrigir. Diga o produto e a quantidade.', 'warn', fallbackActions);
   }
   if (result.status === 'ask-quantity' && result.productId) {
@@ -161,9 +177,10 @@ function onClick(event) {
   const pick = event.target.closest?.('[data-voice-pick]');
   if (pick) {
     const quantity = Number(pick.dataset.voiceQty) || null;
-    ctx.closeModal();
-    if (quantity) propose(pick.dataset.voicePick, quantity);
-    else { ctx.openSale(pick.dataset.voicePick, null); ctx.toast('Informe a quantidade e registre.'); }
+    const payment = pick.dataset.voicePay || null;
+    // A mesma janela vira a "Finalizar Venda" normal (sem passar pela tela do produto nem pelo carrinho).
+    if (quantity) propose(pick.dataset.voicePick, quantity, '', payment);
+    else { ctx.closeModal(); ctx.openSale(pick.dataset.voicePick, null, payment); ctx.toast('Informe a quantidade e finalize.'); }
   }
 }
 

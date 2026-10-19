@@ -55,3 +55,17 @@
   font-size: 16px; font-weight: 600; background: var(--field); color: var(--text);
   border: 1px solid color-mix(in srgb, var(--muted) 22%, transparent);
 }
+
+/* "Finalizar Venda" por voz quando falta escolher a apresentação: o que foi ouvido, a pergunta e
+   as opções com o preço já multiplicado pela quantidade dita. */
+.voice-heard { margin: 0 0 6px; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.voice-sale-question { margin: 0 0 12px; font-size: 17px; font-weight: 650; color: var(--text); }
+.voice-sale-summary { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+.voice-choice { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.voice-choice strong { flex: none; font-variant-numeric: tabular-nums; }
+.voice-choice.is-out { opacity: .5; }
+.voice-sale-cancel {
+  width: 100%; min-height: 48px; border-radius: 999px; font-weight: 700;
+  background: color-mix(in srgb, var(--red, #ff453a) 18%, var(--panel)); color: var(--red, #ff453a);
+  border: 1px solid color-mix(in srgb, var(--red, #ff453a) 40%, transparent);
+}
