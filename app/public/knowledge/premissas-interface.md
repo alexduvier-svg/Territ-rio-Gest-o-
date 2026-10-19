@@ -1,6 +1,6 @@
 # Premissas permanentes de interface — AGRO Gestão
 
-Versão 2, atualizada pelo produtor em 16/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
+Versão 3, atualizada em 19/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
 
 - **Volume:** hierarquia coerente por tamanho, peso e espaçamento. Não simular volume com excesso de negrito ou relevo nas letras.
 - **Nitidez:** leitura clara e contraste nos temas claro e escuro. Sem blur ou brilho nas letras. Rótulos de formulário com pelo menos 14 px, respeitando texto ampliado.
@@ -19,3 +19,5 @@ Antes de entregar, conferir claro/escuro, largura de 320 px, texto ampliado, con
 Esta premissa também está instalada na memória local `interfaceGuidelines` e acompanha o modelo salvo e seu backup. É orientação de interface, separada de produtos, saldos, vendas e conhecimento financeiro.
 
 Referência de desempenho recebida: `Regras_Janelas_Desempenho_Agro_Gestao.docx` (SHA256 da54797e48782e57a281d24515c232c6eb1dc23a75007cd26cfbedba980844e0). Suas metas são propostas de engenharia, não resultados medidos. A matriz completa, o histórico ampliado e um aparelho físico básico continuam sem validação nesta revisão visual.
+
+Revisão 3: páginas usam uma única simulação e pivô comum para manter os cards coesos. Janelas conservam as alturas das seções e a posição rolada durante a saída. Não animar fontes, sombras ou desfoque por frame. Finalizar a animação quando o app fica inativo; respeitar modos leve e reduzido.

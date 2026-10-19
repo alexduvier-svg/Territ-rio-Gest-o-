@@ -22,7 +22,9 @@ function requestFrame() {
 function tick(time) {
   frame = 0;
   renderedFrames++;
-  const seconds = previousTime ? Math.min((time - previousTime) / 1000, 0.064) : 1 / 60;
+  // Closed-form springs and icon trajectories accept elapsed time directly.
+  // Clipping a delayed frame made a 200 ms stall replay as a slow trailing animation.
+  const seconds = previousTime ? Math.max(0, (time - previousTime) / 1000) : 1 / 60;
   previousTime = time;
   for (const motion of [...running]) {
     if (motion.owner && !motion.owner.isConnected) { motion.cancel(); continue; }
@@ -115,20 +117,6 @@ function dialogGeometry(bounds, source) {
 function dialogSpring(kind, closing = false) {
   return closing ? { stiffness: 720, damping: 52 } : { stiffness: 560, damping: limited() ? 47 : 35 };
 }
-function sourceGeometryFromBounds(bounds, source, page = false) {
-  const lite = limited();
-  if (!source || !bounds.width || !bounds.height) return {
-    x: 0, y: lite ? 12 : 36, scale: lite ? 0.96 : 0.84, origin: '50% 65%',
-  };
-  const dx = source.cx - (bounds.left + bounds.width / 2), dy = source.cy - (bounds.top + bounds.height / 2);
-  const ratio = Math.sqrt(source.width * source.height / (bounds.width * bounds.height));
-  return {
-    x: clamp(dx * (lite ? 0.12 : 0.6), lite ? -16 : -90, lite ? 16 : 90),
-    y: clamp(dy * (lite ? 0.12 : 0.6), lite ? -22 : -100, lite ? 22 : 100),
-    scale: lite ? 0.96 : clamp(ratio, page ? 0.8 : 0.72, 0.86),
-    origin: `${clamp(source.cx - bounds.left, 0, bounds.width).toFixed(2)}px ${clamp(source.cy - bounds.top, 0, bounds.height).toFixed(2)}px`,
-  };
-}
 
 const properties = ['translate', 'scale', 'opacity', 'will-change', 'transform-origin'];
 function animateElement(element, from, to, options = {}) {
@@ -157,29 +145,48 @@ function animateElement(element, from, to, options = {}) {
   return motion;
 }
 
-// The legacy renderer rewrites the page even for input changes: the caller tracks the route and
-// invokes this only when it changes. Neither #app nor .subview is ever transformed: their fixed
-// bars keep their viewport anchor. Only children without fixed descendants can expand.
+// Flow panels share one viewport pivot and one spring. Their relative positions stay
+// fixed throughout the launch; fixed toolbars keep their viewport containing block.
+let pageEntryMotion = null;
 export function animatePageChange(app) {
+  pageEntryMotion?.cancel();
+  pageEntryMotion = null;
   if (skipNextPageEntry) { skipNextPageEntry = false; return; }
   if (!app || !enabled()) return;
-  const source = getMotionSource();
+  const entry = dialogGeometry({left:0,top:0,width:innerWidth,height:innerHeight}, getMotionSource());
+  const pivot = entry.origin.split(' ').map(parseFloat);
   const candidates = [...app.children].flatMap(el => el.classList.contains('subview') ? [...el.children] : [el]);
-  // Read all geometry before writing any transforms. Otherwise every card forces
-  // another layout on a modest phone. Offscreen cards need no entrance work.
-  const prepared = candidates.filter(el => !el.hidden && !el.matches('script, style')).slice(0, limited() ? 3 : 8).map(element => {
+  const prepared = candidates.filter(el => !el.hidden && !el.matches('script, style')).map(element => {
     const bounds = element.getBoundingClientRect();
-    const fixed = getComputedStyle(element).position === 'fixed' || element.querySelector(fixedContentSelector);
-    return {element,bounds,fixed,entry:sourceGeometryFromBounds(bounds,source,true)};
-  }).filter(({bounds})=>bounds.width && bounds.height && bounds.top<innerHeight && bounds.bottom>0);
-  for (const {element,fixed,entry} of prepared) {
-    if (fixed || element.classList.contains('subview')) {
-      animateElement(element, { opacity: 0.3 }, { opacity: 1 }, { config: { stiffness: 410, damping: 39 } });
-    } else {
-      animateElement(element, { x: entry.x, y: entry.y, scale: entry.scale, opacity: 0.25 },
-        { x: 0, y: 0, scale: 1, opacity: 1 }, { origin: entry.origin, config: { stiffness: 420, damping: limited() ? 42 : 30 } });
+    const fixed = getComputedStyle(element).position === 'fixed' || !!element.querySelector(fixedContentSelector);
+    return {element,bounds,fixed,original:properties.map(p=>[p,element.style.getPropertyValue(p),element.style.getPropertyPriority(p)])};
+  }).filter(({bounds})=>bounds.width && bounds.height && bounds.top<innerHeight && bounds.bottom>0).slice(0,12);
+  if (!prepared.length) return;
+  let complete = false, motion;
+  const clean = () => {
+    if (complete) return;
+    complete = true;
+    for (const {element,original} of prepared) {
+      for (const [p,value,priority] of original) value ? element.style.setProperty(p,value,priority) : element.style.removeProperty(p);
+      element.classList.remove('fluid-animating');
+      elementMotions.delete(element);
     }
+    if (pageEntryMotion === motion) pageEntryMotion = null;
+  };
+  for (const {element,bounds,fixed} of prepared) {
+    element.classList.add('fluid-animating');
+    element.style.willChange = fixed ? 'opacity' : 'translate, scale, opacity';
+    if (!fixed) element.style.transformOrigin = `${pivot[0]-bounds.left}px ${pivot[1]-bounds.top}px`;
   }
+  motion = springMotion(app,{x:entry.x,y:entry.y,scale:entry.scale,opacity:0.72},{x:0,y:0,scale:1,opacity:1}, value => {
+    const opacity = String(clamp(value.opacity,0,1)), translate = `${value.x.toFixed(3)}px ${value.y.toFixed(3)}px`, scale = value.scale.toFixed(5);
+    for (const {element,fixed} of prepared) {
+      element.style.opacity = opacity;
+      if (!fixed) { element.style.translate = translate; element.style.scale = scale; }
+    }
+  },clean,dialogSpring('page'));
+  pageEntryMotion = motion;
+  for (const {element} of prepared) elementMotions.set(element,motion);
 }
 
 export function animateSection(details) {
@@ -335,6 +342,7 @@ function installDialogs() {
     if (!enabled() || !dialog.open || state.closing) return null;
     // One bounds read and one computed-style read, with no writes between them.
     const surface = surfaceState(dialog);
+    const children = [...dialog.children].map(element => ({element,height:element.offsetHeight,scrollTop:element.scrollTop,scrollLeft:element.scrollLeft,saved:['height','min-height','max-height','flex'].map(p=>[p,element.style.getPropertyValue(p),element.style.getPropertyPriority(p)])}));
     if (!surface.rect.width || !surface.rect.height) return null;
     const close = dialogGeometry(surface.rect, state.source, state.kind);
     const origin = close.origin.split(' ').map((value, i) => value.includes('%') ? parseFloat(value) / 100 * (i ? surface.rect.height : surface.rect.width) : parseFloat(value));
@@ -360,6 +368,7 @@ function installDialogs() {
         dialog.classList.remove('fluid-native-exit');
         dialog.inert = originalInert;
         if (originalAriaHidden === null) dialog.removeAttribute('aria-hidden'); else dialog.setAttribute('aria-hidden', originalAriaHidden);
+        for (const child of children) for (const [p,value,priority] of child.saved) value ? child.element.style.setProperty(p,value,priority) : child.element.style.removeProperty(p);
         for (const [property, value, priority] of saved) {
           if (value) dialog.style.setProperty(property, value, priority); else dialog.style.removeProperty(property);
         }
@@ -367,6 +376,10 @@ function installDialogs() {
       state.closing = token;
       token.markClosed = () => { dialog.inert = true; dialog.setAttribute('aria-hidden', 'true'); };
       placeSurface(dialog, surface);
+      for (const child of children) if (child.height) {
+        Object.assign(child.element.style,{height:child.height+'px',minHeight:child.height+'px',maxHeight:child.height+'px',flex:'0 0 auto'});
+        child.element.scrollTop=child.scrollTop; child.element.scrollLeft=child.scrollLeft;
+      }
       dialog.style.setProperty('--fluid-backdrop-color', backdropColor);
       dialog.classList.add('fluid-native-exit');
       token.motion = animateElement(dialog, from, to, {
@@ -399,6 +412,8 @@ function installDialogs() {
       state.ghost = layer;
       document.body.append(layer);
       if (clone) {
+        const originals=[dialog,...dialog.querySelectorAll('*')],copies=[clone,...clone.querySelectorAll('*')];
+        originals.forEach((element,i)=>{if(copies[i]&&(element.scrollTop||element.scrollLeft)){copies[i].scrollTop=element.scrollTop;copies[i].scrollLeft=element.scrollLeft;}});
         const motion = animateElement(clone, from, to, {
           origin: close.origin, config: dialogSpring(state.kind, true),
           onRest: () => { if (state.ghost === layer) discardGhost(state); },
@@ -553,19 +568,23 @@ function installPageExits(listen) {
       if (enabled() && !limited() && !source?.insideDialog) {
         const captures = [];
         let nodes = 0;
-        for (const part of subview.children) {
-          if (captures.length >= 2 || nodes >= 160) break;
-          if (part.hidden || part.matches('script, style') || part.matches(fixedContentSelector) || part.querySelector(fixedContentSelector)) continue;
-          if (!boundedSurface(part, 80)) continue;
-          const surface = surfaceState(part);
-          const rect = surface.rect;
-          if (surface.display === 'none' || !rect.width || !rect.height || rect.top >= innerHeight || rect.top + rect.height <= 0) continue;
-          if (surface.position === 'fixed') continue;
-          captures.push({ part, surface });
+        const pending = [...subview.children].map(part=>({part,depth:0}));
+        while (pending.length && captures.length < 8 && nodes < 320) {
+          const {part,depth} = pending.shift();
+          if (part.hidden || part.matches('script, style') || part.matches(fixedContentSelector)) continue;
+          const surface = surfaceState(part), rect = surface.rect;
+          if (surface.display === 'none' || !rect.width || !rect.height || rect.top >= innerHeight || rect.top + rect.height <= 0 || surface.position === 'fixed') continue;
+          // Long lists are not copied as a whole. Capture only their small visible
+          // rows, so settings and nested reports also have a coherent return.
+          if (part.querySelector(fixedContentSelector) || !boundedSurface(part,Math.min(160,320-nodes))) {
+            if (depth < 3) pending.unshift(...[...part.children].map(part=>({part,depth:depth+1})));
+            continue;
+          }
+          captures.push({part,surface});
           nodes += part.getElementsByTagName('*').length + 1;
         }
-        // All layout reads finish before any insertion/style mutation. At most two small visible
-        // flow panels are copied; never #app, .subview, fixed bars or a complete long form.
+        // All layout reads finish before insertion. A bounded set of visible panels is
+        // copied (320 nodes total); never fixed bars or a complete long form.
         if (captures.length) {
           const layer = document.createElement('div');
           layer.className = 'fluid-page-exit-layer';
@@ -578,23 +597,23 @@ function installPageExits(listen) {
             const copy = makeVisualCopy(part);
             placeSurface(copy, surface);
             copy.style.transform = 'none';
+            copy.style.translate = 'none'; copy.style.scale = 'none'; copy.style.opacity = '1';
             context.append(copy);
             return { copy, surface };
           });
           document.body.append(layer);
           ghosts.add(layer);
-          let remaining = prepared.length;
-          for (const { copy, surface } of prepared) {
-            const close = sourceGeometryFromBounds(surface.rect, previous?.source || source, true);
-            const origin = close.origin.split(' ').map((value, i) => value.includes('%') ? parseFloat(value) / 100 * (i ? surface.rect.height : surface.rect.width) : parseFloat(value));
-            const pose = reanchorPose(surface.pose, origin[0], origin[1]);
-            const motion = animateElement(copy, { x: pose.x, y: pose.y, scale: pose.scale, opacity: pose.opacity },
-              { x: close.x, y: close.y, scale: close.scale, opacity: 0 }, {
-                origin: close.origin, config: { stiffness: 600, damping: 44 },
-                onRest: () => { if (--remaining === 0) { layer.remove(); ghosts.delete(layer); } },
-              });
-            inheritVelocity(motion, pose);
-          }
+          // One composite coordinate space: cards never fly toward separate pivots.
+          const close = dialogGeometry({left:0,top:0,width:innerWidth,height:innerHeight}, previous?.source || source);
+          const origin = close.origin.split(' ').map(parseFloat);
+          const first = prepared[0].surface;
+          const pose = reanchorPose({...first.pose,originX:first.pose.originX+first.rect.left,originY:first.pose.originY+first.rect.top},origin[0],origin[1]);
+          const motion = animateElement(context,{x:pose.x,y:pose.y,scale:pose.scale,opacity:pose.opacity},
+            {x:close.x,y:close.y,scale:close.scale,opacity:0},{
+              origin:close.origin,config:dialogSpring('page',true),
+              onRest:()=>{layer.remove();ghosts.delete(layer);},
+            });
+          inheritVelocity(motion,pose);
         }
       }
     }
@@ -603,12 +622,13 @@ function installPageExits(listen) {
       if (index >= 0) history.splice(index); else history.pop();
     } else history.push({ from: currentPage, page: nextPage, source });
     if (history.length > 20) history.shift();
+    pageEntryMotion?.cancel(); pageEntryMotion=null;
     currentPage = nextPage;
   };
   listen(app, 'territorio:before-page', before);
   listen(document, 'visibilitychange', discard);
   listen(preference, 'change', discard);
-  return discard;
+  return () => { discard(); pageEntryMotion?.cancel(); pageEntryMotion=null; };
 }
 
 function installMotionBudget(listen) {

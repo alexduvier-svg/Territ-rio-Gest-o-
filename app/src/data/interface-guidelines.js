@@ -1,6 +1,6 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 2,
+  version: 3,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   principles: {
@@ -10,7 +10,7 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     textura: 'Aplicar materiais e acabamento às superfícies. Texto mantém preenchimento nítido, sem gradiente, textura ou sombra decorativa.',
     profundidade: 'Criar profundidade com bordas, luz e sombras discretas nos painéis e controles, mantendo baixo custo de renderização.',
   },
-  motion: 'Abertura e fechamento contínuos, com expansão curta e mola discreta. Não trocar o material durante o movimento. Respeitar modo leve e movimento reduzido.',
+  motion: 'Abertura e fechamento contínuos, com expansão curta e mola discreta. A página se move como um conjunto, com pivô comum e uma simulação, sem dispersar cards. Não trocar o material nem a posição interna da rolagem durante o fechamento. Respeitar modo leve e movimento reduzido.',
   windows: {
     placement: 'Janelas de informação e edição abrem centralizadas, com espaço real nas laterais e acima/abaixo, sem ocupar a tela inteira.',
     scrolling: 'Altura limitada ao espaço disponível. Conteúdo longo rola dentro da janela, sem cortar títulos, letras ou controles. Rodapé e ações devem caber e quebrar linha quando necessário.',

@@ -395,7 +395,7 @@ function openModal(title,body,kind,data,footer){
  if(!dialog.open)dialog.showModal();dialog.dispatchEvent(new CustomEvent('territorio:sheet',{bubbles:true,detail:{kind:kind||'',title:String(title||''),data:data||null}}));
 }
 
-function closeModal(skipSaleCapture){closeNumberPad();const isOption=modal&&saleOptionKinds.has(modal.kind);if(isOption&&!skipSaleCapture)captureSaleOptionInputs();if(modal&&['cart','checkout'].includes(modal.kind))pendingCheckout=null;dialog.close();modal=null;movement=null;if(isOption){dialog.innerHTML='';clearSaleOptionFlags();if(page==='Venda')render();}}
+function closeModal(skipSaleCapture){closeNumberPad();const isOption=modal&&saleOptionKinds.has(modal.kind);if(isOption&&!skipSaleCapture)captureSaleOptionInputs();if(modal&&['cart','checkout'].includes(modal.kind))pendingCheckout=null;dialog.close();modal=null;movement=null;if(isOption){/* Keep the closed visual intact until the native exit settles; the next open replaces it. */clearSaleOptionFlags();if(page==='Venda')render();}}
 function info(title,text,extra){openModal(title,'<p class="dialog-text">'+escape(text)+'</p>'+(extra||'')+btn('close-modal','Entendi','success modal-action'),'info');}
 function stockDialog(id){const p=model.product(id);closeNumberPad();numericTouched.delete('move-quantity');movement={id,kind:'add',raw:'',note:''};paintMovement();}
 function paintMovement(){

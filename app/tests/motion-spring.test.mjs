@@ -69,3 +69,12 @@ test('invalid physical values fail instead of poisoning the frame loop', () => {
   assert.throws(() => stepSpring({ position: 0, velocity: 0 }, 0, -1), RangeError);
   assert.throws(() => stepSpring({ position: 0, velocity: 0 }, 0, 1, { mass: 0 }), RangeError);
 });
+
+test('a delayed 200 ms frame catches up to the same physical pose without a trailing replay', () => {
+  const options={stiffness:720,damping:52,mass:1};
+  let regular={position:1,velocity:0};
+  for(let i=0;i<12;i++)regular=stepSpring(regular,0,1/60,options);
+  const delayed=stepSpring({position:1,velocity:0},0,.2,options);
+  close(delayed.position,regular.position); close(delayed.velocity,regular.velocity);
+  assert.ok(delayed.position<.04);
+});

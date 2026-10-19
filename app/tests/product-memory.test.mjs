@@ -105,7 +105,7 @@ test('revisão de janelas e estoque migra só premissas e permanece no backup se
   const records=clone({products:input.products,sales:input.sales,movements:input.movements}),m=new E.ERPModel(input);
   assert.equal(m.interfaceGuidelinesInstalled,true);
   assert.equal(m.stockCatalogGuidelinesInstalled,true);
-  assert.equal(m.data.interfaceGuidelines.version,2);
+  assert.equal(m.data.interfaceGuidelines.version,INTERFACE_GUIDELINES.version);
   assert.match(m.data.interfaceGuidelines.windows.placement,/centralizadas/);
   assert.match(m.data.interfaceGuidelines.windows.scrolling,/cortar/);
   assert.equal(m.data.stockCatalogGuidelines.version,2);

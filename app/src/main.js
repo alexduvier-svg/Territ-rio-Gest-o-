@@ -8,7 +8,7 @@ import './polish.css';
 import './glass.css';
 import './selling-grid.css';
 import './interface-refinements.css';
-import { installFluidMotion } from './features/motion/index.js';
+import { installFluidMotion, getMotionDiagnostics } from './features/motion/index.js';
 import { installNavIconMotion } from './features/motion/nav-icons.js';
 import { installSectionMotion } from './features/motion/sections.js';
 import './features/motion/sections.css';
@@ -94,6 +94,7 @@ try {
     if (window.TerritorioNative?.isNative) await window.TerritorioNative.durable?.();
   }
   installFluidMotion();
+  window.TerritorioMotion = Object.freeze({diagnostics:getMotionDiagnostics});
   installNavIconMotion();
   installInterface();
   installSectionMotion();
