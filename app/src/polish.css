@@ -1377,6 +1377,14 @@ dialog[data-kind='movement'] .dialog-close { display: none; }
 .stock-heading .stock-top-tools { gap: 5px; }
 .stock-heading .stock-top-tools .round { width: 40px; height: 40px; min-width: 40px; min-height: 40px; flex: 0 0 40px; padding: 9px; }
 .stock-heading .stock-top-tools .round > .icon { width: 22px; height: 22px; }
+/* Quatro botões (novo produto, histórico, calculadora, busca) cabem ao lado do título em 360px. */
+.stock-heading .stock-top-tools { gap: 4px; }
+.stock-heading .stock-top-tools .round { width: 38px; height: 38px; min-width: 38px; min-height: 38px; flex: 0 0 38px; padding: 8px; }
+/* Telas estreitas (ou texto ampliado): como no iOS, os botões ficam no alto à direita e o título
+   grande logo abaixo, sem encolher os alvos de toque nem sobrepor o título. */
+.stock-heading.is-stacked { flex-wrap: wrap; row-gap: 6px; }
+.stock-heading.is-stacked .stock-top-tools { order: -1; margin-left: auto; }
+.stock-heading.is-stacked .stock-title { flex-basis: 100%; }
 
 /* Rodapé · Estoque (0.11.6): ao tocar, a tampa abre, uma fruta cai na caixa e a tampa fecha.
    Toca uma vez ao entrar (a classe .active entra uma vez; os botões do rodapé são reaproveitados). */

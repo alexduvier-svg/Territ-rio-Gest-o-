@@ -192,6 +192,20 @@ document.addEventListener('keydown', e => {
 }, true);
 document.addEventListener('pointerdown', () => document.documentElement.classList.remove('kbd-nav'), true);
 
+// ---------------------------------------------------------------- título do Estoque
+// Título e botões dividem a linha enquanto cabem; quando não cabem (tela estreita, texto ampliado),
+// os botões sobem para o alto à direita e o título fica inteiro logo abaixo.
+function fitStockHeading() {
+  const heading = app()?.querySelector('.stock-heading');
+  if (!heading) return;
+  const title = heading.querySelector('.stock-title h1') || heading.querySelector('.stock-title');
+  const tools = heading.querySelector('.stock-top-tools');
+  if (!title || !tools) return;
+  heading.classList.remove('is-stacked');
+  const gap = parseFloat(getComputedStyle(heading).columnGap) || 0;
+  if (title.scrollWidth + tools.offsetWidth + gap + 4 > heading.clientWidth) heading.classList.add('is-stacked');
+}
+
 // ---------------------------------------------------------------- observadores
 export function installInterface() {
   const root = app();
@@ -201,7 +215,9 @@ export function installInterface() {
     markPageChange();
     decorateDimensions();
     decorateSaleGroups();
+    fitStockHeading();
   }).observe(root, { childList: true, subtree: true });
+  window.addEventListener('resize', fitStockHeading, { passive: true });
   new MutationObserver(() => decorateDimensions()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-layout'] });
   const toast = document.getElementById('toast');
   if (toast) new MutationObserver(() => classifyToast(toast)).observe(toast, { attributes: true, attributeFilter: ['hidden'], childList: true, characterData: true, subtree: true });
