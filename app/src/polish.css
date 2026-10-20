@@ -1420,3 +1420,7 @@ html[data-reduce-effects='true'] button.active .box-flap-l, html[data-reduce-eff
 .ev-cancel .link { color: var(--red); font-size: 15px; font-weight: 600; }
 .danger-solid { width: 100%; min-height: 52px; padding: 13px 14px; border-radius: 17px; font-weight: 700; color: #fff; background: var(--red); }
 #dialog .ev-cancel .link { color: var(--red); }
+
+/* Global stock entry stays beside history; narrow headers may use two rows. */
+.stock-heading:has(.stock-top-tools .stock-plus){flex-wrap:wrap}
+.stock-heading:has(.stock-top-tools .stock-plus) .stock-title h1{white-space:nowrap}

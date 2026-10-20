@@ -1,3 +1,9 @@
+# Entrega atual — AGRO Gestão 2 0.12.22/code62
+
+Ler app/docs/ENTREGA-0.12.22.md e ARQUIVOS-0.12.22.md. Estoque tem + geral junto do relógio (ordem Relógio,+,Calculadora,Lupa) e mantém os + por família. Geral abre entrada rápida sem filtro; contextual preserva sua família. Cadastro novo sem categoria automática, três apresentações por seção e seta preservados. Cabeçalho adapta a telas estreitas sem cortar título/controles; estoque vazio tem só um + geral. Premissas v8.
+
+Conferido claro/escuro,320pxampliado/393pxnormal, contexto e estoque vazio; zero erros JS ou alteração de registros sintéticos.16 testes existentes de memória/reset PASS. Matriz completa20 não repetida. APK 5.095.628 bytes, SHA256 8f5de62bdd6e4bc58ca47a04e5060c193c1af5e217bf841d86fb5e89938c6790, certificado original,38assets/alinhamento16KB conferidos. Original/celular atualizados com install-r em20/10/2026às14:18:06,62/22Statusok, firstInstallTime14/10/202618:17:06preservado. Não repetir entregas históricas; publicar somente AGRO2 e preservar main/dados reais. FPS nativo não medido.
+
 # Entrega atual — AGRO Gestão 2 0.12.21/code61
 
 Ler app/docs/ENTREGA-0.12.21.md e ARQUIVOS-0.12.21.md. X superior direito retirado de Finalizar Venda, inclusive nas atualizações do pagamento. Cancelar Venda e Finalizar Venda permanecem no rodapé. Motor de movimentos, logo e + por família da 0.12.20 preservados. UI conferida em claro/escuro, 320 px ampliado e 393 px normal, pagamento único/dividido, sem falhas JS ou alteração de registros sintéticos. Não foi repetida a matriz completa da 0.12.20.

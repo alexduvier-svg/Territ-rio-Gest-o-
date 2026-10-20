@@ -1,0 +1,175 @@
+{
+  "version": "0.12.22",
+  "method": "Isolated Chrome visual/interaction inspection; synthetic data only",
+  "observations": [
+    {
+      "theme": "light",
+      "width": 320,
+      "largeText": true,
+      "stock": {
+        "tools": [
+          {
+            "action": "history",
+            "x": 123,
+            "width": 40
+          },
+          {
+            "action": "new-product",
+            "x": 168,
+            "width": 40
+          },
+          {
+            "action": "calculator",
+            "x": 213,
+            "width": 40
+          },
+          {
+            "action": "search-products",
+            "x": 258,
+            "width": 40
+          }
+        ],
+        "title": "Estoque",
+        "overflow": false
+      },
+      "familyCount": 2,
+      "familySearch": "banana",
+      "global": {
+        "search": "",
+        "selectedCategories": 0,
+        "ownProducts": 2
+      },
+      "customCategories": 0,
+      "unchanged": true,
+      "emptyActions": 1,
+      "emptyOpens": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "largeText": false,
+      "stock": {
+        "tools": [
+          {
+            "action": "history",
+            "x": 196,
+            "width": 40
+          },
+          {
+            "action": "new-product",
+            "x": 241,
+            "width": 40
+          },
+          {
+            "action": "calculator",
+            "x": 286,
+            "width": 40
+          },
+          {
+            "action": "search-products",
+            "x": 331,
+            "width": 40
+          }
+        ],
+        "title": "Estoque",
+        "overflow": false
+      },
+      "familyCount": 2,
+      "familySearch": "banana",
+      "global": {
+        "search": "",
+        "selectedCategories": 0,
+        "ownProducts": 2
+      },
+      "customCategories": 0,
+      "unchanged": true,
+      "emptyActions": 1,
+      "emptyOpens": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "largeText": true,
+      "stock": {
+        "tools": [
+          {
+            "action": "history",
+            "x": 123,
+            "width": 40
+          },
+          {
+            "action": "new-product",
+            "x": 168,
+            "width": 40
+          },
+          {
+            "action": "calculator",
+            "x": 213,
+            "width": 40
+          },
+          {
+            "action": "search-products",
+            "x": 258,
+            "width": 40
+          }
+        ],
+        "title": "Estoque",
+        "overflow": false
+      },
+      "familyCount": 2,
+      "familySearch": "banana",
+      "global": {
+        "search": "",
+        "selectedCategories": 0,
+        "ownProducts": 2
+      },
+      "customCategories": 0,
+      "unchanged": true,
+      "emptyActions": 1,
+      "emptyOpens": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "largeText": false,
+      "stock": {
+        "tools": [
+          {
+            "action": "history",
+            "x": 196,
+            "width": 40
+          },
+          {
+            "action": "new-product",
+            "x": 241,
+            "width": 40
+          },
+          {
+            "action": "calculator",
+            "x": 286,
+            "width": 40
+          },
+          {
+            "action": "search-products",
+            "x": 331,
+            "width": 40
+          }
+        ],
+        "title": "Estoque",
+        "overflow": false
+      },
+      "familyCount": 2,
+      "familySearch": "banana",
+      "global": {
+        "search": "",
+        "selectedCategories": 0,
+        "ownProducts": 2
+      },
+      "customCategories": 0,
+      "unchanged": true,
+      "emptyActions": 1,
+      "emptyOpens": true
+    }
+  ],
+  "errors": []
+}
