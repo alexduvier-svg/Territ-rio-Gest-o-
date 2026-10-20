@@ -1,0 +1,168 @@
+{
+  "isolated": true,
+  "nativeFPSMeasured": false,
+  "cases": [
+    {
+      "theme": "light",
+      "size": 12,
+      "via": "click",
+      "invokeMs": 140.30000000004657,
+      "firstSale": 155.90000000002328,
+      "reads": 1,
+      "maxGap": 149.90000000000055,
+      "gaps50": [
+        149.90000000000055
+      ],
+      "frames": 59,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "compositorSurfaces": 0,
+        "pendingFrame": false,
+        "renderedFrames": 0,
+        "lite": false
+      }
+    },
+    {
+      "theme": "light",
+      "size": 12,
+      "via": "action",
+      "invokeMs": 11.800000000046566,
+      "firstSale": 22.70000000006985,
+      "reads": 0,
+      "maxGap": 33.29999999999927,
+      "gaps50": [],
+      "frames": 67,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "compositorSurfaces": 0,
+        "pendingFrame": false,
+        "renderedFrames": 0,
+        "lite": false
+      }
+    },
+    {
+      "theme": "light",
+      "size": 120,
+      "via": "click",
+      "invokeMs": 89.09999999997672,
+      "firstSale": 97.80000000004657,
+      "reads": 1,
+      "maxGap": 99.81399999999996,
+      "gaps50": [
+        99.81399999999996
+      ],
+      "frames": 62,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "compositorSurfaces": 0,
+        "pendingFrame": false,
+        "renderedFrames": 0,
+        "lite": false
+      }
+    },
+    {
+      "theme": "light",
+      "size": 120,
+      "via": "action",
+      "invokeMs": 16.29999999993015,
+      "firstSale": 21.800000000046566,
+      "reads": 0,
+      "maxGap": 17,
+      "gaps50": [],
+      "frames": 68,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "compositorSurfaces": 0,
+        "pendingFrame": false,
+        "renderedFrames": 0,
+        "lite": false
+      }
+    },
+    {
+      "theme": "dark",
+      "size": 12,
+      "via": "click",
+      "invokeMs": 78.10000000009313,
+      "firstSale": 89.39999999990687,
+      "reads": 1,
+      "maxGap": 99.89999999999998,
+      "gaps50": [
+        99.89999999999998
+      ],
+      "frames": 63,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "compositorSurfaces": 0,
+        "pendingFrame": false,
+        "renderedFrames": 0,
+        "lite": false
+      }
+    },
+    {
+      "theme": "dark",
+      "size": 12,
+      "via": "action",
+      "invokeMs": 8.899999999906868,
+      "firstSale": 14.899999999906868,
+      "reads": 0,
+      "maxGap": 16.800000000000182,
+      "gaps50": [],
+      "frames": 68,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "compositorSurfaces": 0,
+        "pendingFrame": false,
+        "renderedFrames": 0,
+        "lite": false
+      }
+    },
+    {
+      "theme": "dark",
+      "size": 120,
+      "via": "click",
+      "invokeMs": 91.80000000004657,
+      "firstSale": 100.20000000006985,
+      "reads": 1,
+      "maxGap": 99.84800000000007,
+      "gaps50": [
+        99.84800000000007
+      ],
+      "frames": 63,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "compositorSurfaces": 0,
+        "pendingFrame": false,
+        "renderedFrames": 0,
+        "lite": false
+      }
+    },
+    {
+      "theme": "dark",
+      "size": 120,
+      "via": "action",
+      "invokeMs": 20.900000000023283,
+      "firstSale": 26.599999999976717,
+      "reads": 0,
+      "maxGap": 16.800000000000182,
+      "gaps50": [],
+      "frames": 68,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "compositorSurfaces": 0,
+        "pendingFrame": false,
+        "renderedFrames": 0,
+        "lite": false
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

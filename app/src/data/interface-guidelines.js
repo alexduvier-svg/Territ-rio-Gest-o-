@@ -1,6 +1,6 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 6,
+  version: 7,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   principles: {
@@ -10,6 +10,7 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     textura: 'Aplicar materiais e acabamento às superfícies. Texto mantém preenchimento nítido, sem gradiente, textura ou sombra decorativa.',
     profundidade: 'Criar profundidade com bordas, luz e sombras discretas nos painéis e controles, mantendo baixo custo de renderização.',
   },
+  transitionEngine: 'Aplicar o mesmo motor a TODAS AS ABAS, subabas e subjanelas, em qualquer profundidade e nos dois temas. Superfícies reais no compositor por posição, escala e opacidade; sem clonar páginas, sem congelar estilos por descendente ou recalcular recortes por quadro. Preservar posição/velocidade em reversões e continuidade em recargas de conteúdo. Venda responde no primeiro toque; duplo toque só reverte prévia intocada. Medir primeiro quadro e testar sob carga; nunca prometer GPU/FPS absolutos em qualquer aparelho.',
   motion: 'Janelas e páginas abertas por um toque nascem do card ou ícone de origem e retornam inteiras a ele, com forma, posição e escala contínuas. Subjanelas retornam à linha da janela anterior. Manter texto e material juntos, rolagem estável e acomodação discreta de mola. Sem toque de origem, usar expansão curta. Respeitar modos leve e reduzido.',
   windows: {
     placement: 'Janelas de informação e edição abrem centralizadas, com espaço real nas laterais e acima/abaixo, sem ocupar a tela inteira.',
@@ -19,7 +20,7 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     adaptation: 'Adaptar ao espaço útil, resolução e escala, incluindo aparelhos de 6,3, 6,5 e 6,8 polegadas. Conferir larguras de 320, 360, 393 e 412 px, texto ampliado, pouca altura e teclado aberto. Nenhuma ação, inclusive Enviar no WhatsApp, pode ficar cortada ou inacessível.',
   },
   sharedMaterial: 'Todas as áreas, seções, janelas e subjanelas compartilham o mesmo plano de vidro, volume e resposta ao toque. Fundo e sombra podem variar com o tema; texto nunca recebe opacidade, blur, textura ou brilho. Reflexo de toque curto, sem animação ociosa. Navegação direcional por aba e mola estável, com modos leve e reduzido.',
-  salesCards: 'Uma variação por card com nome, condição, medida e preço reais. Categoria/família/apresentação/medida crescente em grade contínua de três colunas, sem linhas vazias reservadas por tipo ou apresentação. Manter a sequência de cada família e não somar pesos para ocultar variantes. Manter três colunas compactas, inclusive em tela estreita; fonte ampliada aumenta o texto e permite altura natural, sem cortes. No Estoque, três apresentações por família antes da seta expansível; adicionar produto pelo botão inferior à direita, sem duplicar no cabeçalho. Dois toques consultam saldo exato; toque longo seleciona até três; nenhum gesto registra venda.',
+  salesCards: 'Uma variação por card com nome, condição, medida e preço reais. Categoria/família/apresentação/medida crescente em grade contínua de três colunas, sem linhas vazias reservadas por tipo ou apresentação. Manter a sequência de cada família e não somar pesos para ocultar variantes. Manter três colunas compactas, inclusive em tela estreita; fonte ampliada aumenta o texto e permite altura natural, sem cortes. No Estoque, três apresentações por família antes da seta expansível; adicionar produto pelo botão + à direita de cada seção/família, mantendo três apresentações e seta para as demais; o + contextual abre o seletor daquela família, sem pré-selecionar categoria no cadastro novo. Dois toques consultam saldo exato; toque longo seleciona até três; nenhum gesto registra venda.',
   validation: 'Conferir claro e escuro, largura de 320 px, texto ampliado, contraste, quebra de linha e fluidez antes de entregar mudanças de interface.',
   document: 'knowledge/premissas-interface.md',
   performanceReference: {

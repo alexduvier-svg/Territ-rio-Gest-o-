@@ -182,3 +182,12 @@ html[data-app-inactive] #app .draft-resume,html[data-app-inactive] #app .draft-r
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
+
+/* The veil is a compositor opacity transition, separate from the moving surface.
+   No custom property or mask is rewritten on every JavaScript frame. */
+html.fluid-motion dialog[open]::backdrop { transition: opacity 180ms ease-out; }
+@starting-style { html.fluid-motion dialog[open]::backdrop { opacity: 0; } }
+html.fluid-motion dialog.fluid-native-exit:not([open])::backdrop {
+  opacity: 0;
+  transition: opacity 240ms ease-out, display 520ms allow-discrete, overlay 520ms allow-discrete;
+}

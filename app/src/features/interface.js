@@ -2,7 +2,7 @@
 // avisos e, no estilo Feira, o cadastro em "lista que expande" (uma configuração aberta por vez,
 // com o valor escolhido à direita; ao escolher, abre a próxima).
 
-import { animatePageChange, animateToast } from './motion/index.js';
+import { animatePageChange, continuePageMotion, animateToast } from './motion/index.js';
 
 const app = () => document.getElementById('app');
 const isFeira = () => document.documentElement.dataset.layout === 'feira';
@@ -12,7 +12,8 @@ const shell = () => window.TerritorioShell;
 let lastPage = null;
 function markPageChange() {
   const page = shell()?.page?.();
-  if (!page || page === lastPage) return;
+  if(!page)return;
+  if(page===lastPage){continuePageMotion(app());return;}
   lastPage = page;
   animatePageChange(app());
 }
@@ -198,9 +199,9 @@ export function installInterface() {
   detectLite();
   installPicker();
   new MutationObserver(() => {
-    markPageChange();
     decorateDimensions();
     decorateSaleGroups();
+    markPageChange();
   }).observe(root, { childList: true, subtree: true });
   new MutationObserver(() => decorateDimensions()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-layout'] });
   const toast = document.getElementById('toast');

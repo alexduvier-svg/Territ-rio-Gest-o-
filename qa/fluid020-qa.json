@@ -1,0 +1,2777 @@
+{
+  "isolated": true,
+  "checks": [
+    "light/320/false: compact three columns, full names/weights/prices",
+    "light/320/false: Continuar only for one, two and three selections, sale unchanged",
+    "light/320/false: three coffees then expansion, one contextual + per family",
+    "light/320/false: centered actions, history, clean close",
+    "light/320/false: entry-stock card opens only one surface; whole return with keypad retained",
+    "light/320/false: empty stock has one accessible add action",
+    "light/320/true: compact three columns, full names/weights/prices",
+    "light/320/true: Continuar only for one, two and three selections, sale unchanged",
+    "light/320/true: three coffees then expansion, one contextual + per family",
+    "light/320/true: centered actions, history, clean close",
+    "light/320/true: entry-stock card opens only one surface; whole return with keypad retained",
+    "light/320/true: empty stock has one accessible add action",
+    "light/360/false: compact three columns, full names/weights/prices",
+    "light/360/false: Continuar only for one, two and three selections, sale unchanged",
+    "light/360/false: three coffees then expansion, one contextual + per family",
+    "light/360/false: centered actions, history, clean close",
+    "light/360/false: entry-stock card opens only one surface; whole return with keypad retained",
+    "light/360/false: empty stock has one accessible add action",
+    "light/360/true: compact three columns, full names/weights/prices",
+    "light/360/true: Continuar only for one, two and three selections, sale unchanged",
+    "light/360/true: three coffees then expansion, one contextual + per family",
+    "light/360/true: centered actions, history, clean close",
+    "light/360/true: entry-stock card opens only one surface; whole return with keypad retained",
+    "light/360/true: empty stock has one accessible add action",
+    "light/393/false: compact three columns, full names/weights/prices",
+    "light/393/false: Continuar only for one, two and three selections, sale unchanged",
+    "light/393/false: three coffees then expansion, one contextual + per family",
+    "light/393/false: centered actions, history, clean close",
+    "light/393/false: entry-stock card opens only one surface; whole return with keypad retained",
+    "light/393/false: empty stock has one accessible add action",
+    "light/393/true: compact three columns, full names/weights/prices",
+    "light/393/true: Continuar only for one, two and three selections, sale unchanged",
+    "light/393/true: three coffees then expansion, one contextual + per family",
+    "light/393/true: centered actions, history, clean close",
+    "light/393/true: entry-stock card opens only one surface; whole return with keypad retained",
+    "light/393/true: empty stock has one accessible add action",
+    "light/412/false: compact three columns, full names/weights/prices",
+    "light/412/false: Continuar only for one, two and three selections, sale unchanged",
+    "light/412/false: three coffees then expansion, one contextual + per family",
+    "light/412/false: centered actions, history, clean close",
+    "light/412/false: entry-stock card opens only one surface; whole return with keypad retained",
+    "light/412/false: empty stock has one accessible add action",
+    "light/412/true: compact three columns, full names/weights/prices",
+    "light/412/true: Continuar only for one, two and three selections, sale unchanged",
+    "light/412/true: three coffees then expansion, one contextual + per family",
+    "light/412/true: centered actions, history, clean close",
+    "light/412/true: entry-stock card opens only one surface; whole return with keypad retained",
+    "light/412/true: empty stock has one accessible add action",
+    "dark/320/false: compact three columns, full names/weights/prices",
+    "dark/320/false: Continuar only for one, two and three selections, sale unchanged",
+    "dark/320/false: three coffees then expansion, one contextual + per family",
+    "dark/320/false: centered actions, history, clean close",
+    "dark/320/false: entry-stock card opens only one surface; whole return with keypad retained",
+    "dark/320/false: empty stock has one accessible add action",
+    "dark/320/true: compact three columns, full names/weights/prices",
+    "dark/320/true: Continuar only for one, two and three selections, sale unchanged",
+    "dark/320/true: three coffees then expansion, one contextual + per family",
+    "dark/320/true: centered actions, history, clean close",
+    "dark/320/true: entry-stock card opens only one surface; whole return with keypad retained",
+    "dark/320/true: empty stock has one accessible add action",
+    "dark/360/false: compact three columns, full names/weights/prices",
+    "dark/360/false: Continuar only for one, two and three selections, sale unchanged",
+    "dark/360/false: three coffees then expansion, one contextual + per family",
+    "dark/360/false: centered actions, history, clean close",
+    "dark/360/false: entry-stock card opens only one surface; whole return with keypad retained",
+    "dark/360/false: empty stock has one accessible add action",
+    "dark/360/true: compact three columns, full names/weights/prices",
+    "dark/360/true: Continuar only for one, two and three selections, sale unchanged",
+    "dark/360/true: three coffees then expansion, one contextual + per family",
+    "dark/360/true: centered actions, history, clean close",
+    "dark/360/true: entry-stock card opens only one surface; whole return with keypad retained",
+    "dark/360/true: empty stock has one accessible add action",
+    "dark/393/false: compact three columns, full names/weights/prices",
+    "dark/393/false: Continuar only for one, two and three selections, sale unchanged",
+    "dark/393/false: three coffees then expansion, one contextual + per family",
+    "dark/393/false: centered actions, history, clean close",
+    "dark/393/false: entry-stock card opens only one surface; whole return with keypad retained",
+    "dark/393/false: empty stock has one accessible add action",
+    "dark/393/true: compact three columns, full names/weights/prices",
+    "dark/393/true: Continuar only for one, two and three selections, sale unchanged",
+    "dark/393/true: three coffees then expansion, one contextual + per family",
+    "dark/393/true: centered actions, history, clean close",
+    "dark/393/true: entry-stock card opens only one surface; whole return with keypad retained",
+    "dark/393/true: empty stock has one accessible add action",
+    "dark/412/false: compact three columns, full names/weights/prices",
+    "dark/412/false: Continuar only for one, two and three selections, sale unchanged",
+    "dark/412/false: three coffees then expansion, one contextual + per family",
+    "dark/412/false: centered actions, history, clean close",
+    "dark/412/false: entry-stock card opens only one surface; whole return with keypad retained",
+    "dark/412/false: empty stock has one accessible add action",
+    "dark/412/true: compact three columns, full names/weights/prices",
+    "dark/412/true: Continuar only for one, two and three selections, sale unchanged",
+    "dark/412/true: three coffees then expansion, one contextual + per family",
+    "dark/412/true: centered actions, history, clean close",
+    "dark/412/true: entry-stock card opens only one surface; whole return with keypad retained",
+    "dark/412/true: empty stock has one accessible add action"
+  ],
+  "surfaces": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 820,
+        "large": false
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 253.390625,
+            "w": 80.65625,
+            "h": 133.28125,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 119.65625,
+            "y": 253.390625,
+            "w": 80.671875,
+            "h": 133.28125,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 208.328125,
+            "y": 253.390625,
+            "w": 80.65625,
+            "h": 133.28125,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 394.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 119.65625,
+            "y": 394.671875,
+            "w": 80.671875,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 208.328125,
+            "y": 394.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 520.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 119.65625,
+            "y": 520.671875,
+            "w": 80.671875,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 208.328125,
+            "y": 520.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 646.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 119.65625,
+            "y": 646.671875,
+            "w": 80.671875,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 208.328125,
+            "y": 646.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 244,
+          "scrollWidth": 244
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0.0078125,
+          "width": 114,
+          "scrollWidth": 114
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 114,
+          "scrollWidth": 114
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 820,
+        "large": true
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 253.390625,
+            "w": 80.65625,
+            "h": 145.96875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 119.65625,
+            "y": 253.390625,
+            "w": 80.671875,
+            "h": 145.96875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 208.328125,
+            "y": 253.390625,
+            "w": 80.65625,
+            "h": 145.96875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 407.359375,
+            "w": 80.65625,
+            "h": 129.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 119.65625,
+            "y": 407.359375,
+            "w": 80.671875,
+            "h": 129.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 208.328125,
+            "y": 407.359375,
+            "w": 80.65625,
+            "h": 129.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 545.234375,
+            "w": 80.65625,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 119.65625,
+            "y": 545.234375,
+            "w": 80.671875,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 208.328125,
+            "y": 545.234375,
+            "w": 80.65625,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 703.109375,
+            "w": 80.65625,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 119.65625,
+            "y": 703.109375,
+            "w": 80.671875,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 208.328125,
+            "y": 703.109375,
+            "w": 80.65625,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 244,
+          "scrollWidth": 244
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 114,
+          "scrollWidth": 114
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 114,
+          "scrollWidth": 114
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 360,
+        "height": 820,
+        "large": false
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 94,
+            "h": 135.78125,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 133,
+            "y": 257.390625,
+            "w": 94,
+            "h": 135.78125,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 235,
+            "y": 257.390625,
+            "w": 94,
+            "h": 135.78125,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 401.171875,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 133,
+            "y": 401.171875,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 235,
+            "y": 401.171875,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 528.859375,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 133,
+            "y": 528.859375,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 235,
+            "y": 528.859375,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 656.546875,
+            "w": 94,
+            "h": 118,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 133,
+            "y": 656.546875,
+            "w": 94,
+            "h": 118,
+            "client": 92,
+            "scroll": 92,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 235,
+            "y": 656.546875,
+            "w": 94,
+            "h": 118,
+            "client": 92,
+            "scroll": 92,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 276,
+          "scrollWidth": 276
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 278,
+          "scrollWidth": 278
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0.0078125,
+          "width": 130,
+          "scrollWidth": 130
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 130,
+          "scrollWidth": 130
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 360,
+        "height": 820,
+        "large": true
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 94,
+            "h": 145.96875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 133,
+            "y": 257.390625,
+            "w": 94,
+            "h": 145.96875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 235,
+            "y": 257.390625,
+            "w": 94,
+            "h": 145.96875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 411.359375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 133,
+            "y": 411.359375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 235,
+            "y": 411.359375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 549.234375,
+            "w": 94,
+            "h": 149.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 133,
+            "y": 549.234375,
+            "w": 94,
+            "h": 149.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 235,
+            "y": 549.234375,
+            "w": 94,
+            "h": 149.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 707.109375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 133,
+            "y": 707.109375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 235,
+            "y": 707.109375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 276,
+          "scrollWidth": 276
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 278,
+          "scrollWidth": 278
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 130,
+          "scrollWidth": 130
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 130,
+          "scrollWidth": 130
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 820,
+        "large": false
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 144,
+            "y": 257.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 257,
+            "y": 257.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 383.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 144,
+            "y": 383.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 257,
+            "y": 383.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 509.390625,
+            "w": 105,
+            "h": 119.6875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 144,
+            "y": 509.390625,
+            "w": 105,
+            "h": 119.6875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 257,
+            "y": 509.390625,
+            "w": 105,
+            "h": 119.6875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 637.078125,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 144,
+            "y": 637.078125,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 257,
+            "y": 637.078125,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 309,
+          "scrollWidth": 309
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 311,
+          "scrollWidth": 311
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0.0078125,
+          "width": 147,
+          "scrollWidth": 147
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 147,
+          "scrollWidth": 147
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 820,
+        "large": true
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 105,
+            "h": 145.96875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 144,
+            "y": 257.390625,
+            "w": 105,
+            "h": 145.96875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 257,
+            "y": 257.390625,
+            "w": 105,
+            "h": 145.96875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 411.359375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 144,
+            "y": 411.359375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 257,
+            "y": 411.359375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 549.234375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 144,
+            "y": 549.234375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 257,
+            "y": 549.234375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 687.109375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 144,
+            "y": 687.109375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 257,
+            "y": 687.109375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 309,
+          "scrollWidth": 309
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 311,
+          "scrollWidth": 311
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 147,
+          "scrollWidth": 147
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 147,
+          "scrollWidth": 147
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 412,
+        "height": 820,
+        "large": false
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 150.328125,
+            "y": 257.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 269.65625,
+            "y": 257.390625,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 383.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 150.328125,
+            "y": 383.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 269.65625,
+            "y": 383.390625,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 509.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 150.328125,
+            "y": 509.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 269.65625,
+            "y": 509.390625,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 635.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 150.328125,
+            "y": 635.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 269.65625,
+            "y": 635.390625,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 328,
+          "scrollWidth": 328
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 330,
+          "scrollWidth": 330
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0.0078125,
+          "width": 156,
+          "scrollWidth": 156
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 156,
+          "scrollWidth": 156
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 412,
+        "height": 820,
+        "large": true
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 111.328125,
+            "h": 127.78125,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 150.328125,
+            "y": 257.390625,
+            "w": 111.328125,
+            "h": 127.78125,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 269.65625,
+            "y": 257.390625,
+            "w": 111.34375,
+            "h": 127.78125,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 393.171875,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 150.328125,
+            "y": 393.171875,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 269.65625,
+            "y": 393.171875,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 519.171875,
+            "w": 111.328125,
+            "h": 129.875,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 150.328125,
+            "y": 519.171875,
+            "w": 111.328125,
+            "h": 129.875,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 269.65625,
+            "y": 519.171875,
+            "w": 111.34375,
+            "h": 129.875,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 657.046875,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 150.328125,
+            "y": 657.046875,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 269.65625,
+            "y": 657.046875,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 328,
+          "scrollWidth": 328
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 330,
+          "scrollWidth": 330
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 156,
+          "scrollWidth": 156
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 156,
+          "scrollWidth": 156
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 320,
+        "height": 820,
+        "large": false
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 253.390625,
+            "w": 80.65625,
+            "h": 133.28125,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 119.65625,
+            "y": 253.390625,
+            "w": 80.671875,
+            "h": 133.28125,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 208.328125,
+            "y": 253.390625,
+            "w": 80.65625,
+            "h": 133.28125,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 394.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 119.65625,
+            "y": 394.671875,
+            "w": 80.671875,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 208.328125,
+            "y": 394.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 520.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 119.65625,
+            "y": 520.671875,
+            "w": 80.671875,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 208.328125,
+            "y": 520.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 646.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 119.65625,
+            "y": 646.671875,
+            "w": 80.671875,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 208.328125,
+            "y": 646.671875,
+            "w": 80.65625,
+            "h": 118,
+            "client": 79,
+            "scroll": 79,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 244,
+          "scrollWidth": 244
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0.0078125,
+          "width": 114,
+          "scrollWidth": 114
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 114,
+          "scrollWidth": 114
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 320,
+        "height": 820,
+        "large": true
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 253.390625,
+            "w": 80.65625,
+            "h": 145.96875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 119.65625,
+            "y": 253.390625,
+            "w": 80.671875,
+            "h": 145.96875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 208.328125,
+            "y": 253.390625,
+            "w": 80.65625,
+            "h": 145.96875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 407.359375,
+            "w": 80.65625,
+            "h": 129.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 119.65625,
+            "y": 407.359375,
+            "w": 80.671875,
+            "h": 129.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 208.328125,
+            "y": 407.359375,
+            "w": 80.65625,
+            "h": 129.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 545.234375,
+            "w": 80.65625,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 119.65625,
+            "y": 545.234375,
+            "w": 80.671875,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 208.328125,
+            "y": 545.234375,
+            "w": 80.65625,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 703.109375,
+            "w": 80.65625,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 119.65625,
+            "y": 703.109375,
+            "w": 80.671875,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 208.328125,
+            "y": 703.109375,
+            "w": 80.65625,
+            "h": 149.875,
+            "client": 79,
+            "scroll": 79,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 244,
+          "scrollWidth": 244
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 246,
+          "scrollWidth": 246
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 114,
+          "scrollWidth": 114
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 114,
+          "scrollWidth": 114
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 820,
+        "large": false
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 94,
+            "h": 135.78125,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 133,
+            "y": 257.390625,
+            "w": 94,
+            "h": 135.78125,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 235,
+            "y": 257.390625,
+            "w": 94,
+            "h": 135.78125,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 401.171875,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 133,
+            "y": 401.171875,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 235,
+            "y": 401.171875,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 528.859375,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 133,
+            "y": 528.859375,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 235,
+            "y": 528.859375,
+            "w": 94,
+            "h": 119.6875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 656.546875,
+            "w": 94,
+            "h": 118,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 133,
+            "y": 656.546875,
+            "w": 94,
+            "h": 118,
+            "client": 92,
+            "scroll": 92,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 235,
+            "y": 656.546875,
+            "w": 94,
+            "h": 118,
+            "client": 92,
+            "scroll": 92,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 276,
+          "scrollWidth": 276
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 278,
+          "scrollWidth": 278
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0.0078125,
+          "width": 130,
+          "scrollWidth": 130
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 130,
+          "scrollWidth": 130
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 360,
+        "height": 820,
+        "large": true
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 94,
+            "h": 145.96875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 133,
+            "y": 257.390625,
+            "w": 94,
+            "h": 145.96875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 235,
+            "y": 257.390625,
+            "w": 94,
+            "h": 145.96875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 411.359375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 133,
+            "y": 411.359375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 235,
+            "y": 411.359375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 549.234375,
+            "w": 94,
+            "h": 149.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 133,
+            "y": 549.234375,
+            "w": 94,
+            "h": 149.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 235,
+            "y": 549.234375,
+            "w": 94,
+            "h": 149.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 707.109375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 133,
+            "y": 707.109375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 235,
+            "y": 707.109375,
+            "w": 94,
+            "h": 129.875,
+            "client": 92,
+            "scroll": 92,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 276,
+          "scrollWidth": 276
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 278,
+          "scrollWidth": 278
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 130,
+          "scrollWidth": 130
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 130,
+          "scrollWidth": 130
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 393,
+        "height": 820,
+        "large": false
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 144,
+            "y": 257.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 257,
+            "y": 257.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 383.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 144,
+            "y": 383.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 257,
+            "y": 383.390625,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 509.390625,
+            "w": 105,
+            "h": 119.6875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 144,
+            "y": 509.390625,
+            "w": 105,
+            "h": 119.6875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 257,
+            "y": 509.390625,
+            "w": 105,
+            "h": 119.6875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 637.078125,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 144,
+            "y": 637.078125,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 257,
+            "y": 637.078125,
+            "w": 105,
+            "h": 118,
+            "client": 103,
+            "scroll": 103,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 309,
+          "scrollWidth": 309
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 311,
+          "scrollWidth": 311
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0.0078125,
+          "width": 147,
+          "scrollWidth": 147
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 147,
+          "scrollWidth": 147
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 393,
+        "height": 820,
+        "large": true
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 105,
+            "h": 145.96875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 144,
+            "y": 257.390625,
+            "w": 105,
+            "h": 145.96875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 257,
+            "y": 257.390625,
+            "w": 105,
+            "h": 145.96875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 411.359375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 144,
+            "y": 411.359375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 257,
+            "y": 411.359375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 549.234375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 144,
+            "y": 549.234375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 257,
+            "y": 549.234375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 687.109375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 144,
+            "y": 687.109375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 257,
+            "y": 687.109375,
+            "w": 105,
+            "h": 129.875,
+            "client": 103,
+            "scroll": 103,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 309,
+          "scrollWidth": 309
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 311,
+          "scrollWidth": 311
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 147,
+          "scrollWidth": 147
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 147,
+          "scrollWidth": 147
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 820,
+        "large": false
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 150.328125,
+            "y": 257.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 269.65625,
+            "y": 257.390625,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 383.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 150.328125,
+            "y": 383.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 269.65625,
+            "y": 383.390625,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 509.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 150.328125,
+            "y": 509.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 269.65625,
+            "y": 509.390625,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 635.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 150.328125,
+            "y": 635.390625,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 269.65625,
+            "y": 635.390625,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 328,
+          "scrollWidth": 328
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 330,
+          "scrollWidth": 330
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0.0078125,
+          "width": 156,
+          "scrollWidth": 156
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 156,
+          "scrollWidth": 156
+        }
+      ]
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 412,
+        "height": 820,
+        "large": true
+      },
+      "grid": {
+        "columns": 3,
+        "cards": [
+          {
+            "id": "Especial250",
+            "x": 31,
+            "y": 257.390625,
+            "w": 111.328125,
+            "h": 127.78125,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Especial500",
+            "x": 150.328125,
+            "y": 257.390625,
+            "w": 111.328125,
+            "h": 127.78125,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 500 gSem estoqueR$ 25,00"
+          },
+          {
+            "id": "Especial1000",
+            "x": 269.65625,
+            "y": 257.390625,
+            "w": 111.34375,
+            "h": 127.78125,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café EspecialMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Gourmet250",
+            "x": 31,
+            "y": 393.171875,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 250 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet500",
+            "x": 150.328125,
+            "y": 393.171875,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 500 gR$ 25,00"
+          },
+          {
+            "id": "Gourmet1000",
+            "x": 269.65625,
+            "y": 393.171875,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café GourmetMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "Tradicional1000",
+            "x": 31,
+            "y": 519.171875,
+            "w": 111.328125,
+            "h": 129.875,
+            "client": 109,
+            "scroll": 109,
+            "text": "Café TradicionalMoído · 1 kgR$ 25,00"
+          },
+          {
+            "id": "banana-nanica",
+            "x": 150.328125,
+            "y": 519.171875,
+            "w": 111.328125,
+            "h": 129.875,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana Nanica12 dúzias / CaixaR$ 35,00"
+          },
+          {
+            "id": "banana-maca",
+            "x": 269.65625,
+            "y": 519.171875,
+            "w": 111.34375,
+            "h": 129.875,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana MaçãDúziaR$ 35,00"
+          },
+          {
+            "id": "banana",
+            "x": 31,
+            "y": 657.046875,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Banana PrataDúziaR$ 35,00"
+          },
+          {
+            "id": "cheese",
+            "x": 150.328125,
+            "y": 657.046875,
+            "w": 111.328125,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Queijo Meia CuraVenda por kgR$ 35,00"
+          },
+          {
+            "id": "salami",
+            "x": 269.65625,
+            "y": 657.046875,
+            "w": 111.34375,
+            "h": 118,
+            "client": 109,
+            "scroll": 109,
+            "text": "Salame ArtesanalVenda por kgR$ 35,00"
+          }
+        ]
+      },
+      "footer": [
+        {
+          "label": "Adicionar ao estoque",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 328,
+          "scrollWidth": 328
+        },
+        {
+          "label": "Voltar",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 330,
+          "scrollWidth": 330
+        },
+        {
+          "label": "Editar produto",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 156,
+          "scrollWidth": 156
+        },
+        {
+          "label": "Histórico",
+          "align": "center",
+          "justify": "center",
+          "centerError": 0,
+          "width": 156,
+          "scrollWidth": 156
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

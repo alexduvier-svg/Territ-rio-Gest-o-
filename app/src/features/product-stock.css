@@ -50,7 +50,7 @@
    as the rest of the system, without blurring small letters with text shadows. */
 .stock-product-flow .values-stock-panel { --stock-label-ink: #f08e88; }
 :root[data-theme='light'] .stock-product-flow .values-stock-panel { --stock-label-ink: #a82e3d; }
-:root[data-page='Produto'] .stock-product-flow .values-stock-panel > h2 {
+:is(:root[data-page='Produto'], .motion-page-Produto) .stock-product-flow .values-stock-panel > h2 {
   font-size: 13px;
   font-weight: 700;
   line-height: 1.35;

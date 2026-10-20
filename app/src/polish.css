@@ -1296,52 +1296,52 @@ dialog[data-kind='movement'] .dialog-close { display: none; }
 
 /* Página do produto (Novo produto / Editar) no padrão "card 3D de destaque" (0.11.6):
    cartões com leve luz no topo e espessura embaixo; blocos internos de vidro neutro; cor só nos detalhes. */
-:root[data-page='Produto'] .subview .panel {
+:is(:root[data-page='Produto'], .motion-page-Produto) .subview .panel {
   border-radius: 26px;
   padding: 20px 18px;
   margin-bottom: 18px;
   background: linear-gradient(180deg, color-mix(in srgb, var(--text) 6%, var(--panel)) 0%, var(--panel) 70%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 4px 0 rgba(0, 0, 0, 0.55), 0 12px 26px rgba(0, 0, 0, 0.35);
 }
-:root[data-page='Produto'][data-theme='light'] .subview .panel {
+:is(:root[data-page='Produto'], .motion-page-Produto)[data-theme='light'] .subview .panel {
   background: linear-gradient(180deg, #fff 0%, var(--panel) 100%);
   box-shadow: inset 0 1px 0 #fff, 0 4px 0 rgba(37, 52, 66, 0.12), 0 12px 26px rgba(37, 52, 66, 0.1);
 }
-:root[data-page='Produto'] .subview .panel > h2 { font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 14px; }
+:is(:root[data-page='Produto'], .motion-page-Produto) .subview .panel > h2 { font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-ink); margin: 0 0 14px; }
 /* Blocos internos (configurações, campos): vidro neutro com relevo de tecla */
-:root[data-page='Produto'] .registration-dimensions { display: grid; gap: 10px; background: transparent; }
-:root[data-page='Produto'] .registration-dimensions .dimension-pill {
+:is(:root[data-page='Produto'], .motion-page-Produto) .registration-dimensions { display: grid; gap: 10px; background: transparent; }
+:is(:root[data-page='Produto'], .motion-page-Produto) .registration-dimensions .dimension-pill {
   border-radius: 18px;
   background: color-mix(in srgb, var(--text) 6%, transparent);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3);
   border: 0;
 }
-:root[data-page='Produto'][data-theme='light'] .registration-dimensions .dimension-pill { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
-:root[data-page='Produto'] .subview input:not([type='checkbox']):not([type='radio']), :root[data-page='Produto'] .subview select,
-:root[data-page='Produto'] .subview .link-row, :root[data-page='Produto'] .subview .suggestion {
+:is(:root[data-page='Produto'], .motion-page-Produto)[data-theme='light'] .registration-dimensions .dimension-pill { box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
+:is(:root[data-page='Produto'], .motion-page-Produto) .subview input:not([type='checkbox']):not([type='radio']), :is(:root[data-page='Produto'], .motion-page-Produto) .subview select,
+:is(:root[data-page='Produto'], .motion-page-Produto) .subview .link-row, :is(:root[data-page='Produto'], .motion-page-Produto) .subview .suggestion {
   border: 0;
   background: color-mix(in srgb, var(--text) 6%, transparent);
   box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.28), 0 1px 0 rgba(255, 255, 255, 0.05);
 }
-:root[data-page='Produto'][data-theme='light'] .subview input:not([type='checkbox']):not([type='radio']), :root[data-page='Produto'][data-theme='light'] .subview select,
-:root[data-page='Produto'][data-theme='light'] .subview .link-row, :root[data-page='Produto'][data-theme='light'] .subview .suggestion {
+:is(:root[data-page='Produto'], .motion-page-Produto)[data-theme='light'] .subview input:not([type='checkbox']):not([type='radio']), :is(:root[data-page='Produto'], .motion-page-Produto)[data-theme='light'] .subview select,
+:is(:root[data-page='Produto'], .motion-page-Produto)[data-theme='light'] .subview .link-row, :is(:root[data-page='Produto'], .motion-page-Produto)[data-theme='light'] .subview .suggestion {
   background: color-mix(in srgb, var(--text) 5%, #fff);
   box-shadow: inset 0 2px 3px rgba(37, 52, 66, 0.1), 0 1px 0 #fff;
 }
-:root[data-page='Produto'] .subview .suggestion { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3); }
-:root[data-page='Produto'][data-theme='light'] .subview .suggestion { background: color-mix(in srgb, var(--text) 4%, #fff); box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.12); }
+:is(:root[data-page='Produto'], .motion-page-Produto) .subview .suggestion { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3); }
+:is(:root[data-page='Produto'], .motion-page-Produto)[data-theme='light'] .subview .suggestion { background: color-mix(in srgb, var(--text) 4%, #fff); box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.12); }
 .add-sale-option>.icon, html[data-theme=light] .add-sale-option>.icon { color: var(--accent-ink); }
 /* Aviso do estoque inicial: vidro neutro, cor só no ícone (antes: caixa amarela cheia) */
-:root[data-page='Produto'] .values-stock-panel .notice {
+:is(:root[data-page='Produto'], .motion-page-Produto) .values-stock-panel .notice {
   display: flex; align-items: flex-start; gap: 10px;
   margin-top: 14px; padding: 12px 14px; border: 0; border-radius: 16px;
   font-size: 14px; line-height: 1.45; color: var(--muted);
   background: color-mix(in srgb, var(--text) 6%, transparent);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 2px 0 rgba(0, 0, 0, 0.3);
 }
-:root[data-page='Produto'][data-theme='light'] .values-stock-panel .notice { background: color-mix(in srgb, var(--text) 4%, #fff); box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
-:root[data-page='Produto'] .values-stock-panel .notice svg { flex: none; width: 18px; height: 18px; margin-top: 1px; color: var(--accent-ink); }
-:root[data-page='Produto'] .values-stock-panel .notice strong { color: var(--text); font-weight: 700; }
+:is(:root[data-page='Produto'], .motion-page-Produto)[data-theme='light'] .values-stock-panel .notice { background: color-mix(in srgb, var(--text) 4%, #fff); box-shadow: inset 0 1px 0 #fff, 0 2px 0 rgba(37, 52, 66, 0.1); }
+:is(:root[data-page='Produto'], .motion-page-Produto) .values-stock-panel .notice svg { flex: none; width: 18px; height: 18px; margin-top: 1px; color: var(--accent-ink); }
+:is(:root[data-page='Produto'], .motion-page-Produto) .values-stock-panel .notice strong { color: var(--text); font-weight: 700; }
 
 /* Estoque: o "+" (novo produto) junto das ferramentas do topo, com cor só no detalhe */
 .stock-tools > .stock-plus {

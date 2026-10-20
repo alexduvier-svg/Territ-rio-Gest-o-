@@ -1,0 +1,186 @@
+{
+  "isolated": true,
+  "nativeFPSMeasured": false,
+  "cases": [
+    {
+      "theme": "light",
+      "size": 12,
+      "via": "click",
+      "invokeMs": 4.299999997019768,
+      "firstSale": 432,
+      "reads": 139,
+      "maxGap": 133.39999999999986,
+      "gaps50": [
+        133.39999999999986
+      ],
+      "frames": 60,
+      "tasks": [
+        {
+          "start": 291.6000000014901,
+          "duration": 140
+        }
+      ],
+      "diagnostics": {
+        "active": 0,
+        "pendingFrame": false,
+        "renderedFrames": 47,
+        "lite": false
+      }
+    },
+    {
+      "theme": "light",
+      "size": 12,
+      "via": "action",
+      "invokeMs": 25.100000001490116,
+      "firstSale": 54,
+      "reads": 138,
+      "maxGap": 33.19999999999982,
+      "gaps50": [],
+      "frames": 66,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "pendingFrame": false,
+        "renderedFrames": 106,
+        "lite": false
+      }
+    },
+    {
+      "theme": "light",
+      "size": 120,
+      "via": "click",
+      "invokeMs": 2.699999999254942,
+      "firstSale": 513.8999999985099,
+      "reads": 571,
+      "maxGap": 216.5999999999999,
+      "gaps50": [
+        216.5999999999999
+      ],
+      "frames": 56,
+      "tasks": [
+        {
+          "start": 289.5999999977648,
+          "duration": 224
+        }
+      ],
+      "diagnostics": {
+        "active": 0,
+        "pendingFrame": false,
+        "renderedFrames": 41,
+        "lite": false
+      }
+    },
+    {
+      "theme": "light",
+      "size": 120,
+      "via": "action",
+      "invokeMs": 85.30000000074506,
+      "firstSale": 151.39999999850988,
+      "reads": 570,
+      "maxGap": 83.40000000000009,
+      "gaps50": [
+        63.500000000744876,
+        83.40000000000009
+      ],
+      "frames": 60,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "pendingFrame": false,
+        "renderedFrames": 97,
+        "lite": false
+      }
+    },
+    {
+      "theme": "dark",
+      "size": 12,
+      "via": "click",
+      "invokeMs": 2.600000001490116,
+      "firstSale": 422.5,
+      "reads": 139,
+      "maxGap": 116.59999999999991,
+      "gaps50": [
+        116.59999999999991
+      ],
+      "frames": 62,
+      "tasks": [
+        {
+          "start": 292.3999999985099,
+          "duration": 130
+        }
+      ],
+      "diagnostics": {
+        "active": 0,
+        "pendingFrame": false,
+        "renderedFrames": 49,
+        "lite": false
+      }
+    },
+    {
+      "theme": "dark",
+      "size": 12,
+      "via": "action",
+      "invokeMs": 22.400000002235174,
+      "firstSale": 46.20000000298023,
+      "reads": 138,
+      "maxGap": 33.40000000000009,
+      "gaps50": [],
+      "frames": 66,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "pendingFrame": false,
+        "renderedFrames": 111,
+        "lite": false
+      }
+    },
+    {
+      "theme": "dark",
+      "size": 120,
+      "via": "click",
+      "invokeMs": 2.300000000745058,
+      "firstSale": 518.7000000029802,
+      "reads": 571,
+      "maxGap": 216.5999999999999,
+      "gaps50": [
+        216.5999999999999
+      ],
+      "frames": 56,
+      "tasks": [
+        {
+          "start": 292.6000000014901,
+          "duration": 226
+        }
+      ],
+      "diagnostics": {
+        "active": 0,
+        "pendingFrame": false,
+        "renderedFrames": 42,
+        "lite": false
+      }
+    },
+    {
+      "theme": "dark",
+      "size": 120,
+      "via": "action",
+      "invokeMs": 86.20000000298023,
+      "firstSale": 150.59999999776483,
+      "reads": 570,
+      "maxGap": 83.30000000000018,
+      "gaps50": [
+        65.79999999776464,
+        83.30000000000018
+      ],
+      "frames": 60,
+      "tasks": [],
+      "diagnostics": {
+        "active": 0,
+        "pendingFrame": false,
+        "renderedFrames": 98,
+        "lite": false
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

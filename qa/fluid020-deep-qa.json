@@ -1,0 +1,299 @@
+{
+  "isolated": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "three quantities close into summaries; cart only after review; invalid stock and re-edit guarded"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "client and nested origin/neighborhood windows preserve sale"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "official logo loads next to current version in settings"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "page return uses the original node, not a clone"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "content reload preserves in-flight position and velocity",
+      "a": 0.415173,
+      "b": 0.41519
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "same engine through four nested levels; no per-frame style writes"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "synchronous close/rewrite retains original content and cleans layers"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "stock counters share baseline, inset, type size and tabular numerals",
+      "counters": [
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        },
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        },
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "one add button per family; banana context shows its three varieties; new custom form starts without a selected category"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "three quantities close into summaries; cart only after review; invalid stock and re-edit guarded"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "client and nested origin/neighborhood windows preserve sale"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "official logo loads next to current version in settings"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "page return uses the original node, not a clone"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "content reload preserves in-flight position and velocity",
+      "a": 0.416817,
+      "b": 0.41696
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "same engine through four nested levels; no per-frame style writes"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "synchronous close/rewrite retains original content and cleans layers"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "stock counters share baseline, inset, type size and tabular numerals",
+      "counters": [
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        },
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        },
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "one add button per family; banana context shows its three varieties; new custom form starts without a selected category"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "three quantities close into summaries; cart only after review; invalid stock and re-edit guarded"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "client and nested origin/neighborhood windows preserve sale"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "official logo loads next to current version in settings"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "page return uses the original node, not a clone"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "content reload preserves in-flight position and velocity",
+      "a": 0.414953,
+      "b": 0.41496
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "same engine through four nested levels; no per-frame style writes"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "synchronous close/rewrite retains original content and cleans layers"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "stock counters share baseline, inset, type size and tabular numerals",
+      "counters": [
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        },
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        },
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "one add button per family; banana context shows its three varieties; new custom form starts without a selected category"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "three quantities close into summaries; cart only after review; invalid stock and re-edit guarded"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "client and nested origin/neighborhood windows preserve sale"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "official logo loads next to current version in settings"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "page return uses the original node, not a clone"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "content reload preserves in-flight position and velocity",
+      "a": 0.415045,
+      "b": 0.41512
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "same engine through four nested levels; no per-frame style writes"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "synchronous close/rewrite retains original content and cleans layers"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "stock counters share baseline, inset, type size and tabular numerals",
+      "counters": [
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        },
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        },
+        {
+          "top": 137.1875,
+          "bottom": 165.1875,
+          "left": 9,
+          "size": "28px",
+          "line": "28px",
+          "numeric": "lining-nums tabular-nums"
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "one add button per family; banana context shows its three varieties; new custom form starts without a selected category"
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

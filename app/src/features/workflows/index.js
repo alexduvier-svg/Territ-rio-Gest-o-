@@ -1,3 +1,5 @@
+import { installProductGesture } from './product-gesture.js';
+import { getMotionSource, restoreMotionSource } from '../motion/index.js';
 import { lastFairSummary, soldOutProducts, saveDemandObservation, demandSignals } from '../event-learning.js';
 
 const bridge=()=>window.TerritorioWorkflowBridge;
@@ -90,19 +92,7 @@ export function installWorkflows(){
  });
  const weekly=b.actions['weekly-back'];b.actions['weekly-back']=d=>{b.updateScopeReturnPrivacy();weekly(d);};
  const ready=b.actions['event-history'];b.actions['event-history']=d=>{ready(d);scheduleExpansions();};
- // Delay only the single product tap long enough to distinguish a double tap.
- let tap=null,serial=0;
- window.TerritorioProductGestures={suspend:()=>clearTimeout(tap?.timer),cancelPending:()=>{clearTimeout(tap?.timer);tap=null;serial++;}};
- document.addEventListener('pointercancel',()=>window.TerritorioProductGestures.cancelPending(),{passive:true});
- document.addEventListener('click',event=>{
-  const card=event.target.closest?.('#app [data-action="sell-product"]');if(!card||card.disabled||b.page()!=='Vender'||window.TerritorioSelection?.active())return;
-  event.preventDefault();event.stopImmediatePropagation();const id=card.dataset.id;
-  if(tap?.id===id&&Date.now()-tap.at<300){clearTimeout(tap.timer);tap=null;serial++;b.actions['stock-peek']({id});return;}
-  if(tap){clearTimeout(tap.timer);b.actions['sell-product']({id:tap.id});tap=null;return;}
-  const current=++serial;tap={id,at:Date.now(),timer:setTimeout(()=>{if(current!==serial)return;tap=null;if(b.page()==='Vender')b.actions['sell-product']({id});},280)};
- },true);
- let zeroTap=null;document.addEventListener('pointerup',event=>{const card=event.target.closest?.('#app [data-action="sell-product"][disabled]');if(!card||b.page()!=='Vender')return;const id=card.dataset.id;if(zeroTap?.id===id&&Date.now()-zeroTap.at<320){zeroTap=null;b.actions['stock-peek']({id});}else zeroTap={id,at:Date.now()};},true);
- document.addEventListener('keydown',event=>{const card=event.target.closest?.('body > #app [data-action="sell-product"]');if(card&&(event.key==='ContextMenu'||event.shiftKey&&event.key==='Enter')){event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['stock-peek']({id:card.dataset.id});}},true);
+ installProductGesture(b,{source:getMotionSource,restoreSource:restoreMotionSource});
  document.addEventListener('change',event=>{if(event.target.id==='workflow-broadcast-all')dialog().querySelectorAll('[data-workflow-recipient]').forEach(el=>{el.checked=event.target.checked;});});
  for(const type of ['pointerdown','input','keydown'])document.addEventListener(type,event=>{for(const [el,timer]of timers)if(el.contains(event.target)){clearTimeout(timer);timers.delete(el);}scheduleExpansions();},{passive:true});
  document.addEventListener('toggle',scheduleExpansions,true);document.addEventListener('click',()=>queueMicrotask(scheduleExpansions));

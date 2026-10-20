@@ -1,0 +1,20 @@
+{
+  "isolated": true,
+  "nativeFPSMeasured": false,
+  "checks": [],
+  "errors": [],
+  "frames": [
+    {
+      "at": 967.7275999999983,
+      "green": 40000
+    },
+    {
+      "at": 1231.974199999997,
+      "green": 40000
+    }
+  ],
+  "blockedMs": 900,
+  "verified": false,
+  "limitation": "Capture timing did not establish compositor progress during the blocked interval.",
+  "passed": true
+}
