@@ -86,6 +86,8 @@ class ERPModel{
   if(stockGuidelines&&(!this.data.stockCatalogGuidelines||(Number(this.data.stockCatalogGuidelines.version)||0)<stockGuidelines.version)){this.data.stockCatalogGuidelines=JSON.parse(JSON.stringify(stockGuidelines));this.stockCatalogGuidelinesInstalled=true;}
   const voice=global.TerritorioVoiceGuidelines;
   if(voice&&(!this.data.voiceGuidelines||(Number(this.data.voiceGuidelines.version)||0)<voice.version)){this.data.voiceGuidelines=JSON.parse(JSON.stringify(voice));this.voiceGuidelinesInstalled=true;}
+  const decision=global.TerritorioDecisionGuidelines;
+  if(decision&&(!this.data.decisionGuidelines||(Number(this.data.decisionGuidelines.version)||0)<decision.version)){this.data.decisionGuidelines=JSON.parse(JSON.stringify(decision));this.decisionGuidelinesInstalled=true;}
   const engagement=global.TerritorioEngagementGuidelines;
   if(engagement&&(!this.data.engagementGuidelines||(Number(this.data.engagementGuidelines.version)||0)<engagement.version)){this.data.engagementGuidelines=JSON.parse(JSON.stringify(engagement));this.engagementGuidelinesInstalled=true;}
  }

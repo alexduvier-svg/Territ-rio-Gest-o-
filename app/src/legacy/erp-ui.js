@@ -2812,6 +2812,9 @@ window.TerritorioWorkflowBridge.describeSale=p=>sellingCardDescription(p);
 sellPage=feiraSellPage;stockPage=feiraStockPage;
 
 // As trocas feitas acima por atribuição (ex.: aviso de feira) valem já na primeira tela.
+// Motor de decisões: a Orientação recebe o retrato da previsão guardada (sem rede) para as regras
+// de tempo (advisor/weather-rules.js): geada, trovoada, chuva e calor no horário das feiras.
+const r24Advisor=advisorInput;advisorInput=function(...args){const input=r24Advisor.apply(this,args);try{input.weather=window.TerritorioWeatherUI?.snapshot?.()||null;}catch(e){input.weather=null;}return input;};
 // Tempo (MET Norway): a pílula da Loja abre a previsão da cidade dos Ajustes.
 actions['weather-open']=()=>window.TerritorioWeatherUI?.open();
 actions['weather-city']=()=>{closeModal();window.TerritorioWeatherUI?.askCity();};

@@ -9,6 +9,7 @@ import { forecastNextEvent, runOut } from './forecast.js';
 import { FINANCE_RULES } from './finance-rules.js';
 import { evidenceQuality } from './quality.js';
 import { explainMethod } from './method.js';
+import { WEATHER_RULES } from './weather-rules.js';
 
 const LEVELS = ['urgente', 'atencao', 'oportunidade', 'bom'];
 const TARGET_MARGIN = 0.4;
@@ -405,9 +406,22 @@ function pendingTests(input) {
   if(!tests.length)return [];
   return [item('test-pending','oportunidade',{title:'Avalie os testes que já planejou',happened:`Há ${tests.length} ${tests.length===1?'teste planejado':'testes planejados'} aguardando avaliação.`,todo:'Registre o resultado observado e as mudanças do período antes de repetir ou iniciar uma ação semelhante.',why:'Uma diferença no resultado não isola a causa. Compare períodos, condições e a medida definida no planejamento.',cta:{label:'Ver testes',action:'advisor-tests'},impact:1})];
 }
-const RULES = [noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests];
+const RULES = [...WEATHER_RULES, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests];
 
 // ------------------------------------------------------------------------------------- saída
+
+// Contrato do conselho (docs/motor): toda ação diz de qual regra e versão veio, com que confiança e
+// sobre que origem de dados. Confiança "alta" exige calibração medida, que o app ainda não tem; com
+// registros incompletos ela cai, e com erros nos registros é nula (o conselho não deve ser usado).
+function stampDecisions(all, input) {
+  const q = input.quality || {};
+  const commerce = q.errors ? 'nula' : q.completeCosts && q.sales >= 8 ? 'media' : 'baixa';
+  const generated = new Date().toISOString();
+  for (const d of all) {
+    d.decision = { rule_id: d.id.split(':')[0], rule_version: 1, module: 'vendas', confidence: commerce, requires_user_action: d.level !== 'bom', ...(d.decision || {}),
+      advice_id: d.id, generated_at: generated, data_context: q.context || 'unconfirmed' };
+  }
+}
 
 function situation(input, all) {
   if(input.quality.errors) return 'A conferência encontrou inconsistências. Corrija os registros antes de avaliar resultado, preço ou crescimento.';
@@ -432,10 +446,11 @@ export function buildGuidance(input) {
     const review = item('origem-dados', 'atencao', {title:'Confirme a origem dos registros',happened:'O conjunto ainda não está identificado como real, demonstração ou simulação.',todo:'Revise a origem da base antes de usar os números para decidir.',why:'Exemplos e registros sem origem confirmada não comprovam o desempenho de um produtor.',topics:[]});
     return {periodLabel:input.periodLabel,quality:input.quality,situation:'Origem não confirmada. As conclusões sobre o negócio aguardam revisão dos registros.',actions:[review],all:[review]};
   }
-  const candidates = (input.quality.errors ? RULES.filter(rule => rule.name === 'noSales' || rule.name === 'missingCost' || rule.name === 'auditErrors' || rule.name === 'missingCosts') : RULES);
+  const candidates = (input.quality.errors ? RULES.filter(rule => rule.name === 'noSales' || rule.name === 'missingCost' || rule.name === 'auditErrors' || rule.name === 'missingCosts' || rule.name === 'weatherFrost' || rule.name === 'weatherFair') : RULES);
   const all = candidates.flatMap(rule => rule(input)).map(explainMethod)
     .sort((a, b) => LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level) || b.impact - a.impact);
   for (const d of all) d.topics = d.topics.filter(id => TOPICS[id]);
+  stampDecisions(all, input);
   return {
     periodLabel: input.periodLabel,
     quality: input.quality,

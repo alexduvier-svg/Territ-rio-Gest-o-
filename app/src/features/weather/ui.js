@@ -140,7 +140,7 @@ export async function refresh(fetchNew = true) {
 }
 
 export function installWeather() {
-  window.TerritorioWeatherUI = Object.freeze({ chip, eventLine, open, refresh, askCity });
+  window.TerritorioWeatherUI = Object.freeze({ chip, eventLine, open, refresh, askCity, snapshot });
   // After each page is drawn, fill in what is known and ask for news (at most once a minute).
   let pending = 0;
   new MutationObserver(() => {
@@ -150,4 +150,24 @@ export function installWeather() {
   document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(nextTimer); nextTimer = 0; } else refresh(); });
   // First use without internet: the forecast appears by itself when the connection comes back.
   window.addEventListener('online', () => { lastRun = 0; refresh(); });
+}
+
+// ---------------------------------------------------------------- snapshot for the decision engine
+// What the advisor rules read (advisor/weather-rules.js): the saved forecast only, never a network
+// call, so building the Orientação stays instant and works offline.
+export function snapshot() {
+  const home = homeCity();
+  if (!home) return null;
+  const data = Weather.cachedForCity(home.city, home.uf);
+  const today = todayKey();
+  const nights = (data?.summary?.days || []).filter(d => d.date >= today).slice(0, 3).map((d, i) => ({ date: d.date, min: d.min,
+    label: i === 0 ? 'nesta madrugada' : i === 1 ? 'na madrugada de amanhã' : 'na madrugada de ' + weekday(d.date) }));
+  const events = (bridge()?.data()?.events || []).filter(e => e.status !== 'finished').map(e => {
+    const where = placeOf(e), cached = where && Weather.cachedForCity(where.city, where.uf);
+    const date = e.start >= today ? e.start : today;
+    const daysUntil = Math.round((Date.parse(date + 'T12:00:00Z') - Date.parse(today + 'T12:00:00Z')) / 86400000);
+    return { id: e.id, name: e.name, date, from: e.from, until: e.until, daysUntil,
+      window: cached?.series ? Weather.eventWindow(cached.summary, cached.series, date, e.from, e.until) : null };
+  }).filter(e => e.daysUntil >= 0 && e.daysUntil <= 9);
+  return { fetchedAt: data?.fetchedAt || null, place: data?.place || null, nights, events };
 }
