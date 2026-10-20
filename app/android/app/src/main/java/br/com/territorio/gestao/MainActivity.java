@@ -8,6 +8,7 @@ public class MainActivity extends BridgeActivity {
     @Override public void onCreate(Bundle savedInstanceState) {
 
         registerPlugin(AgroAgentSchedulerPlugin.class);
+        registerPlugin(AgroWeatherPlugin.class);
         registerPlugin(AgroDocumentsPlugin.class);
         super.onCreate(savedInstanceState);
     }

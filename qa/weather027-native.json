@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "tests": 4,
+  "scope": "battery threshold, deadline, municipality keys and WorkManager constraints",
+  "networkRequests": 0,
+  "businessWrites": 0,
+  "powerConsumptionMeasured": false
+}

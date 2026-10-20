@@ -18,3 +18,26 @@ test('unknown municipality and invalid methods cannot become arbitrary upstream 
  const fetcher=()=>{throw Error('Must not request');};assert.equal((await weatherRoute(new Request('https://server.test/api/weather?city=wrong&uf=MG'),{fetcher})).status,404);
  assert.equal((await weatherRoute(new Request(request(),{method:'POST'}),{fetcher})).status,405);
 });
+
+test('background cache-only requests never call MET, even with missing or expired cache',async()=>{
+ const cache=new Cache(),background=()=>new Request(request().url+'&cacheOnly=1');
+ const noFetch=()=>{throw Error('Background must not call provider');};
+ assert.equal((await weatherRoute(background(),{cache,fetcher:noFetch,now})).status,204);
+ const data=normalizeForecast(body,city,now-7200000,now-3600000);
+ await cache.put(new Request('https://server.test/weather-cache/v1/'+city[0]),Response.json(data));
+ const response=await weatherRoute(background(),{cache,fetcher:noFetch,now});assert.equal(response.status,200);assert.equal((await response.clone().json()).stale,true);
+ const etag=response.headers.get('etag');assert(etag);
+ const conditional=new Request(background(),{headers:{'If-None-Match':etag}});
+ assert.equal((await weatherRoute(conditional,{cache,fetcher:noFetch,now})).status,304);
+ const compressed=new Request(background(),{headers:{'If-None-Match':'W/'+etag}});
+ assert.equal((await weatherRoute(compressed,{cache,fetcher:noFetch,now})).status,304);
+});
+
+test('forecast revalidation respects provider expiry and supports a 30-minute minimum',async()=>{
+ const cache=new Cache();let requests=0;
+ const fetcher=async()=>{requests++;return Response.json(body,{headers:{expires:new Date(now+1800000).toUTCString()}});};
+ const response=await weatherRoute(request(),{cache,fetcher,now});assert.equal((await response.clone().json()).expiresAt,now+1800000);
+ await weatherRoute(request(),{cache,fetcher,now:now+1799999});assert.equal(requests,1);
+ const conditional=new Request(request(),{headers:{'If-None-Match':response.headers.get('etag')}});
+ assert.equal((await weatherRoute(conditional,{cache,fetcher,now:now+1000})).status,304);assert.equal(requests,1);
+});

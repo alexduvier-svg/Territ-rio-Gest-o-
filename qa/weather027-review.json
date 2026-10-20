@@ -1,0 +1,394 @@
+{
+  "version": "0.12.27",
+  "synthetic": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "disabled weather has no requests or scheduled deadline"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "activation performs one request and sets one provider-aware deadline"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "no polling during the 30-minute validity; exactly one due-time request"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "hidden app cancels its clock and makes no foreground requests"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "reopening refreshes an overdue forecast once"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "offline stays asleep; connectivity return checks once"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "failure preserves cache and backs off instead of repeated calls"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "UI mutation bursts do not duplicate calls or reset the deadline"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "disable cancels the clock and an in-flight response cannot restore cache"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "no business records changed and both themed layouts retain inset actions"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "disabled weather has no requests or scheduled deadline"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "activation performs one request and sets one provider-aware deadline"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "no polling during the 30-minute validity; exactly one due-time request"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "hidden app cancels its clock and makes no foreground requests"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "reopening refreshes an overdue forecast once"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "offline stays asleep; connectivity return checks once"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "failure preserves cache and backs off instead of repeated calls"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "UI mutation bursts do not duplicate calls or reset the deadline"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "disable cancels the clock and an in-flight response cannot restore cache"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "no business records changed and both themed layouts retain inset actions"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "disabled weather has no requests or scheduled deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "activation performs one request and sets one provider-aware deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "no polling during the 30-minute validity; exactly one due-time request"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "hidden app cancels its clock and makes no foreground requests"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "reopening refreshes an overdue forecast once"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "offline stays asleep; connectivity return checks once"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "failure preserves cache and backs off instead of repeated calls"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "UI mutation bursts do not duplicate calls or reset the deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "disable cancels the clock and an in-flight response cannot restore cache"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "no business records changed and both themed layouts retain inset actions"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "disabled weather has no requests or scheduled deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "activation performs one request and sets one provider-aware deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "no polling during the 30-minute validity; exactly one due-time request"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "hidden app cancels its clock and makes no foreground requests"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "reopening refreshes an overdue forecast once"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "offline stays asleep; connectivity return checks once"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "failure preserves cache and backs off instead of repeated calls"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "UI mutation bursts do not duplicate calls or reset the deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "disable cancels the clock and an in-flight response cannot restore cache"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "no business records changed and both themed layouts retain inset actions"
+    }
+  ],
+  "surfaces": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "rect": {
+        "x": 20,
+        "y": 66.59375,
+        "width": 280,
+        "height": 606.796875,
+        "top": 66.59375,
+        "right": 300,
+        "bottom": 673.390625,
+        "left": 20
+      },
+      "button": {
+        "x": 35,
+        "y": 614.796875,
+        "width": 250,
+        "height": 45.59375,
+        "top": 614.796875,
+        "right": 285,
+        "bottom": 660.390625,
+        "left": 35
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "rect": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 353,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 373,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "button": {
+        "x": 35,
+        "y": 716.71875,
+        "width": 323,
+        "height": 45.59375,
+        "top": 716.71875,
+        "right": 358,
+        "bottom": 762.3125,
+        "left": 35
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "rect": {
+        "x": 20,
+        "y": 66.59375,
+        "width": 280,
+        "height": 606.796875,
+        "top": 66.59375,
+        "right": 300,
+        "bottom": 673.390625,
+        "left": 20
+      },
+      "button": {
+        "x": 35,
+        "y": 614.796875,
+        "width": 250,
+        "height": 45.59375,
+        "top": 614.796875,
+        "right": 285,
+        "bottom": 660.390625,
+        "left": 35
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "rect": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 353,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 373,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "button": {
+        "x": 35,
+        "y": 716.71875,
+        "width": 323,
+        "height": 45.59375,
+        "top": 716.71875,
+        "right": 358,
+        "bottom": 762.3125,
+        "left": 35
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

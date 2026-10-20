@@ -1,0 +1,33 @@
+✔ venda guarda custo zero confirmado e custo não confirmado no registro histórico (11.8335ms)
+✔ regras de cadastro atualizam referências antigas sem perder a memória do produtor (2.338ms)
+✔ premissas visuais acompanham backup e retomada sem substituir uma revisão mais nova (1.5524ms)
+✔ instalar conhecimento e memória deixa produtos e atividade do produtor intactos (1.1769ms)
+✔ revisão de janelas e estoque migra só premissas e permanece no backup sem alterar os registros (1.3643ms)
+✔ memória e instruções são idempotentes na reabertura e isoladas por conjunto de dados (2.5311ms)
+✔ só entradas confirmadas elevam frequência; validação, correção, perda e edição não elevam (1.8699ms)
+✔ primeiro saldo positivo conta uma vez e cancelar formulário não cria memória de uso (1.4799ms)
+✔ apresentações próprias conservam IDs, rótulo regional, perfil e valores após reabrir (1.6906ms)
+✔ catálogo mapeado bloqueia duplicata sem reescrever cadastro personalizado (2.4793ms)
+✔ cadastro antigo incompleto exige revisão; confirmar diferença cria variação sem mesclar (2.072ms)
+✔ Cacho, Molho e Pé mantêm unidade e plural sem conversão de saldo após reiniciar (1.7876ms)
+✔ custo ausente permanece desconhecido e zero confirmado permanece conhecido no cadastro (1.5611ms)
+✔ refresh deadline respects 30min floor, provider validity, legacy cache and retry (1.0414ms)
+✔ many UI updates share one request and one deadline, with no repeated polling (2.4802ms)
+✔ hidden/offline pauses entirely and reopening only refreshes an overdue forecast (0.3972ms)
+✔ pausing or stopping during a request never paints hidden UI or resurrects a timer (0.2351ms)
+✔ product names normalize every word and preserve measurement units (6.79ms)
+✔ event rain covers the event hours exactly and missing probabilities stay unknown (0.7598ms)
+✔ overlapping MET intervals never double count rainfall; partial periods are labelled estimates (0.1987ms)
+✔ current weather must have a nearby forecast point, never substitute old temperature (0.18ms)
+✔ daily forecast respects Brasília midnight and never counts overlapping rain twice (0.4938ms)
+✔ daily forecast marks a full future day complete, today partial and keeps real min/max (0.6685ms)
+✔ missing rain remains unknown; sparse intervals do not invent hourly temperatures or days (0.1899ms)
+✔ daily forecast does not mutate the cache and sorts, deduplicates and bounds output (0.3565ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 25
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 525.883

@@ -1,3 +1,9 @@
+# Entrega concluída — 0.12.27/code67
+
+Leia app/docs/ENTREGA-0.12.27.md e ARQUIVOS-0.12.27.md. Clima: relógio único mínimo30min/validade MET, pausa oculto/offline e retoma, sem consultas repetidas. WorkManager30min aproximados/rede/bateria>=50%, apenas cacheOnly do servidor; nunca consulta nova MET fora de uso. Cache nativo isolado do ERP, fila I/O/deduplicação, falhas com espera, pausa/cancelamento na janela Tempo. Premissasv14; não prometer bateria zero, horário exato ou previsão nova sem sinal.
+
+25unitapp/21server/40UI em4configurações claras/escuras320ampliado/393normal,4nativos instrumentados PASS,zero errosJS. Sem transações reais de teste. Consumo/Doze/OEM/HTTPnativo emsegundoplano/FPS/GPU não medidos/executados; matriz completa histórica não repetida. Servidor final7f62c9ab-7c0b-4b9f-b602-5823cbabe41c,cacheOnly200/condicional304reais. Intermediário8fe32b83substituído. APK5107916bytes SHA2561164c5b611e8df9353bf07ee81921bd8a0a69ed8f74f4d4ca82dde0b13aad638, certoriginal/pacote2/38assets/16KB,originalconferido; instalado-r 2026-10-20 19:24:59,67/27/Statusok,firstInstallTime2026-10-14 18:17:06preservado. Teste temporário removido/app reaberto. Não repetir entrega27 por checkpoints históricos; nenhuma submissão Play. Somente ramoAGRO2; main956fddceec2b994e32c154c5197424a4f56df7f2independente preservado. Silêncio automático sem nova pendência autorizada.
+
 # Entrega concluída — 0.12.26/code66
 
 Ler app/docs/ENTREGA-0.12.26.md e ARQUIVOS-0.12.26.md. Tempo: horas em cards horizontais; próximos dias expansíveis com data,mínima/máxima dos horários previstos,chuva e parciais sinalizados. Toque/15segundos ociosos, posição de leitura preservada. Sem dias/valores inventados ou chuva somada duas vezes. Usa o mesmo payload/cache/ativação/fonte/servidor; nuvem+grau da página Produtos mantidos. Premissasv13 instaladas/backup, registros preservados.
