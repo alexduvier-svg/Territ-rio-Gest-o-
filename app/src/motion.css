@@ -72,7 +72,6 @@ dialog.fluid-exit-ghost[open] {
   transform-origin: center;
 }
 
-.toast.toast-warn { box-shadow: 0 0 0 1px color-mix(in srgb, var(--orange) 60%, transparent), 0 12px 30px rgba(0, 0, 0, 0.25); }
 .sale-product-heading { cursor: pointer; min-height: 52px; }
 .sale-product-group:not(.active) { cursor: pointer; }
 .sale-product-group:not(.active):active { opacity: 0.7; }

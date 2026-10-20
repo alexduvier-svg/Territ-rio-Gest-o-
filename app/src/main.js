@@ -33,6 +33,7 @@ import { installGlassTouch } from './features/glass-touch.js';
 import { installLocalCatalog } from './features/local-catalog/index.js';
 import './features/local-catalog/catalog.css';
 import './glass-system.css';
+import './toast.css';
 import { installAgent } from './features/agent/index.js';
 import { installWorkflows } from './features/workflows/index.js';
 import './features/workflows/workflows.css';

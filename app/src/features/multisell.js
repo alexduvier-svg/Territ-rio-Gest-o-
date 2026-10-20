@@ -1,5 +1,5 @@
-// Venda de vários produtos de uma vez: segurar um cartão em Vender (0,6 s, o toque longo padrão da
-// Apple e do Android) entra no modo de seleção; toque em até mais 2 produtos e em "Vender N produtos".
+// Venda de vários produtos de uma vez: tocar duas vezes num cartão em Vender (ou segurá-lo 0,6 s, o toque longo
+// padrão da Apple e do Android) entra no modo de seleção; toque em até mais 2 produtos e em "Vender N produtos".
 // Os escolhidos entram juntos na tela de venda, cada um com sua apresentação e quantidade.
 // Funciona nos dois estilos (Feira e Território).
 
@@ -152,5 +152,13 @@ export function installMultiSell() {
   new MutationObserver(() => { if (!onVender()) cancel(); else if (selected.length) paint(); })
     .observe(document.getElementById('app'), { childList: true });
 
-  window.TerritorioSelection = { cancel, active: () => selected.length > 0 };
+  // Dois toques num cartão (workflows) abrem a seleção com ele já marcado.
+  const startSelection = id => {
+    if (!onVender() || !id) return;
+    selected = [id];
+    lastToggle = { id, at: Date.now() };
+    tick();
+    paint();
+  };
+  window.TerritorioSelection = { cancel, start: startSelection, active: () => selected.length > 0 };
 }

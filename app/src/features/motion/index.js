@@ -314,7 +314,7 @@ export function animateToast(toast) {
   const existing = motionOf(toast);
   if (existing?.running) { existing.retarget({ y: 0, scale: 1, opacity: 1 }); return; }
   const visible = toastMotions.has(toast);
-  const from = { y: visible ? 4 : 20, scale: 0.985, opacity: visible ? 1 : 0 };
+  const from = { y: visible ? 4 : 18, scale: visible ? 0.985 : limited() ? 0.96 : 0.9, opacity: visible ? 1 : 0 };
   toastMotions.set(toast, true);
   animate(toast, { from, to: REST, spring: spring('toast'), shape: appear(0, 0.35)(from) });
 }

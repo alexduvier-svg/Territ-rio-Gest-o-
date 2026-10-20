@@ -20,12 +20,14 @@ function markPageChange() {
 // ---------------------------------------------------------------- avisos
 const WARN = /^(Não |Estoque não|Nenhum|Informe|Use |Sem |Falta|Máximo)/;
 const SUCCESS = /^(Venda Finalizada|Estoque renovado|QR lido|Página publicada|Backup|Dados de teste zerados|Produto salvo|Cliente salvo)/;
+const CANCEL = /cancelad|devolvid|removid|excluíd|descartad/i;
+const KINDS = ['toast-warn', 'toast-success', 'toast-cancel', 'toast-info'];
 function classifyToast(toast) {
   if (toast.hidden) { animateToast(toast); return; }
   const text = toast.textContent || '';
-  const kind = WARN.test(text) ? 'toast-warn' : SUCCESS.test(text) ? 'toast-success' : '';
-  toast.classList.remove('toast-warn', 'toast-success');
-  if (kind) toast.classList.add(kind);
+  // Cada aviso leva um ícone do seu tipo: cancelado (✕), sucesso (✓), atenção (!) ou informação (i).
+  const kind = CANCEL.test(text) ? 'toast-cancel' : WARN.test(text) ? 'toast-warn' : SUCCESS.test(text) ? 'toast-success' : 'toast-info';
+  if (!toast.classList.contains(kind)) { toast.classList.remove(...KINDS); toast.classList.add(kind); }
   animateToast(toast);
 }
 
