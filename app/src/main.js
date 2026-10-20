@@ -26,6 +26,7 @@ import './features/advisor/index.js';
 import { MARKET_CATALOG } from './data/market-catalog.js';
 import * as ProductCatalog from './features/product-catalog.js';
 import * as StockOrder from './features/stock-order.js';
+import * as ProperName from './features/proper-name.js';
 import { catalogReference, isCatalogQuestion } from './features/advisor/catalog-vocabulary.js';
 import { CATALOG_KNOWLEDGE } from './data/catalog-knowledge.js';
 import { INTERFACE_GUIDELINES } from './data/interface-guidelines.js';
@@ -90,6 +91,7 @@ try {
   window.TERRITORIO_MARKET = MARKET_CATALOG;
   window.TerritorioProductCatalog = ProductCatalog;
   window.TerritorioStockOrder = StockOrder;
+  window.TerritorioProperName = ProperName;
   window.TerritorioSalesPresentation = SalesPresentation;
   window.TerritorioCatalogReference = {catalogReference,isCatalogQuestion};
   window.TerritorioCatalogKnowledge = CATALOG_KNOWLEDGE;
