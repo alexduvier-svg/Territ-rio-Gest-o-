@@ -1,0 +1,29 @@
+✔ venda guarda custo zero confirmado e custo não confirmado no registro histórico (11.5759ms)
+✔ regras de cadastro atualizam referências antigas sem perder a memória do produtor (2.5218ms)
+✔ premissas visuais acompanham backup e retomada sem substituir uma revisão mais nova (1.8395ms)
+✔ instalar conhecimento e memória deixa produtos e atividade do produtor intactos (2.3404ms)
+✔ revisão de janelas e estoque migra só premissas e permanece no backup sem alterar os registros (1.3265ms)
+✔ memória e instruções são idempotentes na reabertura e isoladas por conjunto de dados (2.9727ms)
+✔ só entradas confirmadas elevam frequência; validação, correção, perda e edição não elevam (2.3542ms)
+✔ primeiro saldo positivo conta uma vez e cancelar formulário não cria memória de uso (1.3059ms)
+✔ apresentações próprias conservam IDs, rótulo regional, perfil e valores após reabrir (1.6254ms)
+✔ catálogo mapeado bloqueia duplicata sem reescrever cadastro personalizado (2.6036ms)
+✔ cadastro antigo incompleto exige revisão; confirmar diferença cria variação sem mesclar (2.3056ms)
+✔ Cacho, Molho e Pé mantêm unidade e plural sem conversão de saldo após reiniciar (1.6822ms)
+✔ custo ausente permanece desconhecido e zero confirmado permanece conhecido no cadastro (1.4429ms)
+✔ product names normalize every word and preserve measurement units (13.0333ms)
+✔ event rain covers the event hours exactly and missing probabilities stay unknown (0.9478ms)
+✔ overlapping MET intervals never double count rainfall; partial periods are labelled estimates (0.394ms)
+✔ current weather must have a nearby forecast point, never substitute old temperature (0.2697ms)
+✔ daily forecast respects Brasília midnight and never counts overlapping rain twice (0.7697ms)
+✔ daily forecast marks a full future day complete, today partial and keeps real min/max (0.6938ms)
+✔ missing rain remains unknown; sparse intervals do not invent hourly temperatures or days (0.2631ms)
+✔ daily forecast does not mutate the cache and sorts, deduplicates and bounds output (0.8627ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 367.9651

@@ -1,0 +1,4104 @@
+{
+  "version": "0.12.26",
+  "synthetic": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "names are canonical in model; weather does not request before activation"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "three columns with long names, currency and varied values align on each row"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "activation uses municipality only and forecast uses common inset scrollable dialog"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "available forecast days are listed with today/tomorrow, real ranges, rain and partial-day labels"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "hour cards scroll horizontally inside the modal without widening it"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "day expands by touch using the common motion; hours remain inside inset scrolling dialog"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "cached refresh preserves day expansion and reading position without another request"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "cloud and real temperature only, same baseline, no pill surface or organize text, accessible touch target"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "temperature follows forecast data rather than the reference image; dry forecast does not depict rain"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "event uses its hours and shared city cache; missing probability is not zero"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "offline failure retains dated forecast and leaves selling available"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "disable clears visible cache; sales and stock untouched; no page overflow"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "names are canonical in model; weather does not request before activation"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "three columns with long names, currency and varied values align on each row"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "activation uses municipality only and forecast uses common inset scrollable dialog"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "available forecast days are listed with today/tomorrow, real ranges, rain and partial-day labels"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "hour cards scroll horizontally inside the modal without widening it"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "day expands by touch using the common motion; hours remain inside inset scrolling dialog"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "cached refresh preserves day expansion and reading position without another request"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "cloud and real temperature only, same baseline, no pill surface or organize text, accessible touch target"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "temperature follows forecast data rather than the reference image; dry forecast does not depict rain"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "event uses its hours and shared city cache; missing probability is not zero"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "offline failure retains dated forecast and leaves selling available"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "disable clears visible cache; sales and stock untouched; no page overflow"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "names are canonical in model; weather does not request before activation"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "three columns with long names, currency and varied values align on each row"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "activation uses municipality only and forecast uses common inset scrollable dialog"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "available forecast days are listed with today/tomorrow, real ranges, rain and partial-day labels"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "hour cards scroll horizontally inside the modal without widening it"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "day expands by touch using the common motion; hours remain inside inset scrolling dialog"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "cached refresh preserves day expansion and reading position without another request"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "day follows the shared 15-second idle collapse rule"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "cloud and real temperature only, same baseline, no pill surface or organize text, accessible touch target"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "temperature follows forecast data rather than the reference image; dry forecast does not depict rain"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "event uses its hours and shared city cache; missing probability is not zero"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "offline failure retains dated forecast and leaves selling available"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "disable clears visible cache; sales and stock untouched; no page overflow"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "names are canonical in model; weather does not request before activation"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "three columns with long names, currency and varied values align on each row"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "activation uses municipality only and forecast uses common inset scrollable dialog"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "available forecast days are listed with today/tomorrow, real ranges, rain and partial-day labels"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "hour cards scroll horizontally inside the modal without widening it"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "day expands by touch using the common motion; hours remain inside inset scrolling dialog"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "cached refresh preserves day expansion and reading position without another request"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "cloud and real temperature only, same baseline, no pill surface or organize text, accessible touch target"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "temperature follows forecast data rather than the reference image; dry forecast does not depict rain"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "event uses its hours and shared city cache; missing probability is not zero"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "offline failure retains dated forecast and leaves selling available"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "disable clears visible cache; sales and stock untouched; no page overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "names are canonical in model; weather does not request before activation"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "three columns with long names, currency and varied values align on each row"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "activation uses municipality only and forecast uses common inset scrollable dialog"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "available forecast days are listed with today/tomorrow, real ranges, rain and partial-day labels"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "hour cards scroll horizontally inside the modal without widening it"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "day expands by touch using the common motion; hours remain inside inset scrolling dialog"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "cached refresh preserves day expansion and reading position without another request"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "cloud and real temperature only, same baseline, no pill surface or organize text, accessible touch target"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "temperature follows forecast data rather than the reference image; dry forecast does not depict rain"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "event uses its hours and shared city cache; missing probability is not zero"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "offline failure retains dated forecast and leaves selling available"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "disable clears visible cache; sales and stock untouched; no page overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "names are canonical in model; weather does not request before activation"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "three columns with long names, currency and varied values align on each row"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "activation uses municipality only and forecast uses common inset scrollable dialog"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "available forecast days are listed with today/tomorrow, real ranges, rain and partial-day labels"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "hour cards scroll horizontally inside the modal without widening it"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "day expands by touch using the common motion; hours remain inside inset scrolling dialog"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "cached refresh preserves day expansion and reading position without another request"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "cloud and real temperature only, same baseline, no pill surface or organize text, accessible touch target"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "temperature follows forecast data rather than the reference image; dry forecast does not depict rain"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "event uses its hours and shared city cache; missing probability is not zero"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "offline failure retains dated forecast and leaves selling available"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "disable clears visible cache; sales and stock untouched; no page overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "names are canonical in model; weather does not request before activation"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "three columns with long names, currency and varied values align on each row"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "activation uses municipality only and forecast uses common inset scrollable dialog"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "available forecast days are listed with today/tomorrow, real ranges, rain and partial-day labels"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "hour cards scroll horizontally inside the modal without widening it"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "day expands by touch using the common motion; hours remain inside inset scrolling dialog"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "cached refresh preserves day expansion and reading position without another request"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "day follows the shared 15-second idle collapse rule"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "cloud and real temperature only, same baseline, no pill surface or organize text, accessible touch target"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "temperature follows forecast data rather than the reference image; dry forecast does not depict rain"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "event uses its hours and shared city cache; missing probability is not zero"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "offline failure retains dated forecast and leaves selling available"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "disable clears visible cache; sales and stock untouched; no page overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "names are canonical in model; weather does not request before activation"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "three columns with long names, currency and varied values align on each row"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "activation uses municipality only and forecast uses common inset scrollable dialog"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "available forecast days are listed with today/tomorrow, real ranges, rain and partial-day labels"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "hour cards scroll horizontally inside the modal without widening it"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "day expands by touch using the common motion; hours remain inside inset scrolling dialog"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "cached refresh preserves day expansion and reading position without another request"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "cloud and real temperature only, same baseline, no pill surface or organize text, accessible touch target"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "temperature follows forecast data rather than the reference image; dry forecast does not depict rain"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "event uses its hours and shared city cache; missing probability is not zero"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "offline failure retains dated forecast and leaves selling available"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "disable clears visible cache; sales and stock untouched; no page overflow"
+    }
+  ],
+  "surfaces": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "aligned prices",
+      "geometry": [
+        {
+          "id": "p0",
+          "card": {
+            "x": 31,
+            "y": 428.03125,
+            "width": 80.65625,
+            "height": 180.65625,
+            "top": 428.03125,
+            "right": 111.65625,
+            "bottom": 608.6875,
+            "left": 31
+          },
+          "price": {
+            "x": 39,
+            "y": 565.5,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 565.5,
+            "right": 103.65625,
+            "bottom": 597.6875,
+            "left": 39
+          },
+          "value": {
+            "x": 58.96875,
+            "y": 581.59375,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 581.59375,
+            "right": 96.75,
+            "bottom": 597.6875,
+            "left": 58.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p1",
+          "card": {
+            "x": 119.65625,
+            "y": 428.03125,
+            "width": 80.671875,
+            "height": 180.65625,
+            "top": 428.03125,
+            "right": 200.328125,
+            "bottom": 608.6875,
+            "left": 119.65625
+          },
+          "price": {
+            "x": 127.65625,
+            "y": 559.5,
+            "width": 64.671875,
+            "height": 38.1875,
+            "top": 559.5,
+            "right": 192.328125,
+            "bottom": 597.6875,
+            "left": 127.65625
+          },
+          "value": {
+            "x": 127.65625,
+            "y": 581.59375,
+            "width": 58.28125,
+            "height": 16.09375,
+            "top": 581.59375,
+            "right": 185.9375,
+            "bottom": 597.6875,
+            "left": 127.65625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p2",
+          "card": {
+            "x": 208.328125,
+            "y": 428.03125,
+            "width": 80.65625,
+            "height": 180.65625,
+            "top": 428.03125,
+            "right": 288.984375,
+            "bottom": 608.6875,
+            "left": 208.328125
+          },
+          "price": {
+            "x": 216.328125,
+            "y": 543.40625,
+            "width": 64.65625,
+            "height": 54.28125,
+            "top": 543.40625,
+            "right": 280.984375,
+            "bottom": 597.6875,
+            "left": 216.328125
+          },
+          "value": {
+            "x": 216.328125,
+            "y": 565.5,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 565.5,
+            "right": 280.984375,
+            "bottom": 597.6875,
+            "left": 216.328125
+          },
+          "overflow": false
+        },
+        {
+          "id": "p3",
+          "card": {
+            "x": 31,
+            "y": 616.6875,
+            "width": 80.65625,
+            "height": 126.375,
+            "top": 616.6875,
+            "right": 111.65625,
+            "bottom": 743.0625,
+            "left": 31
+          },
+          "price": {
+            "x": 39,
+            "y": 693.875,
+            "width": 64.65625,
+            "height": 38.1875,
+            "top": 693.875,
+            "right": 103.65625,
+            "bottom": 732.0625,
+            "left": 39
+          },
+          "value": {
+            "x": 39,
+            "y": 715.96875,
+            "width": 46.421875,
+            "height": 16.09375,
+            "top": 715.96875,
+            "right": 85.421875,
+            "bottom": 732.0625,
+            "left": 39
+          },
+          "overflow": false
+        },
+        {
+          "id": "p4",
+          "card": {
+            "x": 119.65625,
+            "y": 616.6875,
+            "width": 80.671875,
+            "height": 126.375,
+            "top": 616.6875,
+            "right": 200.328125,
+            "bottom": 743.0625,
+            "left": 119.65625
+          },
+          "price": {
+            "x": 127.65625,
+            "y": 699.875,
+            "width": 64.671875,
+            "height": 32.1875,
+            "top": 699.875,
+            "right": 192.328125,
+            "bottom": 732.0625,
+            "left": 127.65625
+          },
+          "value": {
+            "x": 147.625,
+            "y": 715.96875,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 715.96875,
+            "right": 185.390625,
+            "bottom": 732.0625,
+            "left": 147.625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p8",
+          "card": {
+            "x": 208.328125,
+            "y": 616.6875,
+            "width": 80.65625,
+            "height": 126.375,
+            "top": 616.6875,
+            "right": 288.984375,
+            "bottom": 743.0625,
+            "left": 208.328125
+          },
+          "price": {
+            "x": 216.328125,
+            "y": 699.875,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 699.875,
+            "right": 280.984375,
+            "bottom": 732.0625,
+            "left": 216.328125
+          },
+          "value": {
+            "x": 236.296875,
+            "y": 715.96875,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 715.96875,
+            "right": 274.0625,
+            "bottom": 732.0625,
+            "left": 236.296875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p5",
+          "card": {
+            "x": 31,
+            "y": 751.0625,
+            "width": 80.65625,
+            "height": 140.375,
+            "top": 751.0625,
+            "right": 111.65625,
+            "bottom": 891.4375,
+            "left": 31
+          },
+          "price": {
+            "x": 39,
+            "y": 848.25,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 848.25,
+            "right": 103.65625,
+            "bottom": 880.4375,
+            "left": 39
+          },
+          "value": {
+            "x": 58.96875,
+            "y": 864.34375,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 864.34375,
+            "right": 96.75,
+            "bottom": 880.4375,
+            "left": 58.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p6",
+          "card": {
+            "x": 119.65625,
+            "y": 751.0625,
+            "width": 80.671875,
+            "height": 140.375,
+            "top": 751.0625,
+            "right": 200.328125,
+            "bottom": 891.4375,
+            "left": 119.65625
+          },
+          "price": {
+            "x": 127.65625,
+            "y": 848.25,
+            "width": 64.671875,
+            "height": 32.1875,
+            "top": 848.25,
+            "right": 192.328125,
+            "bottom": 880.4375,
+            "left": 127.65625
+          },
+          "value": {
+            "x": 147.625,
+            "y": 864.34375,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 864.34375,
+            "right": 185.390625,
+            "bottom": 880.4375,
+            "left": 147.625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p7",
+          "card": {
+            "x": 208.328125,
+            "y": 751.0625,
+            "width": 80.65625,
+            "height": 140.375,
+            "top": 751.0625,
+            "right": 288.984375,
+            "bottom": 891.4375,
+            "left": 208.328125
+          },
+          "price": {
+            "x": 216.328125,
+            "y": 848.25,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 848.25,
+            "right": 280.984375,
+            "bottom": 880.4375,
+            "left": 216.328125
+          },
+          "value": {
+            "x": 236.296875,
+            "y": 864.34375,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 864.34375,
+            "right": 274.078125,
+            "bottom": 880.4375,
+            "left": 236.296875
+          },
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "weather dialog",
+      "r": {
+        "x": 20,
+        "y": 66.59375,
+        "width": 280,
+        "height": 606.796875,
+        "top": 66.59375,
+        "right": 300,
+        "bottom": 673.390625,
+        "left": 20
+      },
+      "footer": {
+        "x": 21,
+        "y": 601.796875,
+        "width": 278,
+        "height": 70.59375,
+        "top": 601.796875,
+        "right": 299,
+        "bottom": 672.390625,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "x": 35,
+          "y": 614.796875,
+          "width": 250,
+          "height": 45.59375,
+          "top": 614.796875,
+          "right": 285,
+          "bottom": 660.390625,
+          "left": 35
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "daily forecast expanded",
+      "dialog": {
+        "x": 20,
+        "y": 66.59375,
+        "width": 280,
+        "height": 606.796875,
+        "top": 66.59375,
+        "right": 300,
+        "bottom": 673.390625,
+        "left": 20
+      },
+      "day": {
+        "x": 37,
+        "y": 318.828125,
+        "width": 246,
+        "height": 344.8125,
+        "top": 318.828125,
+        "right": 283,
+        "bottom": 663.640625,
+        "left": 37
+      },
+      "summary": {
+        "x": 38,
+        "y": 319.828125,
+        "width": 244,
+        "height": 89.546875,
+        "top": 319.828125,
+        "right": 282,
+        "bottom": 409.375,
+        "left": 38
+      },
+      "overflow": false,
+      "scrollbar": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "cloud next to sales area",
+      "label": {
+        "x": 24,
+        "y": 373.828125,
+        "width": 118.078125,
+        "height": 22.390625,
+        "top": 373.828125,
+        "right": 142.078125,
+        "bottom": 396.21875,
+        "left": 24
+      },
+      "button": {
+        "x": 154.078125,
+        "y": 363.03125,
+        "width": 64.046875,
+        "height": 44,
+        "top": 363.03125,
+        "right": 218.125,
+        "bottom": 407.03125,
+        "left": 154.078125
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "none",
+      "shadow": "none",
+      "color": "rgb(20, 23, 26)",
+      "icon": "rgb(20, 23, 26)",
+      "rain": "rgb(40, 120, 181)"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "aligned prices",
+      "geometry": [
+        {
+          "id": "p0",
+          "card": {
+            "x": 31,
+            "y": 432.03125,
+            "width": 94,
+            "height": 164.5625,
+            "top": 432.03125,
+            "right": 125,
+            "bottom": 596.59375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 553.40625,
+            "width": 76,
+            "height": 32.1875,
+            "top": 553.40625,
+            "right": 116,
+            "bottom": 585.59375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 569.5,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 569.5,
+            "right": 97.75,
+            "bottom": 585.59375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p1",
+          "card": {
+            "x": 133,
+            "y": 432.03125,
+            "width": 94,
+            "height": 164.5625,
+            "top": 432.03125,
+            "right": 227,
+            "bottom": 596.59375,
+            "left": 133
+          },
+          "price": {
+            "x": 142,
+            "y": 547.40625,
+            "width": 76,
+            "height": 38.1875,
+            "top": 547.40625,
+            "right": 218,
+            "bottom": 585.59375,
+            "left": 142
+          },
+          "value": {
+            "x": 142,
+            "y": 569.5,
+            "width": 58.28125,
+            "height": 16.09375,
+            "top": 569.5,
+            "right": 200.28125,
+            "bottom": 585.59375,
+            "left": 142
+          },
+          "overflow": false
+        },
+        {
+          "id": "p2",
+          "card": {
+            "x": 235,
+            "y": 432.03125,
+            "width": 94,
+            "height": 164.5625,
+            "top": 432.03125,
+            "right": 329,
+            "bottom": 596.59375,
+            "left": 235
+          },
+          "price": {
+            "x": 244,
+            "y": 547.40625,
+            "width": 76,
+            "height": 38.1875,
+            "top": 547.40625,
+            "right": 320,
+            "bottom": 585.59375,
+            "left": 244
+          },
+          "value": {
+            "x": 244,
+            "y": 569.5,
+            "width": 66.90625,
+            "height": 16.09375,
+            "top": 569.5,
+            "right": 310.90625,
+            "bottom": 585.59375,
+            "left": 244
+          },
+          "overflow": false
+        },
+        {
+          "id": "p3",
+          "card": {
+            "x": 31,
+            "y": 604.59375,
+            "width": 94,
+            "height": 120.375,
+            "top": 604.59375,
+            "right": 125,
+            "bottom": 724.96875,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 681.78125,
+            "width": 76,
+            "height": 32.1875,
+            "top": 681.78125,
+            "right": 116,
+            "bottom": 713.96875,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 697.875,
+            "width": 46.421875,
+            "height": 16.09375,
+            "top": 697.875,
+            "right": 106.390625,
+            "bottom": 713.96875,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p4",
+          "card": {
+            "x": 133,
+            "y": 604.59375,
+            "width": 94,
+            "height": 120.375,
+            "top": 604.59375,
+            "right": 227,
+            "bottom": 724.96875,
+            "left": 133
+          },
+          "price": {
+            "x": 142,
+            "y": 681.78125,
+            "width": 76,
+            "height": 32.1875,
+            "top": 681.78125,
+            "right": 218,
+            "bottom": 713.96875,
+            "left": 142
+          },
+          "value": {
+            "x": 161.96875,
+            "y": 697.875,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 697.875,
+            "right": 199.734375,
+            "bottom": 713.96875,
+            "left": 161.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p8",
+          "card": {
+            "x": 235,
+            "y": 604.59375,
+            "width": 94,
+            "height": 120.375,
+            "top": 604.59375,
+            "right": 329,
+            "bottom": 724.96875,
+            "left": 235
+          },
+          "price": {
+            "x": 244,
+            "y": 681.78125,
+            "width": 76,
+            "height": 32.1875,
+            "top": 681.78125,
+            "right": 320,
+            "bottom": 713.96875,
+            "left": 244
+          },
+          "value": {
+            "x": 263.96875,
+            "y": 697.875,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 697.875,
+            "right": 301.734375,
+            "bottom": 713.96875,
+            "left": 263.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p5",
+          "card": {
+            "x": 31,
+            "y": 732.96875,
+            "width": 94,
+            "height": 120.375,
+            "top": 732.96875,
+            "right": 125,
+            "bottom": 853.34375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 810.15625,
+            "width": 76,
+            "height": 32.1875,
+            "top": 810.15625,
+            "right": 116,
+            "bottom": 842.34375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 826.25,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 826.25,
+            "right": 97.75,
+            "bottom": 842.34375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p6",
+          "card": {
+            "x": 133,
+            "y": 732.96875,
+            "width": 94,
+            "height": 120.375,
+            "top": 732.96875,
+            "right": 227,
+            "bottom": 853.34375,
+            "left": 133
+          },
+          "price": {
+            "x": 142,
+            "y": 810.15625,
+            "width": 76,
+            "height": 32.1875,
+            "top": 810.15625,
+            "right": 218,
+            "bottom": 842.34375,
+            "left": 142
+          },
+          "value": {
+            "x": 161.96875,
+            "y": 826.25,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 826.25,
+            "right": 199.734375,
+            "bottom": 842.34375,
+            "left": 161.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p7",
+          "card": {
+            "x": 235,
+            "y": 732.96875,
+            "width": 94,
+            "height": 120.375,
+            "top": 732.96875,
+            "right": 329,
+            "bottom": 853.34375,
+            "left": 235
+          },
+          "price": {
+            "x": 244,
+            "y": 810.15625,
+            "width": 76,
+            "height": 32.1875,
+            "top": 810.15625,
+            "right": 320,
+            "bottom": 842.34375,
+            "left": 244
+          },
+          "value": {
+            "x": 263.96875,
+            "y": 826.25,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 826.25,
+            "right": 301.75,
+            "bottom": 842.34375,
+            "left": 263.96875
+          },
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "weather dialog",
+      "r": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 320,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 340,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "footer": {
+        "x": 21,
+        "y": 703.71875,
+        "width": 318,
+        "height": 70.59375,
+        "top": 703.71875,
+        "right": 339,
+        "bottom": 774.3125,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "x": 35,
+          "y": 716.71875,
+          "width": 290,
+          "height": 45.59375,
+          "top": 716.71875,
+          "right": 325,
+          "bottom": 762.3125,
+          "left": 35
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "daily forecast expanded",
+      "dialog": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 320,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 340,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "day": {
+        "x": 41,
+        "y": 379.25,
+        "width": 278,
+        "height": 344.8125,
+        "top": 379.25,
+        "right": 319,
+        "bottom": 724.0625,
+        "left": 41
+      },
+      "summary": {
+        "x": 42,
+        "y": 380.25,
+        "width": 276,
+        "height": 89.546875,
+        "top": 380.25,
+        "right": 318,
+        "bottom": 469.796875,
+        "left": 42
+      },
+      "overflow": false,
+      "scrollbar": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "cloud next to sales area",
+      "label": {
+        "x": 24,
+        "y": 377.828125,
+        "width": 118.078125,
+        "height": 22.390625,
+        "top": 377.828125,
+        "right": 142.078125,
+        "bottom": 400.21875,
+        "left": 24
+      },
+      "button": {
+        "x": 154.078125,
+        "y": 367.03125,
+        "width": 64.046875,
+        "height": 44,
+        "top": 367.03125,
+        "right": 218.125,
+        "bottom": 411.03125,
+        "left": 154.078125
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "none",
+      "shadow": "none",
+      "color": "rgb(20, 23, 26)",
+      "icon": "rgb(20, 23, 26)",
+      "rain": "rgb(40, 120, 181)"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "aligned prices",
+      "geometry": [
+        {
+          "id": "p0",
+          "card": {
+            "x": 31,
+            "y": 415.234375,
+            "width": 105,
+            "height": 118,
+            "top": 415.234375,
+            "right": 136,
+            "bottom": 533.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 490.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 127,
+            "bottom": 522.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 506.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 97.75,
+            "bottom": 522.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p1",
+          "card": {
+            "x": 144,
+            "y": 415.234375,
+            "width": 105,
+            "height": 118,
+            "top": 415.234375,
+            "right": 249,
+            "bottom": 533.234375,
+            "left": 144
+          },
+          "price": {
+            "x": 153,
+            "y": 490.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 240,
+            "bottom": 522.234375,
+            "left": 153
+          },
+          "value": {
+            "x": 172.96875,
+            "y": 506.140625,
+            "width": 58.28125,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 231.25,
+            "bottom": 522.234375,
+            "left": 172.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p2",
+          "card": {
+            "x": 257,
+            "y": 415.234375,
+            "width": 105,
+            "height": 118,
+            "top": 415.234375,
+            "right": 362,
+            "bottom": 533.234375,
+            "left": 257
+          },
+          "price": {
+            "x": 266,
+            "y": 490.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 353,
+            "bottom": 522.234375,
+            "left": 266
+          },
+          "value": {
+            "x": 285.96875,
+            "y": 506.140625,
+            "width": 66.90625,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 352.875,
+            "bottom": 522.234375,
+            "left": 285.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p3",
+          "card": {
+            "x": 31,
+            "y": 541.234375,
+            "width": 105,
+            "height": 118,
+            "top": 541.234375,
+            "right": 136,
+            "bottom": 659.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 616.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 127,
+            "bottom": 648.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 632.140625,
+            "width": 46.421875,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 106.390625,
+            "bottom": 648.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p4",
+          "card": {
+            "x": 144,
+            "y": 541.234375,
+            "width": 105,
+            "height": 118,
+            "top": 541.234375,
+            "right": 249,
+            "bottom": 659.234375,
+            "left": 144
+          },
+          "price": {
+            "x": 153,
+            "y": 616.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 240,
+            "bottom": 648.234375,
+            "left": 153
+          },
+          "value": {
+            "x": 172.96875,
+            "y": 632.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 210.734375,
+            "bottom": 648.234375,
+            "left": 172.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p8",
+          "card": {
+            "x": 257,
+            "y": 541.234375,
+            "width": 105,
+            "height": 118,
+            "top": 541.234375,
+            "right": 362,
+            "bottom": 659.234375,
+            "left": 257
+          },
+          "price": {
+            "x": 266,
+            "y": 616.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 353,
+            "bottom": 648.234375,
+            "left": 266
+          },
+          "value": {
+            "x": 285.96875,
+            "y": 632.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 323.734375,
+            "bottom": 648.234375,
+            "left": 285.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p5",
+          "card": {
+            "x": 31,
+            "y": 667.234375,
+            "width": 105,
+            "height": 118,
+            "top": 667.234375,
+            "right": 136,
+            "bottom": 785.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 742.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 127,
+            "bottom": 774.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 758.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 97.75,
+            "bottom": 774.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p6",
+          "card": {
+            "x": 144,
+            "y": 667.234375,
+            "width": 105,
+            "height": 118,
+            "top": 667.234375,
+            "right": 249,
+            "bottom": 785.234375,
+            "left": 144
+          },
+          "price": {
+            "x": 153,
+            "y": 742.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 240,
+            "bottom": 774.234375,
+            "left": 153
+          },
+          "value": {
+            "x": 172.96875,
+            "y": 758.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 210.734375,
+            "bottom": 774.234375,
+            "left": 172.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p7",
+          "card": {
+            "x": 257,
+            "y": 667.234375,
+            "width": 105,
+            "height": 118,
+            "top": 667.234375,
+            "right": 362,
+            "bottom": 785.234375,
+            "left": 257
+          },
+          "price": {
+            "x": 266,
+            "y": 742.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 353,
+            "bottom": 774.234375,
+            "left": 266
+          },
+          "value": {
+            "x": 285.96875,
+            "y": 758.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 323.75,
+            "bottom": 774.234375,
+            "left": 285.96875
+          },
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "weather dialog",
+      "r": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 353,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 373,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "footer": {
+        "x": 21,
+        "y": 703.71875,
+        "width": 351,
+        "height": 70.59375,
+        "top": 703.71875,
+        "right": 372,
+        "bottom": 774.3125,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "x": 35,
+          "y": 716.71875,
+          "width": 323,
+          "height": 45.59375,
+          "top": 716.71875,
+          "right": 358,
+          "bottom": 762.3125,
+          "left": 35
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "daily forecast expanded",
+      "dialog": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 353,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 373,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "day": {
+        "x": 41,
+        "y": 379.453125,
+        "width": 311,
+        "height": 325.96875,
+        "top": 379.453125,
+        "right": 352,
+        "bottom": 705.421875,
+        "left": 41
+      },
+      "summary": {
+        "x": 42,
+        "y": 380.453125,
+        "width": 309,
+        "height": 89.546875,
+        "top": 380.453125,
+        "right": 351,
+        "bottom": 470,
+        "left": 42
+      },
+      "overflow": false,
+      "scrollbar": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "cloud next to sales area",
+      "label": {
+        "x": 24,
+        "y": 361.03125,
+        "width": 118.078125,
+        "height": 22.390625,
+        "top": 361.03125,
+        "right": 142.078125,
+        "bottom": 383.421875,
+        "left": 24
+      },
+      "button": {
+        "x": 154.078125,
+        "y": 350.234375,
+        "width": 64.046875,
+        "height": 44,
+        "top": 350.234375,
+        "right": 218.125,
+        "bottom": 394.234375,
+        "left": 154.078125
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "none",
+      "shadow": "none",
+      "color": "rgb(20, 23, 26)",
+      "icon": "rgb(20, 23, 26)",
+      "rain": "rgb(40, 120, 181)"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "aligned prices",
+      "geometry": [
+        {
+          "id": "p0",
+          "card": {
+            "x": 31,
+            "y": 415.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 415.234375,
+            "right": 142.328125,
+            "bottom": 533.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 490.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 133.328125,
+            "bottom": 522.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 506.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 97.75,
+            "bottom": 522.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p1",
+          "card": {
+            "x": 150.328125,
+            "y": 415.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 415.234375,
+            "right": 261.65625,
+            "bottom": 533.234375,
+            "left": 150.328125
+          },
+          "price": {
+            "x": 159.328125,
+            "y": 490.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 252.65625,
+            "bottom": 522.234375,
+            "left": 159.328125
+          },
+          "value": {
+            "x": 179.296875,
+            "y": 506.140625,
+            "width": 58.28125,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 237.578125,
+            "bottom": 522.234375,
+            "left": 179.296875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p2",
+          "card": {
+            "x": 269.65625,
+            "y": 415.234375,
+            "width": 111.34375,
+            "height": 118,
+            "top": 415.234375,
+            "right": 381,
+            "bottom": 533.234375,
+            "left": 269.65625
+          },
+          "price": {
+            "x": 278.65625,
+            "y": 490.046875,
+            "width": 93.34375,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 372,
+            "bottom": 522.234375,
+            "left": 278.65625
+          },
+          "value": {
+            "x": 298.625,
+            "y": 506.140625,
+            "width": 66.90625,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 365.53125,
+            "bottom": 522.234375,
+            "left": 298.625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p3",
+          "card": {
+            "x": 31,
+            "y": 541.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 541.234375,
+            "right": 142.328125,
+            "bottom": 659.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 616.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 133.328125,
+            "bottom": 648.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 632.140625,
+            "width": 46.421875,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 106.390625,
+            "bottom": 648.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p4",
+          "card": {
+            "x": 150.328125,
+            "y": 541.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 541.234375,
+            "right": 261.65625,
+            "bottom": 659.234375,
+            "left": 150.328125
+          },
+          "price": {
+            "x": 159.328125,
+            "y": 616.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 252.65625,
+            "bottom": 648.234375,
+            "left": 159.328125
+          },
+          "value": {
+            "x": 179.296875,
+            "y": 632.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 217.0625,
+            "bottom": 648.234375,
+            "left": 179.296875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p8",
+          "card": {
+            "x": 269.65625,
+            "y": 541.234375,
+            "width": 111.34375,
+            "height": 118,
+            "top": 541.234375,
+            "right": 381,
+            "bottom": 659.234375,
+            "left": 269.65625
+          },
+          "price": {
+            "x": 278.65625,
+            "y": 616.046875,
+            "width": 93.34375,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 372,
+            "bottom": 648.234375,
+            "left": 278.65625
+          },
+          "value": {
+            "x": 298.625,
+            "y": 632.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 336.390625,
+            "bottom": 648.234375,
+            "left": 298.625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p5",
+          "card": {
+            "x": 31,
+            "y": 667.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 667.234375,
+            "right": 142.328125,
+            "bottom": 785.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 742.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 133.328125,
+            "bottom": 774.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 758.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 97.75,
+            "bottom": 774.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p6",
+          "card": {
+            "x": 150.328125,
+            "y": 667.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 667.234375,
+            "right": 261.65625,
+            "bottom": 785.234375,
+            "left": 150.328125
+          },
+          "price": {
+            "x": 159.328125,
+            "y": 742.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 252.65625,
+            "bottom": 774.234375,
+            "left": 159.328125
+          },
+          "value": {
+            "x": 179.296875,
+            "y": 758.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 217.0625,
+            "bottom": 774.234375,
+            "left": 179.296875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p7",
+          "card": {
+            "x": 269.65625,
+            "y": 667.234375,
+            "width": 111.34375,
+            "height": 118,
+            "top": 667.234375,
+            "right": 381,
+            "bottom": 785.234375,
+            "left": 269.65625
+          },
+          "price": {
+            "x": 278.65625,
+            "y": 742.046875,
+            "width": 93.34375,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 372,
+            "bottom": 774.234375,
+            "left": 278.65625
+          },
+          "value": {
+            "x": 298.625,
+            "y": 758.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 336.40625,
+            "bottom": 774.234375,
+            "left": 298.625
+          },
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "weather dialog",
+      "r": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 372,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 392,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "footer": {
+        "x": 21,
+        "y": 703.71875,
+        "width": 370,
+        "height": 70.59375,
+        "top": 703.71875,
+        "right": 391,
+        "bottom": 774.3125,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "x": 35,
+          "y": 716.71875,
+          "width": 342,
+          "height": 45.59375,
+          "top": 716.71875,
+          "right": 377,
+          "bottom": 762.3125,
+          "left": 35
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "daily forecast expanded",
+      "dialog": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 372,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 392,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "day": {
+        "x": 41,
+        "y": 378.75,
+        "width": 330,
+        "height": 325.96875,
+        "top": 378.75,
+        "right": 371,
+        "bottom": 704.71875,
+        "left": 41
+      },
+      "summary": {
+        "x": 42,
+        "y": 379.75,
+        "width": 328,
+        "height": 89.546875,
+        "top": 379.75,
+        "right": 370,
+        "bottom": 469.296875,
+        "left": 42
+      },
+      "overflow": false,
+      "scrollbar": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "cloud next to sales area",
+      "label": {
+        "x": 24,
+        "y": 361.03125,
+        "width": 118.078125,
+        "height": 22.390625,
+        "top": 361.03125,
+        "right": 142.078125,
+        "bottom": 383.421875,
+        "left": 24
+      },
+      "button": {
+        "x": 154.078125,
+        "y": 350.234375,
+        "width": 64.046875,
+        "height": 44,
+        "top": 350.234375,
+        "right": 218.125,
+        "bottom": 394.234375,
+        "left": 154.078125
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "none",
+      "shadow": "none",
+      "color": "rgb(20, 23, 26)",
+      "icon": "rgb(20, 23, 26)",
+      "rain": "rgb(40, 120, 181)"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "aligned prices",
+      "geometry": [
+        {
+          "id": "p0",
+          "card": {
+            "x": 31,
+            "y": 428.03125,
+            "width": 80.65625,
+            "height": 180.65625,
+            "top": 428.03125,
+            "right": 111.65625,
+            "bottom": 608.6875,
+            "left": 31
+          },
+          "price": {
+            "x": 39,
+            "y": 565.5,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 565.5,
+            "right": 103.65625,
+            "bottom": 597.6875,
+            "left": 39
+          },
+          "value": {
+            "x": 58.96875,
+            "y": 581.59375,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 581.59375,
+            "right": 96.75,
+            "bottom": 597.6875,
+            "left": 58.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p1",
+          "card": {
+            "x": 119.65625,
+            "y": 428.03125,
+            "width": 80.671875,
+            "height": 180.65625,
+            "top": 428.03125,
+            "right": 200.328125,
+            "bottom": 608.6875,
+            "left": 119.65625
+          },
+          "price": {
+            "x": 127.65625,
+            "y": 559.5,
+            "width": 64.671875,
+            "height": 38.1875,
+            "top": 559.5,
+            "right": 192.328125,
+            "bottom": 597.6875,
+            "left": 127.65625
+          },
+          "value": {
+            "x": 127.65625,
+            "y": 581.59375,
+            "width": 58.28125,
+            "height": 16.09375,
+            "top": 581.59375,
+            "right": 185.9375,
+            "bottom": 597.6875,
+            "left": 127.65625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p2",
+          "card": {
+            "x": 208.328125,
+            "y": 428.03125,
+            "width": 80.65625,
+            "height": 180.65625,
+            "top": 428.03125,
+            "right": 288.984375,
+            "bottom": 608.6875,
+            "left": 208.328125
+          },
+          "price": {
+            "x": 216.328125,
+            "y": 543.40625,
+            "width": 64.65625,
+            "height": 54.28125,
+            "top": 543.40625,
+            "right": 280.984375,
+            "bottom": 597.6875,
+            "left": 216.328125
+          },
+          "value": {
+            "x": 216.328125,
+            "y": 565.5,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 565.5,
+            "right": 280.984375,
+            "bottom": 597.6875,
+            "left": 216.328125
+          },
+          "overflow": false
+        },
+        {
+          "id": "p3",
+          "card": {
+            "x": 31,
+            "y": 616.6875,
+            "width": 80.65625,
+            "height": 126.375,
+            "top": 616.6875,
+            "right": 111.65625,
+            "bottom": 743.0625,
+            "left": 31
+          },
+          "price": {
+            "x": 39,
+            "y": 693.875,
+            "width": 64.65625,
+            "height": 38.1875,
+            "top": 693.875,
+            "right": 103.65625,
+            "bottom": 732.0625,
+            "left": 39
+          },
+          "value": {
+            "x": 39,
+            "y": 715.96875,
+            "width": 46.421875,
+            "height": 16.09375,
+            "top": 715.96875,
+            "right": 85.421875,
+            "bottom": 732.0625,
+            "left": 39
+          },
+          "overflow": false
+        },
+        {
+          "id": "p4",
+          "card": {
+            "x": 119.65625,
+            "y": 616.6875,
+            "width": 80.671875,
+            "height": 126.375,
+            "top": 616.6875,
+            "right": 200.328125,
+            "bottom": 743.0625,
+            "left": 119.65625
+          },
+          "price": {
+            "x": 127.65625,
+            "y": 699.875,
+            "width": 64.671875,
+            "height": 32.1875,
+            "top": 699.875,
+            "right": 192.328125,
+            "bottom": 732.0625,
+            "left": 127.65625
+          },
+          "value": {
+            "x": 147.625,
+            "y": 715.96875,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 715.96875,
+            "right": 185.390625,
+            "bottom": 732.0625,
+            "left": 147.625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p8",
+          "card": {
+            "x": 208.328125,
+            "y": 616.6875,
+            "width": 80.65625,
+            "height": 126.375,
+            "top": 616.6875,
+            "right": 288.984375,
+            "bottom": 743.0625,
+            "left": 208.328125
+          },
+          "price": {
+            "x": 216.328125,
+            "y": 699.875,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 699.875,
+            "right": 280.984375,
+            "bottom": 732.0625,
+            "left": 216.328125
+          },
+          "value": {
+            "x": 236.296875,
+            "y": 715.96875,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 715.96875,
+            "right": 274.0625,
+            "bottom": 732.0625,
+            "left": 236.296875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p5",
+          "card": {
+            "x": 31,
+            "y": 751.0625,
+            "width": 80.65625,
+            "height": 140.375,
+            "top": 751.0625,
+            "right": 111.65625,
+            "bottom": 891.4375,
+            "left": 31
+          },
+          "price": {
+            "x": 39,
+            "y": 848.25,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 848.25,
+            "right": 103.65625,
+            "bottom": 880.4375,
+            "left": 39
+          },
+          "value": {
+            "x": 58.96875,
+            "y": 864.34375,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 864.34375,
+            "right": 96.75,
+            "bottom": 880.4375,
+            "left": 58.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p6",
+          "card": {
+            "x": 119.65625,
+            "y": 751.0625,
+            "width": 80.671875,
+            "height": 140.375,
+            "top": 751.0625,
+            "right": 200.328125,
+            "bottom": 891.4375,
+            "left": 119.65625
+          },
+          "price": {
+            "x": 127.65625,
+            "y": 848.25,
+            "width": 64.671875,
+            "height": 32.1875,
+            "top": 848.25,
+            "right": 192.328125,
+            "bottom": 880.4375,
+            "left": 127.65625
+          },
+          "value": {
+            "x": 147.625,
+            "y": 864.34375,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 864.34375,
+            "right": 185.390625,
+            "bottom": 880.4375,
+            "left": 147.625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p7",
+          "card": {
+            "x": 208.328125,
+            "y": 751.0625,
+            "width": 80.65625,
+            "height": 140.375,
+            "top": 751.0625,
+            "right": 288.984375,
+            "bottom": 891.4375,
+            "left": 208.328125
+          },
+          "price": {
+            "x": 216.328125,
+            "y": 848.25,
+            "width": 64.65625,
+            "height": 32.1875,
+            "top": 848.25,
+            "right": 280.984375,
+            "bottom": 880.4375,
+            "left": 216.328125
+          },
+          "value": {
+            "x": 236.296875,
+            "y": 864.34375,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 864.34375,
+            "right": 274.078125,
+            "bottom": 880.4375,
+            "left": 236.296875
+          },
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "weather dialog",
+      "r": {
+        "x": 20,
+        "y": 66.59375,
+        "width": 280,
+        "height": 606.796875,
+        "top": 66.59375,
+        "right": 300,
+        "bottom": 673.390625,
+        "left": 20
+      },
+      "footer": {
+        "x": 21,
+        "y": 601.796875,
+        "width": 278,
+        "height": 70.59375,
+        "top": 601.796875,
+        "right": 299,
+        "bottom": 672.390625,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "x": 35,
+          "y": 614.796875,
+          "width": 250,
+          "height": 45.59375,
+          "top": 614.796875,
+          "right": 285,
+          "bottom": 660.390625,
+          "left": 35
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "daily forecast expanded",
+      "dialog": {
+        "x": 20,
+        "y": 66.59375,
+        "width": 280,
+        "height": 606.796875,
+        "top": 66.59375,
+        "right": 300,
+        "bottom": 673.390625,
+        "left": 20
+      },
+      "day": {
+        "x": 37,
+        "y": 318.828125,
+        "width": 246,
+        "height": 344.8125,
+        "top": 318.828125,
+        "right": 283,
+        "bottom": 663.640625,
+        "left": 37
+      },
+      "summary": {
+        "x": 38,
+        "y": 319.828125,
+        "width": 244,
+        "height": 89.546875,
+        "top": 319.828125,
+        "right": 282,
+        "bottom": 409.375,
+        "left": 38
+      },
+      "overflow": false,
+      "scrollbar": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "name": "cloud next to sales area",
+      "label": {
+        "x": 24,
+        "y": 373.828125,
+        "width": 118.078125,
+        "height": 22.390625,
+        "top": 373.828125,
+        "right": 142.078125,
+        "bottom": 396.21875,
+        "left": 24
+      },
+      "button": {
+        "x": 154.078125,
+        "y": 363.03125,
+        "width": 64.046875,
+        "height": 44,
+        "top": 363.03125,
+        "right": 218.125,
+        "bottom": 407.03125,
+        "left": 154.078125
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "none",
+      "shadow": "none",
+      "color": "rgb(246, 247, 249)",
+      "icon": "rgb(246, 247, 249)",
+      "rain": "rgb(142, 201, 246)"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "aligned prices",
+      "geometry": [
+        {
+          "id": "p0",
+          "card": {
+            "x": 31,
+            "y": 432.03125,
+            "width": 94,
+            "height": 164.5625,
+            "top": 432.03125,
+            "right": 125,
+            "bottom": 596.59375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 553.40625,
+            "width": 76,
+            "height": 32.1875,
+            "top": 553.40625,
+            "right": 116,
+            "bottom": 585.59375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 569.5,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 569.5,
+            "right": 97.75,
+            "bottom": 585.59375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p1",
+          "card": {
+            "x": 133,
+            "y": 432.03125,
+            "width": 94,
+            "height": 164.5625,
+            "top": 432.03125,
+            "right": 227,
+            "bottom": 596.59375,
+            "left": 133
+          },
+          "price": {
+            "x": 142,
+            "y": 547.40625,
+            "width": 76,
+            "height": 38.1875,
+            "top": 547.40625,
+            "right": 218,
+            "bottom": 585.59375,
+            "left": 142
+          },
+          "value": {
+            "x": 142,
+            "y": 569.5,
+            "width": 58.28125,
+            "height": 16.09375,
+            "top": 569.5,
+            "right": 200.28125,
+            "bottom": 585.59375,
+            "left": 142
+          },
+          "overflow": false
+        },
+        {
+          "id": "p2",
+          "card": {
+            "x": 235,
+            "y": 432.03125,
+            "width": 94,
+            "height": 164.5625,
+            "top": 432.03125,
+            "right": 329,
+            "bottom": 596.59375,
+            "left": 235
+          },
+          "price": {
+            "x": 244,
+            "y": 547.40625,
+            "width": 76,
+            "height": 38.1875,
+            "top": 547.40625,
+            "right": 320,
+            "bottom": 585.59375,
+            "left": 244
+          },
+          "value": {
+            "x": 244,
+            "y": 569.5,
+            "width": 66.90625,
+            "height": 16.09375,
+            "top": 569.5,
+            "right": 310.90625,
+            "bottom": 585.59375,
+            "left": 244
+          },
+          "overflow": false
+        },
+        {
+          "id": "p3",
+          "card": {
+            "x": 31,
+            "y": 604.59375,
+            "width": 94,
+            "height": 120.375,
+            "top": 604.59375,
+            "right": 125,
+            "bottom": 724.96875,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 681.78125,
+            "width": 76,
+            "height": 32.1875,
+            "top": 681.78125,
+            "right": 116,
+            "bottom": 713.96875,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 697.875,
+            "width": 46.421875,
+            "height": 16.09375,
+            "top": 697.875,
+            "right": 106.390625,
+            "bottom": 713.96875,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p4",
+          "card": {
+            "x": 133,
+            "y": 604.59375,
+            "width": 94,
+            "height": 120.375,
+            "top": 604.59375,
+            "right": 227,
+            "bottom": 724.96875,
+            "left": 133
+          },
+          "price": {
+            "x": 142,
+            "y": 681.78125,
+            "width": 76,
+            "height": 32.1875,
+            "top": 681.78125,
+            "right": 218,
+            "bottom": 713.96875,
+            "left": 142
+          },
+          "value": {
+            "x": 161.96875,
+            "y": 697.875,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 697.875,
+            "right": 199.734375,
+            "bottom": 713.96875,
+            "left": 161.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p8",
+          "card": {
+            "x": 235,
+            "y": 604.59375,
+            "width": 94,
+            "height": 120.375,
+            "top": 604.59375,
+            "right": 329,
+            "bottom": 724.96875,
+            "left": 235
+          },
+          "price": {
+            "x": 244,
+            "y": 681.78125,
+            "width": 76,
+            "height": 32.1875,
+            "top": 681.78125,
+            "right": 320,
+            "bottom": 713.96875,
+            "left": 244
+          },
+          "value": {
+            "x": 263.96875,
+            "y": 697.875,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 697.875,
+            "right": 301.734375,
+            "bottom": 713.96875,
+            "left": 263.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p5",
+          "card": {
+            "x": 31,
+            "y": 732.96875,
+            "width": 94,
+            "height": 120.375,
+            "top": 732.96875,
+            "right": 125,
+            "bottom": 853.34375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 810.15625,
+            "width": 76,
+            "height": 32.1875,
+            "top": 810.15625,
+            "right": 116,
+            "bottom": 842.34375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 826.25,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 826.25,
+            "right": 97.75,
+            "bottom": 842.34375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p6",
+          "card": {
+            "x": 133,
+            "y": 732.96875,
+            "width": 94,
+            "height": 120.375,
+            "top": 732.96875,
+            "right": 227,
+            "bottom": 853.34375,
+            "left": 133
+          },
+          "price": {
+            "x": 142,
+            "y": 810.15625,
+            "width": 76,
+            "height": 32.1875,
+            "top": 810.15625,
+            "right": 218,
+            "bottom": 842.34375,
+            "left": 142
+          },
+          "value": {
+            "x": 161.96875,
+            "y": 826.25,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 826.25,
+            "right": 199.734375,
+            "bottom": 842.34375,
+            "left": 161.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p7",
+          "card": {
+            "x": 235,
+            "y": 732.96875,
+            "width": 94,
+            "height": 120.375,
+            "top": 732.96875,
+            "right": 329,
+            "bottom": 853.34375,
+            "left": 235
+          },
+          "price": {
+            "x": 244,
+            "y": 810.15625,
+            "width": 76,
+            "height": 32.1875,
+            "top": 810.15625,
+            "right": 320,
+            "bottom": 842.34375,
+            "left": 244
+          },
+          "value": {
+            "x": 263.96875,
+            "y": 826.25,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 826.25,
+            "right": 301.75,
+            "bottom": 842.34375,
+            "left": 263.96875
+          },
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "weather dialog",
+      "r": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 320,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 340,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "footer": {
+        "x": 21,
+        "y": 703.71875,
+        "width": 318,
+        "height": 70.59375,
+        "top": 703.71875,
+        "right": 339,
+        "bottom": 774.3125,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "x": 35,
+          "y": 716.71875,
+          "width": 290,
+          "height": 45.59375,
+          "top": 716.71875,
+          "right": 325,
+          "bottom": 762.3125,
+          "left": 35
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "daily forecast expanded",
+      "dialog": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 320,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 340,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "day": {
+        "x": 41,
+        "y": 379.25,
+        "width": 278,
+        "height": 344.8125,
+        "top": 379.25,
+        "right": 319,
+        "bottom": 724.0625,
+        "left": 41
+      },
+      "summary": {
+        "x": 42,
+        "y": 380.25,
+        "width": 276,
+        "height": 89.546875,
+        "top": 380.25,
+        "right": 318,
+        "bottom": 469.796875,
+        "left": 42
+      },
+      "overflow": false,
+      "scrollbar": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": true,
+      "name": "cloud next to sales area",
+      "label": {
+        "x": 24,
+        "y": 377.828125,
+        "width": 118.078125,
+        "height": 22.390625,
+        "top": 377.828125,
+        "right": 142.078125,
+        "bottom": 400.21875,
+        "left": 24
+      },
+      "button": {
+        "x": 154.078125,
+        "y": 367.03125,
+        "width": 64.046875,
+        "height": 44,
+        "top": 367.03125,
+        "right": 218.125,
+        "bottom": 411.03125,
+        "left": 154.078125
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "none",
+      "shadow": "none",
+      "color": "rgb(246, 247, 249)",
+      "icon": "rgb(246, 247, 249)",
+      "rain": "rgb(142, 201, 246)"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "aligned prices",
+      "geometry": [
+        {
+          "id": "p0",
+          "card": {
+            "x": 31,
+            "y": 415.234375,
+            "width": 105,
+            "height": 118,
+            "top": 415.234375,
+            "right": 136,
+            "bottom": 533.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 490.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 127,
+            "bottom": 522.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 506.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 97.75,
+            "bottom": 522.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p1",
+          "card": {
+            "x": 144,
+            "y": 415.234375,
+            "width": 105,
+            "height": 118,
+            "top": 415.234375,
+            "right": 249,
+            "bottom": 533.234375,
+            "left": 144
+          },
+          "price": {
+            "x": 153,
+            "y": 490.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 240,
+            "bottom": 522.234375,
+            "left": 153
+          },
+          "value": {
+            "x": 172.96875,
+            "y": 506.140625,
+            "width": 58.28125,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 231.25,
+            "bottom": 522.234375,
+            "left": 172.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p2",
+          "card": {
+            "x": 257,
+            "y": 415.234375,
+            "width": 105,
+            "height": 118,
+            "top": 415.234375,
+            "right": 362,
+            "bottom": 533.234375,
+            "left": 257
+          },
+          "price": {
+            "x": 266,
+            "y": 490.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 353,
+            "bottom": 522.234375,
+            "left": 266
+          },
+          "value": {
+            "x": 285.96875,
+            "y": 506.140625,
+            "width": 66.90625,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 352.875,
+            "bottom": 522.234375,
+            "left": 285.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p3",
+          "card": {
+            "x": 31,
+            "y": 541.234375,
+            "width": 105,
+            "height": 118,
+            "top": 541.234375,
+            "right": 136,
+            "bottom": 659.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 616.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 127,
+            "bottom": 648.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 632.140625,
+            "width": 46.421875,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 106.390625,
+            "bottom": 648.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p4",
+          "card": {
+            "x": 144,
+            "y": 541.234375,
+            "width": 105,
+            "height": 118,
+            "top": 541.234375,
+            "right": 249,
+            "bottom": 659.234375,
+            "left": 144
+          },
+          "price": {
+            "x": 153,
+            "y": 616.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 240,
+            "bottom": 648.234375,
+            "left": 153
+          },
+          "value": {
+            "x": 172.96875,
+            "y": 632.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 210.734375,
+            "bottom": 648.234375,
+            "left": 172.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p8",
+          "card": {
+            "x": 257,
+            "y": 541.234375,
+            "width": 105,
+            "height": 118,
+            "top": 541.234375,
+            "right": 362,
+            "bottom": 659.234375,
+            "left": 257
+          },
+          "price": {
+            "x": 266,
+            "y": 616.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 353,
+            "bottom": 648.234375,
+            "left": 266
+          },
+          "value": {
+            "x": 285.96875,
+            "y": 632.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 323.734375,
+            "bottom": 648.234375,
+            "left": 285.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p5",
+          "card": {
+            "x": 31,
+            "y": 667.234375,
+            "width": 105,
+            "height": 118,
+            "top": 667.234375,
+            "right": 136,
+            "bottom": 785.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 742.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 127,
+            "bottom": 774.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 758.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 97.75,
+            "bottom": 774.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p6",
+          "card": {
+            "x": 144,
+            "y": 667.234375,
+            "width": 105,
+            "height": 118,
+            "top": 667.234375,
+            "right": 249,
+            "bottom": 785.234375,
+            "left": 144
+          },
+          "price": {
+            "x": 153,
+            "y": 742.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 240,
+            "bottom": 774.234375,
+            "left": 153
+          },
+          "value": {
+            "x": 172.96875,
+            "y": 758.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 210.734375,
+            "bottom": 774.234375,
+            "left": 172.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p7",
+          "card": {
+            "x": 257,
+            "y": 667.234375,
+            "width": 105,
+            "height": 118,
+            "top": 667.234375,
+            "right": 362,
+            "bottom": 785.234375,
+            "left": 257
+          },
+          "price": {
+            "x": 266,
+            "y": 742.046875,
+            "width": 87,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 353,
+            "bottom": 774.234375,
+            "left": 266
+          },
+          "value": {
+            "x": 285.96875,
+            "y": 758.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 323.75,
+            "bottom": 774.234375,
+            "left": 285.96875
+          },
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "weather dialog",
+      "r": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 353,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 373,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "footer": {
+        "x": 21,
+        "y": 703.71875,
+        "width": 351,
+        "height": 70.59375,
+        "top": 703.71875,
+        "right": 372,
+        "bottom": 774.3125,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "x": 35,
+          "y": 716.71875,
+          "width": 323,
+          "height": 45.59375,
+          "top": 716.71875,
+          "right": 358,
+          "bottom": 762.3125,
+          "left": 35
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "daily forecast expanded",
+      "dialog": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 353,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 373,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "day": {
+        "x": 41,
+        "y": 379.453125,
+        "width": 311,
+        "height": 325.96875,
+        "top": 379.453125,
+        "right": 352,
+        "bottom": 705.421875,
+        "left": 41
+      },
+      "summary": {
+        "x": 42,
+        "y": 380.453125,
+        "width": 309,
+        "height": 89.546875,
+        "top": 380.453125,
+        "right": 351,
+        "bottom": 470,
+        "left": 42
+      },
+      "overflow": false,
+      "scrollbar": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "name": "cloud next to sales area",
+      "label": {
+        "x": 24,
+        "y": 361.03125,
+        "width": 118.078125,
+        "height": 22.390625,
+        "top": 361.03125,
+        "right": 142.078125,
+        "bottom": 383.421875,
+        "left": 24
+      },
+      "button": {
+        "x": 154.078125,
+        "y": 350.234375,
+        "width": 64.046875,
+        "height": 44,
+        "top": 350.234375,
+        "right": 218.125,
+        "bottom": 394.234375,
+        "left": 154.078125
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "none",
+      "shadow": "none",
+      "color": "rgb(246, 247, 249)",
+      "icon": "rgb(246, 247, 249)",
+      "rain": "rgb(142, 201, 246)"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "aligned prices",
+      "geometry": [
+        {
+          "id": "p0",
+          "card": {
+            "x": 31,
+            "y": 415.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 415.234375,
+            "right": 142.328125,
+            "bottom": 533.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 490.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 133.328125,
+            "bottom": 522.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 506.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 97.75,
+            "bottom": 522.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p1",
+          "card": {
+            "x": 150.328125,
+            "y": 415.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 415.234375,
+            "right": 261.65625,
+            "bottom": 533.234375,
+            "left": 150.328125
+          },
+          "price": {
+            "x": 159.328125,
+            "y": 490.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 252.65625,
+            "bottom": 522.234375,
+            "left": 159.328125
+          },
+          "value": {
+            "x": 179.296875,
+            "y": 506.140625,
+            "width": 58.28125,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 237.578125,
+            "bottom": 522.234375,
+            "left": 179.296875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p2",
+          "card": {
+            "x": 269.65625,
+            "y": 415.234375,
+            "width": 111.34375,
+            "height": 118,
+            "top": 415.234375,
+            "right": 381,
+            "bottom": 533.234375,
+            "left": 269.65625
+          },
+          "price": {
+            "x": 278.65625,
+            "y": 490.046875,
+            "width": 93.34375,
+            "height": 32.1875,
+            "top": 490.046875,
+            "right": 372,
+            "bottom": 522.234375,
+            "left": 278.65625
+          },
+          "value": {
+            "x": 298.625,
+            "y": 506.140625,
+            "width": 66.90625,
+            "height": 16.09375,
+            "top": 506.140625,
+            "right": 365.53125,
+            "bottom": 522.234375,
+            "left": 298.625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p3",
+          "card": {
+            "x": 31,
+            "y": 541.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 541.234375,
+            "right": 142.328125,
+            "bottom": 659.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 616.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 133.328125,
+            "bottom": 648.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 632.140625,
+            "width": 46.421875,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 106.390625,
+            "bottom": 648.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p4",
+          "card": {
+            "x": 150.328125,
+            "y": 541.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 541.234375,
+            "right": 261.65625,
+            "bottom": 659.234375,
+            "left": 150.328125
+          },
+          "price": {
+            "x": 159.328125,
+            "y": 616.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 252.65625,
+            "bottom": 648.234375,
+            "left": 159.328125
+          },
+          "value": {
+            "x": 179.296875,
+            "y": 632.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 217.0625,
+            "bottom": 648.234375,
+            "left": 179.296875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p8",
+          "card": {
+            "x": 269.65625,
+            "y": 541.234375,
+            "width": 111.34375,
+            "height": 118,
+            "top": 541.234375,
+            "right": 381,
+            "bottom": 659.234375,
+            "left": 269.65625
+          },
+          "price": {
+            "x": 278.65625,
+            "y": 616.046875,
+            "width": 93.34375,
+            "height": 32.1875,
+            "top": 616.046875,
+            "right": 372,
+            "bottom": 648.234375,
+            "left": 278.65625
+          },
+          "value": {
+            "x": 298.625,
+            "y": 632.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 632.140625,
+            "right": 336.390625,
+            "bottom": 648.234375,
+            "left": 298.625
+          },
+          "overflow": false
+        },
+        {
+          "id": "p5",
+          "card": {
+            "x": 31,
+            "y": 667.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 667.234375,
+            "right": 142.328125,
+            "bottom": 785.234375,
+            "left": 31
+          },
+          "price": {
+            "x": 40,
+            "y": 742.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 133.328125,
+            "bottom": 774.234375,
+            "left": 40
+          },
+          "value": {
+            "x": 59.96875,
+            "y": 758.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 97.75,
+            "bottom": 774.234375,
+            "left": 59.96875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p6",
+          "card": {
+            "x": 150.328125,
+            "y": 667.234375,
+            "width": 111.328125,
+            "height": 118,
+            "top": 667.234375,
+            "right": 261.65625,
+            "bottom": 785.234375,
+            "left": 150.328125
+          },
+          "price": {
+            "x": 159.328125,
+            "y": 742.046875,
+            "width": 93.328125,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 252.65625,
+            "bottom": 774.234375,
+            "left": 159.328125
+          },
+          "value": {
+            "x": 179.296875,
+            "y": 758.140625,
+            "width": 37.765625,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 217.0625,
+            "bottom": 774.234375,
+            "left": 179.296875
+          },
+          "overflow": false
+        },
+        {
+          "id": "p7",
+          "card": {
+            "x": 269.65625,
+            "y": 667.234375,
+            "width": 111.34375,
+            "height": 118,
+            "top": 667.234375,
+            "right": 381,
+            "bottom": 785.234375,
+            "left": 269.65625
+          },
+          "price": {
+            "x": 278.65625,
+            "y": 742.046875,
+            "width": 93.34375,
+            "height": 32.1875,
+            "top": 742.046875,
+            "right": 372,
+            "bottom": 774.234375,
+            "left": 278.65625
+          },
+          "value": {
+            "x": 298.625,
+            "y": 758.140625,
+            "width": 37.78125,
+            "height": 16.09375,
+            "top": 758.140625,
+            "right": 336.40625,
+            "bottom": 774.234375,
+            "left": 298.625
+          },
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "weather dialog",
+      "r": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 372,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 392,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "footer": {
+        "x": 21,
+        "y": 703.71875,
+        "width": 370,
+        "height": 70.59375,
+        "top": 703.71875,
+        "right": 391,
+        "bottom": 774.3125,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "x": 35,
+          "y": 716.71875,
+          "width": 342,
+          "height": 45.59375,
+          "top": 716.71875,
+          "right": 377,
+          "bottom": 762.3125,
+          "left": 35
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "daily forecast expanded",
+      "dialog": {
+        "x": 20,
+        "y": 76.6875,
+        "width": 372,
+        "height": 698.625,
+        "top": 76.6875,
+        "right": 392,
+        "bottom": 775.3125,
+        "left": 20
+      },
+      "day": {
+        "x": 41,
+        "y": 378.75,
+        "width": 330,
+        "height": 325.96875,
+        "top": 378.75,
+        "right": 371,
+        "bottom": 704.71875,
+        "left": 41
+      },
+      "summary": {
+        "x": 42,
+        "y": 379.75,
+        "width": 328,
+        "height": 89.546875,
+        "top": 379.75,
+        "right": 370,
+        "bottom": 469.296875,
+        "left": 42
+      },
+      "overflow": false,
+      "scrollbar": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "name": "cloud next to sales area",
+      "label": {
+        "x": 24,
+        "y": 361.03125,
+        "width": 118.078125,
+        "height": 22.390625,
+        "top": 361.03125,
+        "right": 142.078125,
+        "bottom": 383.421875,
+        "left": 24
+      },
+      "button": {
+        "x": 154.078125,
+        "y": 350.234375,
+        "width": 64.046875,
+        "height": 44,
+        "top": 350.234375,
+        "right": 218.125,
+        "bottom": 394.234375,
+        "left": 154.078125
+      },
+      "background": "rgba(0, 0, 0, 0)",
+      "image": "none",
+      "shadow": "none",
+      "color": "rgb(246, 247, 249)",
+      "icon": "rgb(246, 247, 249)",
+      "rain": "rgb(142, 201, 246)"
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

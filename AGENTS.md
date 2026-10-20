@@ -1,3 +1,9 @@
+# Entrega concluída — 0.12.26/code66
+
+Ler app/docs/ENTREGA-0.12.26.md e ARQUIVOS-0.12.26.md. Tempo: horas em cards horizontais; próximos dias expansíveis com data,mínima/máxima dos horários previstos,chuva e parciais sinalizados. Toque/15segundos ociosos, posição de leitura preservada. Sem dias/valores inventados ou chuva somada duas vezes. Usa o mesmo payload/cache/ativação/fonte/servidor; nuvem+grau da página Produtos mantidos. Premissasv13 instaladas/backup, registros preservados.
+
+21unit/98UI/32superfícies/8configurações claro/escuro320/360/393/412 PASS, zero errosJS; GETpúblicoJS200MET90pontos/10dias. Sem transações reais de teste, FPSnativo/aparelho básico medidos; matriz completa anterior não repetida. APK5103820bytes SHA2563221d4d6279f4adff80ad0e4ae44ae5e2f67bc0d70f78f21d8ccd0c74bd6ed2e, originalcert/38assets/16KB, cópia original conferida; instalado-r 2026-10-20 18:57:17,66/26/Statusok,firstInstallTime2026-10-14 18:17:06preservado. Não repetir entrega26 por checkpoints históricos. Este commit pertence somente ao ramoAGRO2; main956fddceec2b994e32c154c5197424a4f56df7f2independente preservado. Servidor não alterado/republicado; nenhuma submissão Play. Silêncio automático sem nova pendência.
+
 # Entrega concluída — 0.12.25/code65
 
 Leia app/docs/ENTREGA-0.12.25.md e ARQUIVOS-0.12.25.md. Indicador de tempo junto de Área de vendas, apenas nuvem e temperatura prevista para agora, fora da pill Loja, sem Organizar nessa linha. Sem dado, —°; imagem não fixa 20°. Toque conserva ativação opcional/consulta. Premissasv12, dados/ordem já gravados preservados; fonte/cache/servidor inalterados.

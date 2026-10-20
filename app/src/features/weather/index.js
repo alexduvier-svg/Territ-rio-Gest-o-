@@ -1,5 +1,5 @@
 import { API } from '../server.js';
-import { forecastWindow, nextForecastPoint } from './forecast.js';
+import { forecastWindow, nextForecastPoint, forecastDays, weatherDayKey } from './forecast.js';
 const inflight=new Map(),failures=new Map();let opened=null;
 const bridge=()=>window.TerritorioWorkflowBridge;
 const key=(city,uf)=>String(city||'').normalize('NFD').replace(/\p{M}/gu,'').trim().toLowerCase()+'|'+String(uf||'').toUpperCase();
@@ -43,12 +43,55 @@ function eventLabel(data,event){
   const summary=forecastWindow(data,event);
   return summary.ready?'Chuva prevista · '+number(summary.rain)+' mm':'Previsão disponível mais perto da feira';
 }
+function condition(point){
+  const symbol=point?.symbol||'';
+  if(/thunder/.test(symbol))return 'Trovoadas previstas';
+  if(/sleet/.test(symbol))return 'Chuva e neve';
+  if(/snow/.test(symbol))return 'Neve prevista';
+  if(/heavyrain/.test(symbol))return 'Chuva forte';
+  if(/lightrain/.test(symbol))return 'Chuva fraca';
+  if(/rain/.test(symbol)||point?.rain>0)return 'Chuva prevista';
+  if(/fog/.test(symbol))return 'Névoa';
+  if(/partlycloudy/.test(symbol))return 'Parcialmente nublado';
+  if(/cloudy/.test(symbol))return 'Nublado';
+  if(/clearsky/.test(symbol))return 'Céu aberto';
+  if(/fair/.test(symbol))return 'Poucas nuvens';
+  return 'Previsão para agora';
+}
+function dayTitle(day){
+  const today=weatherDayKey(Date.now()),tomorrow=weatherDayKey(Date.now()+86400000);
+  if(day===today)return 'Hoje';if(day===tomorrow)return 'Amanhã';
+  const label=new Date(day+'T12:00:00-03:00').toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo',weekday:'long'});
+  return label.charAt(0).toUpperCase()+label.slice(1).replace('-feira','');
+}
+function hourCards(points,cls='weather-hours'){
+  return '<div class="'+cls+'" tabindex="0" role="region" aria-label="Horários previstos; deslize para ver mais">'+points.map(p=>'<div class="weather-hour"><strong>'+clock(p.time)+'</strong><small>'+date(p.time)+'</small>'+weatherIcon(p)+'<span>'+number(p.temp)+'°</span><small>'+(Number.isFinite(p.rain)?number(p.rain)+' mm / '+p.hours+'h':'Chuva sem estimativa')+'</small></div>').join('')+'</div>';
+}
+function dailyCards(days){
+  if(!days.length)return '';
+  const low=Math.min(...days.map(d=>d.min)),high=Math.max(...days.map(d=>d.max)),span=Math.max(1,high-low);
+  return '<section class="weather-days"><h3>Próximos dias</h3><p class="weather-hint">Toque no dia para ver os horários.</p>'+days.map(d=>{
+    const representative={rain:d.rain},left=Math.max(0,Math.min(95,(d.min-low)/span*100)),width=Math.max(5,Math.min(100-left,(d.max-d.min)/span*100));
+    return '<details class="weather-day" data-day="'+d.day+'"><summary><span class="weather-day-name"><strong>'+esc(dayTitle(d.day))+'</strong><small>'+d.day.slice(8,10)+'/'+d.day.slice(5,7)+(d.partial?' · parcial':'')+'</small></span><span class="weather-day-condition">'+weatherIcon(representative)+'<span>'+(d.rain===null?'Sem estimativa':number(d.rain)+' mm')+'</span></span><span class="weather-day-range" aria-label="Mínima '+number(d.min)+' e máxima '+number(d.max)+' graus nos horários previstos"><span class="weather-min">'+Math.round(d.min)+'°</span><i class="weather-temperature-track" aria-hidden="true"><i style="left:'+left.toFixed(1)+'%;width:'+width.toFixed(1)+'%"></i></i><strong>'+Math.round(d.max)+'°</strong></span><svg class="weather-day-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="weather-day-body"><p class="weather-hint">Mínima e máxima dos horários disponíveis.'+(d.partial?' Previsão parcial para este dia.':'')+(d.proportional?' Chuva estimada proporcionalmente nos intervalos que cruzam os limites do dia.':'')+'</p>'+hourCards(d.points,'weather-day-hours')+'</div></details>';
+  }).join('')+'<p class="weather-hint">Somente dias disponíveis na previsão. Hoje considera o restante do dia; mínima e máxima são dos horários previstos. Volumes podem ser estimados em intervalos parciais.</p></section>';
+}
 function content(event){
   if(bridge().data().settings.weatherEnabled!==true)return '<div class="weather-view"><h3>Tempo na sua cidade e nas feiras</h3><p>Ao ativar, cidade e UF cadastradas são enviadas ao servidor do AGRO Gestão para consultar a previsão do MET Norway. Não usa GPS nem envia vendas, clientes ou estoque. A conexão utiliza endereços IP técnicos. Guardamos a última previsão no aparelho para consulta sem internet.</p>'+bridge().button('weather-enable','Ativar previsão','success modal-action')+'<p class="small muted">Você pode desativar aqui a qualquer momento. Dados: MET Norway, licença CC BY 4.0. Referência municipal: IBGE. A previsão não é certeza de chuva.</p></div>';
-  const loc=location(event),data=cached(loc),point=nextForecastPoint(data),summary=event&&forecastWindow(data,event),rows=(data?.points||[]).filter(p=>Date.parse(p.time)>=Date.now()-3600000).slice(0,12);
-  return '<div class="weather-view"><p class="weather-city">'+esc(loc.city||'Cidade não cadastrada')+' · '+esc(loc.uf||'')+'</p>'+(data?'<p class="small muted">'+esc(age(data))+'</p>':'<p>Previsão indisponível agora. Confira a conexão e o município em Ajustes. As vendas continuam funcionando.</p>')+(point?'<div class="weather-now">'+weatherIcon(point)+'<strong>'+number(point.temp)+'°C</strong><span>Previsão para agora</span></div>':'')+(event?'<section class="weather-event-summary"><h3>'+esc(event.name)+'</h3><p>'+esc(eventLabel(data,event))+'</p>'+(summary?.ready&&summary.probability!==null?'<p>Maior chance entre os períodos informados: '+number(summary.probability)+'%.</p>':'')+(summary?.partial?'<p class="small muted">Volume estimado proporcionalmente nos intervalos parciais.</p>':'')+'</section>':'')+(rows.length?'<h3>Próximos horários</h3><div class="weather-hours">'+rows.map(p=>'<div><strong>'+date(p.time)+' · '+clock(p.time)+'</strong><span>'+number(p.temp)+'°C</span><small>'+(p.rain===null?'Chuva sem estimativa':number(p.rain)+' mm / '+p.hours+'h')+'</small></div>').join('')+'</div>':'')+'<p class="small muted">Horários de Brasília. Referência: sede municipal; não usa GPS. Previsão não é medição nem certeza de chuva. Sem internet, exibimos a última previsão salva, com data e horário.</p><p class="small muted">Só cidade e UF são consultadas no servidor do AGRO Gestão; não enviamos vendas, clientes ou estoque. O servidor consulta coordenadas públicas do IBGE. Conexões de internet envolvem endereços IP técnicos.</p><p class="weather-source">Dados: <a href="https://api.met.no/" target="_blank" rel="noopener">MET Norway</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Dados resumidos pelo AGRO Gestão. Coordenadas: IBGE, Localidades 2022.</p>'+bridge().button('weather-disable','Desativar previsão','choice modal-action')+'</div>';
+  const loc=location(event),data=cached(loc),point=nextForecastPoint(data),summary=event&&forecastWindow(data,event),days=forecastDays(data),rows=(data?.points||[]).filter(p=>Date.parse(p.time)>=Date.now()-3600000).slice(0,12);
+  return '<div class="weather-view"><p class="weather-city">'+esc(loc.city||'Cidade não cadastrada')+' · '+esc(loc.uf||'')+'</p>'+(data?'<p class="small muted">'+esc(age(data))+'</p>':'<p>Previsão indisponível agora. Confira a conexão e o município em Ajustes. As vendas continuam funcionando.</p>')+(point?'<div class="weather-now">'+weatherIcon(point)+'<div><strong>'+number(point.temp)+'°C</strong><span>'+esc(condition(point))+'</span><small>Previsão para agora</small></div></div>':'')+(event?'<section class="weather-event-summary"><h3>'+esc(event.name)+'</h3><p>'+esc(eventLabel(data,event))+'</p>'+(summary?.ready&&summary.probability!==null?'<p>Maior chance entre os períodos informados: '+number(summary.probability)+'%.</p>':'')+(summary?.partial?'<p class="small muted">Volume estimado proporcionalmente nos intervalos parciais.</p>':'')+'</section>':'')+(rows.length?'<section><h3>Próximas horas</h3>'+hourCards(rows)+'</section>':'')+dailyCards(days)+'<p class="small muted">Horários de Brasília. Referência: sede municipal; não usa GPS. Previsão não é medição nem certeza de chuva. Sem internet, exibimos a última previsão salva, com data e horário.</p><p class="small muted">Só cidade e UF são consultadas no servidor do AGRO Gestão; não enviamos vendas, clientes ou estoque. O servidor consulta coordenadas públicas do IBGE. Conexões de internet envolvem endereços IP técnicos.</p><p class="weather-source">Dados: <a href="https://api.met.no/" target="_blank" rel="noopener">MET Norway</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Dados resumidos pelo AGRO Gestão. Coordenadas: IBGE, Localidades 2022.</p>'+bridge().button('weather-disable','Desativar previsão','choice modal-action')+'</div>';
 }
-function paintOpen(){if(bridge().modal()?.kind!=='weather')return;const old=document.querySelector('#dialog .weather-view');if(!old)return;const scroll=document.getElementById('checkout-scroll'),offset=scroll?.scrollTop||0,firstForecast=!old.querySelector('.weather-now')&&!!nextForecastPoint(cached(location(opened)));old.outerHTML=content(opened);if(scroll)scroll.scrollTop=firstForecast?0:offset;}
+function paintOpen(){
+  if(bridge().modal()?.kind!=='weather')return;
+  const old=document.querySelector('#dialog .weather-view');if(!old)return;
+  const scroll=document.getElementById('checkout-scroll'),offset=scroll?.scrollTop||0,firstForecast=!old.querySelector('.weather-now')&&!!nextForecastPoint(cached(location(opened)));
+  const days=new Set([...old.querySelectorAll('.weather-day[open]')].map(el=>el.dataset.day));
+  const tracks=[...old.querySelectorAll('.weather-hours,.weather-day-hours')].map(el=>el.scrollLeft);
+  old.outerHTML=content(opened);
+  const view=document.querySelector('#dialog .weather-view');
+  for(const el of view.querySelectorAll('.weather-day'))el.open=days.has(el.dataset.day);
+  view.querySelectorAll('.weather-hours,.weather-day-hours').forEach((el,i)=>el.scrollLeft=tracks[i]||0);
+  if(scroll)scroll.scrollTop=firstForecast?0:offset;
+}
 function decorate(){
   const b=bridge(),root=document.getElementById('app');
   if(b.page()==='Vender'){
@@ -76,7 +119,7 @@ async function update(){
 export function installWeather(){
   bridge().actions['weather-enable']=()=>{bridge().data().settings.weatherEnabled=true;bridge().persist();paintOpen();void update();};
   bridge().actions['weather-disable']=()=>{bridge().data().settings.weatherEnabled=false;bridge().data().weatherCacheV1={};bridge().persist();decorate();paintOpen();};
-  bridge().actions['weather-open']=async d=>{opened=d.event?bridge().data().events.find(e=>e.id===d.event):null;bridge().open('Previsão do tempo',content(opened),bridge().button('close-modal','Voltar','sheet-back'),'weather');const dialog=document.getElementById('dialog');dialog.setAttribute('data-no-close','');dialog.setAttribute('data-bottom-back','');dialog.querySelector('.dialog-close')?.remove();await getWeather(location(opened));paintOpen();};
+  bridge().actions['weather-open']=async d=>{opened=d.event?bridge().data().events.find(e=>e.id===d.event):null;bridge().open('Tempo',content(opened),bridge().button('close-modal','Voltar','sheet-back'),'weather');const dialog=document.getElementById('dialog');dialog.setAttribute('data-no-close','');dialog.setAttribute('data-bottom-back','');dialog.querySelector('.dialog-close')?.remove();await getWeather(location(opened));paintOpen();};
   new MutationObserver(()=>{void update();}).observe(document.getElementById('app'),{childList:true});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)void update();});
   document.addEventListener('online',()=>{failures.clear();void update();});void update();

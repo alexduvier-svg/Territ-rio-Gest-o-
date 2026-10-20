@@ -4,9 +4,28 @@
 .weather-pill .icon{width:22px;height:22px;flex:none}.weather-pill span{font-variant-numeric:tabular-nums}
 .weather-rain{stroke:#2878b5}:root[data-theme=dark] .weather-rain,body.dark .weather-rain{stroke:#8ec9f6}
 @media(prefers-reduced-motion:reduce){.glass-sales-toolbar .weather-pill{transition:none}}
+
 .weather-event{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:12px 14px;min-height:44px;border-radius:17px;background:var(--material-plane);color:var(--material-text);font-size:14px;margin:0 0 14px;box-shadow:inset 0 1px 0 var(--material-line)}
-.weather-event .icon{flex:0 0 22px}.weather-event span{min-width:0}.weather-view h3{font-size:18px;margin-top:20px}.weather-city{font-weight:700;margin-bottom:5px}.weather-now{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:20px 0;padding:18px;border-radius:22px;background:var(--material-face);box-shadow:var(--material-depth)}.weather-now strong{font-size:34px;font-variant-numeric:tabular-nums}.weather-now span{font-size:14px;color:var(--muted)}.weather-now .icon{width:34px;height:34px}.weather-event-summary{padding:0 6px}.weather-hours{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0 20px}.weather-hours>div{display:grid;gap:6px;padding:12px;border-radius:18px;background:var(--material-face);box-shadow:var(--material-depth)}.weather-hours strong,.weather-hours small{font-size:13px}.weather-hours span{font-size:20px;font-weight:700}.weather-source{font-size:13px;line-height:1.5;color:var(--muted)}.weather-source a{color:var(--accent-ink,var(--accent));text-decoration:underline}
-@media(max-width:359px){.weather-hours{grid-template-columns:1fr}.glass-sales-location .glass-sales-total{font-size:14px}.glass-sales-location .glass-location{gap:4px}}
-
-
+.weather-event .icon{flex:0 0 22px}.weather-event span{min-width:0}
+.weather-view{color:var(--material-text)}.weather-view h3{font:750 14px/1.4 'Inter Tight Variable',sans-serif;letter-spacing:.035em;text-transform:uppercase;margin:24px 0 10px}
+.weather-city{font-weight:700;margin-bottom:5px}.weather-now{display:flex;align-items:center;gap:16px;margin:20px 0;padding:6px 0}
+.weather-now>div{min-width:0}.weather-now strong{display:block;font:780 clamp(36px,11vw,48px)/1.1 'Inter Tight Variable',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.weather-now span{display:block;font-size:16px;color:var(--material-muted);margin-top:6px}.weather-now small{display:block;font-size:13px;color:var(--material-muted);margin-top:4px}.weather-now>.icon{width:52px;height:52px;flex:none}
+.weather-event-summary{padding:0 6px}.weather-event-summary h3{text-transform:none;letter-spacing:0;font-size:18px}.weather-hint{font-size:13px;line-height:1.45;color:var(--material-muted);margin:5px 0 10px}
+.weather-hours,.weather-day-hours{display:flex;gap:8px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;padding:5px 2px 14px;margin:10px 0 16px;scrollbar-width:thin}
+.weather-hours:focus-visible,.weather-day-hours:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:18px}
+.weather-hour{box-sizing:border-box;display:flex;align-items:center;flex-direction:column;gap:7px;flex:0 0 88px;min-width:0;padding:13px 8px;border-radius:21px;background:var(--material-face);border:1px solid var(--material-line);box-shadow:var(--material-depth);scroll-snap-align:start}
+.weather-hour strong{font-size:14px;font-weight:650}.weather-hour small{font-size:12px;text-align:center;line-height:1.4;color:var(--material-muted);overflow-wrap:anywhere}.weather-hour .icon{width:25px;height:25px;margin:4px 0}.weather-hour>span{font-size:21px;font-weight:750;font-variant-numeric:tabular-nums}
+.weather-day{border:1px solid var(--material-line);border-radius:20px;background:var(--material-face);box-shadow:var(--material-depth);margin:0 0 10px;min-width:0}
+.weather-day>summary{display:grid;grid-template-columns:minmax(0,1fr) auto 14px;column-gap:8px;row-gap:5px;align-items:center;padding:13px 12px;min-height:64px;list-style:none;cursor:pointer;color:var(--material-text);box-sizing:border-box;background:transparent;border:0;border-radius:20px}
+.weather-day>summary::-webkit-details-marker{display:none}.weather-day>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.weather-day-name{grid-column:1;grid-row:1;min-width:0}.weather-day-name strong{display:block;font-size:15px;font-weight:750;line-height:1.25;overflow-wrap:anywhere}.weather-day-name small{display:block;font-size:12px;line-height:1.4;color:var(--material-muted);margin-top:3px}
+.weather-day-condition{grid-column:1;grid-row:2;display:flex;align-items:center;gap:5px;min-width:0;font-size:13px;color:var(--material-muted)}.weather-day-condition .icon{width:20px;height:20px;flex:none}.weather-day-condition>span{min-width:0;overflow-wrap:anywhere}
+.weather-day-range{grid-column:2;grid-row:1/span 2;display:flex;align-items:center;gap:6px;white-space:nowrap;font-size:16px;font-variant-numeric:tabular-nums}.weather-day-range strong{font-weight:750}.weather-min{color:var(--material-muted)}
+.weather-temperature-track{position:relative;display:block;width:34px;height:5px;border-radius:8px;background:color-mix(in srgb,var(--material-muted) 16%,transparent);overflow:hidden}.weather-temperature-track>i{position:absolute;top:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#3889c8,#d6a13b)}
+.weather-day-arrow{grid-column:3;grid-row:1/span 2;width:14px;height:14px;transition:transform 160ms ease;color:var(--material-muted)}.weather-day[open] .weather-day-arrow{transform:rotate(180deg)}
+.weather-day-body{padding:0 12px 10px}.weather-day-hours{margin-bottom:0}.weather-day-hours .weather-hour{flex-basis:86px}
+.weather-source{font-size:13px;line-height:1.5;color:var(--material-muted);overflow-wrap:anywhere}.weather-source a{color:var(--accent-ink,var(--accent));text-decoration:underline}
+@media(max-width:359px){.glass-sales-location .glass-sales-total{font-size:14px}.glass-sales-location .glass-location{gap:4px}.weather-temperature-track{width:20px}.weather-day>summary{column-gap:6px;padding-inline:10px}.weather-day-range{gap:4px}}
+@media(prefers-reduced-motion:reduce){.weather-day-arrow{transition:none}}
 #dialog[data-kind=weather] .checkout-footer{padding:12px 14px;display:flex;flex-direction:column;gap:0}#dialog[data-kind=weather] .checkout-footer>.sheet-back{margin:0!important;width:100%;min-height:44px;flex:none}
