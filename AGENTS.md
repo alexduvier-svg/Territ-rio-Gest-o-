@@ -1,3 +1,9 @@
+# Entrega concluída — 0.12.25/code65
+
+Leia app/docs/ENTREGA-0.12.25.md e ARQUIVOS-0.12.25.md. Indicador de tempo junto de Área de vendas, apenas nuvem e temperatura prevista para agora, fora da pill Loja, sem Organizar nessa linha. Sem dado, —°; imagem não fixa 20°. Toque conserva ativação opcional/consulta. Premissasv12, dados/ordem já gravados preservados; fonte/cache/servidor inalterados.
+
+17testes existentes e64UI/24superfícies,8configurações claro/escuro320/360/393/412 PASS, zero errosJS, nenhum teste com transações reais. FPSnativo/matriz completa anterior não medidos/repetidos. APK5103820bytes SHA256bf7989c37474565c5c3cb35365b99543b0cf9a750eb0fc9e47adee5b81ab344c, certoriginal/38assets/16KB; cópia original conferida; instalado-r 2026-10-20 18:40:45,65/0.12.25/Statusok,firstInstallTime2026-10-14 18:17:06preservado. Não repetir entrega25 por registros históricos. Este commit pertence somente ao ramo AGRO2; main956fddceec2b994e32c154c5197424a4f56df7f2 é independente. Silêncio da retomada automática sem nova pendência autorizada.
+
 # Entrega concluída — 0.12.24/code64
 
 Ler app/docs/ENTREGA-0.12.24.md e app/docs/TEMPO-NOMES-PLAY-0.12.24.md. APK 5.099.724 bytes, SHA25654b36376c945d6e7d584a8165a004b3566a872cae8b4cdfbb230187d3d295ff4. Original/celular atualizados com install-r em20/10/2026às18:31:40;64/0.12.24/aberturaStatusok/firstInstallTime14/10/2026às18:17:06preservado. NÃOrefazer build/instalação por checkpoints históricos.

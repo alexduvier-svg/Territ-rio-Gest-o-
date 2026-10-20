@@ -1,0 +1,25 @@
+✔ venda guarda custo zero confirmado e custo não confirmado no registro histórico (9.3763ms)
+✔ regras de cadastro atualizam referências antigas sem perder a memória do produtor (29.7549ms)
+✔ premissas visuais acompanham backup e retomada sem substituir uma revisão mais nova (1.5756ms)
+✔ instalar conhecimento e memória deixa produtos e atividade do produtor intactos (1.1999ms)
+✔ revisão de janelas e estoque migra só premissas e permanece no backup sem alterar os registros (1.9637ms)
+✔ memória e instruções são idempotentes na reabertura e isoladas por conjunto de dados (2.2972ms)
+✔ só entradas confirmadas elevam frequência; validação, correção, perda e edição não elevam (2.2467ms)
+✔ primeiro saldo positivo conta uma vez e cancelar formulário não cria memória de uso (1.2093ms)
+✔ apresentações próprias conservam IDs, rótulo regional, perfil e valores após reabrir (1.4874ms)
+✔ catálogo mapeado bloqueia duplicata sem reescrever cadastro personalizado (2.4673ms)
+✔ cadastro antigo incompleto exige revisão; confirmar diferença cria variação sem mesclar (1.8106ms)
+✔ Cacho, Molho e Pé mantêm unidade e plural sem conversão de saldo após reiniciar (1.4989ms)
+✔ custo ausente permanece desconhecido e zero confirmado permanece conhecido no cadastro (1.4937ms)
+✔ product names normalize every word and preserve measurement units (5.675ms)
+✔ event rain covers the event hours exactly and missing probabilities stay unknown (0.4577ms)
+✔ overlapping MET intervals never double count rainfall; partial periods are labelled estimates (0.1457ms)
+✔ current weather must have a nearby forecast point, never substitute old temperature (0.1166ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 371.4425
