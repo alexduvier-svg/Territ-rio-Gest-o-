@@ -32,3 +32,5 @@ Premissa v7: motor comum de compositor em TODAS AS ABAS, subabas e subjanelas de
 Pedido posterior de20/10: cada seção/família do Estoque tem seu próprio + à direita para adicionar outra variedade. Supera a regra anterior de +global único. Limite de três itens por seção permanece; cadastro novo continua sem categoria automaticamente marcada. Logo oficial junto da versão em Configurações, nos dois temas.
 
 Premissa v8: o Estoque mantém também um + geral junto do relógio no cabeçalho, para entrada rápida de produtos de qualquer família, sem filtro prévio. Os + contextuais de cada seção continuam. Cabeçalho pode quebrar em duas linhas em telas estreitas; título e botões permanecem íntegros e a lupa no canto direito.
+
+Premissa v9, correção posterior: Estoque e os quatro botões permanecem sempre na mesma linha. Ordem: +, Relógio, Calculadora, Lupa. O + geral fica antes do relógio. Supera a permissão anterior de duas linhas; ajustar tamanho do título e espaçamento sem cortar texto ou reduzir os controles de 40 px. Os + das famílias continuam.

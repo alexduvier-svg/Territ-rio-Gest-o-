@@ -1421,6 +1421,7 @@ html[data-reduce-effects='true'] button.active .box-flap-l, html[data-reduce-eff
 .danger-solid { width: 100%; min-height: 52px; padding: 13px 14px; border-radius: 17px; font-weight: 700; color: #fff; background: var(--red); }
 #dialog .ev-cancel .link { color: var(--red); }
 
-/* Global stock entry stays beside history; narrow headers may use two rows. */
-.stock-heading:has(.stock-top-tools .stock-plus){flex-wrap:wrap}
-.stock-heading:has(.stock-top-tools .stock-plus) .stock-title h1{white-space:nowrap}
+/* Keep the title and four stock tools on one row, including narrow phones. */
+:root[data-layout] .stock-heading{flex-wrap:nowrap;gap:6px}
+:root[data-layout] .stock-heading .stock-title h1{font-size:clamp(26px,calc(10vw - 6px),36px)!important;line-height:1.1;white-space:nowrap}
+:root[data-layout] .stock-heading .stock-top-tools{gap:3px;margin-left:0}

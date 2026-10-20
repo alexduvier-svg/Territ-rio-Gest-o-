@@ -1,3 +1,9 @@
+# Entrega atual — AGRO Gestão 2 0.12.23/code63
+
+Ler app/docs/ENTREGA-0.12.23.md e ARQUIVOS-0.12.23.md. Estoque e os quatro botões ficam SEMPRE NA MESMA LINHA; ordem +,Relógio,Calculadora,Lupa. + geral antes do relógio. Título responsivo, controles40px, sem quebra ou sobreposição. Supera a permissão de duas linhas da v8/0.12.22; premissasv9. + por família e entrada geral sem filtro preservados.
+
+Conferido claro/escuro em320/360pxampliados e393/412normais:8configurações alinhadas/semoverflow,0errosJS e registros sintéticos inalterados.16testes existentes memória/reset PASS, matriz20não repetida. APK5.095.628bytes SHA2567b1a38832bdb20cdabb63609347e0af8c897d559ca6f6d6d9d980ccf5daa23a4, originalcert/38assets/16KBconferidos. Original/celular atualizados-r em20/10/2026às14:24:53,63/23Statusok,firstInstallTime14/10/202618:17:06preservado. Entrega concluída; não reinstalar versões antigas. Publicar somente AGRO2, preservar main e dados reais. FPS nativo não medido.
+
 # Entrega atual — AGRO Gestão 2 0.12.22/code62
 
 Ler app/docs/ENTREGA-0.12.22.md e ARQUIVOS-0.12.22.md. Estoque tem + geral junto do relógio (ordem Relógio,+,Calculadora,Lupa) e mantém os + por família. Geral abre entrada rápida sem filtro; contextual preserva sua família. Cadastro novo sem categoria automática, três apresentações por seção e seta preservados. Cabeçalho adapta a telas estreitas sem cortar título/controles; estoque vazio tem só um + geral. Premissas v8.

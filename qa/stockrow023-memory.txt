@@ -1,0 +1,24 @@
+✔ venda guarda custo zero confirmado e custo não confirmado no registro histórico (10.1611ms)
+✔ regras de cadastro atualizam referências antigas sem perder a memória do produtor (2.3494ms)
+✔ premissas visuais acompanham backup e retomada sem substituir uma revisão mais nova (1.4561ms)
+✔ instalar conhecimento e memória deixa produtos e atividade do produtor intactos (0.9939ms)
+✔ revisão de janelas e estoque migra só premissas e permanece no backup sem alterar os registros (1.2246ms)
+✔ memória e instruções são idempotentes na reabertura e isoladas por conjunto de dados (2.275ms)
+✔ só entradas confirmadas elevam frequência; validação, correção, perda e edição não elevam (1.6561ms)
+✔ primeiro saldo positivo conta uma vez e cancelar formulário não cria memória de uso (1.2025ms)
+✔ apresentações próprias conservam IDs, rótulo regional, perfil e valores após reabrir (1.4042ms)
+✔ catálogo mapeado bloqueia duplicata sem reescrever cadastro personalizado (2.8153ms)
+✔ cadastro antigo incompleto exige revisão; confirmar diferença cria variação sem mesclar (2.1234ms)
+✔ Cacho, Molho e Pé mantêm unidade e plural sem conversão de saldo após reiniciar (1.7944ms)
+✔ custo ausente permanece desconhecido e zero confirmado permanece conhecido no cadastro (1.4337ms)
+✔ Café Tradicional Torra Escura is visible on the initial coffee page with all six distinct presentations (238.6623ms)
+✔ cold starts repeatedly rebuild the same offline vocabulary independently of storage (2649.7647ms)
+✔ restarting an empty producer model never turns catalog suggestions into stock or activity (33.145ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3055.3908
