@@ -87,12 +87,20 @@
 :root[data-theme='light'][data-layout] .toast.toast-warn { --toast-tone: #b35f00; }
 :root[data-theme='light'][data-layout] .toast:is(.toast-info, .toast-success) { --toast-tone: #4f7d2c; }
 
-/* Saída: a cápsula se recolhe e some (a entrada é a mola do motor de aberturas). */
+/* A animação antiga de entrada ("appear") nunca roda: ao esconder o aviso ela recomeçava e o fazia
+   reaparecer no meio da saída. A entrada é a mola do motor de aberturas. */
+html.fluid-motion .toast, html.fluid-motion .toast[hidden] { animation: none !important; }
+
+/* Saída: um só gesto — a cápsula se recolhe, desce de leve e some, mais rápida que a entrada. */
 @media (prefers-reduced-motion: no-preference) {
   :root.fluid-motion[data-theme][data-layout] .toast {
-    transition: opacity 0.22s ease, scale 0.22s ease, display 0.22s allow-discrete, overlay 0.22s allow-discrete;
+    transition:
+      opacity 0.2s cubic-bezier(0.4, 0, 1, 1),
+      scale 0.24s cubic-bezier(0.4, 0, 1, 1),
+      translate 0.24s cubic-bezier(0.4, 0, 1, 1),
+      display 0.24s allow-discrete;
   }
-  :root.fluid-motion[data-theme][data-layout] .toast[hidden] { display: none; opacity: 0; scale: 0.94; }
+  :root.fluid-motion[data-theme][data-layout] .toast[hidden] { display: none; opacity: 0; scale: 0.92; translate: 0 10px; }
 }
 
 /* Aparelhos simples e "Reduzir efeitos": o mesmo desenho, sólido e sem desfoque. */
