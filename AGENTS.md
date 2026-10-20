@@ -1,3 +1,9 @@
+# Entrega atual — AGRO Gestão 2 0.12.21/code61
+
+Ler app/docs/ENTREGA-0.12.21.md e ARQUIVOS-0.12.21.md. X superior direito retirado de Finalizar Venda, inclusive nas atualizações do pagamento. Cancelar Venda e Finalizar Venda permanecem no rodapé. Motor de movimentos, logo e + por família da 0.12.20 preservados. UI conferida em claro/escuro, 320 px ampliado e 393 px normal, pagamento único/dividido, sem falhas JS ou alteração de registros sintéticos. Não foi repetida a matriz completa da 0.12.20.
+
+APK 5.095.628 bytes, SHA256 ce991f85510bd04b0626724fd09ca63960210932070f38f7e8405e6ec57c1b0b, certificado original, 38 assets idênticos e alinhamento 16 KB. Cópia original confirmada; instalado com adb install -r em 20/10/2026 às 14:07:35, versão 61/0.12.21 e abertura Status ok. firstInstallTime 14/10/2026 18:17:06 preservado. Entrega concluída; não reinstalar versões históricas. Publicar somente no ramo AGRO2, preservando main e os dados reais. FPS nativo não medido.
+
 # Entrega atual — AGRO Gestão 2 0.12.20/code60
 
 Ler app/docs/ENTREGA-0.12.20.md e app/docs/ARQUIVOS-0.12.20.md. APK assinado de 5.095.628 bytes, SHA256 d27a5973f5a69ded6b344abf45004e5235d2ce581a4ffcdcc15c742dd1b6c912, copiado e conferido na pasta original. Instalado com adb install -r em 20/10/2026 às 14:00:55; Android confirmou versão 60/0.12.20 e abertura Status ok. firstInstallTime 14/10/2026 18:17:06 preservado.

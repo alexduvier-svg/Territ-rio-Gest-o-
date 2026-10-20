@@ -1,0 +1,64 @@
+{
+  "version": "0.12.21",
+  "method": "Isolated Chrome UI inspection and screenshots; synthetic records only",
+  "observations": [
+    {
+      "theme": "light",
+      "width": 320,
+      "largeText": true,
+      "singleHeaderCloseButtons": 0,
+      "splitHeaderCloseButtons": 0,
+      "footerActions": [
+        "Cancelar Venda",
+        "Finalizar Venda"
+      ],
+      "actionsVisibleAndEnabled": true,
+      "businessRecordsUnchanged": true,
+      "errors": []
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "largeText": false,
+      "singleHeaderCloseButtons": 0,
+      "splitHeaderCloseButtons": 0,
+      "footerActions": [
+        "Cancelar Venda",
+        "Finalizar Venda"
+      ],
+      "actionsVisibleAndEnabled": true,
+      "businessRecordsUnchanged": true,
+      "errors": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "largeText": true,
+      "singleHeaderCloseButtons": 0,
+      "splitHeaderCloseButtons": 0,
+      "footerActions": [
+        "Cancelar Venda",
+        "Finalizar Venda"
+      ],
+      "actionsVisibleAndEnabled": true,
+      "businessRecordsUnchanged": true,
+      "errors": []
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "largeText": false,
+      "singleHeaderCloseButtons": 0,
+      "splitHeaderCloseButtons": 0,
+      "footerActions": [
+        "Cancelar Venda",
+        "Finalizar Venda"
+      ],
+      "actionsVisibleAndEnabled": true,
+      "businessRecordsUnchanged": true,
+      "errors": []
+    }
+  ],
+  "nativeFPSMeasured": false,
+  "full020RegressionRerun": false
+}

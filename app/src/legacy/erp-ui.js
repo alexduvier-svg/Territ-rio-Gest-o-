@@ -392,10 +392,10 @@ function render(preserve){if(page!=='Gestão')managementExpanded.delete('detail-
 }
 function openModal(title,body,kind,data,footer){
  modal={kind,data};dialog.setAttribute('data-kind',kind||'');
- const bottomBack=['scope','mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load','voice'].includes(kind)||/^(advisor|agent-|workflow|store)/.test(String(kind||'')),registered=kind==='story'&&data&&data.pending===false;
+ const bottomBack=['scope','mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load','voice'].includes(kind)||/^(advisor|agent-|workflow|store)/.test(String(kind||'')),registered=kind==='story'&&data&&data.pending===false,noClose=bottomBack||registered||['cart','checkout'].includes(kind);
  if(bottomBack){body=body.replace(/<button\b[^>]*data-action="close-modal"[^>]*>[\s\S]*?<\/button>/g,'');if(!footer)footer=btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back');}
- dialog.toggleAttribute('data-bottom-back',bottomBack);dialog.toggleAttribute('data-no-close',bottomBack||registered);
- const heading=(bottomBack||registered?'':btn('close-modal',icon('close'),'dialog-close'))+'<h2 id="dialog-title">'+escape(title)+'</h2>',footerLabel=kind==='movement'?'Ações do estoque':kind==='restock'?'Reposição do estoque':kind==='calculator'?'Ações da calculadora':bottomBack?'Ações da janela':'Finalização da venda';
+ dialog.toggleAttribute('data-bottom-back',bottomBack);dialog.toggleAttribute('data-no-close',noClose);
+ const heading=(noClose?'':btn('close-modal',icon('close'),'dialog-close'))+'<h2 id="dialog-title">'+escape(title)+'</h2>',footerLabel=kind==='movement'?'Ações do estoque':kind==='restock'?'Reposição do estoque':kind==='calculator'?'Ações da calculadora':bottomBack?'Ações da janela':'Finalização da venda';
  dialog.innerHTML='<div class="checkout-header">'+heading+'</div><div class="dialog-content" id="checkout-scroll">'+body+'</div>'+(footer?'<div class="checkout-footer" role="region" aria-label="'+footerLabel+'">'+footer+'</div>':'')+'<aside id="dialog-number-pad" class="modal-number-pad" hidden aria-label="Teclado numérico"></aside>';
  if(!dialog.open)dialog.showModal();dialog.dispatchEvent(new CustomEvent('territorio:sheet',{bubbles:true,detail:{kind:kind||'',title:String(title||''),data:data||null}}));
 }
