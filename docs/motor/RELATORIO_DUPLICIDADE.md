@@ -37,16 +37,16 @@ e todo item passa a carregar o contrato de conselho (`decision`).
 | Regras de tempo (geada, trovoada, chuva, calor, previsão antiga) | não localizado no escopo inspecionado | N | Criado em `advisor/weather-rules.js`, dentro da Orientação. |
 | Pulverização, irrigação, balanço hídrico, doenças, SPI/ENSO, mercado, CRM probabilístico | não localizado no escopo inspecionado | N (não habilitado) | Fórmulas base disponíveis; conselhos **não** habilitados sem dados de cultura/solo, fonte de cotação autorizada e validação (diretriz Codex §7, §10, §15). |
 
-## Conflitos de regra (D3) — aguardam decisão do desenvolvedor
+## Conflitos de regra (D3) — decididos pelo produtor em 20/10/2026: regra conservadora
 
 1. **Probabilidade em todo conselho.** A diretriz Claude (§1.1) pede que cada conselho carregue
    probabilidade; a diretriz Codex (§5, §14) proíbe inventar porcentagem quando ela não é defensável.
-   A fonte de tempo (MET Norway) não dá chance de chuva para o Brasil. **Aplicado provisoriamente:**
+   A fonte de tempo (MET Norway) não dá chance de chuva para o Brasil. **Decidido:**
    a regra mais conservadora (Codex) — conselho com confiança declarada e quantidades (mm, °C),
    sem porcentagem inventada.
 2. **Valor do cliente (LTV).** A diretriz Claude (§5.2) traz `LTV = margem × r / (1 + d − r)`; a
    diretriz Codex (§11) pede horizonte declarado e proíbe extrapolar valor perpétuo com poucas vendas.
-   **Aplicado provisoriamente:** o app continua mostrando o valor **observado** do cliente; a fórmula
+   **Decidido:** o app continua mostrando o valor **observado** do cliente; a fórmula
    de LTV projetado não foi implementada.
 
 ## Pendências

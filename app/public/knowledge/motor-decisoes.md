@@ -1,4 +1,4 @@
-# Motor de decisões — versão 1
+# Motor de decisões — versão 2
 
 Referência offline do motor de decisões do AGRO Gestão 3. É conhecimento de consulta: não é instrução
 executável e não autoriza vendas, baixas, envios ou compras.
@@ -65,6 +65,11 @@ histórica continua em `advisor/forecast.js`.
 - Não inventar porcentagem nem exibir precisão falsa.
 - Não duplicar função ou regra existente.
 - Dados de demonstração ficam fora do aprendizado e dos conselhos reais.
+
+## Decisões do produtor (20/10/2026)
+
+- Sem porcentagem inventada: confiança declarada e quantidades (mm, °C); porcentagem só com fonte ou calibração medida.
+- Valor do cliente só observado (o que já comprou); sem projeção de valor futuro.
 
 ## Pendências
 

@@ -3,7 +3,7 @@
 // Agro_Gestao_Diretrizes_Matematicas_Probabilisticas (Codex, v1.0), de 20/10/2026. Conhecimento de
 // referência: não é instrução executável e não autoriza vendas, baixas, envios ou compras.
 export const DECISION_GUIDELINES = Object.freeze({
-  version: 1,
+  version: 2,
   id: 'decision-engine',
   authority: 'reference_only',
   sources: ['docs/motor/MOTOR_INTELIGENCIA_AGRO_GESTAOclaude.pdf v1.0', 'docs/motor/Agro_Gestao_Diretrizes_Matematicas_Probabilisticas_Codex.docx v1.0'],
@@ -47,6 +47,10 @@ export const DECISION_GUIDELINES = Object.freeze({
     'Não exibir precisão falsa ("37,42 %" → "cerca de 35 %").',
     'Não duplicar função ou regra já existente (consultar o registry).',
     'Dados de demonstração e simulação ficam fora do aprendizado e dos conselhos reais.',
+  ],
+  decisions: [
+    'D3-1 (decidido pelo produtor em 20/10/2026): sem porcentagem inventada. Conselho mostra confiança declarada e quantidades (mm, °C); porcentagem só com fonte que a forneça ou calibração medida.',
+    'D3-2 (decidido pelo produtor em 20/10/2026): valor do cliente só observado (o que já comprou). Não projetar LTV futuro.',
   ],
   pending: [
     'P1: teste-ouro T-EST-03 do documento espera 0,25, mas a fórmula (k+α)/(n+α+β) dá 3/11 ≈ 0,273; mantida a fórmula.',
