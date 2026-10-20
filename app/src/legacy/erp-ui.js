@@ -388,12 +388,13 @@ function render(preserve){if(page!=='Gestão')managementExpanded.delete('detail-
  app.dispatchEvent(new CustomEvent('territorio:before-page',{bubbles:true,detail:{page}}));applyAppearance();document.documentElement.setAttribute('data-page',page);app.innerHTML=page==='Ajustes'?settingsPage():page==='Dados'?dataPage():page==='Estúdio'?studioPage():page==='Catálogo'?catalogPage():page==='Semana'?weeklyPage():page==='Inteligência'?intelligencePage():page==='Vender'?sellPage():page==='Estoque'?stockPage():page==='Produto'?productPage():page==='Venda'?salePage():page==='Clientes'?clientsPage():page==='Eventos'?eventsPage():managementPage();
  navigation();paintNumberPad();if(focus){const el=document.getElementById(focus.id);if(el){el.focus({preventScroll:true});if(typeof el.setSelectionRange==='function'&&focus.start!=null)try{el.setSelectionRange(focus.start,focus.end);}catch(e){}}}
 }
+// Finalizar Venda não tem X: '+ Produtos' já volta para a venda e 'Cancelar Venda' encerra.
 function openModal(title,body,kind,data,footer){
  modal={kind,data};dialog.setAttribute('data-kind',kind||'');
  const bottomBack=['scope','mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load','voice'].includes(kind)||/^(advisor|agent-|workflow|store)/.test(String(kind||'')),registered=kind==='story'&&data&&data.pending===false;
  if(bottomBack){body=body.replace(/<button\b[^>]*data-action="close-modal"[^>]*>[\s\S]*?<\/button>/g,'');if(!footer)footer=btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back');}
  dialog.toggleAttribute('data-bottom-back',bottomBack);dialog.toggleAttribute('data-no-close',bottomBack||registered);
- const heading=(bottomBack||registered?'':btn('close-modal',icon('close'),'dialog-close'))+'<h2 id="dialog-title">'+escape(title)+'</h2>',footerLabel=kind==='movement'?'Ações do estoque':kind==='restock'?'Reposição do estoque':kind==='calculator'?'Ações da calculadora':bottomBack?'Ações da janela':'Finalização da venda';
+ const reviewSheet=kind==='cart'||kind==='checkout',heading=(bottomBack||registered||reviewSheet?'':btn('close-modal',icon('close'),'dialog-close'))+'<h2 id="dialog-title">'+escape(title)+'</h2>',footerLabel=kind==='movement'?'Ações do estoque':kind==='restock'?'Reposição do estoque':kind==='calculator'?'Ações da calculadora':bottomBack?'Ações da janela':'Finalização da venda';
  dialog.innerHTML='<div class="checkout-header">'+heading+'</div><div class="dialog-content" id="checkout-scroll">'+body+'</div>'+(footer?'<div class="checkout-footer" role="region" aria-label="'+footerLabel+'">'+footer+'</div>':'')+'<aside id="dialog-number-pad" class="modal-number-pad" hidden aria-label="Teclado numérico"></aside>';
  if(!dialog.open)dialog.showModal();dialog.dispatchEvent(new CustomEvent('territorio:sheet',{bubbles:true,detail:{kind:kind||'',title:String(title||''),data:data||null}}));
 }
