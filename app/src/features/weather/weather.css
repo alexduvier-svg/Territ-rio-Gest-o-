@@ -9,15 +9,19 @@
 .wx-icon .wx-bolt { stroke: var(--wx-bolt); }
 .wx-icon.is-muted { opacity: 0.6; }
 
-/* Pílula: cabe ao lado de "Loja" sem empurrar o total nem o olho. */
-.glass-sales-location > .glass-weather {
+/* Linha "Área de vendas": o tempo fica logo à frente do texto, numa pílula pequena. */
+.glass-area-row { display: flex; align-items: center; gap: 10px; margin: 14px 4px; }
+.glass-area-row > .glass-area-label { margin: 0; }
+.glass-area-row > .glass-weather {
   display: inline-flex; align-items: center; gap: 5px; flex: none;
-  min-height: 40px; padding: 0 10px 0 8px; border: 0; border-radius: 20px;
+  min-height: 32px; padding: 0 10px 0 7px; border: 0; border-radius: 16px;
   background: color-mix(in srgb, var(--material-text) 7%, transparent);
-  color: var(--material-text); font: 650 15px/1 'Inter Tight Variable', 'Inter Variable', sans-serif;
+  color: var(--material-text); font: 650 14px/1 'Inter Tight Variable', 'Inter Variable', sans-serif;
 }
-.glass-sales-location > .glass-weather .tabular { font: inherit !important; color: inherit !important; padding: 0 !important; margin: 0 !important; letter-spacing: -0.01em; }
-.glass-sales-location > .glass-weather.is-loading { color: var(--material-muted); }
+.glass-area-row > .glass-weather .wx-icon { width: 19px; height: 19px;
+}
+.glass-area-row > .glass-weather .tabular { font: inherit !important; color: inherit !important; padding: 0 !important; margin: 0 !important; letter-spacing: -0.01em; }
+.glass-area-row > .glass-weather.is-loading { color: var(--material-muted); }
 .glass-sales-location > .glass-location { min-width: 0; }
 
 /* Janela. */
@@ -66,4 +70,4 @@
 .event-card .event-weather strong { color: var(--text); font-weight: 600; }
 
 /* Sem cidade nos Ajustes: a pílula convida a informá-la (detalhe na cor de destaque). */
-.glass-sales-location > .glass-weather.is-ask { color: var(--accent-ink, var(--action-green)); font: 600 14px/1 'Inter Variable', sans-serif; }
+.glass-area-row > .glass-weather.is-ask { color: var(--accent-ink, var(--action-green)); font: 600 14px/1 'Inter Variable', sans-serif; }
