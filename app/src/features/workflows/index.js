@@ -96,10 +96,9 @@ export function installWorkflows(){
  document.addEventListener('pointercancel',()=>window.TerritorioProductGestures.cancelPending(),{passive:true});
  document.addEventListener('click',event=>{
   const card=event.target.closest?.('#app [data-action="sell-product"]');if(!card||card.disabled||b.page()!=='Vender'||window.TerritorioSelection?.active())return;
-  event.preventDefault();event.stopImmediatePropagation();const id=card.dataset.id;
-  if(tap?.id===id&&Date.now()-tap.at<300){clearTimeout(tap.timer);tap=null;serial++;b.actions['stock-peek']({id});return;}
-  if(tap){clearTimeout(tap.timer);b.actions['sell-product']({id:tap.id});tap=null;return;}
-  const current=++serial;tap={id,at:Date.now(),timer:setTimeout(()=>{if(current!==serial)return;tap=null;if(b.page()==='Vender')b.actions['sell-product']({id});},280)};
+  // One tap sells at once: waiting for a possible second tap delayed every sale by 280 ms. The sale
+  // page shows what is available; out-of-stock cards keep the two-tap stock peek below.
+  event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['sell-product']({id:card.dataset.id});
  },true);
  let zeroTap=null;document.addEventListener('pointerup',event=>{const card=event.target.closest?.('#app [data-action="sell-product"][disabled]');if(!card||b.page()!=='Vender')return;const id=card.dataset.id;if(zeroTap?.id===id&&Date.now()-zeroTap.at<320){zeroTap=null;b.actions['stock-peek']({id});}else zeroTap={id,at:Date.now()};},true);
  document.addEventListener('keydown',event=>{const card=event.target.closest?.('body > #app [data-action="sell-product"]');if(card&&(event.key==='ContextMenu'||event.shiftKey&&event.key==='Enter')){event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['stock-peek']({id:card.dataset.id});}},true);

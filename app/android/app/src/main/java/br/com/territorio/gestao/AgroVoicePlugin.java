@@ -206,7 +206,7 @@ public class AgroVoicePlugin extends Plugin {
             if("MEMORY".equals(error))message="Faltou memória para a voz. Feche outros apps ou digite o produto.";
             if("MODEL".equals(error))message="Não foi possível preparar o português offline. Feche a voz e tente novamente; seus produtos não foram alterados.";
             if("MICROPHONE".equals(error))message="Não consegui captar o microfone. Feche outros apps que usam áudio e tente novamente.";
-            if("PERMISSION".equals(error))message="O Android bloqueou o microfone. Confira a permissão de Microfone do AGRO Gestão 2.";
+            if("PERMISSION".equals(error))message="O Android bloqueou o microfone. Confira a permissão de Microfone do AGRO Gestão 3.";
             finish(token,id,"error",new JSObject().put("code",error).put("message",message));
         }else finish(token,id,"final",new JSObject().put("text",text).put("alternatives",alternatives).put("confidence",confidence).put("engine","vosk").put("lowVolume",maxRms<0.015).put("clipping",samples>0&&clipped/(double)samples>0.02));
     }

@@ -192,6 +192,25 @@
   box-shadow: var(--card-shadow, none);
 }
 .settings-version .settings-name { flex: 1; }
+/* About: the app icon with its own depth, the name and the version, centred as in the system. */
+.settings-about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 30px 0 10px;
+  text-align: center;
+}
+.settings-about-logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 8px;
+  border-radius: 15px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 18%), 0 1px 1px rgb(0 0 0 / 22%), 0 8px 20px rgb(0 0 0 / 28%);
+}
+:root[data-theme='light'] .settings-about-logo { box-shadow: 0 1px 1px rgb(30 45 35 / 14%), 0 8px 20px rgb(30 60 40 / 18%); }
+.settings-about-name { font: 700 17px/1.2 'Inter Tight Variable', 'Inter Variable', sans-serif; letter-spacing: -0.01em; color: var(--text); }
+.settings-about-version { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .settings-name small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: var(--muted); }
 .csv-general .settings-name { font-weight: 700; }
 

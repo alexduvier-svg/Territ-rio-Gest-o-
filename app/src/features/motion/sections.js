@@ -1,20 +1,22 @@
-import { createPhysicalFrameMotion, fluidMotionAllowed, fluidMotionLite } from './index.js';
-import { stepSpring, springAtRest } from './spring.js';
+import { fluidMotionAllowed, fluidMotionLite } from './index.js';
+import { animate, SPRINGS } from './engine.js';
 
-// Expansion state belongs to a semantic section, not to a DOM node: the legacy
-// renderer replaces nodes after a tap. Only explicit expansion actions enter here.
+// Sections that expand inside a page or a sheet (details, "more" arrows, discount, client, state,
+// calendar, a week day…). The renderer lays the page out once in its final state; the movement is
+// then played on the compositor: the section is revealed by a clip that opens downward while what
+// sits below slides from where it was. Closing, a copy of the old content folds away the same way.
+// Nothing is laid out again during the movement, however long the page is.
+// Expansion state belongs to a semantic section, not to a DOM node: the legacy renderer replaces
+// nodes after a tap, so a section is found again after the render.
 const ACTIONS = new Set(['clients-toggle', 'week-day', 'week-empty-days', 'event-history', 'brain-stock-toggle']);
-const STYLE = ['height', 'max-height', 'overflow', 'box-sizing', 'will-change', 'margin-bottom'];
-const BODY_STYLE = ['opacity', 'translate'];
-const restore = (element, saved) => {
-  for (const [name, value, priority] of saved) {
-    if (value) element.style.setProperty(name, value, priority);
-    else element.style.removeProperty(name);
-  }
-};
-const save = (element, names) => names.map(name => [name, element.style.getPropertyValue(name), element.style.getPropertyPriority(name)]);
-const heightOf = element => element ? element.offsetHeight : 0;
+const EXPANDER = /(^|-)(toggle|expand|more|collapse|less)(-|$)/;
+const NOT_EXPANDER = /financial|privacy|effects|large-text|backup-reminder|test-reset|nav/;
+const BLOCK = 'details, .dimension-pill, .hs-day, .week-day, .client-list, .fair-history, .empty-days, .brain-stock-diagnostic, .sale-product-group, .panel, section, .feira-rows';
+const fixedContent = '.sale-dock, .multi-bar, #number-pad, .modal-number-pad, .sale-footer, .subview-footer, .checkout-footer';
 const visible = element => !!element?.isConnected && !!element.getClientRects().length;
+const curve = () => fluidMotionLite() ? SPRINGS.lite : SPRINGS.section;
+const selectorOf = control => [...control.attributes].filter(attr => attr.name.startsWith('data-'))
+  .map(attr => `[${attr.name}="${CSS.escape(attr.value)}"]`).join('');
 
 function visualCopy(element) {
   if (!element) return null;
@@ -25,8 +27,8 @@ function visualCopy(element) {
     if ('checked' in field) field.checked = fields[index]?.checked ?? false;
   });
   for (const child of [clone, ...clone.querySelectorAll('*')]) {
-    for (const name of ['id', 'name', 'autofocus', 'for', 'data-fluid-section-managed', 'data-management-section']) child.removeAttribute(name);
-    child.classList.remove('fluid-animating', 'fluid-press', 'fluid-section-running');
+    for (const name of ['id', 'name', 'autofocus', 'for', 'data-action', 'data-fluid-section-managed', 'data-management-section']) child.removeAttribute(name);
+    child.classList.remove('fluid-animating', 'fluid-section-running');
   }
   const computed = getComputedStyle(element);
   for (const name of ['display', 'padding', 'border', 'border-radius', 'background', 'color', 'font', 'box-shadow', 'gap', 'grid-template-columns', 'flex-direction']) {
@@ -38,127 +40,134 @@ function visualCopy(element) {
   return clone;
 }
 
-function bodyNodes(element) {
-  if (element.matches('.client-list')) return [...element.children];
-  return [...element.children].filter(child => !child.matches('summary, .dimension-heading, .brain-stock-heading, .brain-stock-intro, button'));
+// What sits below the section, in the same scrolling surface, up to one screen further down.
+function followersOf(target, reach) {
+  const out = [], limit = innerHeight + reach;
+  let node = target;
+  while (node && out.length < 40 && !node.matches('#app, .dialog-content, dialog, body')) {
+    for (let next = node.nextElementSibling; next && out.length < 40; next = next.nextElementSibling) {
+      if (next.matches('script, style, template, .fluid-section-ghost') || next.hidden) continue;
+      const style = getComputedStyle(next);
+      if (style.position === 'fixed' || style.position === 'sticky' || next.matches(fixedContent) || next.querySelector(fixedContent)) continue;
+      const box = next.getBoundingClientRect();
+      if (box.top > limit) break;
+      if (box.height) out.push(next);
+    }
+    node = node.parentElement;
+  }
+  return out;
 }
+
+// Surfaces around the section that grow with it (its panel, its sheet card): they reveal their new
+// lower part together with the section, instead of jumping to the final size.
+function wrappersOf(target) {
+  const out = [];
+  for (let node = target.parentElement; node && out.length < 2 && !node.matches('#app, .subview, .dialog-content, dialog, body'); node = node.parentElement) {
+    const style = getComputedStyle(node);
+    if (style.backgroundImage !== 'none' || !/rgba?\(0, 0, 0, 0\)|transparent/.test(style.backgroundColor)) out.push(node);
+  }
+  return out;
+}
+
+// Opens the lower `closed` pixels of a surface; shadows keep 40px of room on every side.
+const reveal = (closed, radius) => (_, p) => {
+  const open = Math.min(1, p);
+  return { clipPath: `inset(-40px -40px ${(closed * (1 - open) - 40 * open).toFixed(2)}px -40px round ${radius})` };
+};
 
 export function installSectionMotion() {
   const active = new Map(), pending = new Map(), detailIds = new WeakMap();
   let nextDetail = 0, flushFrame = 0, disposed = false;
   const page = () => document.documentElement.dataset.page || '';
   const withinApp = selector => document.getElementById('app')?.querySelector(selector);
+  const live = selector => [...document.querySelectorAll(selector)].find(el => !el.closest('.fluid-section-ghost, .fluid-page-morph-layer, .fluid-exit-layer') && visible(el));
   const sameAction = (action, field, value) => [...document.querySelectorAll('[data-action]')].find(button => !button.closest('.fluid-section-ghost') && button.dataset.action === action && (!field || button.dataset[field] === value));
 
   const remember = descriptor => {
     if (pending.has(descriptor.key)) return;
     const element = descriptor.find();
-    const state = active.get(descriptor.key);
     if (!element && !descriptor.anchor) return;
+    active.get(descriptor.key)?.cancel();
     if (element?.matches('details')) element.dataset.fluidSectionManaged = 'true';
+    const box = element?.getBoundingClientRect();
     pending.set(descriptor.key, {
       ...descriptor, route: page(),
-      height: state?.height.position ?? heightOf(element),
-      velocity: state?.height.velocity ?? 0,
-      copy: fluidMotionLite() ? null : state?.closing && state.copy ? visualCopy(state.copy) : visualCopy(element),
+      top: box?.top ?? 0, height: box?.height ?? 0,
+      copy: fluidMotionLite() ? null : visualCopy(element),
     });
     if (!flushFrame) flushFrame = requestAnimationFrame(flush);
   };
 
-  const prepareGhost = (copy, target) => {
-    if (!copy) return null;
-    const layer = document.createElement('div');
-    layer.className = 'fluid-section-ghost';
-    layer.inert = true;
-    layer.setAttribute('aria-hidden', 'true');
-    const context = document.createElement('div');
-    context.className = target.parentElement?.className || '';
-    Object.assign(context.style, { display: 'block', margin: '0', padding: '0', border: '0', background: 'transparent', width: '100%' });
-    context.append(copy);
-    layer.append(context);
-    // Outside #app: its renderer/decorators must never count cloned controls.
-    (target.closest('dialog[open]') || document.body).append(layer);
-    return layer;
-  };
-
-  const positionGhost = (layer, target, height) => {
-    if (!layer) return;
-    const bounds = target.getBoundingClientRect();
-    const parent = layer.offsetParent;
-    let x = bounds.left, y = bounds.top, width = bounds.width, available = Math.max(0, innerHeight - bounds.top), factor = 1;
-    if (parent instanceof HTMLElement) {
-      const origin = parent.getBoundingClientRect();
-      const scaleX = parent.offsetWidth ? origin.width / parent.offsetWidth : 1;
-      const scaleY = parent.offsetHeight ? origin.height / parent.offsetHeight : 1;
-      x = (x - origin.left) / scaleX - parent.clientLeft + parent.scrollLeft;
-      y = (y - origin.top) / scaleY - parent.clientTop + parent.scrollTop;
-      width /= scaleX;
-      available /= scaleY;
-      factor = scaleY;
-    }
-    Object.assign(layer.style, { left: x + 'px', top: y + 'px', width: width + 'px', height: Math.max(0, Math.min(height, available)) + 'px' });
-    return factor;
-  };
-
-  function animate(record) {
-    active.get(record.key)?.motion.cancel();
+  function animateRecord(record) {
     let target = record.find();
-    let placeholder = false;
+    let placeholder = null;
     if (!target && record.anchor && record.height > 0) {
       const anchor = record.anchor();
       if (!visible(anchor)) return;
-      target = document.createElement('div');
-      target.className = 'fluid-section-placeholder';
-      target.inert = true;
-      target.setAttribute('aria-hidden', 'true');
-      anchor.after(target);
-      placeholder = true;
+      placeholder = document.createElement('div');
+      placeholder.className = 'fluid-section-placeholder';
+      placeholder.inert = true;
+      anchor.after(placeholder);
+      target = placeholder;
     }
     if (!visible(target)) return;
-    const destination = placeholder ? 0 : heightOf(target);
-    if (Math.abs(destination - record.height) < 0.5) {
-      if (target.matches('details')) delete target.dataset.fluidSectionManaged;
-      if (placeholder) target.remove();
-      return;
-    }
-    const original = save(target, STYLE);
-    const bodies = bodyNodes(target).map(element => ({ element, original: save(element, BODY_STYLE) }));
-    const gap = record.anchor && /grid|flex/.test(getComputedStyle(target.parentElement).display) ? parseFloat(getComputedStyle(target.parentElement).rowGap) || 0 : 0;
-    const layer = prepareGhost(record.copy, target);
-    const state = { target, copy: record.copy, layer, closing: destination < record.height, height: { position: record.height, velocity: record.velocity }, progress: { position: 0, velocity: 0 }, motion: null };
-    const config = { stiffness: fluidMotionLite() ? 460 : 390, damping: fluidMotionLite() ? 46 : 36, mass: 1 };
-    target.classList.add('fluid-section-running');
-    if (target.matches('details')) target.dataset.fluidSectionManaged = 'true';
-    Object.assign(target.style, { maxHeight: 'none', overflow: 'hidden', boxSizing: 'border-box', willChange: 'height' });
-    const draw = () => {
-      const progress = Math.max(0, Math.min(1, state.progress.position));
-      const height = Math.max(0, state.height.position);
-      target.style.height = height.toFixed(3) + 'px';
-      if (gap) target.style.marginBottom = (-gap * (placeholder ? progress : 1 - progress)).toFixed(3) + 'px';
-      if (layer) { positionGhost(layer, target, height); layer.style.opacity = String(1 - progress); }
-      for (const body of bodies) {
-        body.element.style.opacity = String(0.55 + progress * 0.45);
-        body.element.style.translate = '0 ' + (-(fluidMotionLite() ? 1 : 3) * (1 - progress)).toFixed(3) + 'px';
-      }
-    };
+    const box = target.getBoundingClientRect();
+    const height = placeholder ? 0 : box.height;
+    const delta = height - record.height;
+    if (Math.abs(delta) < 1) { if (target.matches('details')) delete target.dataset.fluidSectionManaged; placeholder?.remove(); return; }
+    const radius = getComputedStyle(target).borderBottomLeftRadius || '0px';
+    const followers = followersOf(target, Math.abs(delta));
+    const wrappers = delta > 0 ? wrappersOf(target) : [];
+    const handles = [];
+    let ghost = null;
+    const state = {};
     const finish = () => {
-      restore(target, original);
-      for (const body of bodies) restore(body.element, body.original);
-      target.classList.remove('fluid-section-running');
       if (target.matches('details')) delete target.dataset.fluidSectionManaged;
-      layer?.remove();
-      if (placeholder) target.remove();
+      target.classList.remove('fluid-section-running');
+      ghost?.remove();
+      placeholder?.remove();
       if (active.get(record.key) === state) active.delete(record.key);
-      state.copy = state.layer = null;
     };
+    state.cancel = () => { for (const handle of handles) handle?.cancel(); finish(); };
     active.set(record.key, state);
-    state.motion = createPhysicalFrameMotion(target, {
-      advance(seconds) {
-        Object.assign(state.height, stepSpring(state.height, destination, seconds, config));
-        Object.assign(state.progress, stepSpring(state.progress, 1, seconds, config));
-        return springAtRest(state.height, destination, 0.2, 2) && springAtRest(state.progress, 1, 0.001, 0.01);
-      }, draw, onRest: finish,
-    });
+    target.classList.add('fluid-section-running');
+    const spring = curve();
+    // The section's own place may have moved with the render (scroll restored, list above it).
+    const shift = Math.abs(record.top - box.top) > 1 ? record.top - box.top : 0;
+    if (delta > 0) {
+      handles.push(animate(target, { from: { y: shift }, to: { y: 0 }, spring, paint: reveal(delta, radius) }));
+      for (const wrapper of wrappers) {
+        handles.push(animate(wrapper, { from: {}, to: {}, spring, paint: reveal(delta, getComputedStyle(wrapper).borderBottomLeftRadius || '0px') }));
+      }
+    } else if (record.copy) {
+      // Closing: the old content, frozen as it was, folds up over the new one and dissolves.
+      ghost = document.createElement('div');
+      ghost.className = 'fluid-section-ghost';
+      ghost.inert = true;
+      ghost.setAttribute('aria-hidden', 'true');
+      const host = target.closest('dialog[open]');
+      Object.assign(ghost.style, { left: box.left + 'px', top: box.top + 'px', width: box.width + 'px', height: record.height + 'px' });
+      const context = document.createElement('div');
+      context.className = target.parentElement?.className || '';
+      Object.assign(context.style, { display: 'block', margin: '0', padding: '0', border: '0', background: 'transparent', width: '100%' });
+      context.append(record.copy);
+      ghost.append(context);
+      (host || document.body).append(ghost);
+      // Inside a sheet the fixed layer may be anchored to the sheet: correct by what is measured.
+      const placed = ghost.getBoundingClientRect();
+      if (Math.abs(placed.left - box.left) > 0.5 || Math.abs(placed.top - box.top) > 0.5) {
+        ghost.style.left = (2 * box.left - placed.left) + 'px';
+        ghost.style.top = (2 * box.top - placed.top) + 'px';
+      }
+      const closed = Math.abs(delta);
+      handles.push(animate(ghost, { from: { opacity: 1 }, to: { opacity: 0 }, spring,
+        shape: (pose, p) => ({ opacity: 1 - Math.min(1, Math.max(0, (p - 0.35) / 0.65)) }),
+        paint: (_, p) => ({ clipPath: `inset(0 0 ${(closed * Math.min(1, p)).toFixed(2)}px 0 round ${radius})` }) }));
+    }
+    for (const follower of followers) handles.push(animate(follower, { from: { y: shift - delta }, to: { y: 0 }, spring }));
+    const last = handles.filter(Boolean).at(-1);
+    if (last) last.finished.then(() => { if (active.get(record.key) === state) finish(); });
+    else finish();
   }
 
   function flush() {
@@ -166,13 +175,13 @@ export function installSectionMotion() {
     const records = [...pending.values()];
     pending.clear();
     for (const record of records) {
-      if (!disposed && fluidMotionAllowed() && record.route === page()) animate(record);
+      if (!disposed && fluidMotionAllowed() && record.route === page()) animateRecord(record);
       else { const target = record.find(); if (target?.matches('details')) delete target.dataset.fluidSectionManaged; }
     }
   }
 
   const capture = event => {
-    if (!fluidMotionAllowed() || event.target.closest?.('.fluid-section-ghost')) return;
+    if (!fluidMotionAllowed() || event.target.closest?.('.fluid-section-ghost, [inert]')) return;
     const summary = event.target.closest?.('summary');
     if (summary && summary.parentElement instanceof HTMLDetailsElement) {
       const details = summary.parentElement;
@@ -189,7 +198,7 @@ export function installSectionMotion() {
     }
     const button = event.target.closest?.('[data-action]');
     const action = button?.dataset.action;
-    if (!ACTIONS.has(action)) return;
+    if (!action) return;
     if (action === 'clients-toggle') remember({ key: action, find: () => withinApp('.client-list'), anchor: () => sameAction(action) });
     else if (action === 'week-day') {
       const day = button.dataset.day;
@@ -197,7 +206,42 @@ export function installSectionMotion() {
     } else if (action === 'week-empty-days') remember({ key: action, find: () => withinApp('.empty-days') });
     else if (action === 'event-history') remember({ key: action, find: () => withinApp('.fair-history') });
     else if (action === 'brain-stock-toggle') remember({ key: action, find: () => document.querySelector('dialog[open] .brain-stock-diagnostic') });
+    else if (!ACTIONS.has(action) && EXPANDER.test(action) && !NOT_EXPANDER.test(action) && button.closest('#app, dialog[open]')) {
+      // Any other "show more / show less" control: the block that holds it grows or shrinks.
+      const selector = selectorOf(button);
+      remember({ key: 'expander:' + selector, find: () => live(selector)?.closest(BLOCK) || null });
+    }
   };
+  // A change the app makes by itself (a sale card that closes once its quantity is known): blocks
+  // found again by selector slide from where they were; blocks that leave fold away in place.
+  const prepare = selectors => {
+    if (!fluidMotionAllowed()) return;
+    const before = selectors.map(selector => {
+      const element = live(selector);
+      const box = element?.getBoundingClientRect();
+      return { selector, box, copy: element && !fluidMotionLite() ? visualCopy(element) : null };
+    }).filter(entry => entry.box);
+    requestAnimationFrame(() => {
+      const spring = curve();
+      for (const { selector, box, copy } of before) {
+        const element = live(selector);
+        if (element) {
+          const now = element.getBoundingClientRect();
+          if (Math.abs(now.top - box.top) > 1) animate(element, { from: { y: box.top - now.top }, to: { y: 0 }, spring });
+        } else if (copy) {
+          const ghost = document.createElement('div');
+          ghost.className = 'fluid-section-ghost';
+          ghost.inert = true;
+          Object.assign(ghost.style, { left: box.left + 'px', top: box.top + 'px', width: box.width + 'px', height: box.height + 'px' });
+          ghost.append(copy);
+          document.body.append(ghost);
+          animate(ghost, { from: { y: 0, scale: 1, opacity: 1 }, to: { y: -12, scale: 0.97, opacity: 0 }, spring,
+            shape: (pose, p) => ({ ...pose, opacity: 1 - Math.min(1, p / 0.55) }), onFinish: () => ghost.remove() });
+        }
+      }
+    });
+  };
+  window.TerritorioSectionMotion = Object.freeze({ prepare });
   // Window capture runs before interface.js changes its accordion classes.
   window.addEventListener('click', capture, true);
   return () => {
@@ -206,7 +250,7 @@ export function installSectionMotion() {
     if (flushFrame) cancelAnimationFrame(flushFrame);
     for (const record of pending.values()) { const target = record.find(); if (target?.matches('details')) delete target.dataset.fluidSectionManaged; }
     pending.clear();
-    for (const state of [...active.values()]) state.motion.cancel();
+    for (const state of [...active.values()]) state.cancel();
     active.clear();
   };
 }

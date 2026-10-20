@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">AGRO Gestão 2</string>
-    <string name="title_activity_main">AGRO Gestão 2</string>
-    <string name="package_name">br.com.territorio.gestao2</string>
-    <string name="custom_url_scheme">br.com.territorio.gestao2</string>
+    <string name="app_name">AGRO Gestão 3</string>
+    <string name="title_activity_main">AGRO Gestão 3</string>
+    <string name="package_name">br.com.territorio.gestao3</string>
+    <string name="custom_url_scheme">br.com.territorio.gestao3</string>
 </resources>

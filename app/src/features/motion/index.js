@@ -1,19 +1,21 @@
 import { stepSpring, springAtRest } from './spring.js';
-import { naturalRect, reanchorPose, insightSheetGeometry, navigationEntryGeometry, morphGeometry, wholeReturnGeometry, revealClip, closingOpacity } from './geometry.js';
+import { animate, SPRINGS, ramp, clamp, motionOf, finishAll, liveCount, carriedVelocity, springCurve } from './engine.js';
 
-// One frame loop for the whole interface. Idle springs do not request frames.
+// Every opening and closing (pages, tabs, sheets, nested sheets, toasts, pressed keys) is
+// choreographed here and played by the compositor through engine.js. Nothing in this file
+// writes styles per frame: the main thread only decides where a surface comes from and goes to.
+// The small SVG simulations of the navigation icons keep their own frame loop below.
 const running = new Set();
-const elementMotions = new WeakMap();
 let frame = 0, previousTime = 0, installed = false;
 let preference;
 let latestSource = null;
-let skipNextPageEntry = false;
 let renderedFrames = 0;
 const fixedContentSelector = '.sale-dock, .multi-bar, #number-pad, .modal-number-pad, .sale-footer, .subview-footer, [style*="position:fixed"], [style*="position: fixed"]';
 const root = () => document.documentElement;
 const limited = () => root().classList.contains('lite');
 const reduced = () => preference?.matches || root().dataset.reduceEffects === 'true';
-const enabled = () => installed && !reduced() && !document.hidden;
+const enabled = () => installed && !reduced() && !document.hidden && typeof Element.prototype.animate === 'function';
+const spring = name => limited() && !['press', 'release'].includes(name) ? SPRINGS.lite : SPRINGS[name];
 
 function requestFrame() {
   if (!frame && running.size) frame = requestAnimationFrame(tick);
@@ -22,54 +24,18 @@ function requestFrame() {
 function tick(time) {
   frame = 0;
   renderedFrames++;
-  const seconds = previousTime ? Math.max(0, (time - previousTime) / 1000) : 1 / 60;
+  const seconds = previousTime ? Math.min((time - previousTime) / 1000, 0.05) : 1 / 60;
   previousTime = time;
   for (const motion of [...running]) {
     if (motion.owner && !motion.owner.isConnected) { motion.cancel(); continue; }
-    if (motion.advance) {
-      if (!enabled() || motion.advance(seconds)) motion.finish();
-      else motion.draw();
-      continue;
-    }
-    let resting = true;
-    for (const [key, spring] of Object.entries(motion.values)) {
-      const next = stepSpring(spring, spring.target, seconds, motion.config);
-      Object.assign(spring, next);
-      const tolerance = key === 'opacity' || key === 'scale' || key === 'reveal' ? 0.0005 : 0.04;
-      if (!springAtRest(spring, spring.target, tolerance, tolerance * 8)) resting = false;
-    }
-    if (resting || !enabled()) motion.finish();
+    if (!enabled() || motion.advance(seconds)) motion.finish();
     else motion.draw();
   }
   if (running.size) requestFrame();
   else previousTime = 0;
 }
 
-function springMotion(owner, from, target, draw, rest, config = {}) {
-  const motion = {
-    owner,
-    config: { stiffness: 420, damping: limited() ? 44 : 36, mass: 1, ...config },
-    values: Object.fromEntries(Object.entries(from).map(([key, position]) => [key, { position, velocity: 0, target: target[key] ?? position }])),
-    draw() { draw(Object.fromEntries(Object.entries(this.values).map(([key, s]) => [key, s.position]))); },
-    retarget(next) {
-      for (const [key, value] of Object.entries(next)) if (this.values[key]) this.values[key].target = value;
-      running.add(this);
-      if (!enabled()) this.finish(); else requestFrame();
-    },
-    finish() {
-      for (const s of Object.values(this.values)) { s.position = s.target; s.velocity = 0; }
-      this.draw();
-      running.delete(this);
-      rest?.();
-    },
-    cancel() { running.delete(this); rest?.(true); },
-  };
-  motion.draw();
-  motion.retarget(target);
-  return motion;
-}
-
-// Small SVG simulations (gravity/contact as well as springs) share the same frame scheduler.
+// Small SVG simulations (gravity/contact as well as springs) share one frame scheduler.
 // Returning true from advance means the simulation has reached its natural resting state.
 export function createPhysicalFrameMotion(owner, { advance, draw, onRest }) {
   let complete = false;
@@ -87,28 +53,30 @@ export function createPhysicalFrameMotion(owner, { advance, draw, onRest }) {
 
 export const fluidMotionAllowed = () => enabled();
 export const fluidMotionLite = () => limited();
-export const getMotionDiagnostics = () => ({ active: running.size, pendingFrame: !!frame, renderedFrames, lite: limited() });
+export const getMotionDiagnostics = () => ({ active: running.size + liveCount(), compositor: liveCount(), pendingFrame: !!frame, renderedFrames, lite: limited() });
 
 export function getMotionSource(maxAge = 5000) {
   return latestSource && performance.now() - latestSource.time < maxAge ? { ...latestSource } : null;
 }
 
+// ---------------------------------------------------------------- where a movement comes from
 const sourceSurface = control => control.closest('.product-card, .feira-card, .feira-stock-count, .feira-row, .kpi-item') || control;
 function sourceSelector(control) {
   if (!control.dataset.action) return '';
   return [...control.attributes].filter(attr => attr.name.startsWith('data-'))
     .map(attr => `[${attr.name}="${CSS.escape(attr.value)}"]`).join('');
 }
+const ghostSelector = 'dialog:not([open]), .fluid-page-morph-layer, .fluid-exit-layer, .fluid-sheet-ghost-layer, .fluid-section-ghost';
 
 // The page behind a sheet or a page may re-render while it is open (a pending-sale banner appears,
 // a list reorders). On return, find the same control again and aim at where it is now.
 function locateSource(source) {
   if (!source?.selector) return source;
   const control = [...document.querySelectorAll(source.selector)]
-    .find(el => !el.closest('dialog, .fluid-page-morph-layer, .fluid-exit-layer, .fluid-page-exit-layer') && el.getClientRects().length);
-  if (!control) return source;
+    .find(el => !el.closest('dialog, ' + ghostSelector) && el.getClientRects().length);
+  if (!control) return null;
   const bounds = sourceSurface(control).getBoundingClientRect();
-  if (!bounds.width || !bounds.height) return source;
+  if (!bounds.width || !bounds.height || bounds.bottom < 0 || bounds.top > innerHeight) return null;
   return { ...source, left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
     cx: bounds.left + bounds.width / 2, cy: bounds.top + bounds.height / 2 };
 }
@@ -128,270 +96,221 @@ function captureMotionSource(event) {
     radius: parseFloat(getComputedStyle(surface).borderTopLeftRadius) || 0,
     left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
     cx: bounds.left + bounds.width / 2, cy: bounds.top + bounds.height / 2,
-    time: performance.now(), insideDialog: !!control.closest('dialog'), inNav: !!control.closest('#nav'), tab: control.dataset.page || '', action: control.dataset.action || '',
+    time: performance.now(), insideDialog: !!control.closest('dialog'), inNav: !!control.closest('#nav'),
+    tab: control.dataset.page || '', action: control.dataset.action || '',
   };
 }
 
-const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
-function dialogGeometry(bounds, source, dialog, morph = true) {
-  // A sheet opened by a tap grows out of the tapped surface and returns to it on close, clipped
-  // to that surface's shape. Lite devices morph too, with a critically damped spring (dialogSpring).
-  // Sheets opened without a tap keep the short expansion.
-  if (morph && source) {
-    const sheetRadius = dialog ? parseFloat(getComputedStyle(dialog).borderTopLeftRadius) || 28 : 28;
-    const geometry = morphGeometry(bounds, source, sheetRadius);
-    if (geometry) return geometry;
-  }
-  return insightSheetGeometry(bounds, source, limited());
+// ---------------------------------------------------------------- choreography
+// Born from a card: the surface starts centred on the card at the card's size and, within the
+// first quarter of the spring, becomes opaque while it grows. Its content is the real content,
+// only smaller, as in ColorOS and iOS; nothing is clipped, so nothing has to be repainted.
+function launchPose(rect, source) {
+  const scale = clamp(Math.max(source.width / rect.width, source.height / rect.height), 0.3, 0.92);
+  return { x: source.cx - (rect.left + rect.width / 2), y: source.cy - (rect.top + rect.height / 2), scale, opacity: 0 };
 }
-const applyReveal = (element, clip, reveal) => { if (clip) element.style.clipPath = revealClip(clip, reveal); };
-function dialogSpring(kind, closing = false) {
-  return closing ? { stiffness: 720, damping: 52 } : { stiffness: 560, damping: limited() ? 47 : 35 };
+// Returning to a card: the whole surface fits inside the card and dissolves into it at the end.
+function landingPose(rect, source) {
+  const scale = clamp(Math.min(source.width / rect.width, source.height / rect.height), 0.12, 0.92);
+  return { x: source.cx - (rect.left + rect.width / 2), y: source.cy - (rect.top + rect.height / 2), scale, opacity: 0 };
 }
+const REST = Object.freeze({ x: 0, y: 0, scale: 1, opacity: 1 });
+// Opacity follows its own short window of the same spring; position and scale keep the full curve.
+const appear = (start, end) => (from) => (pose, p) => ({ ...pose, opacity: from.opacity + (1 - from.opacity) * ramp(p, start, end) });
+const dissolve = (start, end, base = 1) => (pose, p) => ({ ...pose, opacity: base * (1 - ramp(p, start, end)) });
+const usable = source => !!source && source.width > 4 && source.height > 4;
 
-const properties = ['translate', 'scale', 'opacity', 'will-change', 'transform-origin', 'clip-path'];
-function animateElement(element, from, to, options = {}) {
-  elementMotions.get(element)?.cancel();
-  if (!enabled()) return null;
-  const original = properties.map(p => [p, element.style.getPropertyValue(p), element.style.getPropertyPriority(p)]);
-  const clean = () => {
-    for (const [p, value, priority] of original) {
-      if (value) element.style.setProperty(p, value, priority);
-      else element.style.removeProperty(p);
-    }
-    element.classList.remove('fluid-animating');
-    elementMotions.delete(element);
-    options.onRest?.();
-  };
-  element.classList.add('fluid-animating');
-  if (options.origin) element.style.transformOrigin = options.origin;
-  element.style.willChange = [...new Set(Object.keys(from).filter(k => k !== 'reveal').map(k => k === 'x' || k === 'y' ? 'translate' : k))].join(', ');
-  const motion = springMotion(element, from, to, value => {
-    if ('x' in value || 'y' in value) element.style.translate = `${(value.x || 0).toFixed(3)}px ${(value.y || 0).toFixed(3)}px`;
-    if ('scale' in value) element.style.scale = value.scale.toFixed(5);
-    if ('opacity' in value) element.style.opacity = Math.max(0, Math.min(1, value.opacity)).toFixed(4);
-    options.onUpdate?.(value);
-  }, clean, options.config);
-  elementMotions.set(element, motion);
-  return motion;
+// ---------------------------------------------------------------- pages and tabs
+// The page that leaves is not copied: its own nodes are moved, as they are, into a fixed layer
+// (the renderer was about to discard them). There it zooms away, or shrinks back into the card
+// it came from, while the new page arrives. Both are one compositor layer each.
+const NAV_ORDER = ['Vender', 'Estoque', 'Clientes', 'Eventos', 'Gestão'];
+const pageFreeze = ['display', 'background-color', 'background-image', 'border-top', 'border-right', 'border-bottom', 'border-left',
+  'border-radius', 'box-shadow', 'color', 'padding', 'gap', 'grid-template-columns', 'min-height', 'font-size', 'font-weight'];
+let pageTransition = null;
+let pageHandled = false;
+
+function endPageTransition() {
+  const t = pageTransition;
+  pageTransition = null;
+  if (!t) return;
+  for (const handle of t.handles) handle?.cancel();
+  t.layer?.remove();
 }
 
-// ---------------------------------------------------------------- page morph
-// Pages opened from a card (Venda, Produto, Ajustes…) behave like the sheets: the whole page grows
-// out of the tapped card and, on return, shrinks back into it whole. #app and its fixed bars are
-// never transformed; a detached visual copy inside one fixed layer carries the movement instead.
-const freezeProperties = ['display', 'box-sizing', 'width', 'height', 'padding', 'margin', 'background-color', 'background-image',
-  'color', 'border-top', 'border-right', 'border-bottom', 'border-left', 'border-radius', 'box-shadow', 'font', 'gap',
-  'flex', 'grid-template-columns', 'align-items', 'justify-content', 'opacity', 'visibility'];
-let pendingPageEntry = null;
-
-// Copy elements for a moving page. Ids stay so id-based styles still apply (the real nodes come
-// first in the document, so lookups keep finding them); names and actions are removed so a copied
-// radio or button can never touch real state. With freeze, computed styles are pinned first, for
-// copies that must keep their look after html[data-page] changes. All reads happen before writes.
-function pageCopies(elements, freeze, limit = 1500) {
-  const pairs = [], roots = [];
-  for (const element of elements) {
-    // Count before cloning: a long catalog must not be duplicated just to reject it.
-    if (!boundedSurface(element, limit-pairs.length)) return null;
-    const copy = element.cloneNode(true);
-    roots.push(copy);
-    pairs.push([element, copy]);
-    const originals = element.querySelectorAll('*'), copies = copy.querySelectorAll('*');
-    for (let i = 0; i < originals.length; i++) pairs.push([originals[i], copies[i]]);
-    if (pairs.length > limit) return null;
-  }
-  const styles = freeze ? pairs.map(([original]) => { const computed = getComputedStyle(original); return freezeProperties.map(p => computed.getPropertyValue(p)); }) : null;
-  pairs.forEach(([original, copy], i) => {
-    if (original.matches?.('input, textarea, select') && copy.type !== 'file') copy.value = original.value;
-    if ('checked' in original) copy.checked = original.checked;
-    for (const attr of ['name', 'autofocus', 'for', 'data-action']) copy.removeAttribute(attr);
-    copy.classList?.remove('fluid-animating', 'fluid-press', 'fluid-section-running');
-    if (styles) freezeProperties.forEach((p, j) => { if (styles[i][j]) copy.style.setProperty(p, styles[i][j]); });
-  });
-  return roots;
-}
-
-function pageContext(app, copies) {
+// Detach the leaving page into a layer. Styles that depend on html[data-page] are pinned on what
+// is visible (a few dozen elements), because the attribute changes right after this event.
+function liftPage(app, onTop) {
+  const children = [...app.children];
+  if (!children.length) return null;
   const rect = app.getBoundingClientRect(), computed = getComputedStyle(app);
-  const context = document.createElement('div');
-  context.id = 'app';
-  context.className = app.className + ' fluid-page-morph-context';
-  Object.assign(context.style, { top: rect.top + 'px', left: rect.left + 'px', width: rect.width + 'px', padding: computed.padding });
-  context.append(...copies);
-  return context;
-}
-
-function pageLayer() {
+  const visible = [];
+  const walker = document.createTreeWalker(app, NodeFilter.SHOW_ELEMENT);
+  let count = 0;
+  while (walker.nextNode() && count < 4000) {
+    count++;
+    const node = walker.currentNode;
+    if (visible.length >= 160) break;
+    const box = node.getBoundingClientRect();
+    if (box.bottom > 0 && box.top < innerHeight && box.width && box.height && box.width * box.height > 900) visible.push(node);
+    else if (box.top >= innerHeight && node.parentElement === app) break;
+  }
+  const pinned = visible.map(node => { const style = getComputedStyle(node); return pageFreeze.map(p => style.getPropertyValue(p)); });
+  const chrome = ['nav-glass', 'nav'].map(id => document.getElementById(id)).filter(el => el && el.getClientRects().length && !onTop)
+    .map(el => { const copy = el.cloneNode(true); copy.removeAttribute('id'); copy.classList.add('fluid-chrome-copy'); copy.querySelectorAll('[id],[data-action]').forEach(n => { n.removeAttribute('id'); n.removeAttribute('data-action'); }); const s = getComputedStyle(el); copy.style.cssText += `;position:fixed;left:${s.left};right:${s.right};bottom:${s.bottom};top:${s.top};width:${s.width};height:${s.height}`; return copy; });
   const layer = document.createElement('div');
-  layer.className = 'fluid-page-morph-layer';
+  layer.className = 'fluid-page-morph-layer' + (onTop ? ' is-front' : ' is-behind');
   layer.inert = true;
   layer.setAttribute('aria-hidden', 'true');
-  layer.style.setProperty('--page-morph-bg', getComputedStyle(document.body).backgroundColor);
-  return layer;
+  const surface = document.createElement('div');
+  surface.className = 'fluid-page-morph-surface';
+  surface.style.setProperty('--page-morph-bg', getComputedStyle(document.body).backgroundColor);
+  const context = document.createElement('div');
+  context.className = app.className + ' fluid-page-morph-context';
+  Object.assign(context.style, { top: rect.top + 'px', left: rect.left + 'px', width: rect.width + 'px', padding: computed.padding });
+  visible.forEach((node, i) => pageFreeze.forEach((p, j) => { if (pinned[i][j]) node.style.setProperty(p, pinned[i][j]); }));
+  context.append(...children);
+  // A moved page must never answer a query meant for the live one.
+  context.querySelectorAll('[data-action], [name], [autofocus]').forEach(node => { node.removeAttribute('data-action'); node.removeAttribute('name'); node.removeAttribute('autofocus'); });
+  surface.append(context, ...chrome);
+  layer.append(surface);
+  app.after(layer);
+  return { layer, surface };
 }
 
-function capturePageEntry(app, source) {
-  pendingPageEntry = null;
-  if (!enabled() || limited() || !source || source.insideDialog || source.inNav) return;
-  const chrome = ['nav-glass', 'nav'].map(id => document.getElementById(id)).filter(el => el && el.getClientRects().length);
-  const parts = [...app.children], copies = pageCopies([...parts, ...chrome], true);
-  if (!copies) return;
-  const backdrop = document.createElement('div');
-  backdrop.className = 'fluid-page-morph-surface';
-  backdrop.append(pageContext(app, copies.slice(0, parts.length)), ...copies.slice(parts.length));
-  pendingPageEntry = { backdrop, source, time: performance.now() };
-  requestAnimationFrame(() => { pendingPageEntry = null; });
-}
-
-function morphPage(card, shade, layer, source, closing) {
-  const geometry = (closing ? wholeReturnGeometry : morphGeometry)({ left: 0, top: 0, width: innerWidth, height: innerHeight }, source, 0);
-  if (!geometry) return false;
-  // Lite devices clip with square corners, the cheapest clip to repaint.
-  const clip = limited() ? { ...geometry.clip, radius: 0 } : geometry.clip;
-  const open = { x: 0, y: 0, scale: 1, reveal: 1 }, shut = { x: geometry.x, y: geometry.y, scale: geometry.scale, reveal: 0 };
-  const motion = animateElement(card, closing ? open : shut, closing ? shut : open, {
-    origin: geometry.origin, config: dialogSpring('page', closing),
-    onUpdate: value => {
-      applyReveal(card, clip, value.reveal);
-      shade.style.opacity = clamp(value.reveal, 0, 1).toFixed(4);
-      if (closing) card.style.opacity = closingOpacity(value.reveal).toFixed(4);
-    },
-    onRest: () => layer.remove(),
-  });
-  return motion ? { motion, geometry } : null;
-}
-
-function animatePageEntry(app) {
-  const pending = pendingPageEntry;
-  pendingPageEntry = null;
-  if (!pending || performance.now() - pending.time > 1000 || !app.querySelector(':scope > .subview')) return false;
-  const copies = pageCopies([...app.children], false);
-  if (!copies) return false;
-  const layer = pageLayer(), shade = document.createElement('div'), card = document.createElement('div');
-  shade.className = 'fluid-page-morph-shade';
-  card.className = 'fluid-page-morph-surface';
-  card.append(pageContext(app, copies));
-  layer.append(pending.backdrop, shade, card);
-  document.body.append(layer);
-  if (!morphPage(card, shade, layer, pending.source, false)) { layer.remove(); return false; }
-  return true;
-}
-
-function animatePageReturn(app, source) {
-  if (!enabled() || limited()) return null;
-  const copies = pageCopies([...app.children], true);
-  if (!copies) return null;
-  const layer = pageLayer(), shade = document.createElement('div'), card = document.createElement('div');
-  shade.className = 'fluid-page-morph-shade';
-  card.className = 'fluid-page-morph-surface';
-  card.append(pageContext(app, copies));
-  layer.append(shade, card);
-  document.body.append(layer);
-  const morph = morphPage(card, shade, layer, source, true);
-  if (morph) return { layer, ...morph };
-  layer.remove();
-  return null;
-}
-
-// Flow panels share one viewport pivot and one spring. Their relative positions stay
-// fixed throughout the launch; fixed toolbars keep their viewport containing block.
-let pageEntryMotion = null;
-export function animatePageChange(app) {
-  pageEntryMotion?.cancel();
-  pageEntryMotion = null;
-  if (skipNextPageEntry) { skipNextPageEntry = false; return; }
-  if (!app || !enabled()) return;
-  if (animatePageEntry(app)) return;
-  const source=getMotionSource(900),navigation=!!source?.inNav;
-  const entry = navigation?navigationEntryGeometry(innerWidth,innerHeight,source,limited()):insightSheetGeometry({left:0,top:0,width:innerWidth,height:innerHeight},source,limited());
-  const pivot = entry.origin.split(' ').map(parseFloat);
-  const candidates = [...app.children].flatMap(el => el.classList.contains('subview') ? [...el.children] : [el]);
-  const prepared = candidates.filter(el => !el.hidden && !el.matches('script, style')).map(element => {
+// The arriving page: every flow block shares one pivot and one spring, so the page moves as one
+// piece; fixed bars (sale dock, keypad) rise into place on their own.
+function arrivePage(app, entry, pivot, springName, fixedFrom = { y: 28, opacity: 0 }) {
+  const blocks = [...app.children].flatMap(el => el.classList.contains('subview') ? [...el.children] : [el]);
+  const prepared = blocks.filter(el => !el.hidden && !el.matches('script, style')).map(element => {
     const bounds = element.getBoundingClientRect();
     const fixed = getComputedStyle(element).position === 'fixed' || !!element.querySelector(fixedContentSelector);
-    return {element,bounds,fixed,original:properties.map(p=>[p,element.style.getPropertyValue(p),element.style.getPropertyPriority(p)])};
-  }).filter(({bounds})=>bounds.width && bounds.height && bounds.top<innerHeight && bounds.bottom>0).slice(0,12);
-  if (!prepared.length) return;
-  let complete = false, motion;
-  const clean = () => {
-    if (complete) return;
-    complete = true;
-    for (const {element,original} of prepared) {
-      for (const [p,value,priority] of original) value ? element.style.setProperty(p,value,priority) : element.style.removeProperty(p);
-      element.classList.remove('fluid-animating');
-      elementMotions.delete(element);
-    }
-    if (pageEntryMotion === motion) pageEntryMotion = null;
+    return { element, bounds, fixed };
+  }).filter(({ bounds }) => bounds.width && bounds.height && bounds.top < innerHeight && bounds.bottom > 0).slice(0, 14);
+  const curve = spring(springName);
+  return prepared.map(({ element, bounds, fixed }) => fixed
+    ? animate(element, { from: { ...fixedFrom }, to: { y: 0, opacity: 1 }, spring: curve, shape: appear(0.12, 0.55)(fixedFrom) })
+    : animate(element, { from: entry, to: REST, spring: curve, shape: appear(0, entry.opacity > 0.5 ? 0.4 : 0.3)(entry),
+      origin: `${(pivot[0] - bounds.left).toFixed(1)}px ${(pivot[1] - bounds.top).toFixed(1)}px` }));
+}
+
+function installPageTransitions(listen) {
+  const app = document.getElementById('app');
+  let currentPage = root().dataset.page || window.TerritorioShell?.page?.();
+  const history = [];
+  const before = event => {
+    const nextPage = event.detail?.page;
+    if (!nextPage || nextPage === currentPage) return;
+    const previousPage = currentPage;
+    currentPage = nextPage;
+    endPageTransition();
+    const source = getMotionSource(1200), previous = history.at(-1);
+    const nav = !!source?.inNav;
+    const goingBack = !nav && (previous?.from === nextPage || /back|cancel-product|cancel-sale/.test(source?.action || ''));
+    if (nav) history.length = 0;
+    if (goingBack) {
+      const index = history.findLastIndex(entry => entry.from === nextPage);
+      if (index >= 0) history.splice(index); else history.pop();
+    } else if (!nav) history.push({ from: previousPage, page: nextPage, source });
+    if (history.length > 20) history.shift();
+    if (!enabled() || !app) return;
+    // A checkout closes its own sheet into the sale; a copy of the sale page would flash stale content.
+    const lift = source?.insideDialog ? null : liftPage(app, goingBack);
+    const t = pageTransition = { layer: lift?.layer, handles: [] };
+    pageHandled = true;
+    // The renderer finishes the new page synchronously after this event: aim once it is there.
+    queueMicrotask(() => {
+      pageHandled = false;
+      if (pageTransition !== t) return;
+      const done = () => { if (pageTransition === t) { pageTransition = null; t.layer?.remove(); } };
+      const view = { left: 0, top: 0, width: innerWidth, height: innerHeight };
+      const center = [innerWidth / 2, innerHeight / 2];
+      // The copied tab bar only stands in for a bar that the new page hides.
+      if (lift && document.getElementById('nav')?.getClientRects().length) lift.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node => node.remove());
+      if (nav) {
+        const step = Math.sign(NAV_ORDER.indexOf(nextPage) - NAV_ORDER.indexOf(previousPage)) || 0;
+        const shift = (limited() ? 10 : 22) * step;
+        if (lift) t.handles.push(animate(lift.surface, { from: { x: 0, scale: 1, opacity: 1 }, to: { x: -shift, scale: 0.985, opacity: 0 }, spring: spring('tab'), shape: dissolve(0, 0.42), onFinish: done }));
+        t.handles.push(...arrivePage(app, { x: shift, y: 0, scale: 0.985, opacity: 0 }, center, 'tab', { y: 0, opacity: 0 }));
+        if (!lift) t.handles.at(-1)?.finished.then(done);
+        return;
+      }
+      if (goingBack) {
+        const target = previous?.source ? locateSource(previous.source) : null;
+        if (lift) {
+          const to = usable(target) ? landingPose(view, target) : { x: 0, y: 36, scale: 0.9, opacity: 0 };
+          t.handles.push(animate(lift.surface, { from: REST, to, spring: spring('back'), shape: usable(target) ? dissolve(0.58, 1) : dissolve(0, 0.7), onFinish: done }));
+        }
+        const pivot = usable(target) ? [target.cx, target.cy] : center;
+        t.handles.push(...arrivePage(app, { x: 0, y: 0, scale: limited() ? 1.015 : 1.04, opacity: 0 }, pivot, 'back', { y: 18, opacity: 0 }));
+        if (!lift) t.handles.at(-1)?.finished.then(done);
+        return;
+      }
+      if (usable(source) && !source.insideDialog) {
+        if (lift) t.handles.push(animate(lift.surface, { from: REST, to: { x: 0, y: 0, scale: limited() ? 1.02 : 1.06, opacity: 0 }, spring: spring('page'), shape: dissolve(0, 0.5), origin: `${source.cx}px ${source.cy}px`, onFinish: done }));
+        const entry = launchPose(view, source);
+        t.handles.push(...arrivePage(app, entry, center, 'page'));
+        if (!lift) t.handles.at(-1)?.finished.then(done);
+        return;
+      }
+      // Without a tap (after a sale, from the assistant): a short, quiet cross-fade.
+      if (lift) t.handles.push(animate(lift.surface, { from: { y: 0, opacity: 1 }, to: { y: -8, opacity: 0 }, spring: spring('tab'), shape: dissolve(0, 0.45), onFinish: done }));
+      t.handles.push(...arrivePage(app, { x: 0, y: 14, scale: 0.99, opacity: 0 }, center, 'tab', { y: 18, opacity: 0 }));
+      if (!lift) t.handles.at(-1)?.finished.then(done);
+    });
   };
-  for (const {element,bounds,fixed} of prepared) {
-    element.classList.add('fluid-animating');
-    element.style.willChange = fixed ? 'opacity' : 'translate, scale, opacity';
-    if (!fixed) element.style.transformOrigin = `${pivot[0]-bounds.left}px ${pivot[1]-bounds.top}px`;
-  }
-  motion = springMotion(app,{x:entry.x,y:entry.y,scale:entry.scale,opacity:0.72},{x:0,y:0,scale:1,opacity:1}, value => {
-    const opacity = String(clamp(value.opacity,0,1)), translate = `${value.x.toFixed(3)}px ${value.y.toFixed(3)}px`, scale = value.scale.toFixed(5);
-    for (const {element,fixed} of prepared) {
-      element.style.opacity = opacity;
-      if (!fixed) { element.style.translate = translate; element.style.scale = scale; }
-    }
-  },clean,navigation?{stiffness:520,damping:limited()?44:28}:dialogSpring('page'));
-  pageEntryMotion = motion;
-  for (const {element} of prepared) elementMotions.set(element,motion);
+  listen(app, 'territorio:before-page', before);
+  listen(document, 'visibilitychange', endPageTransition);
+  return endPageTransition;
+}
+
+// interface.js calls this after each route change. Route changes that went through the renderer
+// were already choreographed above; this only covers the first page.
+export function animatePageChange(app) {
+  if (pageHandled || pageTransition || !app || !enabled()) return;
 }
 
 export function animateSection(details) {
   if (!details.open || !enabled() || details.dataset.fluidSectionManaged === 'true') return;
   [...details.children].filter(el => !el.matches('summary') && !el.hidden).slice(0, 6).forEach(element => {
-    animateElement(element, { y: limited() ? -2 : -5, opacity: 0.35 }, { y: 0, opacity: 1 },
-      { config: { stiffness: 460, damping: 38 } });
+    const from = { y: limited() ? -2 : -5, opacity: 0.35 };
+    animate(element, { from, to: { y: 0, opacity: 1 }, spring: spring('section'), shape: appear(0, 0.5)(from) });
   });
 }
 
 const toastMotions = new WeakMap();
 export function animateToast(toast) {
   if (toast.hidden || !enabled()) {
-    elementMotions.get(toast)?.cancel();
+    motionOf(toast)?.cancel();
     toastMotions.delete(toast);
     return;
   }
-  const existing = toastMotions.get(toast);
-  if (existing && running.has(existing)) {
-    // A second message during entry keeps its current position and velocity.
-    existing.retarget({ y: 0, scale: 1, opacity: 1 });
-    return;
-  }
+  const existing = motionOf(toast);
+  if (existing?.running) { existing.retarget({ y: 0, scale: 1, opacity: 1 }); return; }
   const visible = toastMotions.has(toast);
-  const motion = animateElement(toast, { y: visible ? 4 : 20, scale: 0.985, opacity: visible ? 1 : 0 },
-    { y: 0, scale: 1, opacity: 1 }, { config: { stiffness: 390, damping: 33 } });
-  toastMotions.set(toast, motion);
+  const from = { y: visible ? 4 : 20, scale: 0.985, opacity: visible ? 1 : 0 };
+  toastMotions.set(toast, true);
+  animate(toast, { from, to: REST, spring: spring('toast'), shape: appear(0, 0.35)(from) });
 }
 
+// ---------------------------------------------------------------- pressed keys
 function installPress(listen) {
-  const pointers = new Map(), buttons = new Map();
+  const pointers = new Map(), pressed = new Set();
+  const depth = button => { const r = button.getBoundingClientRect(); return r.width > 300 ? 0.985 : limited() ? 0.98 : 0.965; };
   const release = button => {
-    const state = buttons.get(button);
-    if (!state) return;
-    state.down = false;
-    state.motion.retarget({ scale: 1 });
+    if (!pressed.delete(button)) return;
+    const current = motionOf(button);
+    const from = current ? current.now().pose : { scale: 1 };
+    if (!enabled() || !button.isConnected) { current?.cancel(); return; }
+    animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: 1 }, spring: SPRINGS.release, velocity: current ? carriedVelocity(current, from, { scale: 1 }) : 0 });
   };
-  const releaseAll = () => { pointers.clear(); for (const button of buttons.keys()) release(button); };
+  const releaseAll = () => { pointers.clear(); for (const button of [...pressed]) release(button); };
   const press = button => {
     if (!enabled() || !button || button.disabled || button.getAttribute('aria-disabled') === 'true' || button.closest('[inert]')) return;
-    const existing = buttons.get(button);
-    if (existing) { existing.down = true; existing.motion.retarget({ scale: limited() ? 0.985 : 0.972 }); return; }
-    const original = button.style.scale;
-    const state = { down: true };
-    buttons.set(button, state);
-    button.classList.add('fluid-press');
-    state.motion = springMotion(button, { scale: 1 }, { scale: limited() ? 0.985 : 0.972 }, value => {
-      button.style.scale = value.scale.toFixed(5);
-    }, cancelled => {
-      if (state.down && !cancelled && enabled()) return;
-      button.style.scale = original;
-      button.classList.remove('fluid-press');
-      buttons.delete(button);
-    }, { stiffness: 650, damping: 38 });
+    const current = motionOf(button);
+    const from = current ? current.now().pose : { scale: 1 };
+    pressed.add(button);
+    animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: depth(button) }, spring: SPRINGS.press, persist: true });
   };
   listen(document, 'pointerdown', event => {
     if (event.button !== 0 || event.isPrimary === false) return;
@@ -410,12 +329,6 @@ function installPress(listen) {
     const held = pointers.get(event.pointerId);
     if (held) { pointers.delete(event.pointerId); release(held.button); }
   }, { capture: true, passive: true });
-  listen(document, 'pointerout', event => {
-    const held = pointers.get(event.pointerId);
-    if (event.pointerType === 'mouse' && held && !held.button.contains(event.relatedTarget)) {
-      pointers.delete(event.pointerId); release(held.button);
-    }
-  }, { capture: true, passive: true });
   listen(document, 'keydown', event => {
     if (event.repeat || !['Enter', ' '].includes(event.key) || !event.target.matches?.('button')) return;
     press(event.target);
@@ -423,24 +336,14 @@ function installPress(listen) {
   listen(document, 'keyup', event => { if (['Enter', ' '].includes(event.key)) releaseAll(); }, true);
   listen(document, 'scroll', releaseAll, { capture: true, passive: true });
   listen(window, 'blur', releaseAll);
-  return () => { releaseAll(); for (const state of buttons.values()) state.motion.cancel(); };
+  return releaseAll;
 }
 
+// ---------------------------------------------------------------- sheets
 function surfaceState(element) {
   const bounds = element.getBoundingClientRect(), computed = getComputedStyle(element);
-  const values = elementMotions.get(element)?.values || {};
-  const translation = computed.translate === 'none' ? [0, 0] : computed.translate.split(' ').map(parseFloat);
-  const origin = computed.transformOrigin.split(' ').map(parseFloat);
-  const pose = {
-    x: values.x?.position ?? translation[0] ?? 0, y: values.y?.position ?? translation[1] ?? 0,
-    scale: values.scale?.position ?? (parseFloat(computed.scale) || 1),
-    opacity: values.opacity?.position ?? Number(computed.opacity),
-    originX: origin[0] || 0, originY: origin[1] || 0,
-    velocityX: values.x?.velocity || 0, velocityY: values.y?.velocity || 0,
-    velocityScale: values.scale?.velocity || 0, velocityOpacity: values.opacity?.velocity || 0,
-  };
   const material = Object.fromEntries(['background', 'border', 'border-radius', 'padding', 'color', 'box-shadow', 'font'].map(property => [property, computed.getPropertyValue(property)]));
-  return { rect: naturalRect(bounds, pose), pose, material, display: computed.display, position: computed.position };
+  return { rect: { left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height }, material, display: computed.display, position: computed.position };
 }
 
 function boundedSurface(element, maximum) {
@@ -460,14 +363,14 @@ function makeVisualCopy(element) {
   for (const part of [clone, ...clone.querySelectorAll('[id], [name], [autofocus], [for], [data-management-section], [data-action]')]) {
     for (const attr of ['id', 'name', 'autofocus', 'for', 'data-management-section', 'data-action']) part.removeAttribute(attr);
   }
-  clone.querySelectorAll('.fluid-animating, .fluid-press, .fluid-section-running').forEach(part => part.classList.remove('fluid-animating', 'fluid-press', 'fluid-section-running'));
-  clone.classList.remove('fluid-animating', 'fluid-press', 'fluid-section-running');
+  clone.querySelectorAll('.fluid-animating, .fluid-section-running').forEach(part => part.classList.remove('fluid-animating', 'fluid-section-running'));
+  clone.classList.remove('fluid-animating', 'fluid-section-running', 'fluid-native-exit');
   clone.inert = true;
   clone.setAttribute('aria-hidden', 'true');
   return clone;
 }
 
-const surfaceProperties = ['position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'margin', 'box-sizing', 'max-width', 'max-height', 'background', 'border', 'border-radius', 'padding', 'color', 'box-shadow', 'font'];
+const surfaceProperties = ['position', 'left', 'top', 'right', 'bottom', 'width', 'height', 'margin', 'box-sizing', 'max-width', 'max-height', 'background', 'border', 'border-radius', 'padding', 'color', 'box-shadow', 'font', 'transition-duration', '--fluid-exit-ms'];
 function placeSurface(element, surface) {
   const rect = surface.rect;
   for (const [property, value] of Object.entries(surface.material)) element.style.setProperty(property, value);
@@ -478,163 +381,126 @@ function placeSurface(element, surface) {
   });
 }
 
-function inheritVelocity(motion, pose) {
-  if (!motion) return;
-  for (const [key, velocity] of [['x', pose.velocityX], ['y', pose.velocityY], ['scale', pose.velocityScale], ['opacity', pose.velocityOpacity]]) {
-    if (motion.values[key]) motion.values[key].velocity = velocity || 0;
-  }
-}
-
 function installDialogs() {
   const states = new Map();
   const pendingUpdates = new Map();
   const nativeExit = !!globalThis.CSS?.supports?.('transition-behavior', 'allow-discrete') && CSS.supports('overlay', 'auto');
   const discardGhost = state => { const ghost = state.ghost; state.ghost = null; ghost?.remove(); };
+  const playBackdrop = (dialog, state, from, to, curve, persist = false) => {
+    state.backdrop?.cancel();
+    state.backdrop = animate(dialog, { from: { opacity: from }, to: { opacity: to }, spring: curve, pseudoElement: '::backdrop', persist });
+  };
+  const backdropNow = state => state.backdrop?.running ? state.backdrop.now().pose.opacity : 1;
+  // Stop whatever the sheet is doing and report the pose it had on screen.
+  const settleSheet = (dialog, state) => {
+    const handle = motionOf(dialog);
+    const now = handle?.running ? handle.now() : null;
+    const velocityFrom = handle?.running ? handle : null;
+    if (state.closing) state.closing.restore(true);
+    handle?.cancel();
+    return { pose: now?.pose || null, handle: velocityFrom, backdrop: backdropNow(state) };
+  };
+
+  // Opening, or new content: everything is decided from one measurement of the sheet at rest.
+  const open = (dialog, state, fresh, source) => {
+    const prior = settleSheet(dialog, state);
+    const rect = dialog.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    state.morph = fresh ? usable(source) : state.morph;
+    let from;
+    if (fresh && usable(source)) from = launchPose(rect, source);
+    else if (fresh) from = { x: 0, y: limited() ? 10 : 22, scale: limited() ? 0.97 : 0.94, opacity: 0 };
+    else from = { x: 0, y: 6, scale: 0.985, opacity: 0.6 };
+    if (prior.pose) from = { ...from, ...prior.pose };
+    const curve = spring(fresh ? 'open' : 'tab');
+    const velocity = prior.handle ? carriedVelocity(prior.handle, from, REST) : 0;
+    dialog.classList.add('fluid-animating');
+    animate(dialog, { from, to: REST, spring: curve, velocity, shape: appear(0, fresh ? 0.28 : 0.35)(from),
+      onFinish: () => dialog.classList.remove('fluid-animating') });
+    if (fresh || prior.pose) playBackdrop(dialog, state, prior.pose ? prior.backdrop : 0, 1, curve);
+  };
+
+  // Closing: the sheet keeps its place in the top layer (display/overlay transition) for exactly
+  // as long as its return lasts, then disappears at the card it came from.
   const exit = (dialog, state) => {
-    if (!enabled() || !dialog.open || state.closing) return null;
-    // One bounds read and one computed-style read, with no writes between them.
+    if (!enabled() || !dialog.open || state.closing || !nativeExit) return null;
+    const prior = settleSheet(dialog, state);
     const surface = surfaceState(dialog);
-    const children = [...dialog.children].map(element=>({element,height:element.offsetHeight,scrollTop:element.scrollTop,scrollLeft:element.scrollLeft,saved:['height','min-height','max-height','flex'].map(p=>[p,element.style.getPropertyValue(p),element.style.getPropertyPriority(p)])}));
     if (!surface.rect.width || !surface.rect.height) return null;
-    if (state.morph) state.source = locateSource(state.source);
-    const close = (state.morph && wholeReturnGeometry(surface.rect, state.source, parseFloat(getComputedStyle(dialog).borderTopLeftRadius) || 28)) || dialogGeometry(surface.rect, state.source, dialog, state.morph);
-    const clip = close.clip;
-    // A fast reversal keeps the current partial opening frozen; a settled sheet
-    // keeps its complete mask. Neither wipes individual rows during the return.
-    const retainedClip = dialog.style.clipPath || revealClip(clip || { x: 0, bottom: 0, radius: 28, sheetRadius: 28 }, 1);
-    const drawReturnClip = (element, value) => {
-      if (close.whole) element.style.clipPath = retainedClip;
-      else applyReveal(element, clip, value);
+    const children = [...dialog.children].map(element => ({ element, height: element.offsetHeight, scrollTop: element.scrollTop, scrollLeft: element.scrollLeft,
+      saved: ['height', 'min-height', 'max-height', 'flex'].map(p => [p, element.style.getPropertyValue(p), element.style.getPropertyPriority(p)]) }));
+    const target = state.morph ? locateSource(state.source) : null;
+    const from = { ...REST, ...(prior.pose || {}) };
+    const to = usable(target) ? landingPose(surface.rect, target) : { x: 0, y: limited() ? 8 : 16, scale: limited() ? 0.975 : 0.94, opacity: 0 };
+    const shape = usable(target) ? dissolve(0.62, 1, from.opacity) : dissolve(0, 0.7, from.opacity);
+    const curve = spring('close');
+    const velocity = prior.handle ? carriedVelocity(prior.handle, from, to) : 0;
+    const retention = Math.ceil(springCurve(curve, velocity).duration) + 120;
+    const saved = surfaceProperties.map(property => [property, dialog.style.getPropertyValue(property), dialog.style.getPropertyPriority(property)]);
+    const originalInert = dialog.inert, originalAriaHidden = dialog.getAttribute('aria-hidden');
+    const copy = boundedSurface(dialog, 1200) ? makeVisualCopy(dialog) : null;
+    const scrollTop = dialog.querySelector('.dialog-content')?.scrollTop || 0;
+    const token = {};
+    token.restore = (reopening = false) => {
+      if (state.closing !== token) return;
+      state.closing = null;
+      // A closed sheet stays hidden while its inline pose is cleared; otherwise it flashes.
+      if (!dialog.open && !reopening) dialog.classList.add('fluid-exit-closed');
+      motionOf(dialog)?.cancel();
+      if (!reopening) { state.backdrop?.cancel(); state.backdrop = null; }
+      dialog.classList.remove('fluid-native-exit', 'fluid-animating');
+      dialog.inert = originalInert;
+      if (originalAriaHidden === null) dialog.removeAttribute('aria-hidden'); else dialog.setAttribute('aria-hidden', originalAriaHidden);
+      for (const child of children) for (const [p, value, priority] of child.saved) value ? child.element.style.setProperty(p, value, priority) : child.element.style.removeProperty(p);
+      for (const [property, value, priority] of saved) value ? dialog.style.setProperty(property, value, priority) : dialog.style.removeProperty(property);
     };
-    const reveal = elementMotions.get(dialog)?.values.reveal?.position ?? 1;
-    const origin = close.origin.split(' ').map((value, i) => value.includes('%') ? parseFloat(value) / 100 * (i ? surface.rect.height : surface.rect.width) : parseFloat(value));
-    const pose = reanchorPose(surface.pose, origin[0], origin[1]);
-    // A morphing sheet stays whole and solid on its way back and only merges into the source at the end.
-    const from = clip ? { x: pose.x, y: pose.y, scale: pose.scale, reveal } : { x: pose.x, y: pose.y, scale: pose.scale, opacity: pose.opacity };
-    const to = clip ? { x: close.x, y: close.y, scale: close.scale, reveal: 0 } : { x: close.x, y: close.y, scale: close.scale, opacity: 0 };
-    const fade = value => clip ? closingOpacity(value.reveal, pose.opacity) : value.opacity;
-    const shadeLevel = value => clamp((clip ? value.reveal : value.opacity / Math.max(0.001, pose.opacity)), 0, 1) * backdropOpacity;
-    const backdrop = getComputedStyle(dialog, '::backdrop');
-    const backdropColor = backdrop.backgroundColor;
-    const backdropOpacity = Number(backdrop.opacity);
-    const token = { motion: null, native: nativeExit };
-    elementMotions.get(dialog)?.cancel();
-    if (nativeExit) {
-      // The browser retains the actual top-layer pixels via discrete display/overlay transitions.
-      // close(), returnValue, focus and business handlers still complete synchronously.
-      const saved = [...surfaceProperties, 'clip-path', '--fluid-backdrop-opacity', '--fluid-backdrop-color'].map(property => [property, dialog.style.getPropertyValue(property), dialog.style.getPropertyPriority(property)]);
-      const originalInert = dialog.inert, originalAriaHidden = dialog.getAttribute('aria-hidden');
-      const restore = () => {
-        if (state.closing !== token) return;
-        state.closing = null;
-        // The discrete overlay can outlive the spring by a frame. Keep a closed surface hidden
-        // while restoring inline opacity/scale, otherwise its unanimated pose briefly flashes.
-        if (!dialog.open) dialog.classList.add('fluid-exit-closed');
-        dialog.classList.remove('fluid-native-exit');
-        dialog.inert = originalInert;
-        if (originalAriaHidden === null) dialog.removeAttribute('aria-hidden'); else dialog.setAttribute('aria-hidden', originalAriaHidden);
-        for (const child of children) for (const [p,value,priority] of child.saved) value ? child.element.style.setProperty(p,value,priority) : child.element.style.removeProperty(p);
-        for (const [property, value, priority] of saved) {
-          if (value) dialog.style.setProperty(property, value, priority); else dialog.style.removeProperty(property);
-        }
-      };
-      state.closing = token;
-      token.markClosed = () => { dialog.inert = true; dialog.setAttribute('aria-hidden', 'true'); };
-      placeSurface(dialog, surface);
-      for (const child of children) if(child.height){Object.assign(child.element.style,{height:child.height+'px',minHeight:child.height+'px',maxHeight:child.height+'px',flex:'0 0 auto'});child.element.scrollTop=child.scrollTop;child.element.scrollLeft=child.scrollLeft;}
-      dialog.style.setProperty('--fluid-backdrop-color', backdropColor);
-      dialog.classList.add('fluid-native-exit');
-      token.motion = animateElement(dialog, from, to, {
-        origin: close.origin, config: dialogSpring(state.kind, true),
-        onUpdate: value => {
-          dialog.style.setProperty('--fluid-backdrop-opacity', shadeLevel(value));
-          if (clip) dialog.style.opacity = fade(value).toFixed(4);
-          drawReturnClip(dialog, value.reveal);
-        },
-        onRest: restore,
-      });
-      inheritVelocity(token.motion, pose);
-      // The shared legacy dialog is often emptied or rewritten right after close() (cancelling a
-      // product option, for example). Keep a detached copy of what was on screen; if the content
-      // changes mid-flight, the copy finishes the same return instead of the sheet falling apart.
-      const copy = boundedSurface(dialog, 1200) ? makeVisualCopy(dialog) : null;
-      const scrollTop = dialog.querySelector('.dialog-content')?.scrollTop || 0;
-      token.swap = () => {
-        const motion = token.motion;
-        if (!copy || !motion || state.closing !== token || !running.has(motion)) return false;
-        const now = Object.fromEntries(Object.entries(motion.values).map(([key, spring]) => [key, { ...spring }]));
-        const layer = document.createElement('div');
-        layer.className = 'fluid-exit-layer';
-        layer.inert = true;
-        layer.setAttribute('aria-hidden', 'true');
-        const shade = document.createElement('div');
-        shade.className = 'fluid-exit-backdrop';
-        shade.style.background = backdropColor;
-        shade.style.opacity = shadeLevel(Object.fromEntries(Object.entries(now).map(([key, spring]) => [key, spring.position])));
-        copy.classList.add('fluid-exit-ghost');
-        placeSurface(copy, surface);
-        copy.style.display = surface.display;
-        copy.style.transform = 'none';
-        layer.append(shade, copy);
-        discardGhost(state);
-        state.ghost = layer;
-        document.body.append(layer);
-        const content = copy.querySelector('.dialog-content');
-        if (content) content.scrollTop = scrollTop;
-        motion.cancel();
-        const ghost = animateElement(copy, Object.fromEntries(Object.entries(now).map(([key, spring]) => [key, spring.position])), to, {
-          origin: close.origin, config: dialogSpring(state.kind, true),
-          onUpdate: value => {
-            shade.style.opacity = shadeLevel(value);
-            copy.style.opacity = fade(value).toFixed(4);
-            drawReturnClip(copy, value.reveal);
-          },
-          onRest: () => { if (state.ghost === layer) discardGhost(state); },
-        });
-        if (ghost) for (const [key, spring] of Object.entries(now)) if (ghost.values[key]) ghost.values[key].velocity = spring.velocity;
-        return true;
-      };
-      return token;
+    token.markClosed = () => { dialog.inert = true; dialog.setAttribute('aria-hidden', 'true'); };
+    state.closing = token;
+    placeSurface(dialog, surface);
+    for (const child of children) if (child.height) {
+      Object.assign(child.element.style, { height: child.height + 'px', minHeight: child.height + 'px', maxHeight: child.height + 'px', flex: '0 0 auto' });
+      child.element.scrollTop = child.scrollTop; child.element.scrollLeft = child.scrollLeft;
     }
-    // Older WebViews get a bounded fallback. Never duplicate a large form or receipt on close.
-    const clone = boundedSurface(dialog, 1200) ? makeVisualCopy(dialog) : null;
-    const layer = document.createElement('div');
-    layer.className = 'fluid-exit-layer';
-    layer.inert = true;
-    layer.setAttribute('aria-hidden', 'true');
-    const shade = document.createElement('div');
-    shade.className = 'fluid-exit-backdrop';
-    shade.style.background = backdropColor;
-    layer.append(shade);
-    if (clone) {
-      clone.classList.add('fluid-exit-ghost');
-      placeSurface(clone, surface);
-      clone.style.display = surface.display;
-      clone.style.transform = 'none';
-      layer.append(clone);
-    }
-    token.play = () => {
+    dialog.style.setProperty('--fluid-exit-ms', retention + 'ms');
+    dialog.classList.add('fluid-native-exit', 'fluid-animating');
+    token.handle = animate(dialog, { from, to, spring: curve, velocity, shape, persist: true, onFinish: finished => { if (finished) token.restore(); } });
+    playBackdrop(dialog, state, prior.pose ? prior.backdrop : 1, 0, curve, true);
+    // The shared legacy dialog is often emptied or rewritten right after close(). A detached copy
+    // of what was on screen then finishes the same return from the same instant and speed.
+    token.swap = () => {
+      const handle = token.handle;
+      if (!copy || !handle?.running || state.closing !== token) return false;
+      const { pose } = handle.now();
+      const speed = carriedVelocity(handle, pose, to);
+      const shade = backdropNow(state);
+      const layer = document.createElement('div');
+      layer.className = 'fluid-exit-layer';
+      layer.inert = true;
+      layer.setAttribute('aria-hidden', 'true');
+      const dim = document.createElement('div');
+      dim.className = 'fluid-exit-backdrop';
+      dim.style.background = getComputedStyle(dialog, '::backdrop').backgroundColor;
+      copy.classList.add('fluid-exit-ghost');
+      placeSurface(copy, surface);
+      copy.style.display = surface.display;
+      layer.append(dim, copy);
       discardGhost(state);
       state.ghost = layer;
       document.body.append(layer);
-      if (clone) {
-        const motion = animateElement(clone, from, to, {
-          origin: close.origin, config: dialogSpring(state.kind, true),
-          onUpdate: value => { if (clip) clone.style.opacity = fade(value).toFixed(4); drawReturnClip(clone, value.reveal); },
-          onRest: () => { if (state.ghost === layer) discardGhost(state); },
-        });
-        inheritVelocity(motion, pose);
-      }
-      animateElement(shade, { opacity: backdropOpacity }, { opacity: 0 }, {
-        config: dialogSpring(state.kind, true),
-        onRest: () => { if (!clone && state.ghost === layer) discardGhost(state); },
-      });
+      const content = copy.querySelector('.dialog-content');
+      if (content) content.scrollTop = scrollTop;
+      token.restore();
+      const end = () => { if (state.ghost === layer) discardGhost(state); };
+      animate(dim, { from: { opacity: shade }, to: { opacity: 0 }, spring: curve });
+      animate(copy, { from: pose, to, spring: curve, velocity: speed, shape: usable(target) ? dissolve(0.5, 1, pose.opacity ?? 1) : dissolve(0, 0.7, pose.opacity ?? 1), onFinish: end });
+      return true;
     };
     return token;
   };
+
   // A sheet opened from a row of another sheet (a cost inside the day summary, a topic inside the
-  // brain) is born from that row, while the previous sheet recedes behind it. Going back, the
-  // nested sheet shrinks whole into the row it came from, above the restored parent sheet.
+  // brain) is born from that row while the previous sheet recedes. Going back, the nested sheet
+  // shrinks whole into the row it came from, above the parent coming forward.
   const sheetGhost = (old, onTop) => {
     const layer = document.createElement('div');
     layer.className = onTop ? 'fluid-sheet-ghost-layer' : 'fluid-exit-layer';
@@ -646,7 +512,6 @@ function installDialogs() {
     if (old.kind) shell.dataset.kind = old.kind;
     placeSurface(shell, old.surface);
     shell.style.display = old.surface.display;
-    shell.style.transform = 'none';
     shell.style.overflow = 'hidden';
     for (const child of old.children) child.querySelectorAll?.('[name]').forEach(node => node.removeAttribute('name'));
     shell.append(...old.children);
@@ -662,7 +527,7 @@ function installDialogs() {
   };
   const rowInSheet = (dialog, source) => {
     const row = source?.sheetSelector && [...dialog.querySelectorAll(source.sheetSelector)].find(el => el.getClientRects().length);
-    if (!row) return source;
+    if (!row) return null;
     const bounds = row.getBoundingClientRect();
     return { ...source, left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
       cx: bounds.left + bounds.width / 2, cy: bounds.top + bounds.height / 2 };
@@ -670,8 +535,8 @@ function installDialogs() {
   const nestedSheet = (dialog, state, source, signature) => {
     const old = source.sheet;
     const detached = old.children.length > 0 && old.children.every(child => !child.isConnected);
-    const radius = parseFloat(getComputedStyle(dialog).borderTopLeftRadius) || 28;
     const back = state.trail.findLastIndex(step => step.signature === signature);
+    settleSheet(dialog, state);
     if (back >= 0) {
       const step = state.trail[back];
       state.trail.length = back;
@@ -681,34 +546,25 @@ function installDialogs() {
       const ghost = detached && typeof HTMLElement.prototype.showPopover === 'function' ? sheetGhost(old, true) : null;
       if (!ghost) return false;
       state.ghost = ghost.layer;
-      const shut = wholeReturnGeometry(old.surface.rect, rowInSheet(dialog, step.source), radius);
-      if (!shut) { discardGhost(state); return false; }
-      const motion = animateElement(ghost.shell, { x: 0, y: 0, scale: 1, reveal: 1 }, { x: shut.x, y: shut.y, scale: shut.scale, reveal: 0 }, {
-        origin: shut.origin, config: dialogSpring(state.kind, true),
-        onUpdate: value => { applyReveal(ghost.shell, shut.clip, value.reveal); ghost.shell.style.opacity = closingOpacity(value.reveal).toFixed(4); },
-        onRest: () => { if (state.ghost === ghost.layer) discardGhost(state); },
-      });
-      if (!motion) discardGhost(state);
-      // The parent sheet comes forward from just behind.
-      animateElement(dialog, { scale: limited() ? 0.985 : 0.965 }, { scale: 1 }, { config: dialogSpring(state.kind) });
+      const row = rowInSheet(dialog, step.source);
+      const to = usable(row) ? landingPose(old.surface.rect, row) : { x: 0, y: 20, scale: 0.92, opacity: 0 };
+      animate(ghost.shell, { from: REST, to, spring: spring('close'), shape: usable(row) ? dissolve(0.62, 1) : dissolve(0, 0.6),
+        onFinish: () => { if (state.ghost === ghost.layer) discardGhost(state); } });
+      const parent = { x: 0, y: 0, scale: limited() ? 0.985 : 0.955, opacity: 0.4 };
+      animate(dialog, { from: parent, to: REST, spring: spring('nested'), shape: appear(0, 0.45)(parent) });
       return true;
     }
-    const entry = morphGeometry(dialog.getBoundingClientRect(), source, radius);
-    if (!entry) return false;
+    const rect = dialog.getBoundingClientRect();
+    if (!rect.width || !usable(source)) return false;
     state.trail.push({ signature: state.signature, source });
     const ghost = detached ? sheetGhost(old, false) : null;
     if (ghost) {
       state.ghost = ghost.layer;
-      animateElement(ghost.shell, { scale: 1, opacity: 1 }, { scale: limited() ? 0.985 : 0.95, opacity: 0 }, {
-        config: dialogSpring(state.kind),
-        onRest: () => { if (state.ghost === ghost.layer) discardGhost(state); },
-      });
+      animate(ghost.shell, { from: REST, to: { x: 0, y: 0, scale: limited() ? 0.985 : 0.94, opacity: 0 }, spring: spring('nested'), shape: dissolve(0, 0.5),
+        onFinish: () => { if (state.ghost === ghost.layer) discardGhost(state); } });
     }
-    animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, reveal: 0 }, { x: 0, y: 0, scale: 1, reveal: 1 }, {
-      origin: entry.origin, config: dialogSpring(state.kind),
-      onUpdate: value => applyReveal(dialog, entry.clip, value.reveal),
-      onRest: () => dialog.style.removeProperty('clip-path'),
-    });
+    const from = launchPose(rect, source);
+    animate(dialog, { from, to: REST, spring: spring('nested'), shape: appear(0, 0.3)(from) });
     return true;
   };
   const identity = data => {
@@ -721,36 +577,23 @@ function installDialogs() {
   const update = (dialog, detail, contentChanged = false) => {
     const state = states.get(dialog);
     if (!state) return;
-    if (state.closing && !dialog.open && contentChanged && !state.closing.swap?.()) state.closing.motion?.cancel();
+    if (state.closing && !dialog.open && contentChanged && !state.closing.swap?.()) state.closing.restore();
     const kind = String(detail?.kind ?? dialog.dataset.kind ?? '');
     const title = String(detail?.title ?? dialog.querySelector('h2')?.textContent ?? '').trim();
     const dataKey = detail ? identity(detail.data) : state.kind === kind && state.title === title ? state.identity : '';
     const signature = JSON.stringify([kind, title, dataKey]);
     const fresh = !state.open;
-    if (dialog.open && (fresh || state.signature !== signature)) {
+    if (dialog.open && enabled() && (fresh || state.signature !== signature)) {
       discardGhost(state);
-      elementMotions.get(dialog)?.cancel();
-      const source = getMotionSource();
+      const source = getMotionSource(1500);
       if (fresh) state.trail = [];
       if (!fresh && source?.sheet?.dialog === dialog && nestedSheet(dialog, state, source, signature)) {
-        state.kind = kind; state.title = title; state.identity = dataKey; state.signature = signature;
+        state.open = true; state.kind = kind; state.title = title; state.identity = dataKey; state.signature = signature;
         return;
       }
-      state.source = fresh ? source : source || state.source;
-      // Only a fresh opening morphs; new content inside an open sheet keeps the short settle.
-      if (fresh) state.morph = true;
-      const entry = dialogGeometry(dialog.getBoundingClientRect(), state.source, dialog, fresh);
-      const clip = entry.clip;
-      animateElement(dialog, { x: entry.x, y: entry.y, scale: entry.scale, ...(clip ? { reveal: 0 } : { opacity: fresh ? 0.72 : 0.82 }) },
-        { x: 0, y: 0, scale: 1, ...(clip ? { reveal: 1 } : { opacity: 1 }) }, {
-          origin: entry.origin, config: dialogSpring(kind),
-          onUpdate: value => {
-            dialog.style.setProperty('--fluid-backdrop-opacity', fresh ? clamp(clip ? value.reveal : value.opacity, 0, 1) : 1);
-            applyReveal(dialog, clip, value.reveal);
-          },
-          onRest: () => { dialog.style.removeProperty('--fluid-backdrop-opacity'); if (clip) dialog.style.removeProperty('clip-path'); },
-        });
-    } else if (!dialog.open && state.open && !state.closing) elementMotions.get(dialog)?.cancel();
+      if (fresh) state.source = source;
+      open(dialog, state, fresh, fresh ? source : null);
+    } else if (!dialog.open && state.open && !state.closing) motionOf(dialog)?.cancel();
     state.open = dialog.open;
     state.kind = kind;
     state.title = title;
@@ -760,7 +603,9 @@ function installDialogs() {
   const unbind = (dialog, state) => {
     pendingUpdates.delete(dialog);
     discardGhost(state);
-    elementMotions.get(dialog)?.cancel();
+    state.closing?.restore();
+    motionOf(dialog)?.cancel();
+    state.backdrop?.cancel();
     dialog.removeEventListener('cancel', state.cancel);
     if (dialog.close === state.close) {
       if (state.descriptor) Object.defineProperty(dialog, 'close', state.descriptor); else delete dialog.close;
@@ -769,9 +614,8 @@ function installDialogs() {
       if (method.descriptor) Object.defineProperty(dialog, method.name, method.descriptor); else delete dialog[method.name];
     }
   };
-  // Legacy painters finish their footer, labels and optional sections after
-  // dispatching the sheet event. Measure once after that synchronous work, before
-  // paint, rather than starting a spring with an intermediate window height.
+  // Legacy painters finish their footer, labels and optional sections after dispatching the sheet
+  // event. Measure once after that synchronous work, before paint.
   const scheduleUpdate = (dialog, detail, contentChanged = false) => {
     const pending = pendingUpdates.get(dialog);
     if (pending) {
@@ -790,24 +634,22 @@ function installDialogs() {
   const bind = dialog => {
     if (!(dialog instanceof HTMLDialogElement) || states.has(dialog) || dialog.classList.contains('fluid-exit-ghost')) return;
     const nativeClose = dialog.close;
-    const state = { trail: [], open: false, ghost: null, closing: null, descriptor: Object.getOwnPropertyDescriptor(dialog, 'close'), openMethods: [], source: null, kind: '', title: '', identity: '', signature: '' };
+    const state = { trail: [], open: false, ghost: null, closing: null, backdrop: null, descriptor: Object.getOwnPropertyDescriptor(dialog, 'close'), openMethods: [], source: null, morph: false, kind: '', title: '', identity: '', signature: '' };
     state.close = function (...args) {
       if (this !== dialog) return nativeClose.apply(this, args);
       const closing = exit(dialog, state);
       let result;
-      try { result = nativeClose.apply(dialog, args); } catch (error) { closing?.motion?.cancel(); throw error; }
+      try { result = nativeClose.apply(dialog, args); } catch (error) { closing?.restore(); throw error; }
       // Existing application guards may intentionally refuse close (for example onboarding).
-      if (dialog.open) { closing?.motion?.cancel(); return result; }
+      if (dialog.open) { closing?.restore(true); return result; }
       state.open = false;
-      closing?.markClosed?.();
-      closing?.play?.();
+      closing?.markClosed();
       return result;
     };
     dialog.close = state.close;
     for (const name of ['show', 'showModal']) {
       const original = dialog[name], descriptor = Object.getOwnPropertyDescriptor(dialog, name);
       const wrapper = function (...args) {
-        if (this === dialog && state.closing) state.closing.motion?.cancel();
         if (this === dialog) dialog.classList.remove('fluid-exit-closed');
         return original.apply(this, args);
       };
@@ -818,8 +660,8 @@ function installDialogs() {
       if (event.defaultPrevented || !dialog.open) return;
       const closing = exit(dialog, state);
       queueMicrotask(() => {
-        if (event.defaultPrevented || dialog.open) closing?.motion?.cancel();
-        else { state.open = false; closing?.markClosed?.(); closing?.play?.(); }
+        if (event.defaultPrevented || dialog.open) closing?.restore(true);
+        else { state.open = false; closing?.markClosed(); }
       });
     };
     dialog.addEventListener('cancel', state.cancel);
@@ -840,11 +682,14 @@ function installDialogs() {
         if (record.target instanceof HTMLDialogElement) changed.set(record.target, changed.get(record.target) || false);
         continue;
       }
+      // The touch highlight of a pressed key is decoration, not new content.
+      const decoration = node => node.nodeType === 1 && node.classList.contains('glass-touch-light');
+      if (record.type === 'childList' && [...record.addedNodes, ...record.removedNodes].every(decoration)) continue;
       const target = record.target.nodeType === 1 ? record.target : record.target.parentElement;
       const dialog = target?.closest('dialog');
-      if (dialog && !dialog.closest('.fluid-exit-layer, .fluid-page-exit-layer, .fluid-sheet-ghost-layer')) changed.set(dialog, true);
+      if (dialog && !dialog.closest('.fluid-exit-layer, .fluid-page-morph-layer, .fluid-sheet-ghost-layer')) changed.set(dialog, true);
       for (const node of record.addedNodes || []) {
-        if (node.nodeType !== 1 || node.closest('.fluid-exit-layer, .fluid-page-exit-layer, .fluid-sheet-ghost-layer')) continue;
+        if (node.nodeType !== 1 || node.closest('.fluid-exit-layer, .fluid-page-morph-layer, .fluid-sheet-ghost-layer')) continue;
         if (node.matches('dialog')) bind(node);
         node.querySelectorAll('dialog').forEach(bind);
       }
@@ -860,56 +705,6 @@ function installDialogs() {
     states.clear();
     pendingUpdates.clear();
   };
-}
-
-function installPageExits(listen) {
-  const app = document.getElementById('app');
-  let currentPage = root().dataset.page || window.TerritorioShell?.page?.();
-  const history = [];
-  const ghosts = new Set();
-  const discard = () => { for (const layer of ghosts) layer.remove(); ghosts.clear(); };
-  const before = event => {
-    const nextPage = event.detail?.page;
-    if (!nextPage || nextPage === currentPage) return;
-    discard();
-    const source = getMotionSource(), previous = history.at(-1);
-    const goingBack = !source?.inNav&&(previous?.from === nextPage || /back|cancel-product|cancel-sale/.test(source?.action || ''));
-    if(source?.inNav)history.length=0;
-    const subview = app.querySelector(':scope > .subview');
-    if (goingBack && subview) {
-      // Revealing the existing parent is the return transition. Do not animate it as a new launch.
-      // A lite device uses a short, coherent parent settle instead of freezing
-      // hundreds of computed styles for a full-page snapshot on every return.
-      skipNextPageEntry = !limited();
-      pendingPageEntry = null;
-      // The page returns whole into the card that opened it. A checkout already closes its own
-      // native sheet, so a page copy would flash stale sale content over the registered sale.
-      const target = previous?.source;
-      const back = target && !source?.insideDialog ? animatePageReturn(app, target) : null;
-      if (back) {
-        ghosts.add(back.layer);
-        // The parent page is rendered right after this event, before the next frame. Re-aim at
-        // the card's new place while keeping the spring's position and velocity.
-        queueMicrotask(() => {
-          const fresh = locateSource(target);
-          if (fresh === target) return;
-          const aim = wholeReturnGeometry({ left: 0, top: 0, width: innerWidth, height: innerHeight }, fresh, 0);
-          if (aim && Math.abs(aim.scale - back.geometry.scale) < 0.01) back.motion.retarget({ x: aim.x, y: aim.y });
-        });
-      }
-    } else if (!goingBack) capturePageEntry(app, source);
-    if (goingBack) {
-      const index = history.findLastIndex(entry => entry.from === nextPage);
-      if (index >= 0) history.splice(index); else history.pop();
-    } else history.push({ from: currentPage, page: nextPage, source });
-    if (history.length > 20) history.shift();
-    pageEntryMotion?.cancel(); pageEntryMotion=null;
-    currentPage = nextPage;
-  };
-  listen(app, 'territorio:before-page', before);
-  listen(document, 'visibilitychange', discard);
-  listen(preference, 'change', discard);
-  return () => { discard(); pageEntryMotion?.cancel(); pageEntryMotion=null; };
 }
 
 function installMotionBudget(listen) {
@@ -965,7 +760,7 @@ export function installFluidMotion() {
   listen(document, 'pointerdown', captureMotionSource, { capture: true, passive: true });
   listen(document, 'click', captureMotionSource, true);
   let resetPress;
-  const settle = () => { resetPress?.(); for (const motion of [...running]) motion.finish(); };
+  const settle = () => { resetPress?.(); finishAll(); for (const motion of [...running]) motion.finish(); };
   let previousPreference = `${reduced()}:${limited()}`;
   const settings = new MutationObserver(() => {
     root().dataset.motionLite = String(limited());
@@ -978,10 +773,11 @@ export function installFluidMotion() {
   listen(document, 'visibilitychange', visibility);
   root().toggleAttribute('data-app-inactive', document.hidden);
   resetPress = installPress(listen);
-  cleanups.push(resetPress, installDialogs(), installPageExits(listen), () => settings.disconnect());
+  cleanups.push(resetPress, installDialogs(), installPageTransitions(listen), () => settings.disconnect());
   return () => {
     installed = false;
     cleanups.reverse().forEach(fn => fn());
+    finishAll();
     for (const motion of [...running]) motion.cancel();
     cancelAnimationFrame(frame); frame = 0; previousTime = 0;
     root().classList.remove('fluid-motion');
