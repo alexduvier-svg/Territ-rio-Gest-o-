@@ -23,6 +23,8 @@ export const SPRINGS = Object.freeze({
   page: springFrom(0.46, 0.9),
   back: springFrom(0.38, 1),
   tab: springFrom(0.36, 0.92),
+  // Entering a tab (Vender, Estoque…): a visible, iOS-like settle (about 8% overshoot).
+  tabEnter: springFrom(0.5, 0.64),
   nested: springFrom(0.4, 0.88),
   press: springFrom(0.18, 0.75),
   release: springFrom(0.32, 0.6),

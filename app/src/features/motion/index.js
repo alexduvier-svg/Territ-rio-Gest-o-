@@ -255,9 +255,9 @@ function installPageTransitions(listen) {
       if (lift && document.getElementById('nav')?.getClientRects().length) lift.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node => node.remove());
       if (nav) {
         const step = Math.sign(NAV_ORDER.indexOf(nextPage) - NAV_ORDER.indexOf(previousPage)) || 0;
-        const shift = (limited() ? 10 : 22) * step;
+        const shift = (limited() ? 10 : 44) * step;
         if (lift) t.handles.push(animate(lift.surface, { from: { x: 0, scale: 1, opacity: 1 }, to: { x: -shift, scale: 0.985, opacity: 0 }, spring: spring('tab'), shape: dissolve(0, 0.42), onFinish: done }));
-        t.handles.push(...arrivePage(app, { x: shift, y: 0, scale: 0.985, opacity: 0 }, center, 'tab', { y: 0, opacity: 0 }));
+        t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.985 : 0.93, opacity: 0 }, center, 'tabEnter', { y: 0, opacity: 0 }));
         if (!lift) t.handles.at(-1)?.finished.then(done);
         return;
       }

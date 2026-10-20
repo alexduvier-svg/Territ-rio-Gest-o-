@@ -208,6 +208,24 @@ function fitStockHeading() {
   if (title.scrollWidth + tools.offsetWidth + gap + 4 > heading.clientWidth) heading.classList.add('is-stacked');
 }
 
+// ---------------------------------------------------------------- cards de venda (salesCardAnatomy)
+// Os detalhes do card ficam numa linha com " · " enquanto cabem; se não cabem, cada parte vai para
+// a sua linha. Todas as leituras antes de todas as escritas: uma medição para a grade inteira.
+function fitCardDetails() {
+  const details = [...(app()?.querySelectorAll('.feira-card .card-detail') || [])];
+  if (!details.length) return;
+  details.forEach(el => el.classList.remove('is-stacked'));
+  const stack = details.map(el => {
+    const parts = el.children;
+    const wrapped = parts.length > 1 && parts[parts.length - 1].offsetTop > parts[0].offsetTop + 2;
+    return wrapped || el.scrollWidth > el.clientWidth + 1;
+  });
+  // One drawing for the whole grid: if any card needs its parts on separate lines, every card with
+  // several parts uses separate lines too (single-part details only wrap when they must).
+  const anyMulti = details.some((el, i) => stack[i] && el.children.length > 1);
+  details.forEach((el, i) => { if (stack[i] || (anyMulti && el.children.length > 1)) el.classList.add('is-stacked'); });
+}
+
 // ---------------------------------------------------------------- observadores
 export function installInterface() {
   const root = app();
@@ -218,8 +236,10 @@ export function installInterface() {
     decorateDimensions();
     decorateSaleGroups();
     fitStockHeading();
+    fitCardDetails();
   }).observe(root, { childList: true, subtree: true });
-  window.addEventListener('resize', fitStockHeading, { passive: true });
+  window.addEventListener('resize', () => { fitStockHeading(); fitCardDetails(); }, { passive: true });
+  document.fonts?.ready.then(() => { fitStockHeading(); fitCardDetails(); });
   new MutationObserver(() => decorateDimensions()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-layout'] });
   const toast = document.getElementById('toast');
   if (toast) new MutationObserver(() => classifyToast(toast)).observe(toast, { attributes: true, attributeFilter: ['hidden'], childList: true, characterData: true, subtree: true });
