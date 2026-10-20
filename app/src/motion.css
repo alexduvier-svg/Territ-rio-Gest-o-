@@ -167,13 +167,18 @@ html[data-app-inactive] #app .draft-resume,html[data-app-inactive] #app .draft-r
 }
 .fluid-sheet-ghost-layer * { pointer-events: none !important; animation: none !important; transition: none !important; }
 
-/* Depth behind an open sheet or a growing page, as in the system (iOS / ColorOS): the screen behind
-   is dimmed and softly blurred. The blur radius is fixed (only opacity moves), and lite devices,
-   "Reduzir efeitos" and reduced motion keep the plain dim. */
-@media (prefers-reduced-motion: no-preference) {
-  :root.fluid-motion:not(.lite):not([data-reduce-effects='true'])[data-theme][data-layout] dialog::backdrop,
-  :root.fluid-motion:not(.lite):not([data-reduce-effects='true']) .fluid-page-morph-shade {
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-  }
+/* Keep the same inexpensive shade during entry, rest and return. A full-screen live
+   backdrop blur forces another rendering pass behind every moving/clipped surface.
+   Glass highlights and gradients belong to the panels, not to a screen-sized filter. */
+:root.fluid-motion[data-theme][data-layout] dialog::backdrop,
+:root.fluid-motion .fluid-page-morph-shade {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* Detached snapshots are already visual copies. Do not sample/filter the changing
+   screen beneath their nav bars or docks while the whole snapshot is moving. */
+:root.fluid-motion :is(.fluid-page-morph-layer, .fluid-sheet-ghost-layer, .fluid-exit-layer) *,
+:root.fluid-motion dialog.fluid-animating {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }

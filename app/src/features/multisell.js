@@ -60,7 +60,8 @@ function paint() {
     bar.querySelector('.multi-go').addEventListener('click', sell);
     document.body.appendChild(bar);
   }
-  bar.querySelector('.multi-go').textContent = `Continuar · ${selected.length} de 3 selecionados`;
+  bar.querySelector('.multi-go').textContent = 'Continuar';
+  bar.querySelector('.multi-go').setAttribute('aria-description', `${selected.length} de 3 produtos selecionados`);
 }
 
 function cancel() {

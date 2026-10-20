@@ -1,5 +1,5 @@
 import { stepSpring, springAtRest } from './spring.js';
-import { naturalRect, reanchorPose, insightSheetGeometry, navigationEntryGeometry, morphGeometry, revealClip, closingOpacity } from './geometry.js';
+import { naturalRect, reanchorPose, insightSheetGeometry, navigationEntryGeometry, morphGeometry, wholeReturnGeometry, revealClip, closingOpacity } from './geometry.js';
 
 // One frame loop for the whole interface. Idle springs do not request frames.
 const running = new Set();
@@ -233,7 +233,7 @@ function pageLayer() {
 
 function capturePageEntry(app, source) {
   pendingPageEntry = null;
-  if (!enabled() || !source || source.insideDialog || source.inNav) return;
+  if (!enabled() || limited() || !source || source.insideDialog || source.inNav) return;
   const chrome = ['nav-glass', 'nav'].map(id => document.getElementById(id)).filter(el => el && el.getClientRects().length);
   const parts = [...app.children], copies = pageCopies([...parts, ...chrome], true);
   if (!copies) return;
@@ -245,7 +245,7 @@ function capturePageEntry(app, source) {
 }
 
 function morphPage(card, shade, layer, source, closing) {
-  const geometry = morphGeometry({ left: 0, top: 0, width: innerWidth, height: innerHeight }, source, 0);
+  const geometry = (closing ? wholeReturnGeometry : morphGeometry)({ left: 0, top: 0, width: innerWidth, height: innerHeight }, source, 0);
   if (!geometry) return false;
   // Lite devices clip with square corners, the cheapest clip to repaint.
   const clip = limited() ? { ...geometry.clip, radius: 0 } : geometry.clip;
@@ -279,7 +279,7 @@ function animatePageEntry(app) {
 }
 
 function animatePageReturn(app, source) {
-  if (!enabled()) return null;
+  if (!enabled() || limited()) return null;
   const copies = pageCopies([...app.children], true);
   if (!copies) return null;
   const layer = pageLayer(), shade = document.createElement('div'), card = document.createElement('div');
@@ -487,6 +487,7 @@ function inheritVelocity(motion, pose) {
 
 function installDialogs() {
   const states = new Map();
+  const pendingUpdates = new Map();
   const nativeExit = !!globalThis.CSS?.supports?.('transition-behavior', 'allow-discrete') && CSS.supports('overlay', 'auto');
   const discardGhost = state => { const ghost = state.ghost; state.ghost = null; ghost?.remove(); };
   const exit = (dialog, state) => {
@@ -496,8 +497,15 @@ function installDialogs() {
     const children = [...dialog.children].map(element=>({element,height:element.offsetHeight,scrollTop:element.scrollTop,scrollLeft:element.scrollLeft,saved:['height','min-height','max-height','flex'].map(p=>[p,element.style.getPropertyValue(p),element.style.getPropertyPriority(p)])}));
     if (!surface.rect.width || !surface.rect.height) return null;
     if (state.morph) state.source = locateSource(state.source);
-    const close = dialogGeometry(surface.rect, state.source, dialog, state.morph);
+    const close = (state.morph && wholeReturnGeometry(surface.rect, state.source, parseFloat(getComputedStyle(dialog).borderTopLeftRadius) || 28)) || dialogGeometry(surface.rect, state.source, dialog, state.morph);
     const clip = close.clip;
+    // A fast reversal keeps the current partial opening frozen; a settled sheet
+    // keeps its complete mask. Neither wipes individual rows during the return.
+    const retainedClip = dialog.style.clipPath || revealClip(clip || { x: 0, bottom: 0, radius: 28, sheetRadius: 28 }, 1);
+    const drawReturnClip = (element, value) => {
+      if (close.whole) element.style.clipPath = retainedClip;
+      else applyReveal(element, clip, value);
+    };
     const reveal = elementMotions.get(dialog)?.values.reveal?.position ?? 1;
     const origin = close.origin.split(' ').map((value, i) => value.includes('%') ? parseFloat(value) / 100 * (i ? surface.rect.height : surface.rect.width) : parseFloat(value));
     const pose = reanchorPose(surface.pose, origin[0], origin[1]);
@@ -541,7 +549,7 @@ function installDialogs() {
         onUpdate: value => {
           dialog.style.setProperty('--fluid-backdrop-opacity', shadeLevel(value));
           if (clip) dialog.style.opacity = fade(value).toFixed(4);
-          applyReveal(dialog, clip, value.reveal);
+          drawReturnClip(dialog, value.reveal);
         },
         onRest: restore,
       });
@@ -579,7 +587,7 @@ function installDialogs() {
           onUpdate: value => {
             shade.style.opacity = shadeLevel(value);
             copy.style.opacity = fade(value).toFixed(4);
-            applyReveal(copy, clip, value.reveal);
+            drawReturnClip(copy, value.reveal);
           },
           onRest: () => { if (state.ghost === layer) discardGhost(state); },
         });
@@ -612,7 +620,7 @@ function installDialogs() {
       if (clone) {
         const motion = animateElement(clone, from, to, {
           origin: close.origin, config: dialogSpring(state.kind, true),
-          onUpdate: value => { if (clip) clone.style.opacity = fade(value).toFixed(4); applyReveal(clone, clip, value.reveal); },
+          onUpdate: value => { if (clip) clone.style.opacity = fade(value).toFixed(4); drawReturnClip(clone, value.reveal); },
           onRest: () => { if (state.ghost === layer) discardGhost(state); },
         });
         inheritVelocity(motion, pose);
@@ -673,7 +681,7 @@ function installDialogs() {
       const ghost = detached && typeof HTMLElement.prototype.showPopover === 'function' ? sheetGhost(old, true) : null;
       if (!ghost) return false;
       state.ghost = ghost.layer;
-      const shut = morphGeometry(old.surface.rect, rowInSheet(dialog, step.source), radius);
+      const shut = wholeReturnGeometry(old.surface.rect, rowInSheet(dialog, step.source), radius);
       if (!shut) { discardGhost(state); return false; }
       const motion = animateElement(ghost.shell, { x: 0, y: 0, scale: 1, reveal: 1 }, { x: shut.x, y: shut.y, scale: shut.scale, reveal: 0 }, {
         origin: shut.origin, config: dialogSpring(state.kind, true),
@@ -750,6 +758,7 @@ function installDialogs() {
     state.signature = signature;
   };
   const unbind = (dialog, state) => {
+    pendingUpdates.delete(dialog);
     discardGhost(state);
     elementMotions.get(dialog)?.cancel();
     dialog.removeEventListener('cancel', state.cancel);
@@ -759,6 +768,24 @@ function installDialogs() {
     for (const method of state.openMethods) if (dialog[method.name] === method.wrapper) {
       if (method.descriptor) Object.defineProperty(dialog, method.name, method.descriptor); else delete dialog[method.name];
     }
+  };
+  // Legacy painters finish their footer, labels and optional sections after
+  // dispatching the sheet event. Measure once after that synchronous work, before
+  // paint, rather than starting a spring with an intermediate window height.
+  const scheduleUpdate = (dialog, detail, contentChanged = false) => {
+    const pending = pendingUpdates.get(dialog);
+    if (pending) {
+      if (detail) pending.detail = detail;
+      pending.contentChanged ||= contentChanged;
+      return;
+    }
+    const next = { detail, contentChanged };
+    pendingUpdates.set(dialog, next);
+    queueMicrotask(() => {
+      if (pendingUpdates.get(dialog) !== next) return;
+      pendingUpdates.delete(dialog);
+      if (states.has(dialog) && dialog.isConnected) update(dialog, next.detail, next.contentChanged);
+    });
   };
   const bind = dialog => {
     if (!(dialog instanceof HTMLDialogElement) || states.has(dialog) || dialog.classList.contains('fluid-exit-ghost')) return;
@@ -802,7 +829,7 @@ function installDialogs() {
   const semantic = event => {
     if (!(event.target instanceof HTMLDialogElement)) return;
     bind(event.target);
-    update(event.target, event.detail);
+    scheduleUpdate(event.target, event.detail);
   };
   document.addEventListener('territorio:sheet', semantic, true);
   document.querySelectorAll('dialog').forEach(bind);
@@ -822,7 +849,7 @@ function installDialogs() {
         node.querySelectorAll('dialog').forEach(bind);
       }
     }
-    for (const [dialog, contentChanged] of changed) { bind(dialog); update(dialog, null, contentChanged); }
+    for (const [dialog, contentChanged] of changed) { bind(dialog); scheduleUpdate(dialog, null, contentChanged); }
     for (const [dialog, state] of states) if (!dialog.isConnected) { unbind(dialog, state); states.delete(dialog); }
   });
   observer.observe(document.body, { childList: true, characterData: true, subtree: true, attributes: true, attributeFilter: ['open', 'data-kind'] });
@@ -831,6 +858,7 @@ function installDialogs() {
     document.removeEventListener('territorio:sheet', semantic, true);
     for (const [dialog, state] of states) unbind(dialog, state);
     states.clear();
+    pendingUpdates.clear();
   };
 }
 
@@ -850,7 +878,9 @@ function installPageExits(listen) {
     const subview = app.querySelector(':scope > .subview');
     if (goingBack && subview) {
       // Revealing the existing parent is the return transition. Do not animate it as a new launch.
-      skipNextPageEntry = true;
+      // A lite device uses a short, coherent parent settle instead of freezing
+      // hundreds of computed styles for a full-page snapshot on every return.
+      skipNextPageEntry = !limited();
       pendingPageEntry = null;
       // The page returns whole into the card that opened it. A checkout already closes its own
       // native sheet, so a page copy would flash stale sale content over the registered sale.
@@ -863,7 +893,7 @@ function installPageExits(listen) {
         queueMicrotask(() => {
           const fresh = locateSource(target);
           if (fresh === target) return;
-          const aim = morphGeometry({ left: 0, top: 0, width: innerWidth, height: innerHeight }, fresh, 0);
+          const aim = wholeReturnGeometry({ left: 0, top: 0, width: innerWidth, height: innerHeight }, fresh, 0);
           if (aim && Math.abs(aim.scale - back.geometry.scale) < 0.01) back.motion.retarget({ x: aim.x, y: aim.y });
         });
       }

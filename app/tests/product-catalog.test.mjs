@@ -10,9 +10,11 @@ import {
 test('catalog is lazy, offline, repeatable, and has no producer transactions', async()=>{
   assert.equal(isCatalogReady(),false);
   assert.deepEqual(searchCatalog('taioba'),{items:[],total:0});
+  let beats=0;const timer=setInterval(()=>{beats++;if(!isCatalogReady())assert.deepEqual(searchCatalog('taioba'),{items:[],total:0});},0);
   const promise = loadCatalog();
   assert.equal(loadCatalog(),promise);
-  await promise;
+  try { await promise; } finally { clearInterval(timer); }
+  assert.ok(beats>=2,'first vocabulary load must yield to input/animation tasks');
   assert.equal(isCatalogReady(),true);
   assert.equal(catalogInfo().total,2480);
   assert.equal(catalogInfo().sourceTotal,2479);

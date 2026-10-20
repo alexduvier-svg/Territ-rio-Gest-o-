@@ -1,0 +1,59 @@
+{
+  "isolated": true,
+  "desktopSimulation": true,
+  "nativeFPSMeasured": false,
+  "checks": [
+    {
+      "theme": "light",
+      "mode": "normal",
+      "cpuSlowdown": 1,
+      "duration": 297,
+      "frames": 18,
+      "beats": 57,
+      "longTasks": [],
+      "ready": 2480
+    },
+    {
+      "theme": "light",
+      "mode": "lite",
+      "cpuSlowdown": 4,
+      "duration": 1556.0999999996275,
+      "frames": 91,
+      "beats": 186,
+      "longTasks": [
+        {
+          "t": 2268.199999999255,
+          "duration": 70
+        }
+      ],
+      "ready": 2480
+    },
+    {
+      "theme": "dark",
+      "mode": "normal",
+      "cpuSlowdown": 1,
+      "duration": 288.80000000074506,
+      "frames": 18,
+      "beats": 61,
+      "longTasks": [],
+      "ready": 2480
+    },
+    {
+      "theme": "dark",
+      "mode": "lite",
+      "cpuSlowdown": 4,
+      "duration": 2116.5,
+      "frames": 119,
+      "beats": 222,
+      "longTasks": [
+        {
+          "t": 2317.4000000003725,
+          "duration": 146
+        }
+      ],
+      "ready": 2480
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

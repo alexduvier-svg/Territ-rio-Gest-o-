@@ -1,0 +1,257 @@
+{
+  "isolated": true,
+  "checks": [
+    "light/320: Vendendo em readable and themed, bottom back",
+    "light/320: event/window/outside/Loja totals, refunds, scroll and privacy",
+    "light/320: visible glass plane, search on right, business records unchanged",
+    "light/393: Vendendo em readable and themed, bottom back",
+    "light/393: event/window/outside/Loja totals, refunds, scroll and privacy",
+    "light/393: visible glass plane, search on right, business records unchanged",
+    "dark/320: Vendendo em readable and themed, bottom back",
+    "dark/320: event/window/outside/Loja totals, refunds, scroll and privacy",
+    "dark/320: visible glass plane, search on right, business records unchanged",
+    "dark/393: Vendendo em readable and themed, bottom back",
+    "dark/393: event/window/outside/Loja totals, refunds, scroll and privacy",
+    "dark/393: visible glass plane, search on right, business records unchanged"
+  ],
+  "surfaces": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 820
+      },
+      "scope": [
+        {
+          "text": "Loja",
+          "face": "linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 250, 0.867))",
+          "color": "rgb(20, 23, 26)",
+          "opacity": "1",
+          "width": 244,
+          "scroll": 244
+        },
+        {
+          "text": "Feira do Inventário",
+          "face": "linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 250, 0.867))",
+          "color": "rgb(20, 23, 26)",
+          "opacity": "1",
+          "width": 244,
+          "scroll": 244
+        }
+      ],
+      "groups": [
+        {
+          "key": "event|fair",
+          "title": "Feira do Inventário09:00 às 14:00 · Brasília",
+          "total": "R$ 50,00",
+          "text": "Feira do Inventário09:00 às 14:00 · BrasíliaTotal vendidoR$ 50,003 vendas registradasVendas por categoriaCafés3 pctR$ 50,00RecebimentosPixR$ 50,00O que vendeuCafé EspecialMoído · 250 g3 pctR$ 50,00"
+        },
+        {
+          "key": "outside|fair",
+          "title": "Fora do horário do eventoFeira do Inventário · antes de 09:00 e a partir de 14:00",
+          "total": "R$ 0,00",
+          "text": "Fora do horário do eventoFeira do Inventário · antes de 09:00 e a partir de 14:00Total vendidoR$ 0,002 vendas registradasVendas por categoriaCafés1 pctR$ 0,00RecebimentosPixR$ 20,00Devoluções hoje: R$ 20,00 (já descontadas do total).O que vendeuCafé EspecialMoído · 250 g1 pctR$ 0,00"
+        },
+        {
+          "key": "store|loja",
+          "title": "LojaOutras vendas do dia",
+          "total": "R$ 7,00",
+          "text": "LojaOutras vendas do diaTotal vendidoR$ 7,001 venda registradaVendas por categoriaCafés1 pctR$ 7,00RecebimentosPixR$ 7,00O que vendeuCafé EspecialMoído · 250 g1 pctR$ 7,00"
+        }
+      ],
+      "geometry": {
+        "x": 20,
+        "right": 300,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "footerBottom": 745.1875,
+        "scrollable": true
+      },
+      "plane": {
+        "border": "1px",
+        "edge": "rgba(165, 179, 196, 0.38)",
+        "face": "linear-gradient(145deg, rgba(237, 241, 248, 0.88), rgba(221, 228, 237, 0.77))",
+        "shadow": "rgb(255, 255, 255) 0px 1px 2px 0px inset, rgba(189, 200, 213, 0.17) 0px 4px 0px 0px, rgba(56, 69, 87, 0.08) 0px 12px 22px 0px"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 393,
+        "height": 820
+      },
+      "scope": [
+        {
+          "text": "Loja",
+          "face": "linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 250, 0.867))",
+          "color": "rgb(20, 23, 26)",
+          "opacity": "1",
+          "width": 309,
+          "scroll": 309
+        },
+        {
+          "text": "Feira do Inventário",
+          "face": "linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 250, 0.867))",
+          "color": "rgb(20, 23, 26)",
+          "opacity": "1",
+          "width": 309,
+          "scroll": 309
+        }
+      ],
+      "groups": [
+        {
+          "key": "event|fair",
+          "title": "Feira do Inventário09:00 às 14:00 · Brasília",
+          "total": "R$ 50,00",
+          "text": "Feira do Inventário09:00 às 14:00 · BrasíliaTotal vendidoR$ 50,003 vendas registradasVendas por categoriaCafés3 pctR$ 50,00RecebimentosPixR$ 50,00O que vendeuCafé EspecialMoído · 250 g3 pctR$ 50,00"
+        },
+        {
+          "key": "outside|fair",
+          "title": "Fora do horário do eventoFeira do Inventário · antes de 09:00 e a partir de 14:00",
+          "total": "R$ 0,00",
+          "text": "Fora do horário do eventoFeira do Inventário · antes de 09:00 e a partir de 14:00Total vendidoR$ 0,002 vendas registradasVendas por categoriaCafés1 pctR$ 0,00RecebimentosPixR$ 20,00Devoluções hoje: R$ 20,00 (já descontadas do total).O que vendeuCafé EspecialMoído · 250 g1 pctR$ 0,00"
+        },
+        {
+          "key": "store|loja",
+          "title": "LojaOutras vendas do dia",
+          "total": "R$ 7,00",
+          "text": "LojaOutras vendas do diaTotal vendidoR$ 7,001 venda registradaVendas por categoriaCafés1 pctR$ 7,00RecebimentosPixR$ 7,00O que vendeuCafé EspecialMoído · 250 g1 pctR$ 7,00"
+        }
+      ],
+      "geometry": {
+        "x": 20,
+        "right": 373,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "footerBottom": 745.1875,
+        "scrollable": true
+      },
+      "plane": {
+        "border": "1px",
+        "edge": "rgba(165, 179, 196, 0.38)",
+        "face": "linear-gradient(145deg, rgba(237, 241, 248, 0.88), rgba(221, 228, 237, 0.77))",
+        "shadow": "rgb(255, 255, 255) 0px 1px 2px 0px inset, rgba(189, 200, 213, 0.17) 0px 4px 0px 0px, rgba(56, 69, 87, 0.08) 0px 12px 22px 0px"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 320,
+        "height": 820
+      },
+      "scope": [
+        {
+          "text": "Loja",
+          "face": "linear-gradient(145deg, rgba(59, 62, 67, 0.93), rgba(36, 38, 44, 0.87))",
+          "color": "rgb(246, 247, 249)",
+          "opacity": "1",
+          "width": 244,
+          "scroll": 244
+        },
+        {
+          "text": "Feira do Inventário",
+          "face": "linear-gradient(145deg, rgba(59, 62, 67, 0.93), rgba(36, 38, 44, 0.87))",
+          "color": "rgb(246, 247, 249)",
+          "opacity": "1",
+          "width": 244,
+          "scroll": 244
+        }
+      ],
+      "groups": [
+        {
+          "key": "event|fair",
+          "title": "Feira do Inventário09:00 às 14:00 · Brasília",
+          "total": "R$ 50,00",
+          "text": "Feira do Inventário09:00 às 14:00 · BrasíliaTotal vendidoR$ 50,003 vendas registradasVendas por categoriaCafés3 pctR$ 50,00RecebimentosPixR$ 50,00O que vendeuCafé EspecialMoído · 250 g3 pctR$ 50,00"
+        },
+        {
+          "key": "outside|fair",
+          "title": "Fora do horário do eventoFeira do Inventário · antes de 09:00 e a partir de 14:00",
+          "total": "R$ 0,00",
+          "text": "Fora do horário do eventoFeira do Inventário · antes de 09:00 e a partir de 14:00Total vendidoR$ 0,002 vendas registradasVendas por categoriaCafés1 pctR$ 0,00RecebimentosPixR$ 20,00Devoluções hoje: R$ 20,00 (já descontadas do total).O que vendeuCafé EspecialMoído · 250 g1 pctR$ 0,00"
+        },
+        {
+          "key": "store|loja",
+          "title": "LojaOutras vendas do dia",
+          "total": "R$ 7,00",
+          "text": "LojaOutras vendas do diaTotal vendidoR$ 7,001 venda registradaVendas por categoriaCafés1 pctR$ 7,00RecebimentosPixR$ 7,00O que vendeuCafé EspecialMoído · 250 g1 pctR$ 7,00"
+        }
+      ],
+      "geometry": {
+        "x": 20,
+        "right": 300,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "footerBottom": 745.1875,
+        "scrollable": true
+      },
+      "plane": {
+        "border": "1px",
+        "edge": "rgba(173, 183, 194, 0.3)",
+        "face": "linear-gradient(145deg, rgba(74, 80, 91, 0.737), rgba(40, 44, 53, 0.875))",
+        "shadow": "rgba(255, 255, 255, 0.19) 0px 1px 1px 0px inset, rgba(0, 0, 0, 0.15) 0px 4px 0px 0px, rgba(0, 0, 0, 0.2) 0px 12px 22px 0px"
+      }
+    },
+    {
+      "cfg": {
+        "theme": "dark",
+        "width": 393,
+        "height": 820
+      },
+      "scope": [
+        {
+          "text": "Loja",
+          "face": "linear-gradient(145deg, rgba(59, 62, 67, 0.93), rgba(36, 38, 44, 0.87))",
+          "color": "rgb(246, 247, 249)",
+          "opacity": "1",
+          "width": 309,
+          "scroll": 309
+        },
+        {
+          "text": "Feira do Inventário",
+          "face": "linear-gradient(145deg, rgba(59, 62, 67, 0.93), rgba(36, 38, 44, 0.87))",
+          "color": "rgb(246, 247, 249)",
+          "opacity": "1",
+          "width": 309,
+          "scroll": 309
+        }
+      ],
+      "groups": [
+        {
+          "key": "event|fair",
+          "title": "Feira do Inventário09:00 às 14:00 · Brasília",
+          "total": "R$ 50,00",
+          "text": "Feira do Inventário09:00 às 14:00 · BrasíliaTotal vendidoR$ 50,003 vendas registradasVendas por categoriaCafés3 pctR$ 50,00RecebimentosPixR$ 50,00O que vendeuCafé EspecialMoído · 250 g3 pctR$ 50,00"
+        },
+        {
+          "key": "outside|fair",
+          "title": "Fora do horário do eventoFeira do Inventário · antes de 09:00 e a partir de 14:00",
+          "total": "R$ 0,00",
+          "text": "Fora do horário do eventoFeira do Inventário · antes de 09:00 e a partir de 14:00Total vendidoR$ 0,002 vendas registradasVendas por categoriaCafés1 pctR$ 0,00RecebimentosPixR$ 20,00Devoluções hoje: R$ 20,00 (já descontadas do total).O que vendeuCafé EspecialMoído · 250 g1 pctR$ 0,00"
+        },
+        {
+          "key": "store|loja",
+          "title": "LojaOutras vendas do dia",
+          "total": "R$ 7,00",
+          "text": "LojaOutras vendas do diaTotal vendidoR$ 7,001 venda registradaVendas por categoriaCafés1 pctR$ 7,00RecebimentosPixR$ 7,00O que vendeuCafé EspecialMoído · 250 g1 pctR$ 7,00"
+        }
+      ],
+      "geometry": {
+        "x": 20,
+        "right": 373,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "footerBottom": 745.1875,
+        "scrollable": true
+      },
+      "plane": {
+        "border": "1px",
+        "edge": "rgba(173, 183, 194, 0.3)",
+        "face": "linear-gradient(145deg, rgba(74, 80, 91, 0.737), rgba(40, 44, 53, 0.875))",
+        "shadow": "rgba(255, 255, 255, 0.19) 0px 1px 1px 0px inset, rgba(0, 0, 0, 0.15) 0px 4px 0px 0px, rgba(0, 0, 0, 0.2) 0px 12px 22px 0px"
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

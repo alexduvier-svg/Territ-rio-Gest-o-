@@ -1,6 +1,34 @@
 import { orderStockProducts } from './stock-order.js';
 
 const normalize=value=>String(value||'').normalize('NFD').replace(/\p{M}/gu,'').toLocaleLowerCase('pt-BR').replace(/[^a-z0-9]+/g,' ').trim();
+const dayClock=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'});
+function recordedClock(value){const date=new Date(value);if(!Number.isFinite(date.getTime()))return null;const p=Object.fromEntries(dayClock.formatToParts(date).map(p=>[p.type,p.value]));return {day:`${p.year}-${p.month}-${p.day}`,time:`${p.hour}:${p.minute}`};}
+
+// Presentation only. An event is identified by its recorded scope, never inferred
+// just because a Loja sale happened at the same time. Start inclusive/end exclusive,
+// matching the app's event selling window. Late-entered sales keep their saved time.
+export function dailySaleSections({sales=[],returns=[],events=[],day}){
+ const byId=new Map(events.map(e=>[e.id,e])),groups=new Map();
+ const add=(sale,isReturn)=>{
+  if(!['completed','returned'].includes(sale.status))return;
+  const clock=recordedClock(isReturn?sale.returnedAt||sale.date:sale.date);if(!clock||clock.day!==day)return;
+  const scope=sale.scope||'loja',event=byId.get(scope),validTime=t=>/^([01]\d|2[0-3]):[0-5]\d$/.test(t||'');
+  const scheduled=!!event&&validTime(event.from)&&validTime(event.until)&&event.from<event.until;
+  const inside=scheduled&&clock.day>=event.start&&clock.day<=(event.end||event.start)&&clock.time>=event.from&&clock.time<event.until;
+  const kind=event?(scheduled&&!inside?'outside':'event'):scope==='loja'?'store':'other';
+  const key=kind+'|'+scope;
+  if(!groups.has(key))groups.set(key,{key,kind,eventId:event?.id||null,name:event?.name||event?.fairName||(kind==='store'?'Loja':'Outras vendas'),from:scheduled?event.from:null,until:scheduled?event.until:null,sales:[],returns:[]});
+  groups.get(key)[isReturn?'returns':'sales'].push(sale);
+ };
+ sales.forEach(s=>add(s,false));returns.forEach(s=>add(s,true));
+ const rank={event:0,outside:1,store:2,other:3};
+ return [...groups.values()].sort((a,b)=>rank[a.kind]-rank[b.kind]||(a.from||'').localeCompare(b.from||'')||a.name.localeCompare(b.name,'pt-BR'));
+}
+
+export function dailyItemTotals(rows=[]){
+ const groups=new Map();for(const row of rows){const id=row.productId||row.id,key=id+'|'+row.unit;if(!groups.has(key))groups.set(key,{id,name:row.name,description:row.description,unit:row.unit,qty:0,amount:0});const g=groups.get(key);g.qty=Math.round((g.qty+(Number(row.qty)||0))*1000)/1000;g.amount+=Math.round(Number(row.amount)||0);}
+ return [...groups.values()].filter(r=>r.qty!==0||r.amount!==0).sort((a,b)=>b.amount-a.amount||String(a.name).localeCompare(String(b.name),'pt-BR'));
+}
 
 // Families follow the stock panel's universes. Quantities keep their original unit;
 // historical recorded amounts are used, never today's selling price.

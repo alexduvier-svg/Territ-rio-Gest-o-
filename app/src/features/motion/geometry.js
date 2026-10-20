@@ -47,6 +47,20 @@ export function morphGeometry(rect, source, sheetRadius = 28) {
   };
 }
 
+// On return the entire surface fits into its source. Shrinking the reveal mask
+// instead would wipe away the footer/rows before the window arrived at the card.
+export function wholeReturnGeometry(rect, source, sheetRadius = 28) {
+  if (!source?.width || !source?.height || !rect.width || !rect.height) return null;
+  return {
+    x: source.cx - (rect.left + rect.width / 2),
+    y: source.cy - (rect.top + rect.height / 2),
+    scale: Math.min(1, source.width / rect.width, source.height / rect.height),
+    origin: `${(rect.width / 2).toFixed(2)}px ${(rect.height / 2).toFixed(2)}px`,
+    clip: { x: 0, bottom: 0, radius: sheetRadius, sheetRadius },
+    whole: true,
+  };
+}
+
 // Clip for a reveal value. The spring may overshoot past 1; the sheet then simply stays whole.
 export function revealClip(clip, reveal) {
   const open = Math.max(0, Math.min(1, reveal));

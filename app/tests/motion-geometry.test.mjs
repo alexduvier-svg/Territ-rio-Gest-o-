@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { naturalRect, reanchorPose, insightSheetGeometry, morphGeometry, revealClip, closingOpacity } from '../src/features/motion/geometry.js';
+import { naturalRect, reanchorPose, insightSheetGeometry, morphGeometry, wholeReturnGeometry, revealClip, closingOpacity } from '../src/features/motion/geometry.js';
 import { stepSpring } from '../src/features/motion/spring.js';
 
 const near = (a, b) => assert.ok(Math.abs(a - b) < 1e-9, `${a} ~= ${b}`);
@@ -123,4 +123,21 @@ test('a closing sheet stays whole until it is back at its source', () => {
   for (const reveal of [1, 0.6, 0.3, 0.1, 0.08]) assert.equal(closingOpacity(reveal), 1);
   assert.ok(closingOpacity(0.04) < 1 && closingOpacity(0.04) > 0);
   assert.equal(closingOpacity(0), 0);
+});
+
+test('return fits the entire sheet inside a wide stock row or small toolbar icon without wiping its content', () => {
+  const rect = { left: 20, top: 70, width: 320, height: 610 };
+  for (const source of [{ cx: 180, cy: 520, width: 280, height: 90 }, { cx: 290, cy: 70, width: 44, height: 44 }]) {
+    const g = wholeReturnGeometry(rect, source);
+    const [originX, originY] = g.origin.split(' ').map(parseFloat);
+    const pose = { ...g, originX, originY };
+    const tl = screenPoint(rect, pose, 0, 0), br = screenPoint(rect, pose, rect.width, rect.height);
+    near((tl.x + br.x) / 2, source.cx); near((tl.y + br.y) / 2, source.cy);
+    assert.ok(br.x - tl.x <= source.width + 0.01);
+    assert.ok(br.y - tl.y <= source.height + 0.01);
+    for (const progress of [0, 0.1, 0.5, 1]) {
+      assert.equal(revealClip(g.clip, progress), 'inset(0px 0.00px 0.00px round 28.00px)');
+    }
+  }
+  assert.equal(wholeReturnGeometry(rect, null), null);
 });

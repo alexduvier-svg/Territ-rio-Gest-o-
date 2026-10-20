@@ -48,16 +48,20 @@ export function catalogInfo() {
 export const isCatalogReady = () => ready;
 const familyKeyOf = record => JSON.stringify([normalizeProductName(record.nome_base), normalize(record.sabor), normalize(record.variedade)]);
 const familyName = record => String(record.nome_exibicao || record.nome_base).split(' — ')[0].trim();
-function decodePacked(packed) {
+const catalogYield = () => new Promise(resolve => setTimeout(resolve, 0));
+async function decodePacked(packed) {
   if (!Array.isArray(packed.rows) || !Array.isArray(packed.strings) || !Array.isArray(packed.fields)) throw Error('Catálogo inválido');
   const numeric = new Set(['conteudo_quantidade','confirmar_denominacao']);
-  return packed.rows.map(row => {
+  const decoded=[];let sliceStart=performance.now(),count=0;
+  for (const row of packed.rows) {
     const record = Object.fromEntries(packed.fields.map((field, i) => {
       const value = row[i];
       return [field, numeric.has(field) ? value : Array.isArray(value) ? value.map(k => packed.strings[k]) : value == null ? null : packed.strings[value]];
     }));
-    return finishRecord(record);
-  });
+    decoded.push(finishRecord(record));
+    if (++count % 32 === 0 && performance.now()-sliceStart >= 4) { await catalogYield(); sliceStart=performance.now(); }
+  }
+  return decoded;
 }
 function finishRecord(record) {
     record.status = 'sugestao_catalogo';
@@ -69,8 +73,11 @@ function finishRecord(record) {
 }
 export function loadCatalog() {
   if (ready) return Promise.resolve(catalogInfo());
-  if (!pending) pending = import('../data/product-catalog-data.js').then(module => {
-    const decoded = [...decodePacked(module.default), ...PRODUCT_CATALOG_ADDITIONS.map(record => finishRecord({ ...record, aliases:[...record.aliases], unidades_permitidas:[...record.unidades_permitidas] }))], ids = new Map(), groups = new Map(), nextIndex = [];
+  if (!pending) pending = import('../data/product-catalog-data.js').then(async module => {
+    // Build privately in short tasks so the first Entrada de estoque animation
+    // keeps getting frames/input. Publish the complete vocabulary atomically.
+    const decoded = [...await decodePacked(module.default), ...PRODUCT_CATALOG_ADDITIONS.map(record => finishRecord({ ...record, aliases:[...record.aliases], unidades_permitidas:[...record.unidades_permitidas] }))], ids = new Map(), groups = new Map(), nextIndex = [];
+    let sliceStart=performance.now(),count=0;
     for (const record of decoded) {
       if (!record.id || ids.has(record.id)) throw Error('ID duplicado no catálogo de referência');
       ids.set(record.id, record);
@@ -79,6 +86,7 @@ export function loadCatalog() {
       family.records.push(record); family.presentations++;
       const phrases = [record.nome_base,record.nome_exibicao,record.nome_singular,record.nome_plural,record.nome_busca_plural,record.sabor,record.variedade,record.forma,record.embalagem,record.categoria,record.appCategory,...record.aliases];
       nextIndex.push({ record, name:normalize(record.nome_exibicao), base:normalize(record.nome_base), text:[...new Set(phrases.filter(Boolean).map(normalize))].join(' | ') });
+      if (++count % 32 === 0 && performance.now()-sliceStart >= 4) { await catalogYield(); sliceStart=performance.now(); }
     }
     records = decoded; byId = ids; byFamily = groups; families = [...groups.values()]; index = nextIndex; ready = true;
     return catalogInfo();

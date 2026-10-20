@@ -117,6 +117,15 @@
   line-height: 1.35;
 }
 :root[data-theme][data-layout] dialog > .checkout-footer button > .icon { flex: 0 0 auto; }
+/* Action pills share a centered label; list rows and disclosure controls retain
+   their own left-aligned content and trailing arrows. */
+:root[data-theme][data-layout] :is(dialog > .checkout-footer, .product-form-actions, .subview-footer) button,
+:root[data-theme][data-layout] .sheet-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 :root[data-theme][data-layout] dialog > .checkout-footer :is(.two, .checkout-actions) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 :root[data-theme][data-layout] dialog > .modal-number-pad:not([hidden]) {
   position: static;
