@@ -6,7 +6,10 @@ import * as Weather from './index.js';
 const bridge = () => window.TerritorioWorkflowBridge;
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const settings = () => bridge()?.data()?.settings || {};
-const homeCity = () => ({ city: settings().city || 'Carangola', uf: settings().uf || 'MG' });
+// Each producer sees the weather of the city in their own Ajustes; there is no default city.
+const homeCity = () => { const st = settings(); return st.city && st.uf ? { city: st.city, uf: st.uf } : null; };
+const PIN = '<svg class="wx-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg>';
+const failures = new Map(); // city|uf -> message, when the IBGE does not know the city
 const deg = value => Number.isFinite(value) ? Math.round(value) + '°' : '—°';
 const weekday = date => new Intl.DateTimeFormat('pt-BR', { weekday: 'long', timeZone: 'UTC' }).format(new Date(date + 'T12:00:00Z')).replace('-feira', '');
 const hourLabel = time => new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', timeZone: 'America/Sao_Paulo' }).format(new Date(time)) + 'h';
@@ -32,11 +35,12 @@ export const icon = (code, extra = '') => '<svg class="wx-icon ' + extra + '" vi
 
 // ---------------------------------------------------------------- pill on the Loja bar
 export function chip() {
-  const { city, uf } = homeCity();
-  const data = Weather.cachedForCity(city, uf);
+  const home = homeCity();
+  if (!home) return '<button type="button" data-action="weather-city" class="glass-weather is-ask" data-weather-chip aria-label="Informe sua cidade para ver o tempo">' + PIN + '<span>Cidade</span></button>';
+  const data = Weather.cachedForCity(home.city, home.uf);
   const now = data?.summary?.now;
   const text = now ? deg(now.temp) : '—°';
-  const name = now ? 'Tempo em ' + (data.place?.name || city) + ': ' + Math.round(now.temp) + ' graus, ' + Weather.label(now.symbol) : 'Tempo em ' + city;
+  const name = now ? 'Tempo em ' + (data.place?.name || home.city) + ': ' + Math.round(now.temp) + ' graus, ' + Weather.label(now.symbol) : 'Tempo em ' + home.city;
   return '<button type="button" data-action="weather-open" class="glass-weather' + (now ? '' : ' is-loading') + '" data-weather-chip aria-label="' + esc(name) + '">' + icon(now?.symbol || 'cloudy') + '<span class="tabular">' + text + '</span></button>';
 }
 
@@ -47,19 +51,24 @@ export function eventLine(e) {
   if (!(days >= 0 && days <= 9)) return '';
   return '<p class="event-weather" data-event-weather="' + esc(e.id) + '">' + eventText(e) + '</p>';
 }
+const placeOf = e => { const home = homeCity(); const city = e.city || home?.city, uf = e.uf || home?.uf; return city && uf ? { city, uf } : null; };
 function eventText(e) {
-  const city = e.city || homeCity().city, uf = e.uf || homeCity().uf;
-  const data = Weather.cachedForCity(city, uf);
+  const where = placeOf(e);
+  if (!where) return icon('cloudy', 'is-muted') + '<span>Informe a cidade nos Ajustes para ver o tempo da feira.</span>';
+  const data = Weather.cachedForCity(where.city, where.uf);
   const date = e.start >= todayKey() ? e.start : todayKey();
   const w = data?.series && Weather.eventWindow(data.summary, data.series, date, e.from, e.until);
-  if (!w) return icon('cloudy', 'is-muted') + '<span>Previsão para ' + esc(dayName(date).toLowerCase()) + ' em ' + esc(city) + '…</span>';
+  if (!w) return icon('cloudy', 'is-muted') + '<span>' + (failures.has(where.city + '|' + where.uf) ? 'Cidade da feira não encontrada no IBGE: ' + esc(where.city) + ' / ' + esc(where.uf) : 'Previsão para ' + esc(dayName(date).toLowerCase()) + ' em ' + esc(where.city) + '…') + '</span>';
   return icon(w.symbol) + '<span><strong>' + esc(dayName(date)) + ', ' + esc(e.from) + '–' + esc(e.until) + ':</strong> ' + esc(Weather.label(w.symbol)) + ' · ' + w.min + '–' + w.max + '° · ' + esc(Weather.rainText(w.rain)) + '</span>';
 }
+export const askCity = () => bridge()?.actions?.['business-settings']?.();
 
 // ---------------------------------------------------------------- the weather sheet
 export async function open() {
   const b = bridge();
-  const { city, uf } = homeCity();
+  const home = homeCity();
+  if (!home) return askCity();
+  const { city, uf } = home;
   let data = Weather.cachedForCity(city, uf);
   const paint = d => {
     const now = d?.summary?.now;
@@ -82,12 +91,14 @@ export async function open() {
     refresh(false);
   } catch (error) {
     const sheet = document.querySelector('dialog[open] [data-weather-sheet]');
-    if (sheet && !data?.summary?.now) sheet.innerHTML = '<p class="wx-empty">Não foi possível buscar a previsão agora. ' + esc(error.message || '') + '</p>';
+    if (sheet && !data?.summary?.now) sheet.innerHTML = /IBGE|Cidade|UF|coordenadas/.test(error.message || '')
+      ? '<p class="wx-empty">' + esc(error.message) + '. Confira o município e o estado nos Ajustes.</p><button type="button" data-action="weather-city" class="choice modal-action">Corrigir cidade</button>'
+      : '<p class="wx-empty">Sem conexão agora. A previsão aparece sozinha assim que a internet voltar.</p>';
   }
 }
 
 // ---------------------------------------------------------------- background refresh
-let lastRun = 0;
+let lastRun = 0, lastKey = '';
 export async function refresh(fetchNew = true) {
   const repaint = () => {
     document.querySelectorAll('[data-weather-chip]').forEach(el => { const next = document.createElement('div'); next.innerHTML = chip(); el.replaceWith(next.firstElementChild); });
@@ -95,23 +106,30 @@ export async function refresh(fetchNew = true) {
     document.querySelectorAll('[data-event-weather]').forEach(el => { const e = events.find(x => x.id === el.dataset.eventWeather); if (e) el.innerHTML = eventText(e); });
   };
   repaint();
-  if (!fetchNew || Date.now() - lastRun < 60000) return;
-  lastRun = Date.now();
   const places = new Map();
   const home = homeCity();
-  places.set(home.city + '|' + home.uf, home);
-  for (const e of bridge()?.data()?.events || []) if (e.status !== 'finished') { const c = e.city || home.city, u = e.uf || home.uf; places.set(c + '|' + u, { city: c, uf: u }); }
-  await Promise.allSettled([...places.values()].slice(0, 4).map(p => Weather.forCity(p.city, p.uf)));
+  if (home) places.set(home.city + '|' + home.uf, home);
+  for (const e of bridge()?.data()?.events || []) if (e.status !== 'finished') { const p = placeOf(e); if (p) places.set(p.city + '|' + p.uf, p); }
+  const key = [...places.keys()].join(';');
+  // A new city (Ajustes saved, a fair elsewhere) is fetched at once; otherwise at most once a minute.
+  if (!fetchNew || !places.size || (key === lastKey && Date.now() - lastRun < 60000)) return;
+  lastRun = Date.now(); lastKey = key;
+  const results = await Promise.allSettled([...places.entries()].slice(0, 4).map(([k, p]) => Weather.forCity(p.city, p.uf).then(
+    value => { failures.delete(k); return value; },
+    error => { if (/IBGE|Cidade|coordenadas/.test(error.message || '')) failures.set(k, error.message); throw error; })));
+  if (results.some(x => x.status === 'rejected')) lastRun = Date.now() - 50000; // try again in about 10 s
   repaint();
 }
 
 export function installWeather() {
-  window.TerritorioWeatherUI = Object.freeze({ chip, eventLine, open, refresh });
-  // After each page is drawn, fill in what is known and, at most once a minute, ask for news.
+  window.TerritorioWeatherUI = Object.freeze({ chip, eventLine, open, refresh, askCity });
+  // After each page is drawn, fill in what is known and ask for news (at most once a minute).
   let pending = 0;
   new MutationObserver(() => {
     if (pending || !document.querySelector('[data-weather-chip], [data-event-weather]')) return;
     pending = requestAnimationFrame(() => { pending = 0; refresh(); });
   }).observe(document.getElementById('app'), { childList: true });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+  // First use without internet: the forecast appears by itself when the connection comes back.
+  window.addEventListener('online', () => { lastRun = 0; refresh(); });
 }

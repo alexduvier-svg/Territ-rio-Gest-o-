@@ -64,3 +64,6 @@
 .event-card .event-weather { display: flex; align-items: center; gap: 9px; margin: 2px 0 12px; font-size: 14px; line-height: 1.35; color: var(--muted); }
 .event-card .event-weather .wx-icon { width: 24px; height: 24px; }
 .event-card .event-weather strong { color: var(--text); font-weight: 600; }
+
+/* Sem cidade nos Ajustes: a pílula convida a informá-la (detalhe na cor de destaque). */
+.glass-sales-location > .glass-weather.is-ask { color: var(--accent-ink, var(--action-green)); font: 600 14px/1 'Inter Variable', sans-serif; }
