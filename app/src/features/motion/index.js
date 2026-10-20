@@ -138,23 +138,48 @@ function endPageTransition() {
   t.layer?.remove();
 }
 
-// Detach the leaving page into a layer. Styles that depend on html[data-page] are pinned on what
-// is visible (a few dozen elements), because the attribute changes right after this event.
-function liftPage(app, onTop) {
+// Rules that depend on html[data-page="…"], read once from the stylesheets: for each page, the
+// selector of the elements they style, without the page part.
+const pageRules = new Map();
+function pageSelectors(page) {
+  if (!pageRules.size) {
+    pageRules.set('', '');
+    const visit = rules => { for (const rule of rules) {
+      if (rule.cssRules?.length && !rule.selectorText) { visit(rule.cssRules); continue; }
+      if (!rule.selectorText?.includes('data-page')) continue;
+      for (const part of rule.selectorText.split(/,(?![^(]*\))/)) {
+        const match = part.match(/\[data-page\s*=\s*['"]?([^'"\]]+)['"]?\]/);
+        if (!match) continue;
+        const rest = part.replace(/^\s*(?::root|html)?(?:\[[^\]]*\]|\.[\w-]+)*\s*(?:body\s*)?/, '').trim();
+        if (!rest || rest.startsWith(':') || rest.startsWith('>')) continue;
+        try { document.createDocumentFragment().querySelector(rest); } catch { continue; }
+        pageRules.set(match[1], [pageRules.get(match[1]), rest].filter(Boolean).join(', '));
+      }
+    } };
+    for (const sheet of document.styleSheets) { try { visit(sheet.cssRules); } catch {} }
+  }
+  return pageRules.get(page) || '';
+}
+
+// Detach the leaving page into a layer. Only what is on screen travels: blocks below the screen
+// are left behind for the renderer to discard, so the layer stays small to style and draw. The
+// few elements whose look depends on the page attribute (which changes right after this event)
+// keep their current look.
+function liftPage(app, onTop, page) {
   const children = [...app.children];
   if (!children.length) return null;
   const rect = app.getBoundingClientRect(), computed = getComputedStyle(app);
-  const visible = [];
-  const walker = document.createTreeWalker(app, NodeFilter.SHOW_ELEMENT);
-  let count = 0;
-  while (walker.nextNode() && count < 4000) {
-    count++;
-    const node = walker.currentNode;
-    if (visible.length >= 160) break;
-    const box = node.getBoundingClientRect();
-    if (box.bottom > 0 && box.top < innerHeight && box.width && box.height && box.width * box.height > 900) visible.push(node);
-    else if (box.top >= innerHeight && node.parentElement === app) break;
-  }
+  const below = [];
+  const prune = (parent, depth) => {
+    for (const child of parent.children) {
+      const box = child.getBoundingClientRect();
+      if (box.top > innerHeight) below.push(child);
+      else if (depth < 3 && child.childElementCount > 6 && box.bottom > innerHeight) prune(child, depth + 1);
+    }
+  };
+  prune(app, 0);
+  const selector = pageSelectors(page);
+  const visible = selector ? [...app.querySelectorAll(selector)].filter(node => !below.some(b => b.contains(node))).slice(0, 120) : [];
   const pinned = visible.map(node => { const style = getComputedStyle(node); return pageFreeze.map(p => style.getPropertyValue(p)); });
   const chrome = ['nav-glass', 'nav'].map(id => document.getElementById(id)).filter(el => el && el.getClientRects().length && !onTop)
     .map(el => { const copy = el.cloneNode(true); copy.removeAttribute('id'); copy.classList.add('fluid-chrome-copy'); copy.querySelectorAll('[id],[data-action]').forEach(n => { n.removeAttribute('id'); n.removeAttribute('data-action'); }); const s = getComputedStyle(el); copy.style.cssText += `;position:fixed;left:${s.left};right:${s.right};bottom:${s.bottom};top:${s.top};width:${s.width};height:${s.height}`; return copy; });
@@ -169,7 +194,8 @@ function liftPage(app, onTop) {
   context.className = app.className + ' fluid-page-morph-context';
   Object.assign(context.style, { top: rect.top + 'px', left: rect.left + 'px', width: rect.width + 'px', padding: computed.padding });
   visible.forEach((node, i) => pageFreeze.forEach((p, j) => { if (pinned[i][j]) node.style.setProperty(p, pinned[i][j]); }));
-  context.append(...children);
+  for (const node of below) node.remove();
+  context.append(...children.filter(child => child.isConnected));
   // A moved page must never answer a query meant for the live one.
   context.querySelectorAll('[data-action], [name], [autofocus]').forEach(node => { node.removeAttribute('data-action'); node.removeAttribute('name'); node.removeAttribute('autofocus'); });
   surface.append(context, ...chrome);
@@ -215,7 +241,7 @@ function installPageTransitions(listen) {
     if (history.length > 20) history.shift();
     if (!enabled() || !app) return;
     // A checkout closes its own sheet into the sale; a copy of the sale page would flash stale content.
-    const lift = source?.insideDialog ? null : liftPage(app, goingBack);
+    const lift = source?.insideDialog ? null : liftPage(app, goingBack, previousPage);
     const t = pageTransition = { layer: lift?.layer, handles: [] };
     pageHandled = true;
     // The renderer finishes the new page synchronously after this event: aim once it is there.

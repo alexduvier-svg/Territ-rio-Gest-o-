@@ -321,7 +321,8 @@ function setSaleQuantity(raw){
 
 function checkoutPaymentControls(){
  const addProducts=btn('continue-shopping','<span class="payment-add-plus" aria-hidden="true">+</span><span>Produtos</span>','choice payment-add-products'),tiles=E.PAYMENTS.map(m=>{const selected=!draft.split&&draft.payment===m;return btn('payment','<span class="payment-method-label">'+m+'</span>'+(selected?'<span class="payment-check" aria-hidden="true">'+icon('check')+'</span>':''),'choice payment-choice'+(selected?' selected':''),{value:m});});
- const other=E.PAYMENTS.indexOf('Outro');tiles.push(addProducts);
+ // '+ Produtos' fica à esquerda, na casa de 'Outro', que passa para a direita.
+ const other=E.PAYMENTS.indexOf('Outro');if(other>=0)tiles.splice(other,0,addProducts);else tiles.push(addProducts);
  return '<section class="checkout-payment-controls" aria-label="Método de Pagamento"><div class="sale-payment-heading"><h2>Método de Pagamento</h2>'+btn('split-payment',draft.split?'Único':'Dividir','split-compact')+'</div><div class="payment-grid">'+tiles.join('')+'</div></section>';
 }
 

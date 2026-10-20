@@ -10,3 +10,5 @@
 }
 .fluid-section-ghost, .fluid-section-ghost * { pointer-events: none !important; animation: none !important; transition: none !important; }
 .fluid-section-placeholder { min-height: 0; margin: 0; padding: 0; border: 0; }
+/* A closing section's copy lies under the page: the blocks below slide up over it as it fades. */
+.fluid-section-ghost.is-under { z-index: -1; }

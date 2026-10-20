@@ -58,22 +58,11 @@ function followersOf(target, reach) {
   return out;
 }
 
-// Surfaces around the section that grow with it (its panel, its sheet card): they reveal their new
-// lower part together with the section, instead of jumping to the final size.
-function wrappersOf(target) {
-  const out = [];
-  for (let node = target.parentElement; node && out.length < 2 && !node.matches('#app, .subview, .dialog-content, dialog, body'); node = node.parentElement) {
-    const style = getComputedStyle(node);
-    if (style.backgroundImage !== 'none' || !/rgba?\(0, 0, 0, 0\)|transparent/.test(style.backgroundColor)) out.push(node);
-  }
-  return out;
+// The parts of an opened section that were not on screen before (below its previous height).
+function bodyOf(target, previousHeight) {
+  const top = target.getBoundingClientRect().top;
+  return [...target.children].filter(child => !child.matches('summary, .fluid-section-ghost') && child.getBoundingClientRect().bottom > top + previousHeight + 1).slice(0, 12);
 }
-
-// Opens the lower `closed` pixels of a surface; shadows keep 40px of room on every side.
-const reveal = (closed, radius) => (_, p) => {
-  const open = Math.min(1, p);
-  return { clipPath: `inset(-40px -40px ${(closed * (1 - open) - 40 * open).toFixed(2)}px -40px round ${radius})` };
-};
 
 export function installSectionMotion() {
   const active = new Map(), pending = new Map(), detailIds = new WeakMap();
@@ -115,9 +104,7 @@ export function installSectionMotion() {
     const height = placeholder ? 0 : box.height;
     const delta = height - record.height;
     if (Math.abs(delta) < 1) { if (target.matches('details')) delete target.dataset.fluidSectionManaged; placeholder?.remove(); return; }
-    const radius = getComputedStyle(target).borderBottomLeftRadius || '0px';
     const followers = followersOf(target, Math.abs(delta));
-    const wrappers = delta > 0 ? wrappersOf(target) : [];
     const handles = [];
     let ghost = null;
     const state = {};
@@ -135,14 +122,18 @@ export function installSectionMotion() {
     // The section's own place may have moved with the render (scroll restored, list above it).
     const shift = Math.abs(record.top - box.top) > 1 ? record.top - box.top : 0;
     if (delta > 0) {
-      handles.push(animate(target, { from: { y: shift }, to: { y: 0 }, spring, paint: reveal(delta, radius) }));
-      for (const wrapper of wrappers) {
-        handles.push(animate(wrapper, { from: {}, to: {}, spring, paint: reveal(delta, getComputedStyle(wrapper).borderBottomLeftRadius || '0px') }));
+      // The new content settles into place while what sits below slides off it: the blocks below
+      // cover the new part at first and uncover it as they move, with no clip to repaint.
+      if (shift) handles.push(animate(target, { from: { y: shift }, to: { y: 0 }, spring }));
+      for (const body of bodyOf(target, record.height)) {
+        const from = { y: fluidMotionLite() ? -2 : -6, opacity: 0 };
+        handles.push(animate(body, { from, to: { y: 0, opacity: 1 }, spring, shape: (pose, p) => ({ ...pose, opacity: Math.min(1, Math.max(0, (p - 0.08) / 0.5)) }) }));
       }
     } else if (record.copy) {
-      // Closing: the old content, frozen as it was, folds up over the new one and dissolves.
+      // Closing: the old content, frozen as it was, stays under the page and dissolves while the
+      // blocks below slide up over it.
       ghost = document.createElement('div');
-      ghost.className = 'fluid-section-ghost';
+      ghost.className = 'fluid-section-ghost is-under';
       ghost.inert = true;
       ghost.setAttribute('aria-hidden', 'true');
       const host = target.closest('dialog[open]');
@@ -160,9 +151,8 @@ export function installSectionMotion() {
         ghost.style.top = (2 * box.top - placed.top) + 'px';
       }
       const closed = Math.abs(delta);
-      handles.push(animate(ghost, { from: { opacity: 1 }, to: { opacity: 0 }, spring,
-        shape: (pose, p) => ({ opacity: 1 - Math.min(1, Math.max(0, (p - 0.35) / 0.65)) }),
-        paint: (_, p) => ({ clipPath: `inset(0 0 ${(closed * Math.min(1, p)).toFixed(2)}px 0 round ${radius})` }) }));
+      handles.push(animate(ghost, { from: { y: 0, opacity: 1 }, to: { y: fluidMotionLite() ? -2 : -Math.min(14, closed * 0.1), opacity: 0 }, spring,
+        shape: (pose, p) => ({ ...pose, opacity: 1 - Math.min(1, p / 0.45) }) }));
     }
     for (const follower of followers) handles.push(animate(follower, { from: { y: shift - delta }, to: { y: 0 }, spring }));
     const last = handles.filter(Boolean).at(-1);
