@@ -46,12 +46,14 @@ function followersOf(target, reach) {
   let node = target;
   while (node && out.length < 40 && !node.matches('#app, .dialog-content, dialog, body')) {
     for (let next = node.nextElementSibling; next && out.length < 40; next = next.nextElementSibling) {
-      if (next.matches('script, style, template, .fluid-section-ghost') || next.hidden) continue;
-      const style = getComputedStyle(next);
-      if (style.position === 'fixed' || style.position === 'sticky' || next.matches(fixedContent) || next.querySelector(fixedContent)) continue;
+      // Cheapest checks first: a block below the reach ends the level; fixed bars are known by name
+      // (a page wrapper that holds them never follows a section).
+      if (next.hidden || next.matches('script, style, template, .fluid-section-ghost, .subview') || next.matches(fixedContent)) continue;
       const box = next.getBoundingClientRect();
       if (box.top > limit) break;
-      if (box.height) out.push(next);
+      if (!box.height) continue;
+      const position = getComputedStyle(next).position;
+      if (position !== 'fixed' && position !== 'sticky') out.push(next);
     }
     node = node.parentElement;
   }
