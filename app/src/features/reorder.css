@@ -1,0 +1,18 @@
+/* Segurar e arrastar: o produto levantado flutua acima dos outros com uma sombra mais funda; os
+   demais da família deslizam (motor de aberturas). Só translate/scale mudam durante o arraste. */
+#app :is(.feira-card, .feira-row)[data-action] { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.reorder-active :is(.feira-card, .feira-row) { transition: none !important; }
+#app :is(.feira-card, .feira-row).reorder-lifted {
+  position: relative;
+  z-index: 30;
+  cursor: grabbing;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 16%), 0 2px 4px rgb(0 0 0 / 28%), 0 22px 44px rgb(0 0 0 / 44%) !important;
+}
+:root[data-theme='light'] #app :is(.feira-card, .feira-row).reorder-lifted {
+  box-shadow: inset 0 1px 0 #fff, 0 2px 4px rgb(30 45 60 / 12%), 0 22px 44px rgb(30 45 60 / 26%) !important;
+}
+/* Linhas do Estoque ficam numa lista recortada: enquanto uma se move, a lista deixa ver a sombra. */
+.reorder-active .feira-rows { overflow: visible !important; }
+.reorder-active .feira-row.reorder-lifted { border-radius: 18px; background: var(--material-face) !important; }
+.reorder-dragging .glass-touch-light { display: none !important; }
+:root.lite #app :is(.feira-card, .feira-row).reorder-lifted { box-shadow: 0 10px 22px rgb(0 0 0 / 35%) !important; }

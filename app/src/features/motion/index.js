@@ -325,6 +325,8 @@ function installPress(listen) {
   const depth = button => { const r = button.getBoundingClientRect(); return r.width > 300 ? 0.985 : limited() ? 0.98 : 0.965; };
   const release = button => {
     if (!pressed.delete(button)) return;
+    // A lifted product (hold and drag) is moved and settled by reorder.js, not by the key spring.
+    if (button.classList.contains('reorder-lifted')) return;
     const current = motionOf(button);
     const from = current ? current.now().pose : { scale: 1 };
     if (!enabled() || !button.isConnected) { current?.cancel(); return; }

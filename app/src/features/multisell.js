@@ -1,5 +1,5 @@
-// Venda de vários produtos de uma vez: tocar duas vezes num cartão em Vender (ou segurá-lo 0,6 s, o toque longo
-// padrão da Apple e do Android) entra no modo de seleção; toque em até mais 2 produtos e em "Vender N produtos".
+// Venda de vários produtos de uma vez: tocar duas vezes num cartão em Vender entra no modo de
+// seleção (segurar o cartão serve para mudá-lo de lugar); toque em até mais 2 produtos e em "Vender N produtos".
 // Os escolhidos entram juntos na tela de venda, cada um com sua apresentação e quantidade.
 // Funciona nos dois estilos (Feira e Território).
 
@@ -105,7 +105,8 @@ function clearTimer() {
 export function installMultiSell() {
   document.addEventListener('pointerdown', event => {
     const card = cardFrom(event.target);
-    if (!card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length) return;
+    // Segurar o cartão agora o levanta para mudar de lugar (reorder.js); a seleção abre com 2 toques.
+    if (window.TerritorioReorder || !card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length) return;
     window.TerritorioProductGestures?.suspend();
     pressed = card;
     start = { x: event.clientX, y: event.clientY };

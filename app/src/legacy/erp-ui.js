@@ -1161,6 +1161,9 @@ function armLastQuantity(){clearTimeout(lastQuantityTimer);if(!multiReviewPendin
 const r20Digit=actions.digit;actions.digit=d=>{r20Digit(d);armLastQuantity();};
 const r20EraseQuantity=actions['erase-digit'];actions['erase-digit']=()=>{r20EraseQuantity();armLastQuantity();};
 document.addEventListener('input',e=>{if(e.target?.id==='sale-quantity')setTimeout(armLastQuantity,0);});
+// Ordem escolhida pelo produtor (segurar e arrastar): fica nos dados (e no backup) e vale em todas
+// as listas que seguem a ordem do estoque — Vender, Estoque, resumo, catálogo e loja.
+const r21Render=render;render=function(...args){window.TerritorioStockOrder?.setManualOrder?.(model.data.productOrder?.ids||[]);return r21Render.apply(this,args);};
 const r17Reset=actions['reset-demo'];actions['reset-demo']=()=>{stockView='all';stockAutoEventId='';numericTouched.clear();productNamePrefix='';closeNumberPad();r17Reset();};
 
 Object.assign(actions,{

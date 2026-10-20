@@ -14,6 +14,8 @@ import { installSectionMotion } from './features/motion/sections.js';
 import './features/motion/sections.css';
 import { installInterface } from './features/interface.js';
 import { installMultiSell } from './features/multisell.js';
+import { installReorder } from './features/reorder.js';
+import './features/reorder.css';
 import './features/multisell.css';
 import { version } from '../package.json';
 import './features/portfolio.css';
@@ -116,6 +118,7 @@ try {
   installInterface();
   installSectionMotion();
   installMultiSell();
+  installReorder();
   installWorkflows();
   installStore();
   installLocalCatalog();
