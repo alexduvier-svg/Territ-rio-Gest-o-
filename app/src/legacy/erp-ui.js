@@ -391,7 +391,7 @@ function render(preserve){if(page!=='Gestão')managementExpanded.delete('detail-
 // Finalizar Venda não tem X: '+ Produtos' já volta para a venda e 'Cancelar Venda' encerra.
 function openModal(title,body,kind,data,footer){
  modal={kind,data};dialog.setAttribute('data-kind',kind||'');
- const bottomBack=['scope','mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load','voice'].includes(kind)||/^(advisor|agent-|workflow|store)/.test(String(kind||'')),registered=kind==='story'&&data&&data.pending===false;
+ const bottomBack=['weather','scope','mg-detail','consumption','consumption-detail','client','client-detail','appearance','brain','day-summary','fair-finish','event-load','voice'].includes(kind)||/^(advisor|agent-|workflow|store)/.test(String(kind||'')),registered=kind==='story'&&data&&data.pending===false;
  if(bottomBack){body=body.replace(/<button\b[^>]*data-action="close-modal"[^>]*>[\s\S]*?<\/button>/g,'');if(!footer)footer=btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back');}
  dialog.toggleAttribute('data-bottom-back',bottomBack);dialog.toggleAttribute('data-no-close',bottomBack||registered);
  const reviewSheet=kind==='cart'||kind==='checkout',heading=(bottomBack||registered||reviewSheet?'':btn('close-modal',icon('close'),'dialog-close'))+'<h2 id="dialog-title">'+escape(title)+'</h2>',footerLabel=kind==='movement'?'Ações do estoque':kind==='restock'?'Reposição do estoque':kind==='calculator'?'Ações da calculadora':bottomBack?'Ações da janela':'Finalização da venda';

@@ -83,7 +83,8 @@ export async function open() {
       + '<h3 class="wx-title">Próximos dias</h3><ul class="wx-days">' + rows + '</ul>'
       + '<p class="wx-source">' + (d.stale ? 'Sem conexão: mostrando a previsão de ' : 'Atualizado às ') + clock(d.fetchedAt) + '. Dados: MET Norway (yr.no), pelo centro do município (IBGE).</p>';
   };
-  b.open('Tempo', '<div class="wx-sheet" data-weather-sheet>' + paint(data) + '</div>', '', 'weather');
+  // One way out at the bottom, as in the other sheets (the top X is removed for this kind).
+  b.open('Tempo', '<div class="wx-sheet" data-weather-sheet>' + paint(data) + '</div>', '<button type="button" class="sheet-back" data-action="close-modal"><span>Sair</span></button>', 'weather');
   try {
     data = await Weather.forCity(city, uf);
     const sheet = document.querySelector('dialog[open] [data-weather-sheet]');

@@ -4,7 +4,7 @@
 // fica guardada no aparelho e é mostrada sem internet, com o horário em que foi atualizada.
 import { Capacitor, CapacitorHttp } from '@capacitor/core';
 
-const AGENT = 'AGROGestao/0.12.33 github.com/alexduvier-svg/Territ-rio-Gest-o-';
+const AGENT = 'AGROGestao/0.12.34 github.com/alexduvier-svg/Territ-rio-Gest-o-';
 const TZ = 'America/Sao_Paulo';
 const MIN_REFRESH = 30 * 60000;
 const store = {
