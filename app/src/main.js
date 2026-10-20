@@ -15,6 +15,8 @@ import './features/motion/sections.css';
 import { installInterface } from './features/interface.js';
 import { installMultiSell } from './features/multisell.js';
 import { installReorder } from './features/reorder.js';
+import { installWeather } from './features/weather/ui.js';
+import './features/weather/weather.css';
 import './features/reorder.css';
 import './features/multisell.css';
 import { version } from '../package.json';
@@ -106,6 +108,7 @@ try {
   window.TerritorioProductPeriodReports = ProductPeriodReports;
   window.TERRITORIO_VERSION = version;
   window.TERRITORIO_API = API;
+  installWeather();
   await import('./legacy/erp-ui.js');
   const savedModel = window.ERPPreview?.model?.();
   if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled) {

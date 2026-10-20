@@ -1,0 +1,66 @@
+/* Tempo: pílula na barra da Loja, janela de previsão e linha nas feiras. Cores só nos ícones
+   (sol quente, chuva fria); números e textos seguem a hierarquia do sistema nos dois temas. */
+:root { --wx-sun: #f2b544; --wx-rain: #6fb4ff; --wx-moon: #c9d4ff; --wx-bolt: #f6c454; }
+:root[data-theme='light'] { --wx-sun: #c98410; --wx-rain: #2f76c8; --wx-moon: #5d6fb8; --wx-bolt: #b97d06; }
+.wx-icon { width: 22px; height: 22px; flex: none; }
+.wx-icon .wx-sun { stroke: var(--wx-sun); }
+.wx-icon .wx-rain { stroke: var(--wx-rain); }
+.wx-icon .wx-moon { stroke: var(--wx-moon); }
+.wx-icon .wx-bolt { stroke: var(--wx-bolt); }
+.wx-icon.is-muted { opacity: 0.6; }
+
+/* Pílula: cabe ao lado de "Loja" sem empurrar o total nem o olho. */
+.glass-sales-location > .glass-weather {
+  display: inline-flex; align-items: center; gap: 5px; flex: none;
+  min-height: 40px; padding: 0 10px 0 8px; border: 0; border-radius: 20px;
+  background: color-mix(in srgb, var(--material-text) 7%, transparent);
+  color: var(--material-text); font: 650 15px/1 'Inter Tight Variable', 'Inter Variable', sans-serif;
+}
+.glass-sales-location > .glass-weather .tabular { font: inherit !important; color: inherit !important; padding: 0 !important; margin: 0 !important; letter-spacing: -0.01em; }
+.glass-sales-location > .glass-weather.is-loading { color: var(--material-muted); }
+.glass-sales-location > .glass-location { min-width: 0; }
+
+/* Janela. */
+.wx-sheet { display: grid; gap: 4px; }
+.wx-hero { display: flex; align-items: center; gap: 14px; margin: 2px 0 2px; }
+.wx-hero .wx-hero-icon { width: 64px; height: 64px; stroke-width: 1.4; }
+.wx-hero strong { display: block; font: 700 52px/1 'Inter Tight Variable', sans-serif; letter-spacing: -0.03em; color: var(--material-text, var(--text)); }
+.wx-hero span { display: block; margin-top: 4px; font-size: 16px; color: var(--material-muted, var(--muted)); }
+.wx-place { margin: 0 0 6px; font-size: 14px; color: var(--material-muted, var(--muted)); }
+.wx-title { margin: 14px 0 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--material-muted, var(--muted)); }
+.wx-hours { display: flex; gap: 8px; margin: 0 -4px; padding: 2px 4px 6px; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+.wx-hours::-webkit-scrollbar { display: none; }
+.wx-hours li {
+  flex: 0 0 auto; min-width: 58px; display: grid; justify-items: center; gap: 6px; padding: 10px 6px 8px;
+  border-radius: 18px; scroll-snap-align: start;
+  background: color-mix(in srgb, var(--material-text, var(--text)) 5%, transparent);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 6%);
+}
+.wx-hours li > span { font-size: 13px; color: var(--material-muted, var(--muted)); }
+.wx-hours li .wx-icon { width: 26px; height: 26px; }
+.wx-hours li > strong { font-size: 16px; font-weight: 700; color: var(--material-text, var(--text)); }
+.wx-hours li > small { min-height: 13px; font-size: 11px; font-weight: 600; color: var(--wx-rain); }
+.wx-days { margin: 0; padding: 0; list-style: none; }
+.wx-days li {
+  display: grid; grid-template-columns: minmax(64px, 1.1fr) 26px minmax(44px, .8fr) 30px minmax(48px, 1fr) 30px;
+  align-items: center; gap: 8px; min-height: 46px;
+  border-bottom: 1px solid color-mix(in srgb, var(--material-text, var(--text)) 9%, transparent);
+}
+.wx-days li:last-child { border-bottom: 0; }
+.wx-day { font-size: 15px; font-weight: 600; color: var(--material-text, var(--text)); }
+.wx-rain-text { font-size: 12px; font-weight: 600; color: var(--wx-rain); white-space: nowrap; }
+.wx-min, .wx-max { font-size: 15px; text-align: right; color: var(--material-muted, var(--muted)); }
+.wx-max { color: var(--material-text, var(--text)); font-weight: 700; }
+.wx-bar { position: relative; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--material-text, var(--text)) 10%, transparent); }
+.wx-bar > i { position: absolute; top: 0; bottom: 0; border-radius: 3px; background: linear-gradient(90deg, var(--wx-rain), var(--wx-sun)); }
+.wx-source, .wx-empty { margin: 12px 0 0; font-size: 12px; line-height: 1.4; color: var(--material-muted, var(--muted)); }
+.wx-empty { font-size: 15px; }
+@media (max-width: 359px) {
+  .wx-days li { grid-template-columns: minmax(58px, 1fr) 24px 40px 28px minmax(36px, 1fr) 28px; gap: 6px; }
+  .wx-rain-text { font-size: 11px; }
+}
+
+/* Linha na feira. */
+.event-card .event-weather { display: flex; align-items: center; gap: 9px; margin: 2px 0 12px; font-size: 14px; line-height: 1.35; color: var(--muted); }
+.event-card .event-weather .wx-icon { width: 24px; height: 24px; }
+.event-card .event-weather strong { color: var(--text); font-weight: 600; }

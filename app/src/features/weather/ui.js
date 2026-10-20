@@ -1,0 +1,117 @@
+// Tempo na interface: uma pílula na barra da Loja (agora, na cidade dos Ajustes), uma janela com as
+// próximas horas e dias, e uma linha em cada feira dos próximos 9 dias com o tempo no horário dela.
+// Tudo é desenhado com o que estiver guardado e atualizado em segundo plano, sem redesenhar a tela.
+import * as Weather from './index.js';
+
+const bridge = () => window.TerritorioWorkflowBridge;
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const settings = () => bridge()?.data()?.settings || {};
+const homeCity = () => ({ city: settings().city || 'Carangola', uf: settings().uf || 'MG' });
+const deg = value => Number.isFinite(value) ? Math.round(value) + '°' : '—°';
+const weekday = date => new Intl.DateTimeFormat('pt-BR', { weekday: 'long', timeZone: 'UTC' }).format(new Date(date + 'T12:00:00Z')).replace('-feira', '');
+const hourLabel = time => new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', timeZone: 'America/Sao_Paulo' }).format(new Date(time)) + 'h';
+const clock = time => new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }).format(new Date(time));
+const todayKey = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+const dayName = date => { const t = todayKey(); if (date === t) return 'Hoje'; const d = new Date(Date.parse(t + 'T12:00:00Z') + 86400000).toISOString().slice(0, 10); return date === d ? 'Amanhã' : weekday(date).replace(/^./, c => c.toUpperCase()); };
+
+// Line icons in the app's stroke style; the sun is warm, rain is cool, the rest follows the text.
+const SUN = '<circle cx="12" cy="12" r="4.2" class="wx-sun"/><path class="wx-sun" d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M5.4 18.6 7 17M17 7l1.6-1.6"/>';
+const CLOUD = '<path d="M7.5 18.5h9.2a3.8 3.8 0 0 0 .4-7.6 5.2 5.2 0 0 0-10-1.1A4.4 4.4 0 0 0 7.5 18.5Z"/>';
+const SMALL_CLOUD = '<path d="M9.5 20h7.6a3.1 3.1 0 0 0 .3-6.2 4.3 4.3 0 0 0-8.2-.9A3.6 3.6 0 0 0 9.5 20Z"/>';
+const ICONS = {
+  sun: SUN,
+  moon: '<path class="wx-moon" d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1Z"/>',
+  'sun-cloud': '<g transform="translate(-2.2 -2.6) scale(.78)">' + SUN + '</g>' + SMALL_CLOUD,
+  'night-cloud': '<path class="wx-moon" d="M13.6 9.4A5 5 0 0 1 7.2 3a5 5 0 1 0 6.4 6.4Z"/>' + SMALL_CLOUD,
+  cloud: CLOUD,
+  fog: '<path d="M4 9.5h16M2.8 13.5h18.4M5 17.5h14"/>',
+  rain: '<path d="M7.5 15h9.2a3.8 3.8 0 0 0 .4-7.6 5.2 5.2 0 0 0-10-1.1A4.4 4.4 0 0 0 7.5 15Z"/><path class="wx-rain" d="M8.6 18l-1 2.4M12.6 18l-1 2.4M16.6 18l-1 2.4"/>',
+  thunder: '<path d="M7.5 14.5h9.2a3.8 3.8 0 0 0 .4-7.6 5.2 5.2 0 0 0-10-1.1A4.4 4.4 0 0 0 7.5 14.5Z"/><path class="wx-bolt" d="m12.6 15.6-2.2 3.6h3l-2 3.4"/>',
+};
+export const icon = (code, extra = '') => '<svg class="wx-icon ' + extra + '" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + (ICONS[Weather.kind(code)] || CLOUD) + '</svg>';
+
+// ---------------------------------------------------------------- pill on the Loja bar
+export function chip() {
+  const { city, uf } = homeCity();
+  const data = Weather.cachedForCity(city, uf);
+  const now = data?.summary?.now;
+  const text = now ? deg(now.temp) : '—°';
+  const name = now ? 'Tempo em ' + (data.place?.name || city) + ': ' + Math.round(now.temp) + ' graus, ' + Weather.label(now.symbol) : 'Tempo em ' + city;
+  return '<button type="button" data-action="weather-open" class="glass-weather' + (now ? '' : ' is-loading') + '" data-weather-chip aria-label="' + esc(name) + '">' + icon(now?.symbol || 'cloudy') + '<span class="tabular">' + text + '</span></button>';
+}
+
+// ---------------------------------------------------------------- line in a fair card
+export function eventLine(e) {
+  if (!e || e.status === 'finished') return '';
+  const days = (Date.parse(e.start + 'T12:00:00Z') - Date.parse(todayKey() + 'T12:00:00Z')) / 86400000;
+  if (!(days >= 0 && days <= 9)) return '';
+  return '<p class="event-weather" data-event-weather="' + esc(e.id) + '">' + eventText(e) + '</p>';
+}
+function eventText(e) {
+  const city = e.city || homeCity().city, uf = e.uf || homeCity().uf;
+  const data = Weather.cachedForCity(city, uf);
+  const date = e.start >= todayKey() ? e.start : todayKey();
+  const w = data?.series && Weather.eventWindow(data.summary, data.series, date, e.from, e.until);
+  if (!w) return icon('cloudy', 'is-muted') + '<span>Previsão para ' + esc(dayName(date).toLowerCase()) + ' em ' + esc(city) + '…</span>';
+  return icon(w.symbol) + '<span><strong>' + esc(dayName(date)) + ', ' + esc(e.from) + '–' + esc(e.until) + ':</strong> ' + esc(Weather.label(w.symbol)) + ' · ' + w.min + '–' + w.max + '° · ' + esc(Weather.rainText(w.rain)) + '</span>';
+}
+
+// ---------------------------------------------------------------- the weather sheet
+export async function open() {
+  const b = bridge();
+  const { city, uf } = homeCity();
+  let data = Weather.cachedForCity(city, uf);
+  const paint = d => {
+    const now = d?.summary?.now;
+    if (!now) return '<p class="wx-empty">Buscando a previsão para ' + esc(city) + '…</p>';
+    const hours = d.summary.hours.map((h, i) => '<li><span>' + (i === 0 && Date.parse(h.time) <= Date.now() ? 'Agora' : hourLabel(h.time)) + '</span>' + icon(h.symbol) + '<strong class="tabular">' + deg(h.temp) + '</strong><small>' + (h.rain > 0.05 ? String(h.rain).replace('.', ',') + ' mm' : '') + '</small></li>').join('');
+    const days = d.summary.days;
+    const low = Math.min(...days.map(x => x.min)), high = Math.max(...days.map(x => x.max)), span = Math.max(1, high - low);
+    const rows = days.map(x => '<li><span class="wx-day">' + esc(dayName(x.date)) + '</span>' + icon(x.symbol) + '<span class="wx-rain-text">' + esc(x.rain > 0.05 ? Weather.rainText(x.rain).replace(/^Chuva (forte |fraca )?/, '') : '') + '</span><span class="tabular wx-min">' + x.min + '°</span><span class="wx-bar"><i style="left:' + ((x.min - low) / span * 100).toFixed(1) + '%;right:' + ((high - x.max) / span * 100).toFixed(1) + '%"></i></span><span class="tabular wx-max">' + x.max + '°</span></li>').join('');
+    return '<div class="wx-hero">' + icon(now.symbol, 'wx-hero-icon') + '<div><strong class="tabular">' + deg(now.temp) + '</strong><span>' + esc(Weather.label(now.symbol)) + '</span></div></div>'
+      + '<p class="wx-place">' + esc((d.place?.name || city) + ' · ' + (d.place?.uf || uf)) + '</p>'
+      + '<h3 class="wx-title">Próximas horas</h3><ul class="wx-hours">' + hours + '</ul>'
+      + '<h3 class="wx-title">Próximos dias</h3><ul class="wx-days">' + rows + '</ul>'
+      + '<p class="wx-source">' + (d.stale ? 'Sem conexão: mostrando a previsão de ' : 'Atualizado às ') + clock(d.fetchedAt) + '. Dados: MET Norway (yr.no), pelo centro do município (IBGE).</p>';
+  };
+  b.open('Tempo', '<div class="wx-sheet" data-weather-sheet>' + paint(data) + '</div>', '', 'weather');
+  try {
+    data = await Weather.forCity(city, uf);
+    const sheet = document.querySelector('dialog[open] [data-weather-sheet]');
+    if (sheet) sheet.innerHTML = paint(data);
+    refresh(false);
+  } catch (error) {
+    const sheet = document.querySelector('dialog[open] [data-weather-sheet]');
+    if (sheet && !data?.summary?.now) sheet.innerHTML = '<p class="wx-empty">Não foi possível buscar a previsão agora. ' + esc(error.message || '') + '</p>';
+  }
+}
+
+// ---------------------------------------------------------------- background refresh
+let lastRun = 0;
+export async function refresh(fetchNew = true) {
+  const repaint = () => {
+    document.querySelectorAll('[data-weather-chip]').forEach(el => { const next = document.createElement('div'); next.innerHTML = chip(); el.replaceWith(next.firstElementChild); });
+    const events = bridge()?.data()?.events || [];
+    document.querySelectorAll('[data-event-weather]').forEach(el => { const e = events.find(x => x.id === el.dataset.eventWeather); if (e) el.innerHTML = eventText(e); });
+  };
+  repaint();
+  if (!fetchNew || Date.now() - lastRun < 60000) return;
+  lastRun = Date.now();
+  const places = new Map();
+  const home = homeCity();
+  places.set(home.city + '|' + home.uf, home);
+  for (const e of bridge()?.data()?.events || []) if (e.status !== 'finished') { const c = e.city || home.city, u = e.uf || home.uf; places.set(c + '|' + u, { city: c, uf: u }); }
+  await Promise.allSettled([...places.values()].slice(0, 4).map(p => Weather.forCity(p.city, p.uf)));
+  repaint();
+}
+
+export function installWeather() {
+  window.TerritorioWeatherUI = Object.freeze({ chip, eventLine, open, refresh });
+  // After each page is drawn, fill in what is known and, at most once a minute, ask for news.
+  let pending = 0;
+  new MutationObserver(() => {
+    if (pending || !document.querySelector('[data-weather-chip], [data-event-weather]')) return;
+    pending = requestAnimationFrame(() => { pending = 0; refresh(); });
+  }).observe(document.getElementById('app'), { childList: true });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+}
