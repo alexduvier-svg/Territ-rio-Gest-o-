@@ -2,11 +2,13 @@
 // CC BY 4.0, uso comercial permitido, com crédito à fonte). Coordenadas: centro do município no IBGE,
 // consultado uma vez por cidade. Sem GPS: usa a cidade dos Ajustes ou a do evento. A última previsão
 // fica guardada no aparelho e é mostrada sem internet, com o horário em que foi atualizada.
-import { Capacitor, CapacitorHttp } from '@capacitor/core';
+import { Capacitor, CapacitorHttp, registerPlugin } from '@capacitor/core';
 
-const AGENT = 'AGROGestao/0.12.34 github.com/alexduvier-svg/Territ-rio-Gest-o-';
+const AGENT = 'AGROGestao/0.12.35 github.com/alexduvier-svg/Territ-rio-Gest-o-';
 const TZ = 'America/Sao_Paulo';
 const MIN_REFRESH = 30 * 60000;
+// Background check while the app is closed (WorkManager, android/…/AgroWeatherWorker.java).
+const NativeWeather = Capacitor.isNativePlatform() ? registerPlugin('AgroWeather') : null;
 const store = {
   get(key) { try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch { return null; } },
   set(key, value) { try { localStorage.setItem(key, JSON.stringify(value)); } catch {} },
@@ -145,18 +147,41 @@ export function eventWindow(summary, raw, date, from = '07:00', until = '13:00')
 
 // ---------------------------------------------------------------- forecast, cached
 const running = new Map();
+const placeKey = place => place.lat.toFixed(4) + ',' + place.lon.toFixed(4);
+
+// Asks Android to keep this town's forecast fresh about every 30 minutes while the app is closed.
+const scheduled = new Set();
+export function keepFresh(place) {
+  if (!NativeWeather || !place || scheduled.has(placeKey(place))) return;
+  scheduled.clear(); scheduled.add(placeKey(place));
+  NativeWeather.schedule({ lat: place.lat, lon: place.lon, agent: AGENT }).catch(() => scheduled.clear());
+}
+
+// Takes the forecast saved by the background check when it is newer than the one in the app.
+async function adoptNative(place, key) {
+  if (!NativeWeather) return;
+  try {
+    const saved = await NativeWeather.latest();
+    if (!saved?.body || saved.place !== placeKey(place)) return;
+    const entry = store.get(key);
+    if (entry && entry.fetchedAt >= saved.fetchedAt) return;
+    const series = JSON.parse(saved.body)?.properties?.timeseries;
+    if (Array.isArray(series) && series.length) store.set(key, { series, fetchedAt: saved.fetchedAt, expires: saved.expires, lastModified: saved.lastModified || '', place });
+  } catch {}
+}
 export function cached(place) {
   const entry = place && store.get('agro-wx:' + place.lat + ',' + place.lon);
   return entry ? { ...entry, summary: summarize(entry.series) } : null;
 }
 export async function forecast(place) {
   const key = 'agro-wx:' + place.lat + ',' + place.lon;
+  await adoptNative(place, key);
   const entry = store.get(key);
   if (entry && Date.now() < Math.max(entry.expires || 0, entry.fetchedAt + MIN_REFRESH)) return { ...entry, summary: summarize(entry.series) };
   if (running.has(key)) return running.get(key);
   const job = (async () => {
     try {
-      const url = 'https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=' + place.lat + '&lon=' + place.lon;
+      const url = 'https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=' + place.lat + '&lon=' + place.lon;
       const response = await getJSON(url, entry?.lastModified ? { 'If-Modified-Since': entry.lastModified } : {});
       const expires = Date.parse(header(response.headers, 'expires') || '') || Date.now() + MIN_REFRESH;
       const next = response.status === 304 && entry

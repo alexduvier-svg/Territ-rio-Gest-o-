@@ -99,7 +99,20 @@ export async function open() {
 }
 
 // ---------------------------------------------------------------- background refresh
-let lastRun = 0, lastKey = '';
+let lastRun = 0, lastKey = '', nextTimer = 0;
+
+// While the app is on screen: one timer, set for the moment the forecast expires (MET says when,
+// about every 30 minutes). No polling; it stops when the app leaves the screen and starts again
+// when it comes back. While the app is closed, Android's background check takes over.
+function scheduleNext() {
+  clearTimeout(nextTimer);
+  nextTimer = 0;
+  const home = homeCity();
+  if (document.hidden || !home) return;
+  const data = Weather.cachedForCity(home.city, home.uf);
+  const due = data?.fetchedAt ? Math.max(data.expires || 0, data.fetchedAt + 30 * 60000) : Date.now() + 15000;
+  nextTimer = setTimeout(() => { lastRun = 0; refresh().finally(scheduleNext); }, Math.max(15000, due - Date.now() + 2000));
+}
 export async function refresh(fetchNew = true) {
   const repaint = () => {
     document.querySelectorAll('[data-weather-chip]').forEach(el => { const next = document.createElement('div'); next.innerHTML = chip(); el.replaceWith(next.firstElementChild); });
@@ -112,14 +125,18 @@ export async function refresh(fetchNew = true) {
   if (home) places.set(home.city + '|' + home.uf, home);
   for (const e of bridge()?.data()?.events || []) if (e.status !== 'finished') { const p = placeOf(e); if (p) places.set(p.city + '|' + p.uf, p); }
   const key = [...places.keys()].join(';');
+  // Android keeps the home town fresh while the app is closed (scheduled once per town).
+  if (home) { const known = Weather.cachedForCity(home.city, home.uf); if (known?.place) Weather.keepFresh(known.place); }
   // A new city (Ajustes saved, a fair elsewhere) is fetched at once; otherwise at most once a minute.
-  if (!fetchNew || !places.size || (key === lastKey && Date.now() - lastRun < 60000)) return;
+  if (!fetchNew || !places.size || (key === lastKey && Date.now() - lastRun < 60000)) { scheduleNext(); return; }
   lastRun = Date.now(); lastKey = key;
   const results = await Promise.allSettled([...places.entries()].slice(0, 4).map(([k, p]) => Weather.forCity(p.city, p.uf).then(
     value => { failures.delete(k); return value; },
     error => { if (/IBGE|Cidade|coordenadas/.test(error.message || '')) failures.set(k, error.message); throw error; })));
   if (results.some(x => x.status === 'rejected')) lastRun = Date.now() - 50000; // try again in about 10 s
+  if (home) { const done = Weather.cachedForCity(home.city, home.uf); if (done?.place) Weather.keepFresh(done.place); }
   repaint();
+  scheduleNext();
 }
 
 export function installWeather() {
@@ -130,7 +147,7 @@ export function installWeather() {
     if (pending || !document.querySelector('[data-weather-chip], [data-event-weather]')) return;
     pending = requestAnimationFrame(() => { pending = 0; refresh(); });
   }).observe(document.getElementById('app'), { childList: true });
-  document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { clearTimeout(nextTimer); nextTimer = 0; } else refresh(); });
   // First use without internet: the forecast appears by itself when the connection comes back.
   window.addEventListener('online', () => { lastRun = 0; refresh(); });
 }
