@@ -1,6 +1,6 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 4,
+  version: 5,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   principles: {
@@ -18,6 +18,8 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     consistency: 'Cérebro, resumo do dia, gestão, clientes, estado, estoque e demais janelas compartilham margens, rolagem, profundidade e física de abertura/fechamento.',
     adaptation: 'Adaptar ao espaço útil, resolução e escala, incluindo aparelhos de 6,3, 6,5 e 6,8 polegadas. Conferir larguras de 320, 360, 393 e 412 px, texto ampliado, pouca altura e teclado aberto. Nenhuma ação, inclusive Enviar no WhatsApp, pode ficar cortada ou inacessível.',
   },
+  sharedMaterial: 'Todas as áreas, seções, janelas e subjanelas compartilham o mesmo plano de vidro, volume e resposta ao toque. Fundo e sombra podem variar com o tema; texto nunca recebe opacidade, blur, textura ou brilho. Reflexo de toque curto, sem animação ociosa. Navegação direcional por aba e mola estável, com modos leve e reduzido.',
+  salesCards: 'Uma variação por card com nome, condição, medida e preço reais. Categoria/família/apresentação/medida crescente; blocos começam nova linha. Nunca intercalar outra família nem somar pesos para ocultar variantes. Acessibilidade e fonte ampliada podem reduzir colunas. Dois toques consultam saldo exato; toque longo seleciona até três; nenhum gesto registra venda.',
   validation: 'Conferir claro e escuro, largura de 320 px, texto ampliado, contraste, quebra de linha e fluidez antes de entregar mudanças de interface.',
   document: 'knowledge/premissas-interface.md',
   performanceReference: {

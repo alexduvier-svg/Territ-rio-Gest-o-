@@ -15,6 +15,7 @@ let holding = null; // cartão do toque longo, enquanto o dedo não sai
 let swallow = null; // { id, until }: clique de soltar o dedo a ignorar
 let bar = null;
 let toastTimer;
+let lastToggle=null;
 
 const shell = () => window.TerritorioShell;
 const onVender = () => shell()?.page?.() === 'Vender';
@@ -54,12 +55,12 @@ function paint() {
     bar.className = 'multi-bar';
     bar.setAttribute('role', 'region');
     bar.setAttribute('aria-label', 'Produtos escolhidos');
-    bar.innerHTML = '<button type="button" class="multi-cancel">Cancelar</button><button type="button" class="multi-go"></button>';
+    bar.innerHTML = '<button type="button" class="multi-cancel">Cancelar seleção</button><button type="button" class="multi-go"></button>';
     bar.querySelector('.multi-cancel').addEventListener('click', cancel);
     bar.querySelector('.multi-go').addEventListener('click', sell);
     document.body.appendChild(bar);
   }
-  bar.querySelector('.multi-go').textContent = `Vender ${selected.length} ${selected.length === 1 ? 'produto' : 'produtos'}`;
+  bar.querySelector('.multi-go').textContent = `Continuar · ${selected.length} de 3 selecionados`;
 }
 
 function cancel() {
@@ -103,7 +104,8 @@ function clearTimer() {
 export function installMultiSell() {
   document.addEventListener('pointerdown', event => {
     const card = cardFrom(event.target);
-    if (!card || card.disabled || !onVender() || selected.length) return;
+    if (!card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length) return;
+    window.TerritorioProductGestures?.suspend();
     pressed = card;
     start = { x: event.clientX, y: event.clientY };
     card.classList.add('multi-pressing');
@@ -111,6 +113,7 @@ export function installMultiSell() {
       const id = pressed?.dataset.id;
       clearTimer();
       if (!id) return;
+      window.TerritorioProductGestures?.cancelPending();
       holding = id; // o dedo ainda está no cartão que abriu a seleção
       selected = [id];
       tick();
@@ -140,7 +143,7 @@ export function installMultiSell() {
     if (!card || !selected.length) return;
     event.preventDefault();
     event.stopImmediatePropagation();
-    if (!card.disabled) toggle(card.dataset.id);
+    if (!card.disabled && card.getAttribute('aria-disabled')!=='true') {const now=Date.now();if(lastToggle?.id===card.dataset.id&&now-lastToggle.at<320)return;lastToggle={id:card.dataset.id,at:now};toggle(card.dataset.id);}
   }, true);
   document.addEventListener('contextmenu', event => { if (cardFrom(event.target)) event.preventDefault(); });
 

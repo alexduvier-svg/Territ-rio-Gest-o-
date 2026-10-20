@@ -1,0 +1,12 @@
+{
+  "productionVersion": "0.12.18",
+  "androidVersion": "17",
+  "productionInstalled": true,
+  "productionLaunchStatus": "ok",
+  "instrumentedBuild": "PASS",
+  "instrumentedExecuted": false,
+  "testPackageInstalled": false,
+  "reason": "Auxiliary test installation did not complete in two bounded attempts; stopped test installers only. Production update succeeded.",
+  "whatsappRoundTripTested": false,
+  "realBusinessTestTransactions": false
+}

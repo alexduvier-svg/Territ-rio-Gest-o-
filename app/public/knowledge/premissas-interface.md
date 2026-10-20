@@ -1,6 +1,6 @@
 # Premissas permanentes de interface — AGRO Gestão
 
-Versão 4, atualizada em 19/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
+Versão 5, atualizada em 20/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
 
 - **Volume:** hierarquia coerente por tamanho, peso e espaçamento. Não simular volume com excesso de negrito ou relevo nas letras.
 - **Nitidez:** leitura clara e contraste nos temas claro e escuro. Sem blur ou brilho nas letras. Rótulos de formulário com pelo menos 14 px, respeitando texto ampliado.
@@ -23,3 +23,5 @@ Referência de desempenho recebida: `Regras_Janelas_Desempenho_Agro_Gestao.docx`
 Revisão 3: páginas usam uma única simulação e pivô comum para manter os cards coesos. Janelas conservam as alturas das seções e a posição rolada durante a saída. Não animar fontes, sombras ou desfoque por frame. Finalizar a animação quando o app fica inativo; respeitar modos leve e reduzido.
 
 Revisão 4: incorporar o comportamento aprovado no APK de referência0.12.14: a janela nasce do card/ícone e retorna inteira à origem. Em uma subjanela, a origem é a linha da janela anterior. A tela anterior recua; a superfície em movimento mantém texto, material e posição rolada. Navegação entre abas sem abertura de card mantém uma mola curta e comum. Respeitar o movimento reduzido e simplificar acabamento no modo leve.
+
+Todas as áreas, seções, janelas e subjanelas usam material comum de vidro, volume e resposta ao toque. Reflexo curto na superfície; nenhuma animação ociosa. Temas claro e escuro são critérios obrigatórios. Cards de venda identificam cada variação com nome, condição, peso/unidade e preço reais; agrupamento por família/apresentação/medida crescente, sem misturar famílias na mesma linha. Reduzir colunas em tela estreita ou fonte ampliada antes de reduzir legibilidade. Voz retirada por escolha do produtor.

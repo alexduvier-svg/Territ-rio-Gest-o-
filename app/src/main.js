@@ -28,13 +28,17 @@ import { catalogReference, isCatalogQuestion } from './features/advisor/catalog-
 import { CATALOG_KNOWLEDGE } from './data/catalog-knowledge.js';
 import { INTERFACE_GUIDELINES } from './data/interface-guidelines.js';
 import { VOICE_GUIDELINES } from './data/voice-guidelines.js';
-import { installVoice } from './features/voice/index.js';
+import * as SalesPresentation from './features/sales-presentation.js';
+import { installGlassTouch } from './features/glass-touch.js';
+import { installLocalCatalog } from './features/local-catalog/index.js';
+import './features/local-catalog/catalog.css';
+import './glass-system.css';
 import { installAgent } from './features/agent/index.js';
 import { installWorkflows } from './features/workflows/index.js';
 import './features/workflows/workflows.css';
 import { installStore } from './features/store/index.js';
 import './features/store/store.css';
-import './features/voice/voice.css';
+
 import { ENGAGEMENT_GUIDELINES } from './data/engagement-guidelines.js';
 import './features/product-stock.css';
 import * as Finance from './features/finance/finance.js';
@@ -83,6 +87,7 @@ try {
   window.TERRITORIO_MARKET = MARKET_CATALOG;
   window.TerritorioProductCatalog = ProductCatalog;
   window.TerritorioStockOrder = StockOrder;
+  window.TerritorioSalesPresentation = SalesPresentation;
   window.TerritorioCatalogReference = {catalogReference,isCatalogQuestion};
   window.TerritorioCatalogKnowledge = CATALOG_KNOWLEDGE;
   window.TerritorioInterfaceGuidelines = INTERFACE_GUIDELINES;
@@ -103,7 +108,7 @@ try {
     if (window.TerritorioNative?.isNative) await window.TerritorioNative.durable?.();
   }
   installAgent();
-  installVoice();
+
   installFluidMotion();
   window.TerritorioMotion = Object.freeze({diagnostics:getMotionDiagnostics});
   installNavIconMotion();
@@ -112,6 +117,8 @@ try {
   installMultiSell();
   installWorkflows();
   installStore();
+  installLocalCatalog();
+  installGlassTouch();
   installShell();
 } catch (error) {
   // Never leave the seller stuck on the splash screen.

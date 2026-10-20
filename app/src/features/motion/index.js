@@ -128,7 +128,7 @@ function captureMotionSource(event) {
     radius: parseFloat(getComputedStyle(surface).borderTopLeftRadius) || 0,
     left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height,
     cx: bounds.left + bounds.width / 2, cy: bounds.top + bounds.height / 2,
-    time: performance.now(), insideDialog: !!control.closest('dialog'), inNav: !!control.closest('#nav'), action: control.dataset.action || '',
+    time: performance.now(), insideDialog: !!control.closest('dialog'), inNav: !!control.closest('#nav'), tab: control.dataset.page || '', action: control.dataset.action || '',
   };
 }
 
@@ -335,7 +335,7 @@ export function animatePageChange(app) {
       element.style.opacity = opacity;
       if (!fixed) { element.style.translate = translate; element.style.scale = scale; }
     }
-  },clean,navigation?{stiffness:460,damping:limited()?42:25}:dialogSpring('page'));
+  },clean,navigation?{stiffness:520,damping:limited()?44:28}:dialogSpring('page'));
   pageEntryMotion = motion;
   for (const {element} of prepared) elementMotions.set(element,motion);
 }

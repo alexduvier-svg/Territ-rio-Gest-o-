@@ -1,0 +1,247 @@
+Diretrizes ilustradas para catálogo e pedidos no AGRO Gestão
+Adaptação da área de Clientes e entrega funcional no APK
+Solicitante Duvier  •  Destinatário Codex  •  Versão 2.0  •  Preparado em 19 de outubro de 2026
+Implemente, na área de Clientes, um fluxo completo para oferecer produtos do estoque, receber solicitações, conferir e reservar itens, acompanhar o preparo e avisar o cliente manualmente pelo WhatsApp. O resultado esperado é uma função operando no APK, validada com arquivos reais e em aparelho, além da aparência das telas.
+Decisão atualizada
+A internet pode ser usada normalmente. Por enquanto, não integrar APIs externas de WhatsApp, inteligência artificial, mensageria ou sincronização. O produtor controla as etapas e confirma cada envio no WhatsApp. Os registros principais ficam no aparelho, sem exigir serviço próprio continuamente online.
+Decisão
+Regra para esta entrega
+Entrada
+Clientes, no cartão hoje chamado Sua loja e seus clientes.
+Oferta principal
+PDF preenchível gerado do estoque, sem exigir fotos; alternativa por texto.
+Pedido
+Recebimento e importação escolhidos pelo produtor, seguidos de conferência.
+Acompanhamento
+Painel horizontal no APK do produtor, com etapas e horários reais.
+Avisos
+Mensagens preparadas pelo app e enviadas manualmente no WhatsApp.
+Conectividade
+Internet permitida. Não adicionar APIs externas nem dependência de servidor para este fluxo.
+
+As capturas deste documento são referências de navegação e estilo. Não comprovam a arquitetura do projeto nem resultados de testes. Os dados visíveis nas imagens e os exemplos numéricos não devem ser importados como cadastros reais.
+Este documento consolida as decisões desta conversa e prevalece sobre orientações anteriores que exigiam publicação de loja ou propunham notificações automáticas por API.
+
+1 Entrada na área de Clientes
+Usar exatamente a região destacada pela captura abaixo. Manter a navegação inferior do aplicativo e preservar cadastro de clientes, eventos e oportunidades de recompra.
+
+Figura 1  Tela atual de Clientes fornecida pelo usuário. A adaptação entra no cartão Sua loja e seus clientes.
+Elemento atual
+Adaptação proposta
+Sua loja e seus clientes
+Renomear para Catálogo e pedidos.
+Fotos marca e história
+Mover para Detalhes da marca, expansível e opcional.
+Mensagem para vários clientes
+Preservar como ação secundária, com envios individuais revisados.
+Pedidos e entregas
+Preservar a entrada e conectar à mesma base de encomendas.
+
+Deixar em evidência Preparar catálogo e Pedidos e entregas. Abaixo, mostrar apenas a quantidade de respostas a conferir e avisos pendentes quando houver. Não criar outra aba principal.
+
+2 Catálogo com as informações do estoque
+Reutilizar as apresentações vendáveis já cadastradas. A referência abaixo orienta a lista compacta e a separação entre tipos, pesos e embalagens.
+
+Figura 2  Referência de lista do estoque. As quantidades pertencem à captura e não representam uma consulta ao estoque atual.
+Exibir nome, apresentação, unidade de venda e preço. Para o produtor, mostrar disponibilidade atual para selecionar a oferta.
+Criar uma linha por apresentação. Café moído de 250 g, 500 g e 1 kg deve manter IDs distintos de variação.
+Usar apenas itens ativos e comercializáveis. Itens sem saldo ficam desabilitados ou fora da oferta, conforme a regra existente.
+Fotos são opcionais. A primeira entrega deve funcionar integralmente sem fotos, história, marca ou publicação de página.
+Não publicar custos, margens, dados dos clientes ou saldo interno detalhado por padrão. O catálogo mostra a oferta emitida e informa que a disponibilidade depende da confirmação do produtor.
+
+3 Aparência do acompanhamento no aplicativo
+Reproduzir a hierarquia visual desta referência dentro do APK do produtor. A captura foi feita em um protótipo web; usar sua aparência não exige manter uma página online para o cliente.
+
+Figura 3  Layout aprovado para acompanhamento horizontal, resumo do pedido e detalhes expansíveis.
+Topo com número do pedido, cliente e total. Etapa atual e horário combinado em destaque; horários das mudanças abaixo da linha horizontal.
+Produtos, recebimento e histórico de avisos ficam expansíveis. Separar subtotal e frete quando houver; não presumir o motivo de diferenças visíveis na imagem.
+Acrescentar o botão principal Avançar etapa e avisar. Disponibilizar atualizar sem avisar e corrigir etapa entre as ações secundárias.
+O cliente acompanha por mensagens no WhatsApp. O PDF já enviado não muda de etapa, e esta entrega não promete ao cliente uma tela remota sincronizada.
+Manter o tema claro e escuro do aplicativo, texto legível, contraste e alvos de toque confortáveis. Usar uma ação principal por etapa, sem botões duplicados nem excesso de conteúdo aberto simultaneamente.
+
+4 Problemas observados nas telas enviadas
+As capturas mostram uma mensagem com prévia de link e uma página com cards de produtos. O usuário relatou que não consegue clicar para montar o pedido.
+
+Figura 4  À esquerda, prévia do link no WhatsApp. À direita, página de catálogo mostrada pelo usuário.
+O que o Codex deve verificar
+Identificar o que a ação atual envia: imagem, PDF estático, PDF preenchível ou somente URL. Não concluir a causa sem ler o fluxo de exportação e compartilhamento.
+Evitar repetir uma imagem completa de catálogo como foto de diferentes produtos. Usar a foto individual correta ou a lista sem fotos.
+Entregar o documento com campos reais quando a ação escolhida for PDF preenchível. A imagem de prévia do WhatsApp não equivale a uma seleção de produtos.
+Não apagar a loja online nem desativar recursos existentes de forma ampla. Separar as ações e ajustar a entrada local solicitada, preservando dados e integrações que não façam parte desta alteração.
+
+5 Documento que o cliente pode preencher
+O catálogo deve conter caixas de seleção e campos de quantidade reais. A imagem abaixo registra o modelo funcional de teste criado nesta conversa, sem fotografias de produtos.
+
+Figura 5  Modelo de PDF preenchível com 11 campos. A imagem é ilustrativa; os campos interativos estão no arquivo PDF original.
+Fluxo do cliente: abrir o documento em leitor compatível, marcar produtos, informar quantidades, salvar e devolver o arquivo como documento na conversa do produtor. O cliente não precisa instalar o AGRO Gestão.
+O PDF de teste foi validado programaticamente para presença de campos e preservação de valores ao salvar e reabrir. Ainda é necessário validar no celular e no percurso completo de envio e retorno pelo WhatsApp.
+
+6 Geração do PDF e alternativa por texto
+Formato e vínculo com o catálogo
+Gerar o PDF localmente com campos AcroForm. O catálogo deve ter ID, versão do formato, emissor local, data, produtos, variações, unidade e cópia dos preços da oferta. Manter no aparelho a correspondência entre cada campo e o ID estável da apresentação. Não usar o texto do nome ou o nome do arquivo como único vínculo.
+Cada apresentação possui seleção e quantidade. Acrescentar nome do cliente, forma de recebimento e observações opcionais sobre data, horário e endereço.
+Criar nomes de campos únicos e aparências válidas. Confirmar a árvore AcroForm/Fields e as anotações Widget no arquivo final.
+Não rasterizar, imprimir novamente para PDF ou achatar o documento depois de criar os campos. Preservar os dados no arquivo exportado.
+Não depender de JavaScript dentro do PDF, botão universal de WhatsApp, cálculo automático ou carrinho executado pelo leitor. Calcular o total na conferência do produtor.
+Permitir múltiplas páginas quando necessário, com cabeçalhos, unidades e campos legíveis. Evitar reduzir a fonte para acomodar todo o estoque em uma página.
+O suporte depende do leitor do cliente. AcroForms e XFA são formatos diferentes; usar AcroForm e testar no leitor Android escolhido. A orientação de compatibilidade deve aparecer antes do compartilhamento. [1]
+Texto como alternativa operacional
+Oferecer Compartilhar por texto. Gerar uma lista com código curto, nome, apresentação e preço, seguida da instrução para responder com os itens e quantidades. A alternativa deve funcionar sem OCR remoto, IA externa ou site.
+Exemplo fictício de oferta
+CAT 001 | B01 Banana prata | dúzia | R$ 10,00C02 Café especial moído | pacote 500 g | R$ 45,00Responda com código e quantidade, seu nome e entrega ou retirada.
+Exemplo de resposta
+B01 x 2 dúzias; C02 x 1 pacote. Ana. Retirada na feira, sábado de manhã.
+Também aceitar linguagem natural pelo fluxo já existente. Se a resposta disser apenas 2 bananas, sem deixar claro unidade ou dúzia, pedir conferência no app antes de reservar. O catálogo emitido é uma oferta, não uma confirmação de estoque ou de horário.
+
+7 Compartilhamento e retorno ao aplicativo
+Envio do catálogo
+Ao gerar, abrir a prévia do PDF real, permitir salvar no aparelho e compartilhar como documento. Usar o mecanismo de compartilhamento suportado pela stack; no Android nativo, usar ACTION_SEND, EXTRA_STREAM, MIME application/pdf e URI content com permissão temporária de leitura. Para texto, usar text/plain. [2]
+A ação deve funcionar com WhatsApp pessoal ou Business quando disponíveis, sem exigir a API do WhatsApp. O seletor do Android permite outros destinos compatíveis. Se o destinatário ou o app não puder ser escolhido diretamente, manter o compartilhamento padrão e orientar o produtor a selecionar a conversa correta.
+Texto sugerido junto do arquivo
+Abra este documento em um leitor que permita preencher PDFs. Marque os produtos, informe as quantidades, salve e me devolva o arquivo por aqui. Se não conseguir preencher, responda com os nomes dos produtos e as quantidades.
+Retorno do pedido
+1. O cliente devolve o PDF salvo ou responde por texto na conversa.
+2. O produtor toca em Importar resposta e escolhe o arquivo no seletor do sistema. Oferecer Colar resposta para texto.
+3. Quando a stack permitir, registrar o app como destino de compartilhamento para PDF e texto; o produtor pode usar Compartilhar a partir do arquivo recebido.
+4. Ler apenas o conteúdo escolhido. Se necessário, copiar o arquivo para o armazenamento privado para manter a importação após fechar o app. Usar as permissões apropriadas de acesso a documentos. [3]
+5. Abrir uma prévia de conferência antes de gravar reserva ou venda. Se o PDF perdeu seus campos, oferecer conferência manual e resposta por texto.
+Situações que precisam de tratamento
+Cancelar o seletor, interromper o compartilhamento, negar acesso, perder a URI, receber arquivo vazio, protegido, corrompido ou acima dos limites do aparelho deve produzir uma mensagem clara e permitir tentar novamente. Definir limites razoáveis de tamanho e páginas após medir a implementação. Não descartar uma solicitação já digitada.
+A internet é permitida e necessária para enviar e receber pelo WhatsApp. As etapas de preparação, leitura de arquivos já baixados, conferência e acompanhamento local devem continuar acessíveis sem conexão.
+
+8 Conferência reserva e integridade dos dados
+Importar uma resposta cria uma solicitação a conferir. Somente a confirmação do produtor pode reservar produtos. Reutilizar as regras existentes de vendas e do estoque único geral, inclusive as restrições de eventos ativos.
+Campo
+O que validar antes de confirmar
+Cliente
+Selecionar ou confirmar o cadastro. O nome digitado no PDF não comprova identidade.
+Produtos
+Relacionar catálogo, produto e variação por ID. Resolver manualmente correspondências ausentes ou ambíguas.
+Quantidade
+Maior que zero, precisão permitida por unidade e coerência entre seleção e quantidade.
+Preço
+Comparar cópia da oferta, preço retornado e regra atual. Divergências exigem acordo explícito.
+Recebimento
+Confirmar entrega ou retirada, data, janela de horário, endereço e frete quando aplicáveis.
+Disponibilidade
+Consultar o saldo atual e descontar reservas ativas segundo a regra central do app.
+
+Reserva sem duplicação
+Executar a confirmação em transação, usando o saldo disponível no momento da gravação. Manter ID único do pedido, versão da importação e chave de deduplicação. O hash do arquivo ajuda a reconhecer retornos idênticos, mas não basta: o mesmo pedido pode ser devolvido em um arquivo regravado com bytes diferentes. Uma revisão deve atualizar o pedido após conferência, sem criar outro silenciosamente.
+A reserva deve reduzir o disponível uma única vez. Na conversão em venda, reutilizar a reserva ou consumir o saldo segundo o serviço existente, sem descontar o mesmo item novamente. Não vincular baixa física, pagamento e entrega apenas por coincidirem na mesma tela.
+Alteração cancelamento e retorno de etapas
+Alterar quantidade ajusta somente a diferença da reserva, dentro de transação. Cancelar libera a reserva uma única vez. Correções de etapa mantêm o histórico e não reaplicam reserva ou baixa. Pedidos concluídos ou cancelados não voltam à operação normal sem ação explícita e regras consistentes.
+Exemplo de teste: levar 2 dúzias de banana a R$ 10,00 por dúzia gera subtotal de R$ 20,00. Não registrar 24 dúzias nem alterar a unidade do produto para resolver uma resposta ambígua.
+
+9 Etapas manuais e avisos ao cliente
+Separar o estado da solicitação, o andamento operacional, a situação do aviso e o pagamento. Resposta recebida significa que há algo para conferir; Confirmado significa que o produtor aceitou e reservou os itens.
+Etapa
+Ação do produtor
+Mensagem preparada
+Confirmado
+Confirmar e reservar
+Seu pedido foi confirmado.
+Em preparo
+Iniciar preparo
+Seu pedido está sendo preparado.
+Pronto
+Marcar como pronto
+Seu pedido está pronto.
+Em rota
+Saiu para entrega
+Saí para entregar seu pedido.
+Retirada
+Disponível para retirada
+Seu pedido está disponível para retirada.
+Concluído
+Concluir pedido
+Seu pedido foi entregue ou retirado. Obrigado.
+
+Em rota e Disponível para retirada são ramificações por forma de recebimento. Não obrigar quem retira na feira a passar por Em rota. Registrar o horário de cada mudança efetiva no fuso do aparelho e exibir o histórico em ordem.
+Comportamento de Avançar etapa e avisar
+1. Salvar a nova etapa e um aviso pendente na mesma operação local.
+2. Preparar a mensagem com nome, número do pedido e texto da etapa. Acrescentar horário combinado apenas quando confirmado.
+3. Abrir o WhatsApp ou o compartilhamento do Android. O produtor revisa e toca em Enviar.
+4. Ao voltar, permitir marcar Enviei no WhatsApp. Registrar como envio informado pelo produtor, sem afirmar entrega ou leitura comprovadas.
+Abrir o WhatsApp, selecionar um destino ou voltar ao APK não comprova envio. Manter aviso pendente até o produtor informar. Sem conexão, salvar a etapa normalmente e permitir enviar depois. A mudança operacional não deve ser perdida se o envio for cancelado.
+Não repetir etapa, horário ou aviso por toque duplo. Reenvio é uma ação explícita. Se houver avisos antigos e uma etapa mais recente, destacar o atual para evitar mensagens desatualizadas. Não usar robôs de interface, acessibilidade, sessões de WhatsApp Web, API não oficial ou serviço rodando em segundo plano para automatizar o envio.
+Na lista de pedidos, destacar avisos pendentes para lembrar o produtor. O lembrete não muda a etapa nem envia mensagens por conta própria. Manter a ação Avisar cliente disponível depois da atualização manual.
+
+10 Estrutura técnica e comportamento do aplicativo
+Auditoria antes de alterar
+Ler AGENTS.md e identificar stack, banco, armazenamento, componentes visuais, compartilhamento Android e exportação de PDF. Mapear produto, variação, estoque, cliente, evento, venda e pedido. Registrar comandos de build e o funcionamento atual. Não impor Room, Flutter, React Native ou qualquer biblioteca sem verificar o projeto.
+Dados mínimos a preservar
+Registro
+Conteúdo mínimo
+Catálogo emitido
+ID, versão, data, emissor, apresentações, unidades e cópia dos preços.
+Importação
+Origem PDF ou texto, referência local, hash, campos extraídos, divergências e vínculo ao pedido.
+Pedido
+ID, cliente, itens, quantidades, valores, recebimento, observações e situação de conferência.
+Reserva
+Pedido, apresentação, quantidade ativa, histórico e vínculo com a venda.
+Etapa
+Estado anterior e novo, horário e correções realizadas pelo produtor.
+Aviso
+Pedido, etapa, texto preparado, situação, tentativa e envio informado pelo produtor.
+
+Adaptar os nomes às entidades existentes. Usar IDs estáveis, migrações incrementais e valores monetários exatos, como centavos inteiros. Não criar base paralela de clientes ou estoque. Preservar os vínculos após reinício do app.
+Internet permitida e APIs externas fora do escopo
+Permitir abrir o WhatsApp, baixar arquivos e usar links online já existentes por ação do usuário. Não acrescentar Cloud API, gateway de mensagens, IA remota, webhook, conta externa ou servidor como requisito para esta função. APIs do próprio Android e bibliotecas locais são recursos técnicos permitidos; a restrição é a integração com serviços externos.
+Em app híbrido, garantir ponte nativa para arquivo binário, URI, seletor e persistência. Não entregar apenas uma prévia em HTML. Verificar tamanho e ciclo de vida dos arquivos temporários para que o destino consiga ler o documento.
+Dados no aparelho
+Guardar o necessário no armazenamento privado e compartilhar somente a cópia escolhida. Reutilizar exportação e restauração local existentes ou entregar uma opção compatível para pedidos e vínculos. Explicar o efeito da perda do aparelho e verificar as políticas de backup já configuradas, sem introduzir upload automático nesta função.
+
+11 Critérios de aceitação no APK
+Executar com dados fictícios identificados. Preencher este roteiro com resultado observado, aparelho, versão do Android, leitor de PDF e versão do APK. Uma simulação de navegação não substitui o teste real.
+Teste
+Resultado obrigatório
+Entrada em Clientes
+A nova função abre pelo cartão indicado, sem outra aba principal e sem perder recursos de clientes.
+Oferta do estoque
+Nome, unidade, variação e preço correspondem ao cadastro; funciona sem fotos.
+Arquivo final
+Campos canônicos e widgets presentes, únicos, editáveis e com aparências válidas após exportação.
+Percurso entre aparelhos
+Enviar PDF como documento; abrir, marcar, salvar, fechar, reabrir, devolver e importar sem perder valores.
+Leitor incompatível
+PDF segue legível; resposta por texto e conferência manual continuam disponíveis.
+Entrada problemática
+Arquivo achatado, corrompido ou protegido não produz importação falsa nem reserva silenciosa.
+Unidade e preço
+Bloquear negativos, fração indevida e ambiguidade; mostrar alteração de preço ou divergência.
+Disponível e reserva
+Venda e pedido respeitam o mesmo saldo, sem negativo, reserva duplicada ou dupla baixa.
+Reimportação
+Arquivo idêntico, arquivo regravado e toque duplo não geram duplicação silenciosa.
+Edição e cancelamento
+Alteração ajusta diferença; cancelamento libera uma vez; correção de etapa preserva histórico.
+Aviso manual
+Etapa salva e mensagem correta abre; cancelar envio deixa pendente; Enviei registra somente declaração do produtor.
+Entrega e retirada
+Em rota aparece só em entrega; retirada usa Disponível para retirada.
+Sem rede e reinício
+Gerar, conferir e mudar etapa funcionam localmente; reabrir mantém dados e avisos pendentes.
+Interface e regressão
+Claro e escuro, 320 px e fonte ampliada legíveis; vendas, estoque, clientes e eventos continuam operando.
+
+Ainda sem teste em aparelho real neste documento. O Codex deve registrar cada execução e informar claramente os testes bloqueados por falta de dispositivo, ambiente, dependência ou acesso.
+
+12 Sequência de implementação e entrega ao solicitante
+1. Auditar o projeto e apresentar o mapa dos componentes encontrados, lacunas e plano incremental. Continuar as partes autorizadas sem aguardar aprovação para escolhas rotineiras.
+2. Adaptar a entrada em Clientes e a seleção do estoque. Implementar geração do PDF real e texto antes de anunciar a função como disponível.
+3. Conectar importação, conferência, reserva e pedidos aos serviços existentes. Tratar erros e migrações sem apagar dados.
+4. Aplicar o acompanhamento horizontal aprovado. Implementar etapas locais, avisos preparados e registro manual do envio.
+5. Rodar build e testes apropriados. Validar exportação e retorno com arquivo real e registrar o que foi testado em aparelho.
+6. Gerar o APK instalável na configuração já usada no projeto. Entregar caminho do arquivo, versão, instruções de instalação e relatório de validação.
+Instrução final para o Codex
+Implemente a função descrita neste documento no projeto real do AGRO Gestão. Preserve o estoque único, as regras de venda e a navegação existente. Use as imagens para orientar a interface, sem copiar dados pessoais ou exemplos para produção. A internet é permitida, mas não integre APIs externas por enquanto. O produtor atualiza o andamento e envia os avisos manualmente pelo WhatsApp.
+Não encerre a entrega com botões demonstrativos, arquivos estáticos chamados de preenchíveis ou links que exibam produtos sem o fluxo de pedidos. Comprove o funcionamento de seleção, geração, compartilhamento, retorno, conferência, reserva e acompanhamento. Informe limites reais de compatibilidade dos leitores e os testes ainda não executados.
+Materiais de referência desta entrega
+Este DOCX contém as capturas necessárias. O arquivo Catalogo_Estoque_Pedido_Preenchivel_Teste.pdf, entregue anteriormente nesta conversa, é um exemplo funcional de campos e não representa os produtos atuais do usuário. Seu layout e suas escolhas podem ser adaptados à stack existente.
+Fontes técnicas oficiais
+[1] Adobe Acrobat. PDF forms in Acrobat on mobile. Tipos de formulário e compatibilidade. https://helpx.adobe.com/acrobat/mobile/e-sign-documents/pdf-forms.html
+[2] Android Developers. Send data to other apps. Compartilhamento de texto, binários, MIME e permissões de URI. https://developer.android.com/training/sharing/send
+[3] Android Developers. Access documents and other files from shared storage. Seleção e acesso a documentos. https://developer.android.com/training/data-storage/shared/documents-files
+Fontes consultadas durante a preparação. Revalidar a documentação correspondente à stack e ao Android efetivamente usados no projeto.

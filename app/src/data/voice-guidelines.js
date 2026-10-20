@@ -1,6 +1,8 @@
 // Product knowledge, never a business record or a recognition accuracy promise.
 export const VOICE_GUIDELINES = Object.freeze({
-  version: 1,
+  version: 2,
+  enabled: false,
+  currentDecision: 'Voz retirada por pedido explícito em20/10/2026. Sem botão, serviço, permissão ou modelo empacotado. As especificações abaixo são históricas e só podem ser retomadas mediante novo pedido.',
   language: 'pt-BR',
   placement: 'Microfone ao lado de Todos em Produtos: cinza parado, azul com ondas durante a captura, cinza ao terminar.',
   engines: 'Android no aparelho somente com português instalado confirmado; alternativa Vosk small-pt-0.3 embarcada, sem Google ou internet. Sem transcrição remota automática.',

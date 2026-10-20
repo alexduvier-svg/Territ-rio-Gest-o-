@@ -67,10 +67,6 @@ function scheduleExpansions(){
 }
 function decorate(){
  const b=bridge(),root=document.getElementById('app');if(!root)return;
- if(b.page()==='Vender'&&!root.querySelector('.workflow-stock-hint')){
-  const target=root.querySelector('.selling-grid,.feira-products,.product-grid,.products,.feira-grid');
-  target?.insertAdjacentHTML('beforebegin','<p class="workflow-stock-hint">Dois toques em um produto abrem seu estoque.</p>');
- }
  if(b.page()==='Clientes'&&!root.querySelector('.workflow-client-tools')){
   root.querySelector('.clients-layout')?.insertAdjacentHTML('afterbegin','<section class="workflow-client-tools panel"><h2>Sua loja e seus clientes</h2>'+button('workflow-catalog','Fotos, marca e história','choice modal-action')+button('workflow-broadcast','Mensagem para vários clientes','choice modal-action')+button('store-orders','Pedidos e entregas','choice modal-action')+'</section>');
  }
@@ -96,14 +92,17 @@ export function installWorkflows(){
  const ready=b.actions['event-history'];b.actions['event-history']=d=>{ready(d);scheduleExpansions();};
  // Delay only the single product tap long enough to distinguish a double tap.
  let tap=null,serial=0;
+ window.TerritorioProductGestures={suspend:()=>clearTimeout(tap?.timer),cancelPending:()=>{clearTimeout(tap?.timer);tap=null;serial++;}};
+ document.addEventListener('pointercancel',()=>window.TerritorioProductGestures.cancelPending(),{passive:true});
  document.addEventListener('click',event=>{
   const card=event.target.closest?.('#app [data-action="sell-product"]');if(!card||card.disabled||b.page()!=='Vender'||window.TerritorioSelection?.active())return;
   event.preventDefault();event.stopImmediatePropagation();const id=card.dataset.id;
-  if(tap?.id===id&&Date.now()-tap.at<300){clearTimeout(tap.timer);tap=null;serial++;b.stock(id);return;}
+  if(tap?.id===id&&Date.now()-tap.at<300){clearTimeout(tap.timer);tap=null;serial++;b.actions['stock-peek']({id});return;}
   if(tap){clearTimeout(tap.timer);b.actions['sell-product']({id:tap.id});tap=null;return;}
   const current=++serial;tap={id,at:Date.now(),timer:setTimeout(()=>{if(current!==serial)return;tap=null;if(b.page()==='Vender')b.actions['sell-product']({id});},280)};
  },true);
- let zeroTap=null;document.addEventListener('pointerup',event=>{const card=event.target.closest?.('#app [data-action="sell-product"][disabled]');if(!card||b.page()!=='Vender')return;const id=card.dataset.id;if(zeroTap?.id===id&&Date.now()-zeroTap.at<320){zeroTap=null;b.stock(id);}else zeroTap={id,at:Date.now()};},true);
+ let zeroTap=null;document.addEventListener('pointerup',event=>{const card=event.target.closest?.('#app [data-action="sell-product"][disabled]');if(!card||b.page()!=='Vender')return;const id=card.dataset.id;if(zeroTap?.id===id&&Date.now()-zeroTap.at<320){zeroTap=null;b.actions['stock-peek']({id});}else zeroTap={id,at:Date.now()};},true);
+ document.addEventListener('keydown',event=>{const card=event.target.closest?.('body > #app [data-action="sell-product"]');if(card&&(event.key==='ContextMenu'||event.shiftKey&&event.key==='Enter')){event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['stock-peek']({id:card.dataset.id});}},true);
  document.addEventListener('change',event=>{if(event.target.id==='workflow-broadcast-all')dialog().querySelectorAll('[data-workflow-recipient]').forEach(el=>{el.checked=event.target.checked;});});
  for(const type of ['pointerdown','input','keydown'])document.addEventListener(type,event=>{for(const [el,timer]of timers)if(el.contains(event.target)){clearTimeout(timer);timers.delete(el);}scheduleExpansions();},{passive:true});
  document.addEventListener('toggle',scheduleExpansions,true);document.addEventListener('click',()=>queueMicrotask(scheduleExpansions));

@@ -1,0 +1,55 @@
+# Arquivos alterados — 0.12.18
+
+Caminhos do GitHub; `app/` corresponde a `agro-gestao/` no workspace local.
+
+- `AGENTS.md`
+- `app/android/app/build.gradle`
+- `app/android/app/src/androidTest/java/br/com/territorio/gestao/CatalogWebViewInstrumentedTest.java`
+- `app/android/app/src/androidTest/java/br/com/territorio/gestao/DocumentsInstrumentedTest.java`
+- `app/android/app/src/main/AndroidManifest.xml`
+- `app/android/app/src/main/java/br/com/territorio/gestao/AgroDocumentsPlugin.java`
+- `app/android/app/src/main/java/br/com/territorio/gestao/MainActivity.java`
+- `app/docs/ARQUIVOS-0.12.18.md`
+- `app/docs/ENTREGA-0.12.18.md`
+- `app/docs/references/AGRO_Gestao_Diretriz_Pagina_Vendas_Codex.md`
+- `app/docs/references/AGRO_Gestao_Diretrizes_Ilustradas_Catalogo_Pedidos_Clientes_Codex.txt`
+- `app/package-lock.json`
+- `app/package.json`
+- `app/public/knowledge/premissas-interface.md`
+- `app/src/data/interface-guidelines.js`
+- `app/src/data/voice-guidelines.js`
+- `app/src/features/agent/index.js`
+- `app/src/features/glass-touch.js`
+- `app/src/features/local-catalog/catalog.css`
+- `app/src/features/local-catalog/index.js`
+- `app/src/features/local-catalog/model.js`
+- `app/src/features/local-catalog/pdf-task.js`
+- `app/src/features/local-catalog/pdf-worker.js`
+- `app/src/features/local-catalog/pdf.js`
+- `app/src/features/motion/geometry.js`
+- `app/src/features/motion/index.js`
+- `app/src/features/multisell.js`
+- `app/src/features/sales-presentation.js`
+- `app/src/features/stock-order.js`
+- `app/src/features/store/index.js`
+- `app/src/features/workflows/index.js`
+- `app/src/glass-system.css`
+- `app/src/legacy/erp-core.js`
+- `app/src/legacy/erp-ui.js`
+- `app/src/main.js`
+- `app/tests/local-catalog.test.mjs`
+- `app/tests/store-manager-motion.test.mjs`
+- `qa/catalog018-files.json`
+- `qa/catalog018-files.mjs`
+- `qa/glass018-agent-qa.json`
+- `qa/glass018-agent.cjs`
+- `qa/glass018-durable-qa.json`
+- `qa/glass018-durable.cjs`
+- `qa/glass018-final-smoke-qa.json`
+- `qa/glass018-final-smoke.cjs`
+- `qa/glass018-motion-qa.json`
+- `qa/glass018-motion.cjs`
+- `qa/glass018-native-qa.json`
+- `qa/glass018-qa.cjs`
+- `qa/glass018-qa.json`
+- `qa/unit-glass018.txt`

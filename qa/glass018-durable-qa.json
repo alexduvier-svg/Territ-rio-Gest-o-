@@ -1,0 +1,78 @@
+{
+  "synthetic": true,
+  "checks": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "brainIntegrated": true,
+      "stockQuery": true,
+      "reconciledFair": true,
+      "threePrioritiesMax": true,
+      "multiitemClarification": true,
+      "onlyFinalCheckoutMutates": true,
+      "receiptPersisted": true,
+      "doubleTapSafe": true,
+      "consentAndManualMessage": true,
+      "preferencesRestart": true,
+      "failedDurableNoSuccess": true,
+      "retryOneReceipt": true
+    }
+  ],
+  "surfaces": [
+    {
+      "cfg": {
+        "theme": "light",
+        "width": 320,
+        "height": 740,
+        "large": false
+      },
+      "geo": {
+        "x": 20,
+        "y": 74.53125,
+        "right": 300,
+        "bottom": 665.453125,
+        "footerBottom": 664.453125,
+        "scrollHeight": 383,
+        "clientHeight": 383,
+        "overflow": "auto",
+        "controls": [
+          {
+            "rect": {
+              "x": 41,
+              "y": 531.953125,
+              "width": 238,
+              "height": 60.5,
+              "top": 531.953125,
+              "right": 279,
+              "bottom": 592.453125,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          },
+          {
+            "rect": {
+              "x": 41,
+              "y": 602.453125,
+              "width": 238,
+              "height": 48,
+              "top": 602.453125,
+              "right": 279,
+              "bottom": 650.453125,
+              "left": 41
+            },
+            "scroll": 236,
+            "client": 236
+          }
+        ],
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    }
+  ],
+  "errors": [],
+  "limitations": "Desktop Chrome fixture. Native microphone and entry-level Android performance not measured."
+}

@@ -1,3 +1,4 @@
+import {heldLocal} from '../local-catalog/model.js';
 import { API, request } from '../server.js';
 import { orderStockProducts } from '../stock-order.js';
 const b=()=>window.TerritorioWorkflowBridge;
@@ -18,7 +19,7 @@ const pending=()=>state().orders.filter(o=>!['delivered','cancelled'].includes(o
 async function supported(){if(capability===null){const info=await request('/api/shops/_capabilities',{method:'GET',timeoutMs:15000});capability=info.available;}if(!capability)throw Error('A loja online ainda não foi ativada no servidor. O cadastro e as vendas locais continuam disponíveis.');}
 function snapshot(){
  const images=b().data().portfolio?.productImages||{};
- return orderStockProducts(b().data().products).filter(p=>p.price>0).map(p=>({productId:p.id,name:p.name,category:p.category,label:b().description(p),unit:p.unit,stock:p.stock,price:p.price,image:images[p.id]||null}));
+ return orderStockProducts(b().data().products).filter(p=>p.price>0).map(p=>({productId:p.id,name:p.name,category:p.category,label:b().description(p),unit:p.unit,stock:Math.max(0,p.stock-heldLocal(b().data(),p.id)),price:p.price,image:images[p.id]||null}));
 }
 async function synchronize({enabled}={}){
  await supported();let s=state();const actor=s.actorId,slug=s.slug,token=b().data().portfolio?.token,guard=()=>{const current=state();if(current.actorId!==actor||current.slug!==slug)throw Error('O produtor mudou. Reabra sua loja.');return current;},call=(path,options)=>request('/api/shops/'+slug+path,{...options,token,timeoutMs:15000});if(!s.slug)throw Error('Publique sua página para ativar a loja.');
@@ -66,7 +67,7 @@ async function photo(input){
  try{const actor=state().actorId,file=input.files[0];if(!/^image\/(jpeg|png|webp)$/.test(file.type)||file.size>20*1024*1024)throw Error('Use uma foto JPEG, PNG ou WebP de até 20 MB.');const bitmap=await createImageBitmap(file,{imageOrientation:'from-image'}),side=Math.min(bitmap.width,bitmap.height),canvas=document.createElement('canvas');canvas.width=canvas.height=640;canvas.getContext('2d').drawImage(bitmap,(bitmap.width-side)/2,(bitmap.height-side)/2,side,side,0,0,640,640);bitmap.close();if(state().actorId!==actor)throw Error('O produtor mudou. Escolha a foto novamente.');const image=canvas.toDataURL('image/jpeg',.8),d=b().data(),p=d.products.find(p=>p.id===input.dataset.storePhoto);if(!p)throw Error('Produto não encontrado.');d.catalog.photos||={};for(const q of d.products.filter(q=>(q.catalogBase||q.baseName||q.name)===(p.catalogBase||p.baseName||p.name)))d.catalog.photos[q.id]=image;await saveBrand();setup();b().toast('Foto salva no aparelho. Publique quando estiver pronto.');}catch(e){b().toast(e.message);}finally{savePhotoBusy=false;}
 }
 function decorate(){
- const root=document.getElementById('app');if(!root)return;const fingerprint=JSON.stringify([b().data().products.map(p=>[p.id,p.stock,p.price]),b().data().sales.filter(s=>s.orderId).map(s=>[s.id,s.status])]);if(state().enabled&&observedInventory!==fingerprint){observedInventory=fingerprint;clearTimeout(inventoryTimer);inventoryTimer=setTimeout(refresh,650);}
+ const root=document.getElementById('app');if(!root)return;const fingerprint=JSON.stringify([b().data().products.map(p=>[p.id,p.stock,p.price,heldLocal(b().data(),p.id)]),b().data().sales.filter(s=>s.orderId).map(s=>[s.id,s.status])]);if(state().enabled&&observedInventory!==fingerprint){observedInventory=fingerprint;clearTimeout(inventoryTimer);inventoryTimer=setTimeout(refresh,650);}
  if(b().page()==='Vender'){
   const list=pending(),old=root.querySelector('.store-pending-banner');
   if(list.length){const overdue=list.some(o=>Date.now()-o.updatedAt>3600000),html=btn('store-orders','<strong>'+list.length+' '+(list.length===1?'pedido para acompanhar':'pedidos para acompanhar')+'</strong><small>'+(overdue?'Confira se alguma etapa precisa ser atualizada.':'Prepare e confirme cada etapa da entrega.')+'</small>','store-pending-banner');if(!old)root.querySelector('.page-title,.top')?.insertAdjacentHTML('afterend',html);else if(!old.textContent.includes(String(list.length)))old.outerHTML=html;}else old?.remove();

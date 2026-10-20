@@ -4,9 +4,11 @@ import com.getcapacitor.BridgeActivity;
 import android.os.Bundle;
 
 public class MainActivity extends BridgeActivity {
+    @Override protected void onNewIntent(android.content.Intent intent) { super.onNewIntent(intent); setIntent(intent); }
     @Override public void onCreate(Bundle savedInstanceState) {
-        registerPlugin(AgroVoicePlugin.class);
+
         registerPlugin(AgroAgentSchedulerPlugin.class);
+        registerPlugin(AgroDocumentsPlugin.class);
         super.onCreate(savedInstanceState);
     }
 }

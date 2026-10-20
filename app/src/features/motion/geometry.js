@@ -80,5 +80,6 @@ export function insightSheetGeometry(rect, source, lite = false) {
 // this pivot; no independent stagger, font blur, or full-page DOM copy.
 export function navigationEntryGeometry(width,height,source,lite=false){
  const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
- return {x:0,y:0,scale:lite?.96:.88,origin:`${clamp(source?.cx??width/2,0,width).toFixed(2)}px ${clamp(source?.cy??height*.85,0,height).toFixed(2)}px`};
+ const tab=source?.tab||'Vender',poses={Vender:[-width*.23,12],Estoque:[-width*.07,height*.06],Clientes:[width*.12,16],Eventos:[0,height*.08],Gestão:[width*.18,10]},pose=poses[tab]||[0,12];
+ return {x:lite?pose[0]*.3:pose[0],y:lite?pose[1]*.35:pose[1],scale:lite?.97:.90,origin:`${clamp(source?.cx??width/2,0,width).toFixed(2)}px ${clamp(source?.cy??height*.85,0,height).toFixed(2)}px`};
 }
