@@ -1,0 +1,8 @@
+{
+  "source": "IBGE — Localidades do Brasil 2022, arquivo atualizado em 19/11/2025",
+  "url": "https://geoftp.ibge.gov.br/organizacao_do_territorio/estrutura_territorial/localidades/Localidades_do_Brasil/2022/Localidades_Brasil_shp.zip",
+  "archiveSHA256": "1c0bec392891f6f284675e1b72c761f1b4a976599bdd3f0cb87fabf471382ca9",
+  "filter": "CT_LOCALID=Cidade; CD_LOCALID=CD_MUN; deduplicado por CD_MUN",
+  "count": 5570,
+  "coordinates": "Ponto de referência da sede municipal. Não é localização do produtor."
+}

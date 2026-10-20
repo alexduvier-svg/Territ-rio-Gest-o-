@@ -25,6 +25,14 @@ function classifyToast(toast) {
   if (toast.hidden) { animateToast(toast); return; }
   const text = toast.textContent || '';
   const kind = WARN.test(text) ? 'toast-warn' : SUCCESS.test(text) ? 'toast-success' : '';
+  const cancelled = /^Venda (?:cancelada|rejeitada)\b/.test(text);
+  toast.classList.toggle('toast-cancelled', cancelled);
+  if (cancelled && !toast.querySelector('.toast-copy')) {
+    const copy = document.createElement('span'), title = document.createElement('strong'), detail = document.createElement('span');
+    copy.className = 'toast-copy'; title.className = 'toast-title'; detail.className = 'toast-detail';
+    title.textContent = 'Venda cancelada'; detail.textContent = 'O estoque não foi alterado.';
+    copy.append(title, document.createTextNode(' '), detail); toast.replaceChildren(copy);
+  }
   toast.classList.remove('toast-warn', 'toast-success');
   if (kind) toast.classList.add(kind);
   animateToast(toast);

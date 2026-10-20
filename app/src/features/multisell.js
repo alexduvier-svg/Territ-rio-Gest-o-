@@ -105,7 +105,7 @@ function clearTimer() {
 export function installMultiSell() {
   document.addEventListener('pointerdown', event => {
     const card = cardFrom(event.target);
-    if (!card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length) return;
+    if (!card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length || window.TerritorioSalesOrganization?.active()) return;
     window.TerritorioProductGestures?.suspend();
     pressed = card;
     start = { x: event.clientX, y: event.clientY };
@@ -136,11 +136,14 @@ export function installMultiSell() {
     const card = cardFrom(event.target);
     if (swallow && Date.now() <= swallow.until && card && card.dataset.id === swallow.id) {
       swallow = null;
+      window.TerritorioProductGestures?.cancelPending();
       event.preventDefault();
       event.stopImmediatePropagation();
       return;
     }
     swallow = null;
+    if (window.TerritorioSalesOrganization?.active()) return;
+    if (window.TerritorioProductGestures?.handleClick(event, card)) return;
     if (!card || !selected.length) return;
     event.preventDefault();
     event.stopImmediatePropagation();
@@ -152,5 +155,10 @@ export function installMultiSell() {
   new MutationObserver(() => { if (!onVender()) cancel(); else if (selected.length) paint(); })
     .observe(document.getElementById('app'), { childList: true });
 
-  window.TerritorioSelection = { cancel, active: () => selected.length > 0 };
+  const restore = ids => { selected = [...new Set(ids)].filter(id => {
+    const card = [...document.querySelectorAll(CARD)].find(c => c.dataset.id === id);
+    return card && !card.disabled && card.getAttribute('aria-disabled') !== 'true';
+  }).slice(0, MAX); lastToggle = null; paint(); };
+  window.TerritorioSelection = { cancel, active: () => selected.length > 0, snapshot: () => selected.slice(), restore,
+    begin(id) { restore([id]); if (selected.length) tick(); } };
 }

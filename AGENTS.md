@@ -1,3 +1,11 @@
+# Entrega concluída — 0.12.24/code64
+
+Ler app/docs/ENTREGA-0.12.24.md e app/docs/TEMPO-NOMES-PLAY-0.12.24.md. APK 5.099.724 bytes, SHA25654b36376c945d6e7d584a8165a004b3566a872cae8b4cdfbb230187d3d295ff4. Original/celular atualizados com install-r em20/10/2026às18:31:40;64/0.12.24/aberturaStatusok/firstInstallTime14/10/2026às18:17:06preservado. NÃOrefazer build/instalação por checkpoints históricos.
+
+Gestos1/2/3, ordem visual individual por arraste/setas nas vendas+backup, aviso de cancelamento, rodapé glass/ícones finos, preços alinhados e nomes de produto com iniciais maiúsculas (premissasv11). Tempo opcional Loja/Eventos via proxy MET Norway/cache/5570sedesIBGE2022/semGPS, offline com data e fonte; cérebro migrado. Não inventar probabilidade, acurácia ou chuva observada. Não garantir aprovação Google: licença/privacidade e declaração Play descritas no documento; nenhuma submissão à Play Store autorizada nesta tarefa.
+
+314unitapp/19server/120UIgestos/48UIclima PASS;8configurações claro/escuro320/360/393/412 e texto ampliado, leve/reduzido na regressão. Sem transações reais de teste; FPS/GPU nativos não medidos. Servidor publicado0b456f2a-5fbb-4e81-9c76-6070a865a4df/GET200Carangola/SãoPaulo. Esta entrega pertence apenas ao ramo codex/atualizacao-agro-gestao2; main956fddceec2b994e32c154c5197424a4f56df7f2 é independente e deve ser preservado. A retomada automática continua silenciosa sem nova pendência.
+
 # Entrega atual — AGRO Gestão 2 0.12.23/code63
 
 Ler app/docs/ENTREGA-0.12.23.md e ARQUIVOS-0.12.23.md. Estoque e os quatro botões ficam SEMPRE NA MESMA LINHA; ordem +,Relógio,Calculadora,Lupa. + geral antes do relógio. Título responsivo, controles40px, sem quebra ou sobreposição. Supera a permissão de duas linhas da v8/0.12.22; premissasv9. + por família e entrada geral sem filtro preservados.

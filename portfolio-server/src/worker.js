@@ -1,3 +1,4 @@
+import { weatherRoute } from './weather.js';
 // Território — public producer portfolios.
 //
 // Public pages (no JavaScript, opened from the QR code shown after a sale):
@@ -260,6 +261,7 @@ export default {
       if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
       try {
         let response;
+        if(pathname==='/api/weather'){response=await weatherRoute(request);for(const[k,v]of Object.entries(cors))response.headers.set(k,v);return response;}
         if(pathname==='/api/shops/_capabilities'&&request.method==='GET')return json({version:1,available:!!env.SHOPS},200,cors);
         const shop=pathname.match(/^\/api\/shops\/([a-z0-9-]{3,48})\/(catalog|orders(?:\/[\w-]+)?|track|inventory)$/);
         if(shop){response=await routeShop(request,env,shop[1],shop[2],authorize);for(const[k,v]of Object.entries(cors))response.headers.set(k,v);return response;}

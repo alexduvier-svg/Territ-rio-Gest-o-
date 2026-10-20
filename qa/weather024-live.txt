@@ -1,0 +1,1 @@
+[{"status":200,"city":{"id":"3113305","name":"Carangola","uf":"MG","lat":-20.7335,"lon":-42.0294},"source":"MET Norway","points":90,"retrievedAt":1792531129078},{"status":200,"city":{"id":"3550308","name":"São Paulo","uf":"SP","lat":-23.5548,"lon":-46.579},"source":"MET Norway","points":90,"retrievedAt":1792531129854}]

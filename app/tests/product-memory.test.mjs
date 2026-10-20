@@ -89,6 +89,7 @@ test('instalar conhecimento e memória deixa produtos e atividade do produtor in
     items:[{productId:p.id,name:p.name,unit:'Molho',qty:1,price:875,cost:240,total:875}],payments:[{method:'Pix',amount:875}]}];
   original.movements=[{id:'movement-history',productId:p.id,kind:'initial',qty:8,before:0,after:8,date:'2026-10-14T10:00:00-03:00',unit:'Molho'}];
   const before=clone(original),m=new E.ERPModel(original);
+  before.products=before.products.map(p=>({...p,name:E.productName(p.name),baseName:E.productName(p.baseName)}));
   for(const key of ['products','sales','movements','catalog','dataContext'])assert.deepEqual(clone(m.data[key]),before[key],key);
   assert.deepEqual(clone(m.data.catalogKnowledge),clone(CATALOG_KNOWLEDGE));
   assert.equal(m.data.catalogKnowledge.type,'suggestions_only');
@@ -196,7 +197,7 @@ test('catálogo mapeado bloqueia duplicata sem reescrever cadastro personalizado
   const before=JSON.stringify(m.data),id=p.id;
   assert.throws(()=>saveReference(m,record),error=>error.code==='DUPLICATE_PRODUCT'&&error.productId===id);
   assert.equal(JSON.stringify(m.data),before,'erro não altera nome, ID, foto, preço, custo, saldo, movimento ou memória');
-  assert.equal(m.product(id).name,'Taioba da Ana');
+  assert.equal(m.product(id).name,'Taioba Da Ana');
   assert.equal(m.data.products.length,1);
 });
 

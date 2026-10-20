@@ -1,0 +1,1498 @@
+{
+  "version": "0.12.24",
+  "synthetic": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "single touch opens checkout with one unit and no committed sale"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double touch reverses untouched checkout and selects product"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "triple touch opens exact stock after intermediate checkout and selection"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "out-of-stock cannot sell and remains queryable by triple touch"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "fractional stock below one never prepares an oversized cart"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "edited payment prevents reversal of quick preview"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double gesture preserves pre-existing draft and quantity"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "long press remains available and selection stays limited to three"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "holding and dragging moves actual card without opening sale"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "custom order persists through reload and is included in backup"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "accessible arrows reorder; cancel restores saved order"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "restore family ordering works without changing inventory"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "opaque accessibility fallback for navigation"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "thin footer outlines preserve all five icons"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "stock, sales, movements unchanged and no page overflow"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "single touch opens checkout with one unit and no committed sale"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double touch reverses untouched checkout and selects product"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "triple touch opens exact stock after intermediate checkout and selection"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "out-of-stock cannot sell and remains queryable by triple touch"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "fractional stock below one never prepares an oversized cart"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "edited payment prevents reversal of quick preview"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double gesture preserves pre-existing draft and quantity"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "long press remains available and selection stays limited to three"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "holding and dragging moves actual card without opening sale"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "custom order persists through reload and is included in backup"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "accessible arrows reorder; cancel restores saved order"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "restore family ordering works without changing inventory"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "opaque accessibility fallback for navigation"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "thin footer outlines preserve all five icons"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "stock, sales, movements unchanged and no page overflow"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "single touch opens checkout with one unit and no committed sale"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double touch reverses untouched checkout and selects product"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "triple touch opens exact stock after intermediate checkout and selection"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "out-of-stock cannot sell and remains queryable by triple touch"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "fractional stock below one never prepares an oversized cart"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "edited payment prevents reversal of quick preview"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double gesture preserves pre-existing draft and quantity"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "long press remains available and selection stays limited to three"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "holding and dragging moves actual card without opening sale"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "custom order persists through reload and is included in backup"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "accessible arrows reorder; cancel restores saved order"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "restore family ordering works without changing inventory"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "opaque accessibility fallback for navigation"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "thin footer outlines preserve all five icons"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "stock, sales, movements unchanged and no page overflow"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "single touch opens checkout with one unit and no committed sale"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double touch reverses untouched checkout and selects product"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "triple touch opens exact stock after intermediate checkout and selection"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "out-of-stock cannot sell and remains queryable by triple touch"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "fractional stock below one never prepares an oversized cart"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "edited payment prevents reversal of quick preview"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double gesture preserves pre-existing draft and quantity"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "long press remains available and selection stays limited to three"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "holding and dragging moves actual card without opening sale"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "custom order persists through reload and is included in backup"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "accessible arrows reorder; cancel restores saved order"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "restore family ordering works without changing inventory"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "opaque accessibility fallback for navigation"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "thin footer outlines preserve all five icons"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "stock, sales, movements unchanged and no page overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "single touch opens checkout with one unit and no committed sale"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double touch reverses untouched checkout and selects product"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "triple touch opens exact stock after intermediate checkout and selection"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "out-of-stock cannot sell and remains queryable by triple touch"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "fractional stock below one never prepares an oversized cart"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "edited payment prevents reversal of quick preview"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double gesture preserves pre-existing draft and quantity"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "long press remains available and selection stays limited to three"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "holding and dragging moves actual card without opening sale"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "custom order persists through reload and is included in backup"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "accessible arrows reorder; cancel restores saved order"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "restore family ordering works without changing inventory"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "opaque accessibility fallback for navigation"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "thin footer outlines preserve all five icons"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "stock, sales, movements unchanged and no page overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "single touch opens checkout with one unit and no committed sale"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double touch reverses untouched checkout and selects product"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "triple touch opens exact stock after intermediate checkout and selection"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "out-of-stock cannot sell and remains queryable by triple touch"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "fractional stock below one never prepares an oversized cart"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "edited payment prevents reversal of quick preview"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double gesture preserves pre-existing draft and quantity"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "long press remains available and selection stays limited to three"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "holding and dragging moves actual card without opening sale"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "custom order persists through reload and is included in backup"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "accessible arrows reorder; cancel restores saved order"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "restore family ordering works without changing inventory"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "opaque accessibility fallback for navigation"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "thin footer outlines preserve all five icons"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "stock, sales, movements unchanged and no page overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "single touch opens checkout with one unit and no committed sale"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double touch reverses untouched checkout and selects product"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "triple touch opens exact stock after intermediate checkout and selection"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "out-of-stock cannot sell and remains queryable by triple touch"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "fractional stock below one never prepares an oversized cart"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "edited payment prevents reversal of quick preview"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double gesture preserves pre-existing draft and quantity"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "long press remains available and selection stays limited to three"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "holding and dragging moves actual card without opening sale"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "custom order persists through reload and is included in backup"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "accessible arrows reorder; cancel restores saved order"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "restore family ordering works without changing inventory"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "opaque accessibility fallback for navigation"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "thin footer outlines preserve all five icons"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "stock, sales, movements unchanged and no page overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "single touch opens checkout with one unit and no committed sale"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double touch reverses untouched checkout and selects product"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "triple touch opens exact stock after intermediate checkout and selection"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "out-of-stock cannot sell and remains queryable by triple touch"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "fractional stock below one never prepares an oversized cart"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "edited payment prevents reversal of quick preview"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double gesture preserves pre-existing draft and quantity"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "long press remains available and selection stays limited to three"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "holding and dragging moves actual card without opening sale"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "custom order persists through reload and is included in backup"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "accessible arrows reorder; cancel restores saved order"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "restore family ordering works without changing inventory"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "opaque accessibility fallback for navigation"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "thin footer outlines preserve all five icons"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "stock, sales, movements unchanged and no page overflow"
+    }
+  ],
+  "surfaces": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "checkout",
+      "rect": {
+        "x": 20,
+        "y": 74.21875,
+        "width": 280,
+        "height": 591.5625,
+        "top": 74.21875,
+        "right": 300,
+        "bottom": 665.78125,
+        "left": 20
+      },
+      "color": "rgb(20, 23, 26)",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(245, 247, 250, 0.97)) repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "cancel-toast",
+      "rect": {
+        "x": 16,
+        "y": 548.015625,
+        "width": 288,
+        "height": 76.984375,
+        "top": 548.015625,
+        "right": 304,
+        "bottom": 625,
+        "left": 16
+      },
+      "color": "rgb(22, 22, 24)",
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.867), rgba(0, 0, 0, 0) 64%) repeat scroll 0% 0% / auto padding-box border-box, rgba(250, 251, 250, 0.97) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "29px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "organize-bar",
+      "rect": {
+        "x": 12,
+        "y": 467.21875,
+        "width": 296,
+        "height": 256.78125,
+        "top": 467.21875,
+        "right": 308,
+        "bottom": 724,
+        "left": 12
+      },
+      "color": "rgb(22, 22, 24)",
+      "background": "linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 250, 0.867)) repeat scroll 0% 0% / auto padding-box border-box, rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "checkout",
+      "rect": {
+        "x": 20,
+        "y": 137.875,
+        "width": 320,
+        "height": 576.25,
+        "top": 137.875,
+        "right": 340,
+        "bottom": 714.125,
+        "left": 20
+      },
+      "color": "rgb(20, 23, 26)",
+      "background": "rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "cancel-toast",
+      "rect": {
+        "x": 16,
+        "y": 660.015625,
+        "width": 328,
+        "height": 76.984375,
+        "top": 660.015625,
+        "right": 344,
+        "bottom": 737,
+        "left": 16
+      },
+      "color": "rgb(22, 22, 24)",
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.867), rgba(0, 0, 0, 0) 64%) repeat scroll 0% 0% / auto padding-box border-box, rgba(250, 251, 250, 0.97) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "29px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "organize-bar",
+      "rect": {
+        "x": 12,
+        "y": 582.015625,
+        "width": 336,
+        "height": 253.984375,
+        "top": 582.015625,
+        "right": 348,
+        "bottom": 836,
+        "left": 12
+      },
+      "color": "rgb(22, 22, 24)",
+      "background": "linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 250, 0.867)) repeat scroll 0% 0% / auto padding-box border-box, rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "checkout",
+      "rect": {
+        "x": 20,
+        "y": 165.375,
+        "width": 353,
+        "height": 521.25,
+        "top": 165.375,
+        "right": 373,
+        "bottom": 686.625,
+        "left": 20
+      },
+      "color": "rgb(20, 23, 26)",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(245, 247, 250, 0.97)) repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "cancel-toast",
+      "rect": {
+        "x": 16.5,
+        "y": 660.015625,
+        "width": 360,
+        "height": 76.984375,
+        "top": 660.015625,
+        "right": 376.5,
+        "bottom": 737,
+        "left": 16.5
+      },
+      "color": "rgb(22, 22, 24)",
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.867), rgba(0, 0, 0, 0) 64%) repeat scroll 0% 0% / auto padding-box border-box, rgba(250, 251, 250, 0.97) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "29px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "organize-bar",
+      "rect": {
+        "x": 12,
+        "y": 582.015625,
+        "width": 369,
+        "height": 253.984375,
+        "top": 582.015625,
+        "right": 381,
+        "bottom": 836,
+        "left": 12
+      },
+      "color": "rgb(22, 22, 24)",
+      "background": "linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 250, 0.867)) repeat scroll 0% 0% / auto padding-box border-box, rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "checkout",
+      "rect": {
+        "x": 20,
+        "y": 165.375,
+        "width": 372,
+        "height": 521.25,
+        "top": 165.375,
+        "right": 392,
+        "bottom": 686.625,
+        "left": 20
+      },
+      "color": "rgb(20, 23, 26)",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(255, 255, 255, 0.99), rgba(245, 247, 250, 0.97)) repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "cancel-toast",
+      "rect": {
+        "x": 26,
+        "y": 660.015625,
+        "width": 360,
+        "height": 76.984375,
+        "top": 660.015625,
+        "right": 386,
+        "bottom": 737,
+        "left": 26
+      },
+      "color": "rgb(22, 22, 24)",
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.867), rgba(0, 0, 0, 0) 64%) repeat scroll 0% 0% / auto padding-box border-box, rgba(250, 251, 250, 0.97) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "29px",
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "organize-bar",
+      "rect": {
+        "x": 12,
+        "y": 601.609375,
+        "width": 388,
+        "height": 234.390625,
+        "top": 601.609375,
+        "right": 400,
+        "bottom": 836,
+        "left": 12
+      },
+      "color": "rgb(22, 22, 24)",
+      "background": "linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(244, 247, 250, 0.867)) repeat scroll 0% 0% / auto padding-box border-box, rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "checkout",
+      "rect": {
+        "x": 20,
+        "y": 74.21875,
+        "width": 280,
+        "height": 591.5625,
+        "top": 74.21875,
+        "right": 300,
+        "bottom": 665.78125,
+        "left": 20
+      },
+      "color": "rgb(246, 247, 249)",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(48, 51, 56, 0.99), rgba(34, 37, 42, 0.97)) repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "cancel-toast",
+      "rect": {
+        "x": 16,
+        "y": 548.015625,
+        "width": 288,
+        "height": 76.984375,
+        "top": 548.015625,
+        "right": 304,
+        "bottom": 625,
+        "left": 16
+      },
+      "color": "rgb(245, 245, 247)",
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.063), rgba(0, 0, 0, 0) 64%) repeat scroll 0% 0% / auto padding-box border-box, rgba(48, 50, 55, 0.96) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "29px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "organize-bar",
+      "rect": {
+        "x": 12,
+        "y": 467.21875,
+        "width": 296,
+        "height": 256.78125,
+        "top": 467.21875,
+        "right": 308,
+        "bottom": 724,
+        "left": 12
+      },
+      "color": "rgb(245, 245, 247)",
+      "background": "linear-gradient(145deg, rgba(59, 62, 67, 0.93), rgba(36, 38, 44, 0.87)) repeat scroll 0% 0% / auto padding-box border-box, rgb(28, 28, 30) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "checkout",
+      "rect": {
+        "x": 20,
+        "y": 137.875,
+        "width": 320,
+        "height": 576.25,
+        "top": 137.875,
+        "right": 340,
+        "bottom": 714.125,
+        "left": 20
+      },
+      "color": "rgb(246, 247, 249)",
+      "background": "rgb(28, 28, 30) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "cancel-toast",
+      "rect": {
+        "x": 16,
+        "y": 660.015625,
+        "width": 328,
+        "height": 76.984375,
+        "top": 660.015625,
+        "right": 344,
+        "bottom": 737,
+        "left": 16
+      },
+      "color": "rgb(245, 245, 247)",
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.063), rgba(0, 0, 0, 0) 64%) repeat scroll 0% 0% / auto padding-box border-box, rgba(48, 50, 55, 0.96) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "29px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "organize-bar",
+      "rect": {
+        "x": 12,
+        "y": 582.015625,
+        "width": 336,
+        "height": 253.984375,
+        "top": 582.015625,
+        "right": 348,
+        "bottom": 836,
+        "left": 12
+      },
+      "color": "rgb(245, 245, 247)",
+      "background": "linear-gradient(145deg, rgba(59, 62, 67, 0.93), rgba(36, 38, 44, 0.87)) repeat scroll 0% 0% / auto padding-box border-box, rgb(28, 28, 30) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "checkout",
+      "rect": {
+        "x": 20,
+        "y": 165.375,
+        "width": 353,
+        "height": 521.25,
+        "top": 165.375,
+        "right": 373,
+        "bottom": 686.625,
+        "left": 20
+      },
+      "color": "rgb(246, 247, 249)",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(48, 51, 56, 0.99), rgba(34, 37, 42, 0.97)) repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "cancel-toast",
+      "rect": {
+        "x": 16.5,
+        "y": 660.015625,
+        "width": 360,
+        "height": 76.984375,
+        "top": 660.015625,
+        "right": 376.5,
+        "bottom": 737,
+        "left": 16.5
+      },
+      "color": "rgb(245, 245, 247)",
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.063), rgba(0, 0, 0, 0) 64%) repeat scroll 0% 0% / auto padding-box border-box, rgba(48, 50, 55, 0.96) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "29px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "organize-bar",
+      "rect": {
+        "x": 12,
+        "y": 582.015625,
+        "width": 369,
+        "height": 253.984375,
+        "top": 582.015625,
+        "right": 381,
+        "bottom": 836,
+        "left": 12
+      },
+      "color": "rgb(245, 245, 247)",
+      "background": "linear-gradient(145deg, rgba(59, 62, 67, 0.93), rgba(36, 38, 44, 0.87)) repeat scroll 0% 0% / auto padding-box border-box, rgb(28, 28, 30) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "checkout",
+      "rect": {
+        "x": 20,
+        "y": 165.375,
+        "width": 372,
+        "height": 521.25,
+        "top": 165.375,
+        "right": 392,
+        "bottom": 686.625,
+        "left": 20
+      },
+      "color": "rgb(246, 247, 249)",
+      "background": "rgba(0, 0, 0, 0) linear-gradient(145deg, rgba(48, 51, 56, 0.99), rgba(34, 37, 42, 0.97)) repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "cancel-toast",
+      "rect": {
+        "x": 26,
+        "y": 660.015625,
+        "width": 360,
+        "height": 76.984375,
+        "top": 660.015625,
+        "right": 386,
+        "bottom": 737,
+        "left": 26
+      },
+      "color": "rgb(245, 245, 247)",
+      "background": "linear-gradient(135deg, rgba(255, 255, 255, 0.063), rgba(0, 0, 0, 0) 64%) repeat scroll 0% 0% / auto padding-box border-box, rgba(48, 50, 55, 0.96) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "29px",
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "organize-bar",
+      "rect": {
+        "x": 12,
+        "y": 601.609375,
+        "width": 388,
+        "height": 234.390625,
+        "top": 601.609375,
+        "right": 400,
+        "bottom": 836,
+        "left": 12
+      },
+      "color": "rgb(245, 245, 247)",
+      "background": "linear-gradient(145deg, rgba(59, 62, 67, 0.93), rgba(36, 38, 44, 0.87)) repeat scroll 0% 0% / auto padding-box border-box, rgb(28, 28, 30) none repeat scroll 0% 0% / auto padding-box border-box",
+      "borderRadius": "28px",
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

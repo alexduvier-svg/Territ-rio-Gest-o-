@@ -14,6 +14,8 @@ import { installSectionMotion } from './features/motion/sections.js';
 import './features/motion/sections.css';
 import { installInterface } from './features/interface.js';
 import { installMultiSell } from './features/multisell.js';
+import { arrangeSalesProducts, installSalesOrganization } from './features/sales-order.js';
+import './features/sales-order.css';
 import './features/multisell.css';
 import { version } from '../package.json';
 import './features/portfolio.css';
@@ -36,6 +38,8 @@ import './glass-system.css';
 import { installAgent } from './features/agent/index.js';
 import { installWorkflows } from './features/workflows/index.js';
 import './features/workflows/workflows.css';
+import { installWeather, eventWeather } from './features/weather/index.js';
+import './features/weather/weather.css';
 import { installStore } from './features/store/index.js';
 import './features/store/store.css';
 
@@ -88,6 +92,8 @@ try {
   window.TerritorioProductCatalog = ProductCatalog;
   window.TerritorioStockOrder = StockOrder;
   window.TerritorioSalesPresentation = SalesPresentation;
+  window.TerritorioArrangeSales = arrangeSalesProducts;
+  window.TerritorioWeather = {eventWeather};
   window.TerritorioCatalogReference = {catalogReference,isCatalogQuestion};
   window.TerritorioCatalogKnowledge = CATALOG_KNOWLEDGE;
   window.TerritorioInterfaceGuidelines = INTERFACE_GUIDELINES;
@@ -103,7 +109,7 @@ try {
   window.TERRITORIO_API = API;
   await import('./legacy/erp-ui.js');
   const savedModel = window.ERPPreview?.model?.();
-  if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled) {
+  if (savedModel?.productNamesNormalized || savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled) {
     window.ERPPreview.persist?.();
     if (window.TerritorioNative?.isNative) await window.TerritorioNative.durable?.();
   }
@@ -114,8 +120,10 @@ try {
   installNavIconMotion();
   installInterface();
   installSectionMotion();
+  installSalesOrganization();
   installMultiSell();
   installWorkflows();
+  installWeather();
   installStore();
   installLocalCatalog();
   installGlassTouch();

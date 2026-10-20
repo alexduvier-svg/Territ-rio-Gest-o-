@@ -36,3 +36,24 @@ html.large-text .glass-products-plane .feira-card>small,html[data-large-text=tru
 .settings-version .settings-app-logo{display:block;flex:0 0 auto;width:52px;height:52px;object-fit:contain;border-radius:14px;background:#fff;border:1px solid var(--material-line);box-shadow:inset 0 1px 0 #fff,0 3px 8px #00000012;padding:5px}.settings-version:has(.settings-app-logo){padding-block:12px;min-height:78px}
 
 :root[data-layout] .feira-stock-count strong{font-variant-numeric:lining-nums tabular-nums;font-feature-settings:"lnum" 1,"tnum" 1;line-height:1}
+
+/* Quiet graphite/white glass; the opaque fade shields the content below. */
+:root[data-theme][data-layout] .nav{background:var(--material-face);border-color:var(--material-line);box-shadow:var(--material-depth)}
+:root[data-theme=light][data-layout] .nav{background:linear-gradient(135deg,#fff9,transparent 60%),#fdfdfdf7;border-color:#7b838322}
+:root[data-theme][data-layout][data-reduce-transparency=true] .nav{background:#292b2e;backdrop-filter:none;-webkit-backdrop-filter:none}
+:root[data-theme=light][data-layout][data-reduce-transparency=true] .nav{background:#fdfdfd}
+:root[data-theme] #toast.toast-cancelled{display:flex;align-items:center;gap:12px;width:min(360px,calc(100% - 32px));max-width:calc(100% - 32px);box-sizing:border-box;border-radius:29px;padding:16px 18px;color:var(--text);background:linear-gradient(135deg,#ffffff10,transparent 64%),#303237f5;border:1px solid #ffffff24;box-shadow:inset 0 1px 0 #ffffff1a,0 10px 28px #0003;text-align:left}
+:root[data-theme=light] #toast.toast-cancelled{background:linear-gradient(135deg,#fffd,transparent 64%),#fafbfaf7;border-color:#74836930;box-shadow:inset 0 1px 0 #fff,0 10px 28px #26362126}
+#toast.toast-cancelled::before{content:'↶';display:grid;place-items:center;flex:0 0 38px;height:38px;border-radius:50%;background:color-mix(in srgb,var(--action-green) 12%,transparent);color:var(--action-green);font:650 28px/1 'Inter Variable',sans-serif}
+#toast.toast-cancelled .toast-copy{display:grid;gap:3px;min-width:0}
+#toast.toast-cancelled .toast-title{font:750 17px/1.2 'Inter Tight Variable',sans-serif}
+#toast.toast-cancelled .toast-detail{font:450 14px/1.4 'Inter Variable',sans-serif;color:var(--muted)}
+:root[data-theme] #toast.toast-cancelled[hidden]{display:none}
+:root[data-reduce-transparency=true] #toast.toast-cancelled{background:var(--panel)}
+
+/* Lighter outlines keep the same icon and touch target sizes. */
+:root[data-theme][data-layout] .nav :is(svg,svg [stroke-width]){stroke-width:1.45}
+
+.glass-sale-block .feira-grid{align-items:stretch}.glass-products-plane .feira-card{align-self:stretch;box-sizing:border-box}.glass-products-plane .feira-card>.sale-card-price{display:flex;flex-wrap:wrap;align-items:flex-end;align-content:flex-end;gap:0 .25em;width:100%;min-height:2.3em;line-height:1.15;text-align:left}.sale-card-price>span{white-space:nowrap;max-width:100%}
+.sale-card-price>span:last-child{min-width:0;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:359px){.glass-products-plane .feira-card>.sale-card-price{font-size:13px!important}}

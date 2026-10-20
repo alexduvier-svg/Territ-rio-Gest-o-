@@ -1,0 +1,27 @@
+✔ atomic reservations prevent concurrent over-ordering; zero availability cannot be bought (42.0399ms)
+✔ order retry has one reservation, private tracking has no contact, owner needs authentication (3.0882ms)
+✔ lifecycle requires an owner-recorded sale and all manual steps, and commits stock once (2.6193ms)
+✔ cancel releases pending reservation, stale snapshot blocks requests, wrong price/quantity rejected (1.7856ms)
+✔ inventory CAS rejects obsolete devices and idempotent sync does not deduct another reservation (0.6401ms)
+✔ portfolio route strips forged owner headers and isolates stores by slug (0.4716ms)
+✔ tracking capability stays in URL fragment and customer content is never inserted as HTML (0.265ms)
+✔ unpublishing cannot lose active orders and erases server details after closure (2.6423ms)
+✔ a refund restores availability through the same snapshot without a second stock operation (1.9221ms)
+✔ daily retention alarm removes closed delivery data even without further visits (1.1692ms)
+✔ POST reports guarda conferência no relatório da organização (24.345ms)
+✔ relatório de versão anterior recebe conferido false e totais zero (0.6999ms)
+✔ valida números e booleanos; limita texto e itens; não publica medição local (4.6024ms)
+✔ atualização da mesma feira preserva conferência e substitui totais (1.6023ms)
+✔ contrato preserva unregistered e lancada_depois de vendas corrigidas (0.9995ms)
+✔ IBGE municipal coordinates resolve accents and ambiguous cities require UF (0.608ms)
+✔ MET summary never manufactures missing rain probabilities or invalid temperatures (1.2781ms)
+✔ identified cache proxy coalesces requests, hides client IP and serves a cached city (29.1433ms)
+✔ unknown municipality and invalid methods cannot become arbitrary upstream URLs (0.7251ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 163.4371
