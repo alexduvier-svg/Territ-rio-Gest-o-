@@ -791,7 +791,7 @@ export function installFluidMotion() {
   const settle = () => { resetPress?.(); finishAll(); for (const motion of [...running]) motion.finish(); };
   let previousPreference = `${reduced()}:${limited()}`;
   const settings = new MutationObserver(() => {
-    root().dataset.motionLite = String(limited());
+    if (root().dataset.motionLite !== String(limited())) root().dataset.motionLite = String(limited());
     const next = `${reduced()}:${limited()}`;
     if (next !== previousPreference) { previousPreference = next; settle(); }
   });

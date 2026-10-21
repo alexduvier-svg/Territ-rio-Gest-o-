@@ -192,7 +192,8 @@ function detectLite() {
 document.addEventListener('keydown', e => {
   if (e.key === 'Tab' || e.key.startsWith('Arrow')) document.documentElement.classList.add('kbd-nav');
 }, true);
-document.addEventListener('pointerdown', () => document.documentElement.classList.remove('kbd-nav'), true);
+// Only when it is set: rewriting the root class on every touch re-styles the whole page.
+document.addEventListener('pointerdown', () => { const root = document.documentElement; if (root.classList.contains('kbd-nav')) root.classList.remove('kbd-nav'); }, true);
 
 // ---------------------------------------------------------------- título do Estoque
 // Título e botões dividem a linha enquanto cabem; quando não cabem (tela estreita, texto ampliado),
