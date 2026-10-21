@@ -18,7 +18,7 @@ function markPageChange() {
 }
 
 // ---------------------------------------------------------------- avisos
-const WARN = /^(Não |Estoque não|Nenhum|Informe|Use |Sem |Falta|Máximo)/;
+const WARN = /^(Não |Estoque não|Estoque acabando|Acabou|Nenhum|Informe|Use |Sem |Falta|Máximo)/;
 const SUCCESS = /^(Venda Finalizada|Estoque renovado|QR lido|Página publicada|Backup|Dados de teste zerados|Produto salvo|Cliente salvo)/;
 const CANCEL = /cancelad|devolvid|removid|excluíd|descartad/i;
 const KINDS = ['toast-warn', 'toast-success', 'toast-cancel', 'toast-info'];

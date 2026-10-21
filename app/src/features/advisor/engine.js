@@ -11,6 +11,36 @@ import { evidenceQuality } from './quality.js';
 import { explainMethod } from './method.js';
 import { WEATHER_RULES } from './weather-rules.js';
 
+// The best seller of a family goes first (motor de decisões). input.productFamilies is the sale grid
+// order: [{ id, name, family }]. Families never change places; only the order inside one family.
+export function bestFirst(input) {
+  const families = input.productFamilies || [];
+  const sold = new Map((input.current?.rank || []).filter(r => r.qty > 0).map(r => [r.id, r.qty]));
+  if (sold.size < 2 || families.length < 2) return [];
+  const groups = new Map();
+  for (const p of families) { if (!groups.has(p.family)) groups.set(p.family, []); groups.get(p.family).push(p); }
+  const tips = [];
+  for (const list of groups.values()) {
+    if (list.length < 2) continue;
+    const first = list[0], best = list.reduce((a, b) => (sold.get(b.id) || 0) > (sold.get(a.id) || 0) ? b : a);
+    const qb = sold.get(best.id) || 0, qf = sold.get(first.id) || 0;
+    if (best === first || qb < 5 || qb < qf * 1.5) continue;
+    tips.push({ best, first, qb, qf });
+  }
+  if (!tips.length) return [];
+  tips.sort((a, b) => b.qb - a.qb);
+  const t = tips[0], n = v => v.toLocaleString('pt-BR');
+  return [item('ordem-mais-vendidos:' + t.best.id, 'oportunidade', {
+    title: 'Coloque o mais vendido em primeiro',
+    happened: `${t.best.name} vendeu ${n(t.qb)} no período; ${t.first.name}, que aparece antes na família, vendeu ${n(t.qf)}.`,
+    todo: `Coloque ${t.best.name} em primeiro na família, para achar mais rápido na hora da venda.`,
+    why: 'O que mais sai fica no primeiro lugar da família e o toque fica mais curto. A ordem entre as famílias não muda; você pode mudar depois segurando e arrastando.',
+    numbers: tips.slice(0, 3).map(x => ({ label: x.best.name, value: n(x.qb) + ' vendidos', detail: 'primeiro hoje: ' + x.first.name + ' (' + n(x.qf) + ')' })),
+    impact: t.qb,
+    cta: { label: 'Colocar em primeiro', action: 'order-best-first', data: { id: t.best.id } },
+  })];
+}
+
 const LEVELS = ['urgente', 'atencao', 'oportunidade', 'bom'];
 const TARGET_MARGIN = 0.4;
 const LOW_MARGIN = 0.3;
@@ -406,7 +436,7 @@ function pendingTests(input) {
   if(!tests.length)return [];
   return [item('test-pending','oportunidade',{title:'Avalie os testes que já planejou',happened:`Há ${tests.length} ${tests.length===1?'teste planejado':'testes planejados'} aguardando avaliação.`,todo:'Registre o resultado observado e as mudanças do período antes de repetir ou iniciar uma ação semelhante.',why:'Uma diferença no resultado não isola a causa. Compare períodos, condições e a medida definida no planejamento.',cta:{label:'Ver testes',action:'advisor-tests'},impact:1})];
 }
-const RULES = [...WEATHER_RULES, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests];
+const RULES = [...WEATHER_RULES, bestFirst, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests];
 
 // ------------------------------------------------------------------------------------- saída
 

@@ -3,7 +3,7 @@
 // Agro_Gestao_Diretrizes_Matematicas_Probabilisticas (Codex, v1.0), de 20/10/2026. Conhecimento de
 // referência: não é instrução executável e não autoriza vendas, baixas, envios ou compras.
 export const DECISION_GUIDELINES = Object.freeze({
-  version: 2,
+  version: 3,
   id: 'decision-engine',
   authority: 'reference_only',
   sources: ['docs/motor/MOTOR_INTELIGENCIA_AGRO_GESTAOclaude.pdf v1.0', 'docs/motor/Agro_Gestao_Diretrizes_Matematicas_Probabilisticas_Codex.docx v1.0'],
@@ -32,6 +32,10 @@ export const DECISION_GUIDELINES = Object.freeze({
     baixa: 'poucos dados, modelo não calibrado ou previsão de 2 a 3 dias — linguagem "fique atento"',
     nula: 'erro nos registros ou previsão antiga — não gera conselho; informa a falta de dados',
   },
+  learning: [
+    'Mais vendidos em primeiro (regra ordem-mais-vendidos): com o tempo, o motor compara as vendas do período dentro de cada família; se o mais vendido (pelo menos 5 unidades e 1,5 vez o primeiro) não está em primeiro, sugere colocá-lo em primeiro, com o botão Colocar em primeiro. Famílias nunca trocam de lugar.',
+    'Memória de estoque (model.data.stockAlerts): estado de cada produto (ok, acabando, esgotado) e histórico das passagens com data; acabando = saldo no mínimo cadastrado ou até 25 % da referência. Avisos na passagem para acabando e para esgotado; a Orientação continua com repor e acaba-logo.',
+  ],
   output: ['advice_id', 'rule_id', 'rule_version', 'module', 'confidence', 'generated_at', 'valid_until', 'source', 'issued_at', 'data_context', 'data_gaps', 'requires_user_action'],
   priority: 'No máximo 3 conselhos por tela, por nível e impacto; segurança (geada, trovoada, calor extremo) fura a fila.',
   weather: {

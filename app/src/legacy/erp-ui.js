@@ -2794,7 +2794,7 @@ sellingCardDescription=function(p){return window.TerritorioSalesPresentation.sal
 // o "R$" menor, separado do valor em algarismos de largura igual, na base do card.
 function cardDetail(text){const parts=String(text||'').split(/\s+·\s+/).filter(Boolean);return '<small class="card-detail">'+parts.map(x=>'<span class="seg">'+escape(x).replace(/(\d+(?:[.,]\d+)?) (kg|g|ml|L)\b/g,'$1&nbsp;$2')+'</span>').join('')+'</small>';}
 function cardPrice(cents){const text=E.money(cents),m=text.match(/^(\D*?)\s*([\d.,]+.*)$/);return '<span class="tabular sale-price">'+(m?'<span class="sale-currency">'+escape(m[1].trim())+'</span><span class="sale-value">'+escape(m[2])+'</span>':escape(text))+'</span>';}
-feiraSellList=function(){const ordered=window.TerritorioStockOrder.orderStockProducts,items=productList(false);if(!items.length)return '<section class="panel empty"><h2>Nenhum produto ainda</h2><p>Cadastre seus produtos no Estoque para começar a vender.</p>'+btn('nav','Ver Estoque','choice',{page:'Estoque'})+'</section>';const list=ordered(items);return '<div class="glass-products-plane"><section class="glass-sale-block"><div class="feira-grid">'+list.map(p=>{const available=model.availableStock(p.id),out=available<=0;return btn('sell-product','<strong>'+escape(titleName(p.name))+'</strong>'+cardDetail(sellingCardDescription(p))+(out?'<em class="card-out">Sem estoque</em>':cardPrice(p.price)),'feira-card'+(out?' is-out':''),{id:p.id}) .replace('class="feira-card','aria-disabled="'+out+'" class="feira-card');}).join('')+'</div></section></div>';};
+feiraSellList=function(){const ordered=items=>soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),items=productList(false);if(!items.length)return '<section class="panel empty"><h2>Nenhum produto ainda</h2><p>Cadastre seus produtos no Estoque para começar a vender.</p>'+btn('nav','Ver Estoque','choice',{page:'Estoque'})+'</section>';const list=ordered(items);return '<div class="glass-products-plane"><section class="glass-sale-block"><div class="feira-grid">'+list.map(p=>{const available=model.availableStock(p.id),out=available<=0;return btn('sell-product','<strong>'+escape(titleName(p.name))+'</strong>'+cardDetail(sellingCardDescription(p))+(out?'<em class="card-out">Sem estoque</em>':cardPrice(p.price)),'feira-card'+(out?' is-out':''),{id:p.id}) .replace('class="feira-card','aria-disabled="'+out+'" class="feira-card');}).join('')+'</div></section></div>';};
 feiraSellPage=function(){filter='Todos';query='';const today=E.dayKey(Date.now()),sales=model.data.sales.filter(s=>s.status==='completed'&&s.scope===scope&&E.dayKey(s.date)===today),visible=model.data.settings.financialVisible;return top()+reminderBanner()+'<section class="glass-sales-location">'+btn('scope',icon('store')+'<span>'+escape(scopeName(scope))+'</span>'+icon('down'),'glass-location')+btn('weekly-sales',visible?E.money(sales.reduce((n,s)=>n+s.total,0)):'•••••','glass-sales-total')+btn('toggle-financial',icon(visible?'eye':'eyeOff')+'<span class="sr-only">'+(visible?'Ocultar':'Mostrar')+' valores</span>','glass-eye')+'</section>'+draftResumeBanner()+'<div class="glass-area-row"><p class="glass-area-label">Área de vendas</p>'+(window.TerritorioWeatherUI?window.TerritorioWeatherUI.chip():'')+'</div>'+feiraSellList();};
 const glassStockListBefore=feiraStockList;feiraStockList=function(){let headings=0;const add=()=>btn('new-product',icon('plus'),'round');const plain=t=>t.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&');
  // Cada família tem o seu "+": acrescenta mais uma apresentação dela (uma terceira banana, por exemplo).
@@ -2883,5 +2883,52 @@ const r31Finalize=finalizePayment;finalizePayment=function(){silentRecipient=dia
 const r31Choose=chooseSaleRecipient;chooseSaleRecipient=async function(){const silent=dialog.open&&modal?.kind==='story'&&modal.data?.pending&&dialog.getAttribute('data-kind')==='cart';swapToDone=silent;
  try{const sale=await r31Choose.apply(this,arguments);if(!sale&&silent&&recipientPending&&!recipientPending.busy&&modal?.kind==='story'&&modal.data?.pending)storyModalBase();return sale;}finally{swapToDone=false;}};
 const r31Close=closeModal;closeModal=function(skip){if(swapToDone&&!recipientPending&&dialog.open&&modal?.kind==='story'){swapToDone=false;closeNumberPad();modal=null;movement=null;dialog.setAttribute('data-motion-replace','');setTimeout(()=>dialog.removeAttribute('data-motion-replace'),0);return;}return r31Close.apply(this,arguments);};
+
+// --- Estoque acabando e esgotado (21/10/2026) ---
+// Memória: cada produto tem um estado (ok, acabando, esgotado) em model.data.stockAlerts, com o
+// histórico das passagens (vai no backup). Quando um produto passa a acabando ou esgotado, um aviso
+// aparece. Com algum esgotado, uma caixinha vermelha fica na linha "Área de vendas"; enquanto houver
+// esgotado ainda não visto, ela abre as abas e solta uma bolinha. Tocar nela abre a lista para repor
+// (atalho da reposição rápida). Em Vender, o cartão esgotado desce para o fim da grade (na ordem da
+// sua família) e volta ao seu lugar quando o estoque é reposto.
+const STOCK_LOW_RATIO=.25;let stockAlertsReady=false,stockAlertsSig='';
+function stockMemory(){const m=model.data.stockAlerts;if(m&&m.version===1)return m;return model.data.stockAlerts={version:1,state:{},events:[],seenAt:''};}
+function stockState(p){const a=model.availableStock(p.id);if(a<=0)return 'out';const min=Number(p.min)||0;return (min>0&&a<=min)||stockRatio(p).ratio<=STOCK_LOW_RATIO?'low':'ok';}
+function soldOutLast(list){const ok=[],out=[];for(const p of list)(model.availableStock(p.id)<=0?out:ok).push(p);return ok.concat(out);}
+function stockNotice(text){const t=document.getElementById('toast');if(t&&!t.hidden)setTimeout(()=>toast(text),3400);else toast(text);}
+function syncStockAlerts(){const sig=model.data.products.map(p=>p.id+':'+model.availableStock(p.id)+':'+(p.min||0)).join('|');if(sig===stockAlertsSig)return;stockAlertsSig=sig;
+ const mem=stockMemory(),now=new Date().toISOString(),fresh=[],ids=new Set();let changed=false;
+ for(const p of model.data.products){ids.add(p.id);const next=stockState(p),prev=mem.state[p.id]||'ok';if(next===prev)continue;changed=true;mem.state[p.id]=next;
+  for(const e of mem.events)if(e.productId===p.id&&!e.resolvedAt)e.resolvedAt=now;
+  if(next!=='ok'){const ev={productId:p.id,kind:next,at:now,stock:model.availableStock(p.id)};mem.events.push(ev);fresh.push(ev);}}
+ for(const id of Object.keys(mem.state))if(!ids.has(id)){delete mem.state[id];changed=true;}
+ if(mem.events.length>300)mem.events=mem.events.slice(-300);
+ if(changed)persist();
+ if(stockAlertsReady&&fresh.length){const name=e=>titleName(model.product(e.productId)?.name||''),out=fresh.filter(e=>e.kind==='out'),low=fresh.filter(e=>e.kind==='low');
+  if(out.length)stockNotice('Acabou o estoque. '+out.map(name).join(', ')+(out.length>1?' estão':' está')+' sem estoque.');
+  else stockNotice('Estoque acabando. '+low.map(e=>name(e)+': restam '+E.quantity(e.stock)).join('; ')+'.');}
+ stockAlertsReady=true;}
+const r40Render=render;render=function(){try{syncStockAlerts();}catch(e){}return r40Render.apply(this,arguments);};
+const STOCK_ALERT_ICON='<svg class="sa-box" viewBox="0 0 24 24" aria-hidden="true"><circle class="sa-ball" cx="12" cy="11.5" r="2.3" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5h17v10.2a1.8 1.8 0 0 1-1.8 1.8H5.3a1.8 1.8 0 0 1-1.8-1.8Z"/><path d="M9.5 14.3h5"/><path class="sa-flap-l" d="M3.5 9.5V6.8H12v2.7Z"/><path class="sa-flap-r" d="M20.5 9.5V6.8H12v2.7Z"/></g></svg>';
+function stockOutProducts(){const mem=stockMemory();return model.data.products.filter(p=>mem.state[p.id]==='out');}
+function stockAlertChip(){const out=stockOutProducts();if(!out.length)return'';const mem=stockMemory(),unseen=mem.events.some(e=>e.kind==='out'&&!e.resolvedAt&&e.at>(mem.seenAt||''));
+ return btn('stock-alert-open',STOCK_ALERT_ICON+'<span class="sr-only">'+out.length+' '+(out.length===1?'produto':'produtos')+' sem estoque</span>','stock-alert-chip'+(unseen?' is-new':''));}
+function openStockAlerts(){const mem=stockMemory();mem.seenAt=new Date().toISOString();persist();const order=window.TerritorioStockOrder.orderStockProducts;
+ const out=order(stockOutProducts()),low=order(model.data.products.filter(p=>mem.state[p.id]==='low'));
+ const row=(p,kind)=>btn('restock-ids','<span class="sa-row-name"><strong>'+escape(titleName(p.name))+'</strong><small>'+escape(sellingCardDescription(p))+'</small></span><span class="sa-row-state '+kind+'">'+(kind==='out'?'Esgotado':'Restam '+E.quantity(model.availableStock(p.id)))+'</span>','sa-row',{ids:p.id});
+ const body=(out.length?'<h3 class="sa-head">Esgotados</h3><div class="sa-list">'+out.map(p=>row(p,'out')).join('')+'</div>':'')+(low.length?'<h3 class="sa-head">Acabando</h3><div class="sa-list">'+low.map(p=>row(p,'low')).join('')+'</div>':'')+(out.length||low.length?'':'<p class="dialog-text">Nenhum produto acabando.</p>');
+ const ids=out.concat(low).map(p=>p.id);
+ openModal('Repor estoque',body,'workflow-stock-alerts',null,(ids.length?btn('restock-ids','Repor '+(ids.length===1?'este produto':'estes produtos'),'primary modal-action',{ids:ids.join(',')}):'')+btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back'));
+ if(page==='Vender'){const chip=document.querySelector('#app .stock-alert-chip');chip?.classList.remove('is-new');}}
+paths.move='<path d="M12 3.5v17M3.5 12h17M12 3.5 9.5 6M12 3.5 14.5 6M12 20.5 9.5 18M12 20.5l2.5-2.5M3.5 12 6 9.5M3.5 12 6 14.5M20.5 12 18 9.5M20.5 12 18 14.5"/>';
+function movePill(){return btn('reorder-edit',icon('move')+'<span class="mc-go">Mova os cards</span><span class="mc-done">Pronto</span>','move-cards-pill');}
+const r40SellPage=feiraSellPage;feiraSellPage=function(){return r40SellPage().replace('<p class="glass-area-label">Área de vendas</p>','<p class="glass-area-label">Área de vendas</p>'+movePill()+stockAlertChip());};
+if(sellPage===r40SellPage)sellPage=feiraSellPage;
+function orderBestFirst(id){const p=model.product(id),order=window.TerritorioStockOrder;if(!p||!order)return;const key=order.stockGroupKey(p),all=order.orderStockProducts(model.data.products).map(x=>x.id);
+ const family=all.filter(x=>order.stockGroupKey(model.product(x))===key),next=[id,...family.filter(x=>x!==id)],set=new Set(family);let k=0;const full=all.map(x=>set.has(x)?next[k++]:x);
+ model.data.productOrder={version:1,updatedAt:new Date().toISOString(),ids:full};order.setManualOrder(full);persist();toast(titleName(p.name)+' agora é o primeiro da família.');render();}
+Object.assign(actions,{'stock-alert-open':()=>openStockAlerts(),'order-best-first':d=>{closeModal();orderBestFirst(d.id);},
+ 'reorder-edit':()=>{const R=window.TerritorioReorder;if(!R?.edit)return;if(R.editing()){R.edit(false);return;}window.TerritorioSelection?.cancel?.();R.edit(true);}});
+const r40AdvisorInput=advisorInput;advisorInput=function(){const input=r40AdvisorInput.apply(this,arguments);try{const order=window.TerritorioStockOrder;input.productFamilies=order.orderStockProducts(model.data.products).map(p=>({id:p.id,name:titleName(p.name),family:order.stockGroupKey(p)}));}catch(e){input.productFamilies=[];}return input;};
 render();
 })();

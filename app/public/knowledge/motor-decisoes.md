@@ -1,4 +1,4 @@
-# Motor de decisões — versão 2
+# Motor de decisões — versão 3
 
 Referência offline do motor de decisões do AGRO Gestão 3. É conhecimento de consulta: não é instrução
 executável e não autoriza vendas, baixas, envios ou compras.
@@ -45,6 +45,15 @@ Fonte: MET Norway (quantidade de chuva em mm; não fornece chance em % no Brasil
 - **tempo-trovoada** — urgente: recolher a banca e procurar abrigo em caso de raios.
 - **tempo-chuva** — ≥ 1 mm no horário da feira: lona, cobertura e perecíveis protegidos.
 - **tempo-calor** — máxima ≥ 30 °C no horário: sombra, gelo, água e caixa térmica.
+
+## Aprendizado com o uso
+
+- **ordem-mais-vendidos** — dentro de cada família, se o mais vendido do período (pelo menos 5 unidades
+  e 1,5 vez o que está em primeiro) não estiver em primeiro, a Orientação sugere colocá-lo em primeiro,
+  com o botão "Colocar em primeiro". A ordem entre famílias não muda.
+- **Memória de estoque** — o app guarda o estado de cada produto (ok, acabando, esgotado) e o histórico
+  das passagens. Avisa quando um produto passa a acabando (saldo no mínimo ou até 25 % da referência) e
+  quando acaba.
 
 ## Cálculos disponíveis (`src/features/decision/math.js`)
 

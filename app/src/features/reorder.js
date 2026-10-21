@@ -22,6 +22,7 @@ let hold = null;   // waiting for the long press
 let drag = null;   // a lifted item
 let swallowUntil = 0, swallowId = null; // only the release of the held card is not a tap
 let heldSelect = null; // card whose hold started the selection, until the finger lifts
+let editing = false; // "Mova os cards": cards shake and move at the first touch, without holding
 
 const scopeOf = item => item.closest('.workflow-stock-family') || item.parentElement;
 
@@ -153,7 +154,11 @@ function clearHold() {
 function blockScroll(event) { if (drag && !drag.ended) event.preventDefault(); }
 
 export function installReorder() {
-  window.TerritorioReorder = Object.freeze({ active: () => !!drag });
+  const setEditing = on => { editing = !!on; document.documentElement.classList.toggle('reorder-edit', editing); };
+  window.TerritorioReorder = Object.freeze({ active: () => !!drag, editing: () => editing, edit: setEditing });
+  // Leaving Vender ends the edit mode.
+  new MutationObserver(() => { if (editing && bridge()?.page?.() !== 'Vender') setEditing(false); })
+    .observe(document.getElementById('app'), { childList: true });
   document.addEventListener('pointerdown', event => {
     if (event.button !== 0 || event.isPrimary === false || drag) return;
     const item = event.target.closest?.(ITEM);
@@ -162,6 +167,7 @@ export function installReorder() {
     clearHold();
     // Only while this finger is down: the page may not scroll once the product is lifted.
     item.addEventListener('touchmove', blockScroll, { passive: false });
+    if (editing) { hold = { item, x: event.clientX, y: event.clientY, pointer: event.pointerId, timer: 0 }; if (lift(item, event.clientX, event.clientY)) drag.frame = requestAnimationFrame(autoscroll); else clearHold(); return; }
     hold = { item, x: event.clientX, y: event.clientY, pointer: event.pointerId,
       timer: setTimeout(() => { const h = hold; if (!h) return; const picked = select(h.item); if (!lift(h.item, h.x, h.y)) clearHold(); else { drag.picked = picked; drag.frame = requestAnimationFrame(autoscroll); } }, HOLD_MS) };
   }, { capture: true, passive: true });
@@ -175,6 +181,7 @@ export function installReorder() {
   document.addEventListener('scroll', () => { if (hold && !drag) clearHold(); }, { capture: true, passive: true });
   // The release of a long press is not a tap: it must not open the sale or the stock sheet.
   window.addEventListener('click', event => {
+    if (editing && event.target.closest?.(ITEM)) { event.preventDefault(); event.stopImmediatePropagation(); return; }
     if (Date.now() < swallowUntil && event.target.closest?.(ITEM)?.dataset.id === swallowId) { swallowUntil = 0; event.preventDefault(); event.stopImmediatePropagation(); }
   }, true);
   document.addEventListener('contextmenu', event => { if (event.target.closest?.(ITEM)) event.preventDefault(); });
