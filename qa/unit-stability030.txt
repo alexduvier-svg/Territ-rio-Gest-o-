@@ -1,0 +1,34 @@
+✔ venda guarda custo zero confirmado e custo não confirmado no registro histórico (14.6346ms)
+✔ regras de cadastro atualizam referências antigas sem perder a memória do produtor (3.1957ms)
+✔ premissas visuais acompanham backup e retomada sem substituir uma revisão mais nova (3.2515ms)
+✔ instalar conhecimento e memória deixa produtos e atividade do produtor intactos (2.2194ms)
+✔ revisão de janelas e estoque migra só premissas e permanece no backup sem alterar os registros (2.4006ms)
+✔ memória e instruções são idempotentes na reabertura e isoladas por conjunto de dados (4.1112ms)
+✔ só entradas confirmadas elevam frequência; validação, correção, perda e edição não elevam (2.15ms)
+✔ primeiro saldo positivo conta uma vez e cancelar formulário não cria memória de uso (1.3669ms)
+✔ apresentações próprias conservam IDs, rótulo regional, perfil e valores após reabrir (1.837ms)
+✔ catálogo mapeado bloqueia duplicata sem reescrever cadastro personalizado (2.9309ms)
+✔ cadastro antigo incompleto exige revisão; confirmar diferença cria variação sem mesclar (3.3985ms)
+✔ Cacho, Molho e Pé mantêm unidade e plural sem conversão de saldo após reiniciar (3.144ms)
+✔ custo ausente permanece desconhecido e zero confirmado permanece conhecido no cadastro (1.9286ms)
+✔ saved sales order tolerates deleted, duplicate and new products without mutating stock order (2.1166ms)
+✔ moving products handles boundaries, unknown ids and keeps each product once (0.2725ms)
+✔ single tap waits only for disambiguation then opens quantity, never checkout (0.9682ms)
+✔ double tap opens only stock, with no intermediate sale action (0.3024ms)
+✔ second finger-down suppresses the pending single while finger stays down (0.3323ms)
+✔ long hold cancellation discards the pending tap rather than opening any sale (0.189ms)
+✔ keyboard activation opens quantity immediately without starting a physical double (0.1894ms)
+✔ double within existing selection restores its previous list and opens stock (0.273ms)
+✔ organization mode cancels deferred sales and bypasses gestures (0.2239ms)
+✔ pointer cancellation or scrolling on the second press cancels the pending sale (0.4042ms)
+✔ different products do not form a double; only the latest pending tap can open quantity (0.2203ms)
+✔ navigation and another modal fence the pending single (0.1929ms)
+✔ hiding or clicking outside cancels pending work (0.1701ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 454.2815

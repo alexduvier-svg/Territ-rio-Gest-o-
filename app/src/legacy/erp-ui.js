@@ -384,8 +384,27 @@ function salePage(){
 const metricDescriptions={revenue:['Receita líquida','Soma das vendas concluídas no período, menos devoluções. Os descontos já foram descontados.'],cost:['Custo dos produtos','Soma do custo unitário × quantidade vendida, usando o custo gravado em cada venda. Alterar o cadastro não muda o custo das vendas passadas.'],gross:['Lucro bruto','Receita líquida menos custo dos produtos. A margem é o lucro bruto dividido pela receita líquida.'],expense:['Despesas','Despesas registradas no período. Toque em Adicionar despesa para lançar um valor.'],result:['Resultado','Lucro bruto menos despesas registradas no período.'],ticket:['Ticket médio','Receita líquida dividida pelo número de vendas concluídas no período.'],sales:['Vendas','Quantidade de vendas concluídas no período. Vendas devolvidas não entram nesta contagem.']};
 function monthlyLabel(){return new Date(month+'-15T12:00:00Z').toLocaleDateString('pt-BR',{month:'long',year:'numeric'}).replace(/^./,c=>c.toUpperCase()).replace(' de ',' de ');}
 function eventsPage(){const upcoming=model.data.events.filter(e=>e.status==='active').sort((a,b)=>a.start.localeCompare(b.start)),history=model.data.events.filter(e=>e.status==='finished').sort((a,b)=>(b.finishedAt||b.end).localeCompare(a.finishedAt||a.end));return top()+reminderBanner()+'<p class="reminder-times">O app avisa nos 5, 3 e 1 dias anteriores. Salve os lembretes na agenda para receber alertas com o app fechado.</p>'+(upcoming.length?upcoming.map(e=>eventCard(e,false)).join(''):'<section class="panel"><h2>Próximas feiras</h2><p class="muted">Nenhum evento agendado.</p>'+btn('new-event','Criar evento','success modal-action')+'</section>')+'<section class="panel fair-history">'+btn('event-history','<span><strong>Histórico das feiras</strong><small>'+grammarCount(history.length,'evento finalizado','eventos finalizados')+'</small></span>'+icon(eventHistoryOpen?'down':'chevron'),'link-row')+(eventHistoryOpen?'<div class="fair-history-list">'+(history.length?history.map(e=>eventCard(e,true)).join(''):'<p class="muted small">Nenhuma feira finalizada.</p>')+'</div>':'')+'</section>';}
+let stockUnderlayDirty=false,stockUnderlayExiting=false,stockUnderlayEpoch=0;
+// Keep the actual product nodes behind a stock sheet. Background data continues
+// updating; only repaint waits until the sheet and its return animation finish.
+dialog.addEventListener('cancel',()=>{if(modal?.kind==='stock-peek')stockUnderlayExiting=true;},true);
+dialog.addEventListener('close',()=>{
+ if(!stockUnderlayDirty&&!stockUnderlayExiting)return;
+ const epoch=++stockUnderlayEpoch;
+ queueMicrotask(async()=>{
+  const hosts=[dialog,...document.querySelectorAll('.fluid-exit-layer')];
+  const animations=hosts.flatMap(el=>el.getAnimations?.({subtree:true})||[]).filter(a=>Number.isFinite(a.effect?.getComputedTiming().endTime));
+  await Promise.allSettled(animations.map(a=>a.finished));
+  if(epoch!==stockUnderlayEpoch)return;
+  stockUnderlayExiting=false;
+  if(!stockUnderlayDirty||dialog.open)return;
+  if(page==='Vender')render();else stockUnderlayDirty=false;
+ });
+});
 function render(preserve){if(page!=='Gestão')managementExpanded.delete('detail-reports');
  ensureManagementData();syncEvents();syncStockSchedule();armEventClock();
+ if(page==='Vender'&&(stockUnderlayExiting||dialog.open&&modal?.kind==='stock-peek')){stockUnderlayDirty=true;return;}
+ stockUnderlayDirty=false;
  let focus=null;if(preserve&&document.activeElement&&document.activeElement.id){focus={id:document.activeElement.id,start:document.activeElement.selectionStart,end:document.activeElement.selectionEnd};}
  app.dispatchEvent(new CustomEvent('territorio:before-page',{bubbles:true,detail:{page}}));applyAppearance();if(document.documentElement.dataset.page!==page)document.documentElement.setAttribute('data-page',page);app.innerHTML=page==='Ajustes'?settingsPage():page==='Dados'?dataPage():page==='Estúdio'?studioPage():page==='Catálogo'?catalogPage():page==='Semana'?weeklyPage():page==='Inteligência'?intelligencePage():page==='Vender'?sellPage():page==='Estoque'?stockPage():page==='Produto'?productPage():page==='Venda'?salePage():page==='Clientes'?clientsPage():page==='Eventos'?eventsPage():managementPage();
  navigation();paintNumberPad();if(focus){const el=document.getElementById(focus.id);if(el){el.focus({preventScroll:true});if(typeof el.setSelectionRange==='function'&&focus.start!=null)try{el.setSelectionRange(focus.start,focus.end);}catch(e){}}}
@@ -400,7 +419,7 @@ function openModal(title,body,kind,data,footer){
  if(!dialog.open)dialog.showModal();dialog.dispatchEvent(new CustomEvent('territorio:sheet',{bubbles:true,detail:{kind:kind||'',title:String(title||''),data:data||null}}));
 }
 
-function closeModal(skipSaleCapture){const isOption=modal&&saleOptionKinds.has(modal.kind);if(isOption&&!skipSaleCapture)captureSaleOptionInputs();if(modal&&['cart','checkout'].includes(modal.kind))pendingCheckout=null;dialog.close();closeNumberPad();modal=null;movement=null;if(isOption){/* Keep the closed visual intact until the native exit settles; the next open replaces it. */clearSaleOptionFlags();if(page==='Venda')render();}}
+function closeModal(skipSaleCapture){const isOption=modal&&saleOptionKinds.has(modal.kind);if(isOption&&!skipSaleCapture)captureSaleOptionInputs();if(modal&&['cart','checkout'].includes(modal.kind))pendingCheckout=null;if(modal?.kind==='stock-peek')stockUnderlayExiting=true;dialog.close();closeNumberPad();modal=null;movement=null;if(isOption){/* Keep the closed visual intact until the native exit settles; the next open replaces it. */clearSaleOptionFlags();if(page==='Venda')render();}}
 function info(title,text,extra){openModal(title,'<p class="dialog-text">'+escape(text)+'</p>'+(extra||'')+btn('close-modal','Entendi','success modal-action'),'info');}
 function stockDialog(id){const p=model.product(id);closeNumberPad();numericTouched.delete('move-quantity');movement={id,kind:'add',raw:'',note:''};paintMovement();}
 function paintMovement(){
@@ -2106,8 +2125,8 @@ sendFairReport=async function(id,silent){const e=model.data.events.find(v=>v.id=
  try{const body={...fairReportFor(e),consent:{at,text:FAIR_AUTO_NOTE}};const res=await fetch((e.fairServer||FAIR_API)+'/api/fairs/'+encodeURIComponent(e.fairId)+'/reports',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)});if(!res.ok){const msg=(await res.json().catch(()=>({}))).error;throw Error(msg||'Erro '+res.status);}
   setFairState(id,{pending:false,payload:null,sentAt:new Date().toISOString(),sig,lastError:''});if(!silent)render();return true;}
  catch(err){setFairState(id,{pending:true,lastError:String(err.message||err)});return false;}};
-async function syncFairReports(){if(fairSending)return;fairSending=true;try{const now=Date.now();for(const e of model.data.events){if(!e.fairId||!fairConsent(e))continue;const s=fairReportState(e),due=s.closedAt||now>fairEventEnd(e);if(!due||now-fairEventEnd(e)>45*864e5&&!s.pending)continue;if(!model.data.sales.some(v=>v.scope===e.id)&&!s.closedAt)continue;if(s.sig===fairSignature(e)&&!s.pending)continue;const first=!s.sentAt,ok=await sendFairReport(e.id,true);if(ok&&s.closedAt&&!first&&s.sig)toast('Relatório da feira atualizado.');}}finally{fairSending=false;}}
-flushFairReports=async function(){await syncFairReports();render();};
+async function syncFairReports(){if(fairSending)return false;fairSending=true;let changed=false;try{const now=Date.now();for(const e of model.data.events){if(!e.fairId||!fairConsent(e))continue;const s=fairReportState(e),due=s.closedAt||now>fairEventEnd(e);if(!due||now-fairEventEnd(e)>45*864e5&&!s.pending)continue;if(!model.data.sales.some(v=>v.scope===e.id)&&!s.closedAt)continue;if(s.sig===fairSignature(e)&&!s.pending)continue;const first=!s.sentAt,ok=await sendFairReport(e.id,true);if(ok){changed=true;if(s.closedAt&&!first&&s.sig)toast('Relatório da feira atualizado.');}}}finally{fairSending=false;}return changed;}
+flushFairReports=async function(){if(await syncFairReports())render();};
 let fairSyncTimer;
 const persistBeforeFair=persist;
 persist=function(){const ok=persistBeforeFair.apply(this,arguments);if(!fairSending){clearTimeout(fairSyncTimer);fairSyncTimer=setTimeout(syncFairReports,3000);}return ok;};

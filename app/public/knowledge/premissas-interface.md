@@ -1,6 +1,6 @@
 # Premissas permanentes de interface — AGRO Gestão
 
-Versão 16, atualizada em 21/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
+Versão 17, atualizada em 21/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
 
 - **Volume:** hierarquia coerente por tamanho, peso e espaçamento. Não simular volume com excesso de negrito ou relevo nas letras.
 - **Nitidez:** leitura clara e contraste nos temas claro e escuro. Sem blur ou brilho nas letras. Rótulos de formulário com pelo menos 14 px, respeitando texto ampliado.
@@ -48,3 +48,5 @@ Premissa v14: atualização econômica do tempo por prazo único, mínimo30min e
 Premissa v15 (toque simples substituído pela v16): 2 toques consultam o estoque daquele produto; pressionar e segurar por 600 ms inicia a seleção de até três produtos. Dentro da seleção, tocar marca/desmarca e dois toques consultam o estoque preservando a seleção anterior. Não há ação especial para três toques. Cancelar o toque longo ao rolar a tela e ignorar o clique de soltar; manter Organizar produtos separado, com arrastar apenas quando esse modo estiver ativo. Somente reverter prévia intocada: quantidades/pagamentos editados e rascunhos anteriores são preservados. Gestos não registram vendas. Manter o motor, temas e material atuais.
 
 Premissa v16: um toque em Produtos abre a tela Venda para informar quantidade (zero inicial em item novo), sem pular para Finalizar Venda. Dois toques abrem apenas o estoque exato. Resolver o gesto antes de abrir a janela, com intervalo de280ms e feedback visual imediato do card: nenhuma venda/carrinho intermediário pode aparecer durante o duplo. Uma segunda pressão suspende a abertura pendente; rolar, cancelar, sair da página ou segurar para seleção descartam essa abertura. Quantidades/pagamentos anteriores preservados; pressão600ms seleciona até3produtos; nenhum gesto conclui venda. Essa correção supera as regras anteriores de prévia automática com1unidade.
+
+Premissa v17: a grade atrás da consulta de estoque permanece com os mesmos nós e acabamento durante abertura, leitura e fechamento. Atualizações automáticas de dados continuam, mas qualquer redesenho solicitado aguarda a saída completa da janela e é agrupado em um único redesenho. Sem atualização visual quando não há relatório pendente ou envio bem-sucedido. Não ocultar, clonar ou desmontar a grade para abrir a consulta; preservar gestosv16 e os dois temas.

@@ -1,0 +1,1786 @@
+{
+  "version": "0.12.30",
+  "synthetic": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "startup report flush keeps every underlying card connected/visible and does not redraw empty queue"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "online report flush with no pending report does not repaint the open stock underlay"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "three background repaints are deferred/coalesced until return finishes while data updates immediately"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "quick close/reopen keeps underlay frozen and Escape applies the latest update once"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "single touch opens quantity at zero; keypad3 then Carrinho opens checkout with3"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "touch double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "mouse double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "second down before280ms prevents sale even when release crosses deadline"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double opens exhausted stock without creating a draft"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "600ms hold starts selection and release never opens checkout"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "selected cards toggle with one touch and limit stays at three"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double during selection opens stock preserving chosen products"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "Continue sends chosen products to existing quantity workflow"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "scroll and pointercancel abort hold without opening sale"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "keyboard Enter opens quantity and Shift+Enter keeps stock shortcut"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double never mutates an existing draft with quantity and edited payment"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double preserves pre-existing draft and quantities"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "business records unchanged and guidelines17 installed with no overflow"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "startup report flush keeps every underlying card connected/visible and does not redraw empty queue"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "online report flush with no pending report does not repaint the open stock underlay"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "three background repaints are deferred/coalesced until return finishes while data updates immediately"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "quick close/reopen keeps underlay frozen and Escape applies the latest update once"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "single touch opens quantity at zero; keypad3 then Carrinho opens checkout with3"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "touch double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "mouse double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "second down before280ms prevents sale even when release crosses deadline"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double opens exhausted stock without creating a draft"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "600ms hold starts selection and release never opens checkout"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "selected cards toggle with one touch and limit stays at three"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double during selection opens stock preserving chosen products"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "Continue sends chosen products to existing quantity workflow"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "scroll and pointercancel abort hold without opening sale"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "keyboard Enter opens quantity and Shift+Enter keeps stock shortcut"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double never mutates an existing draft with quantity and edited payment"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double preserves pre-existing draft and quantities"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "business records unchanged and guidelines17 installed with no overflow"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "startup report flush keeps every underlying card connected/visible and does not redraw empty queue"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "online report flush with no pending report does not repaint the open stock underlay"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "three background repaints are deferred/coalesced until return finishes while data updates immediately"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "quick close/reopen keeps underlay frozen and Escape applies the latest update once"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "single touch opens quantity at zero; keypad3 then Carrinho opens checkout with3"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "touch double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "mouse double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "second down before280ms prevents sale even when release crosses deadline"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double opens exhausted stock without creating a draft"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "600ms hold starts selection and release never opens checkout"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "selected cards toggle with one touch and limit stays at three"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double during selection opens stock preserving chosen products"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "Continue sends chosen products to existing quantity workflow"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "scroll and pointercancel abort hold without opening sale"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "keyboard Enter opens quantity and Shift+Enter keeps stock shortcut"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double never mutates an existing draft with quantity and edited payment"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double preserves pre-existing draft and quantities"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "business records unchanged and guidelines17 installed with no overflow"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "startup report flush keeps every underlying card connected/visible and does not redraw empty queue"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "online report flush with no pending report does not repaint the open stock underlay"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "three background repaints are deferred/coalesced until return finishes while data updates immediately"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "quick close/reopen keeps underlay frozen and Escape applies the latest update once"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "single touch opens quantity at zero; keypad3 then Carrinho opens checkout with3"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "touch double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "mouse double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "second down before280ms prevents sale even when release crosses deadline"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double opens exhausted stock without creating a draft"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "600ms hold starts selection and release never opens checkout"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "selected cards toggle with one touch and limit stays at three"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double during selection opens stock preserving chosen products"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "Continue sends chosen products to existing quantity workflow"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "scroll and pointercancel abort hold without opening sale"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "keyboard Enter opens quantity and Shift+Enter keeps stock shortcut"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double never mutates an existing draft with quantity and edited payment"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double preserves pre-existing draft and quantities"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "business records unchanged and guidelines17 installed with no overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "startup report flush keeps every underlying card connected/visible and does not redraw empty queue"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "online report flush with no pending report does not repaint the open stock underlay"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "three background repaints are deferred/coalesced until return finishes while data updates immediately"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "quick close/reopen keeps underlay frozen and Escape applies the latest update once"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "single touch opens quantity at zero; keypad3 then Carrinho opens checkout with3"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "touch double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "mouse double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "second down before280ms prevents sale even when release crosses deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double opens exhausted stock without creating a draft"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "600ms hold starts selection and release never opens checkout"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "selected cards toggle with one touch and limit stays at three"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double during selection opens stock preserving chosen products"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "Continue sends chosen products to existing quantity workflow"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "scroll and pointercancel abort hold without opening sale"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "keyboard Enter opens quantity and Shift+Enter keeps stock shortcut"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double never mutates an existing draft with quantity and edited payment"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "double preserves pre-existing draft and quantities"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "business records unchanged and guidelines17 installed with no overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "startup report flush keeps every underlying card connected/visible and does not redraw empty queue"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "online report flush with no pending report does not repaint the open stock underlay"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "three background repaints are deferred/coalesced until return finishes while data updates immediately"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "quick close/reopen keeps underlay frozen and Escape applies the latest update once"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "single touch opens quantity at zero; keypad3 then Carrinho opens checkout with3"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "touch double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "mouse double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "second down before280ms prevents sale even when release crosses deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double opens exhausted stock without creating a draft"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "600ms hold starts selection and release never opens checkout"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "selected cards toggle with one touch and limit stays at three"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double during selection opens stock preserving chosen products"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "Continue sends chosen products to existing quantity workflow"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "scroll and pointercancel abort hold without opening sale"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "keyboard Enter opens quantity and Shift+Enter keeps stock shortcut"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double never mutates an existing draft with quantity and edited payment"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "double preserves pre-existing draft and quantities"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "business records unchanged and guidelines17 installed with no overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "startup report flush keeps every underlying card connected/visible and does not redraw empty queue"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "online report flush with no pending report does not repaint the open stock underlay"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "three background repaints are deferred/coalesced until return finishes while data updates immediately"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "quick close/reopen keeps underlay frozen and Escape applies the latest update once"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "single touch opens quantity at zero; keypad3 then Carrinho opens checkout with3"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "touch double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "mouse double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "second down before280ms prevents sale even when release crosses deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double opens exhausted stock without creating a draft"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "600ms hold starts selection and release never opens checkout"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "selected cards toggle with one touch and limit stays at three"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double during selection opens stock preserving chosen products"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "Continue sends chosen products to existing quantity workflow"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "scroll and pointercancel abort hold without opening sale"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "keyboard Enter opens quantity and Shift+Enter keeps stock shortcut"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double never mutates an existing draft with quantity and edited payment"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "double preserves pre-existing draft and quantities"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "business records unchanged and guidelines17 installed with no overflow"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "startup report flush keeps every underlying card connected/visible and does not redraw empty queue"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "online report flush with no pending report does not repaint the open stock underlay"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "three background repaints are deferred/coalesced until return finishes while data updates immediately"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "quick close/reopen keeps underlay frozen and Escape applies the latest update once"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "single touch opens quantity at zero; keypad3 then Carrinho opens checkout with3"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "touch double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "mouse double opens only stock, with no sale/checkout/draft in any sampled frame"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "second down before280ms prevents sale even when release crosses deadline"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double opens exhausted stock without creating a draft"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "600ms hold starts selection and release never opens checkout"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "selected cards toggle with one touch and limit stays at three"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double during selection opens stock preserving chosen products"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "Continue sends chosen products to existing quantity workflow"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "scroll and pointercancel abort hold without opening sale"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "keyboard Enter opens quantity and Shift+Enter keeps stock shortcut"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double never mutates an existing draft with quantity and edited payment"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "double preserves pre-existing draft and quantities"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "business records unchanged and guidelines17 installed with no overflow"
+    }
+  ],
+  "surfaces": [
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "stable-stock",
+      "left": 20,
+      "right": 300,
+      "top": 218.046875,
+      "bottom": 521.953125,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "quantity-panel",
+      "left": 12.019882202148438,
+      "right": 307.8540496826172,
+      "top": 339.1907653808594,
+      "bottom": 557.8338012695312,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "checkout-after-quantity",
+      "left": 20.028793334960938,
+      "right": 299.9893035888672,
+      "top": 74.31375122070312,
+      "bottom": 665.7928771972656,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "touch-stock",
+      "left": 20,
+      "right": 300,
+      "top": 218.046875,
+      "bottom": 521.953125,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "mouse-stock",
+      "left": 20,
+      "right": 300,
+      "top": 218.046875,
+      "bottom": 521.953125,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "multi-bar",
+      "left": 16,
+      "right": 304,
+      "top": 572,
+      "bottom": 638,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "stable-stock",
+      "left": 20,
+      "right": 340,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "quantity-panel",
+      "left": 15.999679565429688,
+      "right": 343.9979705810547,
+      "top": 327.9994201660156,
+      "bottom": 546.763916015625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "checkout-after-quantity",
+      "left": 20.013626098632812,
+      "right": 339.99440002441406,
+      "top": 137.9183349609375,
+      "bottom": 714.1337280273438,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "touch-stock",
+      "left": 20,
+      "right": 340,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "mouse-stock",
+      "left": 20,
+      "right": 340,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "multi-bar",
+      "left": 16,
+      "right": 344,
+      "top": 684,
+      "bottom": 750,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "stable-stock",
+      "left": 20,
+      "right": 373,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "quantity-panel",
+      "left": 16.0052490234375,
+      "right": 376.9726867675781,
+      "top": 327.99981689453125,
+      "bottom": 537.37158203125,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "checkout-after-quantity",
+      "left": 20.035812377929688,
+      "right": 372.9862518310547,
+      "top": 165.47274780273438,
+      "bottom": 686.6495056152344,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "touch-stock",
+      "left": 20,
+      "right": 373,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "mouse-stock",
+      "left": 20,
+      "right": 373,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "multi-bar",
+      "left": 16,
+      "right": 377,
+      "top": 684,
+      "bottom": 750,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "stable-stock",
+      "left": 20,
+      "right": 392,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "quantity-panel",
+      "left": 16,
+      "right": 396,
+      "top": 328,
+      "bottom": 537.390625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "checkout-after-quantity",
+      "left": 20,
+      "right": 392,
+      "top": 165.375,
+      "bottom": 686.625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "touch-stock",
+      "left": 20,
+      "right": 392,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "mouse-stock",
+      "left": 20,
+      "right": 392,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "multi-bar",
+      "left": 16,
+      "right": 396,
+      "top": 684,
+      "bottom": 750,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "stable-stock",
+      "left": 20,
+      "right": 300,
+      "top": 218.046875,
+      "bottom": 521.953125,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "quantity-panel",
+      "left": 12.002700805664062,
+      "right": 307.98023986816406,
+      "top": 337.1880798339844,
+      "bottom": 553.937255859375,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "checkout-after-quantity",
+      "left": 20.028656005859375,
+      "right": 299.9893798828125,
+      "top": 74.3133544921875,
+      "bottom": 665.7928466796875,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "touch-stock",
+      "left": 20,
+      "right": 300,
+      "top": 218.046875,
+      "bottom": 521.953125,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "mouse-stock",
+      "left": 20,
+      "right": 300,
+      "top": 218.046875,
+      "bottom": 521.953125,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "height": 740,
+      "large": true,
+      "mode": "normal",
+      "name": "multi-bar",
+      "left": 16,
+      "right": 304,
+      "top": 572,
+      "bottom": 638,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "stable-stock",
+      "left": 20,
+      "right": 340,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "quantity-panel",
+      "left": 16,
+      "right": 344,
+      "top": 326,
+      "bottom": 542.765625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "checkout-after-quantity",
+      "left": 20,
+      "right": 340,
+      "top": 137.875,
+      "bottom": 714.125,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "touch-stock",
+      "left": 20,
+      "right": 340,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "mouse-stock",
+      "left": 20,
+      "right": 340,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "height": 852,
+      "large": false,
+      "mode": "lite",
+      "name": "multi-bar",
+      "left": 16,
+      "right": 344,
+      "top": 684,
+      "bottom": 750,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "stable-stock",
+      "left": 20,
+      "right": 373,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "quantity-panel",
+      "left": 16.032516479492188,
+      "right": 376.8015594482422,
+      "top": 325.99700927734375,
+      "bottom": 533.2549438476562,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "checkout-after-quantity",
+      "left": 20,
+      "right": 373,
+      "top": 165.375,
+      "bottom": 686.625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "touch-stock",
+      "left": 20,
+      "right": 373,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "mouse-stock",
+      "left": 20,
+      "right": 373,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "height": 852,
+      "large": false,
+      "mode": "normal",
+      "name": "multi-bar",
+      "left": 16,
+      "right": 377,
+      "top": 684,
+      "bottom": 750,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "stable-stock",
+      "left": 20,
+      "right": 392,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "quantity-panel",
+      "left": 16,
+      "right": 396,
+      "top": 326,
+      "bottom": 533.390625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "checkout-after-quantity",
+      "left": 20,
+      "right": 392,
+      "top": 165.375,
+      "bottom": 686.625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "touch-stock",
+      "left": 20,
+      "right": 392,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "mouse-stock",
+      "left": 20,
+      "right": 392,
+      "top": 265.859375,
+      "bottom": 586.140625,
+      "overflow": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "height": 852,
+      "large": false,
+      "mode": "reduced",
+      "name": "multi-bar",
+      "left": 16,
+      "right": 396,
+      "top": 684,
+      "bottom": 750,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "passed": true
+}
