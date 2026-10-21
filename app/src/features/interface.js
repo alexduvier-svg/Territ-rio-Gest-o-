@@ -231,7 +231,11 @@ export function installInterface() {
   const root = app();
   detectLite();
   installPicker();
-  new MutationObserver(() => {
+  // The touch light added inside a pressed button is decoration: refitting every card for it made
+  // the whole grid re-measure on each tap (a faint flash behind a double tap).
+  const decoration = node => node.nodeType === 1 && node.classList.contains('glass-touch-light');
+  new MutationObserver(records => {
+    if (records.every(r => [...r.addedNodes, ...r.removedNodes].every(decoration))) return;
     markPageChange();
     decorateDimensions();
     decorateSaleGroups();
