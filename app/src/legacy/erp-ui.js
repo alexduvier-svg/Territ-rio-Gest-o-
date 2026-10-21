@@ -2887,7 +2887,8 @@ const r31Close=closeModal;closeModal=function(skip){if(swapToDone&&!recipientPen
 // --- Estoque acabando e esgotado (21/10/2026) ---
 // Memória: cada produto tem um estado (ok, acabando, esgotado) em model.data.stockAlerts, com o
 // histórico das passagens (vai no backup). Quando um produto passa a acabando ou esgotado, um aviso
-// aparece. Com algum esgotado, uma caixinha vermelha fica na linha "Área de vendas"; enquanto houver
+// aparece. Com algum esgotado durante um evento (nunca na Loja do dia a dia), uma caixinha vermelha
+// fica na linha "Área de vendas"; enquanto houver
 // esgotado ainda não visto, ela abre as abas e solta uma bolinha. Tocar nela abre a lista para repor
 // (atalho da reposição rápida). "Agora não" esconde a caixinha: depois ela volta a cada 1 h por 5 min
 // (animada) enquanto houver esgotado; um novo esgotado a traz de volta na hora. Em Vender, o cartão
@@ -2918,7 +2919,8 @@ function stockChipWindow(mem,now=Date.now()){if(!mem.snoozedAt)return{show:true,
  if(mem.events.some(e=>e.kind==='out'&&!e.resolvedAt&&e.at>mem.snoozedAt)){mem.snoozedAt='';return{show:true,next:0};}
  const cycle=since%SNOOZE_EVERY,show=since>=SNOOZE_EVERY&&cycle<SNOOZE_SHOW;return{show,reminder:show,next:show?SNOOZE_SHOW-cycle:SNOOZE_EVERY-cycle};}
 function armStockChip(next){clearTimeout(stockChipTimer);if(next>0)stockChipTimer=setTimeout(()=>{if(page==='Vender'&&!dialog.open)render();else armStockChip(60e3);},next+250);}
-function stockAlertChip(){const out=stockOutProducts();if(!out.length){armStockChip(0);return'';}const mem=stockMemory(),win=stockChipWindow(mem);armStockChip(win.next);if(!win.show)return'';
+// Só durante eventos (feira em andamento): no dia a dia da Loja o produtor confere o estoque com calma.
+function stockAlertChip(){const out=stockOutProducts();if(!out.length||scope==='loja'){armStockChip(0);return'';}const mem=stockMemory(),win=stockChipWindow(mem);armStockChip(win.next);if(!win.show)return'';
  const unseen=win.reminder||mem.events.some(e=>e.kind==='out'&&!e.resolvedAt&&e.at>(mem.seenAt||''));
  return btn('stock-alert-open',STOCK_ALERT_ICON+'<span class="sr-only">'+out.length+' '+(out.length===1?'produto':'produtos')+' sem estoque</span>','stock-alert-chip'+(unseen?' is-new':''));}
 function openStockAlerts(){const mem=stockMemory();mem.seenAt=new Date().toISOString();persist();const order=window.TerritorioStockOrder.orderStockProducts;
