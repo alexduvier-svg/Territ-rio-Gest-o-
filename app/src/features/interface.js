@@ -265,7 +265,31 @@ function installSheetTyping() {
   document.addEventListener('close', off, true);
 }
 
+// ---------------------------------------------------------------- títulos como nome próprio
+// Regra do produtor: todo título (de página, seção, aba, sub-aba, janela e subjanela) segue a regra de
+// nome próprio: cada palavra com inicial maiúscula e os conectores em minúscula ("Perfil e Negócio",
+// "Repor Estoque"). Siglas e medidas ficam como são. Só títulos e rótulos de aba; textos corridos e
+// campos de formulário não mudam.
+const TITLES = 'h1, h2, h3, h4, #dialog-title, .subheader .title, .sa-head, .glass-area-label, .toast-title, .mc-go, .mc-done, #nav button > span, .chip, .stock-tab, .segmented button, .tab, [role="tab"]';
+function titleCaseAll(scope) {
+  const proper = window.TerritorioProperName?.properName;
+  if (!proper || !scope) return;
+  for (const el of scope.querySelectorAll(TITLES)) {
+    if (el.children.length) continue; // só títulos de texto puro (sem ícones ou partes internas)
+    const text = el.textContent, next = proper(text);
+    if (next && next !== text.trim() && next.length === text.trim().length) el.textContent = next;
+  }
+}
+function installTitleCase() {
+  const run = () => { titleCaseAll(app()); for (const d of document.querySelectorAll('dialog[open]')) titleCaseAll(d); titleCaseAll(document.getElementById('nav')); };
+  let queued = false;
+  const queue = () => { if (queued) return; queued = true; queueMicrotask(() => { queued = false; run(); }); };
+  new MutationObserver(queue).observe(document.body, { childList: true, subtree: true });
+  run();
+}
+
 export function installInterface() {
+  installTitleCase();
   installSheetTyping();
   const root = app();
   detectLite();

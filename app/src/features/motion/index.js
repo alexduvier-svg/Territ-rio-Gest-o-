@@ -53,7 +53,7 @@ export function createPhysicalFrameMotion(owner, { advance, draw, onRest }) {
 
 export const fluidMotionAllowed = () => enabled();
 export const fluidMotionLite = () => limited();
-export const getMotionDiagnostics = () => ({ active: running.size + liveCount(), compositor: liveCount(), pendingFrame: !!frame, renderedFrames, lite: limited() });
+export const getMotionDiagnostics = () => ({ active: running.size + liveCount(), compositor: liveCount(), pendingFrame: !!frame, renderedFrames, lite: limited(), frameBudget: { ...frameBudget } });
 
 export function getMotionSource(maxAge = 5000) {
   return latestSource && performance.now() - latestSource.time < maxAge ? { ...latestSource } : null;
@@ -418,10 +418,41 @@ function installDialogs() {
   const pendingUpdates = new Map();
   const nativeExit = !!globalThis.CSS?.supports?.('transition-behavior', 'allow-discrete') && CSS.supports('overlay', 'auto');
   const discardGhost = state => { const ghost = state.ghost; state.ghost = null; ghost?.remove(); };
+  // The shade behind a sheet is a page-level scrim, not dialog::backdrop: WebView does not composite
+  // a ::backdrop opacity animation, so it repainted the whole screen on every frame of every open and
+  // close (on a 120 Hz phone with a modest GPU the sheets stuttered). The scrim takes the backdrop's own
+  // colour and only its opacity moves. A sheet opened above another sheet keeps its native backdrop.
+  let scrim = null, scrimOwner = null;
+  const takeScrim = dialog => {
+    if (scrimOwner && scrimOwner !== dialog && scrimOwner.open) return false;
+    if ([...document.querySelectorAll('dialog[open]')].some(other => other !== dialog && other !== scrimOwner)) return false;
+    if (!scrim) { scrim = document.createElement('div'); scrim.className = 'fluid-scrim'; scrim.setAttribute('aria-hidden', 'true'); document.body.append(scrim); }
+    if (scrimOwner !== dialog) {
+      scrimOwner?.classList.remove('fluid-scrimmed');
+      dialog.classList.remove('fluid-scrimmed');
+      scrim.style.background = getComputedStyle(dialog, '::backdrop').backgroundColor;
+      dialog.classList.add('fluid-scrimmed');
+      scrimOwner = dialog;
+    }
+    return true;
+  };
+  const releaseScrim = dialog => {
+    if (scrimOwner !== dialog) return;
+    dialog.classList.remove('fluid-scrimmed');
+    scrimOwner = null;
+    if (scrim) scrim.style.opacity = '0';
+  };
   const playBackdrop = (dialog, state, from, to, curve, persist = false) => {
     state.backdrop?.cancel();
+    if (scrimOwner === dialog && scrim) {
+      scrim.style.opacity = String(to);
+      state.backdrop = animate(scrim, { from: { opacity: from }, to: { opacity: to }, spring: curve, persist });
+      return;
+    }
     state.backdrop = animate(dialog, { from: { opacity: from }, to: { opacity: to }, spring: curve, pseudoElement: '::backdrop', persist });
   };
+  // A sheet closed without its exit motion (reduced effects, old WebView) must not leave the shade on.
+  document.addEventListener('close', event => { const dialog = event.target; if (dialog === scrimOwner && !states.get(dialog)?.closing) releaseScrim(dialog); }, true);
   const backdropNow = state => state.backdrop?.running ? state.backdrop.now().pose.opacity : 1;
   // Stop whatever the sheet is doing and report the pose it had on screen.
   const settleSheet = (dialog, state) => {
@@ -449,6 +480,7 @@ function installDialogs() {
     dialog.classList.add('fluid-animating');
     animate(dialog, { from, to: REST, spring: curve, velocity, shape: appear(0, fresh ? 0.28 : 0.35)(from),
       onFinish: () => dialog.classList.remove('fluid-animating') });
+    if (fresh) takeScrim(dialog);
     if (fresh || prior.pose) playBackdrop(dialog, state, prior.pose ? prior.backdrop : 0, 1, curve);
   };
 
@@ -479,7 +511,12 @@ function installDialogs() {
       // A closed sheet stays hidden while its inline pose is cleared; otherwise it flashes.
       if (!dialog.open && !reopening) dialog.classList.add('fluid-exit-closed');
       motionOf(dialog)?.cancel();
-      if (!reopening) { state.backdrop?.cancel(); state.backdrop = null; }
+      if (!reopening) {
+        // After a swap the scrim keeps fading on its own (the copy above it has no shade of its own).
+        if (state.keepScrim) state.keepScrim = false; else state.backdrop?.cancel();
+        state.backdrop = null;
+        if (!dialog.open) releaseScrim(dialog);
+      }
       dialog.classList.remove('fluid-native-exit', 'fluid-animating');
       dialog.inert = originalInert;
       if (originalAriaHidden === null) dialog.removeAttribute('aria-hidden'); else dialog.setAttribute('aria-hidden', originalAriaHidden);
@@ -511,7 +548,8 @@ function installDialogs() {
       layer.setAttribute('aria-hidden', 'true');
       const dim = document.createElement('div');
       dim.className = 'fluid-exit-backdrop';
-      dim.style.background = getComputedStyle(dialog, '::backdrop').backgroundColor;
+      dim.style.background = scrimOwner === dialog ? 'transparent' : getComputedStyle(dialog, '::backdrop').backgroundColor;
+      if (scrimOwner === dialog) state.keepScrim = true;
       copy.classList.add('fluid-exit-ghost');
       placeSurface(copy, surface);
       copy.style.display = surface.display;
@@ -753,6 +791,46 @@ function installMotionBudget(listen) {
   for (const query of media) listen(query, 'change', evaluate);
   if (connection?.addEventListener) listen(connection, 'change', evaluate);
   evaluate();
+  installFrameBudget(listen);
+}
+
+// Automatic light mode from the phone's own frames. One app for every phone: in the first movements
+// after the app opens (sheets, tabs, sections), it samples its frame intervals, only right after a
+// touch and only while something is moving (no idle loop, no battery cost). If more than 10 % of
+// ~150 frames from at least 4 movements take longer than 20 ms, the phone cannot keep up with the full
+// materials at its refresh rate (Reno 16: 17 %; OnePlus: 2 %) and the light mode turns on: shorter
+// springs, no blur, lighter shadows. The decision stays on this phone only (not in the backup).
+const FRAME_BUDGET_KEY = 'agro-frame-budget-v1';
+const frameBudget = { state: 'off', frames: 0, bursts: 0 };
+function installFrameBudget(listen) {
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(FRAME_BUDGET_KEY) || 'null'); } catch {}
+  if (saved?.lite) { root().classList.add('lite'); frameBudget.state = 'saved-lite'; return; }
+  if (saved || limited()) { frameBudget.state = saved ? 'saved-full' : 'hardware-lite'; return; }
+  frameBudget.state = 'sampling';
+  const startedAt = performance.now(), samples = [];
+  let bursts = 0, until = 0, frame = 0, last = 0, moved = false;
+  const decide = () => {
+    const slow = samples.filter(interval => interval > 20).length / samples.length;
+    const result = { lite: slow > 0.1, slow: Math.round(slow * 1000) / 10, frames: samples.length, bursts, at: new Date().toISOString() };
+    try { localStorage.setItem(FRAME_BUDGET_KEY, JSON.stringify(result)); } catch {}
+    if (result.lite) root().classList.add('lite');
+    frameBudget.state = result.lite ? 'decided-lite' : 'decided-full';
+  };
+  const tick = time => {
+    frame = 0;
+    if (document.hidden) { last = 0; return; }
+    if (liveCount() > 0) { if (last) { samples.push(time - last); moved = true; } last = time; } else last = 0;
+    frameBudget.frames = samples.length; frameBudget.bursts = bursts;
+    if (samples.length >= 150 && bursts >= 4) { decide(); return; }
+    if (time < until) frame = requestAnimationFrame(tick);
+    else if (moved) { bursts++; moved = false; frameBudget.bursts = bursts; if (samples.length >= 150 && bursts >= 4) decide(); }
+  };
+  listen(document, 'pointerdown', () => {
+    if (performance.now() - startedAt < 3000 || samples.length >= 150 && bursts >= 4) return;
+    until = performance.now() + 900; last = 0;
+    if (!frame) frame = requestAnimationFrame(tick);
+  }, { capture: true, passive: true });
 }
 
 function installDialogViewport(listen) {

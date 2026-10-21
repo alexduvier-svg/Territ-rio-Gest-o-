@@ -159,3 +159,8 @@
 .glass-products-plane .feira-grid { grid-auto-rows: 1fr; }
 /* Com a barra de seleção aberta, a lista ganha espaço para a última fila subir acima dela. */
 html.multi-select #app { padding-bottom: calc(200px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px))); }
+
+/* Nome do produto no cartão: em cartão estreito (telas menores, ~3 colunas em 360 px), a segunda parte
+   do nome vai para a linha de baixo ("Café" / "Especial"), para não ficar embolado. */
+.glass-products-plane .feira-card { container-type: inline-size; }
+@container (max-width: 124px) { .feira-card .cn-rest { display: block; } }

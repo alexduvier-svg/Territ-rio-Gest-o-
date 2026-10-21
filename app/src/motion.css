@@ -182,3 +182,8 @@ html[data-app-inactive] #app .draft-resume,html[data-app-inactive] #app .draft-r
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
+
+/* Shade behind a sheet (features/motion installDialogs): a page-level layer whose opacity is moved on
+   the compositor; the sheet's own ::backdrop stays transparent while the scrim stands in for it. */
+.fluid-scrim { position: fixed; inset: 0; z-index: 2147483000; pointer-events: none; opacity: 0; will-change: opacity; contain: strict; }
+html.fluid-motion dialog.fluid-scrimmed::backdrop { background: transparent !important; }
