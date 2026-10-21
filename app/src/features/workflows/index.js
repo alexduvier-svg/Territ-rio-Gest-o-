@@ -90,19 +90,19 @@ export function installWorkflows(){
  });
  const weekly=b.actions['weekly-back'];b.actions['weekly-back']=d=>{b.updateScopeReturnPrivacy();weekly(d);};
  const ready=b.actions['event-history'];b.actions['event-history']=d=>{ready(d);scheduleExpansions();};
- // Product cards count taps (1 sells, 2 select, 3 peek the stock) within TAP_GAP of each other.
+ // Product cards count taps (1 sells, 2 peek the stock) within TAP_GAP; holding starts the selection (reorder.js).
  let tap=null,serial=0;const TAP_GAP=260;
- const resolveTaps=t=>{if(b.page()!=='Vender')return;if(t.count===1)b.actions['sell-product']({id:t.id});else window.TerritorioSelection?.start?.(t.id);};
+ const resolveTaps=t=>{if(b.page()==='Vender'&&t.count===1)b.actions['sell-product']({id:t.id});};
  window.TerritorioProductGestures={suspend:()=>clearTimeout(tap?.timer),cancelPending:()=>{clearTimeout(tap?.timer);tap=null;serial++;}};
  document.addEventListener('pointercancel',()=>window.TerritorioProductGestures.cancelPending(),{passive:true});
  document.addEventListener('click',event=>{
   const card=event.target.closest?.('#app [data-action="sell-product"]');if(!card||card.disabled||b.page()!=='Vender'||window.TerritorioSelection?.active())return;
-  // Toques no cartão: 1 abre a venda, 2 abrem a seleção de até 3 produtos, 3 mostram o estoque dele.
-  // Cada toque espera TAP_GAP por um próximo (o cartão já afunda ao toque); o 3º age na hora.
+  // Toques no cartão: 1 abre a venda, 2 mostram o estoque dele (segurar abre a seleção de vários).
+  // O 1º toque espera TAP_GAP por um próximo (o cartão já afunda ao toque); o 2º age na hora.
   event.preventDefault();event.stopImmediatePropagation();const id=card.dataset.id,now=Date.now();
   if(tap&&tap.id===id&&now-tap.at<TAP_GAP){clearTimeout(tap.timer);tap.count++;tap.at=now;}
   else{if(tap){clearTimeout(tap.timer);resolveTaps(tap);}tap={id,count:1,at:now,timer:0};}
-  if(tap.count>=3){const done=tap;tap=null;serial++;b.actions['stock-peek']({id:done.id});return;}
+  if(tap.count>=2){const done=tap;tap=null;serial++;b.actions['stock-peek']({id:done.id});return;}
   const current=++serial,pending=tap;pending.timer=setTimeout(()=>{if(current!==serial||tap!==pending)return;tap=null;resolveTaps(pending);},TAP_GAP);
  },true);
  let zeroTap=null;document.addEventListener('pointerup',event=>{const card=event.target.closest?.('#app [data-action="sell-product"][disabled]');if(!card||b.page()!=='Vender')return;const id=card.dataset.id;if(zeroTap?.id===id&&Date.now()-zeroTap.at<320){zeroTap=null;b.actions['stock-peek']({id});}else zeroTap={id,at:Date.now()};},true);

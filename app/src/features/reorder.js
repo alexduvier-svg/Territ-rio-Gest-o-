@@ -1,4 +1,5 @@
 // Segurar e arrastar para mudar a ordem dos produtos, em Vender (cartões) e no Estoque (linhas).
+// Em Vender, segurar e soltar sem arrastar abre a seleção de vários produtos com o cartão marcado.
 // Segurar 0,45 s levanta o cartão (vibração leve, sombra e um pouco maior); ao arrastar, os outros
 // cartões da mesma família abrem espaço deslizando, e ao soltar ele assenta no lugar novo. A ordem
 // fica nos dados do app (model.data.productOrder, incluída no backup) e vale em todas as listas
@@ -128,8 +129,18 @@ function finish(cancelled) {
     document.documentElement.classList.remove('reorder-dragging');
     drag = null;
     if (!cancelled && target !== state.from) { commit(arranged); bridge()?.render(); }
+    else if (!cancelled && !state.moved) select(state.item);
   };
   if (landing) landing.finished.then(settle); else settle();
+}
+
+// Hold released in place on a Vender card: choose several products, starting with this one.
+function select(item) {
+  if (item.disabled || !item.matches('[data-action="sell-product"]') || bridge()?.page?.() !== 'Vender') return false;
+  window.TerritorioProductGestures?.cancelPending();
+  swallowUntil = Date.now() + 450;
+  window.TerritorioSelection?.start?.(item.dataset.id);
+  return true;
 }
 
 function clearHold() {
@@ -151,10 +162,10 @@ export function installReorder() {
     // Only while this finger is down: the page may not scroll once the product is lifted.
     item.addEventListener('touchmove', blockScroll, { passive: false });
     hold = { item, x: event.clientX, y: event.clientY, pointer: event.pointerId,
-      timer: setTimeout(() => { const h = hold; if (!h) return; if (!lift(h.item, h.x, h.y)) clearHold(); else drag.frame = requestAnimationFrame(autoscroll); }, HOLD_MS) };
+      timer: setTimeout(() => { const h = hold; if (!h) return; if (!lift(h.item, h.x, h.y)) { clearHold(); select(h.item); } else drag.frame = requestAnimationFrame(autoscroll); }, HOLD_MS) };
   }, { capture: true, passive: true });
   document.addEventListener('pointermove', event => {
-    if (drag && !drag.ended) { drag.x = event.clientX; drag.y = event.clientY; follow(); return; }
+    if (drag && !drag.ended) { drag.x = event.clientX; drag.y = event.clientY; if (Math.hypot(drag.x - drag.startX, drag.y + window.scrollY - drag.startY) > SLOP) drag.moved = true; follow(); return; }
     if (hold && Math.hypot(event.clientX - hold.x, event.clientY - hold.y) > SLOP) clearHold();
   }, { capture: true, passive: true });
   document.addEventListener('pointerup', () => { const lifted = !!drag; clearHold(); if (lifted) finish(false); }, { capture: true, passive: true });
