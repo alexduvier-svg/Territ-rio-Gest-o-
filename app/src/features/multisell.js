@@ -1,5 +1,5 @@
-// Venda de vários produtos de uma vez: segurar e soltar (sem arrastar) um cartão em Vender entra no
-// modo de seleção (arrastar muda o cartão de lugar); toque em até mais 2 produtos e em "Vender N produtos".
+// Venda de vários produtos de uma vez: segurar um cartão em Vender já o marca e entra no modo de
+// seleção (arrastar muda o cartão de lugar); toque em até mais 2 produtos e em "Continuar".
 // Os escolhidos entram juntos na tela de venda, cada um com sua apresentação e quantidade.
 // Funciona nos dois estilos (Feira e Território).
 
@@ -105,7 +105,7 @@ function clearTimer() {
 export function installMultiSell() {
   document.addEventListener('pointerdown', event => {
     const card = cardFrom(event.target);
-    // Segurar o cartão o levanta (reorder.js): arrastar muda de lugar, soltar sem arrastar abre a seleção.
+    // Segurar o cartão o marca e o levanta (reorder.js): arrastar desfaz a seleção e muda de lugar.
     if (window.TerritorioReorder || !card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length) return;
     window.TerritorioProductGestures?.suspend();
     pressed = card;
@@ -153,7 +153,7 @@ export function installMultiSell() {
   new MutationObserver(() => { if (!onVender()) cancel(); else if (selected.length) paint(); })
     .observe(document.getElementById('app'), { childList: true });
 
-  // Segurar e soltar um cartão (reorder.js) abre a seleção com ele já marcado.
+  // Segurar um cartão (reorder.js) abre a seleção com ele já marcado.
   const startSelection = id => {
     if (!onVender() || !id) return;
     selected = [id];

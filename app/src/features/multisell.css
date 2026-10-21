@@ -103,3 +103,7 @@
   .mp-qty { min-width: 42px; }
   .mp-price { min-width: 64px; font-size: 14px; }
 }
+.multi-pick-row.is-new { animation: multi-pick-in 0.42s cubic-bezier(0.32, 0.72, 0, 1) both; }
+@keyframes multi-pick-in { from { opacity: 0; translate: 0 -8px; scale: 0.98; } }
+.lite .multi-pick-row.is-new { animation-duration: 0.2s; }
+@media (prefers-reduced-motion: reduce) { .multi-pick-row.is-new { animation: none; } }

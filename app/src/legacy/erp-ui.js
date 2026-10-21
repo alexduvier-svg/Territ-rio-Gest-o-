@@ -2835,24 +2835,29 @@ window.TerritorioSurplusUI.install({
  markLossReview,setLateBusy:value=>{lateSaleBusy=value;},setSellingScope:id=>{if(scope===id)scope='loja';},consentText:FAIR_AUTO_NOTE
 });
 // --- Venda de vários produtos em um só cartão (21/10/2026) ---
-// Os escolhidos em Vender (segurar o cartão) aparecem juntos no primeiro cartão da venda, cada um com
-// nome, quantidade e preço. O teclado de Quantidade preenche um por vez e passa sozinho para o
-// próximo depois de uma pausa (dá tempo de tocar o mesmo número duas vezes, como 33).
-// Depois do último, abre Finalizar Venda. Tocar numa linha volta a ela.
+// Os escolhidos em Vender (segurar o cartão) entram no primeiro cartão da venda um por vez: abre o
+// primeiro; com a quantidade, abre o segundo; depois o terceiro. Cada linha mostra nome, quantidade
+// e preço. O teclado passa ao próximo depois de uma pausa (dá tempo de tocar o mesmo número duas
+// vezes, como 33). Depois do último, o teclado fecha e o Carrinho fica liberado. Tocar numa linha
+// volta a ela.
 const MULTI_ADVANCE_MS=900;let multiAdvanceTimer=0;
 const multiPick=()=>!!draft&&!!draft.multiPick&&draft.items.length>1&&page==='Venda';
 const r30SellMultiple=actions['sell-multiple'];actions['sell-multiple']=d=>{r30SellMultiple(d);if(draft&&draft.items.length>1){draft.multiPick=true;render();}};
 const r30Review=multiReviewPending;multiReviewPending=function(){return draft?.multiPick?false:r30Review();};
 function multiPickCard(){
- const rows=draft.items.map((line,i)=>{const p=model.product(line.productId);if(!p)return'';const q=E.number(line.rawQty),on=i===draft.active;
-  return btn('active-item','<span class="mp-name"><strong>'+escape(saleDisplayName(p))+'</strong><small>'+escape(sellingCardDescription(p))+'</small></span><span class="mp-qty tabular">'+(q>0?escape(line.rawQty):'')+'</span><span class="mp-price tabular">'+(q>0?E.money(Math.round(p.price*q)):E.money(p.price)+'<small>/'+escape(shortUnit(p.unit))+'</small>')+'</span>','multi-pick-row'+(on?' active':'')+(q>0?' filled':''),{index:i});}).join('');
+ const shown=draft.mpShown||(draft.mpShown=[]),collapsed=!!draft.quantityReviewCollapsed;
+ const rows=draft.items.map((line,i)=>{const p=model.product(line.productId);if(!p)return'';const q=E.number(line.rawQty),on=!collapsed&&i===draft.active;if(!on&&!(q>0))return'';
+  const fresh=!shown.includes(line.productId);if(fresh)shown.push(line.productId);
+  return btn('active-item','<span class="mp-name"><strong>'+escape(saleDisplayName(p))+'</strong><small>'+escape(sellingCardDescription(p))+'</small></span><span class="mp-qty tabular">'+(q>0?escape(line.rawQty):'')+'</span><span class="mp-price tabular">'+(q>0?E.money(Math.round(p.price*q)):E.money(p.price)+'<small>/'+escape(shortUnit(p.unit))+'</small>')+'</span>','multi-pick-row'+(on?' active':'')+(q>0?' filled':'')+(fresh&&i>0?' is-new':''),{index:i});}).join('');
  return'<section class="panel sale-products multi-pick" aria-label="Produtos escolhidos"><h2 class="sr-only">Produtos escolhidos</h2>'+rows+'</section>';
 }
-const r30SalePage=salePage;salePage=function(){const html=r30SalePage();if(!multiPick())return html;const a=html.indexOf('<section class="panel sale-products">'),b=html.indexOf('<section class="panel quantity-panel">');if(a<0||b<a)return html;
+function sectionEnd(html,from){const re=/<\/?section\b/g;re.lastIndex=from;let depth=0,m;while((m=re.exec(html))){if(m[0]==='<section')depth++;else if(!--depth)return html.indexOf('>',m.index)+1;}return -1;}
+const r30SalePage=salePage;salePage=function(){const html=r30SalePage();if(!multiPick())return html;const a=html.indexOf('<section class="panel sale-products">'),b=a<0?-1:sectionEnd(html,a);if(b<0)return html;
  return(html.slice(0,a)+multiPickCard()+html.slice(b)).replace(/<button\b[^>]*data-action="workflow-quantity-done"[^>]*>[\s\S]*?<\/button>/,'');};
 function multiNext(){const n=draft.items.length;for(let k=1;k<=n;k++){const i=(draft.active+k)%n;if(!(E.number(draft.items[i].rawQty)>0))return i;}return -1;}
 function multiAdvance(){clearTimeout(multiAdvanceTimer);if(!multiPick())return;if(document.activeElement?.id==='sale-quantity')document.activeElement.blur();const next=multiNext();
- if(next>=0){selectDiscountItem(next);numericTouched.delete('sale-quantity');render();return;}saveActiveDiscount();render();openCart();}
+ window.TerritorioSectionMotion?.prepare(['#app .quantity-panel','#app .sale-customer','#app .sale-dock']);
+ if(next>=0){selectDiscountItem(next);numericTouched.delete('sale-quantity');render();return;}saveActiveDiscount();draft.quantityReviewCollapsed=true;render();}
 function armMultiAdvance(){clearTimeout(multiAdvanceTimer);if(!multiPick())return;const active=draft.active,line=draft.items[active],raw=line.rawQty,p=model.product(line.productId);if(!p||!(E.number(raw)>0)||/[,.]$/.test(raw))return;
  multiAdvanceTimer=setTimeout(()=>{if(multiPick()&&draft.active===active&&draft.items[active].rawQty===raw)multiAdvance();},MULTI_ADVANCE_MS);}
 const r30Digit=actions.digit;actions.digit=d=>{r30Digit(d);armMultiAdvance();};
