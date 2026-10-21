@@ -146,4 +146,16 @@
 }
 
 /* Na venda múltipla, o "Disponível" fica centrado logo abaixo da pill Próximo. */
-#app .multi-pick ~ .quantity-panel .quantity-footnote { justify-content: center; text-align: center; margin-top: 8px; }
+#app .multi-pick.is-multi ~ .quantity-panel .quantity-footnote { justify-content: center; text-align: center; margin-top: 8px; }
+
+/* Cartão esgotado: "Sem estoque" no lugar do preço (mesma altura dos outros) e, na seleção, uma
+   sacudida curta ao toque com o aviso do motivo. */
+.feira-card .card-out { margin-top: auto; font-style: normal; font-size: 13px; font-weight: 600; color: var(--muted); }
+.multi-select [data-action='sell-product'][aria-disabled='true']::after { opacity: 0.35; }
+.multi-refused { animation: multi-refuse 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+@keyframes multi-refuse { 20% { translate: -4px 0; } 45% { translate: 3px 0; } 70% { translate: -2px 0; } 100% { translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .multi-refused { animation: none; } }
+/* Todas as filas da grade de venda com a mesma altura. */
+.glass-products-plane .feira-grid { grid-auto-rows: 1fr; }
+/* Com a barra de seleção aberta, a lista ganha espaço para a última fila subir acima dela. */
+html.multi-select #app { padding-bottom: calc(200px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px))); }

@@ -95,6 +95,17 @@ function toggle(id) {
   paint();
 }
 
+// A sold-out card cannot be chosen, but it answers: a short shake and the reason.
+function refuse(card) {
+  const name = card.querySelector('strong')?.textContent?.trim() || 'Este produto';
+  const detail = card.querySelector('.card-detail')?.textContent?.replace(/\s*·\s*/g, ' ').trim();
+  notice(`Sem estoque: ${name}${detail ? ' ' + detail : ''}.`);
+  card.classList.remove('multi-refused');
+  void card.offsetWidth;
+  card.classList.add('multi-refused');
+  setTimeout(() => card.classList.remove('multi-refused'), 420);
+}
+
 function clearTimer() {
   clearTimeout(timer);
   timer = null;
@@ -146,6 +157,7 @@ export function installMultiSell() {
     event.preventDefault();
     event.stopImmediatePropagation();
     if (!card.disabled && card.getAttribute('aria-disabled')!=='true') {const now=Date.now();if(lastToggle?.id===card.dataset.id&&now-lastToggle.at<320)return;lastToggle={id:card.dataset.id,at:now};toggle(card.dataset.id);}
+    else refuse(card);
   }, true);
   document.addEventListener('contextmenu', event => { if (cardFrom(event.target)) event.preventDefault(); });
 

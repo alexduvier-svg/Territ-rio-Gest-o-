@@ -2794,7 +2794,7 @@ sellingCardDescription=function(p){return window.TerritorioSalesPresentation.sal
 // o "R$" menor, separado do valor em algarismos de largura igual, na base do card.
 function cardDetail(text){const parts=String(text||'').split(/\s+·\s+/).filter(Boolean);return '<small class="card-detail">'+parts.map(x=>'<span class="seg">'+escape(x).replace(/(\d+(?:[.,]\d+)?) (kg|g|ml|L)\b/g,'$1&nbsp;$2')+'</span>').join('')+'</small>';}
 function cardPrice(cents){const text=E.money(cents),m=text.match(/^(\D*?)\s*([\d.,]+.*)$/);return '<span class="tabular sale-price">'+(m?'<span class="sale-currency">'+escape(m[1].trim())+'</span><span class="sale-value">'+escape(m[2])+'</span>':escape(text))+'</span>';}
-feiraSellList=function(){const ordered=window.TerritorioStockOrder.orderStockProducts,items=productList(false);if(!items.length)return '<section class="panel empty"><h2>Nenhum produto ainda</h2><p>Cadastre seus produtos no Estoque para começar a vender.</p>'+btn('nav','Ver Estoque','choice',{page:'Estoque'})+'</section>';const list=ordered(items);return '<div class="glass-products-plane"><section class="glass-sale-block"><div class="feira-grid">'+list.map(p=>{const available=model.availableStock(p.id),out=available<=0;return btn('sell-product','<strong>'+escape(titleName(p.name))+'</strong>'+cardDetail(sellingCardDescription(p))+(out?'<em>Sem estoque</em>':'')+cardPrice(p.price),'feira-card'+(out?' is-out':''),{id:p.id}) .replace('class="feira-card','aria-disabled="'+out+'" class="feira-card');}).join('')+'</div></section></div>';};
+feiraSellList=function(){const ordered=window.TerritorioStockOrder.orderStockProducts,items=productList(false);if(!items.length)return '<section class="panel empty"><h2>Nenhum produto ainda</h2><p>Cadastre seus produtos no Estoque para começar a vender.</p>'+btn('nav','Ver Estoque','choice',{page:'Estoque'})+'</section>';const list=ordered(items);return '<div class="glass-products-plane"><section class="glass-sale-block"><div class="feira-grid">'+list.map(p=>{const available=model.availableStock(p.id),out=available<=0;return btn('sell-product','<strong>'+escape(titleName(p.name))+'</strong>'+cardDetail(sellingCardDescription(p))+(out?'<em class="card-out">Sem estoque</em>':cardPrice(p.price)),'feira-card'+(out?' is-out':''),{id:p.id}) .replace('class="feira-card','aria-disabled="'+out+'" class="feira-card');}).join('')+'</div></section></div>';};
 feiraSellPage=function(){filter='Todos';query='';const today=E.dayKey(Date.now()),sales=model.data.sales.filter(s=>s.status==='completed'&&s.scope===scope&&E.dayKey(s.date)===today),visible=model.data.settings.financialVisible;return top()+reminderBanner()+'<section class="glass-sales-location">'+btn('scope',icon('store')+'<span>'+escape(scopeName(scope))+'</span>'+icon('down'),'glass-location')+btn('weekly-sales',visible?E.money(sales.reduce((n,s)=>n+s.total,0)):'•••••','glass-sales-total')+btn('toggle-financial',icon(visible?'eye':'eyeOff')+'<span class="sr-only">'+(visible?'Ocultar':'Mostrar')+' valores</span>','glass-eye')+'</section>'+draftResumeBanner()+'<div class="glass-area-row"><p class="glass-area-label">Área de vendas</p>'+(window.TerritorioWeatherUI?window.TerritorioWeatherUI.chip():'')+'</div>'+feiraSellList();};
 const glassStockListBefore=feiraStockList;feiraStockList=function(){let headings=0;const add=()=>btn('new-product',icon('plus'),'round');const plain=t=>t.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&');
  // Cada família tem o seu "+": acrescenta mais uma apresentação dela (uma terceira banana, por exemplo).
@@ -2834,7 +2834,9 @@ window.TerritorioSurplusUI.install({
  eventLoad,reportFor:fairReportFor,stateFor:fairReportState,sendReport:sendFairReport,syncReports:syncFairReports,
  markLossReview,setLateBusy:value=>{lateSaleBusy=value;},setSellingScope:id=>{if(scope===id)scope='loja';},consentText:FAIR_AUTO_NOTE
 });
-// --- Venda de vários produtos em um só cartão (21/10/2026) ---
+// --- Venda: só os produtos tocados, num só cartão (21/10/2026) ---
+// Regra: cada cartão de Vender já tem nome, peso, preço e categoria; a venda abre só o que foi tocado
+// (1, 2 ou 3 produtos), sem oferecer outras apresentações da família (250 g, 500 g, 1 kg).
 // Os escolhidos em Vender (segurar o cartão) entram no primeiro cartão da venda um por vez: abre o
 // primeiro; digita-se a quantidade (quantos dígitos quiser) e toca-se em "Próximo", logo abaixo do 8
 // (ao alcance do polegar), para abrir o segundo; depois o terceiro. Cada linha mostra nome, quantidade e preço. No
@@ -2847,14 +2849,15 @@ function multiPickCard(){
  const rows=draft.items.map((line,i)=>{const p=model.product(line.productId);if(!p)return'';const q=E.number(line.rawQty),on=!collapsed&&i===draft.active;if(!on&&!(q>0))return'';
   const fresh=!shown.includes(line.productId);if(fresh)shown.push(line.productId);
   return btn('active-item','<span class="mp-name"><strong>'+escape(saleDisplayName(p))+'</strong><small>'+escape(sellingCardDescription(p))+'</small></span><span class="mp-qty tabular">'+(q>0?escape(line.rawQty):'')+'</span><span class="mp-price tabular">'+(q>0?E.money(Math.round(p.price*q)):E.money(p.price)+'<small>/'+escape(shortUnit(p.unit))+'</small>')+'</span>','multi-pick-row'+(on?' active':'')+(q>0?' filled':'')+(fresh&&i>0?' is-new':''),{index:i});}).join('');
- return'<section class="panel sale-products multi-pick" aria-label="Produtos escolhidos"><h2 class="sr-only">Produtos escolhidos</h2>'+rows+'</section>';
+ return'<section class="panel sale-products multi-pick'+(multiPick()?' is-multi':'')+'" aria-label="Produtos escolhidos"><h2 class="sr-only">Produtos escolhidos</h2>'+rows+'</section>';
 }
 function sectionEnd(html,from){const re=/<\/?section\b/g;re.lastIndex=from;let depth=0,m;while((m=re.exec(html))){if(m[0]==='<section')depth++;else if(!--depth)return html.indexOf('>',m.index)+1;}return -1;}
 function multiNextPill(){const q=E.number(draft.items[draft.active]?.rawQty),last=multiNext()<0;
  return btn('multi-next',last?'Concluir':'Próximo'+icon('chevron'),'multi-next-pill'+(last?' is-last':''),null,!(q>0));}
 function withNextPill(html){const k=html.indexOf('<div class="keypad"');if(k<0)return html;const end=html.indexOf('</div>',k);return end<0?html:html.slice(0,end)+multiNextPill()+html.slice(end);}
-const r30SalePage=salePage;salePage=function(){const html=r30SalePage();if(!multiPick())return html;const a=html.indexOf('<section class="panel sale-products">'),b=a<0?-1:sectionEnd(html,a);if(b<0)return html;
- return withNextPill(html.slice(0,a)+multiPickCard()+html.slice(b)).replace(/<button\b[^>]*data-action="workflow-quantity-done"[^>]*>[\s\S]*?<\/button>/,'');};
+const r30SalePage=salePage;salePage=function(){const html=r30SalePage();if(!draft||!draft.items.length||page!=='Venda')return html;const a=html.indexOf('<section class="panel sale-products">'),b=a<0?-1:sectionEnd(html,a);if(b<0)return html;
+ const page2=html.slice(0,a)+multiPickCard()+html.slice(b);if(!multiPick())return page2;
+ return withNextPill(page2).replace(/<button\b[^>]*data-action="workflow-quantity-done"[^>]*>[\s\S]*?<\/button>/,'');};
 function multiNext(){const n=draft.items.length;for(let k=1;k<=n;k++){const i=(draft.active+k)%n;if(!(E.number(draft.items[i].rawQty)>0))return i;}return -1;}
 function multiAdvance(){if(!multiPick()||!(E.number(draft.items[draft.active]?.rawQty)>0))return;if(document.activeElement?.id==='sale-quantity')document.activeElement.blur();const next=multiNext();
  window.TerritorioSectionMotion?.prepare(['#app .quantity-panel','#app .sale-customer','#app .sale-dock']);
