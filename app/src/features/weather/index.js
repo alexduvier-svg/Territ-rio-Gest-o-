@@ -4,7 +4,7 @@
 // fica guardada no aparelho e é mostrada sem internet, com o horário em que foi atualizada.
 import { Capacitor, CapacitorHttp, registerPlugin } from '@capacitor/core';
 
-const AGENT = 'AGROGestao/0.12.43 github.com/alexduvier-svg/Territ-rio-Gest-o-';
+const AGENT = 'AGROGestao/0.12.44 github.com/alexduvier-svg/Territ-rio-Gest-o-';
 const TZ = 'America/Sao_Paulo';
 const MIN_REFRESH = 30 * 60000;
 // Background check while the app is closed (WorkManager, android/…/AgroWeatherWorker.java).
