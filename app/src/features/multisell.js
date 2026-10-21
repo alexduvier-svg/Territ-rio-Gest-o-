@@ -105,8 +105,9 @@ function clearTimer() {
 export function installMultiSell() {
   document.addEventListener('pointerdown', event => {
     const card = cardFrom(event.target);
-    if (!card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length || window.TerritorioSalesOrganization?.active()) return;
-    window.TerritorioProductGestures?.suspend();
+    if (!card || card.disabled || !onVender() || window.TerritorioSalesOrganization?.active()) return;
+    window.TerritorioProductGestures?.suspend(event, card);
+    if (card.getAttribute('aria-disabled')==='true' || selected.length) return;
     pressed = card;
     start = { x: event.clientX, y: event.clientY };
     card.classList.add('multi-pressing');

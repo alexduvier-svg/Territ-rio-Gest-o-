@@ -1,51 +1,73 @@
-// The first tap responds immediately. Further taps reverse only its untouched
-// preview; no timer delays checkout and no gesture commits a sale.
-export function installProductGesture(bridge, { source, restoreSource } = {}) {
+// Resolve the gesture before opening a surface. A double tap never renders a
+// sale/checkout preview; the card's existing press feedback stays immediate.
+export const PRODUCT_TAP_MS = 280;
+
+export function installProductGesture(bridge, {
+  source, restoreSource,
+  clock = { now: () => performance.now(), set: (fn, ms) => setTimeout(fn, ms), clear: id => clearTimeout(id) },
+} = {}) {
   let pending = null;
-  const clear = () => { pending = null; };
+  const clear = () => { if (pending) clock.clear(pending.timer); pending = null; };
   const consume = event => { event.preventDefault(); event.stopImmediatePropagation(); return true; };
-  const remember = (event, state) => { pending = { ...state, at: performance.now(), x: event.clientX, y: event.clientY }; };
+  const near = (event, old) => Math.hypot(event.clientX - old.x, event.clientY - old.y) < 24;
+  const organizing = () => window.TerritorioSalesOrganization?.active();
+  const expire = (entry, delay, run) => {
+    clock.clear(entry.timer);
+    entry.timer = clock.set(() => { if (pending !== entry) return; clear(); run?.(); }, delay);
+  };
+  const suspend = (event, card) => {
+    if (!pending) return;
+    if (!card || card.dataset.id !== pending.id || clock.now() - pending.at > PRODUCT_TAP_MS || !near(event, pending)) return clear();
+    // A second finger-down within the window must not let the sale open while
+    // that finger is still down. A hold/scroll can then cancel the whole tap.
+    clock.clear(pending.timer); pending.pressed = true;
+  };
   const handleClick = (event, card) => {
-    if (window.TerritorioSalesOrganization?.active()) { clear(); return false; }
+    if (organizing()) { clear(); return false; }
     const physical = event.isTrusted && event.detail > 0;
     const old = pending; clear();
-    const again = old && physical && (!card || card.dataset.id === old.id) && performance.now() - old.at < 340 && Math.hypot(event.clientX - old.x, event.clientY - old.y) < 24;
-    if (again) {
-      if (old.stage === 1 && old.undo?.()) {
-        consume(event); restoreSource?.(old.source);
-        bridge.actions['stock-peek']({ id: old.id });
-        return true;
-      }
-      if (old.stage === 'selection' && bridge.page() === 'Vender') {
-        consume(event);
-        window.TerritorioSelection?.restore(old.selection);
-        restoreSource?.(old.source);
-        bridge.actions['stock-peek']({ id: old.id });
-        return true;
-      }
+    const again = old && physical && card?.dataset.id === old.id && near(event, old) && (old.pressed || clock.now() - old.at <= PRODUCT_TAP_MS);
+    if (again && bridge.page() === 'Vender') {
+      consume(event);
+      if (old.stage === 'selection') window.TerritorioSelection?.restore(old.selection);
+      restoreSource?.(old.source);
+      bridge.actions['stock-peek']({ id: old.id });
+      return true;
     }
     if (!card || card.disabled || bridge.page() !== 'Vender') return false;
-    const id = card.dataset.id;
+    const id = card.dataset.id, origin = source?.();
     if (window.TerritorioSelection?.active()) {
-      // MultiSell performs the first toggle. A second tap opens stock while
-      // restoring the selection that preceded the two-tap gesture.
-      if (physical) remember(event, { id, stage: 'selection', source: source?.(), selection: window.TerritorioSelection.snapshot() });
+      // MultiSell toggles the first tap. A double restores the previous list.
+      if (physical) {
+        pending = { id, stage: 'selection', source: origin, at: clock.now(), x: event.clientX, y: event.clientY, selection: window.TerritorioSelection.snapshot() };
+        expire(pending, PRODUCT_TAP_MS);
+      }
       return false;
     }
     consume(event);
-    const origin = source?.(), undo = bridge.openQuickCartPreview(id);
-    if (physical && undo) remember(event, { id, stage: 1, source: origin, selection: [], undo });
+    if (!physical) { bridge.actions['sell-product']({ id }); return true; }
+    const entry = pending = { id, stage: 'sale', source: origin, at: clock.now(), x: event.clientX, y: event.clientY, modal: bridge.modal?.() };
+    expire(entry, PRODUCT_TAP_MS, () => {
+      if (bridge.page() !== 'Vender' || organizing() || window.TerritorioSelection?.active() || bridge.modal?.() !== entry.modal) return;
+      restoreSource?.(entry.source);
+      // Use the quantity screen, with no default quantity and no checkout.
+      bridge.actions['sell-product']({ id });
+    });
     return true;
   };
-  // MultiSell calls this before its own capture handler, including clicks now
-  // targeting the checkout overlay rather than the original product card.
-  window.TerritorioProductGestures = { suspend() {}, cancelPending: clear, handleClick };
+  window.TerritorioProductGestures = { suspend, cancelPending: clear, handleClick };
+  document.addEventListener('pointerdown', event => {
+    if (!event.target.closest?.('[data-action="sell-product"],.selling-card,.product-card,.feira-card')) clear();
+  }, { capture: true, passive: true });
+  document.addEventListener('pointermove', event => { if (pending?.pressed && Math.hypot(event.clientX - pending.x, event.clientY - pending.y) > 10) clear(); }, { passive: true });
+  document.addEventListener('pointerup', () => { if (pending?.pressed) expire(pending, 400); }, { passive: true });
   document.addEventListener('pointercancel', clear, { passive: true });
   document.addEventListener('visibilitychange', clear);
   document.addEventListener('keydown', event => {
+    clear();
     const card = event.target.closest?.('body>#app [data-action="sell-product"]');
-    if (card && !window.TerritorioSalesOrganization?.active() && (event.key === 'ContextMenu' || event.shiftKey && event.key === 'Enter')) {
-      event.preventDefault(); event.stopImmediatePropagation(); clear();
+    if (card && !organizing() && (event.key === 'ContextMenu' || event.shiftKey && event.key === 'Enter')) {
+      event.preventDefault(); event.stopImmediatePropagation();
       bridge.actions['stock-peek']({ id: card.dataset.id });
     }
   }, true);

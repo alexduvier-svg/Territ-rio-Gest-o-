@@ -1,3 +1,9 @@
+# Entrega concluída — 0.12.29/code69
+
+Correção21/10:1toque abre Venda para quantidade,sem1unidade automática/semFinalizarVenda;2toques abrem só estoque. Arbitragem280ms antes de navegar,sem prévia/reversão intermediária; segunda pressão suspende pendência. Segurar600ms seleciona até3. Premissasv16.26unit/112UI/40superfícies em8configurações claras/escuras320ampliado,360leve,393normal,412reduzido PASS,zero errosJS. AmostragemrAF não encontrou Venda/checkout/rascunho intermediários no duplo. Quantidade3 escolhida antes do Carrinho; rascunhos/pagamentos anteriores preservados. Dados fictícios intactos; sem transações reais de teste/FPSnativo medido/matriz histórica completa repetida.
+
+APK5112012bytes SHA256012c63f67d92e73e2d87ab3a88bd42db829099fea42950d0cb6111931d302937,mesmo pacote/certificado,v2/v3/38assets/16KB;originalconferido. Instalado-r2026-10-21 09:20:28,69/0.12.29/Statusok,firstInstallTime2026-10-14 18:17:06preservado. Não refazer build/instalação/testes já passados. Fontes/QA neste commit somenteAGRO2. Nenhuma pendência autorizada restante; não repetir29 por checkpoints históricos. Novos pedidos partem de29; retomada automática silenciosa sem nova pendência. Leia app/docs/ENTREGA-0.12.29.md e ARQUIVOS-0.12.29.md. Servidor/clima27intactos,main956fddceec2b994e32c154c5197424a4f56df7f2preservado.
+
 # Entrega concluída — 0.12.28/code68
 
 Gestos21/10:1toque=Finalizar Venda com1unidade,2toques=estoque exato,segurar600ms=seleção até3produtos. Na seleção duplo preserva lista. Quantidades/pagamentos editados e rascunhos anteriores protegidos; rolar cancela pressão. Premissasv15.22unit/104UI/32superfícies em8configurações claro/escuro320ampliado,360leve,393normal,412reduzido PASS,zero errosJS. Sem transações reais de teste,FPS/GPU/bateria nativos medidos; matriz histórica completa não repetida.
