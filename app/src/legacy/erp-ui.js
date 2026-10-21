@@ -2837,9 +2837,9 @@ window.TerritorioSurplusUI.install({
 // --- Venda de vários produtos em um só cartão (21/10/2026) ---
 // Os escolhidos em Vender (segurar o cartão) aparecem juntos no primeiro cartão da venda, cada um com
 // nome, quantidade e preço. O teclado de Quantidade preenche um por vez e passa sozinho para o
-// próximo: na hora em que o número não pode crescer (passaria do estoque) ou após uma pausa curta.
+// próximo depois de uma pausa (dá tempo de tocar o mesmo número duas vezes, como 33).
 // Depois do último, abre Finalizar Venda. Tocar numa linha volta a ela.
-const MULTI_ADVANCE_MS=800,MULTI_FULL_MS=140;let multiAdvanceTimer=0;
+const MULTI_ADVANCE_MS=900;let multiAdvanceTimer=0;
 const multiPick=()=>!!draft&&!!draft.multiPick&&draft.items.length>1&&page==='Venda';
 const r30SellMultiple=actions['sell-multiple'];actions['sell-multiple']=d=>{r30SellMultiple(d);if(draft&&draft.items.length>1){draft.multiPick=true;render();}};
 const r30Review=multiReviewPending;multiReviewPending=function(){return draft?.multiPick?false:r30Review();};
@@ -2854,13 +2854,25 @@ function multiNext(){const n=draft.items.length;for(let k=1;k<=n;k++){const i=(d
 function multiAdvance(){clearTimeout(multiAdvanceTimer);if(!multiPick())return;if(document.activeElement?.id==='sale-quantity')document.activeElement.blur();const next=multiNext();
  if(next>=0){selectDiscountItem(next);numericTouched.delete('sale-quantity');render();return;}saveActiveDiscount();render();openCart();}
 function armMultiAdvance(){clearTimeout(multiAdvanceTimer);if(!multiPick())return;const active=draft.active,line=draft.items[active],raw=line.rawQty,p=model.product(line.productId);if(!p||!(E.number(raw)>0)||/[,.]$/.test(raw))return;
- const full=!['kg','Litro','g','ml'].includes(p.unit)&&E.number(raw+'0')>model.availableStock(p.id,draft.orderId||draft.localOrderId);
- multiAdvanceTimer=setTimeout(()=>{if(multiPick()&&draft.active===active&&draft.items[active].rawQty===raw)multiAdvance();},full?MULTI_FULL_MS:MULTI_ADVANCE_MS);}
+ multiAdvanceTimer=setTimeout(()=>{if(multiPick()&&draft.active===active&&draft.items[active].rawQty===raw)multiAdvance();},MULTI_ADVANCE_MS);}
 const r30Digit=actions.digit;actions.digit=d=>{r30Digit(d);armMultiAdvance();};
 const r30Erase=actions['erase-digit'];actions['erase-digit']=()=>{r30Erase();armMultiAdvance();};
 const r30Clear=actions['clear-quantity'];actions['clear-quantity']=()=>{clearTimeout(multiAdvanceTimer);r30Clear();};
 const r30Active=actions['active-item'];actions['active-item']=d=>{clearTimeout(multiAdvanceTimer);r30Active(d);};
 document.addEventListener('input',e=>{if(e.target?.id==='sale-quantity')setTimeout(armMultiAdvance,0);});
 
+
+// --- Finalizar Venda → Venda registrada numa só janela (21/10/2026) ---
+// Ao finalizar, o destino da venda é escolhido sozinho; antes o app desenhava a janela de destino
+// (que começava a subir), fechava tudo e abria "Venda registrada" de novo: pareciam duas telas.
+// Agora a janela de Finalizar Venda fica na tela enquanto a venda é gravada e troca de conteúdo para
+// "Venda registrada". Se a gravação pedir uma escolha (destino mudou, valores mudaram), a janela de
+// destino aparece como antes.
+let silentRecipient=false,swapToDone=false;
+const r31OpenModal=openModal;openModal=function(title,body,kind,data,footer){if(silentRecipient&&kind==='story'&&data?.pending){modal={kind,data};return;}return r31OpenModal.apply(this,arguments);};
+const r31Finalize=finalizePayment;finalizePayment=function(){silentRecipient=dialog.open&&modal?.kind==='cart';try{return r31Finalize.apply(this,arguments);}finally{silentRecipient=false;}};
+const r31Choose=chooseSaleRecipient;chooseSaleRecipient=async function(){const silent=dialog.open&&modal?.kind==='story'&&modal.data?.pending&&dialog.getAttribute('data-kind')==='cart';swapToDone=silent;
+ try{const sale=await r31Choose.apply(this,arguments);if(!sale&&silent&&recipientPending&&!recipientPending.busy&&modal?.kind==='story'&&modal.data?.pending)storyModalBase();return sale;}finally{swapToDone=false;}};
+const r31Close=closeModal;closeModal=function(skip){if(swapToDone&&!recipientPending&&dialog.open&&modal?.kind==='story'){swapToDone=false;closeNumberPad();modal=null;movement=null;dialog.setAttribute('data-motion-replace','');setTimeout(()=>dialog.removeAttribute('data-motion-replace'),0);return;}return r31Close.apply(this,arguments);};
 render();
 })();

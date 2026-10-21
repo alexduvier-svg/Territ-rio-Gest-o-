@@ -613,7 +613,9 @@ function installDialogs() {
     const fresh = !state.open;
     if (dialog.open && enabled() && (fresh || state.signature !== signature)) {
       discardGhost(state);
-      const source = getMotionSource(1500);
+      // data-motion-replace: the same sheet changes its content in place (sale → sale registered),
+      // never born again from the button that was tapped inside it.
+      const source = dialog.hasAttribute('data-motion-replace') ? null : getMotionSource(1500);
       if (fresh) state.trail = [];
       if (!fresh && source?.sheet?.dialog === dialog && nestedSheet(dialog, state, source, signature)) {
         state.open = true; state.kind = kind; state.title = title; state.identity = dataKey; state.signature = signature;
