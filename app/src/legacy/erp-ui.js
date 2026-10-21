@@ -2941,5 +2941,20 @@ Object.assign(actions,{'stock-alert-open':()=>openStockAlerts(),
  'stock-alert-snooze':()=>{const mem=stockMemory();mem.snoozedAt=new Date().toISOString();persist();closeModal();render();toast('Combinado. A caixinha volta daqui a 1 hora enquanto houver produto esgotado.');},'order-best-first':d=>{closeModal();orderBestFirst(d.id);},
  'reorder-edit':()=>{const R=window.TerritorioReorder;if(!R?.edit)return;if(R.editing()){R.edit(false);return;}window.TerritorioSelection?.cancel?.();R.edit(true);}});
 const r40AdvisorInput=advisorInput;advisorInput=function(){const input=r40AdvisorInput.apply(this,arguments);try{const order=window.TerritorioStockOrder;input.productFamilies=order.orderStockProducts(model.data.products).map(p=>({id:p.id,name:titleName(p.name),family:order.stockGroupKey(p)}));}catch(e){input.productFamilies=[];}return input;};
+
+// --- Perfil e negócio (21/10/2026) ---
+// Foto em destaque no topo, com "Trocar foto"; dados em dois grupos (Você · Negócio); Salvar no rodapé
+// fixo da janela (sempre à vista e opaco sobre as abas). Nomes longos quebram linha no próprio campo
+// (nada cortado); Município e Estado lado a lado. Janela mais curta: abre e fecha sem tranco.
+const growField=(id,label,value,extra)=>'<div class="form-field"><label for="'+id+'">'+label+'</label><textarea id="'+id+'" rows="1" class="grow-field" '+(extra||'')+'>'+escape(value||'')+'</textarea></div>';
+businessModal=function(){const st=model.data.settings,photo=st.photo||PROFILE_PHOTO;
+ const body='<div class="profile-sheet"><div class="producer-photo-field profile-hero"><img src="'+escape(photo)+'" alt="" width="96" height="96" decoding="async"><label class="profile-photo-btn">'+icon('upload')+'<span>'+(st.photo?'Trocar foto':'Escolher foto')+'</span><input id="producer-photo" type="file" accept="image/png,image/jpeg,image/webp"></label><small>Aparece no topo do seu portfólio online.</small></div>'
+  +'<section class="profile-group" aria-labelledby="pg-you"><h3 id="pg-you">Você</h3>'+growField('producer-name','Nome do produtor',st.producerName,'autocomplete="name"')+field('business-phone','Telefone',st.phone,'type="tel" autocomplete="tel"')+field('business-email','E-mail',st.email,'type="email" autocomplete="email"')+'</section>'
+  +'<section class="profile-group" aria-labelledby="pg-biz"><h3 id="pg-biz">Negócio</h3>'+growField('business-name','Nome do negócio',st.businessName,'autocomplete="organization"')
+  +'<div class="profile-place">'+field('business-city','Município',st.city,'autocomplete="address-level2"')+'<div class="form-field profile-uf"><label for="business-uf">Estado</label><select id="business-uf">'+(st.uf?'':'<option value="" selected disabled>UF</option>')+E.STATES.map(x=>'<option value="'+x[0]+'"'+(st.uf===x[0]?' selected':'')+' title="'+escape(x[1])+'">'+x[0]+'</option>').join('')+'</select></div></div></section>'
+  +(st.photo?'':'<p class="settings-note profile-note">O retrato de Luiz Claudio é fictício, gerado por IA para esta prévia.</p>')+'</div>';
+ openModal('Perfil e negócio',body,'business',null,btn('save-business','Salvar','success modal-action profile-save'));};
+// The names never leave one line: Enter does not add a line break (the text still wraps visually).
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.classList?.contains('grow-field')){e.preventDefault();e.target.blur();}},true);
 render();
 })();

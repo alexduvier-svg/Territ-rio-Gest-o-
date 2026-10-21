@@ -1,0 +1,83 @@
+/* Perfil e negócio: foto em destaque, dois grupos e nada cortado em 320–412 px ou com texto ampliado. */
+#dialog[data-kind='business'] .profile-sheet { display: grid; gap: 14px; padding-bottom: 4px; }
+
+/* Foto no topo, centrada, com o botão logo abaixo. */
+#dialog[data-kind='business'] .profile-hero {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  margin: 2px 0 4px;
+  text-align: center;
+}
+#dialog[data-kind='business'] .profile-hero img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px var(--panel), 0 0 0 4px var(--line), 0 6px 16px rgb(0 0 0 / 18%);
+}
+#dialog[data-kind='business'] .profile-photo-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: var(--field);
+  color: var(--text);
+  font: 600 15px/1 'Inter Variable', 'Inter', sans-serif;
+  box-shadow: inset 0 0 0 1px var(--line);
+  cursor: pointer;
+}
+#dialog[data-kind='business'] .profile-photo-btn .icon { width: 18px; height: 18px; }
+/* O seletor de arquivo cobre o botão inteiro, invisível. */
+#dialog[data-kind='business'] .profile-photo-btn input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+#dialog[data-kind='business'] .profile-hero small { font-size: 13px; color: var(--muted); max-width: 30ch; line-height: 1.35; }
+
+/* Grupos com título discreto. */
+#dialog[data-kind='business'] .profile-group { display: grid; gap: 10px; }
+#dialog[data-kind='business'] .profile-group h3 {
+  margin: 4px 2px 0;
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+#dialog[data-kind='business'] .form-field { margin: 0; min-width: 0; }
+#dialog[data-kind='business'] .form-field label { display: block; margin: 0 2px 6px; font-size: 14px; }
+
+/* Nomes: campo que cresce com o texto e quebra linha, nunca corta. */
+#dialog[data-kind='business'] .grow-field {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--field);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.3;
+  resize: none;
+  overflow: hidden;
+  field-sizing: content;
+  overflow-wrap: anywhere;
+  box-shadow: rgba(255, 255, 255, 0.07) 0 1px 2px inset, rgba(0, 0, 0, 0.063) 0 3px 0;
+}
+#dialog[data-kind='business'] :is(input, select) { font-size: 16px; }
+
+/* Município e Estado lado a lado; o Estado só com a sigla. */
+#dialog[data-kind='business'] .profile-place { display: grid; grid-template-columns: minmax(0, 1fr) 92px; gap: 10px; align-items: end; }
+#dialog[data-kind='business'] .profile-uf select { width: 100%; min-height: 48px; }
+/* Tela estreita ou texto ampliado: um embaixo do outro. */
+@media (max-width: 340px) { #dialog[data-kind='business'] .profile-place { grid-template-columns: 1fr; } }
+
+#dialog[data-kind='business'] .profile-note { margin: 0; font-size: 12px; text-align: center; color: var(--muted); }
+#dialog[data-kind='business'] .profile-save { width: 100%; margin: 0; min-height: 50px; }
+/* O rodapé (Salvar) nunca encolhe: quem cede espaço é a área de rolagem. */
+#dialog[data-kind='business'] > .checkout-footer { flex-shrink: 0; }
+#dialog[data-kind='business'] > .dialog-content { flex: 1 1 auto; min-height: 0; }

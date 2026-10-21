@@ -390,6 +390,8 @@ function makeVisualCopy(element) {
     if (field.type !== 'file') field.value = originalFields[i].value;
     if ('checked' in field) field.checked = originalFields[i].checked;
   });
+  // A closed select only shows its chosen option: the copy keeps just that one (a state list has 27).
+  clone.querySelectorAll('select').forEach(select => { const keep = select.options[select.selectedIndex]; for (const option of [...select.options]) if (option !== keep) option.remove(); });
   for (const part of [clone, ...clone.querySelectorAll('[id], [name], [autofocus], [for], [data-management-section], [data-action]')]) {
     for (const attr of ['id', 'name', 'autofocus', 'for', 'data-management-section', 'data-action']) part.removeAttribute(attr);
   }

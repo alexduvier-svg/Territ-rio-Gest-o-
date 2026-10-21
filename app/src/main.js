@@ -20,6 +20,7 @@ import './features/weather/weather.css';
 import './features/reorder.css';
 import './features/multisell.css';
 import './features/stock-alerts.css';
+import './features/profile-sheet.css';
 import { version } from '../package.json';
 import './features/portfolio.css';
 import './features/backup.css';
