@@ -11,6 +11,8 @@
 // Ponto de equilíbrio = (fixos + retirada do mês) ÷ margem de contribuição em %.
 // Tudo em centavos. Funções puras: recebem os dados, devolvem números (testadas em tests/finance.test.mjs).
 
+import {principal,collections,refundedCash} from '../receivables/receivables.js';
+
 export const COST_KINDS = [
   ['feira', 'Custos da feira', 'Barraca, transporte, ajudante, alimentação'],
   ['producao', 'Produção e insumos', 'Sementes, ração, adubo, embalagens'],
@@ -95,14 +97,14 @@ export function cardFeesOf(sales, settings) {
 //   expenses = custos lançados no período/local · losses = valor das perdas de estoque no período
 //   shares   = monthShares(...) · general = local "Todos" (só então entram fixos, perdas e retirada mensal)
 // A taxa do cartão não volta na devolução (a maquininha não devolve a taxa).
-export function statement({ sales, returns = [], expenses, losses = 0, settings: raw, shares = [], general = true }) {
+export function statement({ sales, returns = [], expenses, receipts = collections(sales), losses = 0, settings: raw, shares = [], general = true }) {
   const settings = financeSettings(raw);
   const grossSales = sales.reduce((n, s) => n + s.total, 0);
   const returned = returns.reduce((n, s) => n + s.total, 0);
   const revenue = grossSales - returned;
   const discounts = sales.reduce((n, s) => n + (s.discount || 0), 0);
   const cmv = sales.reduce((n, s) => n + (s.cost || 0), 0) - returns.reduce((n, s) => n + (s.cost || 0), 0);
-  const fees = cardFeesOf(sales, settings);
+  const fees = cardFeesOf(sales, settings) + cardFeesOf(receipts.map(r=>({payments:[r]})),settings);
   const taxes = Math.round(Math.max(0, revenue) * settings.salesTaxRate / 100);
   const contribution = revenue - cmv - fees - taxes;
   const kinds = Object.fromEntries(COST_KINDS.map(([id]) => [id, 0]));
@@ -122,13 +124,15 @@ export function statement({ sales, returns = [], expenses, losses = 0, settings:
   // Caixa do período (o dinheiro que entrou e saiu, diferente do resultado): recebimentos por forma de
   // pagamento, menos devoluções pagas, taxas, custos, contas fixas, retirada e investimentos.
   const received = {};
-  for (const s of sales) for (const p of s.payments || []) received[p.method] = (received[p.method] || 0) + p.amount;
-  const cashIn = grossSales - returned - fees;
+  for (const s of sales) for (const p of s.payments || []) if(p.method!=='Fiado') received[p.method] = (received[p.method] || 0) + p.amount;
+  for (const r of receipts) received[r.method]=(received[r.method]||0)+r.amount;
+  const creditSold=sales.reduce((n,s)=>n+principal(s),0),collected=receipts.reduce((n,r)=>n+r.amount,0),cashRefunded=returns.reduce((n,s)=>n+refundedCash(s),0);
+  const cashIn = grossSales - creditSold + collected - cashRefunded - fees;
   const cashOut = operating + fixed + draw + kinds.investimento + taxes;
   return {
     grossSales, returned, revenue, discounts, cmv, fees, taxes, contribution, contributionRate,
     costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, result, salesCount: sales.length,
-    investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
+    creditSold, collected, cashRefunded, investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
     monthlyFixed, monthlyFixedReference,
     chargeEstimates: {
       fees: { basis: 'configured-rate-per-recorded-payment', rounding: 'integer-cent-per-payment' },
@@ -150,12 +154,13 @@ export function lossValue(movements, costOf) {
 // Lucro de cada feira/local, com as mesmas regras do demonstrativo: vendas pela data da venda (inclusive
 // as devolvidas depois), devoluções pela data da devolução, taxa do cartão, imposto sobre a venda e os
 // custos lançados naquele local (sem retirada nem investimento).
-export function profitByPlace({ sales, returns = [], expenses, settings: raw, nameOf }) {
+export function profitByPlace({ sales, returns = [], expenses, receipts = collections(sales), settings: raw, nameOf }) {
   const settings = financeSettings(raw);
   const places = new Map();
   const get = id => places.get(id) || places.set(id, { id, name: nameOf(id), revenue: 0, returned: 0, cmv: 0, fees: 0, taxes: 0, costs: 0, sales: 0 }).get(id);
   for (const s of sales) { const p = get(s.scope || 'loja'); p.revenue += s.total; p.cmv += s.cost || 0; p.fees += cardFeesOf([s], settings); p.sales++; }
   for (const s of returns) { const p = get(s.scope || 'loja'); p.revenue -= s.total; p.returned += s.total; p.cmv -= s.cost || 0; }
+  for (const r of receipts) get(r.scope||'loja').fees += cardFeesOf([{payments:[r]}],settings);
   for (const x of expenses) if (!['retirada', 'investimento'].includes(costKind(x))) get(x.scope || 'loja').costs += x.amount;
   return [...places.values()].map(p => {
     const taxes = Math.round(Math.max(0, p.revenue) * settings.salesTaxRate / 100);

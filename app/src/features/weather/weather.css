@@ -1,9 +1,11 @@
-.glass-sales-toolbar{justify-content:flex-start;gap:12px}
-.glass-sales-toolbar .weather-pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:0 0 auto;min-width:44px;min-height:44px;padding:0 4px;border:0;border-radius:14px;background:transparent;box-shadow:none;color:var(--material-text);font-size:16px;font-weight:750;line-height:1;white-space:nowrap;transition:transform 120ms ease}
+:is(.glass-area-row,.glass-sales-toolbar){justify-content:flex-start;gap:12px}
+:is(.glass-area-row,.glass-sales-toolbar) .weather-pill{display:inline-flex;align-items:center;justify-content:center;gap:6px;flex:0 0 auto;min-width:44px;min-height:44px;padding:0 4px;border:0;border-radius:14px;background:transparent;box-shadow:none;color:var(--material-text);font-size:16px;font-weight:750;line-height:1;white-space:nowrap;transition:transform 120ms ease}
 .weather-pill:active{transform:scale(.95)}.weather-pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .weather-pill .icon{width:22px;height:22px;flex:none}.weather-pill span{font-variant-numeric:tabular-nums}
 .weather-rain{stroke:#2878b5}:root[data-theme=dark] .weather-rain,body.dark .weather-rain{stroke:#8ec9f6}
-@media(prefers-reduced-motion:reduce){.glass-sales-toolbar .weather-pill{transition:none}}
+.glass-area-label{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;flex:0 0 auto}
+.glass-area-label .weather-pill{display:inline-flex;align-items:center;gap:6px;min-width:44px;min-height:44px;padding:0 2px;border:0;background:transparent;box-shadow:none;border-radius:14px;font-size:16px;font-weight:750;color:var(--material-text,var(--text));white-space:nowrap;flex:0 0 auto}
+@media(prefers-reduced-motion:reduce){:is(.glass-area-row,.glass-sales-toolbar) .weather-pill{transition:none}}
 
 .weather-event{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:12px 14px;min-height:44px;border-radius:17px;background:var(--material-plane);color:var(--material-text);font-size:14px;margin:0 0 14px;box-shadow:inset 0 1px 0 var(--material-line)}
 .weather-event .icon{flex:0 0 22px}.weather-event span{min-width:0}

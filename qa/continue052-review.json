@@ -1,0 +1,22 @@
+{
+  "synthetic": true,
+  "externalNetworkBlocked": true,
+  "cases": [
+    {
+      "theme": "light",
+      "continueShoppingAddsFourProducts": true,
+      "extraProductsScroll": true,
+      "backPreservesQuantities": true,
+      "noTransactionCreated": true
+    },
+    {
+      "theme": "dark",
+      "continueShoppingAddsFourProducts": true,
+      "extraProductsScroll": true,
+      "backPreservesQuantities": true,
+      "noTransactionCreated": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

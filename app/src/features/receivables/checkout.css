@@ -1,0 +1,44 @@
+/* A bounded item summary leaves the payment choices in view, on both phones.
+   Short viewports / enlarged text retain one scrollable body, never clipped controls. */
+:root[data-theme][data-layout] #dialog:is([data-kind=cart],[data-kind=checkout]) {max-height:min(90dvh,calc(var(--dialog-viewport-height,100dvh) - 32px));--dialog-space-x:16px;--dialog-space-y:16px;height:auto}
+:root[data-theme][data-layout] #dialog:is([data-kind=cart],[data-kind=checkout])>.checkout-header {padding:16px 16px 12px}
+:root[data-theme][data-layout] #dialog:is([data-kind=cart],[data-kind=checkout])>.checkout-header h2 {font-size:24px;text-align:center}
+:root[data-theme][data-layout] #dialog:is([data-kind=cart],[data-kind=checkout])>.dialog-content {flex:0 1 auto;padding:8px 16px 12px}
+:root[data-theme][data-layout] #dialog:is([data-kind=cart],[data-kind=checkout])>.checkout-footer {flex:0 0 auto;display:block;padding:10px 16px 14px;max-height:40dvh}
+#dialog:is([data-kind=cart],[data-kind=checkout]) .checkout-items .cart-line {min-height:0;padding:8px 0;gap:6px;grid-template-columns:minmax(0,1fr) 36px}
+#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-heading {flex-wrap:nowrap;align-items:baseline;gap:8px}
+#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-heading .cart-item-name {font:700 15px/1.22 'Inter Tight Variable',sans-serif;flex-basis:auto;overflow-wrap:normal}
+#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-heading .cart-item-total {font-size:15px;line-height:1.22}
+#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-edit {min-height:44px}
+#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-edit small {font-size:13px;line-height:1.3;margin-top:3px}
+#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-remove {width:36px;padding:6px;min-height:44px}
+#dialog .checkout-products-heading {display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:14px;color:var(--muted)}
+#dialog .checkout-products-heading button {font-size:14px;min-height:44px;padding:8px 0 8px 10px;color:var(--green)}
+#dialog .checkout-products-heading .checkout-items-toggle {display:flex;align-items:center;gap:6px;padding-left:0;color:var(--muted)}
+#dialog .checkout-items-toggle .icon {width:16px;height:16px}
+#dialog #checkout-product-items[hidden] {display:none}
+#dialog .checkout-payment-controls {margin:6px 0 0;padding:10px;border:1px solid var(--glass-edge,var(--line));background:var(--material-face,var(--panel));box-shadow:var(--material-depth);border-radius:22px}
+#dialog .checkout-payment-controls .sale-payment-heading {justify-content:center;min-height:24px;margin:0 0 10px}
+#dialog .checkout-payment-controls h2 {font:750 17px/1.2 'Inter Tight Variable',sans-serif;text-align:center}
+:root[data-theme][data-layout] #dialog .checkout-payment-controls .payment-grid {display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}
+#dialog .checkout-payment-controls .payment-choice {min-height:46px;padding:12px 22px;font-size:15px;box-shadow:var(--material-depth);border:1px solid var(--line);background:var(--field);border-radius:16px;white-space:normal}
+#dialog .checkout-payment-controls .payment-choice.selected {border-color:var(--green);background:color-mix(in srgb,var(--green) 12%,var(--field));color:var(--text)}
+#dialog .checkout-payment-controls .checkout-continue-shopping {font-size:14px;line-height:1.25;padding:10px 8px;white-space:normal;color:var(--green)}
+#dialog:is([data-kind=cart],[data-kind=checkout]) .checkout-footer .checkout-total.total-pill {margin:0 0 18px}
+#dialog .payment-credit-summary {font-size:14px;line-height:1.4;margin:10px 0 0;overflow-wrap:anywhere}
+#dialog .payment-credit-summary button {min-height:44px;color:var(--green);font-size:14px;padding:8px}
+#dialog .checkout-actions {gap:8px}
+#dialog .checkout-actions button {font-size:14px;min-height:46px;padding:10px 8px}
+.credit-form label {display:block;font-size:14px;font-weight:650;margin:18px 0 8px}
+.credit-form :is(input,select) {width:100%;min-width:0;box-sizing:border-box;min-height:48px;font-size:16px;padding:12px;border-radius:16px;border:1px solid var(--line);background:var(--field);color:var(--text)}
+.credit-form input[type=hidden]{display:none}
+.credit-help {font-size:14px;line-height:1.5;color:var(--muted);margin:0 0 14px}
+.credit-error {font-size:14px;color:var(--red);line-height:1.4;margin-top:12px}
+.credit-amount {font:750 30px/1.2 'Inter Tight Variable',sans-serif;margin:14px 0}
+.credit-options {display:grid;gap:12px}
+.credit-options>button {display:flex;flex-direction:column;align-items:flex-start;gap:6px;text-align:left;padding:18px;border:1px solid var(--glass-edge,var(--line));box-shadow:var(--material-depth);border-radius:22px;background:var(--material-face,var(--field));white-space:normal}
+.credit-options strong {font-size:17px}.credit-options small {font-size:14px;color:var(--muted)}
+.receivable-entry,.receivable-row {display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-width:0;text-align:left;padding:16px;border:1px solid var(--glass-edge,var(--line));box-shadow:var(--material-depth);background:var(--material-face,var(--field));border-radius:22px;margin:12px 0;font-size:16px}
+.receivable-entry>span,.receivable-row>span {min-width:0}.receivable-row small,.receivable-entry small {display:block;font-size:14px;line-height:1.4;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.receivable-row .red {color:var(--red)}
+html[data-large-text=true] #dialog:is([data-kind=cart],[data-kind=checkout]) :is(.cart-item-name,.cart-item-total,.payment-choice) {font-size:17px}
+@media(max-width:340px){#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-heading{flex-wrap:wrap;gap:3px}#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-name{flex-basis:100%}}

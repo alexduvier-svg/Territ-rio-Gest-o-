@@ -110,7 +110,7 @@ function paintOpen(){
 function decorate(){
   const b=bridge(),root=document.getElementById('app');
   if(b.page()==='Vender'){
-    const toolbar=root.querySelector('.glass-sales-toolbar');
+    const toolbar=root.querySelector('.glass-area-label')||root.querySelector('.glass-sales-toolbar');
     if(toolbar&&!toolbar.querySelector('[data-action=weather-open]'))toolbar.insertAdjacentHTML('beforeend',b.button('weather-open',weatherIcon(null)+'<span>—°</span>','weather-pill'));
     const loc=location(),point=b.data().settings.weatherEnabled===true?nextForecastPoint(cached(loc)):null,pill=toolbar?.querySelector('.weather-pill');
     if(pill){

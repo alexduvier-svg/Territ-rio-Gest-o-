@@ -1,8 +1,9 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 23,
+  version: 24,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
+  permanentQualityRule: 'Regra permanente, para qualquer ajuste em qualquer dia ou mês e qualquer área, janela ou subjanela: reutilizar o padrão único existente de layout, tipografia, controles, calendários, material, volume, textura, profundidade e movimentos. Não criar aparência paralela. Abertura e recolhimento devem preservar a superfície inteira. Verificar claro/escuro, telas menores, texto ampliado e modos leve/reduzido; preservar baixo custo e registrar limites de testes em aparelhos básicos.',
   principles: {
     volume: 'Hierarquia por tamanho, peso e espaçamento coerentes com o sistema. Evitar excesso de negrito e relevo artificial nas letras.',
     nitidez: 'Texto legível e contrastante nos temas claro e escuro, sem desfoque ou brilho nas letras. Rótulos de formulário com pelo menos 14 px e suporte a texto ampliado.',
@@ -10,7 +11,8 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     textura: 'Aplicar materiais e acabamento às superfícies. Texto mantém preenchimento nítido, sem gradiente, textura ou sombra decorativa.',
     profundidade: 'Criar profundidade com bordas, luz e sombras discretas nos painéis e controles, mantendo baixo custo de renderização.',
   },
-  motion: 'Janelas e páginas abertas por um toque nascem do card ou ícone de origem e retornam inteiras a ele, com forma, posição e escala contínuas. Subjanelas retornam à linha da janela anterior. Manter texto e material juntos, rolagem estável e acomodação discreta de mola. Sem toque de origem, usar expansão curta. Respeitar modos leve e reduzido.',
+  motion: 'Janelas e páginas abertas por um toque nascem do card ou ícone de origem e retornam inteiras a ele, com forma, posição e escala contínuas. Subjanelas retornam à linha da janela anterior. Manter texto e material juntos, rolagem estável e acomodação discreta de mola. Sem toque de origem, usar expansão curta. Respeitar modos leve e reduzido. Priorizar a qualidade do conjunto da abertura e do recolhimento, inclusive em aparelhos de menor capacidade; verificar os dois temas e não acrescentar blur animado ou trabalho contínuo.',
+  checkout: 'Com três produtos, resumo compacto e métodos Pix/Dinheiro, Crédito/Débito, Continuar comprando/Outro visíveis. Separar o total das ações finais com espaço real. Título central. Fiado em Outro exige cliente e vencimento; não conta como dinheiro recebido até a baixa explícita em Clientes. Em telas baixas e texto ampliado, conteúdo rola sem cortar ações.',
   windows: {
     placement: 'Janelas de informação e edição abrem centralizadas, com espaço real nas laterais e acima/abaixo, sem ocupar a tela inteira.',
     scrolling: 'Altura limitada ao espaço disponível. Conteúdo longo rola dentro da janela, sem cortar títulos, letras ou controles. Rodapé e ações devem caber e quebrar linha quando necessário.',

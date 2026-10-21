@@ -1,0 +1,174 @@
+{
+  "version": "0.12.52",
+  "device": "reno",
+  "physicalAndroid": true,
+  "synthetic": true,
+  "networkBlockedByFixture": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "reno",
+      "theme": "light",
+      "physical": true,
+      "geometry": {
+        "viewport": {
+          "w": 359,
+          "h": 788,
+          "dpr": 3.5
+        },
+        "buttons": [
+          {
+            "text": "Pix",
+            "x": 43.71046447753906,
+            "y": 382.8740539550781,
+            "w": 131.71798706054688,
+            "h": 46.00129318237305,
+            "visible": true
+          },
+          {
+            "text": "Dinheiro",
+            "x": 183.42868041992188,
+            "y": 382.8740539550781,
+            "w": 131.71798706054688,
+            "h": 46.00129318237305,
+            "visible": true
+          },
+          {
+            "text": "Crédito",
+            "x": 43.71046447753906,
+            "y": 436.8755798339844,
+            "w": 131.71798706054688,
+            "h": 46.00129318237305,
+            "visible": true
+          },
+          {
+            "text": "Débito",
+            "x": 183.42868041992188,
+            "y": 436.8755798339844,
+            "w": 131.71798706054688,
+            "h": 46.00129318237305,
+            "visible": true
+          },
+          {
+            "text": "Continuar comprando",
+            "x": 43.71046447753906,
+            "y": 490.8770751953125,
+            "w": 131.71798706054688,
+            "h": 56.71589279174805,
+            "visible": true
+          },
+          {
+            "text": "Outro",
+            "x": 183.42868041992188,
+            "y": 490.8770751953125,
+            "w": 131.71798706054688,
+            "h": 56.71589279174805,
+            "visible": true
+          }
+        ],
+        "headingOffset": 0.06682300567626953,
+        "scrollHeight": 473,
+        "clientHeight": 473
+      },
+      "calendar": {
+        "left": 20,
+        "right": 338.8571472167969,
+        "top": 149.8303680419922,
+        "bottom": 638.7411041259766,
+        "w": 359,
+        "h": 788,
+        "overflow": false
+      },
+      "footerGap": 17.99994659423828,
+      "weatherInline": true,
+      "splitPaymentPreserved": true,
+      "creditSaleId": "cf9ae4a2-1b51-4d8c-8ebe-50330120cece",
+      "fiado": 7500,
+      "collected": 7500,
+      "duplicateSales": 0
+    },
+    {
+      "name": "reno",
+      "theme": "dark",
+      "physical": true,
+      "geometry": {
+        "viewport": {
+          "w": 359,
+          "h": 788,
+          "dpr": 3.5
+        },
+        "buttons": [
+          {
+            "text": "Pix",
+            "x": 43.71428680419922,
+            "y": 382.8883972167969,
+            "w": 131.71429443359375,
+            "h": 46.000003814697266,
+            "visible": true
+          },
+          {
+            "text": "Dinheiro",
+            "x": 183.42857360839844,
+            "y": 382.8883972167969,
+            "w": 131.71429443359375,
+            "h": 46.000003814697266,
+            "visible": true
+          },
+          {
+            "text": "Crédito",
+            "x": 43.71428680419922,
+            "y": 436.8883972167969,
+            "w": 131.71429443359375,
+            "h": 46.000003814697266,
+            "visible": true
+          },
+          {
+            "text": "Débito",
+            "x": 183.42857360839844,
+            "y": 436.8883972167969,
+            "w": 131.71429443359375,
+            "h": 46.000003814697266,
+            "visible": true
+          },
+          {
+            "text": "Continuar comprando",
+            "x": 43.71428680419922,
+            "y": 490.888427734375,
+            "w": 131.71429443359375,
+            "h": 56.71428680419922,
+            "visible": true
+          },
+          {
+            "text": "Outro",
+            "x": 183.42857360839844,
+            "y": 490.888427734375,
+            "w": 131.71429443359375,
+            "h": 56.71428680419922,
+            "visible": true
+          }
+        ],
+        "headingOffset": 0.07141876220703125,
+        "scrollHeight": 473,
+        "clientHeight": 473
+      },
+      "calendar": {
+        "left": 20,
+        "right": 338.8571472167969,
+        "top": 149.8303680419922,
+        "bottom": 638.7411041259766,
+        "w": 359,
+        "h": 788,
+        "overflow": false
+      },
+      "footerGap": 17.99994659423828,
+      "weatherInline": true,
+      "splitPaymentPreserved": true,
+      "creditSaleId": "e6fa7400-e16b-4778-8bd7-a469a5ecfc91",
+      "fiado": 7500,
+      "collected": 7500,
+      "duplicateSales": 0
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

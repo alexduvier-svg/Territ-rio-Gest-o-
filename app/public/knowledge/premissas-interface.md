@@ -44,3 +44,14 @@ Integração6452871/AGRO3 0.12.59: títulos em nome próprio, nomes em partes no
 
 
 Premissas23: notificações de estoque separadas em Estoque (prioridade normal) e Estoque — Feira (alta prioridade no esgotamento). OrigemClaude0.12.62/cffe32b. Apresentação de notificação/tela depende dos ajustes e restrições do Android; não mantém a tela acordada.
+
+
+## Regra permanente — qualquer ajuste, em qualquer dia ou mês
+
+Usar sempre o padrão único existente do app, em toda área, janela e subjanela: componentes, calendários, tipografia, materiais, volume, textura, profundidade e movimentos. Não criar aparência paralela. Reutilizar o calendário e os controles do sistema. Preservar a superfície inteira na abertura e no recolhimento; verificar claro e escuro, telas menores, texto ampliado e modos leve/reduzido. A regra é contínua e não depende de ser repetida pelo usuário. Não afirmar desempenho medido em aparelho básico sem execução e evidência.
+
+## Pagamentos e recebimentos — versão24
+
+Finalizar Venda: resumo compacto de até três produtos e grade Pix/Dinheiro, Crédito/Débito, Outro, título central. + Produtos é uma ação separada. Mais produtos e texto ampliado podem rolar sem cortar controles. Outro oferece Fiado com cliente e vencimento, e pagamento dividido. Fiado reduz estoque e entra na receita da venda; só entra no caixa quando o produtor confirma o recebimento em Clientes a receber. Baixa não cria nova venda nem baixa estoque novamente. Usar os dois temas e tamanhos de tela na verificação.
+
+Pedido posterior21/10: última linha de pagamentos com Continuar comprando à esquerda e Outro à direita. Respiro entre total e ações finais. Nuvem e grau junto da frase Área de vendas, na mesma linha, sem intercalar outros controles. Prioridade permanente: qualidade de abertura e recolhimento em aparelhos de menor capacidade; preservar modos leve/reduzido e verificar os dois temas.
