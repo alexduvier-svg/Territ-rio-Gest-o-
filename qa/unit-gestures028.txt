@@ -1,0 +1,30 @@
+✔ venda guarda custo zero confirmado e custo não confirmado no registro histórico (33.8992ms)
+✔ regras de cadastro atualizam referências antigas sem perder a memória do produtor (32.0114ms)
+✔ premissas visuais acompanham backup e retomada sem substituir uma revisão mais nova (2.7566ms)
+✔ instalar conhecimento e memória deixa produtos e atividade do produtor intactos (2.1121ms)
+✔ revisão de janelas e estoque migra só premissas e permanece no backup sem alterar os registros (2.705ms)
+✔ memória e instruções são idempotentes na reabertura e isoladas por conjunto de dados (5.116ms)
+✔ só entradas confirmadas elevam frequência; validação, correção, perda e edição não elevam (3.0184ms)
+✔ primeiro saldo positivo conta uma vez e cancelar formulário não cria memória de uso (2.1013ms)
+✔ apresentações próprias conservam IDs, rótulo regional, perfil e valores após reabrir (2.6515ms)
+✔ catálogo mapeado bloqueia duplicata sem reescrever cadastro personalizado (4.5436ms)
+✔ cadastro antigo incompleto exige revisão; confirmar diferença cria variação sem mesclar (9.4267ms)
+✔ Cacho, Molho e Pé mantêm unidade e plural sem conversão de saldo após reiniciar (12.0813ms)
+✔ custo ausente permanece desconhecido e zero confirmado permanece conhecido no cadastro (2.6046ms)
+✔ saved sales order tolerates deleted, duplicate and new products without mutating stock order (5.595ms)
+✔ moving products handles boundaries, unknown ids and keeps each product once (0.1798ms)
+✔ single immediate checkout; double stock without requiring original DOM target (0.9358ms)
+✔ edited draft is never undone by a following tap (0.1186ms)
+✔ keyboard activation cannot accidentally become a multiple physical tap (0.1138ms)
+✔ double within existing selection restores the previous selected products (0.1307ms)
+✔ organization mode bypasses sale gestures (0.0897ms)
+✔ scroll cancellation clears physical tap sequence (0.1124ms)
+✔ a tap on a different product is never mistaken for the same-product double gesture (0.1828ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 600.9556

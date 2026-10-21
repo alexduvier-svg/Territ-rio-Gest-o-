@@ -1,3 +1,9 @@
+# Entrega concluída — 0.12.28/code68
+
+Gestos21/10:1toque=Finalizar Venda com1unidade,2toques=estoque exato,segurar600ms=seleção até3produtos. Na seleção duplo preserva lista. Quantidades/pagamentos editados e rascunhos anteriores protegidos; rolar cancela pressão. Premissasv15.22unit/104UI/32superfícies em8configurações claro/escuro320ampliado,360leve,393normal,412reduzido PASS,zero errosJS. Sem transações reais de teste,FPS/GPU/bateria nativos medidos; matriz histórica completa não repetida.
+
+APK5107916bytes SHA256ef0f97dcd70d5ad70384fe4b98c08895ee93133d24784621b60f90ff0b3915df,pacote/certoriginais,v2/v3/38assets/16KB,originalconferido. Instalado-r2026-10-21 08:57:18,68/0.12.28/Statusok,firstInstallTime2026-10-14 18:17:06preservado. Não refazer build/instalação/testes já passados. Fontes/QA neste commit somenteAGRO2. Nenhuma pendência autorizada restante; não repetir entrega28 por checkpoints históricos. Novos pedidos partem de28. Retomada automática silenciosa sem nova pendência. Leia app/docs/ENTREGA-0.12.28.md e ARQUIVOS-0.12.28.md. Servidor/clima27preservados,main956fddceec2b994e32c154c5197424a4f56df7f2preservado.
+
 # Entrega concluída — 0.12.27/code67
 
 Leia app/docs/ENTREGA-0.12.27.md e ARQUIVOS-0.12.27.md. Clima: relógio único mínimo30min/validade MET, pausa oculto/offline e retoma, sem consultas repetidas. WorkManager30min aproximados/rede/bateria>=50%, apenas cacheOnly do servidor; nunca consulta nova MET fora de uso. Cache nativo isolado do ERP, fila I/O/deduplicação, falhas com espera, pausa/cancelamento na janela Tempo. Premissasv14; não prometer bateria zero, horário exato ou previsão nova sem sinal.

@@ -9,30 +9,26 @@ export function installProductGesture(bridge, { source, restoreSource } = {}) {
     if (window.TerritorioSalesOrganization?.active()) { clear(); return false; }
     const physical = event.isTrusted && event.detail > 0;
     const old = pending; clear();
-    const again = old && physical && performance.now() - old.at < 340 && Math.hypot(event.clientX - old.x, event.clientY - old.y) < 24;
+    const again = old && physical && (!card || card.dataset.id === old.id) && performance.now() - old.at < 340 && Math.hypot(event.clientX - old.x, event.clientY - old.y) < 24;
     if (again) {
       if (old.stage === 1 && old.undo?.()) {
         consume(event); restoreSource?.(old.source);
-        window.TerritorioSelection?.begin(old.id);
-        remember(event, { ...old, stage: 2 });
-        return true;
-      }
-      if (old.stage === 2 && bridge.page() === 'Vender') {
-        consume(event);
-        window.TerritorioSelection?.restore(old.selection || []);
-        restoreSource?.(old.source);
         bridge.actions['stock-peek']({ id: old.id });
         return true;
       }
       if (old.stage === 'selection' && bridge.page() === 'Vender') {
-        consume(event); remember(event, { ...old, stage: 2 }); return true;
+        consume(event);
+        window.TerritorioSelection?.restore(old.selection);
+        restoreSource?.(old.source);
+        bridge.actions['stock-peek']({ id: old.id });
+        return true;
       }
     }
     if (!card || card.disabled || bridge.page() !== 'Vender') return false;
     const id = card.dataset.id;
     if (window.TerritorioSelection?.active()) {
-      // MultiSell performs the first toggle. Retain the prior selection so a
-      // triple tap cannot discard products that were already selected.
+      // MultiSell performs the first toggle. A second tap opens stock while
+      // restoring the selection that preceded the two-tap gesture.
       if (physical) remember(event, { id, stage: 'selection', source: source?.(), selection: window.TerritorioSelection.snapshot() });
       return false;
     }

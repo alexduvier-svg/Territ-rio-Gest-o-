@@ -27,10 +27,10 @@ function setup({edited=false}={}) {
   const card={dataset:{id:'coffee'},disabled:false}, tap=(opts={})=>window.TerritorioProductGestures.handleClick({isTrusted:true,detail:1,clientX:20,clientY:30,preventDefault(){},stopImmediatePropagation(){},...opts},opts.card===null?null:card);
   return {calls,tap,listeners,select:ids=>{selected=ids;},selected:()=>selected,organize:()=>{editing=true;}};
 }
-test('single immediate checkout; double selection; triple stock without requiring original DOM target', () => {
+test('single immediate checkout; double stock without requiring original DOM target', () => {
   const f=setup(); f.tap(); assert.deepEqual(f.calls,['checkout:coffee']);
-  f.tap({card:null});assert(f.calls.includes('select'));assert.deepEqual(f.selected(),['coffee']);
-  f.tap();assert.equal(f.calls.at(-1),'stock:coffee');assert.deepEqual(f.selected(),[]);
+  f.tap({card:null});assert.deepEqual(f.calls,['checkout:coffee','undo','origin','stock:coffee']);
+  assert.deepEqual(f.selected(),[]);
 });
 test('edited draft is never undone by a following tap', () => {
   const f=setup({edited:true}); f.tap();f.tap({card:null});assert.deepEqual(f.calls,['checkout:coffee']);
@@ -38,13 +38,20 @@ test('edited draft is never undone by a following tap', () => {
 test('keyboard activation cannot accidentally become a multiple physical tap', () => {
   const f=setup();f.tap({detail:0,isTrusted:false});f.tap({card:null});assert.deepEqual(f.calls,['checkout:coffee']);
 });
-test('triple within existing selection restores the previous selected products', () => {
+test('double within existing selection restores the previous selected products', () => {
   const f=setup();f.select(['banana']);assert.equal(f.tap(),false);f.select(['banana','coffee']);
-  f.tap();f.tap();assert.deepEqual(f.selected(),['banana']);assert.equal(f.calls.at(-1),'stock:coffee');
+  f.tap();assert.deepEqual(f.selected(),['banana']);assert.equal(f.calls.at(-1),'stock:coffee');
 });
 test('organization mode bypasses sale gestures', () => {
   const f=setup();f.organize();assert.equal(f.tap(),false);assert.deepEqual(f.calls,[]);
 });
 test('scroll cancellation clears physical tap sequence', () => {
   const f=setup();f.tap();f.listeners.pointercancel();f.tap({card:null});assert.deepEqual(f.calls,['checkout:coffee']);
+});
+
+test('a tap on a different product is never mistaken for the same-product double gesture', () => {
+  const f=setup();f.select(['banana']);f.tap();
+  const other={dataset:{id:'cheese'},disabled:false};
+  assert.equal(window.TerritorioProductGestures.handleClick({isTrusted:true,detail:1,clientX:20,clientY:30,preventDefault(){},stopImmediatePropagation(){}},other),false);
+  assert.deepEqual(f.calls,[]);
 });
