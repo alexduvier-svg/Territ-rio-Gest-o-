@@ -190,7 +190,12 @@ function installPicker() {
     if (event.type !== 'keydown' || event.key === 'Enter' || event.key === ' ') openPicker(select);
   };
   document.addEventListener('mousedown', intercept, true);
-  document.addEventListener('touchstart', e => { if (e.target.closest?.('select')) e.preventDefault(); }, { capture: true, passive: false });
+  // The native picker is stopped on each select itself. A blocking touchstart on the whole document made
+  // every touch and scroll start wait for the page (the sheet 'grabbed' while opening, typing or scrolling).
+  const stop = e => e.preventDefault();
+  const bind = () => { for (const select of document.querySelectorAll('select:not([data-picker-bound])')) { select.dataset.pickerBound = ''; select.addEventListener('touchstart', stop, { passive: false }); } };
+  new MutationObserver(bind).observe(document.body, { childList: true, subtree: true });
+  bind();
   document.addEventListener('touchend', e => { const s = e.target.closest?.('select'); if (s && !s.disabled) { e.preventDefault(); openPicker(s); } }, { capture: true, passive: false });
   document.addEventListener('keydown', e => { if (e.target.matches?.('select') && (e.key === 'Enter' || e.key === ' ')) intercept(e); }, true);
 }
@@ -244,7 +249,24 @@ function fitCardDetails() {
 }
 
 // ---------------------------------------------------------------- observadores
+// ---------------------------------------------------------------- digitar numa janela
+// Com o teclado abrindo ou fechando, a tela muda de tamanho em vários passos e o Android redesenha tudo a
+// cada passo (numa tela de 1440×3168 isso dobrava o tempo de cada quadro: a janela agarrava). Enquanto o
+// foco está num campo de uma janela, a página de trás (quase toda coberta pela janela e pelo teclado)
+// não é desenhada; ela volta quando o foco sai do campo ou a janela fecha, com a tela já parada.
+function installSheetTyping() {
+  const root = document.documentElement;
+  const typing = el => !!el?.matches?.('input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=range]), textarea, [contenteditable=\"true\"]') && !!el.closest('dialog[open]');
+  const on = () => root.classList.add('sheet-typing'), off = () => root.classList.remove('sheet-typing');
+  document.addEventListener('focusin', e => { if (typing(e.target)) on(); }, true);
+  // Tocar de novo no campo já focado reabre o teclado sem novo focusin.
+  document.addEventListener('pointerdown', e => { if (typing(e.target)) on(); }, { capture: true, passive: true });
+  document.addEventListener('focusout', () => setTimeout(() => { if (!typing(document.activeElement)) off(); }, 150), true);
+  document.addEventListener('close', off, true);
+}
+
 export function installInterface() {
+  installSheetTyping();
   const root = app();
   detectLite();
   installPicker();

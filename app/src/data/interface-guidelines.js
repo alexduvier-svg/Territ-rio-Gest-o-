@@ -1,6 +1,6 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 20,
+  version: 21,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   principles: {
@@ -19,6 +19,7 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     adaptation: 'Adaptar ao espaço útil, resolução e escala, incluindo aparelhos de 6,3, 6,5 e 6,8 polegadas. Conferir larguras de 320, 360, 393 e 412 px, texto ampliado, pouca altura e teclado aberto. Nenhuma ação, inclusive Enviar no WhatsApp, pode ficar cortada ou inacessível.',
   },
   sharedMaterial: 'Todas as áreas, seções, janelas e subjanelas compartilham o mesmo plano de vidro, volume e resposta ao toque. Fundo e sombra podem variar com o tema; texto nunca recebe opacidade, blur, textura ou brilho. Reflexo de toque curto, sem animação ociosa. Navegação direcional por aba e mola estável, com modos leve e reduzido.',
+  touchAndKeyboard: 'Nenhum ouvinte de toque bloqueante no documento inteiro (só no próprio elemento que precisa, como a lista de escolha), para o toque e a rolagem nunca esperarem a página. Enquanto o foco está num campo de uma janela, a página de trás não é desenhada; volta quando o foco sai ou a janela fecha (teclado sem tranco).',
   profileSheet: 'Perfil e negócio: foto em destaque no topo com Trocar foto; grupos Você e Negócio; Salvar no rodapé fixo (não encolhe; a área de rolagem cede espaço); nomes longos quebram linha no campo (nada cortado); Município e Estado lado a lado, um embaixo do outro em tela estreita.',
   stockAlerts: 'O app guarda o estado de cada produto (ok, acabando, esgotado) e avisa quando ele passa a acabando ou esgotado. Com algum esgotado durante um evento (feira em andamento; nunca na venda do dia a dia da Loja, onde o produtor confere com calma), uma caixinha vermelha (a mesma do rodapé) fica no canto da linha Área de vendas; enquanto houver esgotado não visto, as abas abrem e uma bolinha sai, até a pessoa tocar. Tocar abre a lista de esgotados e acabando com a pill vermelha Repor e a opção Agora não: a caixinha some e volta a cada 1 hora por 5 minutos (animada) enquanto houver esgotado; um novo esgotado a traz de volta na hora. Em Vender, o cartão esgotado continua tocável (aviso), desce para o fim da grade e volta ao seu lugar quando reposto, sem misturar famílias.',
   moveCards: 'No modo de seleção, o lugar de Área de vendas mostra a pill lilás Mova os cards; tocar nela desfaz a seleção e faz os cartões tremerem: eles mudam de lugar ao primeiro toque, sem segurar, dentro da família. Pronto encerra. Sem tremor no modo leve ou com movimento reduzido (contorno tracejado).',

@@ -216,3 +216,6 @@ html:is(.lite, [data-reduce-effects='true']) dialog:not(.fluid-exit-ghost) { box
 }
 :root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-split-body { margin-top: 16px; }
 :root[data-theme][data-layout] dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-validation { margin: 14px 0 0; }
+
+/* Digitando numa janela: a página de trás não é desenhada (ver installSheetTyping em interface.js). */
+html.sheet-typing :is(#app, #nav, #nav-glass) { visibility: hidden; }
