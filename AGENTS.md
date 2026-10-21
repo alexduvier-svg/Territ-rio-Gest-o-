@@ -1,3 +1,7 @@
+## Instalação adicional — Reno14, 21/10/2026
+
+Pedido humano: instalar também no Reno14. Mesmo APK validado0.12.51/code91/SHA2569711847c5360df89b0928372668290aa0abdcb1fe44cc362389fc20049e1921f, sem recompilar/versionar. Aparelho identificado pelos metadados como OPPO Reno14 5G/CPH2737; AGRO2 não estava instalado. Instalação nova com adb install-r em2026-10-21 18:58:01, pacote gestao2 e abertura Statusok confirmados. Sem limpar dados, sem alterar outros pacotes, sem ler/exportar registros reais. Fonte continua3a284586e8871f59445460eab6c97b8d6a3d2643. Não afirmar QA/FPS nativo no Reno: somente instalação/abertura verificadas. Leia docs/INSTALACAO-RENO14-0.12.51.md. Não repetir build/instalação por este registro.
+
 # Entrega atual — AGRO Gestão 2 0.12.51/code91
 
 APK referência3/0.12.50 analisado e Git integrado até cffe32b/AGRO3 0.12.62 (perfil52/55, scrim/títulos59, adaptação60/62 e canais de estoque62). Pacote/certificado AGRO2, dados reais, clima27 e servidor preservados. Memória adaptação2/interface23; política resources canônica, recuperação e DOM limitado. Leia app/docs/ENTREGA-0.12.51.md e ADAPTACAO-MEMORIA-ACAO-0.12.51.md. Não repetir31nem30porcheckpoints antigos.31nunca foi instalada/publicada; fluxo manual Próximo/Concluir da referência substitui avanço automático31.
