@@ -1,5 +1,5 @@
-// Venda de vários produtos de uma vez: segurar um cartão em Vender (0,6 s, o toque longo padrão da
-// Apple e do Android) entra no modo de seleção; toque em até mais 2 produtos e em "Vender N produtos".
+// Venda de vários produtos de uma vez: segurar um cartão em Vender já o marca e entra no modo de
+// seleção (arrastar muda o cartão de lugar); toque em até mais 2 produtos e em "Continuar".
 // Os escolhidos entram juntos na tela de venda, cada um com sua apresentação e quantidade.
 // Funciona nos dois estilos (Feira e Território).
 
@@ -95,6 +95,17 @@ function toggle(id) {
   paint();
 }
 
+// A sold-out card cannot be chosen, but it answers: a short shake and the reason.
+function refuse(card) {
+  const name = card.querySelector('strong')?.textContent?.trim() || 'Este produto';
+  const detail = card.querySelector('.card-detail')?.textContent?.replace(/\s*·\s*/g, ' ').trim();
+  notice(`Sem estoque: ${name}${detail ? ' ' + detail : ''}.`);
+  card.classList.remove('multi-refused');
+  void card.offsetWidth;
+  card.classList.add('multi-refused');
+  setTimeout(() => card.classList.remove('multi-refused'), 420);
+}
+
 function clearTimer() {
   clearTimeout(timer);
   timer = null;
@@ -105,9 +116,9 @@ function clearTimer() {
 export function installMultiSell() {
   document.addEventListener('pointerdown', event => {
     const card = cardFrom(event.target);
-    if (!card || card.disabled || !onVender() || window.TerritorioSalesOrganization?.active()) return;
-    window.TerritorioProductGestures?.suspend(event, card);
-    if (card.getAttribute('aria-disabled')==='true' || selected.length) return;
+    // Segurar o cartão o marca e o levanta (reorder.js): arrastar desfaz a seleção e muda de lugar.
+    if (window.TerritorioReorder || !card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length) return;
+    window.TerritorioProductGestures?.suspend();
     pressed = card;
     start = { x: event.clientX, y: event.clientY };
     card.classList.add('multi-pressing');
@@ -137,18 +148,16 @@ export function installMultiSell() {
     const card = cardFrom(event.target);
     if (swallow && Date.now() <= swallow.until && card && card.dataset.id === swallow.id) {
       swallow = null;
-      window.TerritorioProductGestures?.cancelPending();
       event.preventDefault();
       event.stopImmediatePropagation();
       return;
     }
     swallow = null;
-    if (window.TerritorioSalesOrganization?.active()) return;
-    if (window.TerritorioProductGestures?.handleClick(event, card)) return;
     if (!card || !selected.length) return;
     event.preventDefault();
     event.stopImmediatePropagation();
     if (!card.disabled && card.getAttribute('aria-disabled')!=='true') {const now=Date.now();if(lastToggle?.id===card.dataset.id&&now-lastToggle.at<320)return;lastToggle={id:card.dataset.id,at:now};toggle(card.dataset.id);}
+    else refuse(card);
   }, true);
   document.addEventListener('contextmenu', event => { if (cardFrom(event.target)) event.preventDefault(); });
 
@@ -156,10 +165,13 @@ export function installMultiSell() {
   new MutationObserver(() => { if (!onVender()) cancel(); else if (selected.length) paint(); })
     .observe(document.getElementById('app'), { childList: true });
 
-  const restore = ids => { selected = [...new Set(ids)].filter(id => {
-    const card = [...document.querySelectorAll(CARD)].find(c => c.dataset.id === id);
-    return card && !card.disabled && card.getAttribute('aria-disabled') !== 'true';
-  }).slice(0, MAX); lastToggle = null; paint(); };
-  window.TerritorioSelection = { cancel, active: () => selected.length > 0, snapshot: () => selected.slice(), restore,
-    begin(id) { restore([id]); if (selected.length) tick(); } };
+  // Segurar um cartão (reorder.js) abre a seleção com ele já marcado.
+  const startSelection = id => {
+    if (!onVender() || !id) return;
+    selected = [id];
+    lastToggle = { id, at: Date.now() };
+    tick();
+    paint();
+  };
+  window.TerritorioSelection = { cancel, start: startSelection, active: () => selected.length > 0 };
 }

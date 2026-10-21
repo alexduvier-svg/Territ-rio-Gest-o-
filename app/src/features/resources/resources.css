@@ -1,0 +1,7 @@
+.resource-options{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}.resource-options h3{margin:0 0 8px}.resource-options p{font-size:14px;color:var(--muted);line-height:1.5}.resource-options button{min-height:48px}
+:root.lite :is(.panel,.feira-card,.glass-products-plane,.workflow-stock-family,#nav,dialog,.nav-glass){backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+:root.lite :is(.sa-ball,.sa-flap-l,.sa-flap-r,.stock-alert-chip,.draft-resume-banner,.draft-resume-banner *,.move-cards-pill,.reorder-edit .feira-card){animation:none!important}
+:root[data-short-window=true] dialog:not(.picker-sheet)>.checkout-header{padding-top:12px;padding-bottom:12px}:root[data-short-window=true] dialog:not(.picker-sheet)>.checkout-header h2{font-size:clamp(20px,5vw,26px)}
+:root[data-resource-layout=expanded] #app{max-width:1000px;margin-inline:auto}
+
+.resource-more{width:100%;min-height:48px;margin-top:12px}

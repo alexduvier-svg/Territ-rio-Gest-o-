@@ -35,4 +35,14 @@ public class AgroAgentSchedulerPlugin extends Plugin {
         android.content.SharedPreferences prefs=getContext().getSharedPreferences(PREFS,Context.MODE_PRIVATE);
         JSObject out=new JSObject();out.put("pending",prefs.getBoolean("pending",true));out.put("requestedAt",prefs.getLong("requestedAt",0));out.put("reviewedAt",prefs.getLong("reviewedAt",0));call.resolve(out);
     }
+
+    @PluginMethod public void capabilities(PluginCall call) {
+        JSObject out=new JSObject();
+        android.app.ActivityManager manager=(android.app.ActivityManager)getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        android.os.PowerManager power=(android.os.PowerManager)getContext().getSystemService(Context.POWER_SERVICE);
+        if(manager!=null){out.put("lowRam",manager.isLowRamDevice());out.put("memoryClassMB",manager.getMemoryClass());}
+        if(power!=null){out.put("powerSave",power.isPowerSaveMode());if(android.os.Build.VERSION.SDK_INT>=29)out.put("thermalStatus",power.getCurrentThermalStatus());}
+        try { if(getActivity()!=null)out.put("refreshRateHz",getActivity().getWindowManager().getDefaultDisplay().getRefreshRate()); } catch(Exception ignored) {}
+        call.resolve(out);
+    }
 }

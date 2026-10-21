@@ -120,8 +120,17 @@ const queue = createSaveQueue({
 });
 const save = json => queue.save(json);
 
+
+// A small command journal shares this adapter, not the authoritative business snapshot.
+// A stale journal is reconciled by operationId against the durable sales before any UI restoration.
+const RECOVERY_SLOTS=['recovery-a.json','recovery-b.json'];let recoverySeq=0;
+async function readRecoverySlot(name){try{const {data}=await Filesystem.readFile(fileOptions(DIR+'/'+name)),at=data.indexOf('\n');if(at<0)return null;const h=JSON.parse(data.slice(0,at)),json=data.slice(at+1),record=JSON.parse(json);if(!Number.isSafeInteger(h.seq)||h.seq<0||h.length!==json.length||h.checksum!==checksum(json)||record.version!==1)return null;return{seq:h.seq,json,record};}catch{return null;}}
+async function loadRecovery(){const rows=(await Promise.all(RECOVERY_SLOTS.map(readRecoverySlot))).filter(Boolean).sort((a,b)=>b.seq-a.seq);if(rows[0]){recoverySeq=rows[0].seq;return rows[0].record;}return null;}
+async function writeRecovery(json){const record=JSON.parse(json);if(record.version!==1||new TextEncoder().encode(json).length>128*1024)throw Error('Rascunho inválido.');const next=recoverySeq+1,name=RECOVERY_SLOTS[next%2],header=JSON.stringify({seq:next,length:json.length,checksum:checksum(json)});await Filesystem.writeFile({...fileOptions(DIR+'/'+name),data:header+'\n'+json,recursive:true});const verified=await readRecoverySlot(name);if(verified?.seq!==next||verified.json!==json)throw Error('O rascunho não conferiu.');recoverySeq=next;}
+const recoveryQueue=createSaveQueue({write:writeRecovery,onError:()=>window.dispatchEvent(new Event('territorio:recovery-error'))});
+
 // Resolves once every queued save has reached the disk (used when the app goes to background).
-export const settle = () => queue.settle();
+export const settle = async () => { const results=await Promise.all([queue.settle(),recoveryQueue.settle()]);return results.every(Boolean); };
 
 // Must finish before the UI script runs: it reads `initialJSON` synchronously on start-up.
 export async function initStorage() {
@@ -145,5 +154,6 @@ export async function initStorage() {
     }
     if (initialJSON) save(initialJSON);
   }
-  window.TerritorioNative = { isNative: true, initialJSON, save, durable: () => queue.durable(), status: () => queue.status() };
+  const initialRecord=await loadRecovery();
+  window.TerritorioNative = { isNative: true, initialJSON, save, durable: () => queue.durable(), status: () => queue.status(), recovery:{initialRecord,save:json=>recoveryQueue.save(json),durable:()=>recoveryQueue.durable(),status:()=>recoveryQueue.status()} };
 }

@@ -4,6 +4,39 @@
 :root[data-theme][data-layout] #nav button.active { background: transparent !important; box-shadow: none !important; color: var(--glass-muted, var(--muted)) !important; }
 :root[data-theme][data-layout] #nav button.active > span { color: var(--glass-muted, var(--muted)); }
 :root[data-theme][data-layout] #nav button.active > .icon { color: var(--accent-ink, var(--action-green)); }
+/* Regra salesCardAnatomy (interface-guidelines): todo card de venda tem a mesma anatomia — nome em
+   até 2 linhas, detalhes em partes inteiras e preço na base. As partes ficam juntas com " · "
+   quando cabem; quando não cabem, empilham uma por linha (interface.js mede) e o ponto some, nunca
+   pendurado no fim da linha. O "R$" é menor e mais leve, separado do valor em algarismos de
+   largura igual, para os preços de todos os cards terem o mesmo desenho. */
+.glass-products-plane .feira-card > .card-detail { display: block; }
+.feira-card .card-detail > .seg { white-space: nowrap; }
+.feira-card .card-detail > .seg + .seg::before { content: ' · '; }
+.feira-card .card-detail.is-stacked > .seg { display: block; white-space: normal; }
+.feira-card .card-detail.is-stacked > .seg + .seg::before { content: none; }
+.glass-products-plane .feira-card > span.tabular.sale-price {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.feira-card .sale-price > .sale-currency { font-size: 0.74em; font-weight: 600; letter-spacing: 0; color: var(--material-muted); }
+.feira-card .sale-price > .sale-value { font-weight: 750; }
+/* Nomes do rodapé finos (aprovado pelo produtor): o ícone guia, o nome só confirma. */
+:root[data-theme][data-layout] #nav button > span { font-weight: 300; letter-spacing: 0.012em; }
+/* Tema escuro: o rodapé tem o acabamento da pill "Loja" do topo — o mesmo vidro, degradê discreto
+   e borda iluminada. A base é opaca o bastante para os produtos não aparecerem por baixo; o
+   desfoque só suaviza o que resta. */
+:root[data-theme='dark'][data-layout] #nav {
+  background: linear-gradient(145deg, rgb(59 62 67 / 94%), rgb(36 38 44 / 90%));
+  border: 1px solid rgb(255 255 255 / 13%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 16%), var(--material-depth);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  backdrop-filter: blur(20px) saturate(1.5);
+}
+:root.lite[data-theme='dark'][data-layout] #nav { background: linear-gradient(145deg, #3b3e43, #24262c); }
 
 /* One header, a scrolling body, and a reachable bottom action. */
 :root[data-theme] dialog[data-bottom-back]:is([open], .fluid-native-exit),

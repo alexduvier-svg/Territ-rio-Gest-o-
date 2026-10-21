@@ -1,0 +1,212 @@
+{
+  "version": "0.12.51",
+  "synthetic": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "versioned document memory installed separately from business records; one heavy task"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "incremental draft survives resizing and reload with its original operation key"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "journal storage failure blocks financial commit without changing stock"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "retry completes the same operation once with the correct stock deduction"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "stale post-commit journal opens receipt rather than creating a duplicate cart"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "user light preference survives reload; diagnostics stay out of the model"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "versioned document memory installed separately from business records; one heavy task"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "incremental draft survives resizing and reload with its original operation key"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "journal storage failure blocks financial commit without changing stock"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "retry completes the same operation once with the correct stock deduction"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "stale post-commit journal opens receipt rather than creating a duplicate cart"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "user light preference survives reload; diagnostics stay out of the model"
+    },
+    {
+      "theme": "light",
+      "width": 840,
+      "name": "versioned document memory installed separately from business records; one heavy task"
+    },
+    {
+      "theme": "light",
+      "width": 840,
+      "name": "incremental draft survives resizing and reload with its original operation key"
+    },
+    {
+      "theme": "light",
+      "width": 840,
+      "name": "journal storage failure blocks financial commit without changing stock"
+    },
+    {
+      "theme": "light",
+      "width": 840,
+      "name": "retry completes the same operation once with the correct stock deduction"
+    },
+    {
+      "theme": "light",
+      "width": 840,
+      "name": "stale post-commit journal opens receipt rather than creating a duplicate cart"
+    },
+    {
+      "theme": "light",
+      "width": 840,
+      "name": "user light preference survives reload; diagnostics stay out of the model"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "versioned document memory installed separately from business records; one heavy task"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "incremental draft survives resizing and reload with its original operation key"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "journal storage failure blocks financial commit without changing stock"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "retry completes the same operation once with the correct stock deduction"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "stale post-commit journal opens receipt rather than creating a duplicate cart"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "user light preference survives reload; diagnostics stay out of the model"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "versioned document memory installed separately from business records; one heavy task"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "incremental draft survives resizing and reload with its original operation key"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "journal storage failure blocks financial commit without changing stock"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "retry completes the same operation once with the correct stock deduction"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "stale post-commit journal opens receipt rather than creating a duplicate cart"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "user light preference survives reload; diagnostics stay out of the model"
+    },
+    {
+      "theme": "dark",
+      "width": 840,
+      "name": "versioned document memory installed separately from business records; one heavy task"
+    },
+    {
+      "theme": "dark",
+      "width": 840,
+      "name": "incremental draft survives resizing and reload with its original operation key"
+    },
+    {
+      "theme": "dark",
+      "width": 840,
+      "name": "journal storage failure blocks financial commit without changing stock"
+    },
+    {
+      "theme": "dark",
+      "width": 840,
+      "name": "retry completes the same operation once with the correct stock deduction"
+    },
+    {
+      "theme": "dark",
+      "width": 840,
+      "name": "stale post-commit journal opens receipt rather than creating a duplicate cart"
+    },
+    {
+      "theme": "dark",
+      "width": 840,
+      "name": "user light preference survives reload; diagnostics stay out of the model"
+    }
+  ],
+  "mass": [
+    {
+      "theme": "light",
+      "products": 2500,
+      "sales": 10000,
+      "clients": 1000,
+      "initialVisible": 60,
+      "afterMore": 120,
+      "totalDataPreserved": true,
+      "desktopScenarioMs": 4329,
+      "physicalBenchmark": false
+    },
+    {
+      "theme": "dark",
+      "products": 2500,
+      "sales": 10000,
+      "clients": 1000,
+      "initialVisible": 60,
+      "afterMore": 120,
+      "totalDataPreserved": true,
+      "desktopScenarioMs": 4144,
+      "physicalBenchmark": false
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

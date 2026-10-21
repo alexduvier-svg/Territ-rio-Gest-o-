@@ -17,12 +17,12 @@ const model = version => JSON.stringify({
 });
 const oldSlot = (seq, json) => JSON.stringify({ seq, savedAt: now, length: json.length }) + '\n' + json;
 
-function runtime({ files = new Map(), legacy = null, damageWrite = false, native = true } = {}) {
+function runtime({ files = new Map(), legacy = null, damageWrite = false, damageRecoveryWrite = false, native = true } = {}) {
   const events = [], writes = [], timers = [];
   class FixedDate extends Date { constructor(value) { super(value === undefined ? now : value); } }
   const ctx = {
     createSaveQueue: options => createSaveQueue({ ...options, setTimer: fn => { timers.push(fn); return timers.length; } }),
-    Date: FixedDate, Intl, JSON, Math, Number, Array, Promise,
+    Date: FixedDate, Intl, JSON, Math, Number, Array, Promise, TextEncoder,
     console: { warn() {}, error() {} },
     Event: class { constructor(type) { this.type = type; } },
     CustomEvent: class { constructor(type) { this.type = type; } },
@@ -32,7 +32,7 @@ function runtime({ files = new Map(), legacy = null, damageWrite = false, native
       async readFile({ path }) { if (!files.has(path)) throw new Error('ENOENT'); return { data: files.get(path) }; },
       async writeFile({ path, data }) {
         writes.push(path);
-        files.set(path, damageWrite && /data-[ab]\.json$/.test(path) ? data.slice(0, -3) : data);
+        files.set(path, ((damageWrite && /data-[ab]\.json$/.test(path)) || (damageRecoveryWrite && /recovery-[ab]\.json$/.test(path))) ? data.slice(0, -3) : data);
       },
       async readdir({ path }) { return { files: [...files.keys()].filter(key => key.startsWith(path + '/')).map(key => ({ name: key.slice(path.length + 1) })) }; },
       async deleteFile({ path }) { files.delete(path); },
@@ -124,3 +124,7 @@ test('save inválido preserva ambos slots; calendário de backup usa a virada de
   assert.equal(r.api.dayKey(new Date('2027-01-01T02:59:59Z')), '2026-12-31');
   assert.equal(r.api.dayKey(new Date('2027-01-01T03:00:00Z')), '2027-01-01');
 });
+
+test('small recovery journal alternates, verifies and survives restart without touching business slots',async()=>{const r=runtime();await r.init();r.native().save(model(9));await r.native().durable();const prior=r.native().initialJSON;for(const quantity of ['1','12']){r.native().recovery.save(JSON.stringify({version:1,entry:{actorId:'a',draft:{operationId:'op',items:[{productId:'p',rawQty:quantity}]}}}));assert.equal(await r.native().recovery.durable(),true);}const restart=runtime({files:r.files});await restart.init();assert.equal(restart.native().initialJSON,model(9));assert.equal(restart.native().recovery.initialRecord.entry.draft.items[0].rawQty,'12');assert(r.files.has('territorio/recovery-a.json'));assert(r.files.has('territorio/recovery-b.json'));});
+test('damaged newest recovery slot falls back and a tombstone clears only the pending cart',async()=>{const r=runtime();await r.init();r.native().save(model(3));await r.native().durable();for(const n of [1,2]){r.native().recovery.save(JSON.stringify({version:1,entry:{n}}));assert.equal(await r.native().recovery.durable(),true);}const p='territorio/recovery-a.json';r.files.set(p,r.files.get(p).slice(0,-3));const restart=runtime({files:r.files});await restart.init();assert.equal(restart.native().recovery.initialRecord.entry.n,1);restart.native().recovery.save(JSON.stringify({version:1,entry:null}));assert.equal(await restart.native().recovery.durable(),true);const again=runtime({files:r.files});await again.init();assert.equal(again.native().recovery.initialRecord.entry,null);assert.equal(again.native().initialJSON,model(3));});
+test('failed recovery write is not acknowledged as durable',async()=>{const r=runtime({damageRecoveryWrite:true});await r.init();r.native().recovery.save(JSON.stringify({version:1,entry:{id:'op'}}));assert.equal(await r.native().recovery.durable(),false);assert(r.native().recovery.status().failed);assert.equal(r.native().status().failed,false);});

@@ -1,0 +1,35 @@
+✔ stock notification migration creates separate normal/fair channels without holding the screen on (2.1911ms)
+✔ store shortage stays normal; after replenishment, fair sold-out uses the fair channel while low stock stays normal (17.6194ms)
+✔ denied notification permission never schedules a stock alert or mutates business data (0.8165ms)
+✔ recovery is a deep copy of intent and preserves operation key and exact quantities (1.0799ms)
+✔ completed operation is reconciled before restoration, never registered twice (2.0523ms)
+✔ another producer or deleted product never becomes a new sale (0.7049ms)
+✔ tombstone and malformed journal do not recreate a cart (0.1433ms)
+✔ oversized text is refused without truncating a monetary input or overwriting the old record (1.0938ms)
+✔ small form intent is recoverable only in the same producer context (0.1662ms)
+✔ window size and workload capability are independent, with no brand ranking (0.7687ms)
+✔ accessibility and actual system pressure override advanced effects (0.1277ms)
+✔ three comparable local overruns in30s degrade, network/typing do not count (1.0111ms)
+✔ time hidden cannot count as two minutes of stable foreground (0.2012ms)
+✔ optional queue is bounded/serial and visible work outranks background index (0.9038ms)
+✔ background cancellation drops queued analyses without touching a domain command (1.6689ms)
+✔ variable refresh pacing at60Hz on120Hz is not jank, but actual missed frames and steady30Hz are (0.3568ms)
+✔ slots nativos conservam a memória completa após reiniciar e alternam sem perder o anterior (27.2547ms)
+✔ corrupção do mesmo tamanho ou truncamento recupera o outro slot intacto (5.0964ms)
+✔ formatos antigos sem checksum permanecem legíveis, sem alteração dos dados (1.1086ms)
+✔ durable recusa confirmação quando o sistema afirma gravar mas o readback está truncado (1.8667ms)
+✔ primeiro backup do dia não é sobrescrito ao reiniciar ou atualizar o aplicativo (2.0646ms)
+✔ ambos slots danificados recuperam backup válido recente e ignoram cópia incompleta mais nova (1.1458ms)
+✔ migração localStorage só grava modelo completo, sem descartar metadados da memória (3.0527ms)
+✔ save inválido preserva ambos slots; calendário de backup usa a virada de Brasília (1.3689ms)
+✔ small recovery journal alternates, verifies and survives restart without touching business slots (2.2174ms)
+✔ damaged newest recovery slot falls back and a tombstone clears only the pending cart (2.8183ms)
+✔ failed recovery write is not acknowledged as durable (1.4352ms)
+ℹ tests 27
+ℹ suites 0
+ℹ pass 27
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 190.3921

@@ -1,0 +1,23 @@
+{
+  "version": "0.12.51",
+  "synthetic": true,
+  "externalNetworkBlocked": true,
+  "cases": [
+    {
+      "theme": "light",
+      "saleTotal": 7500,
+      "remainingStock": 6,
+      "oneContinuousSheet": true,
+      "frames": 46
+    },
+    {
+      "theme": "dark",
+      "saleTotal": 7500,
+      "remainingStock": 6,
+      "oneContinuousSheet": true,
+      "frames": 46
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

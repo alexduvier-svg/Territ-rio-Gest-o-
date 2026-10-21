@@ -1,0 +1,89 @@
+{
+  "version": "0.12.51",
+  "synthetic": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "new product form survives restart, including explicit zero, without registering product"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "client form survives restart and is not added to client register"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "profile fields recover as unconfirmed intent, not an automatic profile change"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "name": "twenty interrupted open/close cycles leave no dialog/layer or business mutation"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "new product form survives restart, including explicit zero, without registering product"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "client form survives restart and is not added to client register"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "profile fields recover as unconfirmed intent, not an automatic profile change"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "name": "twenty interrupted open/close cycles leave no dialog/layer or business mutation"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "new product form survives restart, including explicit zero, without registering product"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "client form survives restart and is not added to client register"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "profile fields recover as unconfirmed intent, not an automatic profile change"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "name": "twenty interrupted open/close cycles leave no dialog/layer or business mutation"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "new product form survives restart, including explicit zero, without registering product"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "client form survives restart and is not added to client register"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "profile fields recover as unconfirmed intent, not an automatic profile change"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "name": "twenty interrupted open/close cycles leave no dialog/layer or business mutation"
+    }
+  ],
+  "mass": [],
+  "errors": [],
+  "passed": true
+}

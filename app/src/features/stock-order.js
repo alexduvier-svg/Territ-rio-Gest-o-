@@ -34,4 +34,18 @@ function compareDescriptors(a,b){
 }
 export const stockProductComparator=(a,b)=>compareDescriptors(descriptor(a),descriptor(b));
 export const stockFamily=p=>descriptor(p).family;
-export function orderStockProducts(products){return [...(products||[])].map(descriptor).sort(compareDescriptors).map(d=>d.p);}
+export const stockGroupKey=p=>{const d=descriptor(p);return d.category+'|'+d.family;};
+
+// The producer's own order (hold and drag): it reorders products inside their family only, so
+// families never interleave and categories keep their place. Products never placed by hand keep
+// the catalog order after the ones that were.
+let manualOrder=new Map();
+export function setManualOrder(ids){manualOrder=new Map((Array.isArray(ids)?ids:[]).filter(id=>typeof id==='string').map((id,i)=>[id,i]));}
+export function applyManualOrder(sorted,order=manualOrder){
+ if(!order.size)return sorted;
+ const out=[];let group=[],key=null;
+ const flush=()=>{group.sort((a,b)=>(order.get(a.d.p.id)??Infinity)-(order.get(b.d.p.id)??Infinity)||a.i-b.i);out.push(...group.map(g=>g.d));group=[];};
+ sorted.forEach((d,i)=>{const k=d.category+'|'+d.family;if(k!==key){flush();key=k;}group.push({d,i});});
+ flush();return out;
+}
+export function orderStockProducts(products,order){const sorted=[...(products||[])].map(descriptor).sort(compareDescriptors);return applyManualOrder(sorted,order?new Map(order.map((id,i)=>[id,i])):manualOrder).map(d=>d.p);}

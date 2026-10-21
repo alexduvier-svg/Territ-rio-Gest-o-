@@ -1,11 +1,57 @@
-// One bounded highlight per pressed control; no idle loop or changing blur/shadow.
+// Decoration has its own out-of-flow element, never a content span. One light per
+// control is reused on a second press; its lifetime cannot change a row's layout.
 import {fluidMotionAllowed,fluidMotionLite} from './motion/index.js';
 export function installGlassTouch(){
- let active=null,light=null,animation=null;
- const hosts=new WeakMap(),releases=new WeakMap();
- const attach=el=>{let state=hosts.get(el);if(!state){state={position:el.style.position,owned:getComputedStyle(el).position==='static',count:0};if(state.owned)el.style.position='relative';hosts.set(el,state);}state.count++;return()=>{if(--state.count)return;if(state.owned)el.style.position=state.position;hosts.delete(el);};};
- const end=()=>{if(!light)return;const el=light,release=releases.get(el);active=null;light=null;animation?.cancel();animation=el.animate([{opacity:.7,transform:'scale(.7)'},{opacity:0,transform:'scale(1.35)'}],{duration:fluidMotionLite()?120:300,easing:'ease-out'});animation.finished.catch(()=>{}).finally(()=>{el.remove();release?.();});};
- document.addEventListener('pointerdown',e=>{if(!fluidMotionAllowed()||e.button!==0)return;const el=e.target.closest?.('button,summary');if(!el||el.disabled||el.closest('[inert]'))return;end();const r=el.getBoundingClientRect();if(r.width>650||r.height>400)return;active=el;light=document.createElement('span');releases.set(light,attach(el));light.className='glass-touch-light';light.setAttribute('aria-hidden','true');light.style.left=(e.clientX-r.left)+'px';light.style.top=(e.clientY-r.top)+'px';light.style.width=light.style.height=Math.min(240,Math.max(r.width,r.height)*1.6)+'px';el.append(light);},{capture:true,passive:true});
- document.addEventListener('pointermove',e=>{if(!active||!light)return;const r=active.getBoundingClientRect();if(e.clientX<r.left-8||e.clientX>r.right+8||e.clientY<r.top-8||e.clientY>r.bottom+8){end();return;}light.style.left=(e.clientX-r.left)+'px';light.style.top=(e.clientY-r.top)+'px';},{passive:true});
- for(const type of ['pointerup','pointercancel'])document.addEventListener(type,end,{passive:true});document.addEventListener('visibilitychange',end);
+ const lights=new WeakMap(),live=new Set();
+ let pressed=null;
+ const remove=state=>{
+  if(lights.get(state.host)!==state)return;
+  if(pressed===state)pressed=null;
+  lights.delete(state.host);live.delete(state);
+  if(state.animation){state.animation.onfinish=null;state.animation.cancel();}
+  state.light.remove();
+  if(state.ownsPosition)state.host.style.position=state.position;
+ };
+ const stop=()=>{if(!pressed)return;const state=pressed;pressed=null;
+  if(!state.host.isConnected||!fluidMotionAllowed()){remove(state);return;}
+  state.animation=state.spot.animate([
+   {opacity:.7,transform:'scale(.7)'},{opacity:0,transform:'scale(1.35)'},
+  ],{duration:fluidMotionLite()?120:240,easing:'ease-out'});
+  state.animation.onfinish=()=>remove(state);
+ };
+ const clear=()=>{pressed=null;for(const state of live)remove(state);};
+ document.addEventListener('pointerdown',e=>{
+  if(!fluidMotionAllowed()||fluidMotionLite()||e.button!==0||e.isPrimary===false)return;
+  const host=e.target.closest?.('button,summary');
+  if(!host||host.disabled||host.closest('[inert]'))return;
+  if(pressed)stop();
+  const rect=host.getBoundingClientRect();
+  if(!rect.width||!rect.height||rect.width>650||rect.height>400)return;
+  let state=lights.get(host);
+  if(state?.animation){state.animation.onfinish=null;state.animation.cancel();state.animation=null;}
+  if(!state){
+   const position=host.style.position,ownsPosition=getComputedStyle(host).position==='static';
+   if(ownsPosition)host.style.position='relative';
+   const light=document.createElement('agro-touch-light');
+   light.className='glass-touch-light';light.setAttribute('aria-hidden','true');
+   const spot=document.createElement('i');spot.className='glass-touch-spot';light.append(spot);
+   state={host,light,spot,position,ownsPosition,animation:null,pointer:e.pointerId};
+   lights.set(host,state);live.add(state);host.append(light);
+  }
+  state.pointer=e.pointerId;
+  state.spot.style.left=(e.clientX-rect.left)+'px';
+  state.spot.style.top=(e.clientY-rect.top)+'px';
+  state.spot.style.width=state.spot.style.height=Math.min(240,Math.max(rect.width,rect.height)*1.6)+'px';
+  pressed=state;
+ },{capture:true,passive:true});
+ // Scrolling/cancelling must not leave a glow or a containing-block override.
+ document.addEventListener('pointermove',e=>{
+  if(!pressed||pressed.pointer!==e.pointerId)return;
+  const r=pressed.host.getBoundingClientRect();
+  if(e.clientX<r.left-8||e.clientX>r.right+8||e.clientY<r.top-8||e.clientY>r.bottom+8)stop();
+ },{passive:true});
+ for(const type of ['pointerup','pointercancel'])document.addEventListener(type,e=>{if(pressed?.pointer===e.pointerId)stop();},{capture:true,passive:true});
+ document.addEventListener('scroll',clear,{capture:true,passive:true});
+ document.addEventListener('visibilitychange',clear);
+ window.addEventListener('blur',clear);
 }

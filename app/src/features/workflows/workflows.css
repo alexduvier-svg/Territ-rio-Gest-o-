@@ -23,3 +23,5 @@
 :root[data-theme][data-layout] dialog[data-kind="event-load"]>.checkout-header{position:relative;flex:0 0 auto}
 @media(max-width:350px){.workflow-client-line{grid-template-columns:minmax(0,1fr) minmax(100px,.8fr)}.workflow-origin-line{gap:6px}.workflow-origin-line button{font-size:14px}.workflow-rank{gap:8px}}
 @media(max-height:600px){#dialog[data-kind="event-load"] .event-load-help{font-size:13px}#dialog[data-kind="event-load"] .checkout-footer>button{min-height:36px;padding:8px}#dialog[data-kind="event-load"] .checkout-header{padding-block:10px}}
+
+.sale-sequence-detail{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 2px;padding:10px 12px;border:1px solid var(--line);border-radius:16px;background:var(--field);font-size:14px}.sale-sequence-detail>span{color:var(--muted)}.sale-sequence-detail>strong{font-variant-numeric:tabular-nums;text-align:right}

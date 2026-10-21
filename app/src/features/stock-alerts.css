@@ -1,0 +1,112 @@
+/* Estoque esgotado: caixinha vermelha na linha "Área de vendas"; "Mova os cards" no modo de seleção.
+   Movimentos só de transform/opacity; no modo leve e em "Reduzir movimento", tudo fica parado. */
+
+/* ---------------------------------------------------------------- caixinha de esgotado */
+.glass-area-row > .stock-alert-chip {
+  order: 9;
+  margin-left: auto;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--red, #ff453a) 14%, transparent);
+  color: var(--red, #ff453a);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--red, #ff453a) 28%, transparent);
+}
+:root[data-theme='light'] .glass-area-row > .stock-alert-chip { color: #c62f26; background: rgb(198 47 38 / 10%); }
+.stock-alert-chip .sa-box { width: 24px; height: 24px; overflow: visible; }
+.stock-alert-chip :is(.sa-flap-l, .sa-flap-r, .sa-ball) { transform-box: view-box; }
+.stock-alert-chip .sa-flap-l { transform-origin: 3.5px 9.5px; }
+.stock-alert-chip .sa-flap-r { transform-origin: 20.5px 9.5px; }
+.stock-alert-chip .sa-ball { opacity: 0; transform-origin: 12px 11.5px; }
+/* Enquanto houver esgotado ainda não visto: as abas abrem e a bolinha sai, a cada 3,6 s. */
+.stock-alert-chip.is-new .sa-flap-l { animation: sa-flap-l 3.6s cubic-bezier(0.32, 0.72, 0, 1) infinite; }
+.stock-alert-chip.is-new .sa-flap-r { animation: sa-flap-r 3.6s cubic-bezier(0.32, 0.72, 0, 1) infinite; }
+.stock-alert-chip.is-new .sa-ball { animation: sa-ball 3.6s cubic-bezier(0.3, 0.7, 0.2, 1) infinite; }
+@keyframes sa-flap-l { 0%, 10% { transform: rotate(0); } 22%, 46% { transform: rotate(-78deg); } 60%, 100% { transform: rotate(0); } }
+@keyframes sa-flap-r { 0%, 10% { transform: rotate(0); } 22%, 46% { transform: rotate(78deg); } 60%, 100% { transform: rotate(0); } }
+@keyframes sa-ball {
+  0%, 16% { opacity: 0; transform: translateY(4px) scale(0.7); }
+  28% { opacity: 1; transform: translateY(-6px) scale(1); }
+  44% { opacity: 0; transform: translateY(-11px) scale(0.8); }
+  100% { opacity: 0; transform: translateY(-11px) scale(0.8); }
+}
+/* Ponto vermelho fixo quando não há movimento. */
+:root:is(.lite, [data-reduce-effects='true']) .stock-alert-chip.is-new .sa-ball { animation: none; opacity: 1; transform: translateY(-6px); }
+:root:is(.lite, [data-reduce-effects='true']) .stock-alert-chip.is-new :is(.sa-flap-l, .sa-flap-r) { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .stock-alert-chip.is-new :is(.sa-flap-l, .sa-flap-r) { animation: none; }
+  .stock-alert-chip.is-new .sa-ball { animation: none; opacity: 1; transform: translateY(-6px); }
+}
+
+/* ---------------------------------------------------------------- janela de repor */
+.sa-head { margin: 4px 2px 8px; font-size: 14px; font-weight: 600; color: var(--muted); }
+.sa-head + .sa-list { margin-bottom: 14px; }
+.sa-list { display: grid; gap: 6px; }
+.sa-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  width: 100%; min-height: 56px; padding: 10px 14px; border: 0; border-radius: 16px;
+  background: var(--field); color: var(--text); font: inherit; text-align: left;
+}
+.sa-row-name { display: grid; gap: 2px; min-width: 0; }
+.sa-row-name strong { font-size: 15px; font-weight: 650; }
+.sa-row-name small { font-size: 13px; color: var(--muted); }
+.sa-row-state { flex: none; font-size: 13px; font-weight: 650; }
+.sa-row-state.out { color: var(--red, #ff453a); }
+.sa-row-state.low { color: var(--orange, #f2a03d); }
+:root[data-theme='light'] .sa-row-state.out { color: #c62f26; }
+:root[data-theme='light'] .sa-row-state.low { color: #b35f00; }
+
+/* ---------------------------------------------------------------- "Mova os cards" */
+.glass-area-row > .move-cards-pill { display: none; }
+html:is(.multi-select, .reorder-edit) .glass-area-row > .glass-area-label { display: none; }
+html:is(.multi-select, .reorder-edit) .glass-area-row > .move-cards-pill {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 36px; padding: 0 14px 0 11px; border: 0; border-radius: 999px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--lilac, #a788c2) 78%, #fff), var(--lilac, #a788c2) 55%, color-mix(in srgb, var(--lilac, #a788c2) 86%, #4a2f6e));
+  color: #24123a; font: 650 14px/1 'Inter Variable', 'Inter', sans-serif;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 32%), 0 3px 10px color-mix(in srgb, var(--lilac, #a788c2) 35%, transparent);
+  animation: move-pill-in 0.42s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+.move-cards-pill .icon { width: 16px; height: 16px; }
+.move-cards-pill .mc-done { display: none; }
+html.reorder-edit .move-cards-pill .mc-go { display: none; }
+html.reorder-edit .move-cards-pill .mc-done { display: inline; }
+/* Halo que pulsa devagar enquanto o convite está na tela. */
+html.multi-select .move-cards-pill::after {
+  content: ''; position: absolute; inset: -3px; border-radius: inherit; pointer-events: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--lilac, #a788c2) 60%, transparent);
+  animation: move-pill-halo 1.8s ease-out infinite;
+}
+@keyframes move-pill-in { from { opacity: 0; transform: translateY(-6px) scale(0.94); } }
+@keyframes move-pill-halo { 0% { opacity: 0.9; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(1.12); } }
+
+/* Cartões tremendo: podem ser movidos ao primeiro toque. */
+html.reorder-edit .glass-products-plane .feira-card:not(.reorder-lifted) { animation: card-jiggle 0.26s ease-in-out infinite alternate; }
+html.reorder-edit .glass-products-plane .feira-card:nth-child(2n):not(.reorder-lifted) { animation-delay: -0.13s; }
+html.reorder-edit .glass-products-plane .feira-card:nth-child(3n):not(.reorder-lifted) { animation-duration: 0.3s; }
+@keyframes card-jiggle { from { rotate: -1.1deg; } to { rotate: 1.1deg; } }
+:root:is(.lite, [data-reduce-effects='true']) :is(.move-cards-pill, .move-cards-pill::after) { animation: none !important; }
+:root:is(.lite, [data-reduce-effects='true']).reorder-edit .glass-products-plane .feira-card { animation: none !important; outline: 2px dashed color-mix(in srgb, var(--lilac, #a788c2) 70%, transparent); outline-offset: -4px; }
+@media (prefers-reduced-motion: reduce) {
+  html.reorder-edit .glass-products-plane .feira-card { animation: none !important; outline: 2px dashed color-mix(in srgb, var(--lilac, #a788c2) 70%, transparent); outline-offset: -4px; }
+  .move-cards-pill, .move-cards-pill::after { animation: none !important; }
+}
+
+/* "Repor estes produtos": pill vermelha, a cor do aviso de esgotado, nos dois temas. */
+#dialog .checkout-footer .sa-restock-all,
+#dialog .sa-restock-all {
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff6b61 0%, #e5372d 55%, #c42a21 100%) !important;
+  color: #fff !important;
+  font-weight: 650;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 30%), 0 4px 14px rgb(229 55 45 / 32%) !important;
+}
+/* "Agora não": segunda opção, com a lembrança de 1 hora em letra menor. */
+#dialog .sa-snooze { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; line-height: 1.15; }
+#dialog .sa-snooze small { font-size: 12px; font-weight: 500; color: var(--muted); }

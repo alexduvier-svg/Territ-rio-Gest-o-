@@ -1,0 +1,609 @@
+{
+  "baseline": false,
+  "version": "0.12.51",
+  "synthetic": true,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 30,
+      "frames": 104,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002295402148992842,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 65,
+      "frames": 109,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002295402148992842,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 140,
+      "frames": 116,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002295402148992842,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "method": "touch",
+      "pressure": 30,
+      "frames": 102,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.0028175277825993523,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "method": "touch",
+      "pressure": 65,
+      "frames": 108,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.0028175277825993523,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "method": "touch",
+      "pressure": 140,
+      "frames": 118,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.0028175277825993523,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 30,
+      "frames": 102,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 65,
+      "frames": 108,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 140,
+      "frames": 116,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "mouse",
+      "pressure": 30,
+      "frames": 108,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "mouse",
+      "pressure": 65,
+      "frames": 116,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "mouse",
+      "pressure": 140,
+      "frames": 135,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "method": "touch",
+      "pressure": 30,
+      "frames": 103,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": []
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "method": "touch",
+      "pressure": 65,
+      "frames": 107,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": []
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "method": "touch",
+      "pressure": 140,
+      "frames": 116,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": []
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 30,
+      "frames": 105,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002295402148992842,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 65,
+      "frames": 107,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002295402148992842,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 140,
+      "frames": 117,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002295402148992842,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "method": "touch",
+      "pressure": 30,
+      "frames": 102,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.0028175277825993523,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "method": "touch",
+      "pressure": 65,
+      "frames": 107,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.0028175277825993523,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "method": "touch",
+      "pressure": 140,
+      "frames": 116,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.0028175277825993523,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 30,
+      "frames": 105,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 65,
+      "frames": 109,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "touch",
+      "pressure": 140,
+      "frames": 116,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "mouse",
+      "pressure": 30,
+      "frames": 106,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "mouse",
+      "pressure": 65,
+      "frames": 118,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "method": "mouse",
+      "pressure": 140,
+      "frames": 133,
+      "maxLightsPerCard": 1,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": [
+        {
+          "value": 0.002887312231495629,
+          "recentInput": true
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "method": "touch",
+      "pressure": 30,
+      "frames": 104,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": []
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "method": "touch",
+      "pressure": 65,
+      "frames": 107,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": []
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "method": "touch",
+      "pressure": 140,
+      "frames": 115,
+      "maxLightsPerCard": 0,
+      "maxHeightDelta": 0,
+      "maxTopDelta": 0,
+      "disconnected": false,
+      "badLight": false,
+      "saleFrame": false,
+      "shifts": []
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

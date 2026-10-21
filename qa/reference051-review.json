@@ -1,0 +1,995 @@
+{
+  "version": "0.12.51",
+  "reference": "0.12.60/a227e86",
+  "isolated": true,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "three equal card columns, sold-out last and no event box in Loja"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "single tap opens quantity for the exact tapped product, no alternative weights"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "hold350ms selects; next cards react immediately; Continue opens only first row"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "quantity stays until manual Next; purple pill below numeric keypad"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "Next advances one product; Concluir folds keypad before Carrinho is enabled"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "checkout has one centered sheet and no upper close X"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "cancelled draft preserves every stock, sale and movement"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "Mova os cards enters and finishes organization"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "event-only box opens red restock action; Agora não persists snooze"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "stock retains per-family add and grouped rows"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "settings shows new AGRO2 version"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "stock memory survives reload with no synthetic sale submitted"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "latest profile: photo, groups, wrapping names and fixed Save inside safe margins"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "three equal card columns, sold-out last and no event box in Loja"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "single tap opens quantity for the exact tapped product, no alternative weights"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "hold350ms selects; next cards react immediately; Continue opens only first row"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "quantity stays until manual Next; purple pill below numeric keypad"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "Next advances one product; Concluir folds keypad before Carrinho is enabled"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "checkout has one centered sheet and no upper close X"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "cancelled draft preserves every stock, sale and movement"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "Mova os cards enters and finishes organization"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "event-only box opens red restock action; Agora não persists snooze"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "stock retains per-family add and grouped rows"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "settings shows new AGRO2 version"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "stock memory survives reload with no synthetic sale submitted"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "latest profile: photo, groups, wrapping names and fixed Save inside safe margins"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "three equal card columns, sold-out last and no event box in Loja"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "single tap opens quantity for the exact tapped product, no alternative weights"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "hold350ms selects; next cards react immediately; Continue opens only first row"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "quantity stays until manual Next; purple pill below numeric keypad"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "Next advances one product; Concluir folds keypad before Carrinho is enabled"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "checkout has one centered sheet and no upper close X"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "cancelled draft preserves every stock, sale and movement"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "Mova os cards enters and finishes organization"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "event-only box opens red restock action; Agora não persists snooze"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "stock retains per-family add and grouped rows"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "settings shows new AGRO2 version"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "stock memory survives reload with no synthetic sale submitted"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "latest profile: photo, groups, wrapping names and fixed Save inside safe margins"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "three equal card columns, sold-out last and no event box in Loja"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "single tap opens quantity for the exact tapped product, no alternative weights"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "hold350ms selects; next cards react immediately; Continue opens only first row"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "quantity stays until manual Next; purple pill below numeric keypad"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "Next advances one product; Concluir folds keypad before Carrinho is enabled"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "checkout has one centered sheet and no upper close X"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "cancelled draft preserves every stock, sale and movement"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "Mova os cards enters and finishes organization"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "event-only box opens red restock action; Agora não persists snooze"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "stock retains per-family add and grouped rows"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "settings shows new AGRO2 version"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "stock memory survives reload with no synthetic sale submitted"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "latest profile: photo, groups, wrapping names and fixed Save inside safe margins"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "three equal card columns, sold-out last and no event box in Loja"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "single tap opens quantity for the exact tapped product, no alternative weights"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "hold350ms selects; next cards react immediately; Continue opens only first row"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "quantity stays until manual Next; purple pill below numeric keypad"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "Next advances one product; Concluir folds keypad before Carrinho is enabled"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "checkout has one centered sheet and no upper close X"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "cancelled draft preserves every stock, sale and movement"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "Mova os cards enters and finishes organization"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "event-only box opens red restock action; Agora não persists snooze"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "stock retains per-family add and grouped rows"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "settings shows new AGRO2 version"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "stock memory survives reload with no synthetic sale submitted"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "latest profile: photo, groups, wrapping names and fixed Save inside safe margins"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "three equal card columns, sold-out last and no event box in Loja"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "single tap opens quantity for the exact tapped product, no alternative weights"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "hold350ms selects; next cards react immediately; Continue opens only first row"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "quantity stays until manual Next; purple pill below numeric keypad"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "Next advances one product; Concluir folds keypad before Carrinho is enabled"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "checkout has one centered sheet and no upper close X"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "cancelled draft preserves every stock, sale and movement"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "Mova os cards enters and finishes organization"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "event-only box opens red restock action; Agora não persists snooze"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "stock retains per-family add and grouped rows"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "settings shows new AGRO2 version"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "stock memory survives reload with no synthetic sale submitted"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "latest profile: photo, groups, wrapping names and fixed Save inside safe margins"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "three equal card columns, sold-out last and no event box in Loja"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "single tap opens quantity for the exact tapped product, no alternative weights"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "hold350ms selects; next cards react immediately; Continue opens only first row"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "quantity stays until manual Next; purple pill below numeric keypad"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "Next advances one product; Concluir folds keypad before Carrinho is enabled"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "checkout has one centered sheet and no upper close X"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "cancelled draft preserves every stock, sale and movement"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "Mova os cards enters and finishes organization"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "event-only box opens red restock action; Agora não persists snooze"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "stock retains per-family add and grouped rows"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "settings shows new AGRO2 version"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "stock memory survives reload with no synthetic sale submitted"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "latest profile: photo, groups, wrapping names and fixed Save inside safe margins"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "three equal card columns, sold-out last and no event box in Loja"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "single tap opens quantity for the exact tapped product, no alternative weights"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "hold350ms selects; next cards react immediately; Continue opens only first row"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "quantity stays until manual Next; purple pill below numeric keypad"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "Next advances one product; Concluir folds keypad before Carrinho is enabled"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "checkout has one centered sheet and no upper close X"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "cancelled draft preserves every stock, sale and movement"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "Mova os cards enters and finishes organization"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "event-only box opens red restock action; Agora não persists snooze"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "stock retains per-family add and grouped rows"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "settings shows new AGRO2 version"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "stock memory survives reload with no synthetic sale submitted"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "latest profile: photo, groups, wrapping names and fixed Save inside safe margins"
+    }
+  ],
+  "comparisons": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "home",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "next",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "summary",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "profile",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "home",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "next",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "summary",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "profile",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "home",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "next",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "summary",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "profile",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "home",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "next",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "summary",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "profile",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "home",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "next",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "summary",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "profile",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "home",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "next",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "summary",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "profile",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "home",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "next",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "summary",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "profile",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "home",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "next",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "summary",
+      "identicalMaterialTypographyGrid": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "profile",
+      "identicalMaterialTypographyGrid": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

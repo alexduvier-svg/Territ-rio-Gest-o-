@@ -1,0 +1,238 @@
+{
+  "_": "Registro canÃ´nico do motor de decisÃµes. Consultar antes de escrever qualquer funÃ§Ã£o de cÃ¡lculo (docs/motor, seÃ§Ã£o 0.4).",
+  "motor_orientacao": {
+    "arquivo": "app/src/features/advisor/engine.js",
+    "funcao": "buildGuidance",
+    "versao": "1.0",
+    "testes": [
+      "advisor.test.mjs",
+      "advisor-quality.test.mjs"
+    ]
+  },
+  "contrato_conselho": {
+    "arquivo": "app/src/features/advisor/engine.js",
+    "funcao": "stampDecisions",
+    "versao": "1.0",
+    "testes": [
+      "weather-rules.test.mjs"
+    ]
+  },
+  "qualidade_evidencia": {
+    "arquivo": "app/src/features/advisor/quality.js",
+    "funcao": "evidenceQuality",
+    "versao": "1.0",
+    "testes": [
+      "advisor-quality.test.mjs"
+    ]
+  },
+  "margem_contribuicao": {
+    "arquivo": "app/src/features/finance/finance.js",
+    "funcao": "statement/productMargins",
+    "versao": "1.0",
+    "testes": [
+      "finance.test.mjs"
+    ]
+  },
+  "ponto_equilibrio": {
+    "arquivo": "app/src/features/finance/finance.js",
+    "funcao": "statement.breakEven",
+    "versao": "1.0",
+    "testes": [
+      "finance.test.mjs"
+    ]
+  },
+  "auditoria_numeros": {
+    "arquivo": "app/src/features/finance/audit.js",
+    "funcao": "runAudit",
+    "versao": "1.0",
+    "testes": [
+      "finance.test.mjs"
+    ]
+  },
+  "previsao_referencia_feira": {
+    "arquivo": "app/src/features/advisor/forecast.js",
+    "funcao": "forecastNextEvent",
+    "versao": "1.0",
+    "testes": [
+      "forecast.test.mjs"
+    ],
+    "nota": "referÃªncia histÃ³rica; nÃ£o Ã© intervalo probabilÃ­stico"
+  },
+  "clima_previsao": {
+    "arquivo": "app/src/features/weather/index.js",
+    "funcao": "forCity/summarize/eventWindow",
+    "versao": "1.0",
+    "testes": [
+      "weather.test.mjs"
+    ],
+    "fonte": "MET Norway Locationforecast 2.0 compact"
+  },
+  "clima_regras_feira": {
+    "arquivo": "app/src/features/advisor/weather-rules.js",
+    "funcao": "WEATHER_RULES",
+    "versao": "1.0",
+    "testes": [
+      "weather-rules.test.mjs"
+    ]
+  },
+  "pressao_saturacao_vapor": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "saturationVapourPressure",
+    "versao": "1.0",
+    "testes": [
+      "T-CLI-01",
+      "T-CLI-02"
+    ]
+  },
+  "declividade_vapor": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "vapourSlope",
+    "versao": "1.0",
+    "testes": [
+      "T-CLI-03"
+    ]
+  },
+  "pressao_altitude_psicrometrica": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "pressureAtAltitude/psychrometricConstant",
+    "versao": "1.0",
+    "testes": [
+      "T-CLI-04"
+    ]
+  },
+  "ponto_orvalho": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "dewPoint",
+    "versao": "1.0",
+    "testes": [
+      "T-CLI-05"
+    ]
+  },
+  "bulbo_umido_stull": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "wetBulb",
+    "versao": "1.0",
+    "testes": [
+      "decision-math.test.mjs"
+    ]
+  },
+  "graus_dia": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "degreeDays",
+    "versao": "1.0",
+    "testes": [
+      "T-CLI-06"
+    ]
+  },
+  "et0_penman_monteith": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "et0PenmanMonteith",
+    "versao": "1.0",
+    "testes": [
+      "decision-math.test.mjs"
+    ],
+    "fallback": "et0_hargreaves"
+  },
+  "et0_hargreaves": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "et0Hargreaves",
+    "versao": "1.0",
+    "testes": [
+      "decision-math.test.mjs"
+    ]
+  },
+  "temperatura_folha_geada": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "leafTemperature",
+    "versao": "1.0",
+    "parametro": "c = 4 Â°C (calibrÃ¡vel)"
+  },
+  "conversao_ice_para_saca": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "iceToSaca",
+    "versao": "1.0",
+    "testes": [
+      "T-MER-01"
+    ]
+  },
+  "lote_economico": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "economicOrderQuantity",
+    "versao": "1.0",
+    "testes": [
+      "T-EST-01"
+    ]
+  },
+  "ponto_pedido": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "reorderPoint",
+    "versao": "1.0"
+  },
+  "custo_perda": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "costLossThreshold",
+    "versao": "1.0",
+    "testes": [
+      "T-DEC-01"
+    ]
+  },
+  "intervalo_wilson": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "wilsonInterval",
+    "versao": "1.0",
+    "testes": [
+      "T-EST-02"
+    ]
+  },
+  "encolhimento_beta_binomial": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "betaBinomialShrink",
+    "versao": "1.0",
+    "testes": [
+      "T-EST-03"
+    ],
+    "nota": "documento espera 0,25; fÃ³rmula dÃ¡ 3/11 (pendÃªncia P1)"
+  },
+  "somatorio_kahan": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "kahanSum",
+    "versao": "1.0"
+  },
+  "variancia_welford": {
+    "arquivo": "app/src/features/decision/math.js",
+    "funcao": "welford",
+    "versao": "1.0"
+  },
+  "ordem_mais_vendidos": {
+    "arquivo": "app/src/features/advisor/engine.js",
+    "funcao": "bestFirst",
+    "versao": "1.0",
+    "testes": [
+      "best-first.test.mjs"
+    ]
+  },
+  "memoria_estoque": {
+    "arquivo": "app/src/legacy/erp-ui.js",
+    "funcao": "syncStockAlerts/stockState",
+    "versao": "1.0",
+    "nota": "model.data.stockAlerts; acabando = mÃ­nimo ou â‰¤ 25 % da referÃªncia"
+  },
+  "adaptacao_recursos": {
+    "arquivo": "app/src/features/resources/policy.js",
+    "funcao": "classifyResources/createAdaptivePolicy",
+    "versao": "1",
+    "testes": [
+      "resource-policy.test.mjs"
+    ],
+    "origem": "claude/agro-gestao3 a227e86 consolidated with recovery and bounded work"
+  },
+  "recuperacao_intencao": {
+    "arquivo": "app/src/features/resources/recovery.js",
+    "funcao": "inspectRecovery/installRecovery",
+    "versao": "1",
+    "testes": [
+      "recovery.test.mjs",
+      "storage.test.mjs"
+    ]
+  }
+}

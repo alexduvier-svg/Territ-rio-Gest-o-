@@ -1,0 +1,79 @@
+{
+  "version": "0.12.51",
+  "synthetic": true,
+  "network": "All requests intercepted; no real reports sent",
+  "cases": [
+    {
+      "theme": "light",
+      "outcome": "success",
+      "posted": 1,
+      "maxConcurrent": 1,
+      "requestTimesMs": [
+        0
+      ],
+      "pending": false,
+      "underlayStable": true,
+      "updatedAfterClose": true
+    },
+    {
+      "theme": "light",
+      "outcome": "server-error",
+      "posted": 2,
+      "maxConcurrent": 1,
+      "requestTimesMs": [
+        0,
+        149
+      ],
+      "pending": true,
+      "underlayStable": true,
+      "updatedAfterClose": false
+    },
+    {
+      "theme": "light",
+      "outcome": "offline",
+      "posted": 0,
+      "maxConcurrent": 0,
+      "requestTimesMs": [],
+      "pending": true,
+      "underlayStable": true,
+      "updatedAfterClose": false
+    },
+    {
+      "theme": "dark",
+      "outcome": "success",
+      "posted": 1,
+      "maxConcurrent": 1,
+      "requestTimesMs": [
+        0
+      ],
+      "pending": false,
+      "underlayStable": true,
+      "updatedAfterClose": true
+    },
+    {
+      "theme": "dark",
+      "outcome": "server-error",
+      "posted": 2,
+      "maxConcurrent": 1,
+      "requestTimesMs": [
+        0,
+        144
+      ],
+      "pending": true,
+      "underlayStable": true,
+      "updatedAfterClose": false
+    },
+    {
+      "theme": "dark",
+      "outcome": "offline",
+      "posted": 0,
+      "maxConcurrent": 0,
+      "requestTimesMs": [],
+      "pending": true,
+      "underlayStable": true,
+      "updatedAfterClose": false
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

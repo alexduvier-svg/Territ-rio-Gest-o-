@@ -139,15 +139,15 @@ function installSystemBars() {
 function installLifecycle() {
   // Make sure the last sale is on disk before Android may kill the app in the background.
   App.addListener('pause', () => {
-    settle();
     window.dispatchEvent(new Event('territorio:pause'));
+    Promise.resolve(window.TerritorioRecovery?.flush()).then(settle);
   });
   // Link da feira (agrogestao://feira/<id>?s=<servidor>), vindo do QR do organizador: com o app aberto ou fechado.
   const openLink = url => { if (url && /^agrogestao:\/\/feira\//i.test(url)) setTimeout(() => window.TerritorioShell?.joinFairLink?.(url), 600); };
   App.addListener('appUrlOpen', event => openLink(event?.url));
   App.getLaunchUrl().then(launch => openLink(launch?.url)).catch(() => {});
   // A tela some antes do "pause" do Android: começa a esvaziar a fila o quanto antes.
-  document.addEventListener('visibilitychange', () => { if (document.hidden) settle(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) Promise.resolve(window.TerritorioRecovery?.flush()).then(settle); });
   window.addEventListener('territorio:storage-error', () => {
     showToast('Não foi possível salvar no aparelho. Libere espaço e faça um backup.');
   });
@@ -156,7 +156,14 @@ function installLifecycle() {
 // Avisa fora do app (barra de notificações, tela bloqueada e Always On Display, conforme os ajustes do
 // celular) quando um produto chega a 30% do seu próprio nível de estoque. Cada produto avisa uma vez;
 // depois de reposto acima de 30%, volta a poder avisar.
+// Dois tipos de aviso (decisão do produtor, 21/10/2026): "Estoque" aparece na barra e no resumo da tela
+// apagada sem acender a tela (acabando, ou esgotado na Loja: é para planejar); "Estoque — Feira" acende a
+// tela, só quando um produto acaba durante uma feira em andamento. Cada pessoa pode mudar isso nos ajustes
+// de notificação do app no celular. O Android não deixa o app mudar um tipo já criado, por isso os ids são
+// novos e o tipo antigo ("estoque", que acendia a tela sempre) é retirado.
 const LOW_STOCK = 0.3;
+const STOCK_CHANNEL = 'estoque-v2', STOCK_FAIR_CHANNEL = 'estoque-feira';
+const sellingAtFair = () => { const scope = window.TerritorioWorkflowBridge?.scope?.(); return !!scope && scope !== 'loja'; };
 const ALERTED_KEY = 'territorio-stock-alerted';
 
 function notificationId(productId) {
@@ -182,7 +189,7 @@ async function checkStock() {
         await LocalNotifications.schedule({
           notifications: fresh.map(l => ({
             id: notificationId(l.id),
-            channelId: 'estoque',
+            channelId: l.stock <= 0 && sellingAtFair() ? STOCK_FAIR_CHANNEL : STOCK_CHANNEL,
             title: l.stock <= 0 ? `${l.name} acabou` : `Estoque baixo: ${l.name}`,
             body: l.stock <= 0
               ? `${l.detail ? l.detail + ' · ' : ''}Toque para repor.`
@@ -205,15 +212,26 @@ async function checkStock() {
 }
 
 function installStockAlerts() {
+  LocalNotifications.deleteChannel({ id: 'estoque' }).catch(() => {});
   LocalNotifications.createChannel({
-    id: 'estoque',
-    name: 'Estoque baixo',
-    description: 'Quando um produto chega a 30% do nível de estoque.',
+    id: STOCK_CHANNEL,
+    name: 'Estoque',
+    description: 'Produto acabando ou esgotado na Loja. Aparece na barra e na tela apagada, sem acender a tela.',
+    importance: 3,
+    visibility: 1,
+    vibration: false,
+    lights: true,
+    lightColor: '#7FA653',
+  }).catch(() => {});
+  LocalNotifications.createChannel({
+    id: STOCK_FAIR_CHANNEL,
+    name: 'Estoque — Feira',
+    description: 'Produto esgotado durante uma feira em andamento. Acende a tela.',
     importance: 4,
     visibility: 1,
     vibration: true,
     lights: true,
-    lightColor: '#7FA653',
+    lightColor: '#C62F26',
   }).catch(() => {});
   LocalNotifications.addListener('localNotificationActionPerformed', action => {
     const id = action.notification?.extra?.productId;

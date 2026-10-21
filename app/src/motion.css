@@ -1,5 +1,5 @@
-/* Position and velocity live in features/motion; CSS only supplies the materials.
-   Transform/opacity springs are interruptible and stop requesting frames at rest. */
+/* Position and velocity live in features/motion (engine.js plays them on the compositor);
+   CSS only supplies the materials. */
 :root { --spring: cubic-bezier(0.32, 0.72, 0, 1); }
 button { transition: background-color 0.18s ease, color 0.18s ease; }
 
@@ -30,7 +30,7 @@ html.fluid-motion #app { overflow-x: clip; }
    Only display/overlay are CSS transitions; position, scale and opacity remain physical. */
 html.fluid-motion dialog.fluid-native-exit {
   transition-property: display, overlay !important;
-  transition-duration: 520ms !important;
+  transition-duration: var(--fluid-exit-ms, 520ms) !important;
   transition-timing-function: linear !important;
   transition-behavior: allow-discrete !important;
 }
@@ -50,7 +50,7 @@ html.fluid-motion dialog.fluid-exit-closed:not([open])::backdrop {
 html.fluid-motion dialog.fluid-native-exit::backdrop {
   background: var(--fluid-backdrop-color, rgba(0, 0, 0, 0.46));
   opacity: var(--fluid-backdrop-opacity, 1);
-  transition: display 520ms allow-discrete, overlay 520ms allow-discrete;
+  transition: display var(--fluid-exit-ms, 520ms) allow-discrete, overlay var(--fluid-exit-ms, 520ms) allow-discrete;
 }
 /* Small fallback surfaces for older WebViews; large forms are never duplicated on close. */
 .fluid-exit-layer { position: fixed; inset: 0; z-index: 80; overflow: clip; pointer-events: none !important; }
@@ -72,7 +72,6 @@ dialog.fluid-exit-ghost[open] {
   transform-origin: center;
 }
 
-.toast.toast-warn { box-shadow: 0 0 0 1px color-mix(in srgb, var(--orange) 60%, transparent), 0 12px 30px rgba(0, 0, 0, 0.25); }
 .sale-product-heading { cursor: pointer; min-height: 52px; }
 .sale-product-group:not(.active) { cursor: pointer; }
 .sale-product-group:not(.active):active { opacity: 0.7; }
@@ -148,15 +147,16 @@ html:is(.lite,[data-reduce-effects='true']) #app .draft-resume *,html:is(.lite,[
 html[data-app-inactive] #app .draft-resume,html[data-app-inactive] #app .draft-resume *,html[data-app-inactive] #app .draft-resume::before { animation-play-state: paused !important; }
 @media (prefers-reduced-motion: reduce) { #app .draft-resume *,#app .draft-resume::before { animation: none !important; } }
 
-/* Page morph: one fixed layer carries a detached copy of the page while it grows out of the
-   tapped card or shrinks back into it. Only this layer moves; #app and its fixed bars never do. */
-.fluid-page-morph-layer { position: fixed; inset: 0; z-index: 90; overflow: hidden; contain: strict; pointer-events: none !important; }
+/* Page transitions: the leaving page's own nodes ride in one fixed layer. Behind the arriving page
+   it zooms away; in front of the parent it shrinks whole into the card it came from. The layer is
+   one compositor surface: it is drawn once and then only moved. */
+.fluid-page-morph-layer { position: fixed; inset: 0; z-index: 60; overflow: hidden; contain: strict; pointer-events: none !important; }
+.fluid-page-morph-layer.is-behind { z-index: -1; }
 .fluid-page-morph-layer * { pointer-events: none !important; animation: none !important; transition: none !important; }
-/* Each part is its own stacking context: a copied nav bar (z-index 30) stays inside the backdrop. */
 .fluid-page-morph-layer > * { isolation: isolate; z-index: 0; }
 .fluid-page-morph-surface { position: absolute; inset: 0; overflow: hidden; background: var(--page-morph-bg, #000); }
-.fluid-page-morph-shade { position: absolute; inset: 0; background: rgb(0 0 0 / 42%); opacity: 0; }
-:root[data-theme='light'] .fluid-page-morph-shade { background: rgb(36 45 35 / 24%); }
+.fluid-page-morph-layer.is-front .fluid-page-morph-surface { border-radius: 30px; box-shadow: 0 18px 60px rgb(0 0 0 / 34%); }
+:root[data-theme='light'] .fluid-page-morph-layer.is-front .fluid-page-morph-surface { box-shadow: 0 18px 60px rgb(36 45 55 / 22%); }
 .fluid-page-morph-context { position: absolute !important; margin: 0 !important; max-width: none !important; min-height: 0 !important; box-sizing: border-box; }
 
 /* Returning from a nested sheet: the nested sheet shrinks into its row above the restored parent,
@@ -183,11 +183,7 @@ html[data-app-inactive] #app .draft-resume,html[data-app-inactive] #app .draft-r
   backdrop-filter: none !important;
 }
 
-/* The veil is a compositor opacity transition, separate from the moving surface.
-   No custom property or mask is rewritten on every JavaScript frame. */
-html.fluid-motion dialog[open]::backdrop { transition: opacity 180ms ease-out; }
-@starting-style { html.fluid-motion dialog[open]::backdrop { opacity: 0; } }
-html.fluid-motion dialog.fluid-native-exit:not([open])::backdrop {
-  opacity: 0;
-  transition: opacity 240ms ease-out, display 520ms allow-discrete, overlay 520ms allow-discrete;
-}
+/* Shade behind a sheet (features/motion installDialogs): a page-level layer whose opacity is moved on
+   the compositor; the sheet's own ::backdrop stays transparent while the scrim stands in for it. */
+.fluid-scrim { position: fixed; inset: 0; z-index: 2147483000; pointer-events: none; opacity: 0; will-change: opacity; contain: strict; }
+html.fluid-motion dialog.fluid-scrimmed::backdrop { background: transparent !important; }

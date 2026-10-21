@@ -58,3 +58,109 @@
 .multi-cancel { flex: 0 0 auto; padding: 0 18px; background: var(--field); }
 .multi-go { flex: 1; background: var(--action-green, #7fa653); color: var(--green-text, #14210d); }
 @keyframes multi-bar-in { from { transform: translate(-50%, 24px); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+
+/* Venda de vários produtos: os escolhidos juntos no primeiro cartão, com nome, quantidade e preço. */
+.multi-pick { display: grid; gap: 4px; padding: 10px; }
+.multi-pick-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 58px;
+  padding: 8px 10px 8px 12px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.multi-pick-row.active {
+  background: color-mix(in srgb, var(--action-green, #7fa653) 11%, transparent);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--action-green, #7fa653) 65%, transparent);
+}
+.mp-name { display: grid; gap: 2px; min-width: 0; }
+.mp-name strong { font-size: 15px; font-weight: 650; line-height: 1.2; overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow-wrap: anywhere; }
+.mp-name small { font-size: 13px; color: var(--muted); line-height: 1.25; }
+.mp-qty {
+  display: grid;
+  place-items: center;
+  min-width: 48px;
+  height: 40px;
+  padding: 0 8px;
+  border-radius: 12px;
+  background: var(--field);
+  font-size: 19px;
+  font-weight: 650;
+}
+.multi-pick-row.active .mp-qty { box-shadow: inset 0 0 0 2px var(--action-green, #7fa653); }
+.mp-price { min-width: 74px; text-align: right; font-size: 15px; font-weight: 600; white-space: nowrap; }
+.mp-price small { font-size: 12px; font-weight: 500; color: var(--muted); }
+@media (max-width: 340px) {
+  .multi-pick-row { gap: 7px; padding-inline: 8px; }
+  .mp-qty { min-width: 42px; }
+  .mp-price { min-width: 64px; font-size: 14px; }
+}
+.multi-pick-row.is-new { animation: multi-pick-in 0.42s cubic-bezier(0.32, 0.72, 0, 1) both; }
+@keyframes multi-pick-in { from { opacity: 0; translate: 0 -8px; scale: 0.98; } }
+.lite .multi-pick-row.is-new { animation-duration: 0.2s; }
+@media (prefers-reduced-motion: reduce) { .multi-pick-row.is-new { animation: none; } }
+
+/* "Próximo" logo abaixo do 8, na largura de 7–8–9 (ao alcance do polegar): a pessoa digita quantos
+   dígitos quiser e avança. */
+.keypad .multi-next-pill { grid-column: 2 / span 3; justify-self: stretch; margin-top: 8px; }
+/* #app: vence o estilo das teclas do teclado, que também são botões. */
+#app .keypad .multi-next-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 0;
+  height: 46px;
+  padding: 0 14px 0 18px;
+  border: 0;
+  border-radius: 999px;
+  /* Lilás do sistema (o mesmo nos dois temas) com tinta escura: só a venda múltipla tem esta pill. */
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--lilac, #a788c2) 78%, #fff) 0%, var(--lilac, #a788c2) 55%, color-mix(in srgb, var(--lilac, #a788c2) 86%, #4a2f6e) 100%);
+  color: #24123a;
+  font: 650 15px/1 'Inter Variable', 'Inter', sans-serif;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 32%), 0 4px 12px color-mix(in srgb, var(--lilac, #a788c2) 35%, transparent);
+  /* Volta rápida e com leve mola quando o dedo sai. */
+  transition: translate 0.16s cubic-bezier(0.2, 0.9, 0.3, 1.25), filter 0.16s ease-out, box-shadow 0.16s ease-out, opacity 0.2s ease;
+}
+#app .keypad .multi-next-pill .icon { width: 16px; height: 16px; }
+#app .keypad .multi-next-pill.is-last { padding: 0 18px; }
+#app .keypad .multi-next-pill:disabled { background: var(--field); color: var(--muted); box-shadow: none; opacity: 0.75; }
+@media (max-width: 350px) { #app .keypad .multi-next-pill { padding: 0 10px 0 14px; font-size: 14px; } }
+/* Afunda ao toque, como uma tecla física: desce, escurece e perde a sombra (o encolhimento vem do
+   motor de toque, mais fundo para esta pill). */
+#app .keypad .multi-next-pill.is-down {
+  translate: 0 2px;
+  filter: brightness(0.9);
+  box-shadow: inset 0 2px 5px rgb(0 0 0 / 28%), 0 1px 2px color-mix(in srgb, var(--lilac, #a788c2) 25%, transparent);
+  /* Desce na hora do toque. */
+  transition: translate 0.05s ease-out, filter 0.05s ease-out, box-shadow 0.05s ease-out;
+}
+
+/* Na venda múltipla, o "Disponível" fica centrado logo abaixo da pill Próximo. */
+#app .multi-pick.is-multi ~ .quantity-panel .quantity-footnote { justify-content: center; text-align: center; margin-top: 8px; }
+
+/* Cartão esgotado: "Sem estoque" no lugar do preço (mesma altura dos outros) e, na seleção, uma
+   sacudida curta ao toque com o aviso do motivo. */
+.feira-card .card-out { margin-top: auto; font-style: normal; font-size: 13px; font-weight: 600; color: var(--muted); }
+.multi-select [data-action='sell-product'][aria-disabled='true']::after { opacity: 0.35; }
+.multi-refused { animation: multi-refuse 0.38s cubic-bezier(0.36, 0.07, 0.19, 0.97); }
+@keyframes multi-refuse { 20% { translate: -4px 0; } 45% { translate: 3px 0; } 70% { translate: -2px 0; } 100% { translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .multi-refused { animation: none; } }
+/* Todas as filas da grade de venda com a mesma altura. */
+.glass-products-plane .feira-grid { grid-auto-rows: 1fr; }
+/* Com a barra de seleção aberta, a lista ganha espaço para a última fila subir acima dela. */
+html.multi-select #app { padding-bottom: calc(200px + var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 0px))); }
+
+/* Nome do produto no cartão: em cartão estreito (telas menores, ~3 colunas em 360 px), a segunda parte
+   do nome vai para a linha de baixo ("Café" / "Especial"), para não ficar embolado. */
+.glass-products-plane .feira-card { container-type: inline-size; }
+@container (max-width: 124px) { .feira-card .cn-rest { display: block; } }

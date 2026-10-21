@@ -1,0 +1,347 @@
+{
+  "version": "0.12.51",
+  "reference": "0.12.60/a227e86",
+  "synthetic": true,
+  "checks": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "avatar opens latest profile without a document-wide blocking touchstart"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "typing hides underlay and keeps Save inside margins in short viewport"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "state selector opens from its own touch binding and returns to profile"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "Save closes whole profile, restores underlay and preserves business transactions"
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "profile names persist after reload and closing focused field restores visibility"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "avatar opens latest profile without a document-wide blocking touchstart"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "typing hides underlay and keeps Save inside margins in short viewport"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "state selector opens from its own touch binding and returns to profile"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "Save closes whole profile, restores underlay and preserves business transactions"
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "profile names persist after reload and closing focused field restores visibility"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "avatar opens latest profile without a document-wide blocking touchstart"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "typing hides underlay and keeps Save inside margins in short viewport"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "state selector opens from its own touch binding and returns to profile"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "Save closes whole profile, restores underlay and preserves business transactions"
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "profile names persist after reload and closing focused field restores visibility"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "avatar opens latest profile without a document-wide blocking touchstart"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "typing hides underlay and keeps Save inside margins in short viewport"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "state selector opens from its own touch binding and returns to profile"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "Save closes whole profile, restores underlay and preserves business transactions"
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "profile names persist after reload and closing focused field restores visibility"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "avatar opens latest profile without a document-wide blocking touchstart"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "typing hides underlay and keeps Save inside margins in short viewport"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "state selector opens from its own touch binding and returns to profile"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "Save closes whole profile, restores underlay and preserves business transactions"
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "name": "profile names persist after reload and closing focused field restores visibility"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "avatar opens latest profile without a document-wide blocking touchstart"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "typing hides underlay and keeps Save inside margins in short viewport"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "state selector opens from its own touch binding and returns to profile"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "Save closes whole profile, restores underlay and preserves business transactions"
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "name": "profile names persist after reload and closing focused field restores visibility"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "avatar opens latest profile without a document-wide blocking touchstart"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "typing hides underlay and keeps Save inside margins in short viewport"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "state selector opens from its own touch binding and returns to profile"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "Save closes whole profile, restores underlay and preserves business transactions"
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "name": "profile names persist after reload and closing focused field restores visibility"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "avatar opens latest profile without a document-wide blocking touchstart"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "typing hides underlay and keeps Save inside margins in short viewport"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "state selector opens from its own touch binding and returns to profile"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "Save closes whole profile, restores underlay and preserves business transactions"
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "name": "profile names persist after reload and closing focused field restores visibility"
+    }
+  ],
+  "comparisons": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "profileMatchesReference55": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "profileMatchesReference55": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "profileMatchesReference55": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "profileMatchesReference55": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "mode": "normal",
+      "profileMatchesReference55": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "mode": "lite",
+      "profileMatchesReference55": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "mode": "normal",
+      "profileMatchesReference55": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "mode": "reduced",
+      "profileMatchesReference55": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}
