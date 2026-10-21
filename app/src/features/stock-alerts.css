@@ -96,3 +96,17 @@ html.reorder-edit .glass-products-plane .feira-card:nth-child(3n):not(.reorder-l
   html.reorder-edit .glass-products-plane .feira-card { animation: none !important; outline: 2px dashed color-mix(in srgb, var(--lilac, #a788c2) 70%, transparent); outline-offset: -4px; }
   .move-cards-pill, .move-cards-pill::after { animation: none !important; }
 }
+
+/* "Repor estes produtos": pill vermelha, a cor do aviso de esgotado, nos dois temas. */
+#dialog .checkout-footer .sa-restock-all,
+#dialog .sa-restock-all {
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ff6b61 0%, #e5372d 55%, #c42a21 100%) !important;
+  color: #fff !important;
+  font-weight: 650;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 30%), 0 4px 14px rgb(229 55 45 / 32%) !important;
+}
+/* "Agora não": segunda opção, com a lembrança de 1 hora em letra menor. */
+#dialog .sa-snooze { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; line-height: 1.15; }
+#dialog .sa-snooze small { font-size: 12px; font-weight: 500; color: var(--muted); }

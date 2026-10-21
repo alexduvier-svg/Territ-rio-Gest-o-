@@ -1,6 +1,6 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 17,
+  version: 18,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   principles: {
@@ -19,7 +19,7 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     adaptation: 'Adaptar ao espaço útil, resolução e escala, incluindo aparelhos de 6,3, 6,5 e 6,8 polegadas. Conferir larguras de 320, 360, 393 e 412 px, texto ampliado, pouca altura e teclado aberto. Nenhuma ação, inclusive Enviar no WhatsApp, pode ficar cortada ou inacessível.',
   },
   sharedMaterial: 'Todas as áreas, seções, janelas e subjanelas compartilham o mesmo plano de vidro, volume e resposta ao toque. Fundo e sombra podem variar com o tema; texto nunca recebe opacidade, blur, textura ou brilho. Reflexo de toque curto, sem animação ociosa. Navegação direcional por aba e mola estável, com modos leve e reduzido.',
-  stockAlerts: 'O app guarda o estado de cada produto (ok, acabando, esgotado) e avisa quando ele passa a acabando ou esgotado. Com algum esgotado, uma caixinha vermelha (a mesma do rodapé) fica no canto da linha Área de vendas; enquanto houver esgotado não visto, as abas abrem e uma bolinha sai, até a pessoa tocar. Tocar abre a lista de esgotados e acabando com atalho para Repor. Em Vender, o cartão esgotado continua tocável (aviso), desce para o fim da grade e volta ao seu lugar quando reposto, sem misturar famílias.',
+  stockAlerts: 'O app guarda o estado de cada produto (ok, acabando, esgotado) e avisa quando ele passa a acabando ou esgotado. Com algum esgotado, uma caixinha vermelha (a mesma do rodapé) fica no canto da linha Área de vendas; enquanto houver esgotado não visto, as abas abrem e uma bolinha sai, até a pessoa tocar. Tocar abre a lista de esgotados e acabando com a pill vermelha Repor e a opção Agora não: a caixinha some e volta a cada 1 hora por 5 minutos (animada) enquanto houver esgotado; um novo esgotado a traz de volta na hora. Em Vender, o cartão esgotado continua tocável (aviso), desce para o fim da grade e volta ao seu lugar quando reposto, sem misturar famílias.',
   moveCards: 'No modo de seleção, o lugar de Área de vendas mostra a pill lilás Mova os cards; tocar nela desfaz a seleção e faz os cartões tremerem: eles mudam de lugar ao primeiro toque, sem segurar, dentro da família. Pronto encerra. Sem tremor no modo leve ou com movimento reduzido (contorno tracejado).',
   saleOnlyTapped: 'Cada cartão de Vender já tem nome, peso, preço e categoria: a venda abre só o produto tocado (em 1, 2 ou 3 produtos), numa linha com nome, quantidade e preço, sem oferecer outras apresentações da família (250 g, 500 g, 1 kg). Cartão sem estoque mostra Sem estoque no lugar do preço (mesma altura) e, na seleção, responde com sacudida e aviso. As filas da grade têm a mesma altura.',
   notices: 'Avisos de duas frases aparecem como título e detalhe menor (Venda cancelada / O estoque não foi alterado.). Cancelar não é erro: ícone de desfeito em coral suave; o disco do ícone é em degradê em todos os avisos.',

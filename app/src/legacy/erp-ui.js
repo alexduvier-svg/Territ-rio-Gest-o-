@@ -2889,8 +2889,9 @@ const r31Close=closeModal;closeModal=function(skip){if(swapToDone&&!recipientPen
 // histórico das passagens (vai no backup). Quando um produto passa a acabando ou esgotado, um aviso
 // aparece. Com algum esgotado, uma caixinha vermelha fica na linha "Área de vendas"; enquanto houver
 // esgotado ainda não visto, ela abre as abas e solta uma bolinha. Tocar nela abre a lista para repor
-// (atalho da reposição rápida). Em Vender, o cartão esgotado desce para o fim da grade (na ordem da
-// sua família) e volta ao seu lugar quando o estoque é reposto.
+// (atalho da reposição rápida). "Agora não" esconde a caixinha: depois ela volta a cada 1 h por 5 min
+// (animada) enquanto houver esgotado; um novo esgotado a traz de volta na hora. Em Vender, o cartão
+// esgotado desce para o fim da grade (na ordem da sua família) e volta ao seu lugar quando reposto.
 const STOCK_LOW_RATIO=.25;let stockAlertsReady=false,stockAlertsSig='';
 function stockMemory(){const m=model.data.stockAlerts;if(m&&m.version===1)return m;return model.data.stockAlerts={version:1,state:{},events:[],seenAt:''};}
 function stockState(p){const a=model.availableStock(p.id);if(a<=0)return 'out';const min=Number(p.min)||0;return (min>0&&a<=min)||stockRatio(p).ratio<=STOCK_LOW_RATIO?'low':'ok';}
@@ -2911,14 +2912,21 @@ function syncStockAlerts(){const sig=model.data.products.map(p=>p.id+':'+model.a
 const r40Render=render;render=function(){try{syncStockAlerts();}catch(e){}return r40Render.apply(this,arguments);};
 const STOCK_ALERT_ICON='<svg class="sa-box" viewBox="0 0 24 24" aria-hidden="true"><circle class="sa-ball" cx="12" cy="11.5" r="2.3" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5h17v10.2a1.8 1.8 0 0 1-1.8 1.8H5.3a1.8 1.8 0 0 1-1.8-1.8Z"/><path d="M9.5 14.3h5"/><path class="sa-flap-l" d="M3.5 9.5V6.8H12v2.7Z"/><path class="sa-flap-r" d="M20.5 9.5V6.8H12v2.7Z"/></g></svg>';
 function stockOutProducts(){const mem=stockMemory();return model.data.products.filter(p=>mem.state[p.id]==='out');}
-function stockAlertChip(){const out=stockOutProducts();if(!out.length)return'';const mem=stockMemory(),unseen=mem.events.some(e=>e.kind==='out'&&!e.resolvedAt&&e.at>(mem.seenAt||''));
+const SNOOZE_EVERY=60*60e3,SNOOZE_SHOW=5*60e3;let stockChipTimer=0;
+// While snoozed: hidden, except 5 min at each full hour after "Agora não". A newer sold-out ends the snooze.
+function stockChipWindow(mem,now=Date.now()){if(!mem.snoozedAt)return{show:true,next:0};const since=now-Date.parse(mem.snoozedAt);
+ if(mem.events.some(e=>e.kind==='out'&&!e.resolvedAt&&e.at>mem.snoozedAt)){mem.snoozedAt='';return{show:true,next:0};}
+ const cycle=since%SNOOZE_EVERY,show=since>=SNOOZE_EVERY&&cycle<SNOOZE_SHOW;return{show,reminder:show,next:show?SNOOZE_SHOW-cycle:SNOOZE_EVERY-cycle};}
+function armStockChip(next){clearTimeout(stockChipTimer);if(next>0)stockChipTimer=setTimeout(()=>{if(page==='Vender'&&!dialog.open)render();else armStockChip(60e3);},next+250);}
+function stockAlertChip(){const out=stockOutProducts();if(!out.length){armStockChip(0);return'';}const mem=stockMemory(),win=stockChipWindow(mem);armStockChip(win.next);if(!win.show)return'';
+ const unseen=win.reminder||mem.events.some(e=>e.kind==='out'&&!e.resolvedAt&&e.at>(mem.seenAt||''));
  return btn('stock-alert-open',STOCK_ALERT_ICON+'<span class="sr-only">'+out.length+' '+(out.length===1?'produto':'produtos')+' sem estoque</span>','stock-alert-chip'+(unseen?' is-new':''));}
 function openStockAlerts(){const mem=stockMemory();mem.seenAt=new Date().toISOString();persist();const order=window.TerritorioStockOrder.orderStockProducts;
  const out=order(stockOutProducts()),low=order(model.data.products.filter(p=>mem.state[p.id]==='low'));
  const row=(p,kind)=>btn('restock-ids','<span class="sa-row-name"><strong>'+escape(titleName(p.name))+'</strong><small>'+escape(sellingCardDescription(p))+'</small></span><span class="sa-row-state '+kind+'">'+(kind==='out'?'Esgotado':'Restam '+E.quantity(model.availableStock(p.id)))+'</span>','sa-row',{ids:p.id});
  const body=(out.length?'<h3 class="sa-head">Esgotados</h3><div class="sa-list">'+out.map(p=>row(p,'out')).join('')+'</div>':'')+(low.length?'<h3 class="sa-head">Acabando</h3><div class="sa-list">'+low.map(p=>row(p,'low')).join('')+'</div>':'')+(out.length||low.length?'':'<p class="dialog-text">Nenhum produto acabando.</p>');
  const ids=out.concat(low).map(p=>p.id);
- openModal('Repor estoque',body,'workflow-stock-alerts',null,(ids.length?btn('restock-ids','Repor '+(ids.length===1?'este produto':'estes produtos'),'primary modal-action',{ids:ids.join(',')}):'')+btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back'));
+ openModal('Repor estoque',body,'workflow-stock-alerts',null,(ids.length?btn('restock-ids','Repor '+(ids.length===1?'este produto':'estes produtos'),'primary modal-action sa-restock-all',{ids:ids.join(',')})+btn('stock-alert-snooze','Agora não<small>Lembrar daqui a 1 hora</small>','sheet-back sa-snooze'):btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back')));
  if(page==='Vender'){const chip=document.querySelector('#app .stock-alert-chip');chip?.classList.remove('is-new');}}
 paths.move='<path d="M12 3.5v17M3.5 12h17M12 3.5 9.5 6M12 3.5 14.5 6M12 20.5 9.5 18M12 20.5l2.5-2.5M3.5 12 6 9.5M3.5 12 6 14.5M20.5 12 18 9.5M20.5 12 18 14.5"/>';
 function movePill(){return btn('reorder-edit',icon('move')+'<span class="mc-go">Mova os cards</span><span class="mc-done">Pronto</span>','move-cards-pill');}
@@ -2927,7 +2935,8 @@ if(sellPage===r40SellPage)sellPage=feiraSellPage;
 function orderBestFirst(id){const p=model.product(id),order=window.TerritorioStockOrder;if(!p||!order)return;const key=order.stockGroupKey(p),all=order.orderStockProducts(model.data.products).map(x=>x.id);
  const family=all.filter(x=>order.stockGroupKey(model.product(x))===key),next=[id,...family.filter(x=>x!==id)],set=new Set(family);let k=0;const full=all.map(x=>set.has(x)?next[k++]:x);
  model.data.productOrder={version:1,updatedAt:new Date().toISOString(),ids:full};order.setManualOrder(full);persist();toast(titleName(p.name)+' agora é o primeiro da família.');render();}
-Object.assign(actions,{'stock-alert-open':()=>openStockAlerts(),'order-best-first':d=>{closeModal();orderBestFirst(d.id);},
+Object.assign(actions,{'stock-alert-open':()=>openStockAlerts(),
+ 'stock-alert-snooze':()=>{const mem=stockMemory();mem.snoozedAt=new Date().toISOString();persist();closeModal();render();toast('Combinado. A caixinha volta daqui a 1 hora enquanto houver produto esgotado.');},'order-best-first':d=>{closeModal();orderBestFirst(d.id);},
  'reorder-edit':()=>{const R=window.TerritorioReorder;if(!R?.edit)return;if(R.editing()){R.edit(false);return;}window.TerritorioSelection?.cancel?.();R.edit(true);}});
 const r40AdvisorInput=advisorInput;advisorInput=function(){const input=r40AdvisorInput.apply(this,arguments);try{const order=window.TerritorioStockOrder;input.productFamilies=order.orderStockProducts(model.data.products).map(p=>({id:p.id,name:titleName(p.name),family:order.stockGroupKey(p)}));}catch(e){input.productFamilies=[];}return input;};
 render();
