@@ -2836,8 +2836,8 @@ window.TerritorioSurplusUI.install({
 });
 // --- Venda de vários produtos em um só cartão (21/10/2026) ---
 // Os escolhidos em Vender (segurar o cartão) entram no primeiro cartão da venda um por vez: abre o
-// primeiro; digita-se a quantidade (quantos dígitos quiser) e toca-se em "Próximo", no lugar do título
-// Quantidade, para abrir o segundo; depois o terceiro. Cada linha mostra nome, quantidade e preço. No
+// primeiro; digita-se a quantidade (quantos dígitos quiser) e toca-se em "Próximo", logo abaixo do 8
+// (ao alcance do polegar), para abrir o segundo; depois o terceiro. Cada linha mostra nome, quantidade e preço. No
 // último a pill diz "Concluir": o teclado fecha e o Carrinho fica liberado. Tocar numa linha volta a ela.
 const multiPick=()=>!!draft&&!!draft.multiPick&&draft.items.length>1&&page==='Venda';
 const r30SellMultiple=actions['sell-multiple'];actions['sell-multiple']=d=>{r30SellMultiple(d);if(draft&&draft.items.length>1){draft.multiPick=true;render();}};
@@ -2851,14 +2851,16 @@ function multiPickCard(){
 }
 function sectionEnd(html,from){const re=/<\/?section\b/g;re.lastIndex=from;let depth=0,m;while((m=re.exec(html))){if(m[0]==='<section')depth++;else if(!--depth)return html.indexOf('>',m.index)+1;}return -1;}
 function multiNextPill(){const q=E.number(draft.items[draft.active]?.rawQty),last=multiNext()<0;
- return'<div class="quantity-caption multi-next-caption">'+btn('multi-next',last?'Concluir':'Próximo'+icon('chevron'),'multi-next-pill'+(last?' is-last':''),null,!(q>0))+'</div>';}
+ return btn('multi-next',last?'Concluir':'Próximo'+icon('chevron'),'multi-next-pill'+(last?' is-last':''),null,!(q>0));}
+function withNextPill(html){const k=html.indexOf('<div class="keypad"');if(k<0)return html;const end=html.indexOf('</div>',k);return end<0?html:html.slice(0,end)+multiNextPill()+html.slice(end);}
 const r30SalePage=salePage;salePage=function(){const html=r30SalePage();if(!multiPick())return html;const a=html.indexOf('<section class="panel sale-products">'),b=a<0?-1:sectionEnd(html,a);if(b<0)return html;
- return(html.slice(0,a)+multiPickCard()+html.slice(b)).replace(/<button\b[^>]*data-action="workflow-quantity-done"[^>]*>[\s\S]*?<\/button>/,'').replace(/<div class="quantity-caption">[\s\S]*?<\/div>/,multiNextPill());};
+ return withNextPill(html.slice(0,a)+multiPickCard()+html.slice(b)).replace(/<button\b[^>]*data-action="workflow-quantity-done"[^>]*>[\s\S]*?<\/button>/,'');};
 function multiNext(){const n=draft.items.length;for(let k=1;k<=n;k++){const i=(draft.active+k)%n;if(!(E.number(draft.items[i].rawQty)>0))return i;}return -1;}
 function multiAdvance(){if(!multiPick()||!(E.number(draft.items[draft.active]?.rawQty)>0))return;if(document.activeElement?.id==='sale-quantity')document.activeElement.blur();const next=multiNext();
  window.TerritorioSectionMotion?.prepare(['#app .quantity-panel','#app .sale-customer','#app .sale-dock']);
  if(next>=0){selectDiscountItem(next);numericTouched.delete('sale-quantity');render();return;}saveActiveDiscount();draft.quantityReviewCollapsed=true;render();}
-actions['multi-next']=()=>multiAdvance();
+// The pill sinks visibly (class + haptic) and the next product opens once the press has been seen.
+actions['multi-next']=()=>{const pill=document.querySelector('#app [data-action="multi-next"]');if(!pill||pill.disabled)return;pill.classList.add('is-sunk');window.TerritorioHaptics?.tick?.();setTimeout(multiAdvance,120);};
 // Typing in the field itself (system keyboard) only enables the pill; it never moves on by itself.
 document.addEventListener('input',e=>{if(e.target?.id!=='sale-quantity'||!multiPick())return;const pill=document.querySelector('#app [data-action="multi-next"]');if(pill)pill.disabled=!(E.number(draft.items[draft.active]?.rawQty)>0);});
 

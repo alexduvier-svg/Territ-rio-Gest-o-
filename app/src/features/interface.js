@@ -22,10 +22,26 @@ const WARN = /^(Não |Estoque não|Nenhum|Informe|Use |Sem |Falta|Máximo)/;
 const SUCCESS = /^(Venda Finalizada|Estoque renovado|QR lido|Página publicada|Backup|Dados de teste zerados|Produto salvo|Cliente salvo)/;
 const CANCEL = /cancelad|devolvid|removid|excluíd|descartad/i;
 const KINDS = ['toast-warn', 'toast-success', 'toast-cancel', 'toast-info'];
+// Two-sentence notices read as a title and a quieter detail ("Venda cancelada" / "O estoque não foi
+// alterado."), never one long sentence wrapping. The legacy code keeps writing plain text.
+function shapeToast(toast) {
+  const text = toast.textContent || '';
+  if (toast.dataset.shaped === text) return;
+  const parts = text.match(/^(.{3,40}?)[.!]\s+(\S.*)$/s);
+  if (parts) {
+    const title = document.createElement('strong'), detail = document.createElement('small'), wrap = document.createElement('span');
+    title.className = 'toast-title'; detail.className = 'toast-detail'; wrap.className = 'toast-text';
+    title.textContent = parts[1]; detail.textContent = parts[2];
+    wrap.append(title, detail);
+    toast.replaceChildren(wrap);
+  }
+  toast.dataset.shaped = toast.textContent;
+}
 function classifyToast(toast) {
   if (toast.hidden) { animateToast(toast); return; }
+  shapeToast(toast);
   const text = toast.textContent || '';
-  // Cada aviso leva um ícone do seu tipo: cancelado (✕), sucesso (✓), atenção (!) ou informação (i).
+  // Cada aviso leva um ícone do seu tipo: cancelado (desfeito ↺), sucesso (✓), atenção (!) ou informação (i).
   const kind = CANCEL.test(text) ? 'toast-cancel' : WARN.test(text) ? 'toast-warn' : SUCCESS.test(text) ? 'toast-success' : 'toast-info';
   if (!toast.classList.contains(kind)) { toast.classList.remove(...KINDS); toast.classList.add(kind); }
   animateToast(toast);

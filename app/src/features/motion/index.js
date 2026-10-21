@@ -322,7 +322,7 @@ export function animateToast(toast) {
 // ---------------------------------------------------------------- pressed keys
 function installPress(listen) {
   const pointers = new Map(), pressed = new Set();
-  const depth = button => { const r = button.getBoundingClientRect(); return r.width > 300 ? 0.985 : limited() ? 0.98 : 0.965; };
+  const depth = button => { if (button.matches('.multi-next-pill')) return limited() ? 0.95 : 0.93; const r = button.getBoundingClientRect(); return r.width > 300 ? 0.985 : limited() ? 0.98 : 0.965; };
   const release = button => {
     if (!pressed.delete(button)) return;
     // A lifted product (hold and drag) is moved and settled by reorder.js, not by the key spring.

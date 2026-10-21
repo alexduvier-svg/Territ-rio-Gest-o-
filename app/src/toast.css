@@ -61,7 +61,8 @@
   pointer-events: none;
 }
 :root[data-theme][data-layout] .toast::before {
-  background: color-mix(in srgb, var(--toast-tone) 22%, transparent);
+  /* Disco em degradê: a cor do aviso mais clara em cima, mais funda embaixo. */
+  background: linear-gradient(160deg, color-mix(in srgb, var(--toast-tone) 42%, transparent) 0%, color-mix(in srgb, var(--toast-tone) 22%, transparent) 55%, color-mix(in srgb, var(--toast-tone) 10%, transparent) 100%);
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 22%), inset 0 0 0 1px color-mix(in srgb, var(--toast-tone) 30%, transparent);
 }
 :root[data-theme][data-layout] .toast::after {
@@ -79,11 +80,17 @@
   --toast-tone: var(--orange, #f2a03d);
   --toast-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M12 6.5v7'/%3E%3Ccircle cx='12' cy='17.6' r='.7' fill='%23000'/%3E%3C/svg%3E");
 }
+/* Cancelar é uma escolha, não um erro: seta de "desfeito" em coral suave. */
 :root[data-theme][data-layout] .toast.toast-cancel {
-  --toast-tone: #ff7a6e;
-  --toast-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M7.5 7.5l9 9M16.5 7.5l-9 9'/%3E%3C/svg%3E");
+  --toast-tone: #ff9a8f;
+  --toast-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 14.5 4.5 10 9 5.5'/%3E%3Cpath d='M4.5 10h10a4.75 4.75 0 0 1 0 9.5H11'/%3E%3C/svg%3E");
 }
-:root[data-theme='light'][data-layout] .toast.toast-cancel { --toast-tone: #d1382e; }
+:root[data-theme='light'][data-layout] .toast.toast-cancel { --toast-tone: #c2473c; }
+
+/* Título e detalhe: o fato em destaque e o complemento menor, mais suave. */
+:root[data-theme][data-layout] .toast .toast-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+:root[data-theme][data-layout] .toast .toast-title { font-weight: 650; font-size: 15px; line-height: 1.25; }
+:root[data-theme][data-layout] .toast .toast-detail { font-weight: 500; font-size: 13px; line-height: 1.3; opacity: 0.72; }
 :root[data-theme='light'][data-layout] .toast.toast-warn { --toast-tone: #b35f00; }
 :root[data-theme='light'][data-layout] .toast:is(.toast-info, .toast-success) { --toast-tone: #4f7d2c; }
 
