@@ -34,6 +34,10 @@ function compareDescriptors(a,b){
 }
 export const stockProductComparator=(a,b)=>compareDescriptors(descriptor(a),descriptor(b));
 export const stockFamily=p=>descriptor(p).family;
+// A section names the whole family, never whichever variety happens to be first.
+// Keep the normalized query separate: "Bananas" is a title, "banana" finds its varieties.
+const familyLabels=new Map([['cafe','Cafés'],['banana','Bananas'],['fuba','Fubás'],['mandioca','Mandiocas']]);
+export const stockFamilyLabel=p=>familyLabels.get(stockFamily(p))||String(p.catalogBase||p.baseName||p.name||'Produtos').trim();
 export const stockGroupKey=p=>{const d=descriptor(p);return d.category+'|'+d.family;};
 
 // The producer's own order (hold and drag): it reorders products inside their family only, so

@@ -1,4 +1,10 @@
+# Entrega concluída — AGRO Gestão 2 0.12.53/code93
+
+0.12.53/code93 atualizada na pasta original e nosDOIS celulares, sem limpar dados. Leia app/docs/ENTREGA-0.12.53.md e app/docs/ARQUIVOS-0.12.53.md. Famílias e + corretos, perdas recolhíveis, Voltar único em Ajustes, resumo acessível, Sobre AGRO2. Layout/3colunas/venda preservados.398unit/4UI/2checkout/4físicos2temasPASS; APK/assinatura/40assets/16KB conferidos, fixtures removidos. Clima real no Reno53verificado20:35. ClaudeAPK/ramo intactos/cffe32b; main956fddc. NÃO repetir build/cópia/instalação; Git desta entrega: confirmar o commit53 e o remoto ao retomar. Nenhuma pendência de implementação/entrega. Retomada automática silenciosa sem novo pedido. Não repetir entregas históricas.
+
 # Entrega concluída — AGRO Gestão 2 0.12.52/code92
+
+Git final confirmado: commit/push080d0d36394e87b3b4d7625b538d8f4563514b35 no ramoAGRO2, remoto idêntico e worktreegithub-publishlimpo. Main956fddc e Claudecffe32b preservados. Nenhuma pendência autorizada restante. NÃO repetir build/testes/cópia/instalação/publicação por este registro. Retomada automática silenciosa sem novo pedido.
 
 Pagamentos visíveis com3produtos: Pix/Dinheiro, Crédito/Débito, Continuar comprando/Outro, título central sem Dividir, respiro18px do total. Outro contém Fiado e pagamento dividido. Fiado exige cliente/vencimento no calendário EXISTENTE do app, registra receita/estoque uma vez; Clientes a receber tem baixa integral explícita/idempotente por data, sem nova venda/estoque e sem contar dívida no caixa. Reabertura/backup preservam campos. Tela baixa inicia resumo recolhido; quarto produto/rolagem/retorno sem perda testados. Nuvem+grau imediatamente junto da frase Área de vendas, seletor restaurado após integração51. Motor/clima27 e servidor preservados. Regra de padrão único permanente para qualquer ajuste/dia/mês gravada em interface24/documento offline/AGENTS.
 

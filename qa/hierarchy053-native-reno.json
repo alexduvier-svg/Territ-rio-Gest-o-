@@ -1,0 +1,100 @@
+{
+  "version": "0.12.53",
+  "device": "reno",
+  "physicalAndroid": true,
+  "synthetic": true,
+  "networkBlockedByFixture": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "reno",
+      "theme": "light",
+      "physical": true,
+      "selling": {
+        "columns": 3,
+        "widths": [
+          93.71428680419922,
+          93.71428680419922,
+          93.71428680419922
+        ],
+        "gap": 8.000011444091797
+      },
+      "titles": [
+        "Cafés",
+        "Bananas",
+        "Mandiocas",
+        "Queijo Meia Cura",
+        "Fubás"
+      ],
+      "reviewHeight": 52,
+      "familyIds": [
+        "banana-Caturra",
+        "banana-Maçã",
+        "banana-Nanica",
+        "banana-Prata"
+      ],
+      "ownNames": [
+        "Banana CaturraVenda por Dúzia9 dúzias em estoque",
+        "Banana MaçãVenda por Dúzia9 dúzias em estoque",
+        "Banana NanicaVenda por Dúzia9 dúzias em estoque",
+        "Banana PrataVenda por Dúzia9 dúzias em estoque"
+      ],
+      "summaryAccessible": true,
+      "oneSettingsBack": true,
+      "pendingReviews": 2,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "w": 359,
+        "doc": 359,
+        "app": 359,
+        "appW": 359
+      }
+    },
+    {
+      "name": "reno",
+      "theme": "dark",
+      "physical": true,
+      "selling": {
+        "columns": 3,
+        "widths": [
+          93.71428680419922,
+          93.71428680419922,
+          93.71428680419922
+        ],
+        "gap": 8.000011444091797
+      },
+      "titles": [
+        "Cafés",
+        "Bananas",
+        "Mandiocas",
+        "Queijo Meia Cura",
+        "Fubás"
+      ],
+      "reviewHeight": 52,
+      "familyIds": [
+        "banana-Caturra",
+        "banana-Maçã",
+        "banana-Nanica",
+        "banana-Prata"
+      ],
+      "ownNames": [
+        "Banana CaturraVenda por Dúzia9 dúzias em estoque",
+        "Banana MaçãVenda por Dúzia9 dúzias em estoque",
+        "Banana NanicaVenda por Dúzia9 dúzias em estoque",
+        "Banana PrataVenda por Dúzia9 dúzias em estoque"
+      ],
+      "summaryAccessible": true,
+      "oneSettingsBack": true,
+      "pendingReviews": 2,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "w": 359,
+        "doc": 359,
+        "app": 359,
+        "appW": 359
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

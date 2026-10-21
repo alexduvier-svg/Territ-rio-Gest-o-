@@ -55,3 +55,8 @@ Usar sempre o padrão único existente do app, em toda área, janela e subjanela
 Finalizar Venda: resumo compacto de até três produtos e grade Pix/Dinheiro, Crédito/Débito, Outro, título central. + Produtos é uma ação separada. Mais produtos e texto ampliado podem rolar sem cortar controles. Outro oferece Fiado com cliente e vencimento, e pagamento dividido. Fiado reduz estoque e entra na receita da venda; só entra no caixa quando o produtor confirma o recebimento em Clientes a receber. Baixa não cria nova venda nem baixa estoque novamente. Usar os dois temas e tamanhos de tela na verificação.
 
 Pedido posterior21/10: última linha de pagamentos com Continuar comprando à esquerda e Outro à direita. Respiro entre total e ações finais. Nuvem e grau junto da frase Área de vendas, na mesma linha, sem intercalar outros controles. Prioridade permanente: qualidade de abertura e recolhimento em aparelhos de menor capacidade; preservar modos leve/reduzido e verificar os dois temas.
+
+
+## Organização do estoque, preservando o layout
+
+Famílias usam títulos que abrangem suas variedades: Bananas, Cafés, Fubás e Mandiocas. O nome e a apresentação de cada produto permanecem nos seus cards. O + de cada seção busca a família normalizada; o título plural não deve impedir a busca. A conferência de perdas inicia recolhida, com a quantidade de feiras pendentes visível. Abrir ou recolher não dispensa revisão nem altera estoque. Aplicar os componentes, materiais, movimentos e timer comuns de 15 segundos. Ajustes mantém um único Voltar no rodapé. O ícone de resumo do dia deve ter nome acessível. Preservar três colunas de vendas, quantidade escolhida, Cliente, origem, Desconto e pagamentos.

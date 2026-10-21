@@ -1,6 +1,6 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 24,
+  version: 25,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   permanentQualityRule: 'Regra permanente, para qualquer ajuste em qualquer dia ou mês e qualquer área, janela ou subjanela: reutilizar o padrão único existente de layout, tipografia, controles, calendários, material, volume, textura, profundidade e movimentos. Não criar aparência paralela. Abertura e recolhimento devem preservar a superfície inteira. Verificar claro/escuro, telas menores, texto ampliado e modos leve/reduzido; preservar baixo custo e registrar limites de testes em aparelhos básicos.',
@@ -21,6 +21,7 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     adaptation: 'Adaptar ao espaço útil, resolução e escala, incluindo aparelhos de 6,3, 6,5 e 6,8 polegadas. Conferir larguras de 320, 360, 393 e 412 px, texto ampliado, pouca altura e teclado aberto. Nenhuma ação, inclusive Enviar no WhatsApp, pode ficar cortada ou inacessível.',
   },
   sharedMaterial: 'Todas as áreas, seções, janelas e subjanelas compartilham o mesmo plano de vidro, volume e resposta ao toque. Fundo e sombra podem variar com o tema; texto nunca recebe opacidade, blur, textura ou brilho. Reflexo de toque curto, sem animação ociosa. Navegação direcional por aba e mola estável, com modos leve e reduzido.',
+  stockHierarchy: 'Preservar o layout aprovado, três colunas de vendas e a ordem das apresentações. No Estoque, o título identifica a família inteira (Bananas, Cafés, Fubás, Mandiocas), sem usar uma variedade como nome de toda a seção. O + busca a família normalizada e mantém as variedades disponíveis. Conferência de perdas inicia recolhida, sem dispensar pendências nem alterar registros ao abrir ou fechar. Controles devem ter nomes acessíveis; manter um único Voltar em Ajustes, no rodapé.',
   stockNotifications: 'Avisos de estoque fora do app em dois tipos (decisão do produtor): Estoque (acabando a 30% do nível ou esgotado na Loja) aparece na barra e no resumo da tela apagada sem acender a tela; Estoque — Feira (esgotado durante uma feira em andamento) acende a tela. A pessoa pode mudar cada tipo nos ajustes de notificação do app no celular; o app não segura a tela acesa.',
   titleCase: 'Todo título (página, seção, aba, sub-aba, janela, subjanela e título de aviso) segue a regra de nome próprio: inicial maiúscula em cada palavra e conectores em minúscula (Perfil e Negócio, Repor Estoque, Área de Vendas); siglas e medidas ficam como são. Textos corridos e campos não mudam.',
   cardNameBreak: 'Em cartão estreito (telas menores, três colunas), o nome do produto quebra depois da primeira palavra (Café / Especial), para não ficar embolado.',

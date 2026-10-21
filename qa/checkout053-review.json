@@ -1,0 +1,173 @@
+{
+  "version": "0.12.53",
+  "synthetic": true,
+  "externalNetworkBlocked": true,
+  "cases": [
+    {
+      "name": "regression",
+      "width": 360,
+      "height": 760,
+      "theme": "light",
+      "geometry": {
+        "viewport": {
+          "w": 360,
+          "h": 760,
+          "dpr": 1
+        },
+        "buttons": [
+          {
+            "text": "Pix",
+            "x": 44,
+            "y": 382.3125,
+            "w": 132,
+            "h": 46,
+            "visible": true
+          },
+          {
+            "text": "Dinheiro",
+            "x": 184,
+            "y": 382.3125,
+            "w": 132,
+            "h": 46,
+            "visible": true
+          },
+          {
+            "text": "Crédito",
+            "x": 44,
+            "y": 436.3125,
+            "w": 132,
+            "h": 46,
+            "visible": true
+          },
+          {
+            "text": "Débito",
+            "x": 184,
+            "y": 436.3125,
+            "w": 132,
+            "h": 46,
+            "visible": true
+          },
+          {
+            "text": "Continuar comprando",
+            "x": 44,
+            "y": 490.3125,
+            "w": 132,
+            "h": 57,
+            "visible": true
+          },
+          {
+            "text": "Outro",
+            "x": 184,
+            "y": 490.3125,
+            "w": 132,
+            "h": 57,
+            "visible": true
+          }
+        ],
+        "headingOffset": 0,
+        "scrollHeight": 474,
+        "clientHeight": 474
+      },
+      "calendar": {
+        "left": 20,
+        "right": 340,
+        "top": 135.40625,
+        "bottom": 624.59375,
+        "w": 360,
+        "h": 760,
+        "overflow": false
+      },
+      "footerGap": 18,
+      "weatherInline": true,
+      "splitPaymentPreserved": true,
+      "creditSaleId": "c35bb36c-9fed-45df-8e1f-7bd61f9eed13",
+      "fiado": 7500,
+      "collected": 7500,
+      "duplicateSales": 0
+    },
+    {
+      "name": "regression",
+      "width": 360,
+      "height": 760,
+      "theme": "dark",
+      "geometry": {
+        "viewport": {
+          "w": 360,
+          "h": 760,
+          "dpr": 1
+        },
+        "buttons": [
+          {
+            "text": "Pix",
+            "x": 44,
+            "y": 382.3125,
+            "w": 132,
+            "h": 46,
+            "visible": true
+          },
+          {
+            "text": "Dinheiro",
+            "x": 184,
+            "y": 382.3125,
+            "w": 132,
+            "h": 46,
+            "visible": true
+          },
+          {
+            "text": "Crédito",
+            "x": 44,
+            "y": 436.3125,
+            "w": 132,
+            "h": 46,
+            "visible": true
+          },
+          {
+            "text": "Débito",
+            "x": 184,
+            "y": 436.3125,
+            "w": 132,
+            "h": 46,
+            "visible": true
+          },
+          {
+            "text": "Continuar comprando",
+            "x": 44,
+            "y": 490.3125,
+            "w": 132,
+            "h": 57,
+            "visible": true
+          },
+          {
+            "text": "Outro",
+            "x": 184,
+            "y": 490.3125,
+            "w": 132,
+            "h": 57,
+            "visible": true
+          }
+        ],
+        "headingOffset": 0,
+        "scrollHeight": 474,
+        "clientHeight": 474
+      },
+      "calendar": {
+        "left": 20,
+        "right": 340,
+        "top": 135.40625,
+        "bottom": 624.59375,
+        "w": 360,
+        "h": 760,
+        "overflow": false
+      },
+      "footerGap": 18,
+      "weatherInline": true,
+      "splitPaymentPreserved": true,
+      "creditSaleId": "3e519c0f-6d09-4866-80db-a81fb33ffcdd",
+      "fiado": 7500,
+      "collected": 7500,
+      "duplicateSales": 0
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

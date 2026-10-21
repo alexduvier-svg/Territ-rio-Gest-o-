@@ -1,0 +1,35 @@
+{
+  "version": "0.12.52",
+  "synthetic": true,
+  "externalNetworkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "baseline",
+      "width": 393,
+      "height": 820,
+      "theme": "light",
+      "baseline": true,
+      "timer": false,
+      "selling": {
+        "columns": 3,
+        "widths": [
+          105,
+          105,
+          105
+        ],
+        "gap": 8
+      },
+      "titles": [
+        "Cafés",
+        "Banana Caturra",
+        "Aipim",
+        "Queijo Meia Cura",
+        "Fubá de Milho"
+      ],
+      "reviewHeight": 271.578125
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

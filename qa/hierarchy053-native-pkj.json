@@ -1,0 +1,100 @@
+{
+  "version": "0.12.53",
+  "device": "pkj",
+  "physicalAndroid": true,
+  "synthetic": true,
+  "networkBlockedByFixture": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "pkj",
+      "theme": "light",
+      "physical": true,
+      "selling": {
+        "columns": 3,
+        "widths": [
+          94,
+          94,
+          94
+        ],
+        "gap": 8
+      },
+      "titles": [
+        "Cafés",
+        "Bananas",
+        "Mandiocas",
+        "Queijo Meia Cura",
+        "Fubás"
+      ],
+      "reviewHeight": 52,
+      "familyIds": [
+        "banana-Caturra",
+        "banana-Maçã",
+        "banana-Nanica",
+        "banana-Prata"
+      ],
+      "ownNames": [
+        "Banana CaturraVenda por Dúzia9 dúzias em estoque",
+        "Banana MaçãVenda por Dúzia9 dúzias em estoque",
+        "Banana NanicaVenda por Dúzia9 dúzias em estoque",
+        "Banana PrataVenda por Dúzia9 dúzias em estoque"
+      ],
+      "summaryAccessible": true,
+      "oneSettingsBack": true,
+      "pendingReviews": 2,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "w": 360,
+        "doc": 360,
+        "app": 360,
+        "appW": 360
+      }
+    },
+    {
+      "name": "pkj",
+      "theme": "dark",
+      "physical": true,
+      "selling": {
+        "columns": 3,
+        "widths": [
+          94,
+          94,
+          94
+        ],
+        "gap": 8
+      },
+      "titles": [
+        "Cafés",
+        "Bananas",
+        "Mandiocas",
+        "Queijo Meia Cura",
+        "Fubás"
+      ],
+      "reviewHeight": 52,
+      "familyIds": [
+        "banana-Caturra",
+        "banana-Maçã",
+        "banana-Nanica",
+        "banana-Prata"
+      ],
+      "ownNames": [
+        "Banana CaturraVenda por Dúzia9 dúzias em estoque",
+        "Banana MaçãVenda por Dúzia9 dúzias em estoque",
+        "Banana NanicaVenda por Dúzia9 dúzias em estoque",
+        "Banana PrataVenda por Dúzia9 dúzias em estoque"
+      ],
+      "summaryAccessible": true,
+      "oneSettingsBack": true,
+      "pendingReviews": 2,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "w": 360,
+        "doc": 360,
+        "app": 360,
+        "appW": 360
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}
