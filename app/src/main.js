@@ -36,6 +36,8 @@ import { CATALOG_KNOWLEDGE } from './data/catalog-knowledge.js';
 import { INTERFACE_GUIDELINES } from './data/interface-guidelines.js';
 import { VOICE_GUIDELINES } from './data/voice-guidelines.js';
 import { DECISION_GUIDELINES } from './data/decision-guidelines.js';
+import { ADAPTATION_GUIDELINES } from './data/adaptation-guidelines.js';
+import { installAdaptation } from './features/adaptation/policy.js';
 import * as SalesPresentation from './features/sales-presentation.js';
 import { installGlassTouch } from './features/glass-touch.js';
 import { installLocalCatalog } from './features/local-catalog/index.js';
@@ -104,6 +106,7 @@ try {
   window.TerritorioEngagementGuidelines = ENGAGEMENT_GUIDELINES;
   window.TerritorioVoiceGuidelines = VOICE_GUIDELINES;
   window.TerritorioDecisionGuidelines = DECISION_GUIDELINES;
+  window.TerritorioAdaptationGuidelines = ADAPTATION_GUIDELINES;
   window.TerritorioFinance = { ...Finance, runAudit };
   window.TerritorioFairReport = FairReport;
   window.TerritorioFairSurplus = FairSurplus;
@@ -115,7 +118,7 @@ try {
   installWeather();
   await import('./legacy/erp-ui.js');
   const savedModel = window.ERPPreview?.model?.();
-  if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled || savedModel?.decisionGuidelinesInstalled) {
+  if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled || savedModel?.decisionGuidelinesInstalled || savedModel?.adaptationGuidelinesInstalled) {
     window.ERPPreview.persist?.();
     if (window.TerritorioNative?.isNative) await window.TerritorioNative.durable?.();
   }
@@ -125,6 +128,7 @@ try {
   window.TerritorioMotion = Object.freeze({diagnostics:getMotionDiagnostics});
   installNavIconMotion();
   installInterface();
+  installAdaptation();
   installSectionMotion();
   installMultiSell();
   installReorder();

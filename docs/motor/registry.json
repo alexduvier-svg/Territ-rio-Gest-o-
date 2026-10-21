@@ -216,5 +216,19 @@
     "funcao": "syncStockAlerts/stockState",
     "versao": "1.0",
     "nota": "model.data.stockAlerts; acabando = mínimo ou ≤ 25 % da referência"
+  },
+  "politica_adaptacao": {
+    "arquivo": "app/src/features/adaptation/policy.js",
+    "funcao": "computePolicy/installAdaptation",
+    "versao": "1.0",
+    "testes": [
+      "adaptation-policy.test.mjs"
+    ]
+  },
+  "modo_leve_medido": {
+    "arquivo": "app/src/features/motion/index.js",
+    "funcao": "installFrameBudget",
+    "versao": "1.1",
+    "nota": ">10% de ~150 quadros >20 ms em 4 movimentos; reavaliado a cada 7 dias"
   }
 }

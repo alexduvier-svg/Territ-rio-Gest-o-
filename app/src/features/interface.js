@@ -201,12 +201,8 @@ function installPicker() {
 }
 
 // ---------------------------------------------------------------- celulares mais simples
-// Poucos núcleos ou pouca memória: sem desfoque de fundo e sombras pesadas, transições mais curtas.
-function detectLite() {
-  const cores = navigator.hardwareConcurrency || 8;
-  const memory = navigator.deviceMemory || 8;
-  if (cores <= 4 || memory <= 3) document.documentElement.classList.add('lite');
-}
+// O detector de aparelho fraco fica só no motor de movimento (motion/index.js: hardware, economia de
+// dados e medidor de quadros); a política central (features/adaptation/policy.js) lê o resultado.
 
 // ---------------------------------------------------------------- foco visível só com teclado
 // Janela aberta por notificação recebe foco sem toque prévio e o Android desenha a moldura no "x".
@@ -292,7 +288,6 @@ export function installInterface() {
   installTitleCase();
   installSheetTyping();
   const root = app();
-  detectLite();
   installPicker();
   // The touch light added inside a pressed button is decoration: refitting every card for it made
   // the whole grid re-measure on each tap (a faint flash behind a double tap).

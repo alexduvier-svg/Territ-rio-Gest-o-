@@ -779,13 +779,17 @@ function installDialogs() {
   };
 }
 
+// Hardware or system limits seen by the WebView (few cores, little memory, data saver, no blur).
+let hardwareIsLite = false;
+const hardwareLite = () => hardwareIsLite;
 function installMotionBudget(listen) {
   const media = ['(update: slow)', '(prefers-reduced-transparency: reduce)'].map(query => matchMedia(query));
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const evaluate = () => {
     const cores = navigator.hardwareConcurrency, memory = navigator.deviceMemory;
     const noBlur = !globalThis.CSS?.supports?.('backdrop-filter', 'blur(1px)') && !globalThis.CSS?.supports?.('-webkit-backdrop-filter', 'blur(1px)');
-    if ((cores > 0 && cores <= 4) || (memory > 0 && memory <= 3) || connection?.saveData || noBlur || media.some(query => query.matches)) root().classList.add('lite');
+    hardwareIsLite = (cores > 0 && cores <= 4) || (memory > 0 && memory <= 3) || !!connection?.saveData || noBlur || media.some(query => query.matches);
+    if (hardwareIsLite) root().classList.add('lite');
     root().dataset.motionLite = String(limited());
   };
   for (const query of media) listen(query, 'change', evaluate);
@@ -805,8 +809,12 @@ const frameBudget = { state: 'off', frames: 0, bursts: 0 };
 function installFrameBudget(listen) {
   let saved = null;
   try { saved = JSON.parse(localStorage.getItem(FRAME_BUDGET_KEY) || 'null'); } catch {}
-  if (saved?.lite) { root().classList.add('lite'); frameBudget.state = 'saved-lite'; return; }
-  if (saved || limited()) { frameBudget.state = saved ? 'saved-full' : 'hardware-lite'; return; }
+  // A decisão vale 7 dias; depois o aparelho é medido de novo (atualizações mudam o desempenho). Até a
+  // nova decisão, a anterior continua valendo.
+  const stale = saved && !(Date.now() - Date.parse(saved.at) < 7 * 864e5);
+  if (saved?.lite) root().classList.add('lite');
+  if (saved?.lite && !stale) { frameBudget.state = 'saved-lite'; return; }
+  if ((saved && !stale) || (!saved && limited())) { frameBudget.state = saved ? 'saved-full' : 'hardware-lite'; return; }
   frameBudget.state = 'sampling';
   const startedAt = performance.now(), samples = [];
   let bursts = 0, until = 0, frame = 0, last = 0, moved = false;
@@ -814,7 +822,7 @@ function installFrameBudget(listen) {
     const slow = samples.filter(interval => interval > 20).length / samples.length;
     const result = { lite: slow > 0.1, slow: Math.round(slow * 1000) / 10, frames: samples.length, bursts, at: new Date().toISOString() };
     try { localStorage.setItem(FRAME_BUDGET_KEY, JSON.stringify(result)); } catch {}
-    if (result.lite) root().classList.add('lite');
+    root().classList.toggle('lite', result.lite || hardwareLite());
     frameBudget.state = result.lite ? 'decided-lite' : 'decided-full';
   };
   const tick = time => {
