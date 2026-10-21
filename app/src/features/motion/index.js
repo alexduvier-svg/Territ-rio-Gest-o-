@@ -1,5 +1,5 @@
 import { stepSpring, springAtRest } from './spring.js';
-import { animate, SPRINGS, ramp, clamp, motionOf, finishAll, liveCount, carriedVelocity, springCurve } from './engine.js';
+import { animate, SPRINGS, ramp, clamp, motionOf, finishAll, liveCount, carriedVelocity, springCurve, springFrom } from './engine.js';
 
 // Every opening and closing (pages, tabs, sheets, nested sheets, toasts, pressed keys) is
 // choreographed here and played by the compositor through engine.js. Nothing in this file
@@ -320,6 +320,8 @@ export function animateToast(toast) {
 }
 
 // ---------------------------------------------------------------- pressed keys
+// Próximo (venda múltipla): desce quase na hora do toque e volta curta, sem mola longa.
+const PILL_DOWN = springFrom(0.09, 0.95), PILL_UP = springFrom(0.16, 0.72);
 function installPress(listen) {
   const pointers = new Map(), pressed = new Set();
   const depth = button => { if (button.matches('.multi-next-pill')) return limited() ? 0.95 : 0.93; const r = button.getBoundingClientRect(); return r.width > 300 ? 0.985 : limited() ? 0.98 : 0.965; };
@@ -330,7 +332,7 @@ function installPress(listen) {
     const current = motionOf(button);
     const from = current ? current.now().pose : { scale: 1 };
     if (!enabled() || !button.isConnected) { current?.cancel(); return; }
-    animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: 1 }, spring: SPRINGS.release, velocity: current ? carriedVelocity(current, from, { scale: 1 }) : 0 });
+    animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: 1 }, spring: button.matches('.multi-next-pill') ? PILL_UP : SPRINGS.release, velocity: current ? carriedVelocity(current, from, { scale: 1 }) : 0 });
   };
   const releaseAll = () => { pointers.clear(); for (const button of [...pressed]) release(button); };
   const press = button => {
@@ -338,7 +340,7 @@ function installPress(listen) {
     const current = motionOf(button);
     const from = current ? current.now().pose : { scale: 1 };
     pressed.add(button);
-    animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: depth(button) }, spring: SPRINGS.press, persist: true });
+    animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: depth(button) }, spring: button.matches('.multi-next-pill') ? PILL_DOWN : SPRINGS.press, persist: true });
   };
   listen(document, 'pointerdown', event => {
     if (event.button !== 0 || event.isPrimary === false) return;

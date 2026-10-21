@@ -2859,8 +2859,11 @@ function multiNext(){const n=draft.items.length;for(let k=1;k<=n;k++){const i=(d
 function multiAdvance(){if(!multiPick()||!(E.number(draft.items[draft.active]?.rawQty)>0))return;if(document.activeElement?.id==='sale-quantity')document.activeElement.blur();const next=multiNext();
  window.TerritorioSectionMotion?.prepare(['#app .quantity-panel','#app .sale-customer','#app .sale-dock']);
  if(next>=0){selectDiscountItem(next);numericTouched.delete('sale-quantity');render();return;}saveActiveDiscount();draft.quantityReviewCollapsed=true;render();}
-// The pill sinks visibly (class + haptic) and the next product opens once the press has been seen.
-actions['multi-next']=()=>{const pill=document.querySelector('#app [data-action="multi-next"]');if(!pill||pill.disabled)return;pill.classList.add('is-sunk');window.TerritorioHaptics?.tick?.();setTimeout(multiAdvance,120);};
+// The pill sinks the instant the finger touches it and springs back when it lifts (is-down + the
+// motion engine's press); the next product opens right after, once the return has started.
+actions['multi-next']=()=>{const pill=document.querySelector('#app [data-action="multi-next"]');if(!pill||pill.disabled)return;setTimeout(multiAdvance,90);};
+document.addEventListener('pointerdown',e=>{const pill=e.target.closest?.('#app .multi-next-pill');if(!pill||pill.disabled)return;pill.classList.add('is-down');window.TerritorioHaptics?.tick?.();},{capture:true,passive:true});
+for(const type of ['pointerup','pointercancel'])document.addEventListener(type,()=>document.querySelectorAll('#app .multi-next-pill.is-down').forEach(p=>p.classList.remove('is-down')),{capture:true,passive:true});
 // Typing in the field itself (system keyboard) only enables the pill; it never moves on by itself.
 document.addEventListener('input',e=>{if(e.target?.id!=='sale-quantity'||!multiPick())return;const pill=document.querySelector('#app [data-action="multi-next"]');if(pill)pill.disabled=!(E.number(draft.items[draft.active]?.rawQty)>0);});
 

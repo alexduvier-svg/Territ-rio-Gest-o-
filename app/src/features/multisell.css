@@ -128,7 +128,8 @@
   color: #24123a;
   font: 650 15px/1 'Inter Variable', 'Inter', sans-serif;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 32%), 0 4px 12px color-mix(in srgb, var(--lilac, #a788c2) 35%, transparent);
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  /* Volta rápida e com leve mola quando o dedo sai. */
+  transition: translate 0.16s cubic-bezier(0.2, 0.9, 0.3, 1.25), filter 0.16s ease-out, box-shadow 0.16s ease-out, opacity 0.2s ease;
 }
 #app .keypad .multi-next-pill .icon { width: 16px; height: 16px; }
 #app .keypad .multi-next-pill.is-last { padding: 0 18px; }
@@ -136,12 +137,12 @@
 @media (max-width: 350px) { #app .keypad .multi-next-pill { padding: 0 10px 0 14px; font-size: 14px; } }
 /* Afunda ao toque, como uma tecla física: desce, escurece e perde a sombra (o encolhimento vem do
    motor de toque, mais fundo para esta pill). */
-#app .keypad .multi-next-pill:not(:disabled):active,
-#app .keypad .multi-next-pill.is-sunk {
+#app .keypad .multi-next-pill.is-down {
   translate: 0 2px;
   filter: brightness(0.9);
   box-shadow: inset 0 2px 5px rgb(0 0 0 / 28%), 0 1px 2px color-mix(in srgb, var(--lilac, #a788c2) 25%, transparent);
-  transition: translate 0.08s ease-out, filter 0.08s ease-out, box-shadow 0.08s ease-out;
+  /* Desce na hora do toque. */
+  transition: translate 0.05s ease-out, filter 0.05s ease-out, box-shadow 0.05s ease-out;
 }
 
 /* Na venda múltipla, o "Disponível" fica centrado logo abaixo da pill Próximo. */
