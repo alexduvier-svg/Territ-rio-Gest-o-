@@ -1,6 +1,6 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 22,
+  version: 23,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   principles: {
@@ -19,6 +19,7 @@ export const INTERFACE_GUIDELINES = Object.freeze({
     adaptation: 'Adaptar ao espaço útil, resolução e escala, incluindo aparelhos de 6,3, 6,5 e 6,8 polegadas. Conferir larguras de 320, 360, 393 e 412 px, texto ampliado, pouca altura e teclado aberto. Nenhuma ação, inclusive Enviar no WhatsApp, pode ficar cortada ou inacessível.',
   },
   sharedMaterial: 'Todas as áreas, seções, janelas e subjanelas compartilham o mesmo plano de vidro, volume e resposta ao toque. Fundo e sombra podem variar com o tema; texto nunca recebe opacidade, blur, textura ou brilho. Reflexo de toque curto, sem animação ociosa. Navegação direcional por aba e mola estável, com modos leve e reduzido.',
+  stockNotifications: 'Avisos de estoque fora do app em dois tipos (decisão do produtor): Estoque (acabando a 30% do nível ou esgotado na Loja) aparece na barra e no resumo da tela apagada sem acender a tela; Estoque — Feira (esgotado durante uma feira em andamento) acende a tela. A pessoa pode mudar cada tipo nos ajustes de notificação do app no celular; o app não segura a tela acesa.',
   titleCase: 'Todo título (página, seção, aba, sub-aba, janela, subjanela e título de aviso) segue a regra de nome próprio: inicial maiúscula em cada palavra e conectores em minúscula (Perfil e Negócio, Repor Estoque, Área de Vendas); siglas e medidas ficam como são. Textos corridos e campos não mudam.',
   cardNameBreak: 'Em cartão estreito (telas menores, três colunas), o nome do produto quebra depois da primeira palavra (Café / Especial), para não ficar embolado.',
   frameBudget: 'Uma versão só para todos os aparelhos: nos primeiros movimentos depois de abrir, o app mede os próprios quadros (só após um toque e só com movimento na tela); com mais de 10% acima de 20 ms em cerca de 150 quadros de 4 movimentos, liga o modo leve naquele aparelho (guardado só nele). OnePlus: 3,9% (efeito completo); Reno 16: 32% (modo leve).',

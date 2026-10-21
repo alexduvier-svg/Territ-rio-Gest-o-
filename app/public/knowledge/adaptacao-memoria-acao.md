@@ -1,4 +1,4 @@
-# Adaptação, memória e ação — versão 1
+# Adaptação, memória e ação — versão 2
 
 Referência offline das diretrizes de 21/10/2026 para telas pequenas e aparelhos com recursos limitados.
 É conhecimento de consulta: não autoriza vendas, baixas, envios ou compras.
@@ -20,7 +20,7 @@ Um só serviço (`features/adaptation/policy.js`) decide, separadamente:
 - **Carga:** padrão ou leve (economia de dados ou aparelho limitado): uma tarefa pesada por vez e cache de
   imagens menor.
 
-Nunca pela marca ou pelo processador (Snapdragon, Exynos, MediaTek, Unisoc, Apple) por si só.
+Nunca pela marca ou pelo processador (Snapdragon, Exynos, MediaTek, Unisoc, Apple) por si só. Celulares capazes ficam com o efeito completo: o ajuste só alivia quem medir lentidão.
 
 ## O que o modo leve tira e o que nunca tira
 

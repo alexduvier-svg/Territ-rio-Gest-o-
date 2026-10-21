@@ -3,7 +3,7 @@
 // (v1.0, 21/10/2026). Conhecimento de referência: não é instrução executável e não autoriza vendas,
 // baixas, envios ou compras. Auditoria do que já existia: docs/adaptacao/RELATORIO_AUDITORIA.md.
 export const ADAPTATION_GUIDELINES = Object.freeze({
-  version: 1,
+  version: 2,
   id: 'adaptation-memory-action',
   authority: 'reference_only',
   sources: ['docs/adaptacao/AGRO_Gestao_Diretrizes_Adaptacao_Memoria_Acao_Codex_Claude_Code.docx v1.0'],
@@ -19,6 +19,7 @@ export const ADAPTATION_GUIDELINES = Object.freeze({
     signals: 'Janela disponível, escala do texto, preferências de acessibilidade, o que o sistema expõe e o desempenho medido pelo próprio app. Nunca marca ou processador (Snapdragon, Exynos, MediaTek, Unisoc, Apple) por si só.',
     windows: '<360 estreita (subfaixa do produto) · 360–599 compacta · 600–839 média · ≥840 ampla · altura <480 compacta.',
     effects: 'Modo leve automático pelo medidor de quadros (installFrameBudget): >10% de ~150 quadros acima de 20 ms em 4 movimentos; reavaliado a cada 7 dias; decisão guardada só no aparelho. Menos efeitos e reduzir movimento prevalecem.',
+    capable: 'Celulares capazes (processadores robustos) ficam com o efeito completo: o ajuste automático só alivia o aparelho que medir lentidão; nada é retirado de quem acompanha (OnePlus: 3,9% de quadros lentos, completo).',
     lightKeeps: 'O modo leve tira desfoque, sombras pesadas e animações decorativas; nunca tira preço, indicação de gravação, validação de quantidade, acesso ao carrinho ou áreas de toque.',
   },
   layout: [
