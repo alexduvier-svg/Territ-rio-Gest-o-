@@ -84,6 +84,7 @@ function sell() {
 }
 
 function toggle(id) {
+  if (!selected.includes(id) && !shell()?.canSelectProduct?.(id)) return;
   if (selected.includes(id)) selected = selected.filter(x => x !== id);
   else if (selected.length >= MAX) {
     notice(`Máximo de ${MAX} produtos por vez.`);
@@ -167,7 +168,7 @@ export function installMultiSell() {
 
   // Segurar um cartão (reorder.js) abre a seleção com ele já marcado.
   const startSelection = id => {
-    if (!onVender() || !id) return;
+    if (!onVender() || !id || !shell()?.canSelectProduct?.(id)) return;
     selected = [id];
     lastToggle = { id, at: Date.now() };
     tick();

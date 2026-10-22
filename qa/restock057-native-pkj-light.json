@@ -1,0 +1,68 @@
+{
+  "version": "0.12.57",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "small": false,
+      "icons": [
+        {
+          "id": "Especial250",
+          "text": "Café\nEspecial\nMoído\n250 g\nSem estoque",
+          "iconInside": true,
+          "noOverlap": true,
+          "visible": true,
+          "size": 16,
+          "color": "rgb(188, 38, 59)"
+        },
+        {
+          "id": "cheese-out",
+          "text": "Queijo\nMeia Cura\nUnidade\nSem estoque",
+          "iconInside": true,
+          "noOverlap": true,
+          "visible": true,
+          "size": 16,
+          "color": "rgb(188, 38, 59)"
+        },
+        {
+          "id": "salami-out",
+          "text": "Salame\nArtesanal\nVenda por kg\nSem estoque",
+          "iconInside": true,
+          "noOverlap": true,
+          "visible": true,
+          "size": 16,
+          "color": "rgb(188, 38, 59)"
+        }
+      ],
+      "unchangedCardDimensions": true,
+      "stockIcons": true,
+      "soldOutLast": true,
+      "columns": 3,
+      "restockRemovesIcon": true,
+      "continueVendendo": true,
+      "universalStockGuard": {
+        "blocked": true,
+        "restored": true,
+        "count": 2480
+      },
+      "reservedStockBlocked": true,
+      "queuedStockBlocked": true,
+      "cartRevalidated": true,
+      "stockConsultAllowed": true,
+      "ownReservationPreserved": true,
+      "synthetic": true
+    }
+  ],
+  "errors": [],
+  "capabilityEvidence": {
+    "detectorVersion": 2,
+    "known": true,
+    "nativeMemoryAndStorageRead": true,
+    "privateNoBackupFileVerified": true
+  },
+  "passed": true
+}

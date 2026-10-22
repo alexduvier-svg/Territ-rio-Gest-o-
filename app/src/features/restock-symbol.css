@@ -1,0 +1,3 @@
+#app :is(.feira-card,.feira-row){position:relative}
+#app :is(.feira-card,.feira-row)>.restock-symbol{position:absolute;display:block;width:16px;height:16px;visibility:hidden;color:#bc263b;pointer-events:none;flex:none;margin:0;padding:0}
+:root[data-theme=dark] #app :is(.feira-card,.feira-row)>.restock-symbol{color:#ff7b87}

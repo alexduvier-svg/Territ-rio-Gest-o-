@@ -3,6 +3,8 @@ import { ADAPTATION_GUIDELINES } from './data/adaptation-guidelines.js';
 import { installResourcePolicy, installResourceControls } from './features/resources/index.js';
 import legacyCss from './legacy/app.css?raw';
 import './fonts.css';
+import {restockSymbol,installRestockSymbols} from './features/restock-symbol.js';
+import './features/restock-symbol.css';
 import * as SaleRound from './features/sale-round.js';
 import './shell.css';
 import './layout-feira.css';
@@ -117,6 +119,7 @@ try {
   window.TerritorioFinance = { ...Finance, runAudit };
   window.TerritorioReceivables = Receivables;
   window.TerritorioSaleRound = SaleRound;
+  window.TerritorioRestockSymbol = restockSymbol;
   window.TerritorioFairReport = FairReport;
   window.TerritorioFairSurplus = FairSurplus;
   window.TerritorioEventPreparation = EventPreparation;
@@ -139,6 +142,7 @@ try {
   installInterface();
   installSectionMotion();
   installMultiSell();
+  installRestockSymbols();
   installReorder();
   installWorkflows();
   installReceivables();
