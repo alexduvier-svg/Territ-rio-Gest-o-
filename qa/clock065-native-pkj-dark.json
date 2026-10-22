@@ -1,0 +1,107 @@
+{
+  "version": "0.12.65",
+  "device": "pkj",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "pkj",
+      "theme": "dark",
+      "physical": true,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 56.53125,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28515625,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.26953125,
+          "textInside": true,
+          "center": 0.001953125,
+          "dateIconGap": 11.28515625,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 92.7578125,
+          "textWidth": 80.7578125,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 8.52734375,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 73.2421875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28515625,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 49.20703125,
+          "textInside": true,
+          "center": 0.001953125,
+          "dateIconGap": 11.28515625,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.609375,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28515625,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 340,
+        "width": 360,
+        "document": 360
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

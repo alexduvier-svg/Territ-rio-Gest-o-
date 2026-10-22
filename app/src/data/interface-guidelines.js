@@ -1,7 +1,8 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 34,
+  version: 35,
   type: 'interface_premises',
+  eventTimeReadability: 'Na criação de evento, horário inteiro em uma linha (08:00), sem ícone decorativo competindo com os números. Pill centralizada, largura intrínseca e numerais sem encolher/quebrar; em tela pequena/texto ampliado, acomodar o controle inteiro. Preservar o relógio próprio de hora e minuto e o material comum, sem redesenho paralelo.',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   permanentQualityRule: 'Regra permanente, para qualquer ajuste em qualquer dia ou mês e qualquer área, janela ou subjanela: reutilizar o padrão único existente de layout, tipografia, controles, calendários, material, volume, textura, profundidade e movimentos. Não criar aparência paralela. Abertura e recolhimento devem preservar a superfície inteira. Verificar claro/escuro, telas menores, texto ampliado e modos leve/reduzido; preservar baixo custo e registrar limites de testes em aparelhos básicos.',
   financialSession: 'Ao abrir o app, o olho financeiro começa fechado, mesmo com preferência antiga ou backup aberto. Ao sair, bloquear a tela ou retomar, fechar os controles de Loja/Gestão/resumo/inteligência no mesmo estado compartilhado. Mostrar só após novo toque do produtor. Ocultar visualização, jamais apagar vendas, estoque, clientes ou rascunhos; preservar campos em edição, quantidades e rolagem. Sem timer ou gravação integral extra por evento de ciclo de vida.',

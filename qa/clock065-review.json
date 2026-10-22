@@ -1,0 +1,762 @@
+{
+  "version": "0.12.65",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "24px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 64.609375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "24px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 58.59375,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 80.765625,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 73.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "24px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 56.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "24px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 58.984375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 300,
+        "width": 320,
+        "document": 320
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 56.53125,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.28125,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 92.765625,
+          "textWidth": 80.765625,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 8.515625,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 73.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 49.21875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.609375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 11.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 340,
+        "width": 360,
+        "document": 360
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90.00178527832031,
+          "textWidth": 56.5323486328125,
+          "textInside": true,
+          "center": 0.00000762939453125,
+          "dateIconGap": 44.28215026855469,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90.00178527832031,
+          "textWidth": 51.28228759765625,
+          "textInside": true,
+          "center": 0.00000762939453125,
+          "dateIconGap": 44.28215026855469,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 92.765625,
+          "textWidth": 80.765625,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 41.515625,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 73.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 44.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 49.21875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 44.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.609375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 44.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 373,
+        "width": 393,
+        "document": 393
+      }
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 56.53125,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.28125,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 92.765625,
+          "textWidth": 80.765625,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 60.515625,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 73.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 49.21875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.609375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 392,
+        "width": 412,
+        "document": 412
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "24px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 64.609375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "24px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 58.59375,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 80.765625,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 73.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "24px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 56.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "24px",
+          "lines": 1,
+          "buttonWidth": 212,
+          "textWidth": 58.984375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 71.46875,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 300,
+        "width": 320,
+        "document": 320
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90.0018310546875,
+          "textWidth": 56.53240966796875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.281478881835938,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90.0018310546875,
+          "textWidth": 51.28228759765625,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.281478881835938,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 92.765625,
+          "textWidth": 80.765625,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 8.515625,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 73.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 49.21875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 11.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.609375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 11.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 340,
+        "width": 360,
+        "document": 360
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90.0018310546875,
+          "textWidth": 56.53240966796875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 44.28215026855469,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90.0018310546875,
+          "textWidth": 51.28228759765625,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 44.28215026855469,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 92.765625,
+          "textWidth": 80.765625,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 41.515625,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 73.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 44.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 49.21875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 44.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.609375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 44.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 373,
+        "width": 393,
+        "document": 393
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "initial": [
+        {
+          "value": "08:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 56.53125,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.28125,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "enlarged": [
+        {
+          "value": "08:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 92.765625,
+          "textWidth": 80.765625,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 60.515625,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "18:00",
+          "fontSize": "30px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 73.25,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "chosen": [
+        {
+          "value": "09:17",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 49.21875,
+          "textInside": true,
+          "center": 0,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        },
+        {
+          "value": "14:00",
+          "fontSize": "21px",
+          "lines": 1,
+          "buttonWidth": 90,
+          "textWidth": 51.609375,
+          "textInside": true,
+          "center": 0.0078125,
+          "dateIconGap": 63.28125,
+          "noIcon": true,
+          "noOverflow": true
+        }
+      ],
+      "wholeTime": true,
+      "timeCentered": true,
+      "noDecorativeClock": true,
+      "customPickerWorks": true,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 392,
+        "width": 412,
+        "document": 412
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

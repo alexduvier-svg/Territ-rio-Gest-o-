@@ -21,7 +21,7 @@ export function installEventForm(b){
   for(const [id,dateField,label,value] of [['event-from',start,'Início',from],['event-until',end,'Término',until]]){
    const row=document.createElement('div');row.className='event-schedule-row';
    dateField.querySelector('label').textContent='Dia de '+label;row.append(dateField);
-   row.insertAdjacentHTML('beforeend','<div class="event-time-block"><span class="event-time-label">Horário</span><input id="'+id+'" type="hidden" value="'+b.escape(value)+'"><button type="button" class="choice event-time-field" data-action="event-clock-toggle" data-field="'+id+'" aria-expanded="false" aria-controls="event-clock-editor" aria-label="Escolher Horário de '+label+'">'+b.icon('clock')+'<strong data-event-time-value="'+id+'">'+b.escape(value)+'</strong></button></div>');rows.append(row);
+   row.insertAdjacentHTML('beforeend','<div class="event-time-block"><span class="event-time-label">Horário</span><input id="'+id+'" type="hidden" value="'+b.escape(value)+'"><button type="button" class="choice event-time-field" data-action="event-clock-toggle" data-field="'+id+'" aria-expanded="false" aria-controls="event-clock-editor" aria-label="Escolher Horário de '+label+'"><strong data-event-time-value="'+id+'">'+b.escape(value)+'</strong></button></div>');rows.append(row);
   }
   name.querySelector('label').textContent='Nome da Feira';name.querySelector('input').placeholder='Digite o Nome da Feira';
   root.replaceChildren(cards);document.getElementById('event-name').maxLength=160;suggestions();queueMicrotask(syncTimes);

@@ -96,3 +96,7 @@ Regra permanente: o olho financeiro começa fechado a cada abertura, independent
 Eventos: Histórico das Feiras com capitalização correta, detalhe sem X e Voltar centralizado, casinha verde comum da Loja. Criar Evento por uma pill única, sem + duplicado no topo. Formulário com tipografia comum nítida, datas pareadas a seus horários, sem sobreposição de ícones; foco inicial no título para não abrir teclado sem necessidade. Sugestões de títulos únicos (acentos, caixa, espaços e pontuação normalizados), até3porlinha e continuação nas linhas seguintes; adaptação a2em telas pequenas/texto ampliado. Ocorrências reais em datas distintas permanecem no histórico.
 
 A grade de nomes usa a fonte de títulos comum e até3colunas; mede apenas as palavras visíveis quando as sugestões mudam e reduz colunas se necessário, sem diminuir fonte nem quebrar uma palavra em letra isolada. Sem processamento ocioso.
+
+## Horário legível — 0.12.65
+
+Horário de evento inteiro em uma linha, como 08:00. Não dividir minutos nem comprimir os números. A pill tem largura intrínseca e só o horário, centralizado; sem relógio decorativo concorrendo por espaço. Tela pequena e texto ampliado acomodam o controle inteiro. Preservar seleção própria de hora/minuto, tema e material comuns.
