@@ -26,4 +26,4 @@ Instalação-r Reno22/10/2026às08:26:35 e PKJàs08:26:44; code94/0.12.54/Status
 
 Serviço publicado:0a83fdbe-9ecb-4745-b6f2-c46344082c33. Versão anterior confirmada7f62c9ab-7c0b-4b9f-b602-5823cbabe41c, sem mudança externa desconhecida. Rotas de clima/backups/feiras preservadas. Saúde pública: capabilities200, fonte200 com bytes idênticos, clima cacheOnly200 sem provocar consultaMET. Política climática27 mantida.
 
-Git: publicar somente codex/atualizacao-agro-gestao2; confirmar o commit da entrega e o remoto ao retomar. NÃO repetir build/cópia/instalação/deploy por este documento. O checkpoint local registra o commit final após push.
+Git da implementação: commit/push`9dc169ac966eb27c317f0fb1511c2ed80b8d42e5` confirmado em codex/atualizacao-agro-gestao2, remoto idêntico e worktree limpo. Encerramento documental pode ter commit posterior. Main956fddc eClaudecffe32b preservados. NÃO repetir build/cópia/instalação/deploy por este documento. O checkpoint local registra o commit final após push.
