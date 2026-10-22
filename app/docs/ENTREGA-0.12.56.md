@@ -19,4 +19,4 @@ Sem FPS/GPU/bateria ou celular básico físico medidos; sem matriz histórica in
 
 Android96/0.12.56/Statusok, sem desinstalar/limpar principal. NÃO repetir build/cópia/verificador/instalação por este registro. Reversão somente via correção de código maior, mesma identidade e dados, sem downgrade forçado.
 
-Git: somente codex/atualizacao-agro-gestao2, basee365a892717b1a3ebe3711bd3eea9e58d4eb57f8. Consultado no início e antes da entrega; Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b e main956fddceec2b994e32c154c5197424a4f56df7f2 preservados. Commit final consultar no log/remoto. Não repetir entregas históricas. Arquivos em ARQUIVOS-0.12.56.md.
+Git: somente codex/atualizacao-agro-gestao2, basee365a892717b1a3ebe3711bd3eea9e58d4eb57f8. Consultado no início e antes da entrega; Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b e main956fddceec2b994e32c154c5197424a4f56df7f2 preservados. Implementação commit/push `ac4f236ed27959885463383253fe1c3e13cb7e51` confirmados no remoto, worktree limpo. Encerramento documental posterior não muda o APK. Não repetir entregas históricas. Arquivos em ARQUIVOS-0.12.56.md.
