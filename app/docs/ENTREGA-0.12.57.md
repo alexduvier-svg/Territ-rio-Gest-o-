@@ -21,4 +21,4 @@ Dados fictícios isolados, rede externa bloqueada, pacote de teste separado. Nen
 
 Android97/0.12.57/Statusok nosDOIS, firstInstallTime preservados e sem limpar/desinstalar o app principal. NÃO repetir build/cópia/verificador/instalação por este registro. Metadata em APK-0.12.57.json; arquivos em ARQUIVOS-0.12.57.md.
 
-Git: publicar somente codex/atualizacao-agro-gestao2, basebf54ea04aa7ef8fd290428edcb43cddd30afbfd7. Fetch no início/marco/pré-publicação; Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b e main956fddceec2b994e32c154c5197424a4f56df7f2 preservados. Publicação em conclusão; confirmar commit/remoto no log antes de retomar, sem refazer APK.
+Git: publicar somente codex/atualizacao-agro-gestao2, basebf54ea04aa7ef8fd290428edcb43cddd30afbfd7. Fetch no início/marco/pré-publicação; Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b e main956fddceec2b994e32c154c5197424a4f56df7f2 preservados. Implementação commit/push `dbbe3958f2aa925c2fe235bfcf65f5ae5d7eab09` confirmados no remotoAGRO2; worktree limpo. Nenhuma pendência autorizada restante. Encerramento documental posterior não altera o APK; confirmar log/remoto ao retomar, sem refazer entrega.
