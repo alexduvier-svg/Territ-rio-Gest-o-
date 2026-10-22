@@ -53,6 +53,9 @@
         </provider>
     </application>
 
+    <!-- Optional calendar export, requested only after Escolher Agenda. -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -57,6 +57,8 @@ import { installAgent } from './features/agent/index.js';
 import { installWorkflows } from './features/workflows/index.js';
 import './features/workflows/workflows.css';
 import { installStore } from './features/store/index.js';
+import {installEventExperience} from './features/event-experience/index.js';
+import './features/event-experience/events.css';
 import './features/store/store.css';
 
 import { ENGAGEMENT_GUIDELINES } from './data/engagement-guidelines.js';
@@ -157,6 +159,7 @@ try {
   installRecovery();
   installWeather();
   installStore();
+  installEventExperience();
   installFollowupNotifications();
   installOrderArrivals();
   installLocalCatalog();

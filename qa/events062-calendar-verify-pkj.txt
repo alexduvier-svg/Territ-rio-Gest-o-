@@ -1,0 +1,6 @@
+
+br.com.territorio.gestao.CalendarExportInstrumentedTest:.
+
+Time: 0,026
+
+OK (1 test)

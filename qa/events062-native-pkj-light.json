@@ -1,0 +1,39 @@
+{
+  "version": "0.12.62",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "small": false,
+      "createdSyntheticEvent": true,
+      "settingsBackRemoved": true,
+      "skippedLoadShortcut": true,
+      "loadSavedInEvent": true,
+      "shortcutHiddenAfterLoad": true,
+      "offlineInvitationFullText": true,
+      "financialEye": true,
+      "cancelEventPreservesRecords": true,
+      "calendarPathsMocked": true,
+      "realCalendarAccessed": false,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 340,
+        "bottom": 740.71875,
+        "viewport": 360,
+        "document": 360,
+        "visibleButtons": true,
+        "scrollable": true,
+        "footerFits": true
+      }
+    }
+  ],
+  "errors": [],
+  "nativeResourceSignalsVerified": true,
+  "passed": true
+}

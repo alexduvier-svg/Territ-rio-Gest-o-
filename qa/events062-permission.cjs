@@ -1,0 +1,12 @@
+// Refuse the real Android calendar permission in the isolated package. No calendars
+// or events are queried, no account data is read, and no calendar event is created.
+const fs=require('fs'),path=require('path'),cp=require('child_process'),assert=require('node:assert/strict');
+const{chromium}=require('C:/Users/alexd/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const adb=path.resolve(__dirname,'../android-sdk/platform-tools/adb.exe');
+(async()=>{const report={version:'0.12.62',realCalendarAccessed:false,eventsCreated:false,cases:[]};try{for(const[name,serial,port]of[['reno',process.env.AGRO_QA_RENO_SERIAL,9341],['pkj',process.env.AGRO_QA_PKJ_SERIAL,9342]]){
+ const browser=await chromium.connectOverCDP('http://127.0.0.1:'+port);const p=browser.contexts().flatMap(c=>c.pages()).find(p=>p.url().startsWith('https://localhost'));assert(p);
+ await p.evaluate(()=>{window.__calendarRealDone=false;window.__qaOriginalPromise.call(Capacitor,'AgroCalendar','calendars',{}).then(result=>{window.__calendarRealResult=result;window.__calendarRealDone=true;}).catch(error=>{window.__calendarRealResult={error:error.message};window.__calendarRealDone=true;});});
+ let xml='';for(let n=0;n<8;n++){await p.waitForTimeout(300);cp.execFileSync(adb,['-s',serial,'shell','uiautomator','dump','/sdcard/agro-calendar-permission.xml'],{stdio:'ignore'});xml=cp.execFileSync(adb,['-s',serial,'shell','cat','/sdcard/agro-calendar-permission.xml'],{encoding:'utf8'});if(xml.includes('permission_deny_button'))break;}
+ const node=xml.match(/<node[^>]*resource-id="[^"]*:id\/permission_deny_button"[^>]*>/)?.[0];assert(node,'Official calendar permission prompt');const bounds=node.match(/bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"/).slice(1).map(Number);cp.execFileSync(adb,['-s',serial,'shell','input','tap',String(Math.round((bounds[0]+bounds[2])/2)),String(Math.round((bounds[1]+bounds[3])/2))]);
+ await p.waitForFunction(()=>window.__calendarRealDone);const result=await p.evaluate(()=>window.__calendarRealResult);assert.equal(result.granted,false);report.cases.push({device:name,officialPermissionPrompt:true,denialRespected:true,calendarRead:false});await browser.close();
+ }report.passed=true;}catch(e){report.error=String(e.stack||e);process.exitCode=1;}fs.writeFileSync(path.join(__dirname,'events062-permission.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));})();

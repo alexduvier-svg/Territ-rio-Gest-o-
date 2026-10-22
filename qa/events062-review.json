@@ -1,0 +1,110 @@
+{
+  "version": "0.12.62",
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "networkBlocked": true,
+  "cases": [
+    {
+      "theme": "light",
+      "small": false,
+      "createdSyntheticEvent": true,
+      "settingsBackRemoved": true,
+      "skippedLoadShortcut": true,
+      "loadSavedInEvent": true,
+      "shortcutHiddenAfterLoad": true,
+      "offlineInvitationFullText": true,
+      "financialEye": true,
+      "cancelEventPreservesRecords": true,
+      "calendarPathsMocked": false,
+      "realCalendarAccessed": false,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 373,
+        "bottom": 746.1875,
+        "viewport": 393,
+        "document": 393,
+        "visibleButtons": true,
+        "scrollable": true,
+        "footerFits": true
+      }
+    },
+    {
+      "theme": "light",
+      "small": true,
+      "createdSyntheticEvent": true,
+      "settingsBackRemoved": true,
+      "skippedLoadShortcut": true,
+      "loadSavedInEvent": true,
+      "shortcutHiddenAfterLoad": true,
+      "offlineInvitationFullText": true,
+      "financialEye": true,
+      "cancelEventPreservesRecords": true,
+      "calendarPathsMocked": false,
+      "realCalendarAccessed": false,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 300,
+        "bottom": 582.390625,
+        "viewport": 320,
+        "document": 320,
+        "visibleButtons": true,
+        "scrollable": true,
+        "footerFits": true
+      }
+    },
+    {
+      "theme": "dark",
+      "small": false,
+      "createdSyntheticEvent": true,
+      "settingsBackRemoved": true,
+      "skippedLoadShortcut": true,
+      "loadSavedInEvent": true,
+      "shortcutHiddenAfterLoad": true,
+      "offlineInvitationFullText": true,
+      "financialEye": true,
+      "cancelEventPreservesRecords": true,
+      "calendarPathsMocked": false,
+      "realCalendarAccessed": false,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 373,
+        "bottom": 746.1875,
+        "viewport": 393,
+        "document": 393,
+        "visibleButtons": true,
+        "scrollable": true,
+        "footerFits": true
+      }
+    },
+    {
+      "theme": "dark",
+      "small": true,
+      "createdSyntheticEvent": true,
+      "settingsBackRemoved": true,
+      "skippedLoadShortcut": true,
+      "loadSavedInEvent": true,
+      "shortcutHiddenAfterLoad": true,
+      "offlineInvitationFullText": true,
+      "financialEye": true,
+      "cancelEventPreservesRecords": true,
+      "calendarPathsMocked": false,
+      "realCalendarAccessed": false,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 300,
+        "bottom": 582.390625,
+        "viewport": 320,
+        "document": 320,
+        "visibleButtons": true,
+        "scrollable": true,
+        "footerFits": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

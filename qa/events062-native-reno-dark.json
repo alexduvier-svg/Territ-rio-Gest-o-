@@ -1,0 +1,39 @@
+{
+  "version": "0.12.62",
+  "device": "reno",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "dark",
+      "small": false,
+      "createdSyntheticEvent": true,
+      "settingsBackRemoved": true,
+      "skippedLoadShortcut": true,
+      "loadSavedInEvent": true,
+      "shortcutHiddenAfterLoad": true,
+      "offlineInvitationFullText": true,
+      "financialEye": true,
+      "cancelEventPreservesRecords": true,
+      "calendarPathsMocked": true,
+      "realCalendarAccessed": false,
+      "recordsPreserved": true,
+      "layout": {
+        "x": 20,
+        "right": 338.8571472167969,
+        "bottom": 729.5982208251953,
+        "viewport": 359,
+        "document": 359,
+        "visibleButtons": true,
+        "scrollable": true,
+        "footerFits": true
+      }
+    }
+  ],
+  "errors": [],
+  "nativeResourceSignalsVerified": true,
+  "passed": true
+}

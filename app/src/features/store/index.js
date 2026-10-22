@@ -1,3 +1,4 @@
+import {eventOffer,eventMessage} from '../event-experience/model.js';
 import {activeOrders,nextOrderStatus} from '../followups.js';
 import {Capacitor} from '@capacitor/core';
 import {Share} from '@capacitor/share';
@@ -72,14 +73,14 @@ function eventRecord(id){return b().data().events.find(e=>e.id===id&&e.status===
 function eventLink(id){return state().enabled&&eventPickupSnapshot(b().data()).some(e=>e.id===id&&e.products.length)?orderLink()+'?evento='+encodeURIComponent(id):'';}
 function eventShare(id){
  const event=eventRecord(id);if(!event)return b().toast('Este evento não está disponível.');sharingEvent=id;sharingActor=state().actorId;
- const load=eventPickupSnapshot(b().data()).find(e=>e.id===id),canOrder=!!load?.products.length;
+ let canOrder=false;try{canOrder=eventOffer(b().data(),id,{description:b().description}).items.length>0;}catch{}
  const text='Olá! Estaremos em '+event.name+'\n'+event.start.split('-').reverse().join('/')+(event.end!==event.start?' a '+event.end.split('-').reverse().join('/'):'')+' · '+event.from+' às '+event.until+'\n'+(event.place||'')+'\nEsperamos você!';
- b().open('Avisar Clientes do Evento','<section class="client-form-surface"><h3>'+esc(event.name)+'</h3><label for="store-event-message">Mensagem para Revisar</label><textarea id="store-event-message" rows="5" maxlength="2000">'+esc(text)+'</textarea><label class="consent-row"><input id="store-event-list" type="checkbox"'+(canOrder?' checked':' disabled')+'><span>Incluir Lista para Retirada no Evento</span></label><p class="small muted">'+(canOrder?'Só permite pedir produtos da carga registrada, limitados pelo estoque e pelas reservas.':'Marque O que Vou Levar para disponibilizar pedidos de retirada nesta feira. Você já pode enviar o aviso sem lista.')+'</p></section>',btn('store-event-send','Enviar Aviso','success',{id})+btn('close-modal','Voltar','sheet-back'),'store-event-share');
+ b().open('Avisar Clientes Sobre o Evento','<section class="client-form-surface"><h3>'+esc(event.name)+'</h3><label for="store-event-message">Mensagem para Revisar</label><textarea id="store-event-message" rows="5" maxlength="2000">'+esc(text)+'</textarea><label class="consent-row"><input id="store-event-list" type="checkbox"'+(canOrder?' checked':' disabled')+'><span>Incluir Lista para Retirada no Evento</span></label><p class="small muted">'+(canOrder?'Inclui uma lista em texto com os produtos disponíveis da carga. O cliente responde pelo WhatsApp; você confere e registra o pedido. Não cria reserva automaticamente.':'Adicione produtos ao Estoque do Evento para incluir a lista de retirada. Você já pode enviar o aviso sem lista.')+'</p></section>',btn('store-event-send','Enviar Aviso','success',{id})+btn('close-modal','Voltar','sheet-back'),'store-event-share');
 }
 async function sendEvent({id}){
  const event=eventRecord(id),owner=state().actorId;if(!event||sharingActor!==owner||sharingEvent!==id)throw Error('Reabra o aviso do evento.');
  const include=document.getElementById('store-event-list')?.checked,text=document.getElementById('store-event-message')?.value.trim();if(!text)throw Error('Informe a mensagem do aviso.');
- if(include){if(!state().enabled||!state().slug){listSetup();return;}await synchronize();if(state().actorId!==owner)throw Error('O produtor mudou.');const url=eventLink(id);if(!url)throw Error('Confira a carga e a data do evento antes de enviar a lista.');await shareLink(url,'Convite para '+event.name,text+'\nEscolha os produtos pelo link e retire neste evento. O produtor confirma o pedido.');}
+ if(include){const message=eventMessage(b().data(),id,text,{description:b().description});if(message.length>24000)throw Error('A lista ficou muito longa. Envie o convite sem a lista e use Enviar Lista em Texto para escolher os produtos.');await shareLink('','Convite para '+event.name,message);}
  else await shareLink('','Convite para '+event.name,text);
 }
 
