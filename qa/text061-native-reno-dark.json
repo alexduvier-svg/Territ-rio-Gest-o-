@@ -1,0 +1,42 @@
+{
+  "version": "0.12.61",
+  "device": "reno",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "dark",
+      "small": false,
+      "selectAllCheckbox": true,
+      "partialState": true,
+      "searchGap": 19.99999237060547,
+      "multiSelect": true,
+      "unavailableDisabled": true,
+      "manualPreview": true,
+      "manualCaptureVisiblePartExplained": true,
+      "noAutomaticImageExport": true,
+      "fullProductText": true,
+      "familySymbols": true,
+      "nativeShareChooser": true,
+      "nativePayloadVerified": true,
+      "priceRevalidated": true,
+      "stockRevalidated": true,
+      "recordsPreserved": true,
+      "salesWithoutFamilyIcons": true,
+      "layout": {
+        "viewport": 359,
+        "document": 359,
+        "x": 20,
+        "right": 338.8571472167969,
+        "footerFits": true,
+        "buttonsFit": true
+      }
+    }
+  ],
+  "errors": [],
+  "nativeResourceSignalsVerified": true,
+  "passed": true
+}

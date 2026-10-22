@@ -1,4 +1,4 @@
-# AGRO Gestão2 0.12.61/code101 — validação final
+# AGRO Gestão2 0.12.61/code101 — entrega técnica concluída
 
 ## Lista em texto e captura manual
 
@@ -18,8 +18,11 @@ Vender continua sem ícones de família; Estoque mantém os contornos e a banana
 
 463testes unitários do app passaram. Quatro jornadas de navegador: claro/escuro393normal e320ampliado/leve/reduzido, rede externa bloqueada. Busca/seletor/espaçamento, estado parcial, preservação ao filtrar, indisponíveis, prévia HTML, texto com nomes/preços/símbolos, revalidação e registros fictícios inalterados. Dois cenários2500produtos preservam limite60cards; seleção maior que24não é truncada silenciosamente. Rodapé e controles inteiros, rolagem e margens comuns.
 
-PKJ nos dois temas PASS: prévia, controles, seletor Android e conteúdo completo do texto na chamada nativa, sem files/url. Reno permaneceu bloqueado e a espera normal expirou. Falta apenas a conferência no Reno após desbloqueio humano. Fixtures removidos e principais60reabertos; nenhum61instalado ainda. Nenhuma mensagem real enviada ou ERP principal acessado. Não afirmar entrega ao WhatsApp, FPS/GPU/bateria, aparelho básico físico ou TalkBack sem evidência. O texto real na chamada nativa será conferido além da simples abertura do seletor.
+Quatro jornadas Capacitor finais PASS: Reno14/CPH2737 ePKJ110, nos dois temas. Prévia, controles, seletor Android e conteúdo completo do texto na chamada nativa, sem files/url. Nenhuma mensagem real enviada ou ERP principal acessado. Não foi comprovada entrega real ao WhatsApp, que exige confirmação manual do produtor. Sem medição de FPS/GPU/bateria, aparelho básico físico, TalkBack ou runtime16KB. O texto real na chamada nativa foi conferido além da simples abertura do seletor.
 
 ## Distribuição
 
-APK5.198.327bytes,SHA256 `59927e1a13f81d9d781fffba54155a9f0f45d31d088adb3163c04bc9a7c1a428`, pacote br.com.territorio.gestao2,code101/0.12.61, mesmo tamanho total da60. Assinatura original v2/v3 e alinhamento16KB conferidos no build; verificação final de assets/cópia/instalação ainda pendente. Gitbase99c16a0/Claudecffe32b/main956fddc conferidos; publicar só no ramoAGRO2 autorizado. Não houve submissão à Play Store nem deploy do servidor.
+APK5.198.327bytes,SHA256 `59927e1a13f81d9d781fffba54155a9f0f45d31d088adb3163c04bc9a7c1a428`, pacote br.com.territorio.gestao2,code101/0.12.61, mesmo tamanho total da60. Assinatura original v2/v3,41assets idênticos a dist/fixture final e alinhamento16KB conferidos. Certificado original `f5dac71cf092b67a80541c5353268ce18ef5f2ab3d4b850248a5934ae7d86b68`, sem GPS/microfone/voz. Gitbase99c16a0/Claudecffe32b/main956fddc conferidos; publicar só no ramoAGRO2 autorizado. Não houve submissão à Play Store nem deploy do servidor.
+
+
+Cópia original `C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-2-0.12.61.apk` conferida por SHA256. Instalado com `adb install -r` em22/10/2026: Reno14 às16:33:59 ePKJ às16:34:04,101/0.12.61 e abertura Statusok. firstInstallTime preservados (Reno21/10às18:58:01;PKJ14/10às18:17:06), fixtures removidos. Fonte em checkpointGit `546806cad0dbcd34f3f4ddd6e38bc19abb8f741a`; encerramento publica os resultados finais e documentação no mesmo ramoAGRO2. Nenhuma pendência autorizada restante. Não repetir build/verificador/cópia/instalação/deploy por este registro.
