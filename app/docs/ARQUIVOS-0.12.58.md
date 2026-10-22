@@ -1,0 +1,50 @@
+# Arquivos alterados — AGRO Gestão2 0.12.58
+
+Caminhos relativos ao repositório publicado. Commit de implementação: `bfbdd36e5e940d9ca5e5be2a491e181bb1366d71`.
+
+- `AGENTS.md`
+- `app/android/app/build.gradle`
+- `app/docs/ENTREGA-0.12.58.md`
+- `app/package-lock.json`
+- `app/package.json`
+- `app/public/knowledge/premissas-interface.md`
+- `app/src/data/interface-guidelines.js`
+- `app/src/features/fair-activity.js`
+- `app/src/features/fair-report.js`
+- `app/src/features/fair-surplus-ui.js`
+- `app/src/features/fair-surplus.css`
+- `app/src/features/followups.js`
+- `app/src/features/local-catalog/index.js`
+- `app/src/features/local-catalog/model.js`
+- `app/src/features/portfolio.js`
+- `app/src/features/receivables/checkout.css`
+- `app/src/features/receivables/index.js`
+- `app/src/features/store/availability.js`
+- `app/src/features/store/index.js`
+- `app/src/features/store/store.css`
+- `app/src/features/workflows/index.js`
+- `app/src/legacy/erp-core.js`
+- `app/src/legacy/erp-ui.js`
+- `app/src/main.js`
+- `app/src/native/followups.js`
+- `app/tests/fair-activity.test.mjs`
+- `app/tests/followup-native.test.mjs`
+- `app/tests/followups.test.mjs`
+- `app/tests/shop-availability.test.mjs`
+- `app/tests/store-manager-motion.test.mjs`
+- `portfolio-server/src/shop-page.js`
+- `portfolio-server/src/shop.js`
+- `portfolio-server/tests/shop.test.mjs`
+- `qa/orders058-flow.cjs`
+- `qa/orders058-live.json`
+- `qa/orders058-native-pkj-dark.json`
+- `qa/orders058-native-pkj-light.json`
+- `qa/orders058-native-reno-dark.json`
+- `qa/orders058-native-reno-light.json`
+- `qa/orders058-native.cjs`
+- `qa/orders058-review.json`
+- `qa/orders058-server-smoke.txt`
+- `qa/orders058-shop-smoke.txt`
+- `qa/orders058.cjs`
+- `qa/unit-orders058-server.txt`
+- `qa/unit-orders058.txt`
