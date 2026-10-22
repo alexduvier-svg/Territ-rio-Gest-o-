@@ -81,3 +81,8 @@ Enviar ao Cliente vem antes de Pedidos e Entregas: Enviar por Print e Enviar Cli
 
 
 Ajuste humano22/10 durante a validação60: Vender fica sem os ícones de família; mantém o alerta de reposição. Ícones de contorno permanecem no Estoque e na imagem ao cliente. Banana usa cacho, não arco em formato de lua. Nenhuma dimensão de card muda.
+
+
+## Revisão61 — envio confiável da Lista de Produtos
+
+O envio automático de imagem foi removido após relato de que o WhatsApp recebeu só a legenda. Clientes mantém dois caminhos: Enviar Lista em Texto e Enviar Clicável. Texto com símbolos de famílias, nome/apresentação/preço e linhas separadoras. O app não controla justificação/fonte do WhatsApp. A prévia comum limpa/rolável permite captura manual pelo celular; só a parte visível será capturada, sem promessa de captura longa em todos aparelhos. Sem Canvas/JPEG/cache de imagem neste fluxo. Busca separada por20px do checkbox Selecionar Tudo; seleção múltipla, estado parcial, orientação e contagem claras. Selecionar Tudo considera os disponíveis da busca; se exceder24porenvio, explica para filtrar/enviar em partes, sem truncar silenciosamente. Esgotados/reservados bloqueados, preços/estoque revalidados antes de enviar. Nenhum saldo/custo interno, venda/pedido/reserva automática. Padrão de material/tipografia/movimento comum preservado nos dois temas e telas pequenas.

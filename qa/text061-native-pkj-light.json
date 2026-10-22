@@ -1,0 +1,42 @@
+{
+  "version": "0.12.61",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "small": false,
+      "selectAllCheckbox": true,
+      "partialState": true,
+      "searchGap": 20,
+      "multiSelect": true,
+      "unavailableDisabled": true,
+      "manualPreview": true,
+      "manualCaptureVisiblePartExplained": true,
+      "noAutomaticImageExport": true,
+      "fullProductText": true,
+      "familySymbols": true,
+      "nativeShareChooser": true,
+      "nativePayloadVerified": true,
+      "priceRevalidated": true,
+      "stockRevalidated": true,
+      "recordsPreserved": true,
+      "salesWithoutFamilyIcons": true,
+      "layout": {
+        "viewport": 360,
+        "document": 360,
+        "x": 20,
+        "right": 340,
+        "footerFits": true,
+        "buttonsFit": true
+      }
+    }
+  ],
+  "errors": [],
+  "nativeResourceSignalsVerified": true,
+  "passed": true
+}
