@@ -1,0 +1,36 @@
+{
+  "version": "0.12.58",
+  "device": "pkj",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "dark",
+      "small": false,
+      "firstListWithoutPhotos": true,
+      "twoShareEntries": true,
+      "eventPickupWithLoadGuard": true,
+      "standbyAndMissingSalesClosing": true,
+      "richPortfolioAndListSeparate": true,
+      "receivablesBeforeOrders": true,
+      "sequentialPreparationBeforeSale": true,
+      "checkoutAtCompletion": true,
+      "discountAndFiadoRecorded": true,
+      "deliveryAcknowledgedOnce": true,
+      "manualReceivableConfirmed": true,
+      "oneSaleOneStockMovementPerLine": true,
+      "nativeNotices": true,
+      "localOnly": true
+    }
+  ],
+  "errors": [],
+  "capabilityEvidence": {
+    "detectorVersion": 2,
+    "known": true,
+    "nativeMemoryAndStorageRead": true,
+    "privateNoBackupFileVerified": true
+  },
+  "passed": true
+}

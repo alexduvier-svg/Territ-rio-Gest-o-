@@ -184,13 +184,19 @@ export function buildFairReport({ event, load, sales, losses = [], productOf = (
     maiorLucro: products.some(p => p.cost) && profits[0][1] > 0 ? profits[0][0] : '',
     metodoPagamento: methods.length ? `${methods[0][0]} (${Math.round(methods[0][1] / Math.max(1, revenue) * 100)}%)` : '',
   };
+  const check=reportCheck(event.surplusCheck),activitySales=ordered.filter(s=>s.fairActivityId);
+  // Activity corrections were recorded before the final count. Add them once to
+  // the closing summary; their sales already belong to revenue and stock above.
+  check.vendasNaoRegistradas.qtd=quantityValue(check.vendasNaoRegistradas.qtd+activitySales.flatMap(s=>s.items||[]).reduce((n,i)=>n+i.qty,0));
+  check.vendasNaoRegistradas.valor+=activitySales.reduce((n,s)=>n+s.total,0);
+  check.corrigido ||= !!event.fairActivities?.length;
   return {
     app: producer.app || '',
     producer: { name: producer.name || '', business: producer.business || '', community: producer.community || '', city: producer.city || '', uf: producer.uf || '' },
     event: { name: event.name, start: event.start, end: event.end, from: event.from || '', until: event.until || '' },
     totals: { took, sold, left, revenue, sales: ordered.length, ticket: ordered.length ? Math.round(revenue / ordered.length) : 0, tookKnown: tookKnown ? 1 : 0 },
     answers, payments, hourly,
-    check: reportCheck(event.surplusCheck),
+    check,
     products: products.map(({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, oversold }) => ({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, oversold })),
     builtAt: new Date(now).toISOString(),
   };

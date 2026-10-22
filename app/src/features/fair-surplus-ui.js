@@ -1,3 +1,6 @@
+import {recordFairActivity} from './fair-activity.js';
+import {stockPartition,eventProductBalance} from './store/availability.js';
+import {dominantEventPayment} from './fair-surplus.js';
 import { buildSurplusSnapshot, planSurplusCheck } from './fair-surplus.js';
 import './fair-surplus.css';
 
@@ -25,8 +28,10 @@ export function installFairSurplusUI(b) {
   const unit = row => b.shortUnit(row.unit) || row.unit;
   const paint = () => {
     const e=event();if(!e)return;
+    if(state.stage==='activity'){paintActivity();return;}
     const r=b.reportFor(e),edit=state.stage!=='confirm',q=state.question;
     let body=`<p class="surplus-event">${esc(e.fairName||e.name)}</p><div class="surplus-summary"><span>Vendas <strong>${r.totals.sales}</strong></span><span>Total vendido <strong>${esc(b.money(r.totals.revenue))}</strong></span></div>`;
+    body+='<section class="surplus-check"><h3>Ficou Algo sem Registrar?</h3><p class="surplus-note">Registre reposições, produtos levados depois e vendas faltantes antes de conferir a sobra.</p>'+button('surplus-activity','Repus ou Vendi sem Registrar','choice modal-action')+'</section>';
     if(state.snapshot.eligible){
       body+=`<section class="surplus-check"><h3>Pelo app, sobrou:</h3><div class="surplus-rows">`;
       body+=state.snapshot.rows.map((row,i)=>{
@@ -132,8 +137,25 @@ export function installFairSurplusUI(b) {
       if(el)el.textContent=ok?'Relatório enviado à organização ✓':'Relatório salvo e pendente de envio. O app tenta sozinho quando houver conexão.';
     }else{const el=document.getElementById('ff-done-status');if(el)el.textContent='Conferência salva. As vendas continuam na Gestão.';}
   };
+
+  const paintActivity=()=>{
+    const model=b.getModel(),e=event(),a=state.activity,p=model.product(a.productId),list=model.data.products.filter(p=>p.active!==false&&!p.archived&&p.price>0);if(!e||!p)return;
+    const split=stockPartition(model.data,p.id),remaining=eventProductBalance(model.data,e.id,p.id),unit=b.shortUnit(p.unit)||p.unit;
+    const body='<p class="surplus-event">'+esc(e.name)+'</p><section class="client-form-surface"><label for="fair-activity-product">Produto</label><select id="fair-activity-product">'+list.map(item=>'<option value="'+esc(item.id)+'"'+(item.id===p.id?' selected':'')+'>'+esc(b.titleName(item.name)+' · '+(item.description||window.TerritorioWorkflowBridge?.description(item)||'')+' · '+item.unit)+'</option>').join('')+'</select><p class="surplus-note">Estoque geral: '+b.quantity(split.total)+' '+esc(unit)+' · livres em casa: '+b.quantity(split.home)+' · saldo calculado na feira: '+b.quantity(remaining)+'. A separação para a feira não é uma nova entrada.</p>'+b.numericField('fair-activity-added','Repus ou Levei Depois',a.added,'inputmode="decimal"')+'<label for="fair-activity-source">Origem da Reposição</label><select id="fair-activity-source"><option value="existing"'+(a.source==='existing'?' selected':'')+'>Estoque de Casa</option><option value="new"'+(a.source==='new'?' selected':'')+'>Entrada Nova</option></select>'+b.numericField('fair-activity-sold','Vendi e Não Registrei',a.sold,'inputmode="decimal"')+'<label for="fair-activity-payment">Pagamento das Vendas Não Registradas</label><select id="fair-activity-payment">'+['Pix','Dinheiro','Crédito','Débito','Outro'].map(method=>'<option'+(a.payment===method?' selected':'')+'>'+method+'</option>').join('')+'</select><p class="surplus-note">Informe só as vendas que faltam. As já registradas não devem ser somadas aqui. Fiado e pagamentos divididos continuam no carrinho, com cliente e dados completos.</p></section>'+(state.error?'<p class="error" role="alert">'+esc(state.error)+'</p>':'');
+    b.openModal('Acertos da Feira',body,'fair-activity',{id:e.id},button('surplus-activity-save','Registrar e Conferir','success')+button('surplus-activity-back','Voltar','sheet-back'));
+  };
+  const captureActivity=()=>{const a=state?.activity;if(!a)return;for(const key of ['added','sold','source','payment']){const el=document.getElementById('fair-activity-'+key);if(el)a[key]=el.value;}};
+  const saveActivity=async()=>{
+    if(!state||state.busy||!state.activity)return;captureActivity();const previous=b.getModel(),copy=new b.Model(JSON.parse(JSON.stringify(previous.data)));state.busy=true;
+    try{b.setLateBusy(true);recordFairActivity(copy,{...state.activity,eventId:state.id});b.setModel(copy);if(!b.persist()){b.setModel(previous);throw Error('Não foi possível salvar. Libere espaço e tente novamente.');}if(window.TerritorioNative?.isNative&&!await window.TerritorioNative.durable())throw Error('Gravação pendente. Tente salvar novamente; o mesmo registro não será duplicado.');state.snapshot=snapshot(state.id);state.counts={};state.reasons={};state.activity=null;state.stage='confirm';state.error='';state.busy=false;b.closeNumberPad();b.render();paint();b.toast('Reposição e vendas conferidas. Confira agora o que sobrou.');}
+    catch(error){state.error=error.message;state.busy=false;paintActivity();}finally{b.setLateBusy(false);}
+  };
+
   Object.assign(b.actions,{
     'fair-finish':d=>open(d.id),
+    'surplus-activity':()=>{if(!state)return;capture();const p=b.getModel().data.products.find(p=>p.active!==false&&!p.archived&&p.price>0);if(!p)return b.toast('Cadastre o produto no Estoque antes de registrar.');state.activity={productId:p.id,added:'0',sold:'0',source:'existing',payment:dominantEventPayment(b.getModel().data.sales,state.id),operationId:b.uid()};state.stage='activity';state.error='';paint();},
+    'surplus-activity-save':saveActivity,
+    'surplus-activity-back':()=>{if(!state||state.busy)return;state.activity=null;state.stage='confirm';state.error='';b.closeNumberPad();paint();},
     'finish-event':d=>open(d.id),
     'surplus-confirm':()=>commit(true),
     'surplus-skip':()=>commit(false,false),
@@ -147,6 +169,7 @@ export function installFairSurplusUI(b) {
     'surplus-edit-back':()=>{if(!state)return;state.question=null;state.stage='edit';paint();},
     'surplus-cancel':()=>{if(state?.busy)return;state=null;b.closeNumberPad();b.closeModal();},
   });
+  document.addEventListener('change',event=>{if(event.target.id!=='fair-activity-product'||state?.stage!=='activity'||state.busy)return;state.activity={...state.activity,productId:event.target.value,added:'0',sold:'0',operationId:b.uid()};state.error='';b.closeNumberPad();paint();});
   b.preview.fairSurplusState=()=>state;
   b.preview.fairReportFor=id=>b.reportFor(b.getModel().data.events.find(e=>e.id===id));
   b.preview.syncFairReports=b.syncReports;

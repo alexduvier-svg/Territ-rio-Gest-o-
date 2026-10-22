@@ -1,0 +1,15 @@
+✓ cria portfólio
+✓ recusa publicação sem token
+✓ informa imagens que faltam
+✓ recusa imagem adulterada
+✓ publica
+✓ não pede de novo imagens já enviadas
+✓ página pública: conteúdo, escape e links seguros
+✓ imagem, PDF e contato
+✓ registra leitura do QR (e ignora pré-visualização de link)
+✓ lista leituras
+✓ remove foto que deixou de ser usada
+✓ CORS só para o app
+✓ despublica
+
+13 verificações passaram.

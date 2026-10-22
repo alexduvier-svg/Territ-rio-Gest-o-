@@ -29,3 +29,9 @@ dialog[data-kind='fair-finish'] > .dialog-content { padding:0 22px 20px; flex:0 
 .surplus-actions > button { width:100%; min-height:48px; margin:0; border-radius:16px; font-size:16px; }
 .surplus-cancel { text-align:center; }
 .surplus-cancel button { min-height:36px; font-size:13px; }
+
+/* The same numeric pad needs room to remain usable in the compact closing
+   form. Finish the number first, then show the registration actions again. */
+:root[data-theme][data-layout] body[data-number-pad=true] #dialog[data-kind=fair-activity]>.checkout-footer{display:none}
+:root[data-theme][data-layout] #dialog[data-kind=fair-activity]>.modal-number-pad:not([hidden]){flex:0 0 auto;max-height:44dvh}
+#dialog[data-kind=fair-activity] .number-key{min-height:44px;padding:6px}

@@ -1,3 +1,4 @@
+import {dueReceivables} from '../followups.js';
 import * as R from './receivables.js';
 export function installReceivables() {
   const b = window.TerritorioWorkflowBridge, a = b.actions, e = b.escape, money = b.money;
@@ -25,11 +26,11 @@ export function installReceivables() {
   function entry(clientId) {
     const rows=R.outstanding(b.data().sales,clientId),total=rows.reduce((n,s)=>n+R.balance(s),0);
     if(clientId&&!rows.length)return '';
-    return button('receivables','<span><strong>'+(clientId?'A receber deste cliente':'Clientes a receber')+'</strong><small>'+rows.length+' '+(rows.length===1?'venda pendente':'vendas pendentes')+'</small></span><strong class="tabular">'+money(total)+'</strong>','receivable-entry',{client:clientId||''});
+    return button('receivables','<span><strong>'+(clientId?'A <span class="receivable-currency" aria-hidden="true">$</span> Receber deste Cliente':'Clientes a <span class="receivable-currency" aria-hidden="true">$</span> Receber')+'</strong><small>'+(rows.length?rows.length+' '+(rows.length===1?'pagamento pendente':'pagamentos pendentes'):'Nenhum pagamento pendente')+'</small></span><strong class="tabular">'+money(total)+'</strong>','receivable-entry',{client:clientId||''});
   }
   function list(clientId='') {
     const rows=R.outstanding(b.data().sales,clientId),limit=Math.min(rows.length,100);
-    open('Clientes a receber','<p class="credit-help">Marque somente depois que o cliente pagar. Nenhum aviso é enviado automaticamente.</p>'+rows.slice(0,limit).map(s=>button('receivable-open','<span><strong>'+e(s.customerName)+'</strong><small>Pagamento em '+dateBR(s.credit.dueDate)+'</small><small>'+e(s.items.map(i=>i.name).join(' · '))+'</small></span><span><strong class="tabular">'+money(R.balance(s))+'</strong>'+(s.credit.dueDate<R.day()?'<small class="red">Em atraso</small>':'')+'</span>','receivable-row',{id:s.id,client:clientId})).join('')+(!rows.length?'<p class="empty">Nenhum valor pendente.</p>':'')+(rows.length>limit?'<p class="muted">Mostrando os primeiros 100. Abra o cadastro de um cliente para filtrar.</p>':''),footer('close-modal'),'receivables');
+    open('Clientes a receber',(window.TerritorioNative?.isNative?button('followup-enable','Ativar Lembretes no Celular','choice modal-action'):'')+'<p class="credit-help">Marque somente depois que o cliente pagar. Os lembretes são para você; avisar o cliente depende da sua confirmação.</p>'+rows.slice(0,limit).map(s=>button('receivable-open','<span><strong>'+e(s.customerName)+'</strong><small>Pagamento em '+dateBR(s.credit.dueDate)+'</small><small>'+e(s.items.map(i=>i.name).join(' · '))+'</small></span><span><strong class="tabular">'+money(R.balance(s))+'</strong>'+(s.credit.dueDate<R.day()?'<small class="red">Em atraso</small>':'')+'</span>','receivable-row',{id:s.id,client:clientId})).join('')+(!rows.length?'<p class="empty">Nenhum valor pendente.</p>':'')+(rows.length>limit?'<p class="muted">Mostrando os primeiros 100. Abra o cadastro de um cliente para filtrar.</p>':''),footer('close-modal'),'receivables');
   }
   function receiptSheet(id,client='') {
     const s=b.data().sales.find(s=>s.id===id);if(!s||!R.balance(s))return list(client);
@@ -45,7 +46,10 @@ export function installReceivables() {
     const client=b.data().clients.find(c=>c.id===terms.clientId&&c.name===candidate.clientName);
     Object.assign(d,candidate,{clientId:client?.id||'',...(client?{uf:client.uf||'',city:client.city||'',neighborhood:client.neighborhood||''}:{})});terms=null;b.checkout();
   };
-  a.receivables=d=>list(d.client||'');a['receivable-open']=d=>receiptSheet(d.id,d.client||'');a['receivable-back']=()=>list(receiving?.client||'');
+  function askPaid(id,client='') {const sale=b.data().sales.find(s=>s.id===id);if(!sale||!R.balance(sale))return list(client);open('O Cliente Já Pagou?','<section class="client-form-surface credit-form"><h3>'+e(sale.customerName)+'</h3><p class="credit-amount tabular">'+money(R.balance(sale))+'</p><p>Data combinada: '+dateBR(sale.credit.dueDate)+'. Confirme somente depois de receber.</p></section>',button('receivable-paid','Sim, Registrar Pagamento','success',{id,client})+button('receivable-not-yet','Ainda Não','choice')+footer('close-modal'),'receivable-question');}
+  function decorate(){const root=document.getElementById('app'),old=root.querySelector('.credit-due-banner');if(b.page()!=='Vender'){old?.remove();return;}const due=dueReceivables(b.data().sales);if(!due.length){old?.remove();return;}const text=due.length===1?e(due[0].customerName)+' já pagou?':'Há '+due.length+' pagamentos para conferir.',html=button('receivables-due','<span>'+b.icon('calendar')+'</span><span><strong>Conferir Fiado</strong><small>'+text+'</small></span>'+b.icon('chevron'),'credit-due-banner followup-banner');if(!old)root.querySelector('.glass-area-row')?.insertAdjacentHTML('beforebegin',html);else if(old.textContent!==(()=>{const t=document.createElement('div');t.innerHTML=html;return t.textContent;})())old.outerHTML=html;}
+  a['receivables-due']=()=>{const rows=dueReceivables(b.data().sales);if(rows.length===1)askPaid(rows[0].id);else list();};a['receivable-paid']=d=>receiptSheet(d.id,d.client||'');a['receivable-not-yet']=()=>{b.close();b.toast('Pagamento segue pendente. Nenhuma baixa foi feita.');};
+  a.receivables=d=>list(d.client||'');a['receivable-open']=d=>askPaid(d.id,d.client||'');a['receivable-back']=()=>list(receiving?.client||'');
   a['receivable-settle']=async()=>{
     if(busy||!receiving)return;busy=true;
     receiving.method=document.getElementById('credit-received-method').value;receiving.date=document.getElementById('credit-received-date').value;
@@ -57,4 +61,5 @@ export function installReceivables() {
   document.addEventListener('change',ev=>{if(ev.target.id==='credit-client-pick'){captureTerms();const c=b.data().clients.find(c=>c.id===ev.target.value);if(c){terms.name=c.name;terms.clientId=c.id;document.getElementById('credit-client-name').value=c.name;clearTermError();}}});
   document.addEventListener('input',ev=>{if(ev.target.id==='credit-client-name'&&terms){terms.name=ev.target.value;terms.clientId='';clearTermError();}if(ev.target.id==='credit-due-date'&&terms){terms.dueDate=ev.target.value;clearTermError();}});
   window.TerritorioReceivables={...R,entry,back};
+  new MutationObserver(decorate).observe(document.getElementById('app'),{childList:true});window.addEventListener('territorio:saved',decorate);window.addEventListener('territorio:resume',decorate);let clock;const schedule=()=>{clearTimeout(clock);if(document.hidden)return;decorate();const today=R.day(),next=Date.parse(today+'T00:00:00-03:00')+86400000;clock=setTimeout(schedule,Math.max(1000,next-Date.now()+100));};document.addEventListener('visibilitychange',schedule);schedule();
 }

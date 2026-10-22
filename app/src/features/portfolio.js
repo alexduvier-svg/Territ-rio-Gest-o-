@@ -104,15 +104,16 @@ async function create(name,owner) {
   return state;
 }
 
-async function publish() {
+async function publish({listOnly=false,skipPDF=true}={}) {
   const owner=actor();
   if (busy || !API) return;
   busy = true;
   shell().refresh();
   try {
     const source = shell().portfolioSource();
-    const { doc, images } = await buildDocument(source);
-    const pdf = await source.pdf().catch(() => null);sameActor(owner);
+    const light=listOnly?{...source,photo:null,business:{name:source.business.name},contact:{whatsapp:source.contact.whatsapp},events:[],groups:source.groups.map(g=>({...g,photo:null,atlasIndex:null}))}:source;
+    const { doc, images } = await buildDocument(light);
+    const pdf = listOnly||skipPDF?null:await source.pdf().catch(() => null);sameActor(owner);
 
     let state = shell().portfolioState();
     if (!state || !state.token) state = await create(doc.business.name,owner);
@@ -125,7 +126,7 @@ async function publish() {
       state = await create(doc.business.name,owner);
       result = await upload(state, doc, images, pdf);
     }
-    sameActor(owner);shell().setPortfolio({ ...state, url: result.url, publishedAt: result.updatedAt,productImages:Object.fromEntries(doc.groups.flatMap(g=>g.variants.filter(v=>v.productId).map(v=>[v.productId,g.image]))) });
+    sameActor(owner);shell().setPortfolio({ ...state, url: result.url, ...(listOnly?{listOnlyPublished:true}:{listOnlyPublished:false}), publishedAt: result.updatedAt,publishedPhone:source.contact.whatsapp,...(!listOnly?{richPublishedAt:result.updatedAt}:{}),productImages:Object.fromEntries(doc.groups.flatMap(g=>g.variants.filter(v=>v.productId).map(v=>[v.productId,g.image]))) });
     return result.url;
   } finally {
     busy = false;
@@ -195,4 +196,4 @@ setInterval(watchTick, WATCH_EVERY);
 document.addEventListener('visibilitychange', () => { if (!document.hidden) syncReads(); });
 setTimeout(() => syncReads(true), 3000);
 
-window.TerritorioPortfolio = { available: !!API, busy: () => busy, publish, unpublish, syncReads };
+window.TerritorioPortfolio = { available: !!API, busy: () => busy, publish, ensureList:async()=>{const state=shell().portfolioState();if(state?.publishedAt&&state.publishedPhone===shell().portfolioSource().contact.whatsapp)return state.url;return publish({listOnly:!state?.publishedAt||state.listOnlyPublished===true,skipPDF:true});}, unpublish, syncReads };

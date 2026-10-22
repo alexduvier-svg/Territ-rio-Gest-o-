@@ -42,3 +42,13 @@
 .receivable-entry>span,.receivable-row>span {min-width:0}.receivable-row small,.receivable-entry small {display:block;font-size:14px;line-height:1.4;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}.receivable-row .red {color:var(--red)}
 html[data-large-text=true] #dialog:is([data-kind=cart],[data-kind=checkout]) :is(.cart-item-name,.cart-item-total,.payment-choice) {font-size:17px}
 @media(max-width:340px){#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-heading{flex-wrap:wrap;gap:3px}#dialog:is([data-kind=cart],[data-kind=checkout]) .cart-item-name{flex-basis:100%}}
+
+.followup-banner{display:flex;align-items:center;gap:12px;width:100%;padding:15px 16px;margin:12px 0 18px;border-radius:23px;border:1px solid #cf8d4666;background:linear-gradient(130deg,#fff5e9,#f6e3cc);box-shadow:inset 0 1px 0 #ffffffb3,0 5px 12px #7d4b2214;color:#603710;text-align:left;min-width:0}.followup-banner>span{min-width:0}.followup-banner>span:nth-child(2){flex:1}.followup-banner strong,.followup-banner small{display:block;white-space:normal;overflow-wrap:anywhere}.followup-banner strong{font-size:15px}.followup-banner small{font-size:13px;line-height:1.4;margin-top:4px}.followup-banner>.icon{flex:none;width:18px}:root[data-theme=dark] .followup-banner{background:linear-gradient(130deg,#3b2d23,#2d2722);color:#ffd5a0;border-color:#c88a4e66;box-shadow:inset 0 1px 0 #ffffff14,0 5px 12px #0003}
+
+.receivable-currency {color:var(--red);font-weight:800;display:inline-block;margin-inline:2px}
+.clients-layout>.receivable-entry {margin:0}
+.workflow-client-tools .client-tools-section+.client-tools-section {border-top:1px solid var(--line);margin-top:20px;padding-top:20px}
+.workflow-client-tools h2 {margin-bottom:8px}
+.workflow-client-tools .client-tools-section>p {margin:0 0 12px}
+.clients-secondary {margin:8px 0;padding:16px;border-radius:22px;border:1px solid var(--glass-edge,var(--line));background:var(--material-face,var(--panel));box-shadow:var(--material-depth)}
+.clients-secondary>summary {font-weight:700;min-height:36px;align-content:center}

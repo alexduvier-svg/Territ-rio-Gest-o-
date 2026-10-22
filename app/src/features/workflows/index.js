@@ -68,7 +68,7 @@ function scheduleExpansions(){
 function decorate(){
  const b=bridge(),root=document.getElementById('app');if(!root)return;
  if(b.page()==='Clientes'&&!root.querySelector('.workflow-client-tools')){
-  root.querySelector('.clients-layout')?.insertAdjacentHTML('afterbegin','<section class="workflow-client-tools panel"><h2>Sua loja e seus clientes</h2>'+button('workflow-catalog','Fotos, marca e história','choice modal-action')+button('workflow-broadcast','Mensagem para vários clientes','choice modal-action')+button('store-orders','Pedidos e entregas','choice modal-action')+'</section>');
+  const target=root.querySelector('.clients-layout>.receivable-entry');(target||root.querySelector('.clients-layout'))?.insertAdjacentHTML(target?'afterend':'afterbegin','<section class="workflow-client-tools panel"><h2>Sua loja e seus clientes</h2>'+button('workflow-catalog','Fotos, marca e história','choice modal-action')+button('workflow-broadcast','Mensagem para vários clientes','choice modal-action')+button('store-orders','Pedidos e entregas','choice modal-action')+'</section>');
  }
  if(b.page()==='Eventos'&&!root.querySelector('.workflow-demand-pending')){
   const pending=b.data().events.filter(e=>e.status==='finished'&&!e.demandObservation&&soldOutProducts(b.data(),e.id).length);
