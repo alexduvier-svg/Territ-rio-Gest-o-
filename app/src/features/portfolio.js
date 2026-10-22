@@ -6,7 +6,8 @@
 // Photos are content-addressed (SHA-256), so unchanged photos are never uploaded twice — this matters
 // on weak mobile connections.
 
-import { API, AuthError, request as api } from './server.js';
+import { API, AuthError, request } from './server.js';
+const api=(path,options={})=>request(path,{timeoutMs:20000,...options});
 
 const PRODUCT_SIZE = 800;
 const PORTRAIT_SIZE = 512;
@@ -106,7 +107,8 @@ async function create(name,owner) {
 
 async function publish({listOnly=false,skipPDF=true}={}) {
   const owner=actor();
-  if (busy || !API) return;
+  if(busy)throw Error('Outro envio está sendo preparado. Aguarde e tente novamente.');
+  if(!API)throw Error('O serviço de envio está indisponível.');
   busy = true;
   shell().refresh();
   try {

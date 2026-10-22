@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import fs from 'node:fs';
+const source=fs.readFileSync(new URL('../src/native/order-arrivals.js',import.meta.url),'utf8').replace(/^import .*;\r?\n/gm,'').replace('export function installOrderArrivals','function installOrderArrivals');
+function harness(){
+ const data={settings:{orderReminders:true},dataContext:{id:'a'},portfolio:{slug:'shop',token:'synthetic'},onlineShop:{actorId:'a',slug:'shop',enabled:true,orders:[{id:'order'}]}},calls=[],listeners={};let permission='granted',fail=false;
+ const ctx={Capacitor:{isNativePlatform:()=>true},registerPlugin:()=>({configure:async c=>{if(fail)throw Error('native failure');calls.push(JSON.parse(JSON.stringify(c)));},consumeOpen:async()=>({open:false})}),LocalNotifications:{checkPermissions:async()=>({display:permission})},App:{addListener:()=>{}},document:{addEventListener:()=>{}},setTimeout:()=>1,clearTimeout:()=>{},Promise,JSON,console};ctx.window=ctx;ctx.addEventListener=(key,fn)=>listeners[key]=fn;ctx.TerritorioWorkflowBridge={data:()=>data};vm.createContext(ctx);vm.runInContext(source,ctx);ctx.installOrderArrivals();return{ctx,data,calls,setPermission:p=>permission=p,setFailure:v=>fail=v};
+}
+test('arrival scheduling is explicit, deduplicated, and disabled for another producer or revoked permission',async()=>{const h=harness();await h.ctx.TerritorioOrderArrivals.sync();assert(h.calls[0].enabled);await h.ctx.TerritorioOrderArrivals.sync();assert.equal(h.calls.length,1);h.data.dataContext.id='b';await h.ctx.TerritorioOrderArrivals.sync();assert.equal(h.calls[1].enabled,false);h.data.dataContext.id='a';h.setPermission('denied');await h.ctx.TerritorioOrderArrivals.sync();assert.equal(h.calls.at(-1).enabled,false);h.setPermission('granted');h.data.settings.orderReminders=false;await h.ctx.TerritorioOrderArrivals.sync();assert.equal(h.calls.at(-1).enabled,false);});
+test('failed native configuration is retryable and never treated as successful',async()=>{const h=harness();h.setFailure(true);await assert.rejects(h.ctx.TerritorioOrderArrivals.sync());h.setFailure(false);await h.ctx.TerritorioOrderArrivals.sync();assert.equal(h.calls.length,1);assert(h.calls[0].enabled);});

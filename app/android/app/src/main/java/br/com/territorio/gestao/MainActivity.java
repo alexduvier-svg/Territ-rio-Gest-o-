@@ -9,6 +9,7 @@ public class MainActivity extends BridgeActivity {
 
         registerPlugin(AgroAgentSchedulerPlugin.class);
         registerPlugin(AgroWeatherPlugin.class);
+        registerPlugin(AgroOrdersPlugin.class);
         registerPlugin(AgroDocumentsPlugin.class);
         super.onCreate(savedInstanceState);
     }

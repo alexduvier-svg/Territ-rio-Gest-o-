@@ -1,9 +1,10 @@
 // Local UI premises, separate from the producer's business knowledge and records.
 export const INTERFACE_GUIDELINES = Object.freeze({
-  version: 28,
+  version: 29,
   type: 'interface_premises',
   scope: 'Todos os títulos, subtítulos, rótulos, controles e superfícies do AGRO Gestão.',
   permanentQualityRule: 'Regra permanente, para qualquer ajuste em qualquer dia ou mês e qualquer área, janela ou subjanela: reutilizar o padrão único existente de layout, tipografia, controles, calendários, material, volume, textura, profundidade e movimentos. Não criar aparência paralela. Abertura e recolhimento devem preservar a superfície inteira. Verificar claro/escuro, telas menores, texto ampliado e modos leve/reduzido; preservar baixo custo e registrar limites de testes em aparelhos básicos.',
+  orderClarity: 'Pedidos e Entregas mostra lembretes e pedidos por cliente; Portfólio em seção própria. Enviar lista apresenta progresso/erro e nunca ignora o toque por atualização de fundo. Pedido é registrado pelo link antes do resumo opcional no WhatsApp. Alertas Android são opcionais e periódicos em segundo plano; não forçar Chrome nem prometer envio automático pelo WhatsApp.',
   principles: {
     volume: 'Hierarquia por tamanho, peso e espaçamento coerentes com o sistema. Evitar excesso de negrito e relevo artificial nas letras.',
     nitidez: 'Texto legível e contrastante nos temas claro e escuro, sem desfoque ou brilho nas letras. Rótulos de formulário com pelo menos 14 px e suporte a texto ampliado.',

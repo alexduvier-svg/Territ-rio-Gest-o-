@@ -52,6 +52,7 @@ export class ProducerShop{
     }else{
      if(!owner)return json({error:'Sem permissão.'},401);
      if(path==='/erase'&&request.method==='PUT'){if(s.orders.some(o=>!['cancelled','delivered'].includes(o.status)))fail('Conclua ou recuse os pedidos antes de retirar a loja do ar.',409);await tx.delete('state');return json({deleted:true});}
+     if(path==='/alerts'&&request.method==='GET')return json({enabled:s.enabled,requested:s.orders.filter(o=>o.status==='requested'&&!o.accountedSale).map(o=>o.id)});
      if(path==='/inventory'&&request.method==='GET')return json({revision:s.revision,enabled:s.enabled,syncedAt:s.syncedAt,lastSyncId:s.lastSyncId});
      if(path==='/inventory'&&request.method==='PUT'){
       const syncId=text(body.operationId,100);if(!syncId)fail('Identificador de sincronização ausente.');

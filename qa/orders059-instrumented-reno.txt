@@ -1,0 +1,6 @@
+
+br.com.territorio.gestao.OrdersArrivalInstrumentedTest:....
+
+Time: 0,085
+
+OK (4 tests)

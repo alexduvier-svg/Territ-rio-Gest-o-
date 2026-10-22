@@ -1,3 +1,4 @@
+import {installOrderArrivals} from './native/order-arrivals.js';
 import {installFollowupNotifications} from './native/followups.js';
 import { installRecovery, inspectRecovery } from './features/resources/recovery.js';
 import { ADAPTATION_GUIDELINES } from './data/adaptation-guidelines.js';
@@ -152,6 +153,7 @@ try {
   installWeather();
   installStore();
   installFollowupNotifications();
+  installOrderArrivals();
   installLocalCatalog();
   installGlassTouch();
   installShell();

@@ -1,0 +1,16 @@
+{
+  "version": "0.12.59",
+  "serverVersionId": "d868a5b3-b7d8-499e-aef1-b47ccef2debd",
+  "checkedAt": "2026-10-22T17:17:34.451Z",
+  "capabilitiesStatus": 200,
+  "shopAvailable": true,
+  "androidCORS": true,
+  "weatherCacheOnlyStatus": 200,
+  "weatherSource": "MET Norway",
+  "weatherPoints": 89,
+  "weatherForcedRefresh": false,
+  "unpublishedAlertsStatus": 404,
+  "unpublishedAlertsGuard": true,
+  "realOrdersCreated": false,
+  "producerRecordsRead": false
+}

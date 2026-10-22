@@ -5,3 +5,7 @@
 #dialog[data-kind="store-setup"] .consent-row{display:flex;align-items:flex-start;gap:12px;padding:12px;border:1px solid var(--line);border-radius:18px;background:var(--field);font-weight:500}#dialog[data-kind="store-setup"] .consent-row input{width:22px;height:22px;flex:none;margin:0;accent-color:var(--green)}#dialog[data-kind="store-setup"] .consent-row span{min-width:0;overflow-wrap:anywhere}
 
 #dialog[data-kind="store-list-setup"] input{width:100%;box-sizing:border-box}#dialog[data-kind="store-list-setup"] label{display:block;margin-top:16px;font-weight:650;font-size:14px}.store-pending-banner.followup-banner{display:flex;background:linear-gradient(130deg,#fff5e9,#f6e3cc);color:#603710;border-color:#cf8d4666}:root[data-theme=dark] .store-pending-banner.followup-banner{background:linear-gradient(130deg,#3b2d23,#2d2722);color:#ffd5a0;border-color:#c88a4e66}
+
+.store-list-copy{text-align:justify;text-justify:inter-word;hyphens:auto;overflow-wrap:break-word}.store-share-url{padding:14px;border:1px solid var(--line);border-radius:18px;background:var(--field);font-size:14px;overflow-wrap:anywhere}.store-orders-sync{line-height:1.5;overflow-wrap:anywhere}.store-orders-sync button{margin-top:8px}.client-portfolio-section{margin-top:22px}#store-list-feedback.error{color:var(--red,#b43a49)}
+
+#dialog[data-kind="store-list-setup"] .store-list-fields label{margin-top:0}.store-list-fields{margin:18px 0}.store-list-fields .small{margin-bottom:0}#dialog[data-kind="store-list-setup"] .checkout-footer{gap:10px}#store-list-feedback:empty{display:none}

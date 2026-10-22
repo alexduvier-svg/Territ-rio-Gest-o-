@@ -1,5 +1,6 @@
 import {day,balance,outstanding,validDay} from './receivables/receivables.js';
 export const terminal=order=>['delivered','cancelled'].includes(order.status);
+export function notificationPromptEligible({permission,asked,onboarding,modal}){return permission!=='granted'&&!asked&&onboarding!=='pending'&&!modal;}
 export function activeOrders(data){const actor=data.dataContext?.id||data.productMemory?.scopeId,s=data.onlineShop;if(!s||s.actorId!==actor||s.slug!==(data.portfolio?.slug||''))return[];return(s.orders||[]).filter(o=>!terminal(o)&&!((s.finishOnSale||[]).includes(o.id)&&(data.sales||[]).some(v=>v.operationId==='order-'+o.id&&v.status==='completed')));}
 export function dueReceivables(sales,now=Date.now()){return outstanding(sales||[]).filter(s=>s.credit?.dueDate<=day(now));}
 export function nextOrderStatus(order){if(order.status==='requested')return'preparing';if(order.status==='preparing')return'ready';if(order.status==='ready')return order.customer?.fulfillment==='pickup'?'delivered':'out_for_delivery';if(order.status==='out_for_delivery')return'delivered';return null;}

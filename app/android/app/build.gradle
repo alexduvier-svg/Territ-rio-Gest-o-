@@ -8,8 +8,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 98
-        versionName "0.12.58"
+        versionCode 99
+        versionName "0.12.59"
         // Physical Android phones: retain 32/64-bit ARM; omit unused emulator binaries.
         ndk { abiFilters 'armeabi-v7a', 'arm64-v8a' }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
