@@ -17,4 +17,3 @@ async function exercise(p,cfg){console.log('Start '+JSON.stringify(cfg));const a
  await act('store-share');await p.waitForSelector('#dialog[data-kind=store-list-setup]');assert.equal(await p.locator('#dialog [data-store-photo]').count(),0);await act('close-modal');await p.waitForTimeout(300);
  console.log('Flow complete');return{theme:cfg.theme,small:!!cfg.small,cards,familyOutlines:true,salesWithoutFamilyIcons:true,footerButtonsVisible:true,noCardStretch:true,insetVerified:true,sendBeforeOrders:true,separateClickableAndPortfolio:true,singleImageSelectedProducts:true,noPrivateStockOrCost:true,offlineExport:true,stockAndPriceRevalidation:true,emptyStockBlocked:true,syntheticRecordsPreserved:true,nativeShareChooser:nativeShare,exportBytes:blobs.reduce((n,b)=>n+b.size,0),overflow};}
 module.exports={exercise,capture};
-
