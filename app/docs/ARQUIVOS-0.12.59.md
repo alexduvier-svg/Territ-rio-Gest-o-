@@ -1,0 +1,45 @@
+# Arquivos alterados — AGRO Gestão2 0.12.59
+
+Caminhos relativos ao repositório publicado. Commit de implementação: `53593d64b266fb06a731c26e785b60ad3b6c1c71`.
+
+- `AGENTS.md`
+- `app/android/app/build.gradle`
+- `app/android/app/src/androidTest/java/br/com/territorio/gestao/OrdersArrivalInstrumentedTest.java`
+- `app/android/app/src/main/java/br/com/territorio/gestao/AgroOrdersPlugin.java`
+- `app/android/app/src/main/java/br/com/territorio/gestao/AgroOrdersWorker.java`
+- `app/android/app/src/main/java/br/com/territorio/gestao/MainActivity.java`
+- `app/docs/ENTREGA-0.12.59.md`
+- `app/package-lock.json`
+- `app/package.json`
+- `app/public/knowledge/premissas-interface.md`
+- `app/src/data/interface-guidelines.js`
+- `app/src/features/followups.js`
+- `app/src/features/local-catalog/index.js`
+- `app/src/features/portfolio.js`
+- `app/src/features/store/index.js`
+- `app/src/features/store/store.css`
+- `app/src/main.js`
+- `app/src/native/followups.js`
+- `app/src/native/order-arrivals.js`
+- `app/tests/followup-native.test.mjs`
+- `app/tests/followups.test.mjs`
+- `app/tests/order-arrivals.test.mjs`
+- `portfolio-server/src/shop-page.js`
+- `portfolio-server/src/shop.js`
+- `portfolio-server/src/worker.js`
+- `portfolio-server/tests/shop.test.mjs`
+- `qa/orders059-flow.cjs`
+- `qa/orders059-instrumented-pkj.txt`
+- `qa/orders059-instrumented-reno.txt`
+- `qa/orders059-live.json`
+- `qa/orders059-native-pkj-dark.json`
+- `qa/orders059-native-pkj-light.json`
+- `qa/orders059-native-reno-dark.json`
+- `qa/orders059-native-reno-light.json`
+- `qa/orders059-native.cjs`
+- `qa/orders059-review.json`
+- `qa/orders059-server-smoke.txt`
+- `qa/orders059-shop-smoke.txt`
+- `qa/orders059.cjs`
+- `qa/unit-orders059-server.txt`
+- `qa/unit-orders059.txt`
