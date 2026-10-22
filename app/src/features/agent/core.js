@@ -2,7 +2,7 @@
 import { interpretSpeech, cleanSpeech } from '../voice/interpret.js';
 import { productNetItems } from '../product-period-reports.js';
 import { AGENT_GUIDELINES } from '../../data/agent-guidelines.js';
-export const AGENT_VERSION=1;
+export const AGENT_VERSION=2;
 const DAY=86400000, norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
 const date=s=>Date.parse(s), day=t=>new Date(t).toLocaleDateString('sv-SE',{timeZone:'America/Sao_Paulo'});
 const qty=n=>new Intl.NumberFormat('pt-BR',{maximumFractionDigits:3}).format(n),money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n/100);
@@ -19,7 +19,7 @@ export function ensureAgent(data,now=Date.now()){
 export function audit(agent,requestId,event,details={},now=Date.now()){
  // Only IDs/state/tool metadata. Never transcript, full phone, name or raw audio.
  const safe={};for(const key of ['proposalId','receiptId','scopeId','intent','status','reason'])if(details[key]!=null)safe[key]=String(details[key]).slice(0,120);
- agent.audit.push({requestId:String(requestId).slice(0,120),event,at:now,...safe});agent.audit=agent.audit.slice(-200);
+ agent.audit.push({requestId:String(requestId).slice(0,120),event,at:now,engineVersion:AGENT_VERSION,ruleId:'agent.'+event,result:'recorded',...safe});agent.audit=agent.audit.slice(-200);
 }
 export function scopeMatches(record,scope='all'){if(scope==='all')return true;if(scope==='events')return record.scope&&record.scope!=='loja';if(scope==='individual-pf'||scope==='individual-pj')return(record.scope||'loja')==='loja'&&(record.customerType||record.recipientType||'PF')===(scope==='individual-pj'?'PJ':'PF');return (record.scope||'loja')===scope;}
 export function eligible(record,ctx){return !!record&&(!record.actorId||record.actorId===ctx.actorId)&&(!record.dataContext?.id||record.dataContext.id===ctx.actorId)&&(!record.dataContext?.type||record.dataContext.type===ctx.dataOrigin)&&(ctx.dataOrigin!=='real'||(!record.demo&&!record.simulation&&!record.simulated&&!/^(demo-|exemplo-)/.test(record.id||'')));}
@@ -48,7 +48,7 @@ export function parseRequest(text,data,{scopeId='all',source='text',requestId=''
 export function proposeSale(data,interpretation,{proposalId,now=Date.now()}={}){
  const ctx=contextOf(data),agent=ensureAgent(data,now);if(interpretation.actorId!==ctx.actorId)throw Error('O produtor mudou. Abra a consulta novamente.');
  const old=agent.proposals.find(p=>p.requestId===interpretation.requestId);if(old)return old;
- const p={proposalId,requestId:interpretation.requestId,actorId:ctx.actorId,dataOrigin:ctx.dataOrigin,scopeId:interpretation.scopeId,type:'sale',payload:{items:interpretation.items},dataRevision:revisionOf(data),expiresAt:now+15*60000,status:interpretation.items.length&&interpretation.items.every(i=>i.ready)?'READY':'NEEDS_CLARIFICATION',createdAt:now};
+ const p={engineVersion:AGENT_VERSION,idempotencyKey:proposalId,origin:interpretation.source==='text'?'producer_text':'producer_review',rules:['identity','scope','quantity','stock','price','producer_confirmation'],requiresConfirmation:true,proposalId,requestId:interpretation.requestId,actorId:ctx.actorId,dataOrigin:ctx.dataOrigin,scopeId:interpretation.scopeId,type:'sale',payload:{items:interpretation.items},dataRevision:revisionOf(data),expiresAt:now+15*60000,status:interpretation.items.length&&interpretation.items.every(i=>i.ready)?'READY':'NEEDS_CLARIFICATION',createdAt:now};
  agent.proposals.push(p);agent.proposals=agent.proposals.slice(-50);audit(agent,p.requestId,'proposed',{proposalId,status:p.status,scopeId:p.scopeId,intent:'sale'},now);return p;
 }
 export function validateProposal(data,p,{scopeId,now=Date.now()}={}){
@@ -107,7 +107,7 @@ export function analyze(data,{scopeId='all',period,now=Date.now()}={}){
  return {...context,scopeId,period:{start,end},insights:visible,priorities:visible.slice(0,3),fairs,rebuys,sampleSize:valid.length,generatedAt:now};
 }
 export function answerQuery(data,request,{scopeId=request.scopeId||'all',now=Date.now()}={}){
- const result=analyze(data,{scopeId,now});let text='Posso preparar vendas, consultar estoque, explicar feira e sugerir recompra. Não faço conversa livre ou operações por instruções importadas.';
+ const result=['fair','rebuy','overview'].includes(request.intent)?analyze(data,{scopeId,now}):{...contextOf(data),scopeId,generatedAt:now,sampleSize:request.intent==='stock'?0:scopeSales(data,scopeId,now).filter(s=>s.status==='completed').length,insights:[],priorities:[],fairs:[],rebuys:[]};let text='Posso preparar vendas, consultar estoque, explicar feira e sugerir recompra. Não faço conversa livre ou operações por instruções importadas.';
  if(request.intent==='stock'){const n=norm(request.text||''),ignored=new Set('quanto quantos quantas quanta tenho tem de do da no na em estoque qual quais o a os as saldo consultar analise analisar repor produtos produto'.split(' '));const terms=n.split(/\W+/).filter(w=>w.length>2&&!ignored.has(w)).map(w=>w.endsWith('s')?w.slice(0,-1):w),rows=activeProducts(data).filter(p=>!terms.length||terms.every(t=>norm(p.name).includes(t))).slice(0,30);text=rows.length?rows.map(p=>`${p.name}${p.weight?' · '+qty(p.weight)+' g':''}: ${qty(p.stock)} ${p.unit} no saldo geral${Number.isFinite(p.min)?'; mínimo '+qty(p.min):'; mínimo não configurado'}.`).join('\n'):'Não encontrei esse produto no cadastro deste produtor.';if(scopeId!=='all'&&scopeId!=='loja')text='Saldo geral do produtor; não equivale à sobra da feira.\n'+text;}
  if(request.intent==='fair'){text=result.fairs.length?result.fairs.slice(-6).map(f=>f.rows.length?f.name+':\n'+f.rows.map(r=>`${r.name}: levou ${qty(r.taken)}, vendeu ${qty(r.sold)}, sobra conferida ${qty(r.real)} ${r.unit} (${qty(r.ratio*100)}%).`).join('\n'):f.name+': '+f.reason).join('\n\n'):'Escolha um evento com carga e conferência para analisar a sobra.';}
  if(request.intent==='rebuy')text=result.rebuys.length?result.rebuys.slice(0,6).map(r=>`${r.name}: oportunidade com cliente cadastrado; ${r.sampleSize} dias de compra, intervalo mediano ${qty(r.intervalDays)} dias. Revise o rascunho; nada foi enviado.`).join('\n'):'Ainda não há oportunidade elegível: são necessários consentimento, saldo e pelo menos quatro dias de compra do mesmo cliente/produto. Você pode desativar as sugestões.';

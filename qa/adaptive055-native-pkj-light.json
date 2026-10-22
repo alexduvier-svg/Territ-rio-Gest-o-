@@ -1,0 +1,114 @@
+{
+  "version": "0.12.55",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "small": false,
+      "physical": true,
+      "profile": "balanced",
+      "actualNativeSignals": true,
+      "mandatoryAudit": true,
+      "offlineQuery": true,
+      "manualEssential": true,
+      "hardwareExcludedFromBusiness": true,
+      "checkout": {
+        "theme": "light",
+        "name": "pkj",
+        "physical": true,
+        "geometry": {
+          "viewport": {
+            "w": 360,
+            "h": 792,
+            "dpr": 4
+          },
+          "buttons": [
+            {
+              "text": "Pix",
+              "x": 44,
+              "y": 403.91796875,
+              "w": 132,
+              "h": 46,
+              "visible": true
+            },
+            {
+              "text": "Dinheiro",
+              "x": 184,
+              "y": 403.91796875,
+              "w": 132,
+              "h": 46,
+              "visible": true
+            },
+            {
+              "text": "Crédito",
+              "x": 44,
+              "y": 457.91796875,
+              "w": 132,
+              "h": 46,
+              "visible": true
+            },
+            {
+              "text": "Débito",
+              "x": 184,
+              "y": 457.91796875,
+              "w": 132,
+              "h": 46,
+              "visible": true
+            },
+            {
+              "text": "Continuar comprando",
+              "x": 44,
+              "y": 511.91796875,
+              "w": 132,
+              "h": 57,
+              "visible": true
+            },
+            {
+              "text": "Outro",
+              "x": 184,
+              "y": 511.91796875,
+              "w": 132,
+              "h": 57,
+              "visible": true
+            }
+          ],
+          "headingOffset": 0,
+          "scrollHeight": 474,
+          "clientHeight": 474
+        },
+        "calendar": {
+          "left": 20,
+          "right": 340,
+          "top": 167.3984375,
+          "bottom": 664.59765625,
+          "w": 360,
+          "h": 792,
+          "overflow": false
+        },
+        "footerGap": 18,
+        "weatherInline": true,
+        "splitPaymentPreserved": true,
+        "creditSaleId": "b9828b5e-aa01-410e-a23a-406c26231eb7",
+        "fiado": 7500,
+        "collected": 7500,
+        "duplicateSales": 0
+      },
+      "geometry": {
+        "left": 20,
+        "width": 320
+      }
+    }
+  ],
+  "errors": [],
+  "capabilityEvidence": {
+    "detectorVersion": 2,
+    "known": true,
+    "nativeMemoryAndStorageRead": true,
+    "privateNoBackupFileVerified": true
+  },
+  "passed": true
+}

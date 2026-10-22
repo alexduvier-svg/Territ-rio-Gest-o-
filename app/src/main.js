@@ -147,6 +147,7 @@ try {
   installLocalCatalog();
   installGlassTouch();
   installShell();
+  document.dispatchEvent(new Event('territorio:resources-ready'));
 } catch (error) {
   // Never leave the seller stuck on the splash screen.
   console.error(error);

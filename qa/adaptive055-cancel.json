@@ -1,0 +1,15 @@
+{
+  "synthetic": true,
+  "cases": [
+    {
+      "mode": "unavailable",
+      "passed": true
+    },
+    {
+      "mode": "slow",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

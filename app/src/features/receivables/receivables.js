@@ -28,6 +28,7 @@ export function settle(sales, {saleId,operationId,method,date}, now = Date.now()
   const s = sales.find(s => s.id === saleId);
   if (!s || !principal(s)) throw Error('A venda a receber não foi encontrada.');
   if (!operationId || operationId.length > 120) throw Error('Identificação do recebimento inválida.');
+  if(sales.some(other=>other!==s&&(other.credit?.receipts||[]).some(r=>r.id===operationId)))throw Error('Este recebimento já pertence a outra venda.');
   const previous = (s.credit?.receipts || []).find(r => r.id === operationId);
   if (previous) {
     if (previous.method !== method || previous.date.slice(0,10) !== date) throw Error('Este recebimento já foi salvo com outros dados.');
@@ -37,8 +38,12 @@ export function settle(sales, {saleId,operationId,method,date}, now = Date.now()
   if (!validDay(date) || date < day(s.date) || date > day(now)) throw Error('A data do recebimento deve ficar entre a venda e hoje.');
   const amount = balance(s);
   if (!Number.isSafeInteger(amount) || amount <= 0) throw Error('Esta venda não tem valor a receber.');
-  const receipt = {id:operationId,method,amount,date:date+'T12:00:00-03:00',recordedAt:new Date(now).toISOString()};
-  s.credit.receipts = [...(s.credit.receipts || []),receipt];
+  const previousReceipts=s.credit?.receipts||[];
+  if(!s.credit||previousReceipts.some(r=>!Number.isSafeInteger(r.amount)||r.amount<=0)||paid(s)>principal(s))throw Error('Confira o histórico de recebimentos antes de baixar.');
+  const receipt = {id:operationId,method,amount,date:date+'T12:00:00-03:00',recordedAt:new Date(now).toISOString(),audit:{engineVersion:2,operationId,ruleId:'domain.receivable',result:'verified',reason:'integral_balance_and_idempotency',at:new Date(now).toISOString()}};
+  s.credit.receipts = [...previousReceipts,receipt];
+  // Verify actual result before returning to the existing durable domain commit.
+  if(balance(s)!==0||s.credit.receipts.filter(r=>r.id===operationId).length!==1){s.credit.receipts=previousReceipts;throw Error('Não foi possível conferir o recebimento.');}
   return receipt;
 }
 export function refundedCash(sale) {

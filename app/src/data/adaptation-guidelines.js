@@ -1,7 +1,10 @@
 // A versioned rule reference, never a sale, an observation or a hardware diagnosis.
 export const ADAPTATION_GUIDELINES=Object.freeze({
- id:'adaptation-memory-action',version:2,type:'operating_policy_reference',authority:'product_requirements',issuedAt:'2026-10-21',
+ id:'adaptation-memory-action',version:3,type:'operating_policy_reference',authority:'product_requirements',issuedAt:'2026-10-22',
  source:{sha256:'718ae156123cb0f76a92df58e841d20b1492dd9506c45d697c6d704208373168',file:'AGRO_Gestao_Diretrizes_Adaptacao_Memoria_Acao_Codex_Claude_Code.docx',version:'1.0',document:'knowledge/adaptacao-memoria-acao.md'},
+ supplement:{file:'AGRO_Gestao_Diretriz_Inteligencia_Adaptativa_Connect_Action_Audit.md',sha256:'e1228d9037f6d997301c6ef6b0dc53662a85f9937f6e1c90c96fadf8af833509',document:'knowledge/inteligencia-adaptativa-connect-action-audit.md'},
+ profiles:'Essential on unknown evidence; Balanced only with current OS signals and safe conditions. No generative runtime, model or microphone. Hardware evidence lives in Android noBackupFilesDir, outside business backups.',
+ audit:'Mandatory private deterministic domain pre/post checks for sale, stock, return and receivables. Minimal bounded local evidence, same durable record; no Action override. Not absolute tamperproof protection.',
  scope:'available_window_and_device_runtime',
  precedence:['integrity_and_consent','current_explicit_product_requirement','demonstrated_correctness','canonical_architecture','measured_cost'],
  layout:'Available visual viewport, insets, font and keyboard; no brand/processor ranking. Preserve the approved three-column sales design at normal scale; adapt controls, scrolling and long text without discarding state.',
