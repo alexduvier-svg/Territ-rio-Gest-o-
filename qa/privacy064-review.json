@@ -1,0 +1,66 @@
+{
+  "version": "0.12.64",
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "networkBlocked": true,
+  "cases": [
+    {
+      "theme": "light",
+      "small": false,
+      "coldStartClosed": true,
+      "noStartupDisclosure": true,
+      "backgroundClosed": true,
+      "nativeHomeResume": false,
+      "summaryClosed": true,
+      "managementClosed": true,
+      "brainClosed": true,
+      "editorsPreserved": true,
+      "pricesRemainVisible": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "light",
+      "small": true,
+      "coldStartClosed": true,
+      "noStartupDisclosure": true,
+      "backgroundClosed": true,
+      "nativeHomeResume": false,
+      "summaryClosed": true,
+      "managementClosed": true,
+      "brainClosed": true,
+      "editorsPreserved": true,
+      "pricesRemainVisible": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "dark",
+      "small": false,
+      "coldStartClosed": true,
+      "noStartupDisclosure": true,
+      "backgroundClosed": true,
+      "nativeHomeResume": false,
+      "summaryClosed": true,
+      "managementClosed": true,
+      "brainClosed": true,
+      "editorsPreserved": true,
+      "pricesRemainVisible": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "dark",
+      "small": true,
+      "coldStartClosed": true,
+      "noStartupDisclosure": true,
+      "backgroundClosed": true,
+      "nativeHomeResume": false,
+      "summaryClosed": true,
+      "managementClosed": true,
+      "brainClosed": true,
+      "editorsPreserved": true,
+      "pricesRemainVisible": true,
+      "recordsPreserved": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

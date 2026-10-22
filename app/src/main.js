@@ -1,4 +1,5 @@
 import {installAutoCollapse} from './features/auto-collapse.js';
+import {installFinancialSession} from './features/financial-session.js';
 import {productOutline} from './features/product-outline.js';
 import {installPrintList} from './features/print-list/index.js';
 import {installOrderArrivals} from './native/order-arrivals.js';
@@ -137,6 +138,7 @@ try {
   window.TERRITORIO_API = API;
   installResourcePolicy();
   await import('./legacy/erp-ui.js');
+  installFinancialSession({data:()=>window.ERPPreview.model().data,conceal:()=>window.ERPPreview.concealFinancialUI()});
   const savedModel = window.ERPPreview?.model?.();
   if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled || savedModel?.decisionGuidelinesInstalled || savedModel?.adaptationGuidelinesInstalled) {
     window.ERPPreview.persist?.();

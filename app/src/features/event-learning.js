@@ -7,8 +7,8 @@ export const eventGroup=e=>e.fairId?'fair:'+e.fairId:'local:'+key(e.name)+'|'+ke
 // Successful event records are the memory; no second database or shared producer list.
 export function recurringEventNames(data,{term='',limit=5}={}){
  const names=new Map(),seen=new Set();
- for(const e of data.events||[]){if(!matches(data,e)||!e.id||seen.has(e.id)||e.fairCancelled||e.cancelledByProducer||!e.name?.trim())continue;seen.add(e.id);const id=key(e.name).replace(/\s+/g,' '),previous=names.get(id);if(previous){previous.count++;if((e.start||'')>previous.last){previous.name=e.name.trim();previous.last=e.start||'';}}else names.set(id,{key:id,name:e.name.trim(),count:1,last:e.start||''});}
- const query=key(term).replace(/\s+/g,' ');return[...names.values()].filter(n=>!query||n.key.startsWith(query)).sort((a,b)=>b.count-a.count||b.last.localeCompare(a.last)||a.name.localeCompare(b.name,'pt-BR')).slice(0,Math.min(12,limit));
+ for(const e of data.events||[]){if(!matches(data,e)||!e.id||seen.has(e.id)||e.fairCancelled||e.cancelledByProducer||!e.name?.trim())continue;seen.add(e.id);const id=key(e.name).replace(/[^\p{L}\p{N}]+/gu,' ').trim(),previous=names.get(id);if(previous){previous.count++;if((e.start||'')>previous.last){previous.name=e.name.trim();previous.last=e.start||'';}}else names.set(id,{key:id,name:e.name.trim(),count:1,last:e.start||''});}
+ const query=key(term).replace(/[^\p{L}\p{N}]+/gu,' ').trim();return[...names.values()].filter(n=>!query||n.key.startsWith(query)).sort((a,b)=>b.count-a.count||b.last.localeCompare(a.last)||a.name.localeCompare(b.name,'pt-BR')).slice(0,Math.min(12,limit));
 }
 export function eventSales(data,id){const seen=new Set();return(data.sales||[]).filter(s=>matches(data,s)&&s.scope===id&&s.status==='completed'&&s.id&&!seen.has(s.id)&&seen.add(s.id));}
 export function lastFairSummary(data,current){

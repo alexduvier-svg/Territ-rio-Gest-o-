@@ -1,0 +1,146 @@
+{
+  "version": "0.12.64",
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "networkBlocked": true,
+  "cases": [
+    {
+      "theme": "light",
+      "small": false,
+      "recurringNameCompletion": true,
+      "customTimePicker": true,
+      "exactMinutes": true,
+      "noRedundantDone": true,
+      "operationalEventCards": true,
+      "analyticsInManagement": true,
+      "scopeWithoutCreateEvent": true,
+      "threeQuickLinks": true,
+      "liveIndicator": true,
+      "recordsPreserved": true,
+      "eventCorrections": true,
+      "formColumns": 3,
+      "wholeWords": true,
+      "dateIconGaps": [
+        44.28125,
+        44.28125
+      ],
+      "uniqueNames": true,
+      "threeColumnSuggestions": true,
+      "centeredFooter": true,
+      "noDetailX": true,
+      "largeLoadBounded": true,
+      "layout": {
+        "x": 19.916702270507812,
+        "right": 373.0833282470703,
+        "viewport": 393,
+        "document": 393,
+        "buttonsFit": true,
+        "footerFits": true
+      }
+    },
+    {
+      "theme": "light",
+      "small": true,
+      "recurringNameCompletion": true,
+      "customTimePicker": true,
+      "exactMinutes": true,
+      "noRedundantDone": true,
+      "operationalEventCards": true,
+      "analyticsInManagement": true,
+      "scopeWithoutCreateEvent": true,
+      "threeQuickLinks": true,
+      "liveIndicator": true,
+      "recordsPreserved": true,
+      "eventCorrections": true,
+      "formColumns": 2,
+      "wholeWords": true,
+      "dateIconGaps": [
+        71.46875,
+        71.46875
+      ],
+      "uniqueNames": true,
+      "threeColumnSuggestions": true,
+      "centeredFooter": true,
+      "noDetailX": true,
+      "largeLoadBounded": false,
+      "layout": {
+        "x": 20,
+        "right": 300,
+        "viewport": 320,
+        "document": 320,
+        "buttonsFit": true,
+        "footerFits": true
+      }
+    },
+    {
+      "theme": "dark",
+      "small": false,
+      "recurringNameCompletion": true,
+      "customTimePicker": true,
+      "exactMinutes": true,
+      "noRedundantDone": true,
+      "operationalEventCards": true,
+      "analyticsInManagement": true,
+      "scopeWithoutCreateEvent": true,
+      "threeQuickLinks": true,
+      "liveIndicator": true,
+      "recordsPreserved": true,
+      "eventCorrections": true,
+      "formColumns": 3,
+      "wholeWords": true,
+      "dateIconGaps": [
+        44.28125,
+        44.28125
+      ],
+      "uniqueNames": true,
+      "threeColumnSuggestions": true,
+      "centeredFooter": true,
+      "noDetailX": true,
+      "largeLoadBounded": true,
+      "layout": {
+        "x": 19.943511962890625,
+        "right": 373.0564880371094,
+        "viewport": 393,
+        "document": 393,
+        "buttonsFit": true,
+        "footerFits": true
+      }
+    },
+    {
+      "theme": "dark",
+      "small": true,
+      "recurringNameCompletion": true,
+      "customTimePicker": true,
+      "exactMinutes": true,
+      "noRedundantDone": true,
+      "operationalEventCards": true,
+      "analyticsInManagement": true,
+      "scopeWithoutCreateEvent": true,
+      "threeQuickLinks": true,
+      "liveIndicator": true,
+      "recordsPreserved": true,
+      "eventCorrections": true,
+      "formColumns": 2,
+      "wholeWords": true,
+      "dateIconGaps": [
+        71.46875,
+        71.46875
+      ],
+      "uniqueNames": true,
+      "threeColumnSuggestions": true,
+      "centeredFooter": true,
+      "noDetailX": true,
+      "largeLoadBounded": false,
+      "layout": {
+        "x": 20,
+        "right": 300,
+        "viewport": 320,
+        "document": 320,
+        "buttonsFit": true,
+        "footerFits": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

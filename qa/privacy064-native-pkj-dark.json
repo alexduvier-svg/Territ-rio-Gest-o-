@@ -1,0 +1,62 @@
+{
+  "version": "0.12.64",
+  "device": "pkj",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "dark",
+      "small": false,
+      "coldStartClosed": true,
+      "noStartupDisclosure": true,
+      "backgroundClosed": true,
+      "nativeHomeResume": true,
+      "summaryClosed": true,
+      "managementClosed": true,
+      "brainClosed": true,
+      "editorsPreserved": true,
+      "pricesRemainVisible": true,
+      "recordsPreserved": true,
+      "events": {
+        "theme": "dark",
+        "small": false,
+        "recurringNameCompletion": true,
+        "customTimePicker": true,
+        "exactMinutes": true,
+        "noRedundantDone": true,
+        "operationalEventCards": true,
+        "analyticsInManagement": true,
+        "scopeWithoutCreateEvent": true,
+        "threeQuickLinks": true,
+        "liveIndicator": true,
+        "recordsPreserved": true,
+        "eventCorrections": true,
+        "formColumns": 2,
+        "wholeWords": true,
+        "dateIconGaps": [
+          11.28515625,
+          11.28515625
+        ],
+        "uniqueNames": true,
+        "threeColumnSuggestions": true,
+        "centeredFooter": true,
+        "noDetailX": true,
+        "largeLoadBounded": true,
+        "layout": {
+          "x": 20,
+          "right": 340,
+          "viewport": 360,
+          "document": 360,
+          "buttonsFit": true,
+          "footerFits": true
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "nativeResourceSignalsVerified": true,
+  "passed": true
+}
