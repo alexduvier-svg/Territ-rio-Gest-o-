@@ -24,6 +24,6 @@ Android95/0.12.55/Statusok nos dois, sem limpeza/desinstalação do principal. N
 
 ## Publicação e preservações
 
-Somente ramo `codex/atualizacao-agro-gestao2`, base e3eb53959856de7bad63b0682771a2a6f255f305; Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b e main956fddceec2b994e32c154c5197424a4f56df7f2 conferidos no início, integração e pré-publicação. Commit final consultar no log. Servidor0a83fdbe-9ecb-4745-b6f2-c46344082c33/clima27 preservados; nenhum deploy ou submissão Play.
+Somente ramo `codex/atualizacao-agro-gestao2`, base e3eb53959856de7bad63b0682771a2a6f255f305; Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b e main956fddceec2b994e32c154c5197424a4f56df7f2 conferidos no início, integração e pré-publicação. Implementação publicada em `160dc168bd728c816fbbbd8be5f32713864895e6`; hash remoto idêntico e worktree limpo confirmados. Encerramento documental posterior não muda o APK. Servidor0a83fdbe-9ecb-4745-b6f2-c46344082c33/clima27 preservados; nenhum deploy ou submissão Play.
 
 Reversão por correção de versão maior, mesmo pacote/certificado/dados; não forçar downgrade. Hardware local fora do backup comercial. Trilha mínima200registros com operações, sem dados pessoais. Referência original incorporada offline com hash na memória adaptação3.
