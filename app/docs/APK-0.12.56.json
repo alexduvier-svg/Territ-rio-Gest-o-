@@ -1,0 +1,60 @@
+{
+  "version": "0.12.56",
+  "versionCode": 96,
+  "package": "br.com.territorio.gestao2",
+  "label": "AGRO Gestão 2",
+  "size": 5173751,
+  "sha256": "23275ab89bbff43a0dc0a502015a2ca31204b55e0b5b21f8944c29dd733266ad",
+  "certificateSHA256": "f5dac71cf092b67a80541c5353268ce18ef5f2ab3d4b850248a5934ae7d86b68",
+  "signature": "original v2/v3",
+  "productionAssetsMatch": true,
+  "physicalFixtureAssetsMatch": true,
+  "fixtureHTMLDifference": "synthetic seed, external fetch block and HTML newline normalization only",
+  "assets": 41,
+  "zipalign16KB": true,
+  "microphonePermission": false,
+  "GPSPermission": false,
+  "unitTests": 428,
+  "browserJourneys": 4,
+  "physicalJourneys": 4,
+  "physicalDevices": [
+    "Reno14 CPH2737",
+    "PKJ110"
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "realTransactionsCreated": false,
+  "productionDatabaseAccessed": false,
+  "serverChanged": false,
+  "referenceCommit": "cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b",
+  "sharedLayoutPreserved": true,
+  "nativeFPSMeasured": false,
+  "basicPhoneMeasured": false,
+  "nativeResourceSignalsVerified": true,
+  "deviceProfileExcludedFromBusinessBackup": true,
+  "installed": true,
+  "installs": [
+    {
+      "name": "Reno14",
+      "fixtureRemoved": true,
+      "firstInstallTime": "2026-10-21 18:58:01",
+      "mode": "adb install -r; no data reset",
+      "model": "CPH2737",
+      "lastUpdateTime": "2026-10-22 10:13:45",
+      "launchStatus": "ok"
+    },
+    {
+      "name": "PKJ110",
+      "fixtureRemoved": true,
+      "firstInstallTime": "2026-10-14 18:17:06",
+      "mode": "adb install -r; no data reset",
+      "model": "PKJ110",
+      "lastUpdateTime": "2026-10-22 10:13:50",
+      "launchStatus": "ok"
+    }
+  ],
+  "originalFolderPath": "C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-2-0.12.56.apk",
+  "originalFolderHashMatches": true
+}

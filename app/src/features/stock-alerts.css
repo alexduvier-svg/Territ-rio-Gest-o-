@@ -110,3 +110,6 @@ html.reorder-edit .glass-products-plane .feira-card:nth-child(3n):not(.reorder-l
 /* "Agora não": segunda opção, com a lembrança de 1 hora em letra menor. */
 #dialog .sa-snooze { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; line-height: 1.15; }
 #dialog .sa-snooze small { font-size: 12px; font-weight: 500; color: var(--muted); }
+
+/* Keep selection tools above the plane with visible breathing room in both themes. */
+html:is(.multi-select,.reorder-edit) .glass-area-row{margin-bottom:22px;min-height:48px;align-items:center}

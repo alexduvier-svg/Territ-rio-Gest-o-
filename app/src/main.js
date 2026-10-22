@@ -3,6 +3,7 @@ import { ADAPTATION_GUIDELINES } from './data/adaptation-guidelines.js';
 import { installResourcePolicy, installResourceControls } from './features/resources/index.js';
 import legacyCss from './legacy/app.css?raw';
 import './fonts.css';
+import * as SaleRound from './features/sale-round.js';
 import './shell.css';
 import './layout-feira.css';
 import './fit.css';
@@ -115,6 +116,7 @@ try {
   window.TerritorioRecoveryInspect = inspectRecovery;
   window.TerritorioFinance = { ...Finance, runAudit };
   window.TerritorioReceivables = Receivables;
+  window.TerritorioSaleRound = SaleRound;
   window.TerritorioFairReport = FairReport;
   window.TerritorioFairSurplus = FairSurplus;
   window.TerritorioEventPreparation = EventPreparation;

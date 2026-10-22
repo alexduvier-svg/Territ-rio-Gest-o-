@@ -1,0 +1,36 @@
+{
+  "synthetic": true,
+  "externalNetworkBlocked": true,
+  "cases": [
+    {
+      "theme": "light",
+      "isolatedRoundAndAdditiveQuantity": true,
+      "systemDiscountKeyboard": true,
+      "moveSpacing": true,
+      "noRealTransactions": true
+    },
+    {
+      "theme": "light",
+      "isolatedRoundAndAdditiveQuantity": true,
+      "systemDiscountKeyboard": true,
+      "moveSpacing": true,
+      "noRealTransactions": true
+    },
+    {
+      "theme": "dark",
+      "isolatedRoundAndAdditiveQuantity": true,
+      "systemDiscountKeyboard": true,
+      "moveSpacing": true,
+      "noRealTransactions": true
+    },
+    {
+      "theme": "dark",
+      "isolatedRoundAndAdditiveQuantity": true,
+      "systemDiscountKeyboard": true,
+      "moveSpacing": true,
+      "noRealTransactions": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

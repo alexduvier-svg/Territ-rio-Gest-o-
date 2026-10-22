@@ -9,6 +9,7 @@ export function inspectRecovery(record,{actorId,productIds,sales=[]}){
  const e=record.entry,d=e.draft;if(e.actorId!==actorId)return{status:'other_actor'};
  if(!d&&e.form&&['product','client','business','event-load'].includes(e.form.kind)&&e.form.value&&typeof e.form.value==='object')return{status:'form',entry:JSON.parse(JSON.stringify(e))};
  if(!d||typeof d.operationId!=='string'||!d.operationId||!Array.isArray(d.items)||!d.items.length||d.items.length>200)return{status:'invalid'};
+ if(d.additionBase&&(!Array.isArray(d.additionBase.items)||d.additionBase.items.length>200||d.additionBase.additionBase||d.additionBase.operationId!==d.operationId||d.additionBase.items.some(i=>!productIds.includes(i.productId)||typeof i.rawQty!=='string')))return{status:'unavailable'};
  const sale=sales.find(s=>s.operationId===d.operationId);if(sale)return{status:'committed',saleId:sale.id};
  if(d.items.some(i=>!productIds.includes(i.productId)||typeof i.rawQty!=='string'||i.rawQty.length>32))return{status:'unavailable'};
  return{status:'draft',entry:JSON.parse(JSON.stringify(e))};

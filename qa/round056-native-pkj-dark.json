@@ -1,0 +1,25 @@
+{
+  "version": "0.12.56",
+  "device": "pkj",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "dark",
+      "isolatedRoundAndAdditiveQuantity": true,
+      "systemDiscountKeyboard": true,
+      "moveSpacing": true,
+      "noRealTransactions": true
+    }
+  ],
+  "errors": [],
+  "capabilityEvidence": {
+    "detectorVersion": 2,
+    "known": true,
+    "nativeMemoryAndStorageRead": true,
+    "privateNoBackupFileVerified": true
+  },
+  "passed": true
+}
