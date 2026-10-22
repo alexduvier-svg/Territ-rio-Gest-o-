@@ -5,8 +5,6 @@ const esc=v=>bridge().escape(v);
 const button=(...args)=>bridge().button(...args);
 const dialog=()=>document.getElementById('dialog');
 let installed=false, broadcastIds=new Set(), broadcastText='', demandEvent='', demandRows=[], saveBusy=false;
-const timers=new Map();
-const AUTO_CLOSE_MS=15000;
 
 export function eventSummary(id){
  const b=bridge(),event=b.data().events.find(e=>e.id===id);if(!event)return '';
@@ -44,27 +42,7 @@ function reviewBroadcast(){
 }
 function sendBroadcast(id){const c=recipients().find(c=>c.id===id);if(!c||!broadcastIds.has(id))return bridge().toast('Confira a autorização e o WhatsApp do cliente.');let n=c.phone.replace(/\D/g,'');if(n.length<=11)n='55'+n;bridge().external('https://wa.me/'+n+'?text='+encodeURIComponent(broadcastText));}
 
-// Only informational expansions time out. Active forms never lose their input.
-function arm(element,close){
- clearTimeout(timers.get(element));timers.set(element,setTimeout(()=>{
-  timers.delete(element);if(!element.isConnected)return;
-  if((element.contains(document.activeElement)||element.matches('.sale-products')&&document.activeElement?.id==='sale-quantity')&&document.activeElement.matches('input,textarea,select,[contenteditable="true"]'))return arm(element,close);
-  close();
- },AUTO_CLOSE_MS));
-}
-function scheduleExpansions(){
- for(const [el,timer]of timers)if(!el.isConnected){clearTimeout(timer);timers.delete(el);}
- for(const el of document.querySelectorAll('#app details[open],#dialog details[open]')){
-  if(!timers.has(el))arm(el,()=>{el.open=false;});
- }
- for(const el of document.querySelectorAll('#app .dimension-pill.open'))if(!timers.has(el))arm(el,()=>document.dispatchEvent(new CustomEvent('territorio:collapse-configurations')));
- for(const el of document.querySelectorAll('#app .week-sales,#app .hs-sales')){if(!timers.has(el)){const head=el.parentElement.querySelector('[data-action="week-day"]');if(head)arm(el,()=>bridge().actions['week-day']({day:head.dataset.day}));}}
- const empty=document.querySelector('#app .empty-days-list');if(empty&&!timers.has(empty))arm(empty,()=>bridge().actions['week-empty-days']());
- const stock=document.querySelector('#dialog [data-action="brain-stock-toggle"][aria-expanded="true"]');if(stock&&!timers.has(stock))arm(stock,()=>bridge().actions['brain-stock-toggle']());
- const history=document.querySelector('#app .fair-history-list');if(history&&!timers.has(history))arm(history,()=>bridge().actions['event-history']());
- const list=document.querySelector('#app .client-list');if(list&&!timers.has(list))arm(list,()=>bridge().actions['clients-toggle']());
- const groups=document.querySelector('#app .sale-products');if(groups&&!timers.has(groups)&&bridge().draft()?.items.every(i=>bridge().number(i.rawQty)>0))arm(groups,()=>bridge().collapseQuantity());
-}
+function scheduleExpansions(){window.TerritorioAutoCollapse?.schedule();}
 function decorate(){
  const b=bridge(),root=document.getElementById('app');if(!root)return;
  if(b.page()==='Clientes'&&!root.querySelector('.workflow-client-tools')){
@@ -116,7 +94,6 @@ export function installWorkflows(){
  let zeroTap=null;document.addEventListener('pointerup',event=>{const card=event.target.closest?.('#app [data-action="sell-product"][disabled]');if(!card||b.page()!=='Vender')return;const id=card.dataset.id;if(zeroTap?.id===id&&Date.now()-zeroTap.at<320){zeroTap=null;b.actions['stock-peek']({id});}else zeroTap={id,at:Date.now()};},true);
  document.addEventListener('keydown',event=>{const card=event.target.closest?.('body > #app [data-action="sell-product"]');if(card&&(event.key==='ContextMenu'||event.shiftKey&&event.key==='Enter')){event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['stock-peek']({id:card.dataset.id});}},true);
  document.addEventListener('change',event=>{if(event.target.id==='workflow-broadcast-all')dialog().querySelectorAll('[data-workflow-recipient]').forEach(el=>{el.checked=event.target.checked;});});
- for(const type of ['pointerdown','input','keydown'])document.addEventListener(type,event=>{for(const [el,timer]of timers)if(el.contains(event.target)){clearTimeout(timer);timers.delete(el);}scheduleExpansions();},{passive:true});
  document.addEventListener('toggle',scheduleExpansions,true);document.addEventListener('click',()=>queueMicrotask(scheduleExpansions));
  new MutationObserver(decorate).observe(document.getElementById('app'),{childList:true});
  document.addEventListener('territorio:sheet',()=>{scheduleExpansions();});

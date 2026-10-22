@@ -1,0 +1,49 @@
+{
+  "version": "0.12.60",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "small": false,
+      "cards": 7,
+      "familyOutlines": true,
+      "salesWithoutFamilyIcons": true,
+      "footerButtonsVisible": true,
+      "noCardStretch": true,
+      "insetVerified": true,
+      "sendBeforeOrders": true,
+      "separateClickableAndPortfolio": true,
+      "singleImageSelectedProducts": true,
+      "noPrivateStockOrCost": true,
+      "offlineExport": true,
+      "stockAndPriceRevalidation": true,
+      "emptyStockBlocked": true,
+      "syntheticRecordsPreserved": true,
+      "nativeShareChooser": true,
+      "exportBytes": 88240,
+      "overflow": {
+        "document": 360,
+        "viewport": 360,
+        "dialog": {
+          "x": 20,
+          "y": 91.28125,
+          "width": 320,
+          "height": 649.4375,
+          "top": 91.28125,
+          "right": 340,
+          "bottom": 740.71875,
+          "left": 20
+        },
+        "content": 318
+      }
+    }
+  ],
+  "errors": [],
+  "nativeResourceSignalsVerified": true,
+  "passed": true
+}

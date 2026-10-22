@@ -1,3 +1,6 @@
+import {installAutoCollapse} from './features/auto-collapse.js';
+import {productOutline} from './features/product-outline.js';
+import {installPrintList} from './features/print-list/index.js';
 import {installOrderArrivals} from './native/order-arrivals.js';
 import {installFollowupNotifications} from './native/followups.js';
 import { installRecovery, inspectRecovery } from './features/resources/recovery.js';
@@ -122,6 +125,7 @@ try {
   window.TerritorioReceivables = Receivables;
   window.TerritorioSaleRound = SaleRound;
   window.TerritorioRestockSymbol = restockSymbol;
+  window.TerritorioProductOutline = productOutline;
   window.TerritorioFairReport = FairReport;
   window.TerritorioFairSurplus = FairSurplus;
   window.TerritorioEventPreparation = EventPreparation;
@@ -146,6 +150,7 @@ try {
   installMultiSell();
   installRestockSymbols();
   installReorder();
+  installAutoCollapse();
   installWorkflows();
   installReceivables();
   installResourceControls();
@@ -155,6 +160,7 @@ try {
   installFollowupNotifications();
   installOrderArrivals();
   installLocalCatalog();
+  installPrintList();
   installGlassTouch();
   installShell();
   document.dispatchEvent(new Event('territorio:resources-ready'));

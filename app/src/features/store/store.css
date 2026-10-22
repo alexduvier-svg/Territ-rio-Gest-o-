@@ -9,3 +9,5 @@
 .store-list-copy{text-align:justify;text-justify:inter-word;hyphens:auto;overflow-wrap:break-word}.store-share-url{padding:14px;border:1px solid var(--line);border-radius:18px;background:var(--field);font-size:14px;overflow-wrap:anywhere}.store-orders-sync{line-height:1.5;overflow-wrap:anywhere}.store-orders-sync button{margin-top:8px}.client-portfolio-section{margin-top:22px}#store-list-feedback.error{color:var(--red,#b43a49)}
 
 #dialog[data-kind="store-list-setup"] .store-list-fields label{margin-top:0}.store-list-fields{margin:18px 0}.store-list-fields .small{margin-bottom:0}#dialog[data-kind="store-list-setup"] .checkout-footer{gap:10px}#store-list-feedback:empty{display:none}
+
+.workflow-client-tools>.client-tools-section+.client-tools-section{margin-top:24px}.workflow-client-tools>.client-other-delivery{margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}.client-other-delivery>summary{min-height:48px;display:flex;align-items:center}
