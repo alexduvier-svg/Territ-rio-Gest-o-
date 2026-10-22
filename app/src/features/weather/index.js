@@ -58,6 +58,7 @@ function eventLabel(data,event){
   const summary=forecastWindow(data,event);
   return summary.ready?'Chuva prevista · '+number(summary.rain)+' mm':'Previsão disponível mais perto da feira';
 }
+export function eventWeatherControl(event){return bridge().button('weather-open',weatherIcon(null)+'<span>'+esc(eventLabel(cached(location(event)),event))+'</span>','weather-event',{event:event.id});}
 function condition(point){
   const symbol=point?.symbol||'';
   if(/thunder/.test(symbol))return 'Trovoadas previstas';

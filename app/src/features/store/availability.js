@@ -28,3 +28,4 @@ export function eventPickupSnapshot(data,now=Date.now()){
  return(data.events||[]).filter(e=>e.status==='active'&&!e.fairClosedAt&&Date.parse(e.end+'T'+e.until+':00-03:00')>now).slice(0,100).map(e=>({id:e.id,name:e.name,place:e.place||'',start:e.start,end:e.end,from:e.from,until:e.until,products:balances.get(e.id)||[]}));
 }
 export function eventProductBalance(data,eventId,productId){return(loadBalances(data).get(eventId)||[]).find(i=>i.productId===productId)?.quantity||0;}
+export function eventProductBalances(data,eventId){return new Map((loadBalances(data).get(eventId)||[]).map(i=>[i.productId,i.quantity]));}

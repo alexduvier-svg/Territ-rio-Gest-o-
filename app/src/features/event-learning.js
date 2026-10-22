@@ -4,6 +4,12 @@ const money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).
 const terminal=e=>['finished','closed'].includes(e.status)||!!e.finishedAt||!!e.fairClosedAt;
 const matches=(data,r)=>{const type=data.dataContext?.type||data.settings?.onboarding,actor=data.dataContext?.id||data.productMemory?.scopeId;return (!r.actorId||r.actorId===actor)&&(!r.dataContext?.id||r.dataContext.id===actor)&&(!r.dataContext?.type||r.dataContext.type===type)&&(type!=='real'&&type!=='clean'||!r.demo&&!r.simulation&&!r.simulated&&!/^(demo-|exemplo-)/.test(r.id||''));};
 export const eventGroup=e=>e.fairId?'fair:'+e.fairId:'local:'+key(e.name)+'|'+key(e.place)+'|'+key(e.city)+'|'+key(e.uf);
+// Successful event records are the memory; no second database or shared producer list.
+export function recurringEventNames(data,{term='',limit=5}={}){
+ const names=new Map(),seen=new Set();
+ for(const e of data.events||[]){if(!matches(data,e)||!e.id||seen.has(e.id)||e.fairCancelled||e.cancelledByProducer||!e.name?.trim())continue;seen.add(e.id);const id=key(e.name).replace(/\s+/g,' '),previous=names.get(id);if(previous){previous.count++;if((e.start||'')>previous.last){previous.name=e.name.trim();previous.last=e.start||'';}}else names.set(id,{key:id,name:e.name.trim(),count:1,last:e.start||''});}
+ const query=key(term).replace(/\s+/g,' ');return[...names.values()].filter(n=>!query||n.key.startsWith(query)).sort((a,b)=>b.count-a.count||b.last.localeCompare(a.last)||a.name.localeCompare(b.name,'pt-BR')).slice(0,Math.min(12,limit));
+}
 export function eventSales(data,id){const seen=new Set();return(data.sales||[]).filter(s=>matches(data,s)&&s.scope===id&&s.status==='completed'&&s.id&&!seen.has(s.id)&&seen.add(s.id));}
 export function lastFairSummary(data,current){
  const all=(data.events||[]).filter(e=>matches(data,e)&&e.id!==current.id&&terminal(e)&&e.start<=current.start).sort((a,b)=>b.start.localeCompare(a.start)),same=all.filter(e=>eventGroup(e)===eventGroup(current)),previous=same[0]||all[0];if(!previous)return null;

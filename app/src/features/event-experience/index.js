@@ -1,5 +1,7 @@
 import {Capacitor,registerPlugin} from '@capacitor/core';
 import {calendarPayload,hasEventLoad,needsEventLoad,cancelEvent} from './model.js';
+import {installEventForm} from './form.js';
+import {installEventSurfaces} from './surfaces.js';
 const Calendar=registerPlugin('AgroCalendar');
 const bridge=()=>window.TerritorioWorkflowBridge;
 let current='',actor='',busy=false;
@@ -15,4 +17,5 @@ export function installEventExperience(){
  async function save({id}){if(busy)return;busy=true;document.querySelectorAll('[data-action="event-agenda-save"]').forEach(e=>e.disabled=true);try{const e=record(),payload=calendarPayload(e,actor);await Calendar.save({...payload,calendarId:Number(id)});record();feedback('Evento salvo com lembrete de 1 dia antes. A agenda controla o som e a sincronização.');b.toast('Evento salvo na agenda. Lembrete: 1 dia antes.');}catch(error){feedback(error.message||'Não foi possível salvar na agenda.');}finally{busy=false;document.querySelectorAll('[data-action="event-agenda-save"]').forEach(e=>e.disabled=false);}}
  const exportFile=b.actions['event-calendar'];
  Object.assign(b.actions,{'event-calendar':d=>open(d.id),'event-agenda-permission':choose,'event-agenda-save':save,'event-calendar-file':()=>{record();exportFile({id:current});}});
+ Object.assign(window.TerritorioEvents,installEventSurfaces(b),{enhanceForm:installEventForm(b)});
 }
