@@ -1,0 +1,13 @@
+{
+  "version": "0.12.54",
+  "synthetic": true,
+  "localWorkerOnly": true,
+  "checks": [
+    "First publication is completed inside the app, preserves explicit restock flags and needs no producer service login",
+    "Actual Worker page CSP and same-app self-hosted fonts load, only registered products appear",
+    "Replenished stock becomes purchasable after sync without changing the explicit producer preference",
+    "Producer pause disables all new purchases"
+  ],
+  "errors": [],
+  "passed": true
+}

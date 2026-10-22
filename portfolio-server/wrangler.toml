@@ -25,3 +25,9 @@ class_name = "ProducerShop"
 [[migrations]]
 tag = "shop-v1"
 new_sqlite_classes = ["ProducerShop"]
+
+# Self-host the same OFL fonts used by the Android app; no third-party CDN.
+[[rules]]
+type = "Data"
+globs = ["**/*.woff2"]
+fallthrough = true

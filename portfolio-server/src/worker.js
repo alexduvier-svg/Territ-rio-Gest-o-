@@ -1,3 +1,5 @@
+import interFont from './fonts/inter-latin.woff2';
+import interTightFont from './fonts/inter-tight-latin.woff2';
 import { weatherRoute } from './weather.js';
 // Território — public producer portfolios.
 //
@@ -256,6 +258,8 @@ export default {
     const { pathname } = url;
     const origin = url.origin;
 
+    const font=pathname==='/assets/agro-inter-v5-latin.woff2'?interFont:pathname==='/assets/agro-inter-tight-v5-latin.woff2'?interTightFont:null;
+    if(font&&request.method==='GET')return new Response(font,{headers:{'content-type':'font/woff2','cache-control':'public, max-age=31536000, immutable','x-content-type-options':'nosniff'}});
     if (pathname.startsWith('/api/')) {
       const cors = corsHeaders(request, env);
       if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
@@ -314,7 +318,7 @@ export default {
     if (publicFair && request.method === 'GET') return servePublicFair(request, env, publicFair[1]);
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
     const shopPage=pathname.match(/^\/s\/([a-z0-9-]{3,48})$/);
-    if(shopPage){const doc=await env.PORTFOLIOS.get('doc:'+shopPage[1],'json');if(!doc)return new Response(renderMessage('Loja não encontrada','Confira o link enviado pelo produtor.'),{status:404,headers:PAGE_HEADERS});const nonce=randomToken(18);return new Response(renderShop(doc,shopPage[1],nonce),{headers:{...PAGE_HEADERS,'cache-control':'no-store','referrer-policy':'no-referrer','content-security-policy':"default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'nonce-"+nonce+"'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"}});}
+    if(shopPage){const doc=await env.PORTFOLIOS.get('doc:'+shopPage[1],'json');if(!doc)return new Response(renderMessage('Loja não encontrada','Confira o link enviado pelo produtor.'),{status:404,headers:PAGE_HEADERS});const nonce=randomToken(18);return new Response(renderShop(doc,shopPage[1],nonce,new URL(request.url).origin),{headers:{...PAGE_HEADERS,'cache-control':'no-store','referrer-policy':'no-referrer','content-security-policy':"default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; script-src 'nonce-"+nonce+"'; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'"}});}
     const page = pathname.match(/^\/p\/([a-z0-9-]{3,48})(\/.*)?$/);
     if (page) return servePublic(request, env, ctx, page[1], page[2] || '', origin);
     const fairPage = pathname.match(FAIR_PAGE);

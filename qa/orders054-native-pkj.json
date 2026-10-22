@@ -1,0 +1,67 @@
+{
+  "version": "0.12.54",
+  "device": "pkj",
+  "physicalWebView": true,
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "externalNetworkBlockedByFixture": true,
+  "publicOrderAPISimulated": true,
+  "app": [
+    {
+      "theme": "light",
+      "ownProducts": 4,
+      "primaryOnlineOrders": true,
+      "legacyPDFAccessible": true,
+      "restockFlagSaved": true,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "viewport": 360,
+        "document": 360
+      }
+    },
+    {
+      "theme": "dark",
+      "ownProducts": 4,
+      "primaryOnlineOrders": true,
+      "legacyPDFAccessible": true,
+      "restockFlagSaved": true,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "viewport": 360,
+        "document": 360
+      }
+    }
+  ],
+  "customer": [
+    {
+      "theme": "light",
+      "columns": 3,
+      "normalThreeColumns": true,
+      "largeTextAdapts": true,
+      "quantitySheetMargins": true,
+      "oversellBlocked": true,
+      "zeroStockDisabled": true,
+      "requestReceipt": true,
+      "overflow": {
+        "viewport": 360,
+        "document": 360
+      }
+    },
+    {
+      "theme": "dark",
+      "columns": 3,
+      "normalThreeColumns": true,
+      "largeTextAdapts": true,
+      "quantitySheetMargins": true,
+      "oversellBlocked": true,
+      "zeroStockDisabled": true,
+      "requestReceipt": true,
+      "overflow": {
+        "viewport": 360,
+        "document": 360
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

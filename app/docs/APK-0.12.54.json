@@ -1,0 +1,73 @@
+{
+  "version": "0.12.54",
+  "versionCode": 94,
+  "package": "br.com.territorio.gestao2",
+  "label": "AGRO Gestão 2",
+  "size": 5157250,
+  "sha256": "55d84a9ba7c1bb51198530c741b79e5d5257d394c7d255007f67d508dccb3456",
+  "certificateSHA256": "f5dac71cf092b67a80541c5353268ce18ef5f2ab3d4b850248a5934ae7d86b68",
+  "signature": "original v2/v3",
+  "productionAssetsMatch": true,
+  "physicalFixtureAssetsMatch": true,
+  "assets": 40,
+  "zipalign16KB": true,
+  "microphonePermission": false,
+  "GPSPermission": false,
+  "unitTests": 401,
+  "serverUnitTests": 24,
+  "browserJourneys": 7,
+  "browserSurfaces": 8,
+  "physicalJourneys": 4,
+  "physicalAppFlows": 4,
+  "physicalCustomerFlows": 4,
+  "publicOrderAPIInPhysicalQASimulated": true,
+  "physicalDevices": [
+    "Reno14 CPH2737",
+    "PKJ110"
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "realTransactionsCreated": false,
+  "productionDatabaseAccessed": false,
+  "serverChanged": true,
+  "referenceCommit": "cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b",
+  "sharedLayoutPreserved": true,
+  "changes": [
+    "simple ordering link primary in Clients",
+    "only registered inventory",
+    "sold out and explicit coming soon",
+    "atomic availability and idempotent retry",
+    "new-order banner on current header",
+    "legacy PDF history preserved"
+  ],
+  "nativeFPSMeasured": false,
+  "basicPhoneMeasured": false,
+  "installed": true,
+  "installs": [
+    {
+      "lastUpdateTime": "2026-10-22 08:26:35",
+      "launchStatus": "ok",
+      "firstInstallTime": "2026-10-21 18:58:01",
+      "mode": "adb install -r; no data reset",
+      "fixtureRemoved": true,
+      "model": "CPH2737",
+      "name": "Reno14"
+    },
+    {
+      "lastUpdateTime": "2026-10-22 08:26:44",
+      "launchStatus": "ok",
+      "firstInstallTime": "2026-10-14 18:17:06",
+      "mode": "adb install -r; no data reset",
+      "fixtureRemoved": true,
+      "model": "PKJ110",
+      "name": "PKJ110"
+    }
+  ],
+  "originalFolderPath": "C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-2-0.12.54.apk",
+  "originalFolderHashMatches": true,
+  "serverDeployment": "0a83fdbe-9ecb-4745-b6f2-c46344082c33",
+  "liveReadOnlyChecksPassed": true,
+  "weatherCacheOnlyHTTP": 200
+}

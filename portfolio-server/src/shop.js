@@ -13,7 +13,7 @@ const initial=()=>({version:1,enabled:false,revision:0,syncedAt:0,products:[],or
 function available(s,p){return Math.max(0,qty(p.stock-s.orders.filter(active).reduce((n,o)=>n+o.items.filter(i=>i.productId===p.productId).reduce((v,i)=>v+i.quantity,0),0)));}
 function snapshotProducts(rows){
  if(!Array.isArray(rows)||rows.length>5000)fail('Catálogo grande demais.');const seen=new Set();
- return rows.map(p=>{const id=text(p.productId,100),stock=Number(p.stock),price=Number(p.price),unit=text(p.unit,30);if(!id||seen.has(id)||!Number.isFinite(stock)||stock<0||stock>10000000||qty(stock)!==stock||!Number.isSafeInteger(price)||price<1||price>100000000||!unit)fail('Confira os produtos, preços e saldos.');seen.add(id);return{productId:id,name:text(p.name,100),label:text(p.label,160),category:text(p.category,50),unit,price,stock,image:/^[a-f0-9]{64}$/.test(p.image||'')?p.image:null};});
+ return rows.map(p=>{const id=text(p.productId,100),stock=Number(p.stock),price=Number(p.price),unit=text(p.unit,30);if(!id||seen.has(id)||!Number.isFinite(stock)||stock<0||stock>10000000||qty(stock)!==stock||!Number.isSafeInteger(price)||price<1||price>100000000||!unit||p.comingSoon!==undefined&&typeof p.comingSoon!=='boolean')fail('Confira os produtos, preços e saldos.');seen.add(id);return{productId:id,name:text(p.name,100),label:text(p.label,160),category:text(p.category,50),unit,price,stock,comingSoon:p.comingSoon===true,image:/^[a-f0-9]{64}$/.test(p.image||'')?p.image:null};});
 }
 function publicOrder(o){return {id:o.id,status:o.status,total:o.total,items:o.items,createdAt:o.createdAt,updatedAt:o.updatedAt,history:o.history};}
 function checkout(s,body,now){
@@ -38,7 +38,7 @@ export class ProducerShop{
    const response=await this.ctx.storage.transaction(async tx=>{
     const s=await tx.get('state')||initial(),now=Date.now();let result;
     if(path==='/catalog'&&request.method==='GET'){
-     const fresh=now-s.syncedAt<=30*60000;return json({enabled:s.enabled,fresh,updatedAt:s.syncedAt,revision:s.revision,products:s.products.map(p=>({...p,stock:undefined,available:s.enabled&&fresh?available(s,p):0})),notice:'Pedido sujeito à confirmação do produtor. Disponibilidade atualizada enquanto o app tem conexão.'});
+     const fresh=now-s.syncedAt<=30*60000;return json({enabled:s.enabled,fresh,updatedAt:s.syncedAt,revision:s.revision,products:s.products.map(p=>({...p,stock:undefined,comingSoon:p.comingSoon===true&&p.stock<=0,availability:!s.enabled?'paused':!fresh?'stale':p.stock<=0?(p.comingSoon?'coming_soon':'sold_out'):available(s,p)<=0?'reserved':'available',available:s.enabled&&fresh?available(s,p):0})),notice:'Pedido sujeito à confirmação do produtor. Disponibilidade atualizada enquanto o app tem conexão.'});
     }
     if(path==='/orders'&&request.method==='POST'){
      const bucket=request.headers.get('x-shop-rate')||'unknown',rate=s.rates[bucket]||{at:now,count:0};if(now-rate.at>3600000){rate.at=now;rate.count=0;}if(rate.count>=30&&!s.orders.some(o=>o.requestId===body.requestId))fail('Muitos pedidos. Aguarde um pouco.',429);result=checkout(s,body,now);if(!result.replayed)rate.count++;s.rates[bucket]=rate;s.rates=Object.fromEntries(Object.entries(s.rates).filter(([,v])=>now-v.at<3600000));

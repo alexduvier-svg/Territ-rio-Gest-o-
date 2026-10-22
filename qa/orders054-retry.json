@@ -1,0 +1,29 @@
+{
+  "version": "0.12.54",
+  "synthetic": true,
+  "externalNetworkBlocked": true,
+  "cases": [
+    {
+      "theme": "light",
+      "deliveryRequired": true,
+      "addressPreserved": true,
+      "acceptedResponseLost": true,
+      "pendingSurvivesReload": true,
+      "requests": 2,
+      "orders": 1,
+      "idempotent": true
+    },
+    {
+      "theme": "dark",
+      "deliveryRequired": true,
+      "addressPreserved": true,
+      "acceptedResponseLost": true,
+      "pendingSurvivesReload": true,
+      "requests": 2,
+      "orders": 1,
+      "idempotent": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

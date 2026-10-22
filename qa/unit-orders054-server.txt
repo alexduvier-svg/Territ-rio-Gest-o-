@@ -1,0 +1,32 @@
+✔ atomic reservations prevent concurrent over-ordering; zero availability cannot be bought (43.4138ms)
+✔ order retry has one reservation, private tracking has no contact, owner needs authentication (2.8134ms)
+✔ lifecycle requires an owner-recorded sale and all manual steps, and commits stock once (2.6688ms)
+✔ cancel releases pending reservation, stale snapshot blocks requests, wrong price/quantity rejected (1.4831ms)
+✔ inventory CAS rejects obsolete devices and idempotent sync does not deduct another reservation (0.5576ms)
+✔ portfolio route strips forged owner headers and isolates stores by slug (0.4835ms)
+✔ tracking capability stays in URL fragment and customer content is never inserted as HTML (0.3021ms)
+✔ unpublishing cannot lose active orders and erases server details after closure (1.9204ms)
+✔ a refund restores availability through the same snapshot without a second stock operation (1.8505ms)
+✔ daily retention alarm removes closed delivery data even without further visits (0.8263ms)
+✔ sold out and explicit coming soon stay disabled and replenishment restores purchasing (1.1916ms)
+✔ stale data, paused sales and reservations do not manufacture a sold-out or restock promise (0.7845ms)
+✔ restock flags are typed and link preview escapes producer names without disclosing tracking (0.2992ms)
+✔ POST reports guarda conferência no relatório da organização (26.3665ms)
+✔ relatório de versão anterior recebe conferido false e totais zero (0.6852ms)
+✔ valida números e booleanos; limita texto e itens; não publica medição local (3.0932ms)
+✔ atualização da mesma feira preserva conferência e substitui totais (0.9712ms)
+✔ contrato preserva unregistered e lancada_depois de vendas corrigidas (0.6163ms)
+✔ IBGE municipal coordinates resolve accents and ambiguous cities require UF (1.4483ms)
+✔ MET summary never manufactures missing rain probabilities or invalid temperatures (0.384ms)
+✔ identified cache proxy coalesces requests, hides client IP and serves a cached city (25.2971ms)
+✔ unknown municipality and invalid methods cannot become arbitrary upstream URLs (0.5979ms)
+✔ background cache-only requests never call MET, even with missing or expired cache (2.0493ms)
+✔ forecast revalidation respects provider expiry and supports a 30-minute minimum (1.6929ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144.3866

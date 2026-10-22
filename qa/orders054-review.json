@@ -1,0 +1,130 @@
+{
+  "version": "0.12.54",
+  "synthetic": true,
+  "networkIntercepted": true,
+  "productionDatabaseAccessed": false,
+  "app": [
+    {
+      "theme": "light",
+      "small": false,
+      "ownProducts": 4,
+      "primaryOnlineOrders": true,
+      "legacyPDFAccessible": true,
+      "restockFlagSaved": true,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "viewport": 393,
+        "document": 393
+      }
+    },
+    {
+      "theme": "light",
+      "small": true,
+      "ownProducts": 4,
+      "primaryOnlineOrders": true,
+      "legacyPDFAccessible": true,
+      "restockFlagSaved": true,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "viewport": 320,
+        "document": 320
+      }
+    },
+    {
+      "theme": "dark",
+      "small": false,
+      "ownProducts": 4,
+      "primaryOnlineOrders": true,
+      "legacyPDFAccessible": true,
+      "restockFlagSaved": true,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "viewport": 393,
+        "document": 393
+      }
+    },
+    {
+      "theme": "dark",
+      "small": true,
+      "ownProducts": 4,
+      "primaryOnlineOrders": true,
+      "legacyPDFAccessible": true,
+      "restockFlagSaved": true,
+      "businessRecordsPreserved": true,
+      "overflow": {
+        "viewport": 320,
+        "document": 320
+      }
+    }
+  ],
+  "customer": [
+    {
+      "theme": "light",
+      "small": false,
+      "columns": 3,
+      "normalThreeColumns": true,
+      "largeTextAdapts": true,
+      "quantitySheetMargins": true,
+      "oversellBlocked": true,
+      "zeroStockDisabled": true,
+      "requestReceipt": true,
+      "overflow": {
+        "viewport": 393,
+        "document": 393
+      }
+    },
+    {
+      "theme": "light",
+      "small": true,
+      "columns": 2,
+      "normalThreeColumns": true,
+      "largeTextAdapts": true,
+      "quantitySheetMargins": true,
+      "oversellBlocked": true,
+      "zeroStockDisabled": true,
+      "requestReceipt": true,
+      "overflow": {
+        "viewport": 320,
+        "document": 320
+      }
+    },
+    {
+      "theme": "dark",
+      "small": false,
+      "columns": 3,
+      "normalThreeColumns": true,
+      "largeTextAdapts": true,
+      "quantitySheetMargins": true,
+      "oversellBlocked": true,
+      "zeroStockDisabled": true,
+      "requestReceipt": true,
+      "overflow": {
+        "viewport": 393,
+        "document": 393
+      }
+    },
+    {
+      "theme": "dark",
+      "small": true,
+      "columns": 2,
+      "normalThreeColumns": true,
+      "largeTextAdapts": true,
+      "quantitySheetMargins": true,
+      "oversellBlocked": true,
+      "zeroStockDisabled": true,
+      "requestReceipt": true,
+      "overflow": {
+        "viewport": 320,
+        "document": 320
+      }
+    }
+  ],
+  "checks": [
+    "light normal: return to correct AGRO order queue, no paid sale, flags and orders survive reload",
+    "light small: return to correct AGRO order queue, no paid sale, flags and orders survive reload",
+    "dark normal: return to correct AGRO order queue, no paid sale, flags and orders survive reload",
+    "dark small: return to correct AGRO order queue, no paid sale, flags and orders survive reload"
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,0 +1,11 @@
+{
+  "deployment": "0a83fdbe-9ecb-4745-b6f2-c46344082c33",
+  "checks": [
+    "shop capabilities 200",
+    "self-hosted font 200, bytes identical",
+    "weather cache-only route preserved; no upstream forecast requested"
+  ],
+  "weatherCacheOnlyStatus": 200,
+  "realOrdersCreated": false,
+  "passed": true
+}
