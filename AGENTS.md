@@ -4,7 +4,7 @@ Pedido23/10refinado: vermelha substitui verde dentroLoja, semdoisjuntos; botão 
 
 8browser320ampliadoleve-reduzido360393412/4CapacitorDOIS2temasPASS. Valoresfechados/abertos, íconeúnico/botõesindependentes/cardRepor/verdeapósreposição/registrosfictícios preservados. NenhumERPprincipal/WhatsAppreal/agendapessoal; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. APK9136050bytes/SHA2564b6c721330c1c9457ae200ae4c0c5a2c3e48fbd98eff4ed7c1b3e5f871c98059/certoriginal/v2v3/48assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-rReno14 2026-10-23 15:47:35 / PKJ110 2026-10-23 15:47:42/114/0.12.74/Statusok/firstInstallTimepreservados;fixturesremovidos. NÃOrepetirbuild/verificador/cópia/instalação74.
 
-73intermediáriainstaladaReno15:39:48/PKJ15:39:55/113/hashb1048eba38aa74e7f15636902fd489ad5f5be19840b59df4cd69eace186660d2; não repetir73. GitpublicaçãoapenasAGRO2, consultarúltimolog/remoto; fechamento reúne73/74. Claudecffe32b/main956fddcinalterados. Encerramento documentalnãoexigeAPK. Sempendência deimplementação autorizada; semsubagentes/automação,nãorecriar.
+73intermediáriainstaladaReno15:39:48/PKJ15:39:55/113/hashb1048eba38aa74e7f15636902fd489ad5f5be19840b59df4cd69eace186660d2; não repetir73. Gitimplementação commit/push47a0429479bd29ab71feff0c548a4b7c7a5acd3b confirmados remotoAGRO2/worktreelimpo; fechamento reúne73/74. Capturas temporárias eforwards removidos dosDOIS. Claudecffe32b/main956fddcinalterados. Encerramento documentalnãoexigeAPK. Sempendência deimplementação autorizada; semsubagentes/automação,nãorecriar.
 
 # Entrega instalada — Modo Teste e Reposição0.12.72/code112
 

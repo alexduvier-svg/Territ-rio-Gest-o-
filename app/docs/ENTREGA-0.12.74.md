@@ -11,3 +11,5 @@ APK: 9136050bytes, SHA256`4b6c721330c1c9457ae200ae4c0c5a2c3e48fbd98eff4ed7c1b3e5
 Cópia conferida na pasta original:`C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-2-0.12.74.apk`. Instalações-r: Reno14 2026-10-23 15:47:35 / PKJ110 2026-10-23 15:47:42,114/0.12.74/Statusok,firstInstallTimepreservados. Fixtures removidos; sem limpar dados. Não repetir build/verificador/cópia/instalação74 por esse registro.73foi uma correção intermediária instalada; entrega73 separada registra a sequência.
 
 Git apenas`codex/atualizacao-agro-gestao2`. Fetch inicial e final:Claude`cffe32b`,main`956fddc`semnovidades. Commit final reúne73/74; consultarlog/remoto para o hash, semrefazerAPK. Semsubagentes ouautomação.
+
+Implementação commit/push`47a0429479bd29ab71feff0c548a4b7c7a5acd3b` confirmados no remotoAGRO2, worktree limpo antes deste encerramento documental. Capturas temporárias eforwards9341/9342 removidos dos dois celulares. Nenhuma pendência autorizada; não repetirAPK.
