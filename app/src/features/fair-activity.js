@@ -5,7 +5,7 @@ import {stockPartition,eventProductBalance,heldOnline} from './store/availabilit
 // every stock movement and sale has passed the model's normal financial audit.
 export function recordFairActivity(model,{eventId,productId,added=0,sold=0,lost=0,lossReason='',source='existing',payment='Pix',operationId},now=Date.now()){
  const data=model.data,event=data.events.find(e=>e.id===eventId),product=model.product(productId);
- if(!event||event.fairClosedAt||event.fairCancelled||!product||product.active===false||product.archived)throw Error('Reabra a conferência e escolha um produto disponível.');
+ if(!event||model.eventLifecycle(eventId).closed||!product||product.active===false||product.archived)throw Error('Reabra a conferência e escolha um produto disponível.');
  if(!operationId||operationId.length>100)throw Error('Reabra o registro da feira.');
  const prior=(event.fairActivities||[]).find(a=>a.id===operationId);
  const add=parseSurplusQuantity(added,product.unit),sell=parseSurplusQuantity(sold,product.unit),loss=parseSurplusQuantity(lost,product.unit);

@@ -1,3 +1,11 @@
+# Entrega instalada — Estados do Evento0.12.75/code115
+
+Pedido23/10: finalizado vai paraHistórico/nãoAtivoemProdutos; Agendadoverde; ConferênciaPendentecomtriângulolaranja; Encerradaapósconferir. ERP.eventLifecycle/sync corrigelegadooficialactivecomfairClosedAt semalterarsaldos; oficialtambémfinished. Adiamentoretomável, carga reservada/nãosendconcluído; guardas idempotentes existentes. Relatório preliminaratéconfirmar, fechamento vazio nãoinventasaldo. Estado único emcards/detalhe/indicadores/local/destinodevenda; clockatualizaevento semmudança deescopo. Memória45/documentooffline. Leragro-gestao/docs/ENTREGA-0.12.75.md eRETOMADA-EVENTOS-0.12.75.md.
+
+582unit/8browser320ampliadoleve-reduzido360393412/4CapacitorDOIS2temasPASS. Oficiallegado, pendente/adiado/cancelado/agendado, términoantesdohorário/histórico/reload, envioAPI simulado2confirmações/2relatórios; semalterarsaldo/vendas/movimentosfictícios. SemERPprincipal/WhatsAppreal/agendapessoal/relatóriorealenviado; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. APK9136050bytes/SHA2567e2e39ef786cb5861987ce8a9ce50cbf9aa2d97fd8e039733042e69bdefccc60/certoriginal/v2v3/48assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-rReno14 2026-10-23 16:12:55 / PKJ110 2026-10-23 16:13:01/115/0.12.75/Statusok/firstInstallTimepreservados;fixturesremovidos. NÃOrepetirbuild/verificador/cópia/instalação75.
+
+Clima27/servidor59/FirebaseSparkAppCheck/Calendar/ModoTeste/identidade/dadosreaispreservados. GitapenasAGRO2, consultarlog/remoto paraencerramento. Claudecffe32b/main956fddcinalterados. Sempendência deimplementação autorizada; encerramentodocumental nãoexigeAPK. Semsubagentes/automação,nãorecriar.
+
 # Entrega instalada — Ícone de Reposição0.12.74/code114
 
 Pedido23/10refinado: vermelha substitui verde dentroLoja, semdoisjuntos; botão vermelhoReporEstoque independente deLoja/setaVendendoEm. CardesgotadoabreRepor; ao repor esgotadosvolta verde.24px/contorno/semcírculo/recuo preservados; condições deeventoesnooze existentesmantidas. Memória44/documentooffline semposiçãoantiga. ModoTeste72/identidade/clima27/servidor59/Firebase/Calendar/registrosreaispreservados. Leragro-gestao/docs/ENTREGA-0.12.74.md eRETOMADA-CAIXINHA-0.12.74.md.

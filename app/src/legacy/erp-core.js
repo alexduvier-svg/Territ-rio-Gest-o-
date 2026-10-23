@@ -38,7 +38,10 @@ function unitLabel(unit,q){const units={Pacote:['pacote','pacotes'],Dúzia:['dú
 function description(p){p={...p,unit:p.unit,contentUnit:EUnits(p.contentUnit)};const measure=p.volume?(p.volume>=1000?quantity(p.volume/1000)+' L':quantity(p.volume)+' ml'):p.weight?(p.weight>=1000&&p.weight%1000===0?quantity(p.weight/1000)+' kg':quantity(p.weight)+' g'):'';return [p.category!=='Cafés'?p.type:'',p.variety&&!normalize(p.baseName||p.name).includes(normalize(p.variety))?p.variety:'',p.flavor,p.material,p.size,p.format,measure,p.unit==='Caixa'&&p.contentCount?quantity(p.contentCount)+' '+(p.contentUnit||'unidades')+' por caixa':''].filter(Boolean).join(' · ')||'Venda por '+p.unit.toLowerCase();}
 function EUnits(value){return String(value==null?'':value);}
 function productKey(p){return[normalize(p.baseName||p.name),normalize(p.category),p.type||'',p.format||'',p.unit,['Pacote','Pote','Vidro'].includes(p.unit)?p.weight||0:0,p.unit==='Vidro'?p.volume||0:0,p.unit==='Caixa'?p.contentCount||0:0,p.unit==='Caixa'?p.contentUnit||'unidades':'','general'].join('|')+((p.variety||p.flavor||p.material||p.size||p.volume&&p.unit!=='Vidro'||p.weight&&!['Pacote','Pote','Vidro','kg','Litro'].includes(p.unit))?'|'+[p.variety||'',p.flavor||'',p.material||'',p.size||'',p.unit!=='Vidro'?p.volume||0:0,!['Pacote','Pote','Vidro','kg','Litro'].includes(p.unit)?p.weight||0:0].join('|'):'');}
-function eventSellingNow(e,now){if(!e||e.status!=='active')return false;const stamp=now==null?Date.now():Number(now),day=dayKey(stamp);if(day<e.start||day>e.end)return false;const start=Date.parse(day+'T'+(e.from||'00:00')+':00-03:00'),end=Date.parse(day+'T'+(e.until||'23:59')+':00-03:00');return Number.isFinite(start)&&Number.isFinite(end)&&stamp>=start&&stamp<end;}
+// Operational end and verified closure are distinct, including older official fairs
+// whose closing record was saved while status still said active.
+function eventLifecycle(e,report={}){const cancelled=!!(e?.fairCancelled||e?.cancelledByProducer||report.cancelled),proof=e?.fairClosedAt||report.closedAt||e?.lossReviewedAt,ended=!!(cancelled||e?.status==='finished'||e?.status==='closed'||e?.finishedAt||proof),unreviewed=e?.surplusCheck?.conferido===false||!!(e?.lossReviewPending&&!e?.lossReviewedAt),closed=cancelled||!!(ended&&proof&&!unreviewed);return{cancelled,ended,closed,pending:ended&&!closed};}
+function eventSellingNow(e,now){if(!e||e.status!=='active'||eventLifecycle(e).ended)return false;const stamp=now==null?Date.now():Number(now),day=dayKey(stamp);if(day<e.start||day>e.end)return false;const start=Date.parse(day+'T'+(e.from||'00:00')+':00-03:00'),end=Date.parse(day+'T'+(e.until||'23:59')+':00-03:00');return Number.isFinite(start)&&Number.isFinite(end)&&stamp>=start&&stamp<end;}
 function seed(){
  const products=[
  {id:'banana',baseName:'Banana Prata',name:'Banana Prata',category:'Hortifruti-Granjeiro',unit:'Dúzia',stock:30,min:5,price:1000,cost:500},
@@ -159,6 +162,7 @@ class ERPModel{
   d.products=kept;d.inventoryRevision=20;d.inventoryMigrations=d.inventoryMigrations||[];d.inventoryMigrations.push({revision:20,date:stamp,previousProducts:archive,aliases:{...d.productAliases},quantityPreserved:true});
  }
 
+ eventLifecycle(id){return eventLifecycle(this.data.events.find(e=>e.id===id),(this.data.settings.fairReports||{})[id]||{});}
  product(id){const aliases=this.data.productAliases||{},seen=new Set();while(aliases[id]&&!seen.has(id)){seen.add(id);id=aliases[id];}return this.data.products.find(p=>p.id===id);}
  status(p){return p.stock<=0?'out':p.stock<=p.min?'low':'ok';}
  profile(p){const exact=this.data.profiles[productKey(p)]||this.data.products.find(x=>productKey(x)===productKey(p));if(exact)return{...exact};const c=COFFEE_PROFILES[p.type]||COFFEE_PROFILES.Especial;if(p.category==='Cafés'){const factor=(p.unit==='kg'?1000:p.weight||c.weight)/c.weight;return{...c,price:Math.round(c.price*factor),cost:Math.round(c.cost*factor)};}return classify(p.baseName||p.name);}
@@ -294,5 +298,5 @@ function qrEncode(text, fixedMask){
 }
 function qrSVG(payload){const qr=qrEncode(payload),quiet=4,n=qr.size+quiet*2;let path='';qr.matrix.forEach((row,y)=>row.forEach((dark,x)=>{if(dark)path+='M'+(x+quiet)+' '+(y+quiet)+'h1v1h-1z';}));return'<svg class="receipt-qr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+n+' '+n+'" role="img" aria-label="QR code para leitura pela câmera" shape-rendering="crispEdges"><rect width="'+n+'" height="'+n+'" fill="#fff"/><path d="'+path+'" fill="#000"/></svg>';}
 
-global.ERP={productName,displayUnits:EUnits,eventSellingNow,qrEncode,qrSVG,ERPModel,STATES,CATEGORIES,COFFEE_TYPES,PAYMENTS,COFFEE_PROFILES,normalize,number,cents,money,quantity,uid,dayKey,monthKey,classify,unitLabel,description,productKey,seed};
+global.ERP={productName,displayUnits:EUnits,eventLifecycle,eventSellingNow,qrEncode,qrSVG,ERPModel,STATES,CATEGORIES,COFFEE_TYPES,PAYMENTS,COFFEE_PROFILES,normalize,number,cents,money,quantity,uid,dayKey,monthKey,classify,unitLabel,description,productKey,seed};
 })(typeof window!=='undefined'?window:globalThis);

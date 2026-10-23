@@ -1,0 +1,27 @@
+{
+  "version": "0.12.75",
+  "device": "reno",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

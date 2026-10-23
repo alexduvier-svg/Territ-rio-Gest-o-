@@ -1,6 +1,6 @@
 # Premissas permanentes de interface — AGRO Gestão
 
-Versão 44, atualizada em 23/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
+Versão 45, atualizada em 23/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
 
 - **Volume:** hierarquia coerente por tamanho, peso e espaçamento. Não simular volume com excesso de negrito ou relevo nas letras.
 - **Nitidez:** leitura clara e contraste nos temas claro e escuro. Sem blur ou brilho nas letras. Rótulos de formulário com pelo menos 14 px, respeitando texto ampliado.
@@ -151,3 +151,7 @@ Armazenamento A/B próprio, sem sobrescrever dados ou rascunho reais. Ao sair, d
 Caixinha vermelha de estoque na pill Loja, substituindo o ícone verde: somente desenho em contorno, sem círculo/fundo/sombra ao redor; manter área de toque acessível.
 
 Cards sem estoque em Produtos: toque abre Repor Estoque do próprio produto, sem selecioná-lo para venda. Saldo disponível, reservas e carga continuam validados no domínio. Caixinha de alerta dentro da pill Loja, substituindo o ícone verde de Loja, à esquerda do nome, sem exibir os dois juntos; contorno sem círculo, ícone24px igual ao verde, área de toque preservada. Em tela pequena, acomodar a linha financeira sem cortar.
+
+## Estados do Evento — Premissa Permanente 45
+
+Evento finalizado sai dos ativos de Produtos e vai para Histórico das Feiras, inclusive registro oficial antigo com status ativo incoerente. Agendado em verde. Conferência Pendente com triângulo laranja de contorno. Encerrada somente após conferência confirmada; cancelamento continua separado. Adiar permite retomar com carga e acertos existentes, sem nova venda/perda automática e sem relatório concluído antes da revisão. Reutilizar a mesma classificação em cards, detalhes, destino de venda e indicadores, nos dois temas. Não alterar saldos por corrigir o estado.

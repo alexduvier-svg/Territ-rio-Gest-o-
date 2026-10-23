@@ -1,0 +1,146 @@
+{
+  "version": "0.12.75",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "event": {
+        "staleOfficialArchived": true,
+        "noFalseActive": true,
+        "scheduledGreen": true,
+        "pendingOrangeTriangle": true,
+        "deferredResumable": true,
+        "legacyResumable": true,
+        "confirmedClosed": true,
+        "noStockOrSaleMutation": true,
+        "officialReportOnce": true,
+        "reload": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

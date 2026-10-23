@@ -5,12 +5,14 @@ import {eventWeatherControl} from '../weather/index.js';
 
 export function installEventSurfaces(b){
  const date=(day,short=false)=>new Date(day+'T12:00:00-03:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit',year:short?'2-digit':'numeric',timeZone:'America/Sao_Paulo'});
- const live=e=>window.ERP.eventSellingNow(e,Date.now());
- const closed=e=>!!e.fairClosedAt||!!e.fairCancelled||!!b.eventState(e.id)?.report?.closedAt;
- const ended=e=>e.status==='finished'||closed(e);
- const canFinish=e=>!closed(e)&&b.eventState(e.id).started;
- const state=e=>e.fairCancelled?'Cancelado':closed(e)?'Finalizado':ended(e)?'Conferência Pendente':live(e)?'Ativo':'Agendado';
- const status=e=>'<span class="event-status '+(live(e)?'event-active':ended(e)?'event-finished':'event-scheduled')+'"><i aria-hidden="true"></i>'+state(e)+'</span>';
+ const phase=e=>window.ERP.eventLifecycle(e,b.eventState(e.id)?.report);
+ const live=e=>!phase(e).ended&&window.ERP.eventSellingNow(e,Date.now());
+ const closed=e=>phase(e).closed;
+ const ended=e=>phase(e).ended;
+ const canFinish=e=>!closed(e)&&(ended(e)||b.eventState(e.id).started);
+ const state=e=>phase(e).cancelled?'Cancelado':closed(e)?'Encerrada':ended(e)?'Conferência Pendente':live(e)?'Ativo':'Agendado';
+ const warning='<svg class="event-pending-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 4a2 2 0 0 1 3.4 0l8 14a2 2 0 0 1-1.7 3H4a2 2 0 0 1-1.7-3Z"/><path d="M12 9v5m0 3h.01"/></svg>';
+ const status=e=>'<span class="event-status '+(phase(e).pending?'event-pending':live(e)?'event-active':ended(e)?'event-finished':'event-scheduled')+'">'+(phase(e).pending?warning:'<i aria-hidden="true"></i>')+state(e)+'</span>';
  const record=id=>b.data().events.find(e=>e.id===id);
  const action=(name,label,id,cls='choice')=>b.button(name,label,cls,{id});
  const dates=e=>date(e.start)+(e.end!==e.start?' a '+date(e.end):'');
@@ -25,8 +27,8 @@ export function installEventSurfaces(b){
  function card(e){const active=!ended(e);return '<section class="panel event-card event-tile"><div class="event-tile-heading">'+status(e)+heading(e,true,true)+'</div>'+(active?'<div class="event-tile-weather">'+eventWeatherControl(e)+'</div>':'')+stock(e,true)+'<div class="event-main-actions'+(needsEventLoad(b.data(),e)?'':' single')+'">'+action('event-detail','Ver Evento',e.id,'choice event-view')+(needsEventLoad(b.data(),e)?action('event-load','Vender no Evento',e.id,'choice event-sell'):'')+'</div>'+(active?'<div class="event-reminder-actions">'+action('event-notify','Avisar Clientes',e.id)+action('event-calendar',b.icon('calendar')+'<span>Agenda</span>',e.id)+'</div>':'')+'</section>';}
  function detail(id){const e=record(id);if(!e)return;const meta=b.eventState(id),s=meta.report;
   const operational=(!ended(e)?'<section class="event-material-card"><h3>Avisos e Lembretes</h3><div class="event-detail-actions">'+action('event-notify','Avisar Clientes',id)+action('event-calendar',b.icon('calendar')+'<span>Agenda</span>',id)+'</div></section>':'');
-  const report=e.fairId?'<section class="event-material-card event-report-status"><h3>Relatório da Feira</h3><p class="small muted">'+(e.fairCancelled?'Participação cancelada.':s.closedAt?(s.pending?'Salvo no aparelho. Envio pendente de internet.':s.sentAt?'Relatório enviado à organização.':'Fechamento registrado.'):'Enviado à organização no fechamento, conforme sua autorização.')+'</p></section>':'';
-  const finish=canFinish(e)?action('fair-finish','Finalizar Evento',id,'success event-full-action'):'';
+  const report=e.fairId?'<section class="event-material-card event-report-status"><h3>Relatório da Feira</h3><p class="small muted">'+(e.fairCancelled?'Participação cancelada.':phase(e).pending?'Conferência pendente. O relatório será atualizado após sua confirmação.':s.closedAt?(s.pending?'Salvo no aparelho. Envio pendente de internet.':s.sentAt?'Relatório enviado à organização.':'Fechamento registrado.'):'Enviado à organização no fechamento, conforme sua autorização.')+'</p></section>':'';
+  const finish=canFinish(e)?action('fair-finish',ended(e)?'Conferir Evento':'Finalizar Evento',id,'success event-full-action'):'';
   const result='<details class="event-material-card event-results-link"><summary>Resultados e Comparativos '+b.icon('down')+'</summary><p class="small muted">Vendas, custos e análises ficam na Gestão.</p>'+action('event-management','Ver na Gestão',id,'choice event-full-action')+'</details>';
   b.open(properName(e.name),'<div class="event-detail-cards"><section class="event-material-card event-info-section">'+status(e)+heading(e,false,true)+'</section>'+(!ended(e)?'<section class="event-material-card event-climate-section"><h3>Expectativa de Tempo</h3>'+eventWeatherControl(e)+'</section>':'')+stock(e)+operational+report+finish+result+'</div>',b.button('close-modal','Voltar','sheet-back'),'event-detail');
  }

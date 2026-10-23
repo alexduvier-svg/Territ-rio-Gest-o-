@@ -59,7 +59,7 @@ export function installFairSurplusUI(b) {
   };
   const open = id => {
     const e=b.getModel().data.events.find(e=>e.id===id);if(!e)return;
-    if(e.fairCancelled||e.fairClosedAt||b.stateFor(e).closedAt){b.toast('Este evento já foi finalizado. O relatório acompanha as novas vendas.');return;}
+    if(b.getModel().eventLifecycle(id).closed){b.toast('Este evento já foi encerrado. O relatório acompanha as novas vendas.');return;}
     const s=snapshot(id);
     state={id,snapshot:s,openedAt:Date.now(),stage:'confirm',counts:{},reasons:{},note:b.stateFor(e).note||'',question:null,error:'',busy:false};
     paint();
@@ -81,12 +81,12 @@ export function installFairSurplusUI(b) {
   const commit = async (direct,confirmed=true) => {
     if(!state||state.busy)return;
     capture();let p;
-    try{p=plan(direct,confirmed);}catch(error){onError(error);return;}
+    try{p=plan(direct,confirmed);if(confirmed&&!state.snapshot.eligible)p.check.conferido=true;}catch(error){onError(error);return;}
     state.busy=true;
     const id=state.id,previous=b.getModel(),copy=new b.Model(JSON.parse(JSON.stringify(previous.data))),e=copy.data.events.find(e=>e.id===id);
     const stamp=new Date().toISOString(),checkId=b.uid();
     try{
-      if(e.fairCancelled||e.fairClosedAt||b.stateFor(e).closedAt)throw Error('Este evento já foi finalizado.');
+      if(copy.eventLifecycle(id).closed)throw Error('Este evento já foi encerrado.');
       b.setLateBusy(true);
       for(const line of p.sales){
         const sale=copy.complete({scope:id,items:[{productId:line.productId,rawQty:String(line.qty)}],payment:p.payment,
@@ -112,11 +112,11 @@ export function installFairSurplusUI(b) {
       const units={};
       for(const row of p.check.itens){const value=units[row.unidade]||(units[row.unidade]={unidade:row.unidade,diferencaTotal:0,diferencaLiquida:0});value.diferencaTotal=Math.round((value.diferencaTotal+Math.abs(row.real-row.calculado))*1000)/1000;value.diferencaLiquida=Math.round((value.diferencaLiquida+row.real-row.calculado)*1000)/1000;}
       e.surplusCheckMetrics.porUnidade=Object.values(units);
-      e.fairClosedAt=stamp;if(!e.fairId)e.status='finished';e.finishedAt=stamp;e.closedAutomatically=false;
+      if(p.check.conferido)e.fairClosedAt=stamp;e.status='finished';e.finishedAt=e.finishedAt||stamp;e.closedAutomatically=false;
       if(p.check.conferido){e.lossReviewedAt=stamp;e.lossReviewPending=false;}else b.markLossReview(e);
       const reports=copy.data.settings.fairReports||{},old=reports[id]||{};
       const counts=p.check.conferido?Object.fromEntries(state.snapshot.rows.map(row=>[row.productId,Number(String(state.counts[row.key]??row.calculated).replace(',','.'))])):{};
-      copy.data.settings.fairReports={...reports,[id]:{...old,closedAt:stamp,counts,note:state.note.trim(),consentAt:old.consentAt||e.fairConsentAt||stamp,snoozeAt:'',pending:!!e.fairId}};
+      copy.data.settings.fairReports={...reports,[id]:{...old,closedAt:p.check.conferido?stamp:old.closedAt||'',counts,note:state.note.trim(),consentAt:old.consentAt||e.fairConsentAt||stamp,snoozeAt:'',pending:!!e.fairId&&p.check.conferido,payload:null}};
       // Commit the complete model once; a validation failure leaves the live model untouched.
       b.setModel(copy);
       if(!b.persist()){b.setModel(previous);throw Error('Não foi possível salvar. Libere espaço e tente novamente.');}
@@ -124,7 +124,8 @@ export function installFairSurplusUI(b) {
     }catch(error){b.setModel(previous);state.busy=false;onError(error);return;}
     finally{b.setLateBusy(false);}
     state=null;b.closeNumberPad();
-    b.openModal(e.fairName||e.name,`<div class="ff-done"><span class="ff-done-icon" aria-hidden="true">${b.icon('check')}</span><strong>${e.fairId?'Feira':'Evento'} finalizado</strong><span id="ff-done-status">Gravando a conferência…</span></div>`,'fair-done',null,button('close-modal','Pronto','success modal-action'));
+    const checked=e.surplusCheck.conferido;
+    b.openModal(e.fairName||e.name,`<div class="ff-done"><span class="ff-done-icon" aria-hidden="true">${b.icon(checked?'check':'box')}</span><strong>${checked?'Feira Encerrada':'Conferência Pendente'}</strong><span id="ff-done-status">${checked?'Gravando a conferência…':'Evento no histórico. Continue a conferência em Ver Evento.'}</span></div>`,'fair-done',null,button('close-modal','Pronto','success modal-action'));
     b.render();
     const native=window.TerritorioNative;
     if(native?.isNative&&native.durable&&!(await native.durable())){
@@ -132,6 +133,7 @@ export function installFairSurplusUI(b) {
       if(el)el.textContent='Gravação pendente no aparelho. Libere espaço; o app tenta salvar novamente antes de enviar.';
       return;
     }
+    if(!checked)return;
     if(e.fairId){
       const ok=await b.sendReport(id,true),el=document.getElementById('ff-done-status');
       if(el)el.textContent=ok?'Relatório enviado à organização ✓':'Relatório salvo e pendente de envio. O app tenta sozinho quando houver conexão.';

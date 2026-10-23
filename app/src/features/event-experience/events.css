@@ -49,6 +49,10 @@
 #app .event-tile .event-status,.event-info-section .event-status{display:inline-flex;align-items:center;gap:6px;border-radius:999px;font-size:12px;font-weight:650;padding:5px 9px;background:var(--field);border:1px solid var(--line);color:var(--material-muted)}
 .event-info-section .event-status i{width:7px;height:7px;border-radius:50%;background:currentColor}
 #app .event-tile .event-status.event-active,.event-info-section .event-status.event-active{color:var(--accent-ink,var(--action-green))}
+#app .event-tile .event-status.event-scheduled,.event-info-section .event-status.event-scheduled{color:var(--accent-ink,var(--action-green))}
+#app .event-tile .event-status.event-pending,.event-info-section .event-status.event-pending{color:#ffb340}
+:root[data-theme='light'] :is(#app .event-tile,.event-info-section) .event-status.event-pending{color:#965000}
+.event-status .event-pending-icon{width:16px;height:16px;flex:none;background:none}
 .event-tile-weather{margin-top:12px}.event-tile-weather .weather-event{margin:0!important}
 #app .event-tile .weather-event,.event-climate-section .weather-event{display:flex;align-items:center;gap:9px;width:100%;padding:13px;border-radius:18px;background:var(--material-face);border:1px solid var(--material-line);box-shadow:var(--material-depth);color:var(--material-text);font-size:13px;line-height:1.35;text-align:left}
 .event-climate-section .weather-event{margin:0;background:var(--field);box-shadow:inset 0 1px 2px #ffffff12,0 3px 0 #00000010}
