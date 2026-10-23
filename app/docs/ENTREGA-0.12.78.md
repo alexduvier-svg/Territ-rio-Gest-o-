@@ -12,3 +12,5 @@ Pasta original: `C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-2-0.12.
 - PKJ110: 2026-10-23 20:07:37, Status ok; primeira instalação 2026-10-14 18:17:06 preservada.
 
 Fixtures removidos dos dois. Publicação somente no ramo AGRO2; conferir commit final no log. Encerramento documental posterior não exige refazer o APK.
+
+Implementação commit/push `69f223b3963016031a0513c41683e624afe6732f` confirmada no remoto AGRO2; fixtures, capturas e forwards removidos dos dois aparelhos. Nenhuma pendência autorizada restante.
