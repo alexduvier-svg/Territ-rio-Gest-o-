@@ -1,6 +1,6 @@
 # Entrega 0.12.70 — Zero na Reposição e Contagem por Feira
 
-Instalada em23/10/2026. AGRO Gestão2, pacote br.com.territorio.gestao2, code110. Git em fechamento.
+Concluída em23/10/2026. AGRO Gestão2, pacote br.com.territorio.gestao2, code110.
 
 ## Resultado
 
@@ -26,4 +26,4 @@ Cópia original conferida:C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gesta
 
 ## Git e retomada
 
-Somente codex/atualizacao-agro-gestao2. Fetch início/marco/antespublicação:Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b/main956fddceec2b994e32c154c5197424a4f56df7f2 preservados. Código e QA sintéticos; sem APK/segredo/capturas/dados pessoais na publicação. Commit/push pendentes; confirmar no remoto antes de concluir. Automação excluída, não recriar.
+Somente codex/atualizacao-agro-gestao2. Fetch início/marco/antespublicação:Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b/main956fddceec2b994e32c154c5197424a4f56df7f2 preservados. Código e QA sintéticos; sem APK/segredo/capturas/dados pessoais na publicação. Implementação commit/push0a0a2196e7a3af823181dc50f135c609cb0ebdd6 confirmados no remotoAGRO2/worktreelimpo antes deste encerramento documental. Nenhuma pendência autorizada restante. Encerramento documental pode ter commit posterior; não refazer APK. Automação excluída, não recriar.
