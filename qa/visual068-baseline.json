@@ -1,0 +1,121 @@
+{
+  "version": "0.12.67",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "schedule": [
+        {
+          "date": {
+            "x": 60,
+            "y": 810.734375,
+            "width": 173,
+            "height": 50,
+            "bottom": 860.734375
+          },
+          "time": {
+            "x": 243,
+            "y": 825.734375,
+            "width": 90,
+            "height": 52,
+            "bottom": 877.734375
+          },
+          "dateLabel": {
+            "x": 60,
+            "y": 783.4375,
+            "width": 173,
+            "height": 20.296875,
+            "bottom": 803.734375
+          },
+          "timeLabel": {
+            "x": 243,
+            "y": 798.4375,
+            "width": 90,
+            "height": 20.296875,
+            "bottom": 818.734375
+          }
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 921.03125,
+            "width": 173,
+            "height": 50,
+            "bottom": 971.03125
+          },
+          "time": {
+            "x": 243,
+            "y": 936.03125,
+            "width": 90,
+            "height": 52,
+            "bottom": 988.03125
+          },
+          "dateLabel": {
+            "x": 60,
+            "y": 893.734375,
+            "width": 173,
+            "height": 20.296875,
+            "bottom": 914.03125
+          },
+          "timeLabel": {
+            "x": 243,
+            "y": 908.734375,
+            "width": 90,
+            "height": 20.296875,
+            "bottom": 929.03125
+          }
+        }
+      ],
+      "stock": [
+        {
+          "id": "coffee250",
+          "height": 107.578125,
+          "width": 325,
+          "icons": 1
+        },
+        {
+          "id": "coffee500",
+          "height": 106.578125,
+          "width": 325,
+          "icons": 1
+        },
+        {
+          "id": "banana",
+          "height": 106.578125,
+          "width": 325,
+          "icons": 1
+        },
+        {
+          "id": "dates",
+          "height": 106.578125,
+          "width": 325,
+          "icons": 1
+        },
+        {
+          "id": "soon",
+          "height": 106.578125,
+          "width": 325,
+          "icons": 2
+        },
+        {
+          "id": "salame",
+          "height": 106.578125,
+          "width": 325,
+          "icons": 2
+        },
+        {
+          "id": "inactive",
+          "height": 106.578125,
+          "width": 325,
+          "icons": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

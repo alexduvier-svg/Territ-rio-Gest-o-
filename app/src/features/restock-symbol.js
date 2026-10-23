@@ -6,7 +6,7 @@ export function restockSymbol(){return '<svg class="restock-symbol" viewBox="0 0
 export function installRestockSymbols(){
  const app=document.getElementById('app');let pending=false;
  function place(){pending=false;const writes=[];
-  for(const card of app.querySelectorAll('.feira-card,.feira-row')){
+  for(const card of app.querySelectorAll('.feira-card')){
    const symbols=[...card.querySelectorAll('.restock-symbol,.product-outline')].sort((a,b)=>Number(b.matches('.restock-symbol'))-Number(a.matches('.restock-symbol')));if(!symbols.length)continue;
    const bounds=card.getBoundingClientRect(),scale=bounds.width/card.offsetWidth;if(!scale||!bounds.height)continue;
    const text=[];const walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT);

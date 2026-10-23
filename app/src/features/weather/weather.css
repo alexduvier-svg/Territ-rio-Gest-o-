@@ -31,3 +31,16 @@
 @media(max-width:359px){.glass-sales-location .glass-sales-total{font-size:14px}.glass-sales-location .glass-location{gap:4px}.weather-temperature-track{width:20px}.weather-day>summary{column-gap:6px;padding-inline:10px}.weather-day-range{gap:4px}}
 @media(prefers-reduced-motion:reduce){.weather-day-arrow{transition:none}}
 #dialog[data-kind=weather] .checkout-footer{padding:12px 14px;display:flex;flex-direction:column;gap:0}#dialog[data-kind=weather] .checkout-footer>.sheet-back{margin:0!important;width:100%;min-height:44px;flex:none}
+
+/* Static semantic colors: rain is blue; a bolt requires forecast thunder. */
+.weather-cloud.weather-wet .weather-cloud-shape{stroke:#2474b8;fill:#2474b814}
+.weather-cloud.weather-wet .weather-rain{stroke:#2474b8}
+.weather-cloud .weather-lightning{stroke:#b97609;fill:#eaa62b;stroke-width:.8}
+:root[data-theme=dark] .weather-cloud.weather-wet .weather-cloud-shape{stroke:#7fc6ff;fill:#7fc6ff14}
+:root[data-theme=dark] .weather-cloud.weather-wet .weather-rain{stroke:#7fc6ff}
+:root[data-theme=dark] .weather-cloud .weather-lightning{stroke:#ffc857;fill:#ffc857}
+
+.weather-freshness{display:grid;gap:5px;padding:14px 16px;border-radius:18px;background:var(--surface-soft);border:1px solid var(--line);font-size:13px;line-height:1.45;margin:12px 0 18px;color:var(--muted)}
+.weather-freshness strong{font-weight:650;color:var(--text)}
+.weather-observation-note,.weather-check-status{font-size:14px;line-height:1.5;color:var(--muted)}
+.weather-check-status{padding:12px;border-radius:14px;background:var(--surface-soft)}

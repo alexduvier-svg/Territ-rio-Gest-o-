@@ -17,7 +17,9 @@ export function forecastWindow(data,event,now=Date.now()) {
   return {ready:expected>0&&coverage>=expected-1000,rain,probability,partial,coverage,expected};
 }
 export function nextForecastPoint(data,now=Date.now()) {
-  return data?.points?.find(p=>Date.parse(p.time)>=now-3600000&&Date.parse(p.time)<=now+6*3600000)||null;
+  const points=(data?.points||[]).filter(p=>Number.isFinite(Date.parse(p.time))&&Number.isFinite(p.temp)).slice().sort((a,b)=>Date.parse(a.time)-Date.parse(b.time));
+  const current=points.filter(p=>Date.parse(p.time)<=now&&now<Date.parse(p.time)+HOUR).at(-1);
+  return current||points.find(p=>Date.parse(p.time)>now&&Date.parse(p.time)<=now+6*HOUR)||null;
 }
 
 // The app labels all forecast times in Brasília (UTC-3), including day boundaries.

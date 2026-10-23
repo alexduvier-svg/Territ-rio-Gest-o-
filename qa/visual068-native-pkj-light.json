@@ -1,0 +1,317 @@
+{
+  "version": "0.12.68",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "pkj",
+      "theme": "light",
+      "physical": true,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 60,
+            "y": 936.65625,
+            "right": 200,
+            "bottom": 988.65625,
+            "width": 140,
+            "height": 52
+          },
+          "time": {
+            "x": 210,
+            "y": 936.65625,
+            "right": 300,
+            "bottom": 988.65625,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 909.359375,
+            "right": 200,
+            "bottom": 929.65625,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 909.359375,
+            "right": 300,
+            "bottom": 929.65625,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 1031.953125,
+            "right": 200,
+            "bottom": 1083.953125,
+            "width": 140,
+            "height": 52
+          },
+          "time": {
+            "x": 210,
+            "y": 1031.953125,
+            "right": 300,
+            "bottom": 1083.953125,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 1004.65625,
+            "right": 200,
+            "bottom": 1024.953125,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 1004.65625,
+            "right": 300,
+            "bottom": 1024.953125,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0.001953125
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 60,
+            "y": 936.65625,
+            "right": 197.2421875,
+            "bottom": 996.65625,
+            "width": 137.2421875,
+            "height": 60
+          },
+          "time": {
+            "x": 207.2421875,
+            "y": 936.65625,
+            "right": 300,
+            "bottom": 996.65625,
+            "width": 92.7578125,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 909.359375,
+            "right": 197.2421875,
+            "bottom": 929.65625,
+            "width": 137.2421875,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 207.2421875,
+            "y": 909.359375,
+            "right": 300,
+            "bottom": 929.65625,
+            "width": 92.7578125,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 1039.953125,
+            "right": 200,
+            "bottom": 1099.953125,
+            "width": 140,
+            "height": 60
+          },
+          "time": {
+            "x": 210,
+            "y": 1039.953125,
+            "right": 300,
+            "bottom": 1099.953125,
+            "width": 90,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 1012.65625,
+            "right": 200,
+            "bottom": 1032.953125,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 1012.65625,
+            "right": 300,
+            "bottom": 1032.953125,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.26171875,
+        "parent": 316,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 292,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 292,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    }
+  ],
+  "errors": [],
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}

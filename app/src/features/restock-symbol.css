@@ -3,3 +3,12 @@
 :root[data-theme=dark] #app :is(.feira-card,.feira-row)>.restock-symbol{color:#ff7b87}
 #app :is(.feira-card,.feira-row)>.product-outline{position:absolute;display:block;width:22px;height:22px;visibility:hidden;color:#61794c;pointer-events:none;flex:none;margin:0;padding:0}
 :root[data-theme=dark] #app :is(.feira-card,.feira-row)>.product-outline{color:#b7cb9c}
+
+/* Stock uses only a small warning after a sold-out product name. */
+#app .feira-row>.fr-main{padding:0;min-width:0}
+.stock-row-heading{display:flex;align-items:center;gap:8px;min-width:0}
+.stock-row-heading>strong{min-width:0;flex:0 1 auto;line-height:1.35;overflow-wrap:anywhere}
+.stock-row-restock{display:inline-flex;align-items:center;justify-content:center;flex:0 0 18px;width:18px;height:20px;pointer-events:none}
+.stock-row-restock>.restock-symbol{position:static;display:block;visibility:visible;width:18px;height:18px;margin:0;color:#bc263b}
+:root[data-theme=dark] .stock-row-restock>.restock-symbol{color:#ff7b87}
+#app .feira-row>.fr-main>small{padding-left:0}

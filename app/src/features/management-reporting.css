@@ -30,3 +30,14 @@ html[data-large-text=true] .mg-report-figures{grid-template-columns:minmax(0,1fr
 html[data-large-text=true] .mg-report-chapter strong{font-size:18px}
 html[data-large-text=true] .mg-report-guide dd,html[data-large-text=true] .mg-report-chapter span small{font-size:15px}
 @media(max-width:359px){.mg-report-figures{grid-template-columns:minmax(0,1fr)}.mg-report-reading .mg-report-chapter{grid-template-columns:23px minmax(0,1fr) 14px;gap:8px;padding:13px}.mg-report-guide{padding:14px}}
+
+/* Explore a period through two existing material cards, with details on demand. */
+.mg-explore-groups{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-bottom:24px;min-width:0}
+#app .mg-explore-card{margin:0;padding:0;overflow:hidden;background:var(--material-face);border-radius:24px;border:1px solid var(--material-line);box-shadow:var(--material-depth)}
+#app .mg-explore-card>summary{display:flex;align-items:center;gap:12px;min-height:78px;padding:16px;list-style:none;cursor:pointer;margin:0}
+.mg-explore-symbol{display:grid;place-items:center;flex:0 0 28px;color:var(--accent-ink)}.mg-explore-symbol>.icon{width:24px;height:24px}
+.mg-explore-label{display:grid;gap:5px;flex:1;min-width:0}.mg-explore-label>strong{font:650 18px/1.3 'Inter Tight Variable',sans-serif;overflow-wrap:anywhere}.mg-explore-label>small{font:450 13px/1.4 'Inter Variable',sans-serif;color:var(--material-muted)}
+.mg-explore-card>summary>.icon{width:18px;height:18px;flex:none;color:var(--material-muted)}
+#app .mg-explore-content{padding:0 16px 4px;border-top:1px solid var(--line)}
+.mg-explore-content .mg-row{min-height:64px;padding:12px 0;gap:10px}.mg-explore-content .mg-ico{flex:0 0 26px;width:26px;height:28px}.mg-explore-content .mg-text strong{font-size:15px}.mg-explore-content .mg-text small{font-size:12px}
+html[data-large-text=true] .mg-explore-label>strong{font-size:20px}html[data-large-text=true] .mg-explore-label>small{font-size:15px}

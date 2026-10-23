@@ -110,3 +110,12 @@ Relatórios partem do pedido e recorte, coletam fatos locais, usam o cálculo ca
 ## Ajuste67 — agenda e olho do resumo
 
 Calendário do Município tem20px de separação da pill Participar de Outra Feira. Voltar usa o rodapé do sistema, inteiro e centralizado, com seta comum e sem X duplicado. O olho do Resumo do Dia somente mostra/esconde valores na janela existente; nunca anima abertura/fechamento da janela, reconstrói conteúdo ou perde rolagem/foco/custo ainda não salvo.
+
+
+## Revisão68 — coesão de Eventos, Gestão e Estoque
+
+Data e horário com rótulos alinhados e pills de mesma altura; manter o seletor do app. Evento criado tem Cancelar Evento discreto e a confirmação existente. Feira Inventário com Relatório reúne Entrar com QR Code ou Código. Explorar o Período em dois cards recolhíveis: Finanças e Relatórios; Produtos e Clientes. Inteligência em consulta, orientações e guias secundários, usando o material comum, sem textos técnicos na tarefa diária. Estoque com apenas um ícone à esquerda do nome: desenho se disponível, duas setas vermelhas se esgotado; sem esticar as linhas. Pill Loja sem repetir nome de evento: nome no indicador verde externo, preservando o escopo real.
+
+Tempo/revisão68: vetores estáticos leves, nuvem azul apenas com chuva prevista; raio amarelo/laranja somente quando a fonte informa trovoada. Horário de emissão da fonte, cópia salva e verificação são distintos. Exibir intervalo previsto; não anunciar horário futuro como medição atual. O mesmo agendador faz a virada visual da hora usando cache, sem consulta extra antes da validade. Verificar Atualização respeita validade/recuo e informa quando a fonte mantém a previsão. Dado observado pelo usuário não é substituído por certeza inventada.
+
+Refinamento23/10: retirar todos os desenhos de família nas linhas do Estoque. Somente produtos com saldo zerado exibem as duas setas vermelhas, pequenas, após o nome e afastadas da quantidade e bordas. Produtos com saldo não exibem desenho. Não aumentar os cards para acomodar ícones. Esta solicitação posterior substitui a experiência de ícones à esquerda da revisão68.

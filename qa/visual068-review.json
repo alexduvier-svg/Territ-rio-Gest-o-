@@ -1,0 +1,2378 @@
+{
+  "version": "0.12.68",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 54,
+            "y": 964.765625,
+            "right": 266,
+            "bottom": 1016.765625,
+            "width": 212,
+            "height": 52
+          },
+          "time": {
+            "x": 54,
+            "y": 1056.953125,
+            "right": 266,
+            "bottom": 1109.75,
+            "width": 212,
+            "height": 52.796875
+          },
+          "label": {
+            "x": 54,
+            "y": 934.578125,
+            "right": 266,
+            "bottom": 957.765625,
+            "width": 212,
+            "height": 23.1875
+          },
+          "timeLabel": {
+            "x": 54,
+            "y": 1026.765625,
+            "right": 266,
+            "bottom": 1049.953125,
+            "width": 212,
+            "height": 23.1875
+          },
+          "paired": false,
+          "labelGap": 92.1875,
+          "pillGap": 92.1875,
+          "heightGap": 0.796875,
+          "wholeValue": true,
+          "center": 0.0078125
+        },
+        {
+          "date": {
+            "x": 54,
+            "y": 1155.9375,
+            "right": 266,
+            "bottom": 1207.9375,
+            "width": 212,
+            "height": 52
+          },
+          "time": {
+            "x": 54,
+            "y": 1248.125,
+            "right": 266,
+            "bottom": 1300.921875,
+            "width": 212,
+            "height": 52.796875
+          },
+          "label": {
+            "x": 54,
+            "y": 1125.75,
+            "right": 266,
+            "bottom": 1148.9375,
+            "width": 212,
+            "height": 23.1875
+          },
+          "timeLabel": {
+            "x": 54,
+            "y": 1217.9375,
+            "right": 266,
+            "bottom": 1241.125,
+            "width": 212,
+            "height": 23.1875
+          },
+          "paired": false,
+          "labelGap": 92.1875,
+          "pillGap": 92.1875,
+          "heightGap": 0.796875,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 54,
+            "y": 964.765625,
+            "right": 266,
+            "bottom": 1016.765625,
+            "width": 212,
+            "height": 52
+          },
+          "time": {
+            "x": 54,
+            "y": 1056.953125,
+            "right": 266,
+            "bottom": 1109.75,
+            "width": 212,
+            "height": 52.796875
+          },
+          "label": {
+            "x": 54,
+            "y": 934.578125,
+            "right": 266,
+            "bottom": 957.765625,
+            "width": 212,
+            "height": 23.1875
+          },
+          "timeLabel": {
+            "x": 54,
+            "y": 1026.765625,
+            "right": 266,
+            "bottom": 1049.953125,
+            "width": 212,
+            "height": 23.1875
+          },
+          "paired": false,
+          "labelGap": 92.1875,
+          "pillGap": 92.1875,
+          "heightGap": 0.796875,
+          "wholeValue": true,
+          "center": 0.0078125
+        },
+        {
+          "date": {
+            "x": 54,
+            "y": 1155.9375,
+            "right": 266,
+            "bottom": 1207.9375,
+            "width": 212,
+            "height": 52
+          },
+          "time": {
+            "x": 54,
+            "y": 1248.125,
+            "right": 266,
+            "bottom": 1300.921875,
+            "width": 212,
+            "height": 52.796875
+          },
+          "label": {
+            "x": 54,
+            "y": 1125.75,
+            "right": 266,
+            "bottom": 1148.9375,
+            "width": 212,
+            "height": 23.1875
+          },
+          "timeLabel": {
+            "x": 54,
+            "y": 1217.9375,
+            "right": 266,
+            "bottom": 1241.125,
+            "width": 212,
+            "height": 23.1875
+          },
+          "paired": false,
+          "labelGap": 92.1875,
+          "pillGap": 92.1875,
+          "heightGap": 0.796875,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.265625,
+        "parent": 276,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 252,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 252,
+          "height": 103.96875,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 252,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 252,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 252,
+          "height": 107.375,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 252,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 252,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 60,
+            "y": 919.140625,
+            "right": 200,
+            "bottom": 971.140625,
+            "width": 140,
+            "height": 52
+          },
+          "time": {
+            "x": 210,
+            "y": 919.140625,
+            "right": 300,
+            "bottom": 971.140625,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 891.84375,
+            "right": 200,
+            "bottom": 912.140625,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 891.84375,
+            "right": 300,
+            "bottom": 912.140625,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 1014.4375,
+            "right": 200,
+            "bottom": 1066.4375,
+            "width": 140,
+            "height": 52
+          },
+          "time": {
+            "x": 210,
+            "y": 1014.4375,
+            "right": 300,
+            "bottom": 1066.4375,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 987.140625,
+            "right": 200,
+            "bottom": 1007.4375,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 987.140625,
+            "right": 300,
+            "bottom": 1007.4375,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 60,
+            "y": 919.140625,
+            "right": 197.234375,
+            "bottom": 979.140625,
+            "width": 137.234375,
+            "height": 60
+          },
+          "time": {
+            "x": 207.234375,
+            "y": 919.140625,
+            "right": 300,
+            "bottom": 979.140625,
+            "width": 92.765625,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 891.84375,
+            "right": 197.234375,
+            "bottom": 912.140625,
+            "width": 137.234375,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 207.234375,
+            "y": 891.84375,
+            "right": 300,
+            "bottom": 912.140625,
+            "width": 92.765625,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 1022.4375,
+            "right": 200,
+            "bottom": 1082.4375,
+            "width": 140,
+            "height": 60
+          },
+          "time": {
+            "x": 210,
+            "y": 1022.4375,
+            "right": 300,
+            "bottom": 1082.4375,
+            "width": 90,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 995.140625,
+            "right": 200,
+            "bottom": 1015.4375,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 995.140625,
+            "right": 300,
+            "bottom": 1015.4375,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.265625,
+        "parent": 316,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 292,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 292,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 60,
+            "y": 879.921875,
+            "right": 233,
+            "bottom": 931.921875,
+            "width": 173,
+            "height": 52
+          },
+          "time": {
+            "x": 243,
+            "y": 879.921875,
+            "right": 333,
+            "bottom": 931.921875,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 852.625,
+            "right": 233,
+            "bottom": 872.921875,
+            "width": 173,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 243,
+            "y": 852.625,
+            "right": 333,
+            "bottom": 872.921875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 975.21875,
+            "right": 233,
+            "bottom": 1027.21875,
+            "width": 173,
+            "height": 52
+          },
+          "time": {
+            "x": 243,
+            "y": 975.21875,
+            "right": 333,
+            "bottom": 1027.21875,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 947.921875,
+            "right": 233,
+            "bottom": 968.21875,
+            "width": 173,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 243,
+            "y": 947.921875,
+            "right": 333,
+            "bottom": 968.21875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 60,
+            "y": 879.921875,
+            "right": 230.234375,
+            "bottom": 939.921875,
+            "width": 170.234375,
+            "height": 60
+          },
+          "time": {
+            "x": 240.234375,
+            "y": 879.921875,
+            "right": 333,
+            "bottom": 939.921875,
+            "width": 92.765625,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 852.625,
+            "right": 230.234375,
+            "bottom": 872.921875,
+            "width": 170.234375,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 240.234375,
+            "y": 852.625,
+            "right": 333,
+            "bottom": 872.921875,
+            "width": 92.765625,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 983.21875,
+            "right": 233,
+            "bottom": 1043.21875,
+            "width": 173,
+            "height": 60
+          },
+          "time": {
+            "x": 243,
+            "y": 983.21875,
+            "right": 333,
+            "bottom": 1043.21875,
+            "width": 90,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 955.921875,
+            "right": 233,
+            "bottom": 976.21875,
+            "width": 173,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 243,
+            "y": 955.921875,
+            "right": 333,
+            "bottom": 976.21875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.265625,
+        "parent": 349,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 325,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 325,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 60,
+            "y": 879.921875,
+            "right": 252,
+            "bottom": 931.921875,
+            "width": 192,
+            "height": 52
+          },
+          "time": {
+            "x": 262,
+            "y": 879.921875,
+            "right": 352,
+            "bottom": 931.921875,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 852.625,
+            "right": 252,
+            "bottom": 872.921875,
+            "width": 192,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 262,
+            "y": 852.625,
+            "right": 352,
+            "bottom": 872.921875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 975.21875,
+            "right": 252,
+            "bottom": 1027.21875,
+            "width": 192,
+            "height": 52
+          },
+          "time": {
+            "x": 262,
+            "y": 975.21875,
+            "right": 352,
+            "bottom": 1027.21875,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 947.921875,
+            "right": 252,
+            "bottom": 968.21875,
+            "width": 192,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 262,
+            "y": 947.921875,
+            "right": 352,
+            "bottom": 968.21875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 60,
+            "y": 879.921875,
+            "right": 249.234375,
+            "bottom": 939.921875,
+            "width": 189.234375,
+            "height": 60
+          },
+          "time": {
+            "x": 259.234375,
+            "y": 879.921875,
+            "right": 352,
+            "bottom": 939.921875,
+            "width": 92.765625,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 852.625,
+            "right": 249.234375,
+            "bottom": 872.921875,
+            "width": 189.234375,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 259.234375,
+            "y": 852.625,
+            "right": 352,
+            "bottom": 872.921875,
+            "width": 92.765625,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 983.21875,
+            "right": 252,
+            "bottom": 1043.21875,
+            "width": 192,
+            "height": 60
+          },
+          "time": {
+            "x": 262,
+            "y": 983.21875,
+            "right": 352,
+            "bottom": 1043.21875,
+            "width": 90,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 955.921875,
+            "right": 252,
+            "bottom": 976.21875,
+            "width": 192,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 262,
+            "y": 955.921875,
+            "right": 352,
+            "bottom": 976.21875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.265625,
+        "parent": 368,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 344,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 344,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 54,
+            "y": 964.765625,
+            "right": 266,
+            "bottom": 1016.765625,
+            "width": 212,
+            "height": 52
+          },
+          "time": {
+            "x": 54,
+            "y": 1056.953125,
+            "right": 266,
+            "bottom": 1109.75,
+            "width": 212,
+            "height": 52.796875
+          },
+          "label": {
+            "x": 54,
+            "y": 934.578125,
+            "right": 266,
+            "bottom": 957.765625,
+            "width": 212,
+            "height": 23.1875
+          },
+          "timeLabel": {
+            "x": 54,
+            "y": 1026.765625,
+            "right": 266,
+            "bottom": 1049.953125,
+            "width": 212,
+            "height": 23.1875
+          },
+          "paired": false,
+          "labelGap": 92.1875,
+          "pillGap": 92.1875,
+          "heightGap": 0.796875,
+          "wholeValue": true,
+          "center": 0.0078125
+        },
+        {
+          "date": {
+            "x": 54,
+            "y": 1155.9375,
+            "right": 266,
+            "bottom": 1207.9375,
+            "width": 212,
+            "height": 52
+          },
+          "time": {
+            "x": 54,
+            "y": 1248.125,
+            "right": 266,
+            "bottom": 1300.921875,
+            "width": 212,
+            "height": 52.796875
+          },
+          "label": {
+            "x": 54,
+            "y": 1125.75,
+            "right": 266,
+            "bottom": 1148.9375,
+            "width": 212,
+            "height": 23.1875
+          },
+          "timeLabel": {
+            "x": 54,
+            "y": 1217.9375,
+            "right": 266,
+            "bottom": 1241.125,
+            "width": 212,
+            "height": 23.1875
+          },
+          "paired": false,
+          "labelGap": 92.1875,
+          "pillGap": 92.1875,
+          "heightGap": 0.796875,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 54,
+            "y": 964.765625,
+            "right": 266,
+            "bottom": 1016.765625,
+            "width": 212,
+            "height": 52
+          },
+          "time": {
+            "x": 54,
+            "y": 1056.953125,
+            "right": 266,
+            "bottom": 1109.75,
+            "width": 212,
+            "height": 52.796875
+          },
+          "label": {
+            "x": 54,
+            "y": 934.578125,
+            "right": 266,
+            "bottom": 957.765625,
+            "width": 212,
+            "height": 23.1875
+          },
+          "timeLabel": {
+            "x": 54,
+            "y": 1026.765625,
+            "right": 266,
+            "bottom": 1049.953125,
+            "width": 212,
+            "height": 23.1875
+          },
+          "paired": false,
+          "labelGap": 92.1875,
+          "pillGap": 92.1875,
+          "heightGap": 0.796875,
+          "wholeValue": true,
+          "center": 0.0078125
+        },
+        {
+          "date": {
+            "x": 54,
+            "y": 1155.9375,
+            "right": 266,
+            "bottom": 1207.9375,
+            "width": 212,
+            "height": 52
+          },
+          "time": {
+            "x": 54,
+            "y": 1248.125,
+            "right": 266,
+            "bottom": 1300.921875,
+            "width": 212,
+            "height": 52.796875
+          },
+          "label": {
+            "x": 54,
+            "y": 1125.75,
+            "right": 266,
+            "bottom": 1148.9375,
+            "width": 212,
+            "height": 23.1875
+          },
+          "timeLabel": {
+            "x": 54,
+            "y": 1217.9375,
+            "right": 266,
+            "bottom": 1241.125,
+            "width": 212,
+            "height": 23.1875
+          },
+          "paired": false,
+          "labelGap": 92.1875,
+          "pillGap": 92.1875,
+          "heightGap": 0.796875,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.265625,
+        "parent": 276,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 252,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 252,
+          "height": 103.96875,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 252,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 252,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 252,
+          "height": 107.375,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 252,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 252,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 60,
+            "y": 919.140625,
+            "right": 200,
+            "bottom": 971.140625,
+            "width": 140,
+            "height": 52
+          },
+          "time": {
+            "x": 210,
+            "y": 919.140625,
+            "right": 300,
+            "bottom": 971.140625,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 891.84375,
+            "right": 200,
+            "bottom": 912.140625,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 891.84375,
+            "right": 300,
+            "bottom": 912.140625,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 1014.4375,
+            "right": 200,
+            "bottom": 1066.4375,
+            "width": 140,
+            "height": 52
+          },
+          "time": {
+            "x": 210,
+            "y": 1014.4375,
+            "right": 300,
+            "bottom": 1066.4375,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 987.140625,
+            "right": 200,
+            "bottom": 1007.4375,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 987.140625,
+            "right": 300,
+            "bottom": 1007.4375,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 60,
+            "y": 919.140625,
+            "right": 197.234375,
+            "bottom": 979.140625,
+            "width": 137.234375,
+            "height": 60
+          },
+          "time": {
+            "x": 207.234375,
+            "y": 919.140625,
+            "right": 300,
+            "bottom": 979.140625,
+            "width": 92.765625,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 891.84375,
+            "right": 197.234375,
+            "bottom": 912.140625,
+            "width": 137.234375,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 207.234375,
+            "y": 891.84375,
+            "right": 300,
+            "bottom": 912.140625,
+            "width": 92.765625,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 1022.4375,
+            "right": 200,
+            "bottom": 1082.4375,
+            "width": 140,
+            "height": 60
+          },
+          "time": {
+            "x": 210,
+            "y": 1022.4375,
+            "right": 300,
+            "bottom": 1082.4375,
+            "width": 90,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 995.140625,
+            "right": 200,
+            "bottom": 1015.4375,
+            "width": 140,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 210,
+            "y": 995.140625,
+            "right": 300,
+            "bottom": 1015.4375,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.265625,
+        "parent": 316,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 292,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 292,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 292,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 60,
+            "y": 879.921875,
+            "right": 233,
+            "bottom": 931.921875,
+            "width": 173,
+            "height": 52
+          },
+          "time": {
+            "x": 243,
+            "y": 879.921875,
+            "right": 333,
+            "bottom": 931.921875,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 852.625,
+            "right": 233,
+            "bottom": 872.921875,
+            "width": 173,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 243,
+            "y": 852.625,
+            "right": 333,
+            "bottom": 872.921875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 975.21875,
+            "right": 233,
+            "bottom": 1027.21875,
+            "width": 173,
+            "height": 52
+          },
+          "time": {
+            "x": 243,
+            "y": 975.21875,
+            "right": 333,
+            "bottom": 1027.21875,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 947.921875,
+            "right": 233,
+            "bottom": 968.21875,
+            "width": 173,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 243,
+            "y": 947.921875,
+            "right": 333,
+            "bottom": 968.21875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 60,
+            "y": 879.921875,
+            "right": 230.234375,
+            "bottom": 939.921875,
+            "width": 170.234375,
+            "height": 60
+          },
+          "time": {
+            "x": 240.234375,
+            "y": 879.921875,
+            "right": 333,
+            "bottom": 939.921875,
+            "width": 92.765625,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 852.625,
+            "right": 230.234375,
+            "bottom": 872.921875,
+            "width": 170.234375,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 240.234375,
+            "y": 852.625,
+            "right": 333,
+            "bottom": 872.921875,
+            "width": 92.765625,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 983.21875,
+            "right": 233,
+            "bottom": 1043.21875,
+            "width": 173,
+            "height": 60
+          },
+          "time": {
+            "x": 243,
+            "y": 983.21875,
+            "right": 333,
+            "bottom": 1043.21875,
+            "width": 90,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 955.921875,
+            "right": 233,
+            "bottom": 976.21875,
+            "width": 173,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 243,
+            "y": 955.921875,
+            "right": 333,
+            "bottom": 976.21875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.265625,
+        "parent": 349,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 325,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 325,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 325,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "alignedSchedule": true,
+      "schedule": [
+        {
+          "date": {
+            "x": 60,
+            "y": 879.921875,
+            "right": 252,
+            "bottom": 931.921875,
+            "width": 192,
+            "height": 52
+          },
+          "time": {
+            "x": 262,
+            "y": 879.921875,
+            "right": 352,
+            "bottom": 931.921875,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 852.625,
+            "right": 252,
+            "bottom": 872.921875,
+            "width": 192,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 262,
+            "y": 852.625,
+            "right": 352,
+            "bottom": 872.921875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 975.21875,
+            "right": 252,
+            "bottom": 1027.21875,
+            "width": 192,
+            "height": 52
+          },
+          "time": {
+            "x": 262,
+            "y": 975.21875,
+            "right": 352,
+            "bottom": 1027.21875,
+            "width": 90,
+            "height": 52
+          },
+          "label": {
+            "x": 60,
+            "y": 947.921875,
+            "right": 252,
+            "bottom": 968.21875,
+            "width": 192,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 262,
+            "y": 947.921875,
+            "right": 352,
+            "bottom": 968.21875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "enlarged": [
+        {
+          "date": {
+            "x": 60,
+            "y": 879.921875,
+            "right": 249.234375,
+            "bottom": 939.921875,
+            "width": 189.234375,
+            "height": 60
+          },
+          "time": {
+            "x": 259.234375,
+            "y": 879.921875,
+            "right": 352,
+            "bottom": 939.921875,
+            "width": 92.765625,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 852.625,
+            "right": 249.234375,
+            "bottom": 872.921875,
+            "width": 189.234375,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 259.234375,
+            "y": 852.625,
+            "right": 352,
+            "bottom": 872.921875,
+            "width": 92.765625,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        },
+        {
+          "date": {
+            "x": 60,
+            "y": 983.21875,
+            "right": 252,
+            "bottom": 1043.21875,
+            "width": 192,
+            "height": 60
+          },
+          "time": {
+            "x": 262,
+            "y": 983.21875,
+            "right": 352,
+            "bottom": 1043.21875,
+            "width": 90,
+            "height": 60
+          },
+          "label": {
+            "x": 60,
+            "y": 955.921875,
+            "right": 252,
+            "bottom": 976.21875,
+            "width": 192,
+            "height": 20.296875
+          },
+          "timeLabel": {
+            "x": 262,
+            "y": 955.921875,
+            "right": 352,
+            "bottom": 976.21875,
+            "width": 90,
+            "height": 20.296875
+          },
+          "paired": true,
+          "labelGap": 0,
+          "pillGap": 0,
+          "heightGap": 0,
+          "wholeValue": true,
+          "center": 0
+        }
+      ],
+      "commonClock": true,
+      "compactCancellation": true,
+      "cancelBox": {
+        "height": 40,
+        "width": 122.265625,
+        "parent": 368,
+        "inside": true
+      },
+      "cancelledHistory": true,
+      "fairLabels": true,
+      "shopScopePreserved": true,
+      "restockOnlyWhenEmpty": true,
+      "stock": [
+        {
+          "id": "coffee250",
+          "width": 344,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "coffee500",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "banana",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "dates",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "soon",
+          "width": 344,
+          "height": 100,
+          "count": 1,
+          "out": true,
+          "arrows": true,
+          "outline": false,
+          "afterName": true,
+          "fit": true,
+          "nameFit": true,
+          "visible": true
+        },
+        {
+          "id": "salame",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        },
+        {
+          "id": "inactive",
+          "width": 344,
+          "height": 100,
+          "count": 0,
+          "out": false,
+          "arrows": false,
+          "outline": false,
+          "afterName": false,
+          "fit": true,
+          "nameFit": true,
+          "visible": null
+        }
+      ],
+      "noStretchedStock": true,
+      "twoExplorationCards": true,
+      "explorationSurvivesRefresh": true,
+      "allReportActions": [
+        "financas",
+        "custos",
+        "pagamentos",
+        "relatorios",
+        "produtos",
+        "estoque",
+        "clientes",
+        "onde",
+        "horarios"
+      ],
+      "intelligenceLayout": true,
+      "queryWorks": true,
+      "hierarchyPreserved": true,
+      "weatherSourceTimes": true,
+      "weatherColors": true,
+      "weatherManualCheck": true,
+      "recordsPreserved": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

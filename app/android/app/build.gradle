@@ -12,8 +12,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 107
-        versionName "0.12.67"
+        versionCode 108
+        versionName "0.12.68"
         resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
         resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
         resValue 'string', 'agro_education_project_id', educationConfig.projectId ?: ''
