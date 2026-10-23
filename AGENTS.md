@@ -1,3 +1,9 @@
+# Código79 Concluído e Publicado — Classificação de Cafés Aguarda Resposta
+
+0.12.79/code119 entregueAPKoriginaleDOIS,625unit/8browser/4Capacitor2temas,bootfrioAGRO.UI6trueDOIS. Commit/push8294bee1b972552ace0766b2a4be68ef6cf3faf8 confirmadosno remotoAGRO2/worktreelimpo. NÃOrepetirbuild/verificador/copy/install79 parafechamentodocumental. Ver docs/ENTREGA-0.12.79.md. Claude cffe32b/main956fddc preservados. NenhumBDrealcopiado/lidooutransaçãocriada; UIrealinspecionada/Renopreservacadastropendente.
+
+Novo pedido de alterar tambémcafés em Vender e Estoque: siglasnãoaparecemsemcoffeeRoast, usuáriodefiniu escolhercaféporcafé. Respondeu"sim"à pergunta nome/peso→torra, SEMmapearvalores. Agora3perguntasdeescolhapendentes: Especial250/500/1kg, Gourmet250/500/1kg, Tradicional1kg: ClaraTC/MédiaTM/EscuraTE. NÃOconsiderarsimtorra, NÃOatribuirdefault,nãoinventar. AindaNENHUMcadastrorealalterado. Aplicarclassificaçãoautorizadasócomrespostas eporIDpreservandoestoque/preço/custo/históricos; tambémoutroscafés(Catuaí/Conilon)seexistiremdependemclassificaçãoexplícita. Nãofazerpacknova/dadosfictíciosprodução sóparasiglasaparecerem. Semsubagentes/automação.
+
 # Novo Pedido — Atualizar Cafés Existentes em Vendas e Estoque
 
 Após instalar79, usuárioinforma cardssemTC/TM/TE e pede trocarcadastros pelosnovosmodelos, tambémemEstoque. Perguntado: apenasvisualoualterarcafés? Respondeu ALTERARTAMBÉMosCAFÉS/EESCOLHERTORRADECADACAFÉ. PerguntaagoraPENDENTE: nome/peso→ClaraTC/MédiaTM/EscuraTE, podeumarespostaparapesosiguais. NÃOatribuir torra sem essa resposta, NÃOsobrescrever estoque/preço/custo/vendas/histórico, NÃOcopiarERPentreaparelhos. Nenhumcadastrorealalteradoatéagora. Correçãodecódigo79jáinstalada/testada; encerramentoGit79independentedaclassificaçãodadosaguardandoinformação. TC/TM/TE aparecequando coffeeRoast registrado; nãoinventar campo ausente. UIrealRenopreservacadastroemedição, não cancelar rascunho para navegar.

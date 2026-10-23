@@ -30,3 +30,5 @@ Cópia conferida em `C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-2-0
 - PKJ110 (PKJ110): atualização 2026-10-23 20:52:30; primeira instalação preservada 2026-10-14 18:17:06; abertura confirmada.
 
 Pacotes de teste, capturas temporárias dos aparelhos e encaminhamentos ADB próprios removidos. Identidade do AGRO Gestão 2, dados de cada aparelho, clima, servidor de pedidos, Firebase Spark/App Check e calendário preservados. Não foram copiados dados de negócio entre celulares. Publicação somente no ramo AGRO2 autorizado; Claude e main preservados.
+
+Implementação publicada no ramo `codex/atualizacao-agro-gestao2`, commit `8294bee1b972552ace0766b2a4be68ef6cf3faf8`, com hash confirmado no remoto. O pedido posterior de classificar os cafés existentes depende da torra real informada pelo produtor; nenhuma classificação foi inventada ou aplicada aos cadastros reais nesta entrega.
