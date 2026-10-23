@@ -1,0 +1,137 @@
+{
+  "version": "0.12.67",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "pkj",
+      "theme": "light",
+      "physical": true,
+      "spacing": {
+        "closed": {
+          "gap": 20,
+          "left": 22,
+          "right": 338,
+          "width": 360,
+          "overflow": false
+        },
+        "expanded": {
+          "gap": 20,
+          "left": 22,
+          "right": 338,
+          "width": 360,
+          "overflow": false
+        }
+      },
+      "footers": [
+        {
+          "kind": "municipal-agenda",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.5,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 340,
+          "viewport": 360,
+          "footerHeight": 75,
+          "buttonHeight": 48,
+          "bodyScrollable": true
+        },
+        {
+          "kind": "municipal-form",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.5,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 340,
+          "viewport": 360,
+          "footerHeight": 137.94921875,
+          "buttonHeight": 48,
+          "bodyScrollable": true
+        },
+        {
+          "kind": "municipal-form",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.5,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 340,
+          "viewport": 360,
+          "footerHeight": 137.94921875,
+          "buttonHeight": 48,
+          "bodyScrollable": true
+        },
+        {
+          "kind": "municipal-form",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.5,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 340,
+          "viewport": 360,
+          "footerHeight": 137.94921875,
+          "buttonHeight": 48,
+          "bodyScrollable": true
+        },
+        {
+          "kind": "municipal-detail",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.5,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 340,
+          "viewport": 360,
+          "footerHeight": 75,
+          "buttonHeight": 48,
+          "bodyScrollable": false
+        }
+      ],
+      "privacyValuesOnly": true,
+      "stable": {
+        "body": true,
+        "head": true,
+        "eye": true,
+        "input": true,
+        "footer": true,
+        "underlay": true,
+        "scroll": true,
+        "opened": 0,
+        "closed": 0,
+        "buttonFeedback": 8,
+        "rootMotion": 0,
+        "position": true,
+        "finiteAnimations": 0
+      },
+      "sessionPrivacyPreserved": true,
+      "recordsPreserved": true
+    }
+  ],
+  "errors": [],
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}

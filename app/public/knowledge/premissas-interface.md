@@ -105,3 +105,8 @@ Horário de evento inteiro em uma linha, como 08:00. Não dividir minutos nem co
 ## Complemento22/10 — análise, CRM/PDV e agenda
 
 Relatórios partem do pedido e recorte, coletam fatos locais, usam o cálculo canônico e passam por auditoria antes da leitura. Dicas dePDV/CRM alternam uma referência por dia quando elegíveis, abaixo de alertas/fatos; não comprovam um efeito. Conversão de atendimentos é opcional, nunca requisito da venda individual, diária ou de feira. A agenda municipal aceitaPDF/imagem como referência semOCR,ICS com revisão e datas manuais. Calendário ajuda a preparar e confirmar oportunidades; não inventa demanda, parceiros, margem, feriado ou programação. Fonte profissional revisada: knowledge/crm-pdv-profissional.md; aderência parcial explícita em docs/CRM-PDV-ADERENCIA-0.12.66.md.
+
+
+## Ajuste67 — agenda e olho do resumo
+
+Calendário do Município tem20px de separação da pill Participar de Outra Feira. Voltar usa o rodapé do sistema, inteiro e centralizado, com seta comum e sem X duplicado. O olho do Resumo do Dia somente mostra/esconde valores na janela existente; nunca anima abertura/fechamento da janela, reconstrói conteúdo ou perde rolagem/foco/custo ainda não salvo.

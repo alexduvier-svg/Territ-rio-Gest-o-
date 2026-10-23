@@ -1,0 +1,137 @@
+{
+  "version": "0.12.67",
+  "device": "reno",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "reno",
+      "theme": "dark",
+      "physical": true,
+      "spacing": {
+        "closed": {
+          "gap": 20.00000762939453,
+          "left": 22.000001907348633,
+          "right": 336.8571491241455,
+          "width": 359,
+          "overflow": false
+        },
+        "expanded": {
+          "gap": 19.999984741210938,
+          "left": 22.000001907348633,
+          "right": 336.8571491241455,
+          "width": 359,
+          "overflow": false
+        }
+      },
+      "footers": [
+        {
+          "kind": "municipal-agenda",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.499996185302734,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 338.8571472167969,
+          "viewport": 359,
+          "footerHeight": 90.85714721679688,
+          "buttonHeight": 48.000003814697266,
+          "bodyScrollable": true
+        },
+        {
+          "kind": "municipal-form",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.499996185302734,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 338.8571472167969,
+          "viewport": 359,
+          "footerHeight": 153.5178680419922,
+          "buttonHeight": 48.000003814697266,
+          "bodyScrollable": true
+        },
+        {
+          "kind": "municipal-form",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.499996185302734,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 338.8571472167969,
+          "viewport": 359,
+          "footerHeight": 153.5178680419922,
+          "buttonHeight": 48.000003814697266,
+          "bodyScrollable": true
+        },
+        {
+          "kind": "municipal-form",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.499996185302734,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 338.8571472167969,
+          "viewport": 359,
+          "footerHeight": 153.5178680419922,
+          "buttonHeight": 48.000003814697266,
+          "bodyScrollable": true
+        },
+        {
+          "kind": "municipal-detail",
+          "registered": true,
+          "noX": true,
+          "whole": true,
+          "center": 13.499996185302734,
+          "icon": true,
+          "fit": true,
+          "left": 20,
+          "right": 338.8571472167969,
+          "viewport": 359,
+          "footerHeight": 90.85714721679688,
+          "buttonHeight": 48.000003814697266,
+          "bodyScrollable": false
+        }
+      ],
+      "privacyValuesOnly": true,
+      "stable": {
+        "body": true,
+        "head": true,
+        "eye": true,
+        "input": true,
+        "footer": true,
+        "underlay": true,
+        "scroll": true,
+        "opened": 0,
+        "closed": 0,
+        "buttonFeedback": 8,
+        "rootMotion": 0,
+        "position": true,
+        "finiteAnimations": 0
+      },
+      "sessionPrivacyPreserved": true,
+      "recordsPreserved": true
+    }
+  ],
+  "errors": [],
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}
