@@ -121,6 +121,7 @@ function checklist(id) {
 
 window.TerritorioAdvisor = {
   insights,
+  evaluate: input => { last = buildGuidance(input); return last; },
   planning: id => {const d=find(id);return d?.testable?{id:d.id,title:d.title,hypothesis:d.hypothesis,action:d.todo,measure:d.evaluation,period:last.periodLabel,context:last.quality.context}:null;},
   panel,
   detail,

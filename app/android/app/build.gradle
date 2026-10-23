@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+// Public Firebase app configuration is supplied locally, never a Gemini secret or service account.
+def educationFile = file('firebase-local/general-education.json')
+def educationConfig = educationFile.exists() ? new groovy.json.JsonSlurper().parse(educationFile) : [:]
+
 android {
     namespace = "br.com.territorio.gestao"
     testBuildType "release"
@@ -8,8 +12,12 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 105
-        versionName "0.12.65"
+        versionCode 106
+        versionName "0.12.66"
+        resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
+        resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
+        resValue 'string', 'agro_education_project_id', educationConfig.projectId ?: ''
+        resValue 'string', 'agro_education_sender_id', educationConfig.senderId ?: ''
         // Physical Android phones: retain 32/64-bit ARM; omit unused emulator binaries.
         ndk { abiFilters 'armeabi-v7a', 'arm64-v8a' }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -35,6 +43,10 @@ repositories {
 }
 
 dependencies {
+    implementation platform('com.google.firebase:firebase-bom:35.0.2')
+    implementation 'com.google.firebase:firebase-ai'
+    implementation 'com.google.firebase:firebase-appcheck-playintegrity'
+    implementation 'com.google.guava:guava:33.4.8-android'
     implementation 'androidx.work:work-runtime:2.11.2'
 
 

@@ -1,0 +1,2864 @@
+{
+  "metadados": {
+    "versao": "1.1.0",
+    "data": "2026-10-22",
+    "idioma": "pt-BR",
+    "tipo": "base_conhecimento_sem_estoque",
+    "catalogo_referencia": {
+      "arquivo": "Catalogo_AGRO_Gestao_2479_produtos.zip",
+      "versao": "1.0.0",
+      "total_itens": 2479,
+      "sha256_catalogo": "d21cc68486f8cc478b5c31ccd4d565f7f8034b1927075bf27b5a3e327b1cc116"
+    },
+    "receitas_base": 12,
+    "ideias_culinarias": 24,
+    "projetos_artesanais": 20,
+    "meses_calendario": 12,
+    "importacao_automatica_nao_autorizada": true
+  },
+  "campanha_natal": {
+    "evento": "Natal",
+    "data_fixa": "12-25",
+    "ancora_planejamento": "data_de_entrega_prometida",
+    "janelas_dias_antes": [
+      [
+        60,
+        45
+      ],
+      [
+        30,
+        21
+      ],
+      [
+        14,
+        7
+      ]
+    ],
+    "kits": [
+      "Café para presentear",
+      "Café e broa",
+      "Café e caneca",
+      "Doces e queijo",
+      "Cesta do território"
+    ],
+    "condicoes": [
+      "composição e orçamento confirmados",
+      "ofertas de parceiros atualizadas",
+      "embalagem adequada",
+      "capacidade e margem verificadas",
+      "conservação validada"
+    ],
+    "sem_producao_antecipada_de_pereciveis_por_calendario": true
+  },
+  "embalagens": [
+    {
+      "id": "emb_001",
+      "produto_contexto": "Café torrado",
+      "tipo_candidato": "Saco multicamada com barreira e selagem",
+      "por_que": "Ajuda a limitar contato com oxigênio, vapor de água e luz conforme a estrutura.",
+      "limites": "Kraft externo e zíper não provam barreira. Válvula pode integrar sistema validado para liberação de gases da torra; não é obrigatória em toda oferta.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_002",
+      "produto_contexto": "Broa e biscoito seco",
+      "tipo_candidato": "Saco alimentar selável com barreira à umidade",
+      "por_que": "Busca preservar textura e proteger o alimento na exposição.",
+      "limites": "Papel simples pode ter barreira insuficiente. Não embalar quente em sistema que acumule condensação; validar processo.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_003",
+      "produto_contexto": "Bolo inteiro",
+      "tipo_candidato": "Base alimentar e caixa firme ou tampa rígida",
+      "por_que": "Reduz contato e deformação; permite transportar e apresentar.",
+      "limites": "Confirmar resistência a gordura e dimensões. Caixa decorativa sozinha pode não ser superfície alimentar.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_004",
+      "produto_contexto": "Fatia de bolo",
+      "tipo_candidato": "Recipiente individual alimentar com fechamento",
+      "por_que": "Facilita porcionamento e reduz manuseio na venda.",
+      "limites": "O custo por porção pode ser elevado. Coberturas frágeis precisam de espaço e estabilidade.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_005",
+      "produto_contexto": "Curau canjica e arroz doce",
+      "tipo_candidato": "Pote alimentar com tampa e condição térmica declarada",
+      "por_que": "Contém produto úmido, facilita porção e transporte.",
+      "limites": "Exigir compatibilidade com alimento, temperatura de envase e conservação. PP ou PET no nome não basta para aprovar uso quente, freezer ou micro-ondas.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_006",
+      "produto_contexto": "Doce de colher e mel",
+      "tipo_candidato": "Pote ou frasco alimentar com fechamento compatível",
+      "por_que": "Ajuda a evitar vazamento e permite visualizar o produto.",
+      "limites": "Vidro pesa e quebra; tampa e vedante importam. Envase quente e reutilização exigem processo próprio. Embalagem não torna conserva estável.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_007",
+      "produto_contexto": "Queijo",
+      "tipo_candidato": "Filme saco ou sistema de vácuo definido para o queijo",
+      "por_que": "Pode conter umidade e proteger durante distribuição em sistema validado.",
+      "limites": "Nem todo queijo aceita o mesmo sistema. Vácuo não esteriliza nem elimina refrigeração quando necessária; não presumir aumento de validade.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_008",
+      "produto_contexto": "Folhas e hortaliças frescas",
+      "tipo_candidato": "Caixa ventilada ou saco perfurado conforme produto",
+      "por_que": "Busca reduzir esmagamento e equilibrar ventilação e perda de água.",
+      "limites": "Respiração e umidade variam. Não recomendar saco hermético universal nem perfuração arbitrária sem teste.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_009",
+      "produto_contexto": "Frutas delicadas",
+      "tipo_candidato": "Bandeja ou caixa com berço e ventilação adequada",
+      "por_que": "Reduz compressão e movimentação durante o transporte.",
+      "limites": "Não superlotar. Medir perdas e avaliar necessidade de cada camada; transparência não significa proteção contra calor.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_010",
+      "produto_contexto": "Alimento congelado",
+      "tipo_candidato": "Saco ou pote próprio para congelamento e fechamento",
+      "por_que": "Busca resistir ao processo e reduzir desidratação quando a barreira é adequada.",
+      "limites": "Validar material, temperatura, vedação e espaço quando houver expansão. Congelar não corrige deterioração.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_011",
+      "produto_contexto": "Cesta de presente",
+      "tipo_candidato": "Embalagens alimentares individuais e cesta externa",
+      "por_que": "Separa proteção sanitária de composição visual e facilita montar parcerias.",
+      "limites": "Palha, tecido e enchimento decorativo ficam separados do alimento aberto. Não esconder rótulos ou misturar itens aromáticos que transfiram odores.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_012",
+      "produto_contexto": "Cerâmica e artesanato frágil",
+      "tipo_candidato": "Caixa rígida divisórias e amortecimento",
+      "por_que": "Reduz choque entre peças e movimentação no trajeto.",
+      "limites": "Papel decorativo fino não substitui proteção. Fazer teste de transporte representativo e revisar peso final.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_013",
+      "produto_contexto": "Bordados e crochê",
+      "tipo_candidato": "Envelope caixa ou saco protetor dimensionado",
+      "por_que": "Protege de sujeira, atrito e umidade conforme a solução.",
+      "limites": "Acondicionar peça seca. Embalagem excessiva aumenta custo e volume; incluir instruções de cuidado confirmadas pelo artesão.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    },
+    {
+      "id": "emb_014",
+      "produto_contexto": "Entrega de perecíveis",
+      "tipo_candidato": "Embalagem primária adequada e caixa térmica higienizável",
+      "por_que": "Ajuda a manter a condição térmica durante percurso validado.",
+      "limites": "Caixa térmica não cria frio. Tempo, temperatura inicial, carga e elementos refrigerantes devem ser definidos e verificados; separar alimento de água de degelo.",
+      "status": "orientacao_condicionada_a_especificacao_e_teste",
+      "preco": null,
+      "capacidade": null,
+      "temperatura_envase": null,
+      "temperatura_armazenamento": null,
+      "documentacao_fornecedor": null,
+      "validade_resultante": null
+    }
+  ],
+  "receitas": [
+    {
+      "id": "rec_001",
+      "nome": "Bolo de fubá",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Fubá mimoso",
+          "quantidade": 200,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_9a2db4efb7ba09f3",
+            "agro_31562259c6e291c9"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Farinha de trigo",
+          "quantidade": 100,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_59688eb3a3e61866",
+            "agro_c602651a35bc7196"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 180,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Ovo",
+          "quantidade": 3,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "quantidade": 240,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Óleo vegetal",
+          "quantidade": 100,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        },
+        {
+          "nome": "Fermento químico",
+          "quantidade": 12,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        }
+      ],
+      "preparo": [
+        "Misturar ovos, leite, óleo e açúcar. Incorporar fubá e farinha; juntar o fermento por último.",
+        "Transferir para forma untada compatível com o volume. Assar em forno preaquecido a 180 °C por cerca de 35 a 45 minutos, verificando o cozimento do centro.",
+        "Esfriar protegido e pesar o rendimento antes de definir fatias e preço."
+      ],
+      "ocasioes": [
+        "Festas juninas",
+        "Café da tarde"
+      ],
+      "complementos": [
+        "Café",
+        "Pano de prato bordado"
+      ],
+      "alergenicos_potenciais": [
+        "trigo",
+        "ovo",
+        "leite"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_002",
+      "nome": "Broa de fubá",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Fubá mimoso",
+          "quantidade": 200,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_9a2db4efb7ba09f3",
+            "agro_31562259c6e291c9"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Farinha de trigo",
+          "quantidade": 150,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_59688eb3a3e61866",
+            "agro_c602651a35bc7196"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 100,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Manteiga sem sal",
+          "quantidade": 80,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_bb04e396c3211279",
+            "agro_7211532e66896b94"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Ovo",
+          "quantidade": 1,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "quantidade": 80,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Fermento químico",
+          "quantidade": 10,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        }
+      ],
+      "preparo": [
+        "Misturar secos e manteiga; adicionar ovo e leite aos poucos até obter massa modelável.",
+        "Modelar porções iguais e distribuir em assadeira. Assar a 180 °C, aproximadamente 20 a 30 minutos, até a massa estar cozida.",
+        "Registrar peso por unidade, perdas e quantidade final no lote piloto."
+      ],
+      "ocasioes": [
+        "Festas juninas",
+        "Cestas de café"
+      ],
+      "complementos": [
+        "Café",
+        "Cesto de bambu"
+      ],
+      "alergenicos_potenciais": [
+        "trigo",
+        "leite",
+        "ovo"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_003",
+      "nome": "Pão de queijo",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Polvilho azedo",
+          "quantidade": 250,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_a495640efde00f3d",
+            "agro_e7c8d849dd294be9"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "quantidade": 120,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Óleo vegetal",
+          "quantidade": 60,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        },
+        {
+          "nome": "Ovo",
+          "quantidade": 1,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Queijo meia cura",
+          "quantidade": 150,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_d82c612e118cebd4",
+            "agro_8c5a26719b27bbe6",
+            "agro_fa402f48445e0789"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Sal",
+          "quantidade": 3,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        }
+      ],
+      "preparo": [
+        "Aquecer leite e óleo; escaldar o polvilho com cuidado e deixar amornar.",
+        "Acrescentar ovo, sal e queijo ralado. Ajustar a modelagem conforme a umidade real da massa, registrando qualquer ajuste.",
+        "Modelar unidades iguais e assar a 200 °C até expansão, superfície dourada e centro cozido, em geral 25 a 35 minutos."
+      ],
+      "ocasioes": [
+        "Aniversário de Carangola",
+        "Cestas de café"
+      ],
+      "complementos": [
+        "Café",
+        "Bandeja de madeira"
+      ],
+      "alergenicos_potenciais": [
+        "leite",
+        "ovo"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_004",
+      "nome": "Bolo de mandioca",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Mandioca de mesa",
+          "quantidade": 500,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_271fc4c129d70278"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 180,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Ovo",
+          "quantidade": 3,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "quantidade": 200,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Manteiga sem sal",
+          "quantidade": 60,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_bb04e396c3211279",
+            "agro_7211532e66896b94"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Coco ralado seco",
+          "quantidade": 50,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_ff2cea7e2fd4d000",
+            "agro_1b5b6f36a7a0cdd0"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        }
+      ],
+      "preparo": [
+        "Usar mandioca de mesa de procedência conhecida, descascada e ralada. Não usar mandioca de variedade desconhecida.",
+        "Misturar todos os ingredientes e colocar em forma untada. Assar a 180 °C por aproximadamente 45 a 60 minutos, até o centro estar cozido.",
+        "Pesar somente após o resfriamento. Não presumir ausência de glúten por lista de ingredientes."
+      ],
+      "ocasioes": [
+        "Festas juninas",
+        "Feira rural"
+      ],
+      "complementos": [
+        "Café",
+        "Toalha de mesa bordada"
+      ],
+      "alergenicos_potenciais": [
+        "leite",
+        "ovo"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_005",
+      "nome": "Canjica doce",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Milho de canjica branco",
+          "quantidade": 250,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_5a82c3ec16582e59",
+            "agro_b2361ad46861f30f"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Água",
+          "quantidade": 1500,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "quantidade": 800,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 150,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Coco ralado seco",
+          "quantidade": 40,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_ff2cea7e2fd4d000",
+            "agro_1b5b6f36a7a0cdd0"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Canela em pau",
+          "quantidade": 1,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_56ef9f51e0ca0f98",
+            "agro_7a20af0dbcf15caa"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        }
+      ],
+      "preparo": [
+        "Hidratar o milho conforme orientação da embalagem, sob condições higiênicas e refrigeração; descartar a água de hidratação.",
+        "Cozinhar em água limpa até ficar macio. Na panela de pressão, seguir capacidade e instruções do fabricante.",
+        "Adicionar leite, açúcar, coco e canela; cozinhar mexendo até a consistência desejada. Definir serviço quente ou resfriamento controlado antes da venda."
+      ],
+      "ocasioes": [
+        "Festas juninas"
+      ],
+      "complementos": [
+        "Milho de canjica branco",
+        "Pote de cerâmica"
+      ],
+      "alergenicos_potenciais": [
+        "leite"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_006",
+      "nome": "Arroz doce",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Arroz branco",
+          "quantidade": 150,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_b7bf738006172e30",
+            "agro_17ab566ab4c98f0c"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Água",
+          "quantidade": 450,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "quantidade": 700,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 120,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Canela em pau",
+          "quantidade": 1,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_56ef9f51e0ca0f98",
+            "agro_7a20af0dbcf15caa"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        }
+      ],
+      "preparo": [
+        "Cozinhar o arroz na água até amaciar.",
+        "Juntar leite, açúcar e canela; cozinhar em fogo baixo mexendo até ficar cremoso.",
+        "Porcionar com utensílios higienizados e registrar o peso final. Serviço e conservação dependem de controle sanitário próprio."
+      ],
+      "ocasioes": [
+        "Festas juninas",
+        "Festas comunitárias"
+      ],
+      "complementos": [
+        "Pano de prato bordado"
+      ],
+      "alergenicos_potenciais": [
+        "leite"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_007",
+      "nome": "Curau de milho",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Milho verde em grãos",
+          "quantidade": 500,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_5dea5b104280347b"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "quantidade": 500,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 100,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Canela em pó",
+          "quantidade": 2,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_c6004798e4b2fb96",
+            "agro_ea59e2280eff7a93"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        }
+      ],
+      "preparo": [
+        "Bater milho e leite e passar por peneira limpa.",
+        "Adicionar açúcar e cozinhar a mistura, mexendo continuamente, até engrossar e completar o cozimento do milho.",
+        "Dividir em recipientes próprios para alimentos; finalizar com canela. Validar rendimento e conservação no processo real."
+      ],
+      "ocasioes": [
+        "Festas juninas"
+      ],
+      "complementos": [
+        "Milho verde em espiga",
+        "Travessa de cerâmica"
+      ],
+      "alergenicos_potenciais": [
+        "leite"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_008",
+      "nome": "Doce de abóbora de colher",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Abóbora de pescoço",
+          "quantidade": 600,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_56506900e41cb2b5"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 240,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Água",
+          "quantidade": 100,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        },
+        {
+          "nome": "Cravo-da-índia",
+          "quantidade": 2,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_01dfa25ed40ca5ed",
+            "agro_abf76b7ee2223356"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        }
+      ],
+      "preparo": [
+        "Usar 600 g de polpa limpa, sem casca e sementes. Cozinhar com água, açúcar e cravo.",
+        "Mexer até amaciar, desmanchar e atingir consistência de colher.",
+        "Tratar como alimento preparado. A receita não valida conserva estável nem autoriza armazenamento fora de refrigeração."
+      ],
+      "ocasioes": [
+        "Festas juninas",
+        "Natal"
+      ],
+      "complementos": [
+        "Queijo minas frescal",
+        "Pote de cerâmica"
+      ],
+      "alergenicos_potenciais": [],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_009",
+      "nome": "Compota rápida de banana para consumo próximo",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Banana prata",
+          "quantidade": 500,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_7b4ff6ad367e43d3"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 100,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Água",
+          "quantidade": 80,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        },
+        {
+          "nome": "Canela em pau",
+          "quantidade": 1,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_56ef9f51e0ca0f98",
+            "agro_7a20af0dbcf15caa"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        }
+      ],
+      "preparo": [
+        "Usar 500 g de banana descascada, madura e íntegra; fruta mofada ou deteriorada deve ser descartada.",
+        "Cozinhar com os demais ingredientes até amaciar e engrossar a calda.",
+        "O nome compota descreve o preparo; não implica estabilidade de prateleira. Validar resfriamento e conservação."
+      ],
+      "ocasioes": [
+        "Feira rural",
+        "Cestas de café"
+      ],
+      "complementos": [
+        "Queijo minas frescal",
+        "Cesto de palha"
+      ],
+      "alergenicos_potenciais": [],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_010",
+      "nome": "Angu de fubá",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Fubá mimoso",
+          "quantidade": 150,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_9a2db4efb7ba09f3",
+            "agro_31562259c6e291c9"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Água",
+          "quantidade": 750,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        },
+        {
+          "nome": "Sal",
+          "quantidade": 3,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        }
+      ],
+      "preparo": [
+        "Dissolver o fubá em parte da água fria.",
+        "Adicionar à água restante aquecida e cozinhar em fogo baixo, mexendo até ficar uniforme e completamente cozido; ajustar água ao ponto desejado.",
+        "Servir como acompanhamento. Calcular porções pelo rendimento real."
+      ],
+      "ocasioes": [
+        "Festas comunitárias",
+        "Almoço rural"
+      ],
+      "complementos": [
+        "Couve manteiga",
+        "Quiabo"
+      ],
+      "alergenicos_potenciais": [],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_011",
+      "nome": "Bolo de banana",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Banana prata",
+          "quantidade": 300,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_7b4ff6ad367e43d3"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Farinha de trigo",
+          "quantidade": 200,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_59688eb3a3e61866",
+            "agro_c602651a35bc7196"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Açúcar cristal",
+          "quantidade": 120,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Ovo",
+          "quantidade": 2,
+          "unidade": "un",
+          "catalogo_ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Óleo vegetal",
+          "quantidade": 80,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "quantidade": 100,
+          "unidade": "ml",
+          "catalogo_ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Fermento químico",
+          "quantidade": 10,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        }
+      ],
+      "preparo": [
+        "Usar peso de banana sem casca. Amassar e misturar com ovos, óleo, leite e açúcar.",
+        "Incorporar farinha e fermento. Assar em forma untada a 180 °C por aproximadamente 35 a 45 minutos até o centro estar cozido.",
+        "Testar textura, tamanho da forma e rendimento antes de cadastrar a produção comercial."
+      ],
+      "ocasioes": [
+        "Dia das Mães",
+        "Café da tarde"
+      ],
+      "complementos": [
+        "Café",
+        "Pano de prato bordado"
+      ],
+      "alergenicos_potenciais": [
+        "trigo",
+        "ovo",
+        "leite"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    },
+    {
+      "id": "rec_012",
+      "nome": "Farofa de banana",
+      "tipo": "receita_base",
+      "contexto_cultural": "Repertório brasileiro com foco em cozinha mineira; não atribuir origem exclusiva a Carangola",
+      "ingredientes": [
+        {
+          "nome": "Banana da terra",
+          "quantidade": 250,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_6886b9cc11d45538"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Farinha de mandioca torrada",
+          "quantidade": 180,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_4b14e14f963f8805",
+            "agro_8945bb7a2928fc71"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Cebola branca",
+          "quantidade": 80,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_a428fbe7c15de8dc"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Manteiga com sal",
+          "quantidade": 40,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_fb633a550babac1c",
+            "agro_b735f84b72c2bc27"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Cebolinha",
+          "quantidade": 10,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [
+            "agro_e69b661e980c8164"
+          ],
+          "resolucao": "familia_exata_apresentacao_pendente"
+        },
+        {
+          "nome": "Sal",
+          "quantidade": 2,
+          "unidade": "g",
+          "catalogo_ids_candidatos": [],
+          "resolucao": "lacuna_para_mapeamento"
+        }
+      ],
+      "preparo": [
+        "Picar a banana descascada e a cebola. Dourar em manteiga com utensílios limpos.",
+        "Adicionar farinha e mexer até aquecer e uniformizar. Ajustar sal, considerando a manteiga.",
+        "Finalizar com cebolinha higienizada. Avaliar o serviço quente e a conservação do preparo."
+      ],
+      "ocasioes": [
+        "Natal",
+        "Almoço rural"
+      ],
+      "complementos": [
+        "Frango caipira inteiro",
+        "Travessa de cerâmica"
+      ],
+      "alergenicos_potenciais": [
+        "leite"
+      ],
+      "status": "rascunho_para_teste_culinario",
+      "rendimento_vendavel": null,
+      "validade": null,
+      "custo": null,
+      "origem": "Formulação editorial para lote piloto; não é ficha técnica validada",
+      "autor_local": null
+    }
+  ],
+  "ideias": [
+    {
+      "id": "ideia_001",
+      "nome": "Feijão tropeiro",
+      "ingredientes_busca": [
+        "Feijão carioca",
+        "Farinha de mandioca torrada",
+        "Ovo",
+        "Couve manteiga"
+      ],
+      "ocasioes": [
+        "Almoço rural"
+      ],
+      "complementos": [
+        "Tábua de madeira"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Feijão carioca",
+          "ids_candidatos": [
+            "agro_50a3f1d0dd198c1a",
+            "agro_b554f8bbc69988ca"
+          ]
+        },
+        {
+          "nome": "Farinha de mandioca torrada",
+          "ids_candidatos": [
+            "agro_4b14e14f963f8805",
+            "agro_8945bb7a2928fc71"
+          ]
+        },
+        {
+          "nome": "Ovo",
+          "ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ]
+        },
+        {
+          "nome": "Couve manteiga",
+          "ids_candidatos": [
+            "agro_4842ff1f7e06dbc9"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_002",
+      "nome": "Frango com quiabo",
+      "ingredientes_busca": [
+        "Frango caipira inteiro",
+        "Quiabo",
+        "Alho comum"
+      ],
+      "ocasioes": [
+        "Almoço rural"
+      ],
+      "complementos": [
+        "Angu de fubá"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Frango caipira inteiro",
+          "ids_candidatos": [
+            "agro_fc96a8ca4964d8a0"
+          ]
+        },
+        {
+          "nome": "Quiabo",
+          "ids_candidatos": [
+            "agro_51e9e7fca9daa34c"
+          ]
+        },
+        {
+          "nome": "Alho comum",
+          "ids_candidatos": [
+            "agro_4daaffdc6a7ac7c5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_003",
+      "nome": "Tutu de feijão",
+      "ingredientes_busca": [
+        "Feijão carioca",
+        "Farinha de mandioca fina",
+        "Alho comum"
+      ],
+      "ocasioes": [
+        "Festas comunitárias"
+      ],
+      "complementos": [
+        "Couve manteiga"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Feijão carioca",
+          "ids_candidatos": [
+            "agro_50a3f1d0dd198c1a",
+            "agro_b554f8bbc69988ca"
+          ]
+        },
+        {
+          "nome": "Farinha de mandioca fina",
+          "ids_candidatos": [
+            "agro_669fafee5f3aa834",
+            "agro_7a1f716d5f5e305c"
+          ]
+        },
+        {
+          "nome": "Alho comum",
+          "ids_candidatos": [
+            "agro_4daaffdc6a7ac7c5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_004",
+      "nome": "Caldo de mandioca",
+      "ingredientes_busca": [
+        "Mandioca de mesa",
+        "Cebola branca",
+        "Cheiro-verde"
+      ],
+      "ocasioes": [
+        "Inverno"
+      ],
+      "complementos": [
+        "Pão"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Mandioca de mesa",
+          "ids_candidatos": [
+            "agro_271fc4c129d70278"
+          ]
+        },
+        {
+          "nome": "Cebola branca",
+          "ids_candidatos": [
+            "agro_a428fbe7c15de8dc"
+          ]
+        },
+        {
+          "nome": "Cheiro-verde",
+          "ids_candidatos": [
+            "agro_384087c59f86cdf0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_005",
+      "nome": "Caldo de abóbora",
+      "ingredientes_busca": [
+        "Abóbora cabotiá",
+        "Alho comum",
+        "Cebola branca"
+      ],
+      "ocasioes": [
+        "Inverno"
+      ],
+      "complementos": [
+        "Pote de cerâmica"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Abóbora cabotiá",
+          "ids_candidatos": [
+            "agro_0b7e07ef8f853adb"
+          ]
+        },
+        {
+          "nome": "Alho comum",
+          "ids_candidatos": [
+            "agro_4daaffdc6a7ac7c5"
+          ]
+        },
+        {
+          "nome": "Cebola branca",
+          "ids_candidatos": [
+            "agro_a428fbe7c15de8dc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_006",
+      "nome": "Sopa de legumes",
+      "ingredientes_busca": [
+        "Cenoura",
+        "Chuchu",
+        "Batata inglesa"
+      ],
+      "ocasioes": [
+        "Inverno"
+      ],
+      "complementos": [
+        "Pão"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Cenoura",
+          "ids_candidatos": [
+            "agro_af84d704565f4d73"
+          ]
+        },
+        {
+          "nome": "Chuchu",
+          "ids_candidatos": [
+            "agro_178342882ffa3b35"
+          ]
+        },
+        {
+          "nome": "Batata inglesa",
+          "ids_candidatos": [
+            "agro_94b6b6b8568c3cbb"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_007",
+      "nome": "Caldo de feijão",
+      "ingredientes_busca": [
+        "Feijão preto",
+        "Alho comum",
+        "Cebolinha"
+      ],
+      "ocasioes": [
+        "Inverno"
+      ],
+      "complementos": [
+        "Torrada"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Feijão preto",
+          "ids_candidatos": [
+            "agro_25c7ee8bd6c55432",
+            "agro_351a0b9d1fcd0948"
+          ]
+        },
+        {
+          "nome": "Alho comum",
+          "ids_candidatos": [
+            "agro_4daaffdc6a7ac7c5"
+          ]
+        },
+        {
+          "nome": "Cebolinha",
+          "ids_candidatos": [
+            "agro_e69b661e980c8164"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_008",
+      "nome": "Couve refogada",
+      "ingredientes_busca": [
+        "Couve manteiga",
+        "Alho comum"
+      ],
+      "ocasioes": [
+        "Almoço rural"
+      ],
+      "complementos": [
+        "Feijão tropeiro"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Couve manteiga",
+          "ids_candidatos": [
+            "agro_4842ff1f7e06dbc9"
+          ]
+        },
+        {
+          "nome": "Alho comum",
+          "ids_candidatos": [
+            "agro_4daaffdc6a7ac7c5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_009",
+      "nome": "Ora-pro-nóbis refogado",
+      "ingredientes_busca": [
+        "Ora-pro-nóbis",
+        "Alho comum",
+        "Cebola branca"
+      ],
+      "ocasioes": [
+        "Feira rural"
+      ],
+      "complementos": [
+        "Arroz branco"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Ora-pro-nóbis",
+          "ids_candidatos": [
+            "agro_8c177a73032909d1"
+          ]
+        },
+        {
+          "nome": "Alho comum",
+          "ids_candidatos": [
+            "agro_4daaffdc6a7ac7c5"
+          ]
+        },
+        {
+          "nome": "Cebola branca",
+          "ids_candidatos": [
+            "agro_a428fbe7c15de8dc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_010",
+      "nome": "Bolinho de mandioca",
+      "ingredientes_busca": [
+        "Mandioca de mesa",
+        "Ovo",
+        "Queijo meia cura"
+      ],
+      "ocasioes": [
+        "Festas comunitárias"
+      ],
+      "complementos": [
+        "Molho de pimenta biquinho"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Mandioca de mesa",
+          "ids_candidatos": [
+            "agro_271fc4c129d70278"
+          ]
+        },
+        {
+          "nome": "Ovo",
+          "ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ]
+        },
+        {
+          "nome": "Queijo meia cura",
+          "ids_candidatos": [
+            "agro_d82c612e118cebd4",
+            "agro_8c5a26719b27bbe6",
+            "agro_fa402f48445e0789"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_011",
+      "nome": "Biscoito de polvilho",
+      "ingredientes_busca": [
+        "Polvilho azedo",
+        "Ovo",
+        "Leite integral pasteurizado"
+      ],
+      "ocasioes": [
+        "Café da tarde"
+      ],
+      "complementos": [
+        "Café"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Polvilho azedo",
+          "ids_candidatos": [
+            "agro_a495640efde00f3d",
+            "agro_e7c8d849dd294be9"
+          ]
+        },
+        {
+          "nome": "Ovo",
+          "ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ]
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_012",
+      "nome": "Biscoito de nata",
+      "ingredientes_busca": [
+        "Nata",
+        "Farinha de trigo",
+        "Açúcar cristal"
+      ],
+      "ocasioes": [
+        "Dia das Mães"
+      ],
+      "complementos": [
+        "Cesto de palha"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Nata",
+          "ids_candidatos": [
+            "agro_f13b04aaa8807393",
+            "agro_b386be3a3b1b5de5"
+          ]
+        },
+        {
+          "nome": "Farinha de trigo",
+          "ids_candidatos": [
+            "agro_59688eb3a3e61866",
+            "agro_c602651a35bc7196"
+          ]
+        },
+        {
+          "nome": "Açúcar cristal",
+          "ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_013",
+      "nome": "Rosquinha de fubá",
+      "ingredientes_busca": [
+        "Fubá mimoso",
+        "Farinha de trigo",
+        "Ovo"
+      ],
+      "ocasioes": [
+        "Cestas de café"
+      ],
+      "complementos": [
+        "Café"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Fubá mimoso",
+          "ids_candidatos": [
+            "agro_9a2db4efb7ba09f3",
+            "agro_31562259c6e291c9"
+          ]
+        },
+        {
+          "nome": "Farinha de trigo",
+          "ids_candidatos": [
+            "agro_59688eb3a3e61866",
+            "agro_c602651a35bc7196"
+          ]
+        },
+        {
+          "nome": "Ovo",
+          "ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_014",
+      "nome": "Cuscuz de milho",
+      "ingredientes_busca": [
+        "Farinha de milho",
+        "Água",
+        "Sal"
+      ],
+      "ocasioes": [
+        "Café da manhã"
+      ],
+      "complementos": [
+        "Manteiga com sal"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Farinha de milho",
+          "ids_candidatos": [
+            "agro_1c322750fbde7f86",
+            "agro_4dd13d6e39e89bda"
+          ]
+        },
+        {
+          "nome": "Água",
+          "ids_candidatos": []
+        },
+        {
+          "nome": "Sal",
+          "ids_candidatos": []
+        }
+      ]
+    },
+    {
+      "id": "ideia_015",
+      "nome": "Pamonha",
+      "ingredientes_busca": [
+        "Milho verde em grãos",
+        "Leite integral pasteurizado",
+        "Açúcar cristal"
+      ],
+      "ocasioes": [
+        "Festas juninas"
+      ],
+      "complementos": [
+        "Pano de prato bordado"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Milho verde em grãos",
+          "ids_candidatos": [
+            "agro_5dea5b104280347b"
+          ]
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ]
+        },
+        {
+          "nome": "Açúcar cristal",
+          "ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_016",
+      "nome": "Paçoca de amendoim",
+      "ingredientes_busca": [
+        "Amendoim torrado",
+        "Açúcar cristal",
+        "Sal"
+      ],
+      "ocasioes": [
+        "Festas juninas"
+      ],
+      "complementos": [
+        "Embalagem alimentar"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Amendoim torrado",
+          "ids_candidatos": [
+            "agro_7a40313dc5796b22",
+            "agro_c7db4d938edbc75a"
+          ]
+        },
+        {
+          "nome": "Açúcar cristal",
+          "ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ]
+        },
+        {
+          "nome": "Sal",
+          "ids_candidatos": []
+        }
+      ]
+    },
+    {
+      "id": "ideia_017",
+      "nome": "Pé de moleque",
+      "ingredientes_busca": [
+        "Amendoim torrado",
+        "Rapadura ralada"
+      ],
+      "ocasioes": [
+        "Festas juninas"
+      ],
+      "complementos": [
+        "Embalagem alimentar"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Amendoim torrado",
+          "ids_candidatos": [
+            "agro_7a40313dc5796b22",
+            "agro_c7db4d938edbc75a"
+          ]
+        },
+        {
+          "nome": "Rapadura ralada",
+          "ids_candidatos": [
+            "agro_124e3c2e42b59774",
+            "agro_e4f9768439ffba0b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_018",
+      "nome": "Cocada",
+      "ingredientes_busca": [
+        "Coco ralado seco",
+        "Açúcar cristal"
+      ],
+      "ocasioes": [
+        "Festas comunitárias"
+      ],
+      "complementos": [
+        "Cesto de bambu"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Coco ralado seco",
+          "ids_candidatos": [
+            "agro_ff2cea7e2fd4d000",
+            "agro_1b5b6f36a7a0cdd0"
+          ]
+        },
+        {
+          "nome": "Açúcar cristal",
+          "ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_019",
+      "nome": "Goiabada de colher",
+      "ingredientes_busca": [
+        "Goiaba vermelha",
+        "Açúcar cristal"
+      ],
+      "ocasioes": [
+        "Feira rural"
+      ],
+      "complementos": [
+        "Queijo minas frescal"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Goiaba vermelha",
+          "ids_candidatos": [
+            "agro_f783e8047536735a"
+          ]
+        },
+        {
+          "nome": "Açúcar cristal",
+          "ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_020",
+      "nome": "Geleia de jabuticaba",
+      "ingredientes_busca": [
+        "Jabuticaba",
+        "Açúcar cristal"
+      ],
+      "ocasioes": [
+        "Safra local confirmada"
+      ],
+      "complementos": [
+        "Pote de cerâmica"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Jabuticaba",
+          "ids_candidatos": []
+        },
+        {
+          "nome": "Açúcar cristal",
+          "ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_021",
+      "nome": "Doce de leite",
+      "ingredientes_busca": [
+        "Leite integral pasteurizado",
+        "Açúcar cristal"
+      ],
+      "ocasioes": [
+        "Cestas de café"
+      ],
+      "complementos": [
+        "Queijo meia cura"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Leite integral pasteurizado",
+          "ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ]
+        },
+        {
+          "nome": "Açúcar cristal",
+          "ids_candidatos": [
+            "agro_cd1b4416431f77fb",
+            "agro_c37b4a32fa066e77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_022",
+      "nome": "Bolo de cenoura",
+      "ingredientes_busca": [
+        "Cenoura",
+        "Farinha de trigo",
+        "Ovo"
+      ],
+      "ocasioes": [
+        "Dia das Crianças"
+      ],
+      "complementos": [
+        "Embalagem alimentar"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Cenoura",
+          "ids_candidatos": [
+            "agro_af84d704565f4d73"
+          ]
+        },
+        {
+          "nome": "Farinha de trigo",
+          "ids_candidatos": [
+            "agro_59688eb3a3e61866",
+            "agro_c602651a35bc7196"
+          ]
+        },
+        {
+          "nome": "Ovo",
+          "ids_candidatos": [
+            "agro_33783fdaf2611a8c",
+            "agro_898c4978c2e285d4",
+            "agro_593c06c6d2528cb8",
+            "agro_e07622105ef8b2f2",
+            "agro_8df070a7a50e1785",
+            "agro_985ef1411a9120e7",
+            "agro_9bc58c9787aeb696",
+            "agro_99458bb581bb45e5",
+            "agro_f0271ae2dcbf2f4f",
+            "agro_1c4a42314bcee3d4",
+            "agro_224c0415bfe1698e",
+            "agro_b0a2b7cba062c787",
+            "agro_c1b02a61e98de486",
+            "agro_427e0fe5b766cbf5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ideia_023",
+      "nome": "Café coado",
+      "ingredientes_busca": [
+        "Café",
+        "Água"
+      ],
+      "ocasioes": [
+        "Aniversário de Carangola"
+      ],
+      "complementos": [
+        "Caneca de cerâmica"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Café",
+          "ids_candidatos": [
+            "agro_7a10dcb42173370b",
+            "agro_e4b93af809a83253",
+            "agro_3267ce3e1e9c2b6a",
+            "agro_0def7a81db718ae4",
+            "agro_c85805c7d63ade19",
+            "agro_230e4f59f79f69cb",
+            "agro_70b42a8dddf9aede",
+            "agro_552a8aac6c510fd9",
+            "agro_0d077fac9f62b9bc",
+            "agro_f552b84b19b4437e",
+            "agro_f3d6b6814b041246",
+            "agro_784aae626efaf121",
+            "agro_526c208788fd9fd6",
+            "agro_1c9d875c7ec0786c",
+            "agro_6acf7c57b93cb208",
+            "agro_c2f30af87cdcb712",
+            "agro_22d8a2be751b421c",
+            "agro_ae9326f1fa4d675a",
+            "agro_9398e5a1fd6d3867",
+            "agro_1f462bca25440c2a",
+            "agro_b6e7af0ba0b8dd43",
+            "agro_cc50f725b3cde7d4",
+            "agro_d063b17b7b44189b",
+            "agro_1d69dec7bdce431c",
+            "agro_fc0d0899ae4a7c80",
+            "agro_0118f1ca240fefcc",
+            "agro_61c72782580fb811",
+            "agro_ca8f6ebaaea8cdd8",
+            "agro_c44dd1f3ce9d221d",
+            "agro_6962a2358a7803b2",
+            "agro_775529da97e6534d",
+            "agro_a25dfef2568cc4da",
+            "agro_72f8cbf05557b08c",
+            "agro_acf5cfd97d103ae5",
+            "agro_d5b1c6fe57c2ca92",
+            "agro_875135a61f277f1f",
+            "agro_d99cc8fbe7675c0b",
+            "agro_f10f96bc44a5f831",
+            "agro_c700eda8e9f7b294",
+            "agro_e1722af8e9982b9b",
+            "agro_686e9aef674fee7d",
+            "agro_ad1f43cfe4b04b52",
+            "agro_481c328e105316ba",
+            "agro_140b329579e52fe9",
+            "agro_873a9da51ec9bdf8",
+            "agro_28d35917ca9d90d8",
+            "agro_83b7a6be8930afaf",
+            "agro_e5011a6da4708c35",
+            "agro_46bfeb9d0accb9fb",
+            "agro_8f632d904f08a939",
+            "agro_7a4868c3b30a2d97",
+            "agro_0468e0fe8a2fedb9",
+            "agro_a36f889e0e2e6dbf",
+            "agro_bbfc0c9239bcd716"
+          ]
+        },
+        {
+          "nome": "Água",
+          "ids_candidatos": []
+        }
+      ]
+    },
+    {
+      "id": "ideia_024",
+      "nome": "Bebida gelada de café",
+      "ingredientes_busca": [
+        "Café",
+        "Leite integral pasteurizado"
+      ],
+      "ocasioes": [
+        "Verão"
+      ],
+      "complementos": [
+        "Caneca de cerâmica"
+      ],
+      "status": "ideia_sem_ficha_tecnica",
+      "preparo": null,
+      "quantidades": null,
+      "validade": null,
+      "referencias_catalogo": [
+        {
+          "nome": "Café",
+          "ids_candidatos": [
+            "agro_7a10dcb42173370b",
+            "agro_e4b93af809a83253",
+            "agro_3267ce3e1e9c2b6a",
+            "agro_0def7a81db718ae4",
+            "agro_c85805c7d63ade19",
+            "agro_230e4f59f79f69cb",
+            "agro_70b42a8dddf9aede",
+            "agro_552a8aac6c510fd9",
+            "agro_0d077fac9f62b9bc",
+            "agro_f552b84b19b4437e",
+            "agro_f3d6b6814b041246",
+            "agro_784aae626efaf121",
+            "agro_526c208788fd9fd6",
+            "agro_1c9d875c7ec0786c",
+            "agro_6acf7c57b93cb208",
+            "agro_c2f30af87cdcb712",
+            "agro_22d8a2be751b421c",
+            "agro_ae9326f1fa4d675a",
+            "agro_9398e5a1fd6d3867",
+            "agro_1f462bca25440c2a",
+            "agro_b6e7af0ba0b8dd43",
+            "agro_cc50f725b3cde7d4",
+            "agro_d063b17b7b44189b",
+            "agro_1d69dec7bdce431c",
+            "agro_fc0d0899ae4a7c80",
+            "agro_0118f1ca240fefcc",
+            "agro_61c72782580fb811",
+            "agro_ca8f6ebaaea8cdd8",
+            "agro_c44dd1f3ce9d221d",
+            "agro_6962a2358a7803b2",
+            "agro_775529da97e6534d",
+            "agro_a25dfef2568cc4da",
+            "agro_72f8cbf05557b08c",
+            "agro_acf5cfd97d103ae5",
+            "agro_d5b1c6fe57c2ca92",
+            "agro_875135a61f277f1f",
+            "agro_d99cc8fbe7675c0b",
+            "agro_f10f96bc44a5f831",
+            "agro_c700eda8e9f7b294",
+            "agro_e1722af8e9982b9b",
+            "agro_686e9aef674fee7d",
+            "agro_ad1f43cfe4b04b52",
+            "agro_481c328e105316ba",
+            "agro_140b329579e52fe9",
+            "agro_873a9da51ec9bdf8",
+            "agro_28d35917ca9d90d8",
+            "agro_83b7a6be8930afaf",
+            "agro_e5011a6da4708c35",
+            "agro_46bfeb9d0accb9fb",
+            "agro_8f632d904f08a939",
+            "agro_7a4868c3b30a2d97",
+            "agro_0468e0fe8a2fedb9",
+            "agro_a36f889e0e2e6dbf",
+            "agro_bbfc0c9239bcd716"
+          ]
+        },
+        {
+          "nome": "Leite integral pasteurizado",
+          "ids_candidatos": [
+            "agro_62135665befe65df",
+            "agro_15e269ed63364084"
+          ]
+        }
+      ]
+    }
+  ],
+  "artesanato": [
+    {
+      "id": "art_001",
+      "nome": "Cesto de palha",
+      "materiais": "Palha e estrutura",
+      "ocasioes": [
+        "Cestas de café"
+      ],
+      "cuidados": "Alimento sempre em embalagem própria",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_2ac9158c6d6e5cd0"
+      ]
+    },
+    {
+      "id": "art_002",
+      "nome": "Cesto de bambu",
+      "materiais": "Bambu tratado e acabamento",
+      "ocasioes": [
+        "Páscoa"
+      ],
+      "cuidados": "Confirmar procedência e ausência de farpas",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_ac6e6dfccd58ebc4"
+      ]
+    },
+    {
+      "id": "art_003",
+      "nome": "Bandeja de madeira",
+      "materiais": "Madeira e acabamento",
+      "ocasioes": [
+        "Dia das Mães"
+      ],
+      "cuidados": "Não presumir aptidão para contato alimentar",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_a5f71a9666cf3108"
+      ]
+    },
+    {
+      "id": "art_004",
+      "nome": "Caneca de cerâmica",
+      "materiais": "Argila e esmalte",
+      "ocasioes": [
+        "Dia dos Pais"
+      ],
+      "cuidados": "Aptidão alimentar exige evidência",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_539e1bc6b8d44fdc"
+      ]
+    },
+    {
+      "id": "art_005",
+      "nome": "Pano de prato bordado",
+      "materiais": "Tecido e linha",
+      "ocasioes": [
+        "Dia das Mães"
+      ],
+      "cuidados": "Prazo inclui bordado e revisão",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_dfa476a8d9d900c0"
+      ]
+    },
+    {
+      "id": "art_006",
+      "nome": "Pano de prato pintado",
+      "materiais": "Tecido e tinta adequada",
+      "ocasioes": [
+        "Natal"
+      ],
+      "cuidados": "Cura e lavagem conforme material",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_402f060bfe331ce9"
+      ]
+    },
+    {
+      "id": "art_007",
+      "nome": "Sousplat de crochê",
+      "materiais": "Fio e agulha",
+      "ocasioes": [
+        "Natal"
+      ],
+      "cuidados": "Dimensão e consumo medidos",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_9b2d9c018d2372a7"
+      ]
+    },
+    {
+      "id": "art_008",
+      "nome": "Porta-copo de crochê",
+      "materiais": "Fio e agulha",
+      "ocasioes": [
+        "Dia dos Namorados"
+      ],
+      "cuidados": "Validar estabilidade e acabamento",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_b366c1a6db8f6791"
+      ]
+    },
+    {
+      "id": "art_009",
+      "nome": "Caminho de mesa de crochê",
+      "materiais": "Fio e agulha",
+      "ocasioes": [
+        "Natal"
+      ],
+      "cuidados": "Não estimar horas sem amostra",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_301e0a7748d67ac9"
+      ]
+    },
+    {
+      "id": "art_010",
+      "nome": "Toalha de mesa bordada",
+      "materiais": "Tecido e linha",
+      "ocasioes": [
+        "Festas comunitárias"
+      ],
+      "cuidados": "Encomenda com tamanho definido",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_aef79a185c446f7c"
+      ]
+    },
+    {
+      "id": "art_011",
+      "nome": "Avental de tecido",
+      "materiais": "Tecido e aviamentos",
+      "ocasioes": [
+        "Dia das Mães"
+      ],
+      "cuidados": "Confirmar medidas e personalização",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_d9d62c388fe55739"
+      ]
+    },
+    {
+      "id": "art_012",
+      "nome": "Necessaire de tecido",
+      "materiais": "Tecido e zíper",
+      "ocasioes": [
+        "Dia dos Professores"
+      ],
+      "cuidados": "Registrar material e tamanho",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_06088e0081884044"
+      ]
+    },
+    {
+      "id": "art_013",
+      "nome": "Bolsa de tecido",
+      "materiais": "Tecido e alças",
+      "ocasioes": [
+        "Feira rural"
+      ],
+      "cuidados": "Testar resistência de costuras",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_b453f0e8bb386137"
+      ]
+    },
+    {
+      "id": "art_014",
+      "nome": "Caderno artesanal",
+      "materiais": "Papel e encadernação",
+      "ocasioes": [
+        "Volta às aulas"
+      ],
+      "cuidados": "Custear folhas e tempo",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_327e2a260eb5a73d"
+      ]
+    },
+    {
+      "id": "art_015",
+      "nome": "Marcador de página artesanal",
+      "materiais": "Papel ou tecido",
+      "ocasioes": [
+        "Dia dos Professores"
+      ],
+      "cuidados": "Direitos de imagens e textos",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_c360a95312e3ee3d"
+      ]
+    },
+    {
+      "id": "art_016",
+      "nome": "Chaveiro artesanal",
+      "materiais": "Material e argola",
+      "ocasioes": [
+        "Aniversário de Carangola"
+      ],
+      "cuidados": "Imagem de patrimônio depende de referência",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_6db27d48420768bd"
+      ]
+    },
+    {
+      "id": "art_017",
+      "nome": "Imã artesanal",
+      "materiais": "Base e ímã",
+      "ocasioes": [
+        "Aniversário de Carangola"
+      ],
+      "cuidados": "Peças pequenas não são brinquedos",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_abb1fe5e7da6a098"
+      ]
+    },
+    {
+      "id": "art_018",
+      "nome": "Enfeite natalino artesanal",
+      "materiais": "Feltro ou fibras",
+      "ocasioes": [
+        "Natal"
+      ],
+      "cuidados": "Separar de alimento aberto",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_132966ac138af473"
+      ]
+    },
+    {
+      "id": "art_019",
+      "nome": "Presépio artesanal",
+      "materiais": "Barro ou madeira",
+      "ocasioes": [
+        "Natal"
+      ],
+      "cuidados": "Respeitar autoria e tradição local",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_7434ad8a3fea687d"
+      ]
+    },
+    {
+      "id": "art_020",
+      "nome": "Vaso de cerâmica",
+      "materiais": "Argila e acabamento",
+      "ocasioes": [
+        "Dia das Mães"
+      ],
+      "cuidados": "Não confundir decorativo com utensílio alimentar",
+      "status": "projeto_conceitual",
+      "medidas": null,
+      "horas": null,
+      "custo": null,
+      "autoria": null,
+      "catalogo_ids_candidatos": [
+        "agro_6dd7a5e2026cfc84"
+      ]
+    }
+  ],
+  "calendario": [
+    {
+      "id": "cal_01",
+      "mes": 1,
+      "referencias": "07/01 Aniversário de Carangola; verão e férias",
+      "sugestoes": "Café, broa, pão de queijo; lembranças do município",
+      "cuidados": "Alimentos 7 a 21 dias; artesanato 30 a 60 dias",
+      "ano": null
+    },
+    {
+      "id": "cal_02",
+      "mes": 2,
+      "referencias": "Carnaval em data móvel; volta às aulas conforme calendário",
+      "sugestoes": "Porções práticas; bolsas e cadernos artesanais",
+      "cuidados": "Conferir evento local e regras de venda",
+      "ano": null
+    },
+    {
+      "id": "cal_03",
+      "mes": 3,
+      "referencias": "08/03 Dia da Mulher; 19/03 Dia do Artesão; Páscoa quando ocorrer",
+      "sugestoes": "Cestas de café e peças com autoria; início de encomendas pascais",
+      "cuidados": "Não presumir compra ou preferência por gênero",
+      "ano": null
+    },
+    {
+      "id": "cal_04",
+      "mes": 4,
+      "referencias": "Páscoa em data móvel; 21/04 Tiradentes",
+      "sugestoes": "Cestas, tecidos, doces; opções sem chocolate quando pertinentes",
+      "cuidados": "Alimentos e decoração separados",
+      "ano": null
+    },
+    {
+      "id": "cal_05",
+      "mes": 5,
+      "referencias": "Dia das Mães no segundo domingo; 24/05 Dia Nacional do Café",
+      "sugestoes": "Café, bolo e caneca; cestas com bordado",
+      "cuidados": "Encomendas artesanais com 30 a 60 dias",
+      "ano": null
+    },
+    {
+      "id": "cal_06",
+      "mes": 6,
+      "referencias": "12/06 Dia dos Namorados; 13/06 Santo Antônio; 24/06 São João; 29/06 São Pedro",
+      "sugestoes": "Canjica, curau, broa, paçoca; peças de mesa",
+      "cuidados": "Capacidade, refrigeração e alergênicos",
+      "ano": null
+    },
+    {
+      "id": "cal_07",
+      "mes": 7,
+      "referencias": "Férias escolares conforme rede; festas rurais se confirmadas",
+      "sugestoes": "Caldos, broas e café; bandejas e lembranças",
+      "cuidados": "Não cadastrar feira ou exposição como confirmada sem agenda",
+      "ano": null
+    },
+    {
+      "id": "cal_08",
+      "mes": 8,
+      "referencias": "Dia dos Pais no segundo domingo; 22/08 Folclore",
+      "sugestoes": "Café e utensílios; pratos e narrativas culturais com fonte",
+      "cuidados": "Prazos e história de origem confirmados",
+      "ano": null
+    },
+    {
+      "id": "cal_09",
+      "mes": 9,
+      "referencias": "07/09 Independência; primavera astronômica variável",
+      "sugestoes": "Cestas leves, frutas disponíveis; vasos e peças de fibras",
+      "cuidados": "Safra e disponibilidade dependem do território",
+      "ano": null
+    },
+    {
+      "id": "cal_10",
+      "mes": 10,
+      "referencias": "12/10 Dia das Crianças; 15/10 Dia dos Professores; 16/10 Dia Mundial da Alimentação",
+      "sugestoes": "Bolos, marcadores e cadernos; kits para professores",
+      "cuidados": "Não classificar artesanato como brinquedo sem requisitos próprios",
+      "ano": null
+    },
+    {
+      "id": "cal_11",
+      "mes": 11,
+      "referencias": "02/11 Finados; 20/11 Consciência Negra; Black Friday comercial",
+      "sugestoes": "Memória alimentar com fontes; pré-encomendas de Natal",
+      "cuidados": "Finados exige sensibilidade; Black Friday só com margem",
+      "ano": null
+    },
+    {
+      "id": "cal_12",
+      "mes": 12,
+      "referencias": "13/12 Santa Luzia padroeira de Carangola; 25/12 Natal; 31/12 Réveillon",
+      "sugestoes": "Café, doces e farofa; presépios, cestas e bordados",
+      "cuidados": "Confirmar programação religiosa e comercial separadamente",
+      "ano": null
+    }
+  ],
+  "regras": {
+    "sem_movimentacao_estoque": true,
+    "sem_envio_automatico": true,
+    "sem_fornecedores_reais_incluidos": true,
+    "mapear_apresentacao_antes_de_uso": true,
+    "pesos_heuristicos": {
+      "ingredientes": 25,
+      "data": 20,
+      "margem": 20,
+      "prazo_capacidade": 15,
+      "preferencia": 10,
+      "confiabilidade": 10
+    }
+  },
+  "fontes": [
+    {
+      "titulo": "Catálogo AGRO Gestão versão 1 de 15 de outubro de 2026",
+      "alcance": "Pacote existente com 2.479 apresentações e 1.270 combinações de produto base sabor e variedade em 22 categorias. Referência interna de vocabulário e IDs.",
+      "url": "Catalogo_AGRO_Gestao_2479_produtos.zip"
+    },
+    {
+      "titulo": "Portal oficial de Turismo de Minas Gerais",
+      "alcance": "Registro do aniversário de Carangola em 7 de janeiro. Programação de 2023 não deve ser reutilizada como programação atual.",
+      "url": "https://www.minasgerais.com.br/pt/eventos/carangola/aniversario-de-carangola-141-anos"
+    },
+    {
+      "titulo": "Diocese de Caratinga Paróquia Santa Luzia",
+      "alcance": "Referência de Santa Luzia em 13 de dezembro. Consultar a paróquia para a programação anual.",
+      "url": "https://diocesecaratinga.org.br/paroquia/paroquia-santa-luzia/"
+    },
+    {
+      "titulo": "Sebrae Minas Calendário de Vendas 2026",
+      "alcance": "Apoio ao planejamento de datas comerciais. Janelas e regras de decisão deste documento são propostas para o AGRO Gestão.",
+      "url": "https://mg.agenciasebrae.com.br/cultura-empreendedora/calendario-de-vendas-2026-confira-mais-de-100-datas-comemorativas/"
+    },
+    {
+      "titulo": "Anvisa Cartilha de Boas Práticas para Serviços de Alimentação",
+      "alcance": "Referência geral de higiene e manipulação. Não valida os lotes piloto ou prazos de validade apresentados neste pacote.",
+      "url": "https://www.gov.br/anvisa/pt-br/centraisdeconteudo/publicacoes/alimentos/manuais-guias-e-orientacoes/cartilha-boas-praticas-para-servicos-de-alimentacao.pdf"
+    },
+    {
+      "titulo": "Emater MG Minas Rural",
+      "alcance": "Acervo para pesquisa futura de receitas e histórias. As receitas base deste pacote são formulações editoriais e não transcrições ou receitas certificadas pela Emater.",
+      "url": "https://www.emater.mg.gov.br/portal.do?flagweb=site_pgn_lista_videos_minas_rural&npag=58"
+    },
+    {
+      "titulo": "Anvisa Materiais em contato com alimentos",
+      "alcance": "Base de segurança e compatibilidade de materiais para contato alimentar; verificar requisitos atuais e especificação do fabricante.",
+      "url": "https://www.gov.br/anvisa/pt-br/centraisdeconteudo/publicacoes/alimentos/perguntas-e-respostas-arquivos/embalagens-materiais-em-contato-com-alimentos.pdf"
+    },
+    {
+      "titulo": "ITAL CETEA Atividades",
+      "alcance": "Referência de avaliação de permeabilidade, integridade e compatibilidade de sistemas de embalagem. Não valida as alternativas deste pacote.",
+      "url": "https://ital.agricultura.sp.gov.br/cetea/atividades"
+    },
+    {
+      "titulo": "ITAL Qualidade da bebida de café e sistemas de embalagem",
+      "alcance": "Referência de ensaios de barreira, fechamento, válvulas e vácuo em embalagens de café.",
+      "url": "https://www.ital.sp.gov.br/noticia/ital-abordara-qualidade-da-bebida-de-cafe-na-agrishow"
+    }
+  ],
+  "integration": {
+    "version": 1,
+    "sourceSha256": "4d646a0ba4e6e356cc4370d24a57f001a4ed805386fe2bdf92ce66913cef150c",
+    "catalogCandidatesValidated": true,
+    "catalogVersion": "1.0.0",
+    "candidateReferences": 435,
+    "uniqueCandidates": 151,
+    "autoSelectedPresentations": false,
+    "validatedProduction": false,
+    "supplierDirectoryIncluded": false
+  }
+}

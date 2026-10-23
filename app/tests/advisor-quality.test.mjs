@@ -152,11 +152,13 @@ const sale = (costTotal, extra = {}) => ({ subtotal: 2000, total: 2000,
 test('zero de custo antigo é desconhecido; zero explicitamente confirmado é conhecido', () => {
   const [unknown] = productMargins([sale(0)]);
   assert.equal(unknown.costKnown, false);
+  assert.equal(unknown.margin, null);
   assert.equal(unknown.costCoverage, 0);
   assert.equal(unknown.unknownCostQty, 2);
   assert.equal(unknown.unknownCostRevenue, 2000);
   const [confirmed] = productMargins([sale(0, { costKnown: true })]);
   assert.equal(confirmed.costKnown, true);
+  assert.equal(confirmed.margin, 1);
   assert.equal(confirmed.costCoverage, 1);
 });
 

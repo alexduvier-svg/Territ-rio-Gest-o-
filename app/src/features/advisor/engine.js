@@ -436,7 +436,45 @@ function pendingTests(input) {
   if(!tests.length)return [];
   return [item('test-pending','oportunidade',{title:'Avalie os testes que já planejou',happened:`Há ${tests.length} ${tests.length===1?'teste planejado':'testes planejados'} aguardando avaliação.`,todo:'Registre o resultado observado e as mudanças do período antes de repetir ou iniciar uma ação semelhante.',why:'Uma diferença no resultado não isola a causa. Compare períodos, condições e a medida definida no planejamento.',cta:{label:'Ver testes',action:'advisor-tests'},impact:1})];
 }
-const RULES = [...WEATHER_RULES, bestFirst, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests];
+// Interpret the canonical historical margins; this rule never recomputes a sale or changes a price.
+export function productRoles(input) {
+  const rows=(input.finance?.margins||[]).filter(r=>r.revenue>0&&r.qty>0);
+  if(rows.length<2||input.audit?.errors?.length)return [];
+  const revenue=[...rows].sort((a,b)=>b.revenue-a.revenue||String(a.id).localeCompare(String(b.id)))[0];
+  const known=rows.filter(r=>r.costKnown===true&&Number.isFinite(r.cost));
+  const profit=[...known].sort((a,b)=>(b.revenue-b.cost)-(a.revenue-a.cost)||String(a.id).localeCompare(String(b.id)))[0];
+  const groups=new Map();for(const r of rows){const unit=input.productUnits?.[r.id];if(typeof unit!=='string'||!unit)continue;if(!groups.has(unit))groups.set(unit,[]);groups.get(unit).push(r);}
+  const quantity=[...groups].filter(([,items])=>items.length>=2).slice(0,2).map(([unit,items])=>{const r=[...items].sort((a,b)=>b.qty-a.qty||String(a.id).localeCompare(String(b.id)))[0];return `${r.name}: ${fmtQty(r.qty)} ${unit} (comparação na mesma unidade).`;});
+  return [item('papel-produto','oportunidade',{
+    title:'Quantidade, Receita e Lucro Bruto',
+    happened:`${revenue.name} lidera a receita registrada: ${brl(revenue.revenue)}.`+(profit?` ${profit.name} tem o maior resultado bruto entre os produtos com custo histórico conhecido: ${brl(profit.revenue-profit.cost)}.`:''),
+    todo:profit&&profit.id!==revenue.id?'Observe os dois papéis antes de testar a exposição na banca: quem traz receita e quem deixa mais resultado bruto.':'Compare saída, receita e custo antes de planejar a reposição ou mudar a exposição.',
+    why:'Quantidade mostra saída na unidade indicada; receita já reflete os descontos e devoluções do recorte. Lucro bruto considera o custo histórico do produto, antes de taxas e despesas. '+(known.length<rows.length?'Há custos ausentes: não é possível afirmar qual é o mais lucrativo de todo o estoque.':'Não é lucro líquido nem previsão de procura.'),
+    numbers:[...quantity.map(text=>({label:'Quantidade',value:text})),{label:'Receita',value:brl(revenue.revenue),detail:revenue.name},...(profit?[{label:'Resultado bruto conhecido',value:brl(profit.revenue-profit.cost),detail:profit.name}]:[])],
+    topics:['espaco','giro'],impact:Math.round(revenue.revenue/10),
+  })];
+}
+// Reference rotation supplies hypotheses, never an invented observation about the producer.
+export function practiceCandidates(input){
+  if(input.quality?.errors||input.quality?.context==='unconfirmed'||input.quality?.sales<5)return [];
+  return Object.entries(TOPICS).filter(([id,t])=>['pdv','crm'].includes(t.area)||['contato','historia'].includes(id)).map(([id,t])=>item('guia-'+(t.area==='pdv'?'pdv:':'crm:')+id,'oportunidade',{
+    title:t.title,educational:true,learningArea:t.area==='pdv'?'pdv':'crm',
+    happened:'Referência de '+(t.area==='pdv'?'PDV':'Relacionamento')+' para testar; não é uma constatação sobre sua banca ou seus clientes.',
+    todo:t.how[0]||'Observe o histórico identificado antes de mudar o relacionamento.',
+    why:'Material local versionado. A dica só alterna entre conteúdos elegíveis e não substitui alertas operacionais. Contato exige autorização; benefícios precisam ser medidos, sem promessa de venda.',
+    topics:[id],impact:0,
+  }));
+}
+export function calendarPlanning(input){
+ if(input.quality?.errors||input.quality?.context==='unconfirmed')return [];
+ return (input.calendarDates||[]).filter(d=>d.status!=='cancelled'&&d.start&&d.source).slice(0,1).map(d=>item('preparar-calendario:'+d.id,'oportunidade',{
+  title:d.name+' se Aproxima',happened:'Data de planejamento: '+d.start.split('-').reverse().join('/')+' · '+(d.national?'Calendário Federal':d.commercial?'Data Comemorativa Calculada':'Agenda do Município')+'.',
+  todo:'Confira a programação local e avalie encomendas, feiras autorizadas ou kits em parceria. Combine com produtos que você já trabalha; confirme contribuição, estoque livre, validade, capacidade e responsáveis antes de oferecer.',
+  why:'Fonte: '+d.source+'. A data não comprova público, procura ou aumento de vendas. '+(d.status==='confirmed'?'A programação foi confirmada pelo produtor; pode mudar.':'A realização de festas e pontos de venda ainda precisa ser confirmada.')+' Exemplos como kits para canjica ou paçoca só fazem sentido com ingredientes, parceiros e condições de venda confirmados. Não aplique desconto apenas por haver uma festividade.',
+  topics:['parcerias','encarte'],impact:0,
+ }));
+}
+const RULES = [...WEATHER_RULES, bestFirst, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, productRoles, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests,calendarPlanning,practiceCandidates];
 
 // ------------------------------------------------------------------------------------- saída
 

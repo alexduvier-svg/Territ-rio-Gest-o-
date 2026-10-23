@@ -1,0 +1,44 @@
+{
+  "version": "0.12.66",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "pkj",
+      "theme": "light",
+      "physical": true,
+      "priorityCount": 3,
+      "hierarchy": true,
+      "privacy": true,
+      "feedback": true,
+      "generalOffline": true,
+      "cohesiveReports": true,
+      "reportChapters": 7,
+      "naturalQuestions": true,
+      "offlineReference": true,
+      "portableExports": true,
+      "municipalCalendar": true,
+      "recordsPreserved": true,
+      "bounds": {
+        "left": 20,
+        "right": 340,
+        "width": 360,
+        "overflow": false
+      }
+    }
+  ],
+  "errors": [],
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}

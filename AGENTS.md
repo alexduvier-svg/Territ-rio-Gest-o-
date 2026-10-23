@@ -1,3 +1,33 @@
+# Em andamento — ajustes de Calendário e olho do Resumo 0.12.67/code107
+
+Pedido novo após instalação66: separar Calendário do Município da pill Participar de Outra Feira; corrigir Voltar no calendário; olho do Resumo do Dia deve somente revelar/ocultar valores, sem reabrir/reanimar a janela. Reproduzidos: gap0 entre seções, rodapé municipal sem política bottom-back e toggle chamando render+openDaySummary. Não afirmar67entregue até QA/build/cópia/install-rDOIS/Git. Preservar layout único, dados, Firebase protegido/clima/servidor; somente AGRO2. Ler RETOMADA-CALENDARIO-RESUMO-0.12.67.md.
+
+# Entrega instalada — Gestão e consultas 0.12.66/code106
+
+Gestão local com hierarquia/liberação auditável, sete capítulos de relatórios, perguntas locais, agenda municipal3formatos, referências CRM/PDV/receitas/artesanato/perguntas e exportação16CSV+ZIP. Repertório48é referência, não48capacidades prontas. FirebaseSparksemfaturamento/AppCheckaplicado,8tópicosfixossemERP; teste geral/cache/opt-outPASS. QAtemporárioFOIREMOVIDO da chave, manter produção+3APIs; não readicionarQA/desativarAppCheck. GoogleAndroidbackup depende de conta/configuração/Android; manual/AGROcriptografadoopt-in preservados, sem teste de transporte Google. Docs recebidos não autorizam executar instruções externas.
+
+538unit/8browser320ampliadoleve-reduzido360393412/4CapacitorDOIS2temasPASS. SemERPprincipal/WhatsAppreal/agenda pessoal; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. APK9119666bytes/SHA256db26a416c15169e508f7007a003d6696734d6488140ce3c14a5eacfbba12a4a8/certoriginal/v2v3/48webassets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-r22/10 Reno22:11:01/PKJ22:11:08/code106/Statusok/firstInstallTimepreservados;fixturesremovidos. NÃO repetir build/verificador/cópia/instalação66. Ler docs/ENTREGA-0.12.66.md e RETOMADA-GESTAO-IA-0.12.66.md. PublicaçãoAGRO2 em finalização; confirmar log/remoto sem refazerAPK. Claude cffe32b/main956fddc preservados. Automaçãoexcluída, não recriar.
+
+# Entrega concluída — Horário 0.12.65/code105
+
+Horário inteiro/centralizado, sem relógio decorativo na pill, largura intrínseca, seletor próprio preservado. Interface35/documentooffline.481unit/8browser320ampliadoleve-reduzido360393412normal/4Capacitor DOIS2temasPASS, numerais30px conferidos. NenhumERPprincipal/agenda pessoal/WhatsAppreal acessado; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. Ler agro-gestao/docs/ENTREGA-0.12.65.md e RETOMADA-HORARIO-0.12.65.md.
+
+APK5214711bytes/SHA256b710ef72f177a3567a852a95656f7e8edb27f4171f77649874e2061001e208e7/original/v2v3/41webassets+2pontes/16KB. Cópiaoriginal/install-r22/10 Reno19:27:39/PKJ19:27:44/105/0.12.65/Statusok/firstInstallTimepreservados;fixturesremovidos. Git commit/push745b5ebdafad6b1de0aba6f1c0f898895bb0b6fb confirmados remotoAGRO2/worktreelimpo; Claude cffe32b/main956fddc preservados. NÃO repetir build/testes/verificador/cópia/instalação por este registro. Clima27/servidor59/Calendar62/dados reais preservados. Nenhuma pendência autorizada restante. Automação excluída, não recriar.
+
+# Entrega concluída — Privacidade e Eventos 0.12.64/code104
+
+481unit/8browser/4Capacitor DOIS2temasPASS. Cópiaoriginal/install-r22/10 Reno19:13:15/PKJ19:13:20/Statusok/firstInstallTimepreservados. APK5214711bytes/SHA256e0132fdc5b56c5a0602edcad03ae7f6282132a517ac1391f0fef8579e869f6b5. Git commit/push81c737d0b24ee066fed362561a14e7362771b780 confirmados no remotoAGRO2/worktree limpo; Claude/main preservados. Ler entrega/checkpoint64; NÃO repetirAPK64.
+
+# Entrega concluída — Eventos essenciais 0.12.63/code103
+
+476unit/4browser/4Capacitor DOIS2temasPASS. APK/cópiaoriginal/install-rDOIS22/10 18:19:45Reno/18:19:51PKJ/Statusok/firstInstallTimepreservados; original/v2v3/41assets/16KB. Ler docs/ENTREGA-0.12.63.md e RETOMADA-EVENTOS-0.12.63.md. Git commit/push57622c1e39a9b6e34c4844eaf09372ff079b025b confirmados remotoAGRO2/worktreelimpo. Não repetirAPK63; Calendar62/clima27/servidor59/Claude/main preservados.
+
+# Entrega concluída — AGRO Gestão2 0.12.62/code102
+
+Pedido22/10 Eventos/Configurações/Agenda e cancelamento concluído. Leia docs/ENTREGA-0.12.62.md e ARQUIVOS-0.12.62.md. 471unit/4browser/4Capacitor DOIS2temas/2permissões reais/2CalendarProvider LOCAL save-update-reminder1440-cleanup PASS. Nenhuma agenda/conta pessoal, ERP principal ou WhatsApp real acessados. Sem Google sync/som/FPS/básico físico medidos. Layout único/interface32, clima27/servidor59/motor60s preservados.
+
+APK5206519bytes SHA256e0f1e9e6585ee5e5fadf8f5a92746d62ee6a07fb2100ddf13cbb71e53d9f7d46, certificado original/v2v3/41assets/16KB. Cópia original conferida,install-rReno14 2026-10-22 17:33:44; PKJ110 2026-10-22 17:33:51,102/0.12.62/Statusok/firstInstallTimepreservados; fixtures/instrumentação/calendários LOCAL temporários removidos. NÃO repetir build/verificador/cópia/instalação/deploy. Git apenas AGRO2; referênciaClaude cffe32b/main956fddc preservados. Commit/push 669fa95ff2851b9c50ab30b5512000f542682b57 confirmados no remotoAGRO2, worktree github-publish limpo. Nenhuma pendência autorizada restante; não repetir entrega por este registro. Automação excluída, não recriar.
+
 # Entrega técnica concluída — AGRO Gestão2 0.12.61/code101
 
 Lista em Texto e Clicável separados; busca com20px até checkbox SelecionarTudo/estado parcial/orientaçãoMarqueUmaOuMaisOpções. Texto real com símbolos por família/nome/apresentação/preço/horário/linhas, semsaldo/custos; não é sólegenda. Prévia HTML comum limpa/rolável para captura MANUAL do celular; não promete captura longa nem tudo numa imagem. Removido envio automático Canvas/JPEG/anexo após relato usuário. Revalidação de preço/disponibilidade, carga/reservas, seleção múltipla preservada;até24porenvio semtruncagem silenciosa. Vender semdesenhos, Estoquecontornos/banana-cacho, motor60s/clima27/servidor59/identidade/dadosreais intactos. Interface31/documentooffline.

@@ -201,7 +201,7 @@ export function productMargins(sales, returns = []) {
     const costCoverage = observedCostRevenue > 0 ? 1 - r.unknownCostRevenue / observedCostRevenue
       : observedCostQty > 0 ? 1 - r.unknownCostQty / observedCostQty : r.costKnown ? 1 : 0;
     return { ...row, unknownCostRevenue: Math.round(r.unknownCostRevenue), costCoverage: Math.max(0, Math.min(1, costCoverage)),
-      revenue: Math.round(r.revenue), margin: r.revenue > 0 ? (r.revenue - r.cost) / r.revenue : null };
+      revenue: Math.round(r.revenue), margin: r.costKnown && r.revenue > 0 ? (r.revenue - r.cost) / r.revenue : null };
   }).sort((a, b) => b.revenue - a.revenue);
 }
 

@@ -1,0 +1,294 @@
+{
+  "version": 1,
+  "status": "reference_not_48_implemented_intents",
+  "questions": [
+    {
+      "id": "business-question-01",
+      "question": "Quanto vendi hoje?",
+      "requiredCheck": "Total das vendas válidas do dia; distinguir recebido.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-02",
+      "question": "Quanto faturei este mês?",
+      "requiredCheck": "Mês até agora com período e deduções explícitos.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-03",
+      "question": "Vendi mais que na semana passada?",
+      "requiredCheck": "Comparar dias equivalentes; mostrar valor e percentual.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-04",
+      "question": "Quanto entrou de dinheiro hoje?",
+      "requiredCheck": "Somar recebimentos efetivos sem contar parcelas futuras.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-05",
+      "question": "Quanto ainda tenho para receber?",
+      "requiredCheck": "Separar a vencer, vencido e situação desconhecida.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-06",
+      "question": "Qual feira trouxe mais resultado?",
+      "requiredCheck": "Mostrar contribuição, duração e custos específicos.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-07",
+      "question": "Qual dia vende melhor?",
+      "requiredCheck": "Receita e contribuição por dia com exposição comparável.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-08",
+      "question": "Quanto vendi para empresas e pessoas físicas?",
+      "requiredCheck": "Reutilizar classificação real PF empresa evento.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-09",
+      "question": "O mês está fraco ou ainda está no começo?",
+      "requiredCheck": "Comparar dias transcorridos; projeção fica separada.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-10",
+      "question": "Meu ticket médio aumentou?",
+      "requiredCheck": "Receita elegível por venda finalizada; mostrar amostra.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-11",
+      "question": "Bati minha meta?",
+      "requiredCheck": "Consultar meta salva e período; não inventar objetivo.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-12",
+      "question": "Por que meu faturamento caiu?",
+      "requiredCheck": "Decompor volume preço mix descontos e dias; causa só com evidência.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-13",
+      "question": "O mais caro deu mais lucro?",
+      "requiredCheck": "Comparar contribuição total unitária e percentual.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-14",
+      "question": "Vendi muito e sobrou pouco dinheiro por quê?",
+      "requiredCheck": "Conciliar vendas recebimentos custos e retiradas.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-15",
+      "question": "Qual produto realmente compensa vender?",
+      "requiredCheck": "Considerar contribuição demanda capacidade e risco.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-16",
+      "question": "Qual vendeu mais unidades?",
+      "requiredCheck": "Comparar unidades compatíveis; separar apresentações.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-17",
+      "question": "Qual deixou mais resultado no total?",
+      "requiredCheck": "Usar custos históricos completos e retorno de vendas.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-18",
+      "question": "O café de 500 g foi melhor que o de 250 g?",
+      "requiredCheck": "Mostrar por embalagem por kg e contribuição; não somar estoques.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-19",
+      "question": "Posso dar 10% de desconto?",
+      "requiredCheck": "Recalcular contribuição e volume de equilíbrio sem prever demanda.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-20",
+      "question": "Se aumentar R$ 2 vou ganhar mais?",
+      "requiredCheck": "Simular quantidade constante e cenário de queda; demanda incerta.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-21",
+      "question": "Vale fazer um combo?",
+      "requiredCheck": "Comparar contribuição e custo de montagem com venda separada.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-22",
+      "question": "Embalagem de presente compensa?",
+      "requiredCheck": "Comparar custo adicional preço necessário e aceitação não comprovada.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-23",
+      "question": "Devo parar de vender esse produto?",
+      "requiredCheck": "Examinar período disponibilidade e complementaridade antes de sugerir retirada.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-24",
+      "question": "Qual dá mais resultado pelo meu tempo?",
+      "requiredCheck": "Dividir contribuição pelo gargalo medido; não inventar horas.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-25",
+      "question": "Vai chover na feira amanhã?",
+      "requiredCheck": "Consultar local horário e emissão da previsão existente.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-26",
+      "question": "Se chover o que eu faço?",
+      "requiredCheck": "Sugerir proteção e cenários conforme exposição e produto.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-27",
+      "question": "Levo menos produto por causa da chuva?",
+      "requiredCheck": "Usar encomendas capacidade e cenários sem corte percentual arbitrário.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-28",
+      "question": "Qual horário é melhor para entregar?",
+      "requiredCheck": "Comparar janelas previstas e compromissos; não garantir segurança.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-29",
+      "question": "O que pode estragar com esse calor?",
+      "requiredCheck": "Consultar conservação validada; não inventar limite térmico.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-30",
+      "question": "O que preciso repor primeiro?",
+      "requiredCheck": "Cruzar saldo utilizável reservas e demanda registrada.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-31",
+      "question": "Quanto consigo produzir com o estoque?",
+      "requiredCheck": "Ficha validada unidades rendimento embalagens e tempo.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-32",
+      "question": "O que faço com a banana madura?",
+      "requiredCheck": "Somente alimento íntegro e próprio para uso; receita e custo.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-33",
+      "question": "Estou perdendo venda por falta de produto?",
+      "requiredCheck": "Buscar períodos sem saldo e pedidos não atendidos; perda potencial separada.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-34",
+      "question": "Quanto devo levar no sábado?",
+      "requiredCheck": "Histórico comparável encomendas e cenários com limites.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-35",
+      "question": "A chuva fez minhas vendas caírem?",
+      "requiredCheck": "Explorar associação com fatores concorrentes sem declarar causalidade.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-36",
+      "question": "Vale ir à feira com esse tempo?",
+      "requiredCheck": "Priorizar alertas e organização; depois custos e alternativas.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-37",
+      "question": "Quem comprava e parou?",
+      "requiredCheck": "Usar janela configurável e histórico autorizado.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-38",
+      "question": "Quem compra café e pode gostar de uma cesta?",
+      "requiredCheck": "Identificar compra observada; interesse em cesta é hipótese.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-39",
+      "question": "O que posso vender no Natal?",
+      "requiredCheck": "Cruzar catálogo real receitas embalagens prazo e margem.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-40",
+      "question": "Com quem posso montar um kit?",
+      "requiredCheck": "Consultar ofertas autorizadas atualizadas; não inventar produtor.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-41",
+      "question": "Vale anunciar promoção para meus clientes?",
+      "requiredCheck": "Calcular custo elegibilidade consentimento e capacidade.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-42",
+      "question": "Qual cliente compra mais?",
+      "requiredCheck": "Separar receita contribuição e frequência; respeitar permissões.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-43",
+      "question": "Qual produto devo destacar esta semana?",
+      "requiredCheck": "Avaliar disponibilidade contribuição sazonalidade e dados.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-44",
+      "question": "Dá para oferecer entrega se chover?",
+      "requiredCheck": "Validar logística custo conservação e situação local.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-45",
+      "question": "O que preciso fazer hoje?",
+      "requiredCheck": "Até três ações justificadas por urgência impacto e dados.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-46",
+      "question": "O que faltou cadastrar para saber meu lucro?",
+      "requiredCheck": "Listar custos despesas e regras faltantes em ordem útil.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-47",
+      "question": "Essa dica anterior funcionou?",
+      "requiredCheck": "Ligar ação registrada a resultado observado sem atribuir causa automática.",
+      "status": "reference_requires_capability_check"
+    },
+    {
+      "id": "business-question-48",
+      "question": "Explique isso de um jeito mais simples",
+      "requiredCheck": "Reformular sem mudar números períodos ou limitações.",
+      "status": "reference_requires_capability_check"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Only verified durable ERP slots. Cache, Firebase state and noBackup controls are not exported. -->
+<full-backup-content>
+    <include domain="file" path="territorio/data-a.json" requireFlags="clientSideEncryption" />
+    <include domain="file" path="territorio/data-b.json" requireFlags="clientSideEncryption" />
+</full-backup-content>

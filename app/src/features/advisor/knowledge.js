@@ -10,10 +10,15 @@ export const AREAS = {
   percepcao: 'Por que as pessoas compram',
   pdv: 'Como montar a banca',
   kpi: 'Como ler os números',
+  crm: 'Clientes e Relacionamento',
 };
 
 // Cada tema: o que é (uma frase), como fazer (passos curtos) e o que melhora.
 export const TOPICS = {
+  consentimento: {area:'crm',title:'Contato com Permissão',what:'Comprar não significa autorizar mensagens de divulgação.',how:['Peça autorização para avisar sobre produtos e respeite a preferência registrada.'],improves:[]},
+  posvenda: {area:'crm',title:'Acompanhar o Atendimento',what:'Pedidos, dúvidas e problemas precisam de retorno antes de uma nova oferta.',how:['Confira pedidos em aberto e combine uma próxima ação com o cliente, sem presumir que uma mensagem foi lida.'],improves:[]},
+  preferencias: {area:'crm',title:'Preferências Confirmadas',what:'O que o cliente declara é diferente do que o app supõe.',how:['Confirme produto, apresentação e prazo desejados antes de preparar uma encomenda.'],improves:[]},
+  parcerias: {area:'pdv',title:'Kits em Parceria',what:'Produtores podem combinar itens complementares para facilitar uma receita ou ocasião.',how:['Avalie um kit com outro produtor: combinem composição, contribuição, responsabilidades, estoque e prazo antes de divulgar. Não há parceiro confirmado até vocês combinarem.'],improves:[]},
   // ------------------------------------------------------------------ Marca
   identidade: { area: 'branding', title: 'Identidade da marca', what: 'O conjunto que faz o cliente reconhecer você: nome, cores, embalagem e jeito de falar.',
     how: ['Dê um nome bonito ao sítio ou ao produto, com a região: "Mel do Vale das Matas" diz mais que "Mel 500 g".', 'Escolha uma cor principal e repita na toalha, nas etiquetas e nas embalagens.', 'Etiqueta escrita à mão, com capricho, passa autenticidade.', 'Tenha um QR code que leve ao seu WhatsApp, Instagram ou portfólio.'],

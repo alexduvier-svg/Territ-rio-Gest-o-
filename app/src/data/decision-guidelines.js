@@ -3,10 +3,12 @@
 // Agro_Gestao_Diretrizes_Matematicas_Probabilisticas (Codex, v1.0), de 20/10/2026. Conhecimento de
 // referência: não é instrução executável e não autoriza vendas, baixas, envios ou compras.
 export const DECISION_GUIDELINES = Object.freeze({
-  version: 3,
+  version: 4,
   id: 'decision-engine',
   authority: 'reference_only',
   sources: ['docs/motor/MOTOR_INTELIGENCIA_AGRO_GESTAOclaude.pdf v1.0', 'docs/motor/Agro_Gestao_Diretrizes_Matematicas_Probabilisticas_Codex.docx v1.0'],
+  hierarchy: 'intelligence-hierarchy v1: fatos/cálculos canônicos, Connect, Orientação, Action, Audit obrigatório, liberação única e explicação geral opcional. Gemini não recebe dados do produtor nem interfere em decisões.',
+  release: 'advisor/release.js: apresentação local de até três insights; contexto, evidência, conflitos e feedback; sem cálculos financeiros paralelos.',
   engine: 'Um só motor: src/features/advisor/engine.js (Orientação). Regras novas entram na lista RULES; não criar motor paralelo de clima, estoque, finanças, CRM ou KPIs.',
   document: 'knowledge/motor-decisoes.md',
   registry: 'docs/motor/registry.json (consultar antes de escrever qualquer função de cálculo)',

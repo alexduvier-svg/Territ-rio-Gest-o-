@@ -7,7 +7,7 @@ export const ENGAGEMENT_AI_CONTRACT = [
 ].join('\n');
 
 export const ENGAGEMENT_GUIDELINES = Object.freeze({
-  version: 1,
+  version: 2,
   type: 'product_engagement_premises',
   source: 'Engajamento_Design_Agro_Gestao.docx',
   sourceSHA256: '02819cbd12701519c95e45423722ed1a3c3f57a7b4e6b21f72c65faa45c90bd3',
@@ -16,6 +16,6 @@ export const ENGAGEMENT_GUIDELINES = Object.freeze({
   intelligence: ENGAGEMENT_AI_CONTRACT,
   design: 'Preservar identidade AGRO, Inter/Inter Tight, hierarquia, nitidez e profundidade das superfícies. Uma ação principal, retorno claro e contexto recuperável. Modo leve e movimento reduzido preservam função.',
   controls: 'Sem ranking público, pressão por inatividade, feed infinito ou envio automático de mensagens. Lembretes explicitamente pedidos preservam o horário escolhido.',
-  implementationStatus: 'Premissas e contrato de explicação registrados. Motor completo de engajamento, telemetria, limites globais e validação em aparelho básico não são declarados implementados.',
+  implementationStatus: 'Premissas, contrato e liberação contextual local de insights implantados; até três, contexto/feedback e integridade prioritária. Motor completo de engajamento, telemetria, limites globais e validação em aparelho básico não são declarados implementados.',
   document: 'knowledge/premissas-engajamento.md',
 });

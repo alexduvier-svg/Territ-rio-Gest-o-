@@ -6,3 +6,5 @@ dist/
 *.jks
 keystore.properties
 *.local
+android/app/firebase-local/
+android/app/google-services.json

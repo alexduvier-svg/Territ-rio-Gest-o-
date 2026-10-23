@@ -115,13 +115,15 @@ function remind() {
   if (!s?.backupReminder || document.hidden) return;
   const r = s.backupReminder();
   if (!r.enabled) return;
+  // Offer protection after onboarding, without enabling uploads or changing Google's device setting.
+  if(r.ready && !r.lastBackupAt && !r.askedAt && s.idle())return s.askBackup('');
   // Never backed up: count from the first day the app was used.
   const last = r.lastBackupAt ? Date.parse(r.lastBackupAt) : Date.parse(r.firstUseAt) || Date.now();
   if (Date.now() - last < REMIND_AFTER || Date.now() - (Date.parse(r.askedAt) || 0) < REMIND_AGAIN) return;
   if (s.idle()) s.askBackup(r.lastBackupAt);
 }
 
-setInterval(() => sync(), 30 * 1000);
+setInterval(() => {sync();remind();}, 30 * 1000);
 setInterval(remind, 15 * 60 * 1000);
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) return;

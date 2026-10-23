@@ -234,5 +234,32 @@
       "recovery.test.mjs",
       "storage.test.mjs"
     ]
+  },
+  "interpretacao_papeis_produtos": {
+    "arquivo": "app/src/features/advisor/engine.js",
+    "funcao": "productRoles",
+    "versao": "1",
+    "nota": "Interpretação das margens históricas canônicas e unidades registradas; sem novo cálculo de venda ou alteração automática. Quantidades só comparadas na mesma unidade.",
+    "testes": [
+      "management066.test.mjs"
+    ]
+  },
+  "liberacao_insights": {
+    "arquivo": "app/src/features/advisor/release.js",
+    "funcao": "releaseInsights/recordInsightFeedback",
+    "versao": "1",
+    "testes": [
+      "management066.test.mjs"
+    ],
+    "nota": "Somente seleção/precedência/contexto/feedback; sem novas fórmulas financeiras."
+  },
+  "explicacao_geral_opcional": {
+    "arquivo": "app/src/features/general-education/service.js",
+    "funcao": "educationRequest/createEducationService",
+    "versao": "1",
+    "testes": [
+      "management066.test.mjs"
+    ],
+    "nota": "Apenas identificador de tópico fixo, sem DTO de negócio."
   }
 }

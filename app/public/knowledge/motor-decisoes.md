@@ -87,3 +87,8 @@ histórica continua em `advisor/forecast.js`.
 - P3: mercado (CEPEA, PTAX, ICE) exige fonte autorizada; não há cotação embutida.
 - P4: duas fontes de clima (MET Norway canônica; Open-Meteo no cérebro).
 - P5: calibração previsão × ocorrido por feira para liberar confiança alta.
+
+
+## Hierarquia e Entrega de Insights — 22/10/2026
+
+Consulte `hierarquia-inteligencia.md` (versão 1). Fonte ERP → contexto Connect → interpretação canônica → proposta Action → Audit obrigatório → liberação de até três insights. Gemini é somente explicação geral opcional, sem dados do produtor, cálculos ou comandos. A referência não substitui evidência; feedback não altera registros.

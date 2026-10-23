@@ -2,6 +2,7 @@ import { API } from '../server.js';
 import {createWeatherClock,weatherDueAt} from './refresh.js';
 import {nativeWeather} from './native.js';
 import { forecastWindow, nextForecastPoint, forecastDays, weatherDayKey } from './forecast.js';
+import {weatherReading} from './query.js';
 const inflight=new Map(),failures=new Map(),controllers=new Map();let opened=null,appActive=true,clockEngine=null,nativeConfigKey=null,nativeConfigJob=null,epoch=0;
 const bridge=()=>window.TerritorioWorkflowBridge;
 const key=(city,uf)=>String(city||'').normalize('NFD').replace(/\p{M}/gu,'').trim().toLowerCase()+'|'+String(uf||'').toUpperCase();
@@ -59,6 +60,7 @@ function eventLabel(data,event){
   return summary.ready?'Chuva prevista · '+number(summary.rain)+' mm':'Previsão disponível mais perto da feira';
 }
 export function eventWeatherControl(event){return bridge().button('weather-open',weatherIcon(null)+'<span>'+esc(eventLabel(cached(location(event)),event))+'</span>','weather-event',{event:event.id});}
+export function localWeatherAnswer(question,event){if(/feira|evento/i.test(question)&&!event)return 'Qual feira, município e data? Selecione o evento na Gestão antes de consultar o tempo; não uso o endereço do negócio como se fosse o local da feira.';const loc=location(event);return weatherReading(question,{...loc,event,data:cached(loc),enabled:bridge().data().settings.weatherEnabled===true});}
 function condition(point){
   const symbol=point?.symbol||'';
   if(/thunder/.test(symbol))return 'Trovoadas previstas';

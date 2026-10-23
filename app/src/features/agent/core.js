@@ -1,6 +1,7 @@
 // Deterministic offline tools. No network, executable document instructions or business writes.
 import { interpretSpeech, cleanSpeech } from '../voice/interpret.js';
 import { productNetItems } from '../product-period-reports.js';
+import { INTELLIGENCE_HIERARCHY } from '../../data/intelligence-hierarchy.js';
 import { AGENT_GUIDELINES } from '../../data/agent-guidelines.js';
 export const AGENT_VERSION=2;
 const DAY=86400000, norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
@@ -8,17 +9,18 @@ const date=s=>Date.parse(s), day=t=>new Date(t).toLocaleDateString('sv-SE',{time
 const qty=n=>new Intl.NumberFormat('pt-BR',{maximumFractionDigits:3}).format(n),money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n/100);
 const milli=n=>Math.round(n*1000), median=values=>{const a=[...values].sort((a,b)=>a-b),m=Math.floor(a.length/2);return a.length%2?a[m]:(a[m-1]+a[m])/2;};
 export function contextOf(data){const type=data.dataContext?.type||(data.settings?.onboarding==='clean'?'real':data.settings?.onboarding==='demo'?'demo':'unconfirmed');return {actorId:String(data.dataContext?.id||data.productMemory?.scopeId||'local-'+type),dataOrigin:type};}
-export function revisionOf(data){let h=2166136261;const value=JSON.stringify([contextOf(data),data.products,data.sales,data.movements,data.clients,data.events,data.eventLoads,data.expenses,data.settings?.fairReports]);for(let i=0;i<value.length;i++)h=Math.imul(h^value.charCodeAt(i),16777619);return (h>>>0).toString(16);}
+export function revisionOf(data){let h=2166136261;const value=JSON.stringify([contextOf(data),data.products,data.sales,data.movements,data.clients,data.events,data.eventLoads,data.expenses,data.contacts,data.municipalCalendar?.dates,data.settings?.fairReports]);for(let i=0;i<value.length;i++)h=Math.imul(h^value.charCodeAt(i),16777619);return (h>>>0).toString(16);}
 export function emptyAgent(data){const ctx=contextOf(data);return {version:1,...ctx,proposals:[],audit:[],feedback:{},aliases:[],settings:{rebuy:true,excludedProducts:[],fairMinimumEvents:3,fairSurplusRatio:0.5,stagnantDays:AGENT_GUIDELINES.parameters.stagnantDays},knowledge:{...AGENT_GUIDELINES,sources:['Agro_Gestao_Agente_Inteligente_Instrucoes_Codex.md v1.1','VOZ-REVISAO-0.12.15.md','interface-guidelines v4'],authority:'reference_only'},lastReviewAt:0};}
 export function ensureAgent(data,now=Date.now()){
  const ctx=contextOf(data);if(!data.agent||data.agent.actorId!==ctx.actorId||data.agent.dataOrigin!==ctx.dataOrigin)data.agent=emptyAgent(data);
- const agent=data.agent;agent.proposals=Array.isArray(agent.proposals)?agent.proposals.slice(-50):[];agent.audit=Array.isArray(agent.audit)?agent.audit.slice(-200):[];agent.feedback=agent.feedback||{};agent.settings={...emptyAgent(data).settings,...agent.settings};agent.aliases=Array.isArray(agent.aliases)?agent.aliases:[];
+ const agent=data.agent;if(agent.hierarchy?.version!==INTELLIGENCE_HIERARCHY.version)agent.hierarchy=JSON.parse(JSON.stringify(INTELLIGENCE_HIERARCHY));agent.proposals=Array.isArray(agent.proposals)?agent.proposals.slice(-50):[];agent.audit=Array.isArray(agent.audit)?agent.audit.slice(-200):[];agent.feedback=agent.feedback||{};agent.settings={...emptyAgent(data).settings,...agent.settings};agent.aliases=Array.isArray(agent.aliases)?agent.aliases:[];
  for(const p of agent.proposals)if(!['EXECUTED','CANCELLED','EXPIRED','FAILED'].includes(p.status)&&p.expiresAt<=now)p.status='EXPIRED';
  return agent;
 }
 export function audit(agent,requestId,event,details={},now=Date.now()){
  // Only IDs/state/tool metadata. Never transcript, full phone, name or raw audio.
- const safe={};for(const key of ['proposalId','receiptId','scopeId','intent','status','reason'])if(details[key]!=null)safe[key]=String(details[key]).slice(0,120);
+ const safe={};for(const key of ['proposalId','receiptId','scopeId','intent','status','reason','dataRevision','queryContractVersion'])if(details[key]!=null)safe[key]=String(details[key]).slice(0,120);
+ if(details.period&&Number.isFinite(details.period.start)&&Number.isFinite(details.period.end))safe.period={start:details.period.start,end:details.period.end};
  agent.audit.push({requestId:String(requestId).slice(0,120),event,at:now,engineVersion:AGENT_VERSION,ruleId:'agent.'+event,result:'recorded',...safe});agent.audit=agent.audit.slice(-200);
 }
 export function scopeMatches(record,scope='all'){if(scope==='all')return true;if(scope==='events')return record.scope&&record.scope!=='loja';if(scope==='individual-pf'||scope==='individual-pj')return(record.scope||'loja')==='loja'&&(record.customerType||record.recipientType||'PF')===(scope==='individual-pj'?'PJ':'PF');return (record.scope||'loja')===scope;}
@@ -28,11 +30,15 @@ function activeProducts(data){const c=contextOf(data);return(data.products||[]).
 export function productIndex(data){const rows=activeProducts(data).map(p=>({id:p.id,name:p.name,type:p.type||'',format:p.format||'',unit:p.unit,weight:p.weight||0,volume:p.volume||0})),fingerprint=JSON.stringify(rows);let hash=0;for(let i=0;i<fingerprint.length;i++)hash=Math.imul(hash^fingerprint.charCodeAt(i),31);return {version:1,actorId:contextOf(data).actorId,hash:(hash>>>0).toString(16),rows};}
 export function parseRequest(text,data,{scopeId='all',source='text',requestId='',now=Date.now()}={}){
  const cleaned=cleanSpeech(text),key=norm(cleaned);let intent='unsupported';
- if(/estoque|quanto.*tenho|quantos.*tenho|repor|acabou|sem moviment/.test(key))intent='stock';
+ if(/^(?:quero (?:saber|entender)|vendi (?:mais|menos))|(?:quanto.*(?:receb|entrou)|quanto.*(?:para|pra) receber)/.test(key))intent='management';
+ else if(!/^(?:(?:eu )?vendi|vende|vender|adicion|quero|coloc|\d|um\b|uma\b|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|meio)/.test(key)&&/chuva|chover|clima|tempo.*(?:hoje|amanha)|receita culinaria|receitas?|artesan|parceria|embalagem|fatur|receita|lucro|margem|produto.*(?:caro|barato|vendeu)|qual.*(?:deixou|vendeu)|banana madura/.test(key))intent='management';
+ else if(/estoque|quanto.*tenho|quantos.*tenho|repor|acabou|sem moviment/.test(key))intent='stock';
  else if(/como.*feira|resultado.*feira|sobr|como.*evento|anal.*feira/.test(key))intent='fair';
  else if(/recompra|clientes?.*(avis|compr|volt)|quem.*avis/.test(key))intent='rebuy';
+ else if(/^(?:quero (?:saber|entender)|vendi (?:mais|menos))|(?:quanto.*(?:receb|entrou)|quanto.*(?:para|pra) receber)/.test(key))intent='management';
+ else if(!/^(?:(?:eu )?vendi|vende|vender|adicion|quero|coloc|\d|um\b|uma\b|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|meio)/.test(key)&&/\b(kpis?|indicador(?:es)?|conversao|estatistica|pdv|banca|crm|ticket|desconto|giro)\b|exposi|fidel|como.*marca|produto.*contrib/.test(key))intent='management';
  else if(/lucro|margem|resultado|financ|quanto.*vend|resumo/.test(key))intent='finance';
- else if(/gerente|visao geral|como esta (?:meu|o) negocio|situacao (?:do|da|minha)|analise geral/.test(key))intent='overview';
+ else if(/gerente|visao geral|como esta (?:meu|o) negocio|o que.*(?:fazer|preciso)|situacao (?:do|da|minha)|analise geral/.test(key))intent='overview';
  else if(/^(?:(?:eu )?vendi|vende|vender|adicion|quero|coloc|\d|um\b|uma\b|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|meio)/.test(key))intent='sale';
  const request={requestId,actorId:contextOf(data).actorId,scopeId,source,text:cleaned,createdAt:now};
  if(intent!=='sale')return {...request,intent,items:[],unresolvedFields:[],parserVersion:1};

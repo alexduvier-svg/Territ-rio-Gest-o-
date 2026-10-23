@@ -7,7 +7,7 @@ import { newRecoveryCode, deriveBackupKeys, encryptBackup, decryptBackup } from 
 const core = fs.readFileSync(new URL('../src/legacy/erp-core.js', import.meta.url), 'utf8');
 const ui = fs.readFileSync(new URL('../src/legacy/erp-ui.js', import.meta.url), 'utf8');
 const functions = ['backupSource', 'exportBackupFile', 'applyBackupData'].map(name => {
-  const match = ui.match(new RegExp('^function ' + name + '\\([^\\n]+', 'm'));
+  const match = ui.match(new RegExp('^(?:async )?function ' + name + '\\([^\\n]+', 'm'));
   assert.ok(match, 'backup implementation present: ' + name);
   return match[0];
 }).join('\n');
@@ -39,10 +39,10 @@ function backupContext(type = 'real') {
   return ctx;
 }
 
-for (const type of ['real', 'demo']) test('backup manual e automático incluem memória e restauram o contexto ' + type, () => {
+for (const type of ['real', 'demo']) test('backup manual e automático incluem memória e restauram o contexto ' + type, async () => {
   const c = backupContext(type);
   const source = JSON.parse(c.backupSource());
-  c.exportBackupFile();
+  await c.exportBackupFile();
   const manual = JSON.parse(c.downloads[0].content);
   for (const backup of [source, manual]) {
     assert.deepEqual(backup.productMemory, clone(c.model.data.productMemory));
@@ -60,6 +60,11 @@ for (const type of ['real', 'demo']) test('backup manual e automático incluem m
   assert.deepEqual(clone(c.model.data.productLibrary), expected.productLibrary);
   assert.equal(c.model.data.dataContext.type, type, 'restaurar não converte demonstração em operação real ou vice-versa');
   assert.ok(c.saved.length, 'restauração segue a persistência local existente');
+});
+
+test('cancelar compartilhamento nativo não registra cópia como exportada',async()=>{
+  const c=backupContext();c.TerritorioNative={isNative:true,durable:async()=>true};c.File=File;c.navigator={share:async()=>{throw Object.assign(Error('cancelled'),{name:'AbortError'});}};
+  const before=c.model.data.settings.lastManualBackupAt;await c.exportBackupFile();assert.equal(c.model.data.settings.lastManualBackupAt,before);assert.equal(c.downloads.length,0);
 });
 
 test('backup criptografado faz roundtrip completo da memória, sem rede ou exportação real', async () => {

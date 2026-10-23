@@ -1,16 +1,19 @@
 // Inteligência local como um agente: entende o assunto da pergunta e responde primeiro sobre ele,
 // em frases curtas, com o "porquê" e os números depois. Sem internet; só os dados reais do app.
-import { buildGuidance, brl } from './engine.js';
+import { buildGuidance, brl, productRoles } from './engine.js';
 import { forecastNextEvent, runOut, bestMoments } from './forecast.js';
 import { financeLines } from './finance-rules.js';
 import { catalogVocabularyAnswer } from './catalog-vocabulary.js';
+import {metricExplanation} from '../metric-interpretation.js';
 
 const INTENTS = [
   ['previsao', /levar|feira|prev|próxim|proxim|amanh|quanto vou vender|expectativa|semana que vem/i],
   ['estoque', /estoque|acab|repor|reposi|falt|durar|sobr|encalh/i],
-  ['preco', /lucro|preç|preco|margem|caro|barat|ganh|prejuí|prejui|custo/i],
-  ['clientes', /client|volt|fiel|fideli|divulga/i],
-  ['financas', /financ|despesa|gast|empat|equil|meta|compens|vale a pena|taxa|cart|maquin|pix|retirad|pr[oó]-?labore|sal[aá]rio|conta|fixo|caixa|resultado/i],
+  ['preco', /lucro|preç|preco|margem|caro|barat|ganh|prejuí|prejui|custo|qual.*(?:deixou|vendeu)/i],
+  ['clientes', /client|volt|fiel|fideli|divulga|crm|recompra/i],
+  ['pdv', /pdv|banca|exposi|apresenta[çc][aã]o|marca|vitrine/i],
+  ['kpi', /kpi|indicador|convers[ãa]o|estat[ií]stic|quantidade.*receita|giro.*lucro|produto.*contrib/i],
+  ['financas', /fatur|receita|quanto.*vend|financ|despesa|gast|empat|equil|meta|compens|vale a pena|taxa|cart|maquin|pix|retirad|pr[oó]-?labore|sal[aá]rio|conta|fixo|caixa|resultado/i],
   ['momento', /horár|horar|hora|melhor dia|dia da semana|movimento|pico/i],
 ];
 
@@ -83,11 +86,14 @@ export function answer(question, input) {
     return sections.join('\n\n');
   }
   for (const intent of intents) {
+    if (intent === 'pdv') add('Ponto de Venda', guidanceSection(g, ['papel-produto','ticket','dependencia','preco-90','portfolio']));
+    if (intent === 'kpi') {add('Indicadores do Período', [g.situation, ...guidanceSection(g, ['papel-produto','ticket','retorno','identificar']), 'Quantidade mede saída; receita mede valor vendido; lucro bruto depende do custo histórico. Uma venda não demonstra uma tendência.']);if(input.conversion&&/convers[ãa]o|atendimentos?|abordagens?/i.test(question))add('Conversão na Prática',[metricExplanation(input.conversion)]);}
     if (intent === 'previsao') add('Previsão', forecastSection(input));
     if (intent === 'estoque') add('Estoque', [...stockSection(input), ...guidanceSection(g, ['repor', 'encalhe', 'esgotou'])]);
     if (intent === 'preco') {
       const found = guidanceSection(g, ['prejuizo', 'abaixo-custo', 'campeao-margem', 'sem-custo', 'fin-margem', 'preco-90']);
-      add('Preço e lucro', [...profitRanking(input), ...(found.length ? found : [`${g.situation} Confira a cobertura de custos antes de concluir sobre preço ou lucro.`])]);
+      const role=productRoles(input)[0];
+      add('Preço e Lucro Bruto', [...profitRanking(input),...(role?[role.happened,...role.numbers.filter(n=>n.label==='Quantidade').map(n=>n.value),role.why,'O que avaliar: '+role.todo]:[]), ...(found.length ? found : [`${g.situation} Confira a cobertura de custos antes de concluir sobre preço ou lucro.`]),'Preço unitário mais alto não comprova lucro maior. Custos e quantidade vendida também contam. Não mude preços nem a carga por uma venda isolada.']);
     }
     if (intent === 'clientes') {
       const found = guidanceSection(g, ['identificar', 'retorno', 'fieis', 'divulgacao', 'qr', 'portfolio']);

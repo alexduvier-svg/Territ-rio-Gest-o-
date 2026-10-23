@@ -100,3 +100,8 @@ A grade de nomes usa a fonte de títulos comum e até3colunas; mede apenas as pa
 ## Horário legível — 0.12.65
 
 Horário de evento inteiro em uma linha, como 08:00. Não dividir minutos nem comprimir os números. A pill tem largura intrínseca e só o horário, centralizado; sem relógio decorativo concorrendo por espaço. Tela pequena e texto ampliado acomodam o controle inteiro. Preservar seleção própria de hora/minuto, tema e material comuns.
+
+
+## Complemento22/10 — análise, CRM/PDV e agenda
+
+Relatórios partem do pedido e recorte, coletam fatos locais, usam o cálculo canônico e passam por auditoria antes da leitura. Dicas dePDV/CRM alternam uma referência por dia quando elegíveis, abaixo de alertas/fatos; não comprovam um efeito. Conversão de atendimentos é opcional, nunca requisito da venda individual, diária ou de feira. A agenda municipal aceitaPDF/imagem como referência semOCR,ICS com revisão e datas manuais. Calendário ajuda a preparar e confirmar oportunidades; não inventa demanda, parceiros, margem, feriado ou programação. Fonte profissional revisada: knowledge/crm-pdv-profissional.md; aderência parcial explícita em docs/CRM-PDV-ADERENCIA-0.12.66.md.
