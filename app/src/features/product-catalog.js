@@ -187,7 +187,7 @@ export function commercialIdentity(product = {}) {
   if (!packaging) issues.push('Embalagem não identificada');
   if (!completeFlag) issues.push('Apresentação antiga ou não confirmada');
   const content = contentOf(product, source, issues);
-  const extras = ['brand','origin','material','size','composition','specification','declaredFormula','manufacturer','producerName'].map(field => normalize(product[field]));
+  const extras = ['coffeeSpecies','coffeeVariety','coffeeRoast','coffeeProcess','coffeeFermentation','brand','origin','material','size','composition','specification','declaredFormula','manufacturer','producerName'].map(field => normalize(product[field]));
   if (!source && product.type && product.variety && normalize(product.type) !== normalize(product.variety)) extras.push(normalize(product.type));
   const parts = [scope,base,flavor,variety,form,unit,...content,packaging,...extras];
   const complete = !issues.length;

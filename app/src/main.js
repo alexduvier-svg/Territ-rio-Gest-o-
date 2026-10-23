@@ -1,3 +1,5 @@
+import * as Coffee from './features/coffee.js';
+import {installDailyGuidance} from './native/daily-guidance.js';
 import {initTrainingWorkspace,installTrainingUI} from './features/training/index.js';
 import * as EventReminders from './features/event-reminders.js';
 import {installAutoCollapse} from './features/auto-collapse.js';
@@ -124,6 +126,7 @@ try {
   window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos, appLogo };
   window.TERRITORIO_MARKET = MARKET_CATALOG;
   window.TerritorioProductCatalog = ProductCatalog;
+  window.TerritorioCoffee = Coffee;
   window.TerritorioStockOrder = StockOrder;
   window.TerritorioProperName = ProperName;
   window.TerritorioWeather = {eventWeather,localWeatherAnswer};
@@ -187,6 +190,7 @@ try {
   installPrintList();
   window.TerritorioProductPareto=ProductPareto;
   installSuppliers();
+  installDailyGuidance();
   installGlassTouch();
   installTrainingUI();
   installShell();

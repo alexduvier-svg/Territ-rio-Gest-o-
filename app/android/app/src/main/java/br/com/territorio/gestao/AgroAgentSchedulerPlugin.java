@@ -32,6 +32,8 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 @CapacitorPlugin(name="AgroAgentScheduler")
 public class AgroAgentSchedulerPlugin extends Plugin {
     static final String PREFS="agro-agent-review-v1";
+    private volatile String guidanceTopic="";
+    @Override protected void handleOnNewIntent(Intent intent){super.handleOnNewIntent(intent);if(intent!=null&&intent.hasExtra(AgroDailyGuidance.EXTRA)){guidanceTopic=intent.getStringExtra(AgroDailyGuidance.EXTRA);intent.removeExtra(AgroDailyGuidance.EXTRA);}}
     private volatile long trimUntil=0;
     private volatile boolean capabilityReady=false;
     private BroadcastReceiver pressureReceiver;
@@ -70,6 +72,17 @@ public class AgroAgentSchedulerPlugin extends Plugin {
             WorkManager.getInstance(getContext()).enqueueUniquePeriodicWork("agro-agent-daily-v1",ExistingPeriodicWorkPolicy.UPDATE,request);
             JSObject out=new JSObject();out.put("scheduled",true);out.put("approximate",true);call.resolve(out);
         } catch(Exception e) {call.reject("Não foi possível agendar a revisão; ela continua ao abrir o app.");}
+    }
+    @PluginMethod public void configureGuidance(PluginCall call) {
+        execute(()->{try{AgroDailyGuidance.configure(getContext(),call.getData());call.resolve();}catch(Exception e){call.reject("Não foi possível guardar a preferência das dicas.");}});
+    }
+    @PluginMethod public void checkGuidanceNow(PluginCall call) {
+        execute(()->{JSObject out=new JSObject();out.put("posted",AgroDailyGuidance.show(getContext()));out.put("active",AgroDailyGuidance.active(getContext()));call.resolve(out);});
+    }
+    @PluginMethod public void consumeGuidanceOpen(PluginCall call) {
+        JSObject out=new JSObject();if(guidanceTopic!=null&&!guidanceTopic.isEmpty()){out.put("topicId",guidanceTopic);guidanceTopic="";call.resolve(out);return;}Intent intent=getActivity()==null?null:getActivity().getIntent();
+        if(intent!=null){String id=intent.getStringExtra(AgroDailyGuidance.EXTRA);if(id!=null){out.put("topicId",id);intent.removeExtra(AgroDailyGuidance.EXTRA);}}
+        call.resolve(out);
     }
     @PluginMethod public void acknowledge(PluginCall call) {
         boolean ok=getContext().getSharedPreferences(PREFS,Context.MODE_PRIVATE).edit().putBoolean("pending",false).putLong("reviewedAt",System.currentTimeMillis()).commit();

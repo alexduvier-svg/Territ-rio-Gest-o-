@@ -1,0 +1,63 @@
+{
+  "version": "0.12.77",
+  "device": "reno",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true,
+        "experience": {
+          "smoothSubview": true,
+          "movesSameNodes": true,
+          "rapidReturnCleanup": true,
+          "examplesIsolated": true,
+          "threeSuppliersOneComparisonThreePurchases": true,
+          "searchNoOverlap": true,
+          "coffeeOrderAndThreeColumns": true,
+          "recordedRoastsOnly": true,
+          "loadActionsBelowKeyboard": true,
+          "nextThroughAllQuantityFieldsAndConclude": true,
+          "activeQuantityScrollsIntoView": true,
+          "roundedKeypadWithInsetsAndSpacedActions": true,
+          "eventCardHierarchy": true,
+          "reviewFooterAndLossOnly": true,
+          "collapsedGuidance": true
+        },
+        "educationalNoticePostedOnceAndDisabled": {
+          "first": {
+            "posted": true,
+            "active": true
+          },
+          "second": {
+            "posted": false,
+            "active": true
+          },
+          "disabled": {
+            "posted": false,
+            "active": false
+          }
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

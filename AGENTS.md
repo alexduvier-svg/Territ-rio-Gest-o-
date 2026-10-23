@@ -1,3 +1,21 @@
+# Entrega Instalada77 — Encerramento Git Pendente
+
+625unit/8browser/4CapacitorDOIS2temasPASS, incluindoPróximo9campos/rolagem/Concluir/padarredondado/recuo/gap12. Fornecedoresmotorcomum+exemplosModoTeste3/1/3; Eventos/Gestão/cafés/dicasopcionais. Avisonativo1/1/0eNoBackupDOISverificados; semERPprincipal/WhatsAppreal/agendapessoal. Memória47/documentooffline.
+
+APK9193587bytes/SHAd7998da45ba99bf08d31520bc2f8b511c9ceb078e22cf2352883e9fb3b650f47/certoriginal/v2v3/50assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-rReno19:56:36/PKJ19:56:43/117/Statusok/firstInstallTimepreservados. Fixturesremovidos; capturas/forwardslimparaofinal. NÃOrefazerbuild/testes/verificador/copy/install77. Somentefechardocs/GitAGRO2 econfirmarremoto. SemFPS/GPU/bateriabásicofísico/TalkBack/runtime16KBmedidos. Semsubagentes/automação. Clima27/servidor59/FirebaseSparkAppCheck/Calendar/dadosreaispreservados. Ler docs/ENTREGA-0.12.77.md.
+
+# Regra Reiterada23/10 — Espaçamento
+
+Evitar botões grudados em qualquer ajuste. Ações de carga com10px entre Salvar/AdicionarDepois,12px no cabeçalho do tecladoPróximo/Concluir, recuo dasbordas/alvo44px/semcortartextos. Conferir2temas/telaspequenas.77aindaseminstalaçãofinal:PróximoentrouapósprimeiraQA; vercheckpointatual.
+
+# Em Andamento77 — Implementação e Validação
+
+Ler agro-gestao/RETOMADA-EXPERIENCIA-0.12.77.md ATUALIZADO. 76encerradocommitbf9945e; não repetir.77implementadoparcialmentevalidado/625unit; primeirabuild77NÃOFINAL(CSSajustadoapós). Falta browserfinal/nativeDOIS2temas/verificador/cópia/install-r/Git. Semsubagentes/automação.
+
+# Marco Atual —76 Encerrado,77 Autorizado
+
+Commit/pushbf9945e confirmado no remotoAGRO2/worktreepublicaçãolimpo. APK76 jána pastaoriginal e nosDOIS; NÃOrefazer76. Agora executar6grupos77 detalhados no checkpoint. Semsubagentes/automação.
+
 # Em Andamento — Experiência0.12.77
 
 Pedido humano mais recente6grupos: teclado/carga/evento emcards e2ações; títuloEstoque/Fornecedorescomseta e busca; revisãofinalhierárquica semaçõescortadas; Gestãoorientaçãobreveexpansível/guia+diagnósticocontextual; dicasCRM/KPI/PDVdiáriascomavisoslocais; caféscomespécie/variedade/Superior/torra/processo eordemEspecialTCpesomenor→TM→TEatéTradicional, vendasTC/TM/TE/Estoqueespécievariedadeelegenda. Ler agro-gestao/RETOMADA-EXPERIENCIA-0.12.77.md e histórico dochat. Nenhuma implementação77 ainda; auditoriainicialsalva. Persistir até completar, seminventardados, comlayoutúnico/claroescuro/320ampliadoleve-reduzido/DOISfixtures. Semsubagentes/automação.

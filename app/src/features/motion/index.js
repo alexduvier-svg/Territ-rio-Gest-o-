@@ -291,6 +291,20 @@ function installPageTransitions(listen) {
   return endPageTransition;
 }
 
+// Sibling areas inside one tab use the same compositor and move the old DOM once.
+// No cloned cards, frame-by-frame clipping, or asynchronous route delay.
+export function transitionSubview(render,direction=1){
+ const app=document.getElementById('app');endPageTransition();
+ if(!app||!enabled()||document.hidden){render();return;}
+ const lift=liftPage(app,false,root().dataset.page),t=pageTransition={layer:lift?.layer,handles:[]};
+ try{render();}catch(error){endPageTransition();throw error;}
+ lift?.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node=>node.remove());
+ const done=()=>{if(pageTransition===t){pageTransition=null;t.layer?.remove();}},shift=(limited()?5:18)*direction;
+ if(lift)t.handles.push(animate(lift.surface,{from:REST,to:{x:-shift,opacity:0},spring:spring('tab'),shape:dissolve(0,.4),onFinish:done}));
+ t.handles.push(...arrivePage(app,{x:shift,opacity:0,scale:1},[innerWidth/2,innerHeight/2],'tab',{y:0,opacity:0}));
+ if(!lift)t.handles.at(-1)?.finished.then(done);
+}
+
 // interface.js calls this after each route change. Route changes that went through the renderer
 // were already choreographed above; this only covers the first page.
 export function animatePageChange(app) {

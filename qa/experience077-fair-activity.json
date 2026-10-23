@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "port": 9341,
+      "theme": "light",
+      "cards": 3,
+      "display": "block",
+      "footerBottom": 728.7411346435547,
+      "keyboardBottom": 587.2232360839844,
+      "footerTop": 587.2232666015625,
+      "dialogBottom": 729.5982208251953,
+      "button": 650.7411003112793
+    },
+    {
+      "port": 9341,
+      "theme": "dark",
+      "cards": 3,
+      "display": "block",
+      "footerBottom": 728.7411346435547,
+      "keyboardBottom": 587.2232360839844,
+      "footerTop": 587.2232666015625,
+      "dialogBottom": 729.5982208251953,
+      "button": 650.7411003112793
+    },
+    {
+      "port": 9342,
+      "theme": "light",
+      "cards": 3,
+      "display": "block",
+      "footerBottom": 739.71875,
+      "keyboardBottom": 613.76953125,
+      "footerTop": 613.76953125,
+      "dialogBottom": 740.71875,
+      "button": 677.71875
+    },
+    {
+      "port": 9342,
+      "theme": "dark",
+      "cards": 3,
+      "display": "block",
+      "footerBottom": 739.71875,
+      "keyboardBottom": 613.76953125,
+      "footerTop": 613.76953125,
+      "dialogBottom": 740.71875,
+      "button": 677.71875
+    }
+  ],
+  "synthetic": true
+}

@@ -12,6 +12,7 @@ public class AgroAgentReviewWorker extends Worker {
         if(isStopped())return Result.failure();
         boolean saved=getApplicationContext().getSharedPreferences(AgroAgentSchedulerPlugin.PREFS,Context.MODE_PRIVATE)
             .edit().putBoolean("pending",true).putLong("requestedAt",System.currentTimeMillis()).commit();
+        if(saved&&!isStopped())AgroDailyGuidance.show(getApplicationContext());
         return saved?Result.success():getRunAttemptCount()<3?Result.retry():Result.failure();
     }
 }

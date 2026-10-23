@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "devices": [
+    {
+      "device": "reno",
+      "privateNoBackupVerified": true,
+      "enabled": false,
+      "publicTopicsOnly": true,
+      "topics": 1,
+      "productionDataAccessed": false
+    },
+    {
+      "device": "pkj",
+      "privateNoBackupVerified": true,
+      "enabled": false,
+      "publicTopicsOnly": true,
+      "topics": 1,
+      "productionDataAccessed": false
+    }
+  ]
+}
