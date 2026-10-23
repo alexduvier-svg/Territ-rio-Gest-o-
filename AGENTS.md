@@ -1,3 +1,11 @@
+# Entrega Instalada78 — Publicação Git Pendente
+
+CorreçãoAnaeróbica concluída: sugestõesTradicional/Anaeróbica; Aeróbicanãosugeridaaprendida/registrada paraoutroscadastros, valoranteriorpreservadonaediçãodopróprioproduto. Memória48/offline.6testesexistentesrelacionados/4browser320ampliadoleve-reduzido360/4CapacitorDOIS2temasPASS, seleção/save/reload/legadopreservados. APK9193587bytes/SHA76bcae88d95d796d19d87a53dbdfda0f98a37ca1203b8fe82d3e9ec4a7ec00c4/original/v2v3/50assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-rDOIS118/Statusok/firstInstallTimepreservados; fixturesremovidos. NÃOrefazerbuild/testes/verificador/copy/install78. SomenteGit/docsAGRO2pendentes. Ler docs/ENTREGA-0.12.78.md. Clima/Firebase/servidor/agenda/dadosreaispreservados. SemERPprincipal/WhatsAppreal/agendapessoal; semFPS/básicofísicomedidos. Semsubagentes/automação.
+
+# Em Andamento78 — Fermentação Anaeróbica
+
+Pedido humano: corrigir sugestão do café para Anaeróbica, retirar Aeróbica.77entregue55c67bb/documental710fe64; NÃOrepetir. Implementado78/code118: sugestõesTradicional/Anaeróbica; filtro impedeAeróbica aprendida/registrada emnovocadastro. Em edição preserva valorrealantigo, semconversãoautomática nem alteraçãoemhistórico. Memória48/documentooffline. FaltaUI2temas/pequenas/nativeDOIS2temas/APKverificador/cópia/install-r/GitAGRO2. Semsubagentes/automação. Clima/Firebase/servidor/identidade/dadosreaispreservados. GitfetchClaude cffe32b/main956fddc/AGRO2710fe64.
+
 # Entrega Concluída — Experiência0.12.77/code117
 
 Implementação commit/push55c67bbc02ed866a28fba02af0c504a6053e4e2b confirmado no remotoAGRO2; worktree publicação limpo antes deste encerramento documental. 625unit/8browser/4CapacitorDOIS2temasPASS. Próximo/rolagem/Concluir, tecladoarredondado/recuo/gap12, transiçãoEstoqueFornecedores/exemplosisolados3/1/3, Eventos/Gestão/cafés/dicasopcionais concluídos. Avisonativo1/1/0eNoBackupDOISverificados. Memória47/documentooffline. Ler agro-gestao/docs/ENTREGA-0.12.77.md.

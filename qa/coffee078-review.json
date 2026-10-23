@@ -1,0 +1,66 @@
+{
+  "version": "0.12.78",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "event": {
+        "anaerobicAvailable": true,
+        "aerobicNotSuggested": true,
+        "correctFermentationSection": true,
+        "selectedSavedAfterReload": true,
+        "legacyNotConverted": true,
+        "stockPricesSalesMovementsUnchanged": true,
+        "layoutFits": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "event": {
+        "anaerobicAvailable": true,
+        "aerobicNotSuggested": true,
+        "correctFermentationSection": true,
+        "selectedSavedAfterReload": true,
+        "legacyNotConverted": true,
+        "stockPricesSalesMovementsUnchanged": true,
+        "layoutFits": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "event": {
+        "anaerobicAvailable": true,
+        "aerobicNotSuggested": true,
+        "correctFermentationSection": true,
+        "selectedSavedAfterReload": true,
+        "legacyNotConverted": true,
+        "stockPricesSalesMovementsUnchanged": true,
+        "layoutFits": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "event": {
+        "anaerobicAvailable": true,
+        "aerobicNotSuggested": true,
+        "correctFermentationSection": true,
+        "selectedSavedAfterReload": true,
+        "legacyNotConverted": true,
+        "stockPricesSalesMovementsUnchanged": true,
+        "layoutFits": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

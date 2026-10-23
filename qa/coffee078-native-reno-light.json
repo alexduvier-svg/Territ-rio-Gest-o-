@@ -1,0 +1,24 @@
+{
+  "version": "0.12.78",
+  "device": "reno",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "event": {
+        "anaerobicAvailable": true,
+        "aerobicNotSuggested": true,
+        "correctFermentationSection": true,
+        "selectedSavedAfterReload": true,
+        "legacyNotConverted": true,
+        "stockPricesSalesMovementsUnchanged": true,
+        "layoutFits": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -1,0 +1,14 @@
+✔ coffee defaults rank quality, recorded roast then ascending weight; never mutate or infer legacy (2.9025ms)
+✔ coffee attributes prevent merging distinct presentations and survive data roundtrip (0.8439ms)
+✔ explicit manual order remains available; default restores roast ordering (0.1918ms)
+✔ daily educational library contains only bounded public text; no financial records or online payload (0.8221ms)
+✔ daily practice is stable within a Brazilian day and rotates on the next day (4.2814ms)
+✔ supplier examples are deterministic and isolated in training; never enter real business (6.359ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 122.5957
