@@ -1,6 +1,6 @@
 # Agenda, Preparação e Fechamento — 0.12.71/code111
 
-Estado: concluída e instalada nos dois aparelhos em23/10/2026, preservando registros e primeira instalação. Git em fechamento documental.
+Estado: concluída e instalada nos dois aparelhos em23/10/2026, preservando registros e primeira instalação. Implementação publicada no ramoAGRO2; encerramento documental abaixo.
 
 ## Comportamento
 
@@ -36,4 +36,4 @@ APK: AGRO-Gestao-2-0.12.71.apk,9131954bytes; acréscimo4096bytes sobre70. SHA256
 
 Cópia conferida na pastaC:/Users/alexd/PROJETOS/Território Gestão. adb install-rReno14às13:50:42 ePKJ110às13:50:53 em23/10/2026;version111/0.12.71 eaberturaStatusok nosDOIS. FirstInstallTimeReno21/10às18:58:01 ePKJ14/10às18:17:06preservados. Fixtures/instrumentação removidos; calendáriosLOCALremovidos pelo teste.
 
-Git: fonte emcodex/atualizacao-agro-gestao2;Claude cffe32b/main956fddcconsultados no início, integração eprépublicação, semnovidades. Commit/push serão anotados no encerramento. Não repetir build/testes/cópia/instalação por este registro.
+Git: fonte emcodex/atualizacao-agro-gestao2;Claude cffe32b/main956fddcconsultados no início, integração eprépublicação, semnovidades. Implementação commit/pushd455978d71da936745550692f825ae79a8292c56 confirmados no remotoAGRO2, worktree limpo antes deste encerramento documental. Nenhuma pendência autorizada restante. Não repetir build/testes/cópia/instalação por este registro.
