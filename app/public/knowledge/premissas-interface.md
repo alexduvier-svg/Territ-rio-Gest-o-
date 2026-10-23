@@ -1,6 +1,6 @@
 # Premissas permanentes de interface — AGRO Gestão
 
-Versão 45, atualizada em 23/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
+Versão 46, atualizada em 23/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
 
 - **Volume:** hierarquia coerente por tamanho, peso e espaçamento. Não simular volume com excesso de negrito ou relevo nas letras.
 - **Nitidez:** leitura clara e contraste nos temas claro e escuro. Sem blur ou brilho nas letras. Rótulos de formulário com pelo menos 14 px, respeitando texto ampliado.
@@ -155,3 +155,9 @@ Cards sem estoque em Produtos: toque abre Repor Estoque do próprio produto, sem
 ## Estados do Evento — Premissa Permanente 45
 
 Evento finalizado sai dos ativos de Produtos e vai para Histórico das Feiras, inclusive registro oficial antigo com status ativo incoerente. Agendado em verde. Conferência Pendente com triângulo laranja de contorno. Encerrada somente após conferência confirmada; cancelamento continua separado. Adiar permite retomar com carga e acertos existentes, sem nova venda/perda automática e sem relatório concluído antes da revisão. Reutilizar a mesma classificação em cards, detalhes, destino de venda e indicadores, nos dois temas. Não alterar saldos por corrigir o estado.
+
+## Fornecedores e Pareto — Premissa Permanente 46
+
+Chavinha junto de Toque para Repor alterna para Fornecedores na aba Estoque. Cadastro e cotações privados e locais; pessoa compartilhada com Clientes é referência, sem fusão automática. Até20 propostas por item, unidades explícitas, custo total/frete/prazo/pagamento e lacunas visíveis. Reutilizar Agent/Worker e cálculo determinístico. Preferência não compra, não cria dívida e não altera estoque. Pareto usa linhas auditadas de receita e lucro bruto, custo histórico, unidade comparável, devoluções e descontos; nenhum80/20 presumido, nenhuma previsão automática de procura ou lucro líquido.
+
+Histórico de Compras: confirmação explícita do produtor, calendário comum; comparação da mesma especificação/unidade com o mesmo fornecedor e outros fornecedores. Compra não é cotação. Desconsiderar mantém original/motivo; backup e CSV preservam histórico. Sem duplicar estoque/despesas ou afirmar que preço antigo é oferta vigente.

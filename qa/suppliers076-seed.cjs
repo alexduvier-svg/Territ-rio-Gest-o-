@@ -1,0 +1,1 @@
+const {seed:base}=require('./management066-seed.cjs');const seed=structuredClone(base);seed.events=[];seed.eventLoads=[];seed.settings.backupReminder=false;seed.settings.weatherEnabled=false;seed.settings.weatherBackgroundEnabled=false;delete seed.supplierBook;module.exports={seed};

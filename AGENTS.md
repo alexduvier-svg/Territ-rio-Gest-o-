@@ -1,3 +1,19 @@
+# Em Andamento — Experiência0.12.77
+
+Pedido humano mais recente6grupos: teclado/carga/evento emcards e2ações; títuloEstoque/Fornecedorescomseta e busca; revisãofinalhierárquica semaçõescortadas; Gestãoorientaçãobreveexpansível/guia+diagnósticocontextual; dicasCRM/KPI/PDVdiáriascomavisoslocais; caféscomespécie/variedade/Superior/torra/processo eordemEspecialTCpesomenor→TM→TEatéTradicional, vendasTC/TM/TE/Estoqueespécievariedadeelegenda. Ler agro-gestao/RETOMADA-EXPERIENCIA-0.12.77.md e histórico dochat. Nenhuma implementação77 ainda; auditoriainicialsalva. Persistir até completar, seminventardados, comlayoutúnico/claroescuro/320ampliadoleve-reduzido/DOISfixtures. Semsubagentes/automação.
+
+# Entrega Concluída Tecnicamente — Fornecedores/Pareto/Compras0.12.76/code116
+
+Ver agro-gestao/docs/ENTREGA-0.12.76.md e RETOMADA-FORNECEDORES.md.619unit/8browser/4CapacitorDOIS2temasPASS. APK9168912bytes/SHA736f2940fa5bbcd34893bc7821177ec75113472b77f1b4a206dc278cc36de1a7/certoriginal/v2v3/49assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-r23/10Reno18:58:16/PKJ18:58:23/116/Statusok/firstInstallTimepreservados. Fixtures/capturas/forwardsremovidos. NÃOrepetirbuild/testes/verificador/cópia/install76. Dadosreais/clima27/servidor59/FirebaseSparkAppCheck/Calendarpreservados; semERPprincipal/WhatsAppreal/agenda pessoal. SemFPS/básicofísicomedidos. Finalizarcommit/pushAGRO2 destaentrega antesdealterar77; confirmarlogremoto. Claudecffe32b/main956fddcpreservados.
+
+# Em Andamento — Fornecedores e Pareto0.12.76/code116
+
+Usuário autorizou cadastro E comparação, motor decisório e Pareto (giro/margem/lucro bruto). Implementação local aditiva pronta; ler agro-gestao/RETOMADA-FORNECEDORES.md e docs/FORNECEDORES-VIABILIDADE-0.12.76.md. 612unit PASS; browser8/ensaios adicionais/native4 em conferência. APK e fixture76 compilados, AINDA sem cópiaoriginal/install-r/commit/push76. Preservar75 entregue e dados reais. Somente ramoAGRO2; consultar Git em marcos. Semsubagentes, semautomação. Completar verificação/instalaçãoDOIS/cópia/docs/Git, sem repetir versões entregues.
+
+# Em diagnóstico — Fornecedores, escolha de escopo pendente
+
+Novo pedido23/10: chavinha juntoToqueparaRepor alternaEstoque/Fornecedores no padrãoexistente. Documento de diretriz lido/auditoria inicialfeita; NÃOexiste cadastro/compras estruturadas no código. Pergunta depreferência enviada: cadastro/consulta OU cadastro+comparação; usuárioperguntou diferença e ainda nãoescolheu. Explicação/recomendação cadastro+comparação simples, sempedidos/recebimento/contasapagar nestaetapa. Nenhumcódigo/build/versão nova;75segueúltimainstaladaeentregue. Leragro-gestao/RETOMADA-FORNECEDORES.md. Nãoassumir queanexo autoriza todasasfases. Gitfetch4a9e707/Claudecffe32b/main956fddcinalterados. Semsubagentes/automação.
+
 # Entrega instalada — Estados do Evento0.12.75/code115
 
 Pedido23/10: finalizado vai paraHistórico/nãoAtivoemProdutos; Agendadoverde; ConferênciaPendentecomtriângulolaranja; Encerradaapósconferir. ERP.eventLifecycle/sync corrigelegadooficialactivecomfairClosedAt semalterarsaldos; oficialtambémfinished. Adiamentoretomável, carga reservada/nãosendconcluído; guardas idempotentes existentes. Relatório preliminaratéconfirmar, fechamento vazio nãoinventasaldo. Estado único emcards/detalhe/indicadores/local/destinodevenda; clockatualizaevento semmudança deescopo. Memória45/documentooffline. Leragro-gestao/docs/ENTREGA-0.12.75.md eRETOMADA-EVENTOS-0.12.75.md.

@@ -1,0 +1,32 @@
+{
+  "version": "0.12.76",
+  "device": "pkj",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

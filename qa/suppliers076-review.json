@@ -1,0 +1,188 @@
+{
+  "version": "0.12.76",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true,
+        "trainingIsolated": true,
+        "boundedDirectoryAndPicker": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "event": {
+        "switch": true,
+        "supplierCRUD": true,
+        "sharedClientIdentity": true,
+        "commonNumericAndCalendar": true,
+        "comparisonCostVsDeadline": true,
+        "workerMinimal": true,
+        "noStockSaleDebtMutation": true,
+        "preferenceOnly": true,
+        "draftReload": true,
+        "archivedExcluded": true,
+        "backupAndCSV": true,
+        "paretoFinanceReport": true,
+        "sharedLayout": true,
+        "purchaseHistorySameAndOther": true,
+        "purchaseCalendar": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

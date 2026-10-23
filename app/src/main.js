@@ -60,6 +60,8 @@ import { installAgent } from './features/agent/index.js';
 import { installWorkflows } from './features/workflows/index.js';
 import './features/workflows/workflows.css';
 import { installStore } from './features/store/index.js';
+import {installSuppliers} from './features/suppliers/index.js';
+import * as ProductPareto from './features/product-pareto.js';
 import {installEventExperience} from './features/event-experience/index.js';
 import {installMunicipalCalendar} from './features/municipal-calendar/index.js';
 import './features/event-experience/events.css';
@@ -183,6 +185,8 @@ try {
   installOrderArrivals();
   installLocalCatalog();
   installPrintList();
+  window.TerritorioProductPareto=ProductPareto;
+  installSuppliers();
   installGlassTouch();
   installTrainingUI();
   installShell();

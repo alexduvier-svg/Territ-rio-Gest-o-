@@ -5,6 +5,7 @@
 //   3. numbers: os valores e as fórmulas, para quem quiser conferir.
 // Toda a complexidade fica aqui; o produtor só lê frases curtas. Valores em centavos.
 import { TOPICS } from './knowledge.js';
+import {productPareto} from '../product-pareto.js';
 import { forecastNextEvent, runOut } from './forecast.js';
 import { FINANCE_RULES } from './finance-rules.js';
 import { evidenceQuality } from './quality.js';
@@ -445,12 +446,14 @@ export function productRoles(input) {
   const profit=[...known].sort((a,b)=>(b.revenue-b.cost)-(a.revenue-a.cost)||String(a.id).localeCompare(String(b.id)))[0];
   const groups=new Map();for(const r of rows){const unit=input.productUnits?.[r.id];if(typeof unit!=='string'||!unit)continue;if(!groups.has(unit))groups.set(unit,[]);groups.get(unit).push(r);}
   const quantity=[...groups].filter(([,items])=>items.length>=2).slice(0,2).map(([unit,items])=>{const r=[...items].sort((a,b)=>b.qty-a.qty||String(a.id).localeCompare(String(b.id)))[0];return `${r.name}: ${fmtQty(r.qty)} ${unit} (comparação na mesma unidade).`;});
+  const pareto=productPareto(rows,input.productUnits||{}),pair=pareto.pair;
+  const tradeoff=pair?`${pair.less.name} vendeu ${fmtQty(pair.less.qty)} ${pair.unit} e deixou ${brl(pair.less.revenue-pair.less.cost)} brutos; ${pair.more.name} vendeu ${fmtQty(pair.more.qty)} ${pair.unit} e deixou ${brl(pair.more.revenue-pair.more.cost)}. Menor quantidade com maior margem e resultado bruto neste recorte.`:'';
   return [item('papel-produto','oportunidade',{
     title:'Quantidade, Receita e Lucro Bruto',
-    happened:`${revenue.name} lidera a receita registrada: ${brl(revenue.revenue)}.`+(profit?` ${profit.name} tem o maior resultado bruto entre os produtos com custo histórico conhecido: ${brl(profit.revenue-profit.cost)}.`:''),
-    todo:profit&&profit.id!==revenue.id?'Observe os dois papéis antes de testar a exposição na banca: quem traz receita e quem deixa mais resultado bruto.':'Compare saída, receita e custo antes de planejar a reposição ou mudar a exposição.',
+    happened:(tradeoff?tradeoff+' ':'')+`${revenue.name} lidera a receita registrada: ${brl(revenue.revenue)}.`+(profit?` ${profit.name} tem o maior resultado bruto entre os produtos com custo histórico conhecido: ${brl(profit.revenue-profit.cost)}.`:''),
+    todo:pair?'Confira também procura, saldo, validade e custos antes de testar exposição ou reposição. Volume sozinho não define contribuição; compare propostas de compra sem alterar as vendas passadas.':profit&&profit.id!==revenue.id?'Observe os dois papéis antes de testar a exposição na banca: quem traz receita e quem deixa mais resultado bruto.':'Compare saída, receita e custo antes de planejar a reposição ou mudar a exposição.',
     why:'Quantidade mostra saída na unidade indicada; receita já reflete os descontos e devoluções do recorte. Lucro bruto considera o custo histórico do produto, antes de taxas e despesas. '+(known.length<rows.length?'Há custos ausentes: não é possível afirmar qual é o mais lucrativo de todo o estoque.':'Não é lucro líquido nem previsão de procura.'),
-    numbers:[...quantity.map(text=>({label:'Quantidade',value:text})),{label:'Receita',value:brl(revenue.revenue),detail:revenue.name},...(profit?[{label:'Resultado bruto conhecido',value:brl(profit.revenue-profit.cost),detail:profit.name}]:[])],
+    numbers:[{label:'Pareto do faturamento positivo',value:`${pareto.revenue.priority} de ${pareto.revenue.rows.length} produtos atingem 80% ou mais`,detail:'Concentração observada, sem impor a regra 80/20.'},...quantity.map(text=>({label:'Quantidade',value:text})),{label:'Receita',value:brl(revenue.revenue),detail:revenue.name},...(profit?[{label:'Resultado bruto conhecido',value:brl(profit.revenue-profit.cost),detail:profit.name}]:[])],
     topics:['espaco','giro'],impact:Math.round(revenue.revenue/10),
   })];
 }
