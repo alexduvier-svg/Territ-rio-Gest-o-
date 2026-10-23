@@ -1,3 +1,4 @@
+import * as EventReminders from './features/event-reminders.js';
 import {installAutoCollapse} from './features/auto-collapse.js';
 import {installFinancialSession} from './features/financial-session.js';
 import {productOutline} from './features/product-outline.js';
@@ -139,6 +140,7 @@ try {
   window.TerritorioFairReport = FairReport;
   window.TerritorioFairSurplus = FairSurplus;
   window.TerritorioEventPreparation = EventPreparation;
+  window.TerritorioEventReminders = EventReminders;
   window.TerritorioDaySummary = DaySummary;
   window.TerritorioProductPeriodReports = ProductPeriodReports;
   window.TerritorioManagementReporting = ManagementReporting;

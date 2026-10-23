@@ -1,6 +1,8 @@
 package br.com.territorio.gestao;
 
 import android.Manifest;
+import android.content.Intent;
+import android.content.ActivityNotFoundException;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
 import android.content.ContentUris;
@@ -66,9 +68,33 @@ public class AgroCalendarPlugin extends Plugin {
             else{batch.add(ContentProviderOperation.newUpdate(ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI,existing)).withValues(values).build());batch.add(ContentProviderOperation.newDelete(CalendarContract.Reminders.CONTENT_URI).withSelection("event_id = ?",new String[]{Long.toString(existing)}).build());}
             ContentProviderOperation.Builder reminder=ContentProviderOperation.newInsert(CalendarContract.Reminders.CONTENT_URI).withValue("minutes",1440).withValue("method",CalendarContract.Reminders.METHOD_ALERT);
             if(existing<0)reminder.withValueBackReference("event_id",0);else reminder.withValue("event_id",existing);
-            batch.add(reminder.build());getContext().getContentResolver().applyBatch(CalendarContract.AUTHORITY,batch);
-            JSObject out=new JSObject();out.put("saved",true);out.put("reminderMinutes",1440);out.put("updated",existing>=0);call.resolve(out);
+            batch.add(reminder.build());ContentProviderResult[] results=getContext().getContentResolver().applyBatch(CalendarContract.AUTHORITY,batch);
+            long savedId=existing>=0?existing:ContentUris.parseId(results[0].uri);
+            JSObject out=new JSObject();out.put("saved",true);out.put("eventId",savedId);out.put("reminderMinutes",1440);out.put("updated",existing>=0);call.resolve(out);
         }catch(Exception e){call.reject("Não foi possível salvar o lembrete. Confira a agenda e tente novamente.");}});
+    }
+    static Intent eventViewIntent(long eventId,long start,long end){
+        return new Intent(Intent.ACTION_VIEW,ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI,eventId))
+            .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,start).putExtra(CalendarContract.EXTRA_EVENT_END_TIME,end);
+    }
+    @PluginMethod public void open(PluginCall call){
+        if(getPermissionState("calendar")!=PermissionState.GRANTED){call.reject("O compromisso está salvo. Autorize a agenda ou abra seu aplicativo de agenda para consultá-lo.");return;}
+        io.execute(()->{try{
+            long id=call.getData().optLong("eventId",-1L);String key=ownKey(call.getString("key",""));
+            if(id<0)throw new IllegalArgumentException();
+            long start,end;
+            // Restrict the read to this app's exact exported occurrence, never a personal event.
+            try(Cursor c=getContext().getContentResolver().query(CalendarContract.Events.CONTENT_URI,new String[]{"dtstart","dtend"},"_id = ? AND customAppPackage = ? AND customAppUri = ? AND deleted = 0",new String[]{Long.toString(id),getContext().getPackageName(),key},null)){
+                if(c==null||!c.moveToFirst()){call.reject("Este compromisso não foi encontrado na agenda. Salve o evento novamente.");return;}
+                start=c.getLong(0);end=c.getLong(1);
+            }
+            getActivity().runOnUiThread(()->{
+                Intent view=eventViewIntent(id,start,end);boolean opened=false;
+                try{getActivity().startActivity(new Intent(view).setPackage("com.google.android.calendar"));opened=true;}
+                catch(ActivityNotFoundException|SecurityException unavailable){try{getActivity().startActivity(view);opened=true;}catch(ActivityNotFoundException|SecurityException ignored){}}
+                JSObject result=new JSObject();result.put("opened",opened);call.resolve(result);
+            });
+        }catch(Exception error){call.reject("O compromisso está salvo, mas não foi possível abrir a agenda. Tente consultá-lo no aplicativo de agenda.");}});
     }
     @Override protected void handleOnDestroy(){io.shutdownNow();super.handleOnDestroy();}
 }

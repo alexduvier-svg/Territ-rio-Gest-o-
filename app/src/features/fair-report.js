@@ -210,6 +210,7 @@ export function buildFairReport({ event, load, sales, losses = [], productOf = (
   // the closing summary; their sales already belong to revenue and stock above.
   check.vendasNaoRegistradas.qtd=quantityValue(check.vendasNaoRegistradas.qtd+activitySales.flatMap(s=>s.items||[]).reduce((n,i)=>n+i.qty,0));
   check.vendasNaoRegistradas.valor+=activitySales.reduce((n,s)=>n+s.total,0);
+  check.perdas.qtd=quantityValue(check.perdas.qtd+losses.filter(m=>m.eventId===event.id&&m.kind==='loss'&&m.fairActivityId).reduce((n,m)=>n+m.qty,0));
   check.corrigido ||= !!event.fairActivities?.length;
   return {
     app: producer.app || '',

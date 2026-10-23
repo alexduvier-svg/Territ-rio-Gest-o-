@@ -1,3 +1,11 @@
+# Entrega instalada — Agenda e Evento0.12.71/code111
+
+Pedidos23/10implementados: confirmação de agenda visível/VernaAgenda própria,Voltar comum semXredundante; CancelarEvento juntohorário; términoautomáticodiferente deconferênciafechada;3cardsacertos/reposições-vendasfaltantes-perdasidempotentes. AvisoProdutos datavermelha/Xpersistente porocorrência/expira1hANTES semrebuildgrade. Perfilcom expansão354→18px/0,30→0,94 euma sóanimação, semreinícioporcapitalização. Memória41/documentooffline. Ler agro-gestao/docs/ENTREGA-0.12.71.md e RETOMADA-AGENDA-EVENTO-0.12.71.md.
+
+568unit/8browser320ampliadoleve-reduzido360393412/4CapacitorDOIS2temas/4instrumentadosCalendarProviderLOCALPASS. Save-update-1440-chaveestranharejeitada-VIEWprópriointerceptado-cleanup nosDOIS. SemERPprincipal/WhatsAppreal/agenda pessoal/syncGoogle/som; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. AvisoAndroid1hantesjáexistia,GoogleAgendaopcional; nãoadicionadoalarmeRelógio.
+
+APK9131954bytes/SHA2565db4a5e4faad5edaea7236ab346ed5f38fda253d4c0213d45544b9b4e6a6c549/certoriginal/v2v3/48assets+2pontes/ZIPeELF16KBmetadados. Cópiaoriginal/install-r23/10 Reno13:50:42/PKJ13:50:53/111/0.12.71/Statusok/firstInstallTimepreservados; fixtures/instrumentação/calendáriosLOCAL/capturas/forwardsremovidos. NÃO repetir build/testes/verificador/cópia/instalação71. Clima27/servidor59/FirebaseSparkAppCheck/dadosreais preservados. Git somenteAGRO2 emfechamento; confirmarcommit/pushremoto antesdeencerrar. Claudecffe32b/main956fddcinalterados. Semsubagentes/semautomação,nãorecriar.
+
 # Entrega concluída — Reposição0.12.70/code110
 
 Pedido23/10: zerovermelho na reposição rápida de produto esgotado, só numeral; quantidade positiva/saldo reposto normais. Frequência de reposições confirmadas na carga da feira, uma confirmação multiprodutoscontauma; carga inicial/consulta/repetição não contam. Contagem derivada dohistórico existente, semcontadorparalelo/alocação automática doestoquegeral; legadoincompleto parcial. Gestão/Estoque e Sobras e relatório local. Memória40/documentooffline. Ler agro-gestao/docs/ENTREGA-0.12.70.md e RETOMADA-REPOSICAO-0.12.70.md.

@@ -1,0 +1,55 @@
+{
+  "synthetic": true,
+  "mode": "candidate",
+  "cases": [
+    {
+      "theme": "light",
+      "before": 855,
+      "first": {
+        "delay": 104.20000000111759,
+        "duration": 625,
+        "start": {
+          "offset": 0,
+          "translate": "3.88px -18.00px",
+          "scale": "0.94000",
+          "opacity": "0.0000"
+        },
+        "end": {
+          "offset": 1,
+          "translate": "0.00px 0.00px",
+          "scale": "1.00000",
+          "opacity": "1.0000"
+        }
+      },
+      "rootAnimations": 2,
+      "remaining": 0,
+      "height": 698.625,
+      "longTasks": []
+    },
+    {
+      "theme": "dark",
+      "before": 811.7000000011176,
+      "first": {
+        "delay": 84.69999999925494,
+        "duration": 625,
+        "start": {
+          "offset": 0,
+          "translate": "3.88px -18.00px",
+          "scale": "0.94000",
+          "opacity": "0.0000"
+        },
+        "end": {
+          "offset": 1,
+          "translate": "0.00px 0.00px",
+          "scale": "1.00000",
+          "opacity": "1.0000"
+        }
+      },
+      "rootAnimations": 2,
+      "remaining": 0,
+      "height": 698.625,
+      "longTasks": []
+    }
+  ],
+  "stage": "Intermediate compact geometry before title-identity correction. Final single-root-animation evidence is in agenda071-review.json and four native reports."
+}

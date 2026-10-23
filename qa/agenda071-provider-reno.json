@@ -1,0 +1,15 @@
+{
+  "version": "0.12.71",
+  "foreignKeyRejected": true,
+  "viewIntentIntercepted": true,
+  "instrumentedTests": 2,
+  "savedAndUpdatedOnce": true,
+  "device": "reno",
+  "localCalendarAndReminderCleaned": true,
+  "isolatedLocalCalendarOnly": true,
+  "passed": true,
+  "realPersonalCalendarsAccessed": false,
+  "googleAccountAccessed": false,
+  "reminderMinutes": 1440,
+  "officialPermissionGranted": true
+}

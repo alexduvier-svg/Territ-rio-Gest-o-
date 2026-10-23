@@ -1,3 +1,4 @@
+import {insightSheetGeometry} from './geometry.js';
 import { stepSpring, springAtRest } from './spring.js';
 import { animate, SPRINGS, ramp, clamp, motionOf, finishAll, liveCount, carriedVelocity, springCurve, springFrom } from './engine.js';
 
@@ -469,8 +470,10 @@ function installDialogs() {
     const rect = dialog.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     state.morph = fresh ? usable(source) : state.morph;
+    state.compact = fresh ? dialog.dataset.kind === 'business' : state.compact;
     let from;
-    if (fresh && usable(source)) from = launchPose(rect, source);
+    if (fresh && state.compact) from = { ...insightSheetGeometry(rect,source,limited()),opacity:0 };
+    else if (fresh && usable(source)) from = launchPose(rect, source);
     else if (fresh) from = { x: 0, y: limited() ? 10 : 22, scale: limited() ? 0.97 : 0.94, opacity: 0 };
     else from = { x: 0, y: 6, scale: 0.985, opacity: 0.6 };
     if (prior.pose) from = { ...from, ...prior.pose };
@@ -494,8 +497,8 @@ function installDialogs() {
       saved: ['height', 'min-height', 'max-height', 'flex'].map(p => [p, element.style.getPropertyValue(p), element.style.getPropertyPriority(p)]) }));
     const target = state.morph ? locateSource(state.source) : null;
     const from = { ...REST, ...(prior.pose || {}) };
-    const to = usable(target) ? landingPose(surface.rect, target) : { x: 0, y: limited() ? 8 : 16, scale: limited() ? 0.975 : 0.94, opacity: 0 };
-    const shape = usable(target) ? dissolve(0.62, 1, from.opacity) : dissolve(0, 0.7, from.opacity);
+    const to = state.compact ? {...insightSheetGeometry(surface.rect,target,limited()),opacity:0} : usable(target) ? landingPose(surface.rect, target) : { x: 0, y: limited() ? 8 : 16, scale: limited() ? 0.975 : 0.94, opacity: 0 };
+    const shape = state.compact ? dissolve(0,0.8,from.opacity) : usable(target) ? dissolve(0.62, 1, from.opacity) : dissolve(0, 0.7, from.opacity);
     const curve = spring('close');
     const velocity = prior.handle ? carriedVelocity(prior.handle, from, to) : 0;
     const retention = Math.ceil(springCurve(curve, velocity).duration) + 120;
@@ -648,7 +651,9 @@ function installDialogs() {
     if (!state) return;
     if (state.closing && !dialog.open && contentChanged && !state.closing.swap?.()) state.closing.restore();
     const kind = String(detail?.kind ?? dialog.dataset.kind ?? '');
-    const title = String(detail?.title ?? dialog.querySelector('h2')?.textContent ?? '').trim();
+    // Capitalisation is typography, not a new surface. A title-case observer must
+    // never cancel and restart the same compositor animation during its first frame.
+    const title = String(detail?.title ?? dialog.querySelector('h2')?.textContent ?? '').trim().toLocaleLowerCase('pt-BR');
     const dataKey = detail ? identity(detail.data) : state.kind === kind && state.title === title ? state.identity : '';
     const signature = JSON.stringify([kind, title, dataKey]);
     const fresh = !state.open;

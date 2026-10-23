@@ -1,0 +1,276 @@
+{
+  "version": "0.12.71",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "physical": false,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": false,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [],
+        "remaining": 0
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "physical": false,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": false,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [
+          {
+            "start": {
+              "offset": 0,
+              "translate": "2.56px -18.00px",
+              "scale": "0.94000",
+              "opacity": "0.0000"
+            },
+            "end": {
+              "offset": 1,
+              "translate": "0.00px 0.00px",
+              "scale": "1.00000",
+              "opacity": "1.0000"
+            },
+            "duration": 625
+          }
+        ],
+        "remaining": 0
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "physical": false,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": false,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [
+          {
+            "start": {
+              "offset": 0,
+              "translate": "3.88px -18.00px",
+              "scale": "0.94000",
+              "opacity": "0.0000"
+            },
+            "end": {
+              "offset": 1,
+              "translate": "0.00px 0.00px",
+              "scale": "1.00000",
+              "opacity": "1.0000"
+            },
+            "duration": 625
+          }
+        ],
+        "remaining": 0
+      },
+      "cutoffWithoutGridRebuild": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "physical": false,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": false,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [
+          {
+            "start": {
+              "offset": 0,
+              "translate": "4.64px -18.00px",
+              "scale": "0.94000",
+              "opacity": "0.0000"
+            },
+            "end": {
+              "offset": 1,
+              "translate": "0.00px 0.00px",
+              "scale": "1.00000",
+              "opacity": "1.0000"
+            },
+            "duration": 625
+          }
+        ],
+        "remaining": 0
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "physical": false,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": false,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [],
+        "remaining": 0
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "physical": false,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": false,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [
+          {
+            "start": {
+              "offset": 0,
+              "translate": "2.56px -18.00px",
+              "scale": "0.94000",
+              "opacity": "0.0000"
+            },
+            "end": {
+              "offset": 1,
+              "translate": "0.00px 0.00px",
+              "scale": "1.00000",
+              "opacity": "1.0000"
+            },
+            "duration": 625
+          }
+        ],
+        "remaining": 0
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "physical": false,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": false,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [
+          {
+            "start": {
+              "offset": 0,
+              "translate": "3.88px -18.00px",
+              "scale": "0.94000",
+              "opacity": "0.0000"
+            },
+            "end": {
+              "offset": 1,
+              "translate": "0.00px 0.00px",
+              "scale": "1.00000",
+              "opacity": "1.0000"
+            },
+            "duration": 625
+          }
+        ],
+        "remaining": 0
+      },
+      "cutoffWithoutGridRebuild": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "physical": false,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": false,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [
+          {
+            "start": {
+              "offset": 0,
+              "translate": "4.64px -18.00px",
+              "scale": "0.94000",
+              "opacity": "0.0000"
+            },
+            "end": {
+              "offset": 1,
+              "translate": "0.00px 0.00px",
+              "scale": "1.00000",
+              "opacity": "1.0000"
+            },
+            "duration": 625
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

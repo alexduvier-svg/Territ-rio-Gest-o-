@@ -133,3 +133,11 @@ Refinamento69: conjunto triângulo/número centralizado na mesma altura da seta 
 Na reposição rápida de produto esgotado, os numerais0 são vermelhos. Quantidade positiva e saldo após gravação voltam ao estado normal. Unidade e textos mantêm suas cores. Não afirmar reposição antes da confirmação durável.
 
 Contar confirmações registradas no histórico da carga da feira, uma vez por confirmação mesmo com vários produtos. Carga inicial, leitura/abertura, digitação, consultas repetidas e salvamentos sem entrada não contam. Entradas gerais não são alocadas automaticamente à feira. Deduplicar identificações/horários das confirmações; manter detalhamento por produto/apresentação. Histórico legado incompleto é parcial, sem estimar quantas vezes ocorreu. Exibir na Gestão/Estoque e Sobras e manter no relatório local sem novo contador persistido.
+
+## Revisão71 — Agenda, Preparação e Fechamento
+
+Data do aviso de preparação em vermelho nos dois temas; X dispensa a ocorrência desse horário de forma persistente. Expirar exatamente1hora ANTES do início; retomar/abrir também revalida. Não é aviso de evento ativo nem alarme Android.
+
+Agenda: confirmação visível após escolher a conta, atualiza sem duplicar, Ver na Agenda limitado ao compromisso próprio. ICS é alternativa para agendas compatíveis; Google Agenda Android pode não abrir o arquivo. Não ler compromissos pessoais. Janelas com Voltar comum não precisam de X; aviso descartável mantém X. Cancelar Evento junto ao horário, com toque acessível e acomodação em tela estreita.
+
+Após o horário final, manter Finalizar Evento enquanto faltar a conferência. Três cards de acertos: reposições (casa ou entrada nova), vendas não registradas (pagamento explícito), perdas/brindes (baixa sem receita). Uma gravação auditada/idempotente, limites de carga/estoque/reservas, sem repetir vendas/perdas na sobra. Envio oficial só após gravação durável. Perfil e Negócio usa expansão curta e retorno inteiro pelo motor comum.

@@ -1,0 +1,58 @@
+{
+  "version": "0.12.71",
+  "device": "reno",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "dark",
+      "width": 359,
+      "large": false,
+      "physical": true,
+      "dateRed": true,
+      "persistentDismissal": true,
+      "cancelNextToTime": true,
+      "commonBackNoX": true,
+      "calendarPathsMocked": true,
+      "personalAgendaAccessed": false,
+      "endedCanFinish": true,
+      "threeCorrectionCards": true,
+      "correctionStock17": true,
+      "oneSaleOneLoss": true,
+      "closingDoesNotDuplicate": true,
+      "profile": {
+        "motions": [
+          {
+            "start": {
+              "offset": 0,
+              "translate": "3.63px -18.00px",
+              "scale": "0.94000",
+              "opacity": "0.0000"
+            },
+            "end": {
+              "offset": 1,
+              "translate": "0.00px 0.00px",
+              "scale": "1.00000",
+              "opacity": "1.0000"
+            },
+            "duration": 625
+          }
+        ],
+        "remaining": 0
+      }
+    }
+  ],
+  "errors": [],
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}

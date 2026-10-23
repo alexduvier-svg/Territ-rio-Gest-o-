@@ -1,0 +1,54 @@
+{
+  "synthetic": true,
+  "mode": "baseline",
+  "cases": [
+    {
+      "theme": "light",
+      "before": 841.7999999988824,
+      "first": {
+        "delay": 101.80000000074506,
+        "duration": 625,
+        "start": {
+          "offset": 0,
+          "translate": "48.50px -354.00px",
+          "scale": "0.30000",
+          "opacity": "0.0000"
+        },
+        "end": {
+          "offset": 1,
+          "translate": "0.00px 0.00px",
+          "scale": "1.00000",
+          "opacity": "1.0000"
+        }
+      },
+      "rootAnimations": 2,
+      "remaining": 0,
+      "height": 698.625,
+      "longTasks": []
+    },
+    {
+      "theme": "dark",
+      "before": 792.3999999985099,
+      "first": {
+        "delay": 95.90000000037253,
+        "duration": 625,
+        "start": {
+          "offset": 0,
+          "translate": "48.50px -354.00px",
+          "scale": "0.30000",
+          "opacity": "0.0000"
+        },
+        "end": {
+          "offset": 1,
+          "translate": "0.00px 0.00px",
+          "scale": "1.00000",
+          "opacity": "1.0000"
+        }
+      },
+      "rootAnimations": 2,
+      "remaining": 0,
+      "height": 698.625,
+      "longTasks": []
+    }
+  ]
+}

@@ -280,3 +280,13 @@ dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-items .cart-item
 
 /* A sold-out balance is red until a positive replenishment is confirmed. */
 :root[data-theme] dialog[data-kind=restock] :is(.rr-current-qty,.rr-value .tabular).is-zero{color:var(--red)}
+
+/* A data do aviso é vermelha nos dois temas; o X descarta apenas esse aviso. */
+.fair-prep .fc-date b,.fair-prep .fc-date small{color:var(--red)}
+
+/* Supplied return actions use the common footer too, including nested agendas. */
+:root[data-theme][data-layout] #dialog[data-bottom-back]>.checkout-footer>.sheet-back{grid-column:1/-1;margin:0;min-width:0;white-space:normal;line-height:1.3;text-align:center;justify-content:center;align-items:center}
+:root[data-theme][data-layout] #dialog[data-kind^=event-agenda]>.checkout-footer{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+#dialog[data-kind^=event-agenda]>.checkout-footer>button{margin:0;width:100%;min-height:48px;white-space:normal;line-height:1.3}
+
+:root[data-theme][data-layout] #dialog[data-bottom-back]>.checkout-footer>:only-child{grid-column:1/-1;width:100%;min-width:0}

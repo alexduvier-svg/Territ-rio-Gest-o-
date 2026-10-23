@@ -117,3 +117,7 @@ html[data-large-text=true] #dialog[data-kind=event] .event-form-cards .form-fiel
 html[data-large-text=true] #dialog[data-kind=event] .event-schedule-row>.form-field>label,html[data-large-text=true] .event-schedule-row .event-time-label{font-size:16px!important}
 .event-tile-footer{display:flex;justify-content:flex-end;margin-top:9px}
 #app .event-tile .event-cancel-compact,#dialog .event-cancel-compact{display:inline-flex;align-items:center;justify-content:center;justify-self:end;width:auto;min-width:44px;min-height:40px;margin:0;padding:8px 10px;border:0;border-radius:14px;background:transparent;box-shadow:none;color:var(--red);font:550 13px/1.4 'Inter Variable',sans-serif;white-space:normal;text-align:center}
+
+.event-agenda-success{display:grid;gap:12px;text-align:center}.event-agenda-success h3,.event-agenda-success p{margin:0}.event-agenda-check{display:grid;place-items:center;color:var(--green)}.event-agenda-check .icon{width:32px;height:32px}.event-agenda-file summary{min-height:44px;display:flex;align-items:center;font-weight:650;cursor:pointer}.event-agenda-file{margin-top:16px}.event-agenda-list strong{overflow-wrap:anywhere}#event-calendar-feedback:empty{display:none}
+
+.event-time-actions{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;min-width:0}.event-time-actions .event-when{margin:0;white-space:nowrap;font-variant-numeric:tabular-nums}.event-time-actions .event-cancel-compact{margin:0;min-height:44px;padding:8px 0;flex:0 0 auto}.event-identity-copy>.event-when{margin-bottom:0}

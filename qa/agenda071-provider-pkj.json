@@ -1,0 +1,15 @@
+{
+  "realPersonalCalendarsAccessed": false,
+  "version": "0.12.71",
+  "passed": true,
+  "officialPermissionGranted": true,
+  "googleAccountAccessed": false,
+  "savedAndUpdatedOnce": true,
+  "instrumentedTests": 2,
+  "reminderMinutes": 1440,
+  "viewIntentIntercepted": true,
+  "foreignKeyRejected": true,
+  "localCalendarAndReminderCleaned": true,
+  "device": "pkj",
+  "isolatedLocalCalendarOnly": true
+}
