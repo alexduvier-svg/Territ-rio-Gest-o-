@@ -4,7 +4,7 @@ Pedido23/10: finalizado vai paraHistórico/nãoAtivoemProdutos; Agendadoverde; C
 
 582unit/8browser320ampliadoleve-reduzido360393412/4CapacitorDOIS2temasPASS. Oficiallegado, pendente/adiado/cancelado/agendado, términoantesdohorário/histórico/reload, envioAPI simulado2confirmações/2relatórios; semalterarsaldo/vendas/movimentosfictícios. SemERPprincipal/WhatsAppreal/agendapessoal/relatóriorealenviado; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. APK9136050bytes/SHA2567e2e39ef786cb5861987ce8a9ce50cbf9aa2d97fd8e039733042e69bdefccc60/certoriginal/v2v3/48assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-rReno14 2026-10-23 16:12:55 / PKJ110 2026-10-23 16:13:01/115/0.12.75/Statusok/firstInstallTimepreservados;fixturesremovidos. NÃOrepetirbuild/verificador/cópia/instalação75.
 
-Clima27/servidor59/FirebaseSparkAppCheck/Calendar/ModoTeste/identidade/dadosreaispreservados. GitapenasAGRO2, consultarlog/remoto paraencerramento. Claudecffe32b/main956fddcinalterados. Sempendência deimplementação autorizada; encerramentodocumental nãoexigeAPK. Semsubagentes/automação,nãorecriar.
+Clima27/servidor59/FirebaseSparkAppCheck/Calendar/ModoTeste/identidade/dadosreaispreservados. Gitimplementação commit/pushec00ab766add30f96eed10d153230954f71a8b85 confirmados remotoAGRO2/worktreelimpo antesdoencerramento documental. Capturas temporárias/forwards removidos dosDOIS. Claudecffe32b/main956fddcinalterados. Sempendência deimplementação autorizada; encerramentodocumental nãoexigeAPK. Semsubagentes/automação,nãorecriar.
 
 # Entrega instalada — Ícone de Reposição0.12.74/code114
 
