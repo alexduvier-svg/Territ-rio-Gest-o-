@@ -38,6 +38,7 @@ function safeFileName(name) {
 
 // Files leave the app through the Android share sheet: Drive, WhatsApp, e-mail, Files…
 async function shareFiles(files, { title, text } = {}) {
+  if(window.TerritorioWorkspace?.active)throw Error('Envios indisponíveis no Modo Teste.');
   const uris = [];
   for (const file of files) {
     const { uri } = await Filesystem.writeFile({
@@ -86,6 +87,7 @@ function installLinksAndDownloads() {
 
   // The Android WebView has no Web Share API; the UI already uses it when available.
   const share = async (data = {}) => {
+    if(window.TerritorioWorkspace?.active)throw Error('Envios indisponíveis no Modo Teste.');
     try {
       if (data.files && data.files.length) return await shareFiles(data.files, data);
       await Share.share({ title: data.title, text: data.text, url: data.url, dialogTitle: data.title || 'Compartilhar' });
@@ -463,9 +465,11 @@ export function installShell() {
   installSystemSleep();
   installSystemBars();
   installLifecycle();
-  installStockAlerts();
-  installFinanceReminder();
-  installFairReminder();
-  installProductPeriodReminders();
+  if(!window.TerritorioWorkspace?.active){
+    installStockAlerts();
+    installFinanceReminder();
+    installFairReminder();
+    installProductPeriodReminders();
+  }
   requestAnimationFrame(() => SplashScreen.hide({ fadeOutDuration: 200 }).catch(() => {}));
 }

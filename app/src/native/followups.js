@@ -5,7 +5,7 @@ import {followupNotices,notificationPromptEligible} from '../features/followups.
 const channel='pedidos-recebimentos',kind=n=>['order-followup','credit-followup'].includes(n.extra?.kind)||(Number(n.id)>=1800000000&&Number(n.id)<1900000000);
 function noticeId(key){let h=5381;for(const c of key)h=(Math.imul(h,33)^c.charCodeAt(0))>>>0;return 1800000000+(h%100000000);}
 export function installFollowupNotifications(){
- if(!Capacitor.isNativePlatform())return;
+ if(window.TerritorioWorkspace?.active||!Capacitor.isNativePlatform())return;
  let flight=null,timer,promptFlight=false;
  const bounded=p=>{let timeout;return Promise.race([p,new Promise((_,reject)=>{timeout=setTimeout(()=>reject(Error('Tempo esgotado na notificação')),10000);})]).finally(()=>clearTimeout(timeout));};
  const bridge=()=>window.TerritorioWorkflowBridge;

@@ -177,6 +177,7 @@ class ERPModel{
   if(kind==='add')this.rememberProduct(p,{stockEntry:true,at:m.date});return m;
  }
  saveProducts(base,variants,editId){
+  if(this.data.training?.mode==='own'&&!editId&&this.data.products.length+variants.length>5)throw Error('O treino com produtos próprios permite até 5 apresentações. Edite ou remova uma para testar outra.');
   if(!String(base.name||'').trim())throw Error('Informe o nome do produto.');
   const incoming=variants.map(v=>{const p={...v,stockGroup:'general',baseName:base.name.trim(),category:base.category,name:base.category==='Cafés'?base.name.trim().replace(/\s+(especial|gourmet|tradicional|commodity|drip coffee)$/i,'')+' '+(v.type||'Especial').toLowerCase():base.name.trim(),price:cents(v.priceInput),cost:cents(v.costInput),costKnown:String(v.costInput??'').trim()!=='',stock:number(v.stockInput),min:number(v.minInput)};
    if(!String(p.unit||'').trim())throw Error('Escolha a unidade de venda.');
@@ -217,6 +218,7 @@ class ERPModel{
    return {items,subtotal,discount,total,cost,...(perItem?{discountScope:'item'}:{})};
   }
  complete(draft){
+  if(this.data.training?.version===1)throw Error('Você está no Modo Teste. Desative-o em Ajustes para vender de verdade. Nenhuma venda foi registrada.');
   const operationId=typeof draft.operationId==='string'?draft.operationId.slice(0,120):'',operationFingerprint=JSON.stringify({scope:draft.scope||'loja',recipientType:draft.recipientType||'',items:(draft.items||[]).map(i=>[i.productId,number(i.rawQty),i.discountMode||'',i.discountValue||'']),discountScope:draft.discountScope,discountMode:draft.discountMode,discountValue:draft.discountValue,payment:draft.payment,split:draft.split,parts:draft.parts,clientId:draft.clientId||'',clientName:draft.clientName||'',...(draft.payment==='Fiado'?{creditDueDate:draft.creditDueDate}:{})});
   if(operationId){const prior=this.data.sales.find(s=>s.operationId===operationId);if(prior){if((draft.orderId||draft.localOrderId)&&prior.status!=='completed')throw Error('A venda deste pedido foi devolvida. Atualize os pedidos antes de continuar.');if(prior.operationFingerprint!==operationFingerprint)throw Error('Esta operação já foi registrada com outros dados. Abra uma nova venda.');return prior;}}
   if(draft.localOrderId){const actor=this.data.dataContext?.id||this.data.productMemory.scopeId,o=this.data.localCommerce?.actors?.[actor]?.orders.find(o=>o.id===draft.localOrderId);if(!o||['review','cancelled'].includes(o.status)||draft.scope!=='loja'||o.items.length!==draft.items.length||o.items.some(i=>!draft.items.some(d=>d.productId===i.productId&&number(d.rawQty)===i.quantity)||this.product(i.productId)?.price!==i.price))throw Error('Confira o pedido, preços e reserva antes de registrar a venda.');}

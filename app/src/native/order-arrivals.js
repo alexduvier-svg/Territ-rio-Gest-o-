@@ -3,7 +3,7 @@ import {App} from '@capacitor/app';
 import {LocalNotifications} from '@capacitor/local-notifications';
 const native=registerPlugin('AgroOrders');
 export function installOrderArrivals(){
- if(!Capacitor.isNativePlatform())return;
+ if(window.TerritorioWorkspace?.active||!Capacitor.isNativePlatform())return;
  let timer,flight=Promise.resolve(),fingerprint='';
  const bridge=()=>window.TerritorioWorkflowBridge;
  const sync=()=>{flight=flight.catch(()=>{}).then(async()=>{

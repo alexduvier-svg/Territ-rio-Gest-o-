@@ -1,6 +1,6 @@
 # Premissas permanentes de interface — AGRO Gestão
 
-Versão 19, atualizada em 21/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
+Versão 42, atualizada em 23/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
 
 - **Volume:** hierarquia coerente por tamanho, peso e espaçamento. Não simular volume com excesso de negrito ou relevo nas letras.
 - **Nitidez:** leitura clara e contraste nos temas claro e escuro. Sem blur ou brilho nas letras. Rótulos de formulário com pelo menos 14 px, respeitando texto ampliado.
@@ -141,3 +141,13 @@ Data do aviso de preparação em vermelho nos dois temas; X dispensa a ocorrênc
 Agenda: confirmação visível após escolher a conta, atualiza sem duplicar, Ver na Agenda limitado ao compromisso próprio. ICS é alternativa para agendas compatíveis; Google Agenda Android pode não abrir o arquivo. Não ler compromissos pessoais. Janelas com Voltar comum não precisam de X; aviso descartável mantém X. Cancelar Evento junto ao horário, com toque acessível e acomodação em tela estreita.
 
 Após o horário final, manter Finalizar Evento enquanto faltar a conferência. Três cards de acertos: reposições (casa ou entrada nova), vendas não registradas (pagamento explícito), perdas/brindes (baixa sem receita). Uma gravação auditada/idempotente, limites de carga/estoque/reservas, sem repetir vendas/perdas na sobra. Envio oficial só após gravação durável. Perfil e Negócio usa expansão curta e retorno inteiro pelo motor comum.
+
+## Modo Teste — Premissa Permanente 42
+
+Ambiente opcional separado nas cinco abas: seis produtos e seis clientes fictícios fixos, ou até cinco apresentações próprias em cópias, inclusive cadastro vazio para treinar. Identificar Exemplos do Sistema ou Seus Produtos — Cópias Para Treino. Botão cinza inativo; vermelho para finalizar; aviso vermelho permanente nas cinco abas. Permitir explorar preço, custo, estoque, clientes e eventos localmente. Não concluir nem venda simulada: a tentativa explica que é necessário sair do modo para vender de verdade. O carrinho de treino não é transferido para o ambiente real.
+
+Armazenamento A/B próprio, sem sobrescrever dados ou rascunho reais. Ao sair, descartar somente o treino; cada nova entrada recomeça com a base escolhida. Não enviar lembretes, notificações, WhatsApp, publicação, agenda externa, IA online nem backups do treino. Não reconfigurar ou cancelar os lembretes reais. Falha de gravação não autoriza migrar silenciosamente para o ambiente real. Os exemplos não entram em contagem ou aprendizado do produtor.
+
+Caixinha vermelha de estoque na linha Área de Vendas: somente desenho em contorno, sem círculo/fundo/sombra ao redor; manter área de toque acessível.
+
+Cards sem estoque em Produtos: toque abre Repor Estoque do próprio produto, sem selecioná-lo para venda. Saldo disponível, reservas e carga continuam validados no domínio. Caixinha de alerta dentro da pill Loja, entre pontinhos/valor e olho; contorno sem círculo, ícone24px igual ao verde, área de toque preservada. Em tela pequena, acomodar a linha financeira sem cortar.

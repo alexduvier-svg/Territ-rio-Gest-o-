@@ -49,6 +49,7 @@ async function verify(state) {
 }
 
 async function sync({ force = false, urgent = false } = {}) {
+  if(window.TerritorioWorkspace?.active)return;
   const state = shell()?.backupState?.();
   if (!API || !state?.enabled || !state.secret || busy) return;
   const json = shell().backupSource();
@@ -111,6 +112,7 @@ async function deleteRemote(code) {
 }
 
 function remind() {
+  if(window.TerritorioWorkspace?.active)return;
   const s = shell();
   if (!s?.backupReminder || document.hidden) return;
   const r = s.backupReminder();

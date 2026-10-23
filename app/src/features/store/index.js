@@ -40,6 +40,7 @@ async function performSync({enabled}={}){
 async function readOrders(call,guard){const result=await call('/orders',{method:'GET'}),s=guard(),old=new Set(s.orders.map(o=>o.id)),incoming=result.orders.filter(o=>!old.has(o.id)&&!['delivered','cancelled'].includes(o.status));if(JSON.stringify(s.orders)!==JSON.stringify(result.orders)||s.enabled!==result.enabled){s.orders=result.orders;s.enabled=result.enabled;s.ordersCheckedAt=Date.now();await save();}else s.ordersCheckedAt=Date.now();decorate();window.dispatchEvent(new CustomEvent('territorio:orders-updated'));if(incoming.length){b().toast(incoming.length===1?'Novo Pedido Recebido. Confira Pedidos e Entregas.':incoming.length+' Novos Pedidos Recebidos. Confira Pedidos e Entregas.');window.dispatchEvent(new CustomEvent('territorio:orders-received',{detail:{count:incoming.length}}));}return s;}
 let ordersPaintKey='';
 async function refresh(){
+ if(window.TerritorioWorkspace?.active)return;
  const s=state();if(busy||actionBusy||!s.slug||!s.enabled||document.hidden)return;busy=true;
  try{await synchronize();s.error='';decorate();if(b().modal()?.kind==='store-orders')openOrders(false);}catch(e){s.error=e.message;b().persist();decorate();if(b().modal()?.kind==='store-orders')openOrders(false);}finally{busy=false;}
 }
@@ -122,6 +123,6 @@ export function installStore(){
  new MutationObserver(decorate).observe(document.getElementById('app'),{childList:true});
  window.addEventListener('online',refresh);window.addEventListener('territorio:resume',refresh);
  document.addEventListener('visibilitychange',()=>{clearTimeout(timer);if(!document.hidden){void refresh();schedule();}});
- function schedule(){clearTimeout(timer);if(!document.hidden)timer=setTimeout(async()=>{await refresh();schedule();},b().modal()?.kind==='store-orders'?15000:45000);}
+ function schedule(){if(window.TerritorioWorkspace?.active)return;clearTimeout(timer);if(!document.hidden)timer=setTimeout(async()=>{await refresh();schedule();},b().modal()?.kind==='store-orders'?15000:45000);}
  schedule();decorate();setTimeout(refresh,0);window.TerritorioStore={state,refresh,synchronize,snapshot,eventLink,stockSplit:id=>stockPartition(b().data(),id)};
 }

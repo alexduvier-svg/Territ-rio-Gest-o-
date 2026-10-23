@@ -1,0 +1,242 @@
+{
+  "version": "0.12.72",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "fiveTabs": true,
+      "ownLimit": true,
+      "salesBlocked": true,
+      "reopen": true,
+      "realPreserved": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 320,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22,
+          "right": 298
+        }
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "fiveTabs": true,
+      "ownLimit": true,
+      "salesBlocked": true,
+      "reopen": true,
+      "realPreserved": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 360,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22,
+          "right": 338
+        }
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "fiveTabs": true,
+      "ownLimit": true,
+      "salesBlocked": true,
+      "reopen": true,
+      "realPreserved": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 393,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22,
+          "right": 371
+        }
+      }
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "fiveTabs": true,
+      "ownLimit": true,
+      "salesBlocked": true,
+      "reopen": true,
+      "realPreserved": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 412,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22,
+          "right": 390
+        }
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "fiveTabs": true,
+      "ownLimit": true,
+      "salesBlocked": true,
+      "reopen": true,
+      "realPreserved": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 320,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22,
+          "right": 298
+        }
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "fiveTabs": true,
+      "ownLimit": true,
+      "salesBlocked": true,
+      "reopen": true,
+      "realPreserved": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 360,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22,
+          "right": 338
+        }
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "fiveTabs": true,
+      "ownLimit": true,
+      "salesBlocked": true,
+      "reopen": true,
+      "realPreserved": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 393,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22,
+          "right": 371
+        }
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "fiveTabs": true,
+      "ownLimit": true,
+      "salesBlocked": true,
+      "reopen": true,
+      "realPreserved": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 412,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22,
+          "right": 390
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

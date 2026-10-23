@@ -1,3 +1,4 @@
+import {initTrainingWorkspace,installTrainingUI} from './features/training/index.js';
 import * as EventReminders from './features/event-reminders.js';
 import {installAutoCollapse} from './features/auto-collapse.js';
 import {installFinancialSession} from './features/financial-session.js';
@@ -117,6 +118,7 @@ async function toDataURL(url) {
 
 try {
   const [catalogPhotos] = await Promise.all([toDataURL(catalogPhotosUrl), initStorage()]);
+  await initTrainingWorkspace();
   window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos, appLogo };
   window.TERRITORIO_MARKET = MARKET_CATALOG;
   window.TerritorioProductCatalog = ProductCatalog;
@@ -172,8 +174,8 @@ try {
   installWorkflows();
   installReceivables();
   installResourceControls();
-  installRecovery();
-  installWeather();
+  if (!window.TerritorioWorkspace.active) installRecovery();
+  if (!window.TerritorioWorkspace.active) installWeather();
   installStore();
   installEventExperience();
   installMunicipalCalendar();
@@ -182,6 +184,7 @@ try {
   installLocalCatalog();
   installPrintList();
   installGlassTouch();
+  installTrainingUI();
   installShell();
   document.dispatchEvent(new Event('territorio:resources-ready'));
 } catch (error) {

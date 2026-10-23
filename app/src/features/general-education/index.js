@@ -5,7 +5,7 @@ export function installGeneralEducation(b) {
   const esc=b.escape, service=createEducationService(native);let catalog=null, current=null, epoch=0, active=false,returnKey=null;
   const back='<button type="button" class="sheet-back" data-action="education-back">Voltar</button>';
   async function topics(){if(catalog)return catalog;const response=await fetch(new URL('knowledge/general-education.json',document.baseURI));if(!response.ok)throw Error('Conteúdo local indisponível.');catalog=await response.json();return catalog;}
-  async function status(){if(!Capacitor.isNativePlatform()||!Capacitor.isPluginAvailable('AgroGeneralEducation'))return {configured:false,enabled:false};try{return await service.status();}catch{return {configured:false,enabled:false};}}
+  async function status(){if(window.TerritorioWorkspace?.active||!Capacitor.isNativePlatform()||!Capacitor.isPluginAvailable('AgroGeneralEducation'))return {configured:false,enabled:false};try{return await service.status();}catch{return {configured:false,enabled:false};}}
   async function open(id){const token=++epoch, data=await topics();if(token!==epoch)return;const topic=data.topics.find(t=>t.id===id);current={id:topic?.id||null,token};
     if(!topic)return b.open('Entender a Gestão','<p class="agent-note">Conceitos gerais, disponíveis sem internet. Suas orientações personalizadas continuam nos motores locais da Gestão.</p><div class="advisor-group">'+data.topics.map(t=>'<button type="button" class="advisor-action" data-action="education-topic" data-id="'+esc(t.id)+'"><span class="advisor-text"><strong>'+esc(t.title)+'</strong></span><span aria-hidden="true">›</span></button>').join('')+'</div>',back,'agent-education');
     const settings=await status();if(token!==epoch)return;

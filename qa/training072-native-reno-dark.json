@@ -1,0 +1,64 @@
+{
+  "version": "0.12.72",
+  "device": "reno",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "fiveTabs": true,
+      "theme": "dark",
+      "stockPricesCosts": true,
+      "salesBlocked": true,
+      "mainSlotsPreserved": true,
+      "reopen": true,
+      "discarded": true,
+      "noNativeSideEffects": true,
+      "stock": {
+        "chipInside": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "zeroCardReplenishes": true,
+        "noSaleCreated": true,
+        "bounds": {
+          "w": 359,
+          "overflow": false,
+          "cut": false,
+          "sameSize": true,
+          "beside": true,
+          "background": "rgba(0, 0, 0, 0)",
+          "shadow": "none",
+          "border": "0px",
+          "left": 22.000001907348633,
+          "right": 336.8571491241455
+        }
+      },
+      "bounds": [
+        {
+          "page": "Vender",
+          "overflow": false
+        },
+        {
+          "page": "Estoque",
+          "overflow": false
+        },
+        {
+          "page": "Clientes",
+          "overflow": false
+        },
+        {
+          "page": "Eventos",
+          "overflow": false
+        },
+        {
+          "page": "Gestão",
+          "overflow": false
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

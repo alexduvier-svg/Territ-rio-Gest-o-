@@ -130,7 +130,7 @@ async function writeRecovery(json){const record=JSON.parse(json);if(record.versi
 const recoveryQueue=createSaveQueue({write:writeRecovery,onError:()=>window.dispatchEvent(new Event('territorio:recovery-error'))});
 
 // Resolves once every queued save has reached the disk (used when the app goes to background).
-export const settle = async () => { const results=await Promise.all([queue.settle(),recoveryQueue.settle()]);return results.every(Boolean); };
+export const settle = async () => { const results=await Promise.all([queue.settle(),recoveryQueue.settle(),window.TerritorioWorkspace?.active?window.TerritorioWorkspace.durable():true]);return results.every(Boolean); };
 
 // Must finish before the UI script runs: it reads `initialJSON` synchronously on start-up.
 export async function initStorage() {
