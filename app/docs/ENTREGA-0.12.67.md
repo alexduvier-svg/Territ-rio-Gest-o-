@@ -31,3 +31,5 @@ Instalação, tamanho e SHA256 finais constam no registro de validação e check
 ## Registro final
 
 APK9119666bytes; SHA256 `2fe66d87b6dd710cd2d68ae21946a6d15a761ac21e6b3d1bb9c22596c9d5a442`; certificado original/v2/v3,48assets+2pontes, ZIP/ELF16KB. Cópia original conferida: `C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-2-0.12.67.apk`. Instalação-r22/10/2026 Reno22:33:07/PKJ22:33:13,107/0.12.67, Statusok e firstInstallTime preservados. Fixtures removidos; dados reais intactos. Publicação apenas no ramo AGRO2; conferir commit/remoto no log, sem repetir entrega.
+
+Git implementação: 38dc4d09a1934fb5d9bb4b2ce9dd1176fa3a6dba, push confirmado no ramo codex/atualizacao-agro-gestao2; Claude/main preservados. Encerramento documental pode ser posterior. Nenhuma pendência autorizada restante; não repetir APK67.
