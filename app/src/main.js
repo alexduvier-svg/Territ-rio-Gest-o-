@@ -120,8 +120,10 @@ async function toDataURL(url) {
   });
 }
 
+let startupStage='assets';
 try {
   const [catalogPhotos] = await Promise.all([toDataURL(catalogPhotosUrl), initStorage()]);
+  startupStage='workspace';
   await initTrainingWorkspace();
   window.TERRITORIO_ASSETS = { profilePhoto, catalogPhotos, appLogo };
   window.TERRITORIO_MARKET = MARKET_CATALOG;
@@ -157,45 +159,76 @@ try {
   window.TerritorioOpportunityKnowledge = {answer:answerOpportunity};
   window.TERRITORIO_VERSION = version;
   window.TERRITORIO_API = API;
+  startupStage='resource-policy';
   installResourcePolicy();
+  startupStage='legacy-ui';
   await import('./legacy/erp-ui.js');
+  startupStage='financial-session';
   installFinancialSession({data:()=>window.ERPPreview.model().data,conceal:()=>window.ERPPreview.concealFinancialUI()});
+  startupStage='migrations';
   const savedModel = window.ERPPreview?.model?.();
   if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled || savedModel?.decisionGuidelinesInstalled || savedModel?.adaptationGuidelinesInstalled) {
     window.ERPPreview.persist?.();
     if (window.TerritorioNative?.isNative) await window.TerritorioNative.durable?.();
   }
+  startupStage='agent';
   installAgent();
 
+  startupStage='motion';
   installFluidMotion();
   window.TerritorioMotion = Object.freeze({diagnostics:getMotionDiagnostics});
+  startupStage='nav-motion';
   installNavIconMotion();
+  startupStage='interface';
   installInterface();
+  startupStage='sections';
   installSectionMotion();
+  startupStage='multi-sell';
   installMultiSell();
+  startupStage='stock-symbols';
   installRestockSymbols();
+  startupStage='reorder';
   installReorder();
+  startupStage='collapse';
   installAutoCollapse();
+  startupStage='workflows';
   installWorkflows();
+  startupStage='receivables';
   installReceivables();
+  startupStage='resource-controls';
   installResourceControls();
   if (!window.TerritorioWorkspace.active) installRecovery();
   if (!window.TerritorioWorkspace.active) installWeather();
+  startupStage='store';
   installStore();
+  startupStage='events';
   installEventExperience();
+  startupStage='municipal-calendar';
   installMunicipalCalendar();
   installFollowupNotifications();
   installOrderArrivals();
+  startupStage='catalog';
   installLocalCatalog();
+  startupStage='print-list';
   installPrintList();
   window.TerritorioProductPareto=ProductPareto;
+  startupStage='suppliers';
   installSuppliers();
+  startupStage='daily-guidance';
   installDailyGuidance();
+  startupStage='touch';
   installGlassTouch();
+  startupStage='training-ui';
   installTrainingUI();
+  startupStage='shell';
   installShell();
   document.dispatchEvent(new Event('territorio:resources-ready'));
+  window.__AGRO_UI_BOOT_READY__=true;
+  window.Capacitor?.nativePromise?.('AgroAgentScheduler','recordUiReadiness',{agent:!!window.TerritorioAgent,motion:!!window.TerritorioMotion,workflows:!!window.TerritorioWorkflows,events:!!window.TerritorioEvents,suppliers:!!window.TerritorioSuppliers,training:!!window.TerritorioWorkspace}).catch(()=>{});
 } catch (error) {
+  const fault={stage:startupStage,name:/^[A-Za-z]+Error$/.test(error?.name||'')?error.name:'Error',frames:String(error?.stack||'').split('\n').slice(1,5).map(line=>line.match(/https:\/\/localhost\/assets\/[A-Za-z0-9_.-]+:\d+:\d+/)?.[0]||'').filter(Boolean)};
+  window.__AGRO_UI_BOOT_FAULT__=Object.freeze(fault);
+  window.Capacitor?.nativePromise?.('AgroAgentScheduler','recordUiFailure',fault).catch(()=>{});
   // Never leave the seller stuck on the splash screen.
   console.error(error);
   SplashScreen.hide().catch(() => {});

@@ -50,3 +50,9 @@
   .feira-grid .feira-card > strong,
   .product-grid.selling-grid .card-body .name { font-size: 15px; }
 }
+
+/* Roast stays visible beside the title; it never enters the clamped name text. */
+:root[data-theme][data-layout] #app .feira-card>strong.coffee-card-title{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto 1fr;column-gap:4px;align-content:start}
+#app .coffee-card-title>.cn-first{grid-column:1;grid-row:1}
+#app .coffee-card-title>.cn-rest{grid-column:1/-1;grid-row:2;min-width:0}
+#app .coffee-card-title>.coffee-roast-code{grid-column:2;grid-row:1;align-self:start;white-space:nowrap;font-size:12px;line-height:1.4;font-weight:700;letter-spacing:.015em;color:var(--text)}

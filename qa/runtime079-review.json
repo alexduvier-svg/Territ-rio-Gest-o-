@@ -1,0 +1,186 @@
+{
+  "version": "0.12.79",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

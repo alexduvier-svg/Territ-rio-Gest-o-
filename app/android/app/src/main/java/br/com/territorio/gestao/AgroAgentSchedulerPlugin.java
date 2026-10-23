@@ -73,6 +73,19 @@ public class AgroAgentSchedulerPlugin extends Plugin {
             JSObject out=new JSObject();out.put("scheduled",true);out.put("approximate",true);call.resolve(out);
         } catch(Exception e) {call.reject("Não foi possível agendar a revisão; ela continua ao abrir o app.");}
     }
+    /** Local startup trace only: fixed module code and asset offsets, never exception messages or ERP. */
+    @PluginMethod public void recordUiFailure(PluginCall call) {
+        String stage=call.getString("stage","unknown"),name=call.getString("name","Error");
+        if(!stage.matches("[a-z-]{1,32}")||!name.matches("[A-Za-z]{1,30}Error|Error")){call.reject("Invalid UI diagnostic");return;}
+        org.json.JSONArray frames=call.getData().optJSONArray("frames");StringBuilder safe=new StringBuilder();
+        if(frames!=null)for(int i=0;i<Math.min(4,frames.length());i++){String frame=frames.optString(i);if(frame.matches("https://localhost/assets/[A-Za-z0-9_.-]+:[0-9]+:[0-9]+"))safe.append(" ").append(frame);}
+        android.util.Log.e("AGRO.UI","stage="+stage+" type="+name+safe);call.resolve();
+    }
+    @PluginMethod public void recordUiReadiness(PluginCall call) {
+        StringBuilder safe=new StringBuilder("ready");
+        for(String key:new String[]{"agent","motion","workflows","events","suppliers","training"})safe.append(" ").append(key).append("=").append(call.getBoolean(key,false));
+        android.util.Log.i("AGRO.UI",safe.toString());call.resolve();
+    }
     @PluginMethod public void configureGuidance(PluginCall call) {
         execute(()->{try{AgroDailyGuidance.configure(getContext(),call.getData());call.resolve();}catch(Exception e){call.reject("Não foi possível guardar a preferência das dicas.");}});
     }

@@ -1,0 +1,32 @@
+{
+  "version": "0.12.79",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

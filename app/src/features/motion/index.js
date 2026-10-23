@@ -296,8 +296,12 @@ function installPageTransitions(listen) {
 export function transitionSubview(render,direction=1){
  const app=document.getElementById('app');endPageTransition();
  if(!app||!enabled()||document.hidden){render();return;}
- const lift=liftPage(app,false,root().dataset.page),t=pageTransition={layer:lift?.layer,handles:[]};
- try{render();}catch(error){endPageTransition();throw error;}
+ let lift,t;
+ // The renderer builds HTML first. Lift only at its successful commit boundary.
+ const commit=()=>{lift=liftPage(app,false,root().dataset.page);t=pageTransition={layer:lift?.layer,handles:[]};};
+ app.addEventListener('territorio:before-page',commit,{once:true});
+ try{render();}catch(error){app.removeEventListener('territorio:before-page',commit);endPageTransition();throw error;}
+ app.removeEventListener('territorio:before-page',commit);if(!t)return;
  lift?.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node=>node.remove());
  const done=()=>{if(pageTransition===t){pageTransition=null;t.layer?.remove();}},shift=(limited()?5:18)*direction;
  if(lift)t.handles.push(animate(lift.surface,{from:REST,to:{x:-shift,opacity:0},spring:spring('tab'),shape:dissolve(0,.4),onFinish:done}));

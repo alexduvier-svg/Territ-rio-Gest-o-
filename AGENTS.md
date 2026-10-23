@@ -1,3 +1,31 @@
+# Novo Pedido — Atualizar Cafés Existentes em Vendas e Estoque
+
+Após instalar79, usuárioinforma cardssemTC/TM/TE e pede trocarcadastros pelosnovosmodelos, tambémemEstoque. Perguntado: apenasvisualoualterarcafés? Respondeu ALTERARTAMBÉMosCAFÉS/EESCOLHERTORRADECADACAFÉ. PerguntaagoraPENDENTE: nome/peso→ClaraTC/MédiaTM/EscuraTE, podeumarespostaparapesosiguais. NÃOatribuir torra sem essa resposta, NÃOsobrescrever estoque/preço/custo/vendas/histórico, NÃOcopiarERPentreaparelhos. Nenhumcadastrorealalteradoatéagora. Correçãodecódigo79jáinstalada/testada; encerramentoGit79independentedaclassificaçãodadosaguardandoinformação. TC/TM/TE aparecequando coffeeRoast registrado; nãoinventar campo ausente. UIrealRenopreservacadastroemedição, não cancelar rascunho para navegar.
+
+# Entrega79 Instalada — Encerramento Git Pendente
+
+0.12.79/code119 final instalado-r Reno23/10 20:52:24/PKJ20:52:30, firstInstall preservados. APK9193587bytes/SHA ceeeb21d47a903e10faabcbb9586ee14d19297fceb93233ddf1a132de47d1c76/certoriginal/v2v3/50assets+2pontes/ZIPeELF16KB/cópiaoriginalconferida.625unit/8browser/4CapacitorDOIS2temasPASS incluindo reviewpendenteDURANTEboot/5abas/fornecedores/histórico/eventos/gestão/TC-TM-TE/3colunas/roastmanual/rollbackmesmoDOM. InicializaçãoFRIArealconfirmadaAGRO.UI seis=true Reno20:53:14.894/PKJ20:53:16.220. NenhumBDlido/copiadonemtransaçãorealalterada; UIrealRenoinspecionada,cadastro/rascunhopreservado,capturasprivadasremovidas/nãopublicadas. UIAutomatoradicionalnãofinalizou(dump137); cobertura5abas2temaséfixture+bootreadyreal. Fixtures/capturas/forwardsremovidos. NÃOrepetirbuild/verificador/cópia/install79. Sódocs/GitAGRO2pendentes. Ver docs/ENTREGA-0.12.79.md. SemFPS/básicofísicomedidos. Semsubagentes/automação.
+
+Correçãofundo:4refslabelindevidasda77quebravamstockFormError/ReviewbootdoReno→addonsantigos. Fixprodutoemcadaescopo;renderHTMLantesdemoverDOM/rollbackfornecedores;TC/TM/TEespaçopróprioforadoclamp. UsuárioescolheTORRADECADACAFÉantigo, NUNCAinventar/default. Diagnósticolocal sófase/tipo/offset+booleanssemcadastros/valores/rede. Clima/Firebase/servidor/agenda/dadosreaispreservados. GitfetchAGRO29bb2834/Claudecffe32b/main956fddc semnovidades.
+
+# Validação Final79 em Curso
+
+Candidato final79/code119 compilado após correção completa e CSS final. SHA256 ceeeb21d47a903e10faabcbb9586ee14d19297fceb93233ddf1a132de47d1c76. 625 testes unitários/8 jornadas browser PASS. Reno fixture claro/escuro PASS; PKJ teste em curso (instalação aguardou confirmação, depois primeira captura interrompida por perda de foreground; relançado fixture e retomado sem alterar APK). Sem cópia original/install final79/Git ainda. Reno produção está diagnóstico119, PKJ118 até instalar o final. Verificador qa/verify-runtime079-apk.py criado; executar após4reports finaisPASS. Seguir docs/instalação/saúde AGRO.UI real nosDOIS/limpeza/GitAGRO2.
+
+# Causa79 Confirmada — Corrigir Inicialização e Paridade Reno
+
+Ler agro-gestao/RETOMADA-RUNTIME-0.12.79.md atualizado. AGRO.UI noReno stage=resource-controls ReferenceError emstockFormError(label indefinido). Quatro refsindevidasproduzidasporalteração77Nextforamcorrigidaslocalmente, mas AINDAsemAPKfinal79. RenderHTML agoraantesdeliftDOM paraevitartelavaziasefalhar. TC/TM/TEforadoclampdeVender, aliasesexplícitos(semadivinhação). UsuáriodefiniuESCOLHERtorraDECADACAFÉantigo, semtorrapadrãoautomática.
+
+RenoDIAGNÓSTICO119originalassinadoinstalado-rsemreset/firstInstallpreservado; PKJ118. MaincontrolelocalAGRO.UIreportasófasedoinício/tipoError/4URLsassetoffset, SEMmessage/dados. Acrescentadoreadybooleans6módulosparamedirsomenteinterfaceemambos, semBDlido/copiadonemtransaçãoalterada. FramecorretoauditadoemassetsERPUI. Testesanteriores NÃOcobriramformreviewpendente; agoraexigirhookdurantebootcomreviewproduto, bootReadye6módulos/todas5abas/fornecedores/eventos/gestão/históricos/owncards/duplicatereview/navatomicrollback/coffeecodes/3colunas/legadosemroast nos2temas320ampliadoleve-reduzido360393412 eDOISfixtures. BuildFINAL79/QA/verificador/copy/installDOIS/GitAGRO2pendentes. Semsubagentes/automação. Clima/Firebase/servidor/agenda/identidadepreservados.
+
+# Em Andamento79 — Falha de Inicialização no Reno
+
+78entregue69f223b/doc9bb2834; NÃOrefazer. UsuáriopedeTC/TM/TEjuntoaonomecardVender; RenosemVender(telavazia),Clientes/Eventos/Gestão/Orientação/Históricocomtelaantiga,SEMFornecedores; querparidadecomPKJ, semcopiardados. PacoteRenoinspecionado118/0.12.78/gestao2. GitfetchClaude cffe32b/main956fddc/AGRO29bb2834. Sinais indicamstartup parcialapóserp-ui; maintry/catchabortatodosaddons. RenderbaseantesdedespacharHTMLmoveDOMantigo, falhapoderiadeixarbranco. LogsJSreleaseindisponíveis.
+
+NenhumBDreallido/copiadonemtransaçãoalterada. UIprincipalRenofoiinspecionada(gestao2foregroundguard, dadosfinaismascarados):Estoqueantigosemseta/lupa/fornecedores; reiníciofrioseguroemEstoque paradiagnóstico. NoRenoChromeWebView155,mesmofixturepassa. UIwhitelistemqa/runtime079-*.json semcadastros. Capturaprivadaviz/runtime079-reno.pngNÃOpublicar, removeraofinal.
+
+Agora79/code119 SÓinstrumentaçãomínima: mainstartupStage +reportdeerroparaAgroAgentScheduler.recordUiFailure. JavaLogAGRO.UIaceitaapenasfase/nomeError/até4URLsassets+offsets, SEMmessage/dados/credenciais/rede. Builddiagnósticoemqa/runtime079-build.txt. Falta validarzip/cert/asset e testeisolado logger,instalar-rReno diag119semDB,lerAGRO.UIeobtercausareal, corrigirfonte, testesfinais2temaspequeno/nativeDOIS,verificador/copy/installDOIS/GitAGRO2. NÃOafirmarsoluçãoatéconfirmar. Semsubagentes/automação. TCparalegadosemtorranãoinventar; em77helperjáanexacódigoquandohácoffeeRoastgravado,possívelsiglacortada/configantiganãoinicializada.
+
 # Entrega Concluída — Café0.12.78/code118
 
 SugestõesFermentaçãoTradicional/Anaeróbica; Aeróbicasaídassugestõespadrão/aprendidas/outroscadastros. Valorantigopreservadono próprioedit, semconversãoautomática. Memória48/offline.6testesexistentesrelacionados/4browser320ampliadoleve-reduzido360/4CapacitorDOIS2temasPASS; toque/gravação/reload/legado/estoque-preços-vendas-movimentospreservados. SemERPprincipal/WhatsAppreal/agendapessoal; semFPS/básicofísicomedidos.
