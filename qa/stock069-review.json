@@ -1,0 +1,2666 @@
+{
+  "version": "0.12.69",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 178.75,
+              "y": 479.21875,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 480.21875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 484.765625,
+              "w": 92.375,
+              "h": 32.25
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 252,
+          "height": 101.09375,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 192.65625,
+              "y": 580.3125,
+              "w": 25.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 581.3125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 585.859375,
+              "w": 92.65625,
+              "h": 32.25
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 252,
+          "height": 100.09375,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 196.75,
+              "y": 784.359375,
+              "w": 25.265625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 785.359375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 798.03125,
+              "w": 101.5,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 252,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 183.65625,
+              "y": 988.359375,
+              "w": 34.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 989.359375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1002.03125,
+              "w": 89.0625,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 252,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 183.203125,
+              "y": 1195.078125,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 1196.078125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1219.546875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 252,
+          "height": 105.4375,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 209.671875,
+              "y": 1401.796875,
+              "w": 12.640625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 1402.796875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1415.46875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 252,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": null,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 218.75,
+              "y": 416.875,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 417.875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 430.546875,
+              "w": 138.5625,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 292,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 232.65625,
+              "y": 517.375,
+              "w": 25.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 518.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 531.046875,
+              "w": 138.84375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 236.75,
+              "y": 721.375,
+              "w": 25.265625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 722.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 735.046875,
+              "w": 101.5,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 223.65625,
+              "y": 925.375,
+              "w": 34.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 926.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 939.046875,
+              "w": 89.0625,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 223.203125,
+              "y": 1129.375,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 1130.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1143.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 292,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 249.671875,
+              "y": 1333.375,
+              "w": 12.640625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 1334.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1347.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": null,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 251.75,
+              "y": 416.875,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 417.875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 430.546875,
+              "w": 138.5625,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 325,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 265.65625,
+              "y": 517.375,
+              "w": 25.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 518.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 531.046875,
+              "w": 138.84375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 325,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 269.75,
+              "y": 721.375,
+              "w": 25.265625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 722.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 735.046875,
+              "w": 101.5,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 325,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 256.65625,
+              "y": 925.375,
+              "w": 34.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 926.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 939.046875,
+              "w": 89.0625,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 325,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 256.203125,
+              "y": 1129.375,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 1130.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1143.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 325,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 282.671875,
+              "y": 1333.375,
+              "w": 12.640625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 1334.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1347.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 325,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": null,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 270.75,
+              "y": 416.875,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 417.875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 430.546875,
+              "w": 138.5625,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 344,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 284.65625,
+              "y": 517.375,
+              "w": 25.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 518.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 531.046875,
+              "w": 138.84375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 344,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 288.75,
+              "y": 721.375,
+              "w": 25.265625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 722.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 735.046875,
+              "w": 101.5,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 344,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 275.65625,
+              "y": 925.375,
+              "w": 34.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 926.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 939.046875,
+              "w": 89.0625,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 344,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 275.203125,
+              "y": 1129.375,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 1130.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1143.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 344,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 301.671875,
+              "y": 1333.375,
+              "w": 12.640625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 1334.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1347.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 344,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": null,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 178.75,
+              "y": 479.21875,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 480.21875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 484.765625,
+              "w": 92.375,
+              "h": 32.25
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 252,
+          "height": 101.09375,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 192.65625,
+              "y": 580.3125,
+              "w": 25.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 581.3125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 585.859375,
+              "w": 92.65625,
+              "h": 32.25
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 252,
+          "height": 100.09375,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 196.75,
+              "y": 784.359375,
+              "w": 25.265625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 785.359375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 798.03125,
+              "w": 101.5,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 252,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 183.65625,
+              "y": 988.359375,
+              "w": 34.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 989.359375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1002.03125,
+              "w": 89.0625,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 252,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 183.203125,
+              "y": 1195.078125,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 1196.078125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1219.546875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 252,
+          "height": 105.4375,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 209.671875,
+              "y": 1401.796875,
+              "w": 12.640625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 252,
+              "y": 1402.796875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1415.46875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 252,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": null,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 218.75,
+              "y": 416.875,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 417.875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 430.546875,
+              "w": 138.5625,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 292,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 232.65625,
+              "y": 517.375,
+              "w": 25.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 518.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 531.046875,
+              "w": 138.84375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 236.75,
+              "y": 721.375,
+              "w": 25.265625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 722.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 735.046875,
+              "w": 101.5,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 223.65625,
+              "y": 925.375,
+              "w": 34.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 926.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 939.046875,
+              "w": 89.0625,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 223.203125,
+              "y": 1129.375,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 1130.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1143.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 292,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 249.671875,
+              "y": 1333.375,
+              "w": 12.640625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 1334.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1347.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": null,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 251.75,
+              "y": 416.875,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 417.875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 430.546875,
+              "w": 138.5625,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 325,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 265.65625,
+              "y": 517.375,
+              "w": 25.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 518.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 531.046875,
+              "w": 138.84375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 325,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 269.75,
+              "y": 721.375,
+              "w": 25.265625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 722.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 735.046875,
+              "w": 101.5,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 325,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 256.65625,
+              "y": 925.375,
+              "w": 34.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 926.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 939.046875,
+              "w": 89.0625,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 325,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 256.203125,
+              "y": 1129.375,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 1130.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1143.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 325,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 282.671875,
+              "y": 1333.375,
+              "w": 12.640625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 325,
+              "y": 1334.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1347.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 325,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": null,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 270.75,
+              "y": 416.875,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 417.875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 430.546875,
+              "w": 138.5625,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 344,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 284.65625,
+              "y": 517.375,
+              "w": 25.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 518.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 531.046875,
+              "w": 138.84375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 344,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 288.75,
+              "y": 721.375,
+              "w": 25.265625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 722.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 735.046875,
+              "w": 101.5,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 344,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 275.65625,
+              "y": 925.375,
+              "w": 34.203125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 926.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 939.046875,
+              "w": 89.0625,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 344,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 275.203125,
+              "y": 1129.375,
+              "w": 39.109375,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 1130.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1143.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 344,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 301.671875,
+              "y": 1333.375,
+              "w": 12.640625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 344,
+              "y": 1334.375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1347.046875,
+              "w": 82.984375,
+              "h": 16
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 344,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": null,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -40,7 +40,7 @@ export function installFollowupNotifications(){
   if(promptFlight||!bridge())return;promptFlight=true;
   try{const permission=await bounded(LocalNotifications.checkPermissions());let asked;try{asked=localStorage.getItem(promptKey)==='answered';}catch{asked=true;}
    if(!notificationPromptEligible({permission:permission.display,asked,onboarding:bridge().data().settings.onboarding,modal:bridge().modal?.()}))return;
-   bridge().open('Permitir Notificações?','<section class="client-form-surface"><h3>Avisos que Ajudam no Dia a Dia</h3><p class="dialog-text">Receba avisos de novos pedidos, entregas para acompanhar, pagamentos de Fiado e eventos.</p><p class="small muted">Você pode escolher Agora Não e ativar depois. Com o app fechado, os avisos de novos pedidos dependem da internet e da verificação periódica do Android.</p></section>',bridge().button('notice-consent-allow','Permitir Notificações','success')+bridge().button('notice-consent-later','Agora Não','sheet-back'),'notice-consent');
+   bridge().open('Permitir Notificações?','<section class="client-form-surface"><h3>Avisos que Ajudam no Dia a Dia</h3><p class="dialog-text">Receba avisos de estoque esgotado, novos pedidos, entregas para acompanhar, pagamentos de Fiado e eventos.</p><p class="small muted">Você pode escolher Agora Não e ativar depois. Com o app fechado, os avisos de novos pedidos dependem da internet e da verificação periódica do Android.</p></section>',bridge().button('notice-consent-allow','Permitir Notificações','success')+bridge().button('notice-consent-later','Agora Não','sheet-back'),'notice-consent');
   }catch{}finally{promptFlight=false;}
  }
  const answered=()=>{try{localStorage.setItem(promptKey,'answered');}catch{}};

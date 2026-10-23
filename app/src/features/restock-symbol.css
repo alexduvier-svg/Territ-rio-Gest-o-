@@ -4,11 +4,19 @@
 #app :is(.feira-card,.feira-row)>.product-outline{position:absolute;display:block;width:22px;height:22px;visibility:hidden;color:#61794c;pointer-events:none;flex:none;margin:0;padding:0}
 :root[data-theme=dark] #app :is(.feira-card,.feira-row)>.product-outline{color:#b7cb9c}
 
-/* Stock uses only a small warning after a sold-out product name. */
+/* Stock: outline warning shares the zero's font size and never adds a row. */
 #app .feira-row>.fr-main{padding:0;min-width:0}
-.stock-row-heading{display:flex;align-items:center;gap:8px;min-width:0}
-.stock-row-heading>strong{min-width:0;flex:0 1 auto;line-height:1.35;overflow-wrap:anywhere}
-.stock-row-restock{display:inline-flex;align-items:center;justify-content:center;flex:0 0 18px;width:18px;height:20px;pointer-events:none}
-.stock-row-restock>.restock-symbol{position:static;display:block;visibility:visible;width:18px;height:18px;margin:0;color:#bc263b}
-:root[data-theme=dark] .stock-row-restock>.restock-symbol{color:#ff7b87}
+.stock-row-heading{display:block;min-width:0}
+.stock-row-heading>strong{min-width:0;line-height:1.35;overflow-wrap:anywhere}
 #app .feira-row>.fr-main>small{padding-left:0}
+.fr-side b.out{display:inline-flex;align-items:center;gap:6px}
+.fr-side b.out>.stock-empty-warning{display:block;flex:none;width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+
+/* Keep quantity and warning centered with the navigation chevron. */
+html[data-page=Estoque] #app .feira-row{display:grid;grid-template-columns:minmax(0,1fr) max-content 18px;column-gap:10px;row-gap:2px;align-items:center;align-content:center}
+html[data-page=Estoque] #app .feira-row>.fr-main{display:contents}
+html[data-page=Estoque] .stock-row-heading{grid-column:1;grid-row:1}
+html[data-page=Estoque] .stock-row-heading>strong{display:block}
+html[data-page=Estoque] #app .feira-row>.fr-main>small{grid-column:1;grid-row:2;min-width:0;line-height:1.25}
+html[data-page=Estoque] .feira-row>.fr-side{grid-column:2;grid-row:1/3;align-self:center;align-items:center}
+html[data-page=Estoque] .feira-row>.icon{grid-column:3;grid-row:1/3}

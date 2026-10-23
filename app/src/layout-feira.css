@@ -208,6 +208,7 @@
 }
 .feira-stock-count {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-content: space-between;
   gap: 4px;
   min-height: 76px;
@@ -232,9 +233,9 @@
 .feira-stock-count.low small::before { background: var(--orange); }
 .feira-stock-count.out small::before { background: var(--red); }
 .feira-stock-count strong { font: 700 28px/1 'Inter Tight Variable', 'Inter Variable', sans-serif; }
-/* Lone counters align optically with the status dot: proportional figures carry no empty side
-   bearing in front of a 1 or a 2 (tabular figures stay for prices and columns). */
-.feira-stock-count strong.tabular { font-variant-numeric: proportional-nums; margin-left: -1px; }
+/* The balance keeps the same center for one, two or three tabular digits. */
+.feira-stock-count strong.tabular { display:block; width:100%; min-width:0; text-align:center; font-variant-numeric:tabular-nums; margin:0; }
+@media(max-width:359px){.feira-stock-count small{font-size:12px;gap:4px}.feira-stock-count small::before{width:6px;height:6px}}
 .feira-stock-count.warn { background: var(--orange); color: #1f1300; }
 .feira-stock-count.warn small { color: #1f1300; }
 .feira-stock-count.warn small::before { background: #1f1300; }

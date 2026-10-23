@@ -119,3 +119,11 @@ Data e horário com rótulos alinhados e pills de mesma altura; manter o seletor
 Tempo/revisão68: vetores estáticos leves, nuvem azul apenas com chuva prevista; raio amarelo/laranja somente quando a fonte informa trovoada. Horário de emissão da fonte, cópia salva e verificação são distintos. Exibir intervalo previsto; não anunciar horário futuro como medição atual. O mesmo agendador faz a virada visual da hora usando cache, sem consulta extra antes da validade. Verificar Atualização respeita validade/recuo e informa quando a fonte mantém a previsão. Dado observado pelo usuário não é substituído por certeza inventada.
 
 Refinamento23/10: retirar todos os desenhos de família nas linhas do Estoque. Somente produtos com saldo zerado exibem as duas setas vermelhas, pequenas, após o nome e afastadas da quantidade e bordas. Produtos com saldo não exibem desenho. Não aumentar os cards para acomodar ícones. Esta solicitação posterior substitui a experiência de ícones à esquerda da revisão68.
+
+## Revisão69 — alerta junto ao saldo e aviso de esgotamento
+
+Em Estoque, substituir as setas por triângulo vermelho somente de contorno, com exclamação, à esquerda do número0, do mesmo tamanho visual do numeral. Sem preenchimento nem desenhos de família, sem esticar cards. A página Vender mantém sua indicação atual.
+
+Avisos nativos: estoque baixo e esgotado separados; avisar uma vez por episódio de zero e rearmar após qualquer reposição positiva. Estado por produtor e fila serial, sem polling/duplicação. Falha ou recusa não marcam entrega; respeitar permissão e consentimento existentes. Não repetir pedidos automáticos de permissão. Android controla visibilidade/sons/canal.
+
+Refinamento69: conjunto triângulo/número centralizado na mesma altura da seta à direita. Centralizar os totais Em Dia, Baixo e Esgotado para1,2e3 dígitos tabulares; preservar material, dimensões e leitura.

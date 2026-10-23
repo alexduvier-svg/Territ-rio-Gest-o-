@@ -163,52 +163,38 @@ function installLifecycle() {
 // novos e o tipo antigo ("estoque", que acendia a tela sempre) é retirado.
 const LOW_STOCK = 0.3;
 const STOCK_CHANNEL = 'estoque-v2', STOCK_FAIR_CHANNEL = 'estoque-feira';
-const sellingAtFair = () => { const scope = window.TerritorioWorkflowBridge?.scope?.(); return !!scope && scope !== 'loja'; };
-const ALERTED_KEY = 'territorio-stock-alerted';
-
-function notificationId(productId) {
-  let h = 7;
-  for (const ch of productId) h = (h * 31 + ch.charCodeAt(0)) | 0;
-  return Math.abs(h) % 2000000000;
-}
-
-async function checkStock() {
-  const levels = window.TerritorioShell?.stockLevels?.();
-  if (!levels) return;
-  let alerted = [];
-  try { alerted = JSON.parse(localStorage.getItem(ALERTED_KEY) || '[]'); } catch { /* recomeça */ }
-  const low = levels.filter(l => l.ratio !== null && l.ratio <= LOW_STOCK);
-  const lowIds = new Set(low.map(l => l.id));
-  alerted = alerted.filter(id => lowIds.has(id)); // reposto acima de 30%: pode avisar de novo
-  const fresh = low.filter(l => !alerted.includes(l.id));
-  if (fresh.length) {
-    try {
-      const status = await LocalNotifications.checkPermissions();
-      const granted = status.display === 'granted' || (await LocalNotifications.requestPermissions()).display === 'granted';
-      if (granted) {
-        await LocalNotifications.schedule({
-          notifications: fresh.map(l => ({
-            id: notificationId(l.id),
-            channelId: l.stock <= 0 && sellingAtFair() ? STOCK_FAIR_CHANNEL : STOCK_CHANNEL,
-            title: l.stock <= 0 ? `${l.name} acabou` : `Estoque baixo: ${l.name}`,
-            body: l.stock <= 0
-              ? `${l.detail ? l.detail + ' · ' : ''}Toque para repor.`
-              : `Restam ${l.stock.toLocaleString('pt-BR')} ${l.unit} (${Math.round(l.ratio * 100)}% do seu nível). Toque para repor.`,
-            extra: { productId: l.id },
-            smallIcon: 'ic_stat_territorio',
-            iconColor: '#7FA653',
-            autoCancel: true,
-            foreground: true,
-            isExactNotification: false,
-          })),
-        });
-        alerted.push(...fresh.map(l => l.id));
-      }
-    } catch (error) {
-      console.warn('Aviso de estoque não enviado', error);
-    }
-  }
-  localStorage.setItem(ALERTED_KEY, JSON.stringify(alerted));
+const ALERTED_KEY = 'territorio-stock-alerted', STOCK_STATE_KEY = 'territorio-stock-alert-state-v2:';
+let stockFlight=Promise.resolve(),stockPermission=null;
+const stockActor=()=>String(window.TerritorioWorkflowBridge?.context?.()?.id||'local');
+const sellingAtFair=()=>{const b=window.TerritorioWorkflowBridge,scope=b?.scope?.(),event=b?.data?.()?.events?.find(e=>e.id===scope);if(!event||event.status!=='active')return false;const now=Date.now(),start=Date.parse(event.start+'T'+event.from+':00-03:00'),end=Date.parse(event.end+'T'+event.until+':00-03:00');return Number.isFinite(start)&&now>=start&&now<end;};
+function notificationId(productId){let h=7;for(const ch of productId)h=(h*31+ch.charCodeAt(0))|0;return Math.abs(h)%2000000000;}
+function stockSnapshot(){const levels=window.TerritorioShell?.stockLevels?.();return Array.isArray(levels)?{actor:stockActor(),fair:sellingAtFair(),levels:levels.filter(l=>typeof l.id==='string'&&Number.isFinite(l.stock)).map(l=>({...l}))}:null;}
+function checkStock(snapshot=stockSnapshot()){if(!snapshot)return Promise.resolve();const job=stockFlight.catch(()=>{}).then(()=>sendStockNotices(snapshot));stockFlight=job;return job;}
+async function sendStockNotices(snapshot){
+ if(stockActor()!==snapshot.actor)return;const key=STOCK_STATE_KEY+encodeURIComponent(snapshot.actor);let saved=[],legacy=[];
+ try{const raw=JSON.parse(localStorage.getItem(key)||'null');if(raw?.version===2&&Array.isArray(raw.products))saved=raw.products;else{const old=JSON.parse(localStorage.getItem(ALERTED_KEY)||'[]');if(Array.isArray(old))legacy=old;}}catch{}
+ const prior=new Map(saved.filter(r=>typeof r.id==='string').map(r=>[r.id,r])),next=new Map(),fresh=[];
+ for(const l of snapshot.levels){
+  if(next.has(l.id))continue;const old=prior.get(l.id),out=l.stock<=0,low=out||Number.isFinite(l.ratio)&&l.ratio<=LOW_STOCK;
+  const state={id:l.id,low:low&&(old?old.low===true:legacy.includes(l.id)),out:out&&old?.out===true};next.set(l.id,state);
+  if(out?!state.out:low&&!state.low)fresh.push(l);
+ }
+ const persistState=()=>{try{localStorage.setItem(key,JSON.stringify({version:2,products:[...next.values()]}));}catch(error){console.warn('Memória do aviso de estoque indisponível',error);}};
+ // A positive balance rearms the sold-out notice even below the low-stock threshold.
+ persistState();if(!fresh.length)return;
+ try{
+  if(stockPermission&&stockPermission!=='granted')return;const status=await LocalNotifications.checkPermissions();stockPermission=status.display;if(status.display!=='granted'||stockActor()!==snapshot.actor)return;
+  const current=new Map((window.TerritorioShell?.stockLevels?.()||[]).map(l=>[l.id,l]));
+  const eligible=fresh.filter(l=>{const n=current.get(l.id);return n&&Number.isFinite(n.stock)&&(l.stock<=0?n.stock<=0:n.stock>0&&Number.isFinite(n.ratio)&&n.ratio<=LOW_STOCK);});
+  if(!eligible.length)return;
+  await LocalNotifications.schedule({notifications:eligible.map(l=>({
+   id:notificationId(l.id),channelId:l.stock<=0&&snapshot.fair?STOCK_FAIR_CHANNEL:STOCK_CHANNEL,
+   title:l.stock<=0?l.name+' acabou':'Estoque baixo: '+l.name,
+   body:l.stock<=0?(l.detail?l.detail+' · ':'')+'Toque para repor.':'Restam '+l.stock.toLocaleString('pt-BR')+' '+l.unit+' ('+Math.round(l.ratio*100)+'% do seu nível). Toque para repor.',
+   extra:{kind:'stock-level',actorId:snapshot.actor,productId:l.id},smallIcon:'ic_stat_territorio',iconColor:'#7FA653',autoCancel:true,foreground:true,isExactNotification:false
+  }))});
+  for(const l of eligible){const state=next.get(l.id);state.low=true;if(l.stock<=0)state.out=true;}persistState();
+ }catch(error){console.warn('Aviso de estoque não enviado',error);}
 }
 
 function installStockAlerts() {
@@ -235,14 +221,15 @@ function installStockAlerts() {
   }).catch(() => {});
   LocalNotifications.addListener('localNotificationActionPerformed', action => {
     const id = action.notification?.extra?.productId;
-    if (id) setTimeout(() => window.TerritorioShell?.openRestock?.([id]), 400);
+    if (id && action.notification?.extra?.actorId===stockActor()) setTimeout(() => window.TerritorioShell?.openRestock?.([id]), 400);
   });
-  let timer;
-  window.addEventListener('territorio:saved', () => {
-    clearTimeout(timer);
-    timer = setTimeout(checkStock, 1200);
-  });
-  setTimeout(checkStock, 3000);
+  let signature='';const queue=()=>{const snapshot=stockSnapshot();if(!snapshot)return;const next=snapshot.actor+'|'+snapshot.fair+'|'+snapshot.levels.map(l=>l.id+':'+l.stock+':'+l.ratio).join('|');if(next===signature)return;signature=next;void checkStock(snapshot);};
+  const resume=()=>{signature='';stockPermission=null;queue();};
+  window.addEventListener('territorio:saved',queue);
+  window.addEventListener('territorio:resume',resume);
+  window.addEventListener('territorio:reminders-enabled',resume);
+  setTimeout(queue,3000);
+  window.TerritorioStockNotifications=Object.freeze({check:()=>checkStock()});
 }
 
 // Custos esquecidos: se há produto sem custo E dia de feira sem custos extras, ao sair do app fica uma

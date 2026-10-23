@@ -1,0 +1,493 @@
+{
+  "version": "0.12.69",
+  "device": "reno",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "reno",
+      "theme": "light",
+      "physical": true,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 217.90626525878906,
+              "y": 454.7098388671875,
+              "w": 39.10714340209961,
+              "h": 20
+            },
+            "arrow": {
+              "x": 291.14288330078125,
+              "y": 455.7098388671875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 49.71428680419922,
+              "y": 468.3839416503906,
+              "w": 138.55804443359375,
+              "h": 15.71429443359375
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 291.4285888671875,
+          "height": 100.00000762939453,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 231.8169708251953,
+              "y": 555.138427734375,
+              "w": 25.196430206298828,
+              "h": 20
+            },
+            "arrow": {
+              "x": 291.14288330078125,
+              "y": 556.138427734375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 49.71428680419922,
+              "y": 568.8125,
+              "w": 138.83035278320312,
+              "h": 15.71429443359375
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 291.4285888671875,
+          "height": 100.00000762939453,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 235.9107208251953,
+              "y": 758.5670166015625,
+              "w": 25.254465103149414,
+              "h": 20
+            },
+            "arrow": {
+              "x": 291.14288330078125,
+              "y": 759.5670166015625,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 49.71428680419922,
+              "y": 772.2410888671875,
+              "w": 101.48661041259766,
+              "h": 15.71429443359375
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 291.4285888671875,
+          "height": 100.00000762939453,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 222.81251525878906,
+              "y": 961.99560546875,
+              "w": 34.20089340209961,
+              "h": 20
+            },
+            "arrow": {
+              "x": 291.14288330078125,
+              "y": 962.99560546875,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 49.71428680419922,
+              "y": 975.669677734375,
+              "w": 89.05803680419922,
+              "h": 15.71429443359375
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 291.4285888671875,
+          "height": 100.00000762939453,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 222.35714721679688,
+              "y": 1165.4241943359375,
+              "w": 39.10714340209961,
+              "h": 20
+            },
+            "arrow": {
+              "x": 291.14288330078125,
+              "y": 1166.4241943359375,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 49.71428680419922,
+              "y": 1179.0982666015625,
+              "w": 82.98661041259766,
+              "h": 15.7142333984375
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 291.4285888671875,
+          "height": 100.00000762939453,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 248.8348388671875,
+              "y": 1368.852783203125,
+              "w": 12.629465103149414,
+              "h": 20
+            },
+            "arrow": {
+              "x": 291.14288330078125,
+              "y": 1369.852783203125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 49.71428680419922,
+              "y": 1382.52685546875,
+              "w": 82.98661041259766,
+              "h": 15.7142333984375
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 291.4285888671875,
+          "height": 100.00000762939453,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(20, 23, 26)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": {
+        "low": 1,
+        "empty": 2,
+        "repeat": 2,
+        "refill": 2,
+        "again": 3,
+        "list": [
+          {
+            "id": 177478302,
+            "channelId": "estoque-v2",
+            "title": "Estoque baixo: [teste] Produto de Estoque",
+            "body": "Restam 2 pacotes (20% do seu nível). Toque para repor.",
+            "extra": {
+              "kind": "stock-level",
+              "actorId": "management066-isolated",
+              "productId": "qa-stock069-notice-1792767089276"
+            },
+            "smallIcon": "ic_stat_territorio",
+            "iconColor": "#7FA653",
+            "autoCancel": true,
+            "foreground": true,
+            "isExactNotification": false
+          },
+          {
+            "id": 177478302,
+            "channelId": "estoque-feira",
+            "title": "[teste] Produto de Estoque acabou",
+            "body": "Moído · 250 g · Toque para repor.",
+            "extra": {
+              "kind": "stock-level",
+              "actorId": "management066-isolated",
+              "productId": "qa-stock069-notice-1792767089276"
+            },
+            "smallIcon": "ic_stat_territorio",
+            "iconColor": "#7FA653",
+            "autoCancel": true,
+            "foreground": true,
+            "isExactNotification": false
+          },
+          {
+            "id": 177478302,
+            "channelId": "estoque-feira",
+            "title": "[teste] Produto de Estoque acabou",
+            "body": "Moído · 250 g · Toque para repor.",
+            "extra": {
+              "kind": "stock-level",
+              "actorId": "management066-isolated",
+              "productId": "qa-stock069-notice-1792767089276"
+            },
+            "smallIcon": "ic_stat_territorio",
+            "iconColor": "#7FA653",
+            "autoCancel": true,
+            "foreground": true,
+            "isExactNotification": false
+          }
+        ],
+        "channels": [
+          {
+            "id": "eventos",
+            "name": "Seus eventos",
+            "description": "Lembrete uma hora antes de cada dia do evento.",
+            "importance": 4,
+            "visibility": -1000,
+            "sound": "content://settings/system/notification_sound",
+            "vibration": true,
+            "lights": true,
+            "lightColor": "#7FA653"
+          },
+          {
+            "id": "estoque-v2",
+            "name": "Estoque",
+            "description": "Produto acabando ou esgotado na Loja. Aparece na barra e na tela apagada, sem acender a tela.",
+            "importance": 3,
+            "visibility": -1000,
+            "sound": "content://settings/system/notification_sound",
+            "vibration": false,
+            "lights": true,
+            "lightColor": "#7FA653"
+          },
+          {
+            "id": "resumos-produtos",
+            "name": "Resumos dos produtos",
+            "description": "Convites semanais e mensais para conferir seus próprios registros.",
+            "importance": 3,
+            "visibility": -1000,
+            "sound": "content://settings/system/notification_sound",
+            "vibration": false,
+            "lights": false,
+            "lightColor": "#000000"
+          },
+          {
+            "id": "financas",
+            "name": "Custos para lançar",
+            "description": "Quando faltam custos para o lucro ficar certo.",
+            "importance": 4,
+            "visibility": -1000,
+            "sound": "content://settings/system/notification_sound",
+            "vibration": true,
+            "lights": true,
+            "lightColor": "#7FA653"
+          },
+          {
+            "id": "estoque-feira",
+            "name": "Estoque — Feira",
+            "description": "Produto esgotado durante uma feira em andamento. Acende a tela.",
+            "importance": 4,
+            "visibility": -1000,
+            "sound": "content://settings/system/notification_sound",
+            "vibration": true,
+            "lights": true,
+            "lightColor": "#C62F26"
+          },
+          {
+            "id": "pedidos-recebimentos",
+            "name": "Pedidos e Recebimentos",
+            "description": "Acompanhamento dos pedidos recebidos e datas do Fiado.",
+            "importance": 3,
+            "visibility": -1000,
+            "sound": "content://settings/system/notification_sound",
+            "vibration": false,
+            "lights": false,
+            "lightColor": "#000000"
+          },
+          {
+            "id": "default",
+            "name": "Default",
+            "description": "Default",
+            "importance": 3,
+            "visibility": -1000,
+            "sound": "content://settings/system/notification_sound",
+            "vibration": false,
+            "lights": false,
+            "lightColor": "#000000"
+          }
+        ],
+        "scope": "visual068-live",
+        "fair": true,
+        "delivered": true,
+        "persisted": true
+      },
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    }
+  ],
+  "errors": [],
+  "officialNotificationPermission": true,
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}

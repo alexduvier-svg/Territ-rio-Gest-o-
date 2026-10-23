@@ -1,0 +1,486 @@
+{
+  "version": "0.12.69",
+  "device": "pkj",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "pkj",
+      "theme": "dark",
+      "physical": true,
+      "triangleOnlyForZero": true,
+      "outlineOnly": true,
+      "numeralSized": true,
+      "leftOfZero": true,
+      "alignedWithChevron": true,
+      "countersCentered": true,
+      "counters": [
+        {
+          "group": "ok",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "low",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        },
+        {
+          "group": "out",
+          "results": [
+            {
+              "count": "1",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "12",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            },
+            {
+              "count": "123",
+              "centered": true,
+              "inside": true,
+              "tabular": true
+            }
+          ]
+        }
+      ],
+      "noStockArrows": true,
+      "noStretchedCards": true,
+      "replenishmentRemovesTriangle": true,
+      "rows": [
+        {
+          "id": "coffee250",
+          "rects": {
+            "number": {
+              "x": 218.765625,
+              "y": 456.89453125,
+              "w": 39.10546875,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 457.89453125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 470.8203125,
+              "w": 138.55859375,
+              "h": 15.75
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 292,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "coffee500",
+          "rects": {
+            "number": {
+              "x": 232.67578125,
+              "y": 557.39453125,
+              "w": 25.1953125,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 558.39453125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 571.3203125,
+              "w": 138.83203125,
+              "h": 15.75
+            }
+          },
+          "out": false,
+          "value": "96",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "banana",
+          "rects": {
+            "number": {
+              "x": 236.76953125,
+              "y": 761.39453125,
+              "w": 25.25390625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 762.39453125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 775.3203125,
+              "w": 101.48828125,
+              "h": 15.75
+            }
+          },
+          "out": false,
+          "value": "88",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "dates",
+          "rects": {
+            "number": {
+              "x": 223.671875,
+              "y": 965.39453125,
+              "w": 34.19921875,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 966.39453125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 979.3203125,
+              "w": 89.05859375,
+              "h": 15.75
+            }
+          },
+          "out": false,
+          "value": "100",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "soon",
+          "rects": {
+            "number": {
+              "x": 223.21875,
+              "y": 1169.39453125,
+              "w": 39.10546875,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 1170.39453125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1183.3203125,
+              "w": 82.984375,
+              "h": 15.75
+            }
+          },
+          "out": true,
+          "value": "0",
+          "width": 292,
+          "height": 100,
+          "warning": true,
+          "arrows": 0,
+          "outline": true,
+          "red": "rgb(255, 69, 58)",
+          "numberColor": "rgb(255, 69, 58)",
+          "font": 20,
+          "size": 20,
+          "before": true,
+          "center": true,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        },
+        {
+          "id": "salame",
+          "rects": {
+            "number": {
+              "x": 249.6953125,
+              "y": 1373.39453125,
+              "w": 12.62890625,
+              "h": 20
+            },
+            "arrow": {
+              "x": 292,
+              "y": 1374.39453125,
+              "w": 18,
+              "h": 18
+            },
+            "description": {
+              "x": 50,
+              "y": 1387.3203125,
+              "w": 82.984375,
+              "h": 15.75
+            }
+          },
+          "out": false,
+          "value": "8",
+          "width": 292,
+          "height": 100,
+          "warning": false,
+          "arrows": 0,
+          "outline": true,
+          "red": null,
+          "numberColor": "rgb(246, 247, 249)",
+          "font": 20,
+          "before": false,
+          "center": false,
+          "inside": true,
+          "arrowAligned": true,
+          "noDescriptionOverlap": true,
+          "fit": true,
+          "nameFit": true
+        }
+      ],
+      "notifications": {
+        "low": 1,
+        "empty": 2,
+        "repeat": 2,
+        "refill": 2,
+        "again": 3,
+        "list": [
+          {
+            "id": 178222948,
+            "channelId": "estoque-v2",
+            "title": "Estoque baixo: [teste] Produto de Estoque",
+            "body": "Restam 2 pacotes (20% do seu nível). Toque para repor.",
+            "extra": {
+              "kind": "stock-level",
+              "actorId": "management066-isolated",
+              "productId": "qa-stock069-notice-1792767093231"
+            },
+            "smallIcon": "ic_stat_territorio",
+            "iconColor": "#7FA653",
+            "autoCancel": true,
+            "foreground": true,
+            "isExactNotification": false
+          },
+          {
+            "id": 178222948,
+            "channelId": "estoque-feira",
+            "title": "[teste] Produto de Estoque acabou",
+            "body": "Moído · 250 g · Toque para repor.",
+            "extra": {
+              "kind": "stock-level",
+              "actorId": "management066-isolated",
+              "productId": "qa-stock069-notice-1792767093231"
+            },
+            "smallIcon": "ic_stat_territorio",
+            "iconColor": "#7FA653",
+            "autoCancel": true,
+            "foreground": true,
+            "isExactNotification": false
+          },
+          {
+            "id": 178222948,
+            "channelId": "estoque-feira",
+            "title": "[teste] Produto de Estoque acabou",
+            "body": "Moído · 250 g · Toque para repor.",
+            "extra": {
+              "kind": "stock-level",
+              "actorId": "management066-isolated",
+              "productId": "qa-stock069-notice-1792767093231"
+            },
+            "smallIcon": "ic_stat_territorio",
+            "iconColor": "#7FA653",
+            "autoCancel": true,
+            "foreground": true,
+            "isExactNotification": false
+          }
+        ],
+        "channels": [
+          {
+            "id": "eventos",
+            "name": "Seus eventos",
+            "description": "Lembrete uma hora antes de cada dia do evento.",
+            "importance": 4,
+            "visibility": -1000,
+            "vibration": false,
+            "lights": true,
+            "lightColor": "#7FA653"
+          },
+          {
+            "id": "estoque-v2",
+            "name": "Estoque",
+            "description": "Produto acabando ou esgotado na Loja. Aparece na barra e na tela apagada, sem acender a tela.",
+            "importance": 3,
+            "visibility": -1000,
+            "vibration": false,
+            "lights": true,
+            "lightColor": "#7FA653"
+          },
+          {
+            "id": "resumos-produtos",
+            "name": "Resumos dos produtos",
+            "description": "Convites semanais e mensais para conferir seus próprios registros.",
+            "importance": 3,
+            "visibility": -1000,
+            "vibration": false,
+            "lights": false,
+            "lightColor": "#000000"
+          },
+          {
+            "id": "financas",
+            "name": "Custos para lançar",
+            "description": "Quando faltam custos para o lucro ficar certo.",
+            "importance": 4,
+            "visibility": -1000,
+            "vibration": false,
+            "lights": true,
+            "lightColor": "#7FA653"
+          },
+          {
+            "id": "estoque-feira",
+            "name": "Estoque — Feira",
+            "description": "Produto esgotado durante uma feira em andamento. Acende a tela.",
+            "importance": 4,
+            "visibility": -1000,
+            "vibration": false,
+            "lights": true,
+            "lightColor": "#C62F26"
+          },
+          {
+            "id": "pedidos-recebimentos",
+            "name": "Pedidos e Recebimentos",
+            "description": "Acompanhamento dos pedidos recebidos e datas do Fiado.",
+            "importance": 3,
+            "visibility": -1000,
+            "vibration": false,
+            "lights": false,
+            "lightColor": "#000000"
+          },
+          {
+            "id": "default",
+            "name": "Default",
+            "description": "Default",
+            "importance": 3,
+            "visibility": -1000,
+            "vibration": false,
+            "lights": false,
+            "lightColor": "#000000"
+          }
+        ],
+        "scope": "visual068-live",
+        "fair": true,
+        "delivered": true,
+        "persisted": true
+      },
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    }
+  ],
+  "errors": [],
+  "officialNotificationPermission": true,
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}
