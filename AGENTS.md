@@ -1,10 +1,18 @@
+# Entrega instalada — Ícone de Reposição0.12.74/code114
+
+Pedido23/10refinado: vermelha substitui verde dentroLoja, semdoisjuntos; botão vermelhoReporEstoque independente deLoja/setaVendendoEm. CardesgotadoabreRepor; ao repor esgotadosvolta verde.24px/contorno/semcírculo/recuo preservados; condições deeventoesnooze existentesmantidas. Memória44/documentooffline semposiçãoantiga. ModoTeste72/identidade/clima27/servidor59/Firebase/Calendar/registrosreaispreservados. Leragro-gestao/docs/ENTREGA-0.12.74.md eRETOMADA-CAIXINHA-0.12.74.md.
+
+8browser320ampliadoleve-reduzido360393412/4CapacitorDOIS2temasPASS. Valoresfechados/abertos, íconeúnico/botõesindependentes/cardRepor/verdeapósreposição/registrosfictícios preservados. NenhumERPprincipal/WhatsAppreal/agendapessoal; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. APK9136050bytes/SHA2564b6c721330c1c9457ae200ae4c0c5a2c3e48fbd98eff4ed7c1b3e5f871c98059/certoriginal/v2v3/48assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-rReno14 2026-10-23 15:47:35 / PKJ110 2026-10-23 15:47:42/114/0.12.74/Statusok/firstInstallTimepreservados;fixturesremovidos. NÃOrepetirbuild/verificador/cópia/instalação74.
+
+73intermediáriainstaladaReno15:39:48/PKJ15:39:55/113/hashb1048eba38aa74e7f15636902fd489ad5f5be19840b59df4cd69eace186660d2; não repetir73. GitpublicaçãoapenasAGRO2, consultarúltimolog/remoto; fechamento reúne73/74. Claudecffe32b/main956fddcinalterados. Encerramento documentalnãoexigeAPK. Sempendência deimplementação autorizada; semsubagentes/automação,nãorecriar.
+
 # Entrega instalada — Modo Teste e Reposição0.12.72/code112
 
 Pedido23/10 concluído: ModoTeste cinza/inativo e vermelho/ativo nas5abas,6produtos/6clientes fixos OUaté5apresentações próprias sanitizadas/cadastro vazio. Origem explícita e aviso vermelho persistente. NÃOconclui nemvenda simulada; tentativa avisa sair para venderrealmente, domínio.complete tambémbloqueia. Preço/custo/reposição/clientes/eventos locais permitidos, semcontagem/aprendizado real. DiárioA/B próprio sembackup/recoveryreal, entradaaguardagravação, saída descartasótreino e retoma contexto/rascunho. Semlembretes/agenda/envios/publicação/Geminionline; jobsreaisnão reconfigurados/cancelados. Caixinha dentroLoja entrepontinhos/valor eolho,24px igualverde/semcírculo; cardsemestoque abreRepor comação própria, cancelatoquependente, nãoselecionavenda nemmúltipla. Reservas/cargacanonicaspreservadas. Memória42/documentooffline.
 
 578unit/8browser320ampliadoleve-reduzido360393412/4CapacitorDOIS2temasPASS; slotsdofixturepreservados,reabertura/descarte, limite5,zeroregistrovenda,ícones/bordas/cardreposição/conflitodetoques. SemERPprincipal/WhatsAppreal/agendapessoal; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. APK9136050bytes/SHA2560b8cebdbcdaff8c4257d466c82fb3036ff4911da6ea0032bfc060c21396fa99f/certoriginal/v2v3/48assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-r23/10 Reno15:24:20/PKJ15:24:26/112/0.12.72/Statusok/firstInstallTimepreservados;fixtures/capturas/forwardsremovidos. NÃOrepetirbuild/verificador/cópia/instalação72. Leiaagro-gestao/docs/ENTREGA-0.12.72.md eRETOMADA-MODO-TESTE-0.12.72.md.
 
-Clima27/servidor59/FirebaseSparkAppCheck/Calendar/identidade/dadosreaispreservados. GitapenasAGRO2; Claude cffe32b/main956fddc semnovidades na última consulta. Encerramento documental pode serposterior e nãoexigenovoAPK. Semsubagentes/automação,nãorecriar.
+Clima27/servidor59/FirebaseSparkAppCheck/Calendar/identidade/dadosreaispreservados. Commit/push2a8bbac6130dd6a325114271faca602954383d5a confirmados remotoAGRO2/worktreelimpo antes da nova correção73. Claude cffe32b/main956fddc semnovidades na última consulta. Encerramento documental pode serposterior e nãoexigenovoAPK. Semsubagentes/automação,nãorecriar.
 
 # Entrega instalada — Agenda e Evento0.12.71/code111
 

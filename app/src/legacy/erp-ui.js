@@ -3005,7 +3005,7 @@ function openStockAlerts(){const mem=stockMemory();mem.seenAt=new Date().toISOSt
  if(page==='Vender'){const chip=document.querySelector('#app .stock-alert-chip');chip?.classList.remove('is-new');}}
 paths.move='<path d="M12 3.5v17M3.5 12h17M12 3.5 9.5 6M12 3.5 14.5 6M12 20.5 9.5 18M12 20.5l2.5-2.5M3.5 12 6 9.5M3.5 12 6 14.5M20.5 12 18 9.5M20.5 12 18 14.5"/>';
 function movePill(){return btn('reorder-edit',icon('move')+'<span class="mc-go">Mova os cards</span><span class="mc-done">Pronto</span>','move-cards-pill');}
-const r40SellPage=feiraSellPage;feiraSellPage=function(){return r40SellPage().replace('<p class="glass-area-label">Área de vendas</p>','<p class="glass-area-label">Área de vendas</p>'+movePill()).replace('<button type="button" data-action="toggle-financial"',stockAlertChip()+'<button type="button" data-action="toggle-financial"');};
+const r40SellPage=feiraSellPage;feiraSellPage=function(){const html=r40SellPage().replace('<p class="glass-area-label">Área de vendas</p>','<p class="glass-area-label">Área de vendas</p>'+movePill()),chip=stockAlertChip();return chip?html.replace('<section class="glass-sales-location">','<section class="glass-sales-location">'+chip).replace(icon('store')+'<span>Loja</span>','<span>Loja</span>'):html;};
 if(sellPage===r40SellPage)sellPage=feiraSellPage;
 function orderBestFirst(id){const p=model.product(id),order=window.TerritorioStockOrder;if(!p||!order)return;const key=order.stockGroupKey(p),all=order.orderStockProducts(model.data.products).map(x=>x.id);
  const family=all.filter(x=>order.stockGroupKey(model.product(x))===key),next=[id,...family.filter(x=>x!==id)],set=new Set(family);let k=0;const full=all.map(x=>set.has(x)?next[k++]:x);

@@ -1,0 +1,578 @@
+{
+  "version": "0.12.73",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "chip": {
+        "leftOfDots": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "activationAndReturn": true,
+        "businessRecordsUnchanged": true,
+        "states": [
+          {
+            "visible": false,
+            "width": 320,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 34,
+              "right": 74,
+              "totalLeft": 78,
+              "eyeLeft": 244,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": true,
+            "width": 320,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 34,
+              "right": 74,
+              "totalLeft": 78,
+              "eyeLeft": 244,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": false,
+            "width": 320,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 34,
+              "right": 74,
+              "totalLeft": 78,
+              "eyeLeft": 244,
+              "iconWidth": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "chip": {
+        "leftOfDots": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "activationAndReturn": true,
+        "businessRecordsUnchanged": true,
+        "states": [
+          {
+            "visible": false,
+            "width": 360,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 195.515625,
+              "right": 235.515625,
+              "totalLeft": 239.515625,
+              "eyeLeft": 284,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": true,
+            "width": 360,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 169.9375,
+              "right": 209.9375,
+              "totalLeft": 213.9375,
+              "eyeLeft": 284,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": false,
+            "width": 360,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 195.515625,
+              "right": 235.515625,
+              "totalLeft": 239.515625,
+              "eyeLeft": 284,
+              "iconWidth": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "chip": {
+        "leftOfDots": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "activationAndReturn": true,
+        "businessRecordsUnchanged": true,
+        "states": [
+          {
+            "visible": false,
+            "width": 393,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 228.515625,
+              "right": 268.515625,
+              "totalLeft": 272.515625,
+              "eyeLeft": 317,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": true,
+            "width": 393,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 202.9375,
+              "right": 242.9375,
+              "totalLeft": 246.9375,
+              "eyeLeft": 317,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": false,
+            "width": 393,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 228.515625,
+              "right": 268.515625,
+              "totalLeft": 272.515625,
+              "eyeLeft": 317,
+              "iconWidth": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "chip": {
+        "leftOfDots": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "activationAndReturn": true,
+        "businessRecordsUnchanged": true,
+        "states": [
+          {
+            "visible": false,
+            "width": 412,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 247.515625,
+              "right": 287.515625,
+              "totalLeft": 291.515625,
+              "eyeLeft": 336,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": true,
+            "width": 412,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 221.9375,
+              "right": 261.9375,
+              "totalLeft": 265.9375,
+              "eyeLeft": 336,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": false,
+            "width": 412,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 247.515625,
+              "right": 287.515625,
+              "totalLeft": 291.515625,
+              "eyeLeft": 336,
+              "iconWidth": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "chip": {
+        "leftOfDots": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "activationAndReturn": true,
+        "businessRecordsUnchanged": true,
+        "states": [
+          {
+            "visible": false,
+            "width": 320,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 34,
+              "right": 74,
+              "totalLeft": 78,
+              "eyeLeft": 244,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": true,
+            "width": 320,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 34,
+              "right": 74,
+              "totalLeft": 78,
+              "eyeLeft": 244,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": false,
+            "width": 320,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 34,
+              "right": 74,
+              "totalLeft": 78,
+              "eyeLeft": 244,
+              "iconWidth": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "chip": {
+        "leftOfDots": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "activationAndReturn": true,
+        "businessRecordsUnchanged": true,
+        "states": [
+          {
+            "visible": false,
+            "width": 360,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 195.515625,
+              "right": 235.515625,
+              "totalLeft": 239.515625,
+              "eyeLeft": 284,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": true,
+            "width": 360,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 169.9375,
+              "right": 209.9375,
+              "totalLeft": 213.9375,
+              "eyeLeft": 284,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": false,
+            "width": 360,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 195.515625,
+              "right": 235.515625,
+              "totalLeft": 239.515625,
+              "eyeLeft": 284,
+              "iconWidth": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "chip": {
+        "leftOfDots": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "activationAndReturn": true,
+        "businessRecordsUnchanged": true,
+        "states": [
+          {
+            "visible": false,
+            "width": 393,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 228.515625,
+              "right": 268.515625,
+              "totalLeft": 272.515625,
+              "eyeLeft": 317,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": true,
+            "width": 393,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 202.9375,
+              "right": 242.9375,
+              "totalLeft": 246.9375,
+              "eyeLeft": 317,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": false,
+            "width": 393,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 228.515625,
+              "right": 268.515625,
+              "totalLeft": 272.515625,
+              "eyeLeft": 317,
+              "iconWidth": 24
+            }
+          }
+        ]
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "chip": {
+        "leftOfDots": true,
+        "sameIconSize": true,
+        "noCircle": true,
+        "activationAndReturn": true,
+        "businessRecordsUnchanged": true,
+        "states": [
+          {
+            "visible": false,
+            "width": 412,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 247.515625,
+              "right": 287.515625,
+              "totalLeft": 291.515625,
+              "eyeLeft": 336,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": true,
+            "width": 412,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 221.9375,
+              "right": 261.9375,
+              "totalLeft": 265.9375,
+              "eyeLeft": 336,
+              "iconWidth": 24
+            }
+          },
+          {
+            "visible": false,
+            "width": 412,
+            "overflow": false,
+            "cut": false,
+            "sameSize": true,
+            "leftOfTotal": true,
+            "totalBeforeEye": true,
+            "inset": true,
+            "background": "rgba(0, 0, 0, 0)",
+            "shadow": "none",
+            "bounds": {
+              "left": 247.515625,
+              "right": 287.515625,
+              "totalLeft": 291.515625,
+              "eyeLeft": 336,
+              "iconWidth": 24
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}
