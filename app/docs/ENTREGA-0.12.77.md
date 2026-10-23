@@ -30,3 +30,5 @@ Cópia original confirmada: `C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Ge
 - PKJ110: atualização 2026-10-23 19:56:43; instalação inicial 2026-10-14 18:17:06 preservada.
 
 Fixtures removidos dos dois aparelhos. Encerramento Git somente no ramo AGRO2; conferir hash final no log. Não repetir build, verificador, cópia ou instalação desta versão por registros documentais posteriores.
+
+Implementação publicada e confirmada no ramo `codex/atualizacao-agro-gestao2`: `55c67bbc02ed866a28fba02af0c504a6053e4e2b`. Capturas temporárias e forwards 9341/9342 removidos; nenhuma pendência de implementação autorizada restante. Encerramento documental posterior não exige novo APK.
