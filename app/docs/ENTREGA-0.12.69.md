@@ -1,6 +1,6 @@
 # Entrega 0.12.69 — Alinhamento do Estoque e Avisos de Esgotamento
 
-Concluída tecnicamente em23/10/2026. AGRO Gestão2, pacote br.com.territorio.gestao2, code109. Git em fechamento.
+Concluída em23/10/2026. AGRO Gestão2, pacote br.com.territorio.gestao2, code109.
 
 ## Resultado
 
@@ -28,4 +28,4 @@ Cópia original conferida:C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gesta
 
 ## Git
 
-Somente codex/atualizacao-agro-gestao2. Fetch no início, marco e antes da publicação:Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b/main956fddceec2b994e32c154c5197424a4f56df7f2 preservados. Publicar fontes/documentação e QA sintético; excluir APK/credenciais/registros pessoais/capturas. Commit/push em fechamento; confirmar remoto ao retomar, sem refazer APK. Automação excluída: não recriar.
+Somente codex/atualizacao-agro-gestao2. Fetch no início, marco e antes da publicação:Claude cffe32bd60e0a4385ad9194ca1f5ac5e3e0c0e6b/main956fddceec2b994e32c154c5197424a4f56df7f2 preservados. Publicar fontes/documentação e QA sintético; excluir APK/credenciais/registros pessoais/capturas. Implementação commit/pusheb9ceedb3946b44261c805c8a8144c59035df7d8 confirmados no remotoAGRO2; worktree limpo antes deste encerramento documental. Nenhuma pendência autorizada restante. Encerramento documental pode ter commit posterior; não refazer APK. Automação excluída: não recriar.
