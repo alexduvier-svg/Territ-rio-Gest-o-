@@ -127,3 +127,9 @@ Em Estoque, substituir as setas por triângulo vermelho somente de contorno, com
 Avisos nativos: estoque baixo e esgotado separados; avisar uma vez por episódio de zero e rearmar após qualquer reposição positiva. Estado por produtor e fila serial, sem polling/duplicação. Falha ou recusa não marcam entrega; respeitar permissão e consentimento existentes. Não repetir pedidos automáticos de permissão. Android controla visibilidade/sons/canal.
 
 Refinamento69: conjunto triângulo/número centralizado na mesma altura da seta à direita. Centralizar os totais Em Dia, Baixo e Esgotado para1,2e3 dígitos tabulares; preservar material, dimensões e leitura.
+
+## Revisão70 — Zero na reposição e frequência por feira
+
+Na reposição rápida de produto esgotado, os numerais0 são vermelhos. Quantidade positiva e saldo após gravação voltam ao estado normal. Unidade e textos mantêm suas cores. Não afirmar reposição antes da confirmação durável.
+
+Contar confirmações registradas no histórico da carga da feira, uma vez por confirmação mesmo com vários produtos. Carga inicial, leitura/abertura, digitação, consultas repetidas e salvamentos sem entrada não contam. Entradas gerais não são alocadas automaticamente à feira. Deduplicar identificações/horários das confirmações; manter detalhamento por produto/apresentação. Histórico legado incompleto é parcial, sem estimar quantas vezes ocorreu. Exibir na Gestão/Estoque e Sobras e manter no relatório local sem novo contador persistido.

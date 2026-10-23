@@ -1,0 +1,450 @@
+{
+  "version": "0.12.70",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 20,
+        "right": 300,
+        "y": 83.140625,
+        "bottom": 556.859375,
+        "w": 320,
+        "h": 640,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 129.625,
+            "y": 493.859375,
+            "bottom": 541.859375,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 300,
+        "y": 57.59375,
+        "bottom": 582.390625,
+        "w": 320,
+        "h": 640,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 279,
+            "y": 519.390625,
+            "bottom": 567.390625,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "large": false,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 28.452301025390625,
+        "right": 331.5476989746094,
+        "y": 191.58303833007812,
+        "bottom": 667.1527099609375,
+        "w": 360,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 48.34293746948242,
+            "right": 132.28615951538086,
+            "y": 607.4808349609375,
+            "bottom": 652.9451293945312,
+            "h": 45.46429443359375
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 340,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "w": 360,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 319,
+            "y": 683.1875,
+            "bottom": 731.1875,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "large": false,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 30.21148681640625,
+        "right": 362.78851318359375,
+        "y": 194.69223022460938,
+        "bottom": 667.737060546875,
+        "w": 393,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 49.99652099609375,
+            "right": 133.49407958984375,
+            "y": 608.3819580078125,
+            "bottom": 653.6049194335938,
+            "h": 45.22296142578125
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 373,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "w": 393,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 352,
+            "y": 683.1875,
+            "bottom": 731.1875,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "large": false,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 30.759384155273438,
+        "right": 381.24058532714844,
+        "y": 194.68646240234375,
+        "bottom": 667.7360229492188,
+        "w": 412,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 50.54461669921875,
+            "right": 134.04299926757812,
+            "y": 608.38037109375,
+            "bottom": 653.603759765625,
+            "h": 45.223388671875
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 392,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "w": 412,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 371,
+            "y": 683.1875,
+            "bottom": 731.1875,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 20,
+        "right": 300,
+        "y": 83.140625,
+        "bottom": 556.859375,
+        "w": 320,
+        "h": 640,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 129.625,
+            "y": 493.859375,
+            "bottom": 541.859375,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 300,
+        "y": 57.59375,
+        "bottom": 582.390625,
+        "w": 320,
+        "h": 640,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 279,
+            "y": 519.390625,
+            "bottom": 567.390625,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "large": false,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 29.258087158203125,
+        "right": 330.7419128417969,
+        "y": 194.69688415527344,
+        "bottom": 667.7379608154297,
+        "w": 360,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 49.042964935302734,
+            "right": 132.53985214233398,
+            "y": 608.3833618164062,
+            "bottom": 653.60595703125,
+            "h": 45.22259521484375
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 340,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "w": 360,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 319,
+            "y": 683.1875,
+            "bottom": 731.1875,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "large": false,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 29.329910278320312,
+        "right": 363.6701202392578,
+        "y": 191.6038818359375,
+        "bottom": 667.1566162109375,
+        "w": 393,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 49.21983337402344,
+            "right": 133.16006469726562,
+            "y": 607.48681640625,
+            "bottom": 652.9495239257812,
+            "h": 45.46270751953125
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 373,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "w": 393,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 352,
+            "y": 683.1875,
+            "bottom": 731.1875,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "large": false,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 28.653045654296875,
+        "right": 383.3469543457031,
+        "y": 187.69387817382812,
+        "bottom": 666.4293212890625,
+        "w": 412,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 48.676090240478516,
+            "right": 133.17810440063477,
+            "y": 606.3602294921875,
+            "bottom": 652.127197265625,
+            "h": 45.7669677734375
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 392,
+        "y": 73.796875,
+        "bottom": 746.1875,
+        "w": 412,
+        "h": 820,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 371,
+            "y": 683.1875,
+            "bottom": 731.1875,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

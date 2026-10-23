@@ -277,3 +277,6 @@ dialog:is([data-kind='cart'], [data-kind='checkout']) .checkout-items .cart-item
 :root[data-theme='light'] #app .sale-compact .quantity-panel #sale-quantity {
   color: #b42332;
 }
+
+/* A sold-out balance is red until a positive replenishment is confirmed. */
+:root[data-theme] dialog[data-kind=restock] :is(.rr-current-qty,.rr-value .tabular).is-zero{color:var(--red)}

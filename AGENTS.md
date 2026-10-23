@@ -1,3 +1,9 @@
+# Entrega instalada — Reposição0.12.70/code110
+
+Pedido23/10: zerovermelho na reposição rápida de produto esgotado, só numeral; quantidade positiva/saldo reposto normais. Frequência de reposições confirmadas na carga da feira, uma confirmação multiprodutoscontauma; carga inicial/consulta/repetição não contam. Contagem derivada dohistórico existente, semcontadorparalelo/alocação automática doestoquegeral; legadoincompleto parcial. Gestão/Estoque e Sobras e relatório local. Memória40/documentooffline. Ler agro-gestao/docs/ENTREGA-0.12.70.md e RETOMADA-REPOSICAO-0.12.70.md.
+
+559unit/8browser320ampliadoleve-reduzido360393412/4CapacitorDOIS2temasPASS; ummovimento, contagem1→2/idempotência/reabertura/saldospreservados. SemERPprincipal/WhatsAppreal/agenda pessoal; semFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. APK9127858bytes/SHA256343d8fb980271df0a61f1e5761bbf127d769423b6cff36f2862361f82fa82c05/certoriginal/v2v3/48assets+2pontes/ZIPeELF16KB. Cópiaoriginal/install-r23/10 Reno12:25:03/PKJ12:25:12/110/0.12.70/Statusok/firstInstallTimepreservados; fixtures/capturas/forwards removidos. NÃO repetir build/testes/verificador/cópia/instalação70. Clima27/servidor59/FirebaseSparkAppCheck/Calendar/notificações69/dadosreais preservados. GitAGRO2 emfechamento, confirmarcommit/push. Claudecffe32b/main956fddc preservados. Automaçãoexcluída,nãorecriar.
+
 # Entrega concluída — Estoque/Notificações0.12.69/code109
 
 Pedido23/10: triângulo vermelho SÓcontorno/exclamação à esquerda do0, altura do numeral, substitui setas em Estoque. Saldo/triângulo centralizados na seta; totais EmDia/Baixo/Esgotado centralizados para1,12,123 tabulares. Semsobrepor/esticar. Avisos baixo/zero separados; reposição positiva rearma, memória porprodutor/fila serial, sem polling/pedido automático de permissão. Memória39/documentooffline sempremissaantiga conflitante. Ler agro-gestao/docs/ENTREGA-0.12.69.md e RETOMADA-ALERTA-0.12.69.md.

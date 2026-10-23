@@ -108,8 +108,27 @@ function reportCheck(check) {
 // sales: vendas concluídas do evento (com items[].productId, qty, netTotal/total, costTotal; payments; date)
 // load.items[].qty já inclui reposições; restocks é apenas o histórico.
 // losses: movimentos de perda do evento, com productId, unit, qty, kind e eventId.
+// Derived from confirmed load entries only: one confirmation may carry several products.
+// No counter is written, so reloads, report requests and retries cannot increment it.
+export function fairRestockSummary(load) {
+  const batches=new Set(),products=new Map();let complete=true;
+  for(const item of load?.items||[]){
+    if(item.restocks==null)continue;
+    if(!Array.isArray(item.restocks)){complete=false;continue;}
+    const key=JSON.stringify([item.productId,item.unit||'']);
+    for(const entry of item.restocks){
+      const qty=Number(entry?.qty),at=Date.parse(entry?.at),operation=entry?.operationId||entry?.fairActivityId||entry?.movementId;
+      if(!Number.isFinite(qty)||qty<=0||!item.productId||(!operation&&!Number.isFinite(at))){complete=false;continue;}
+      const batch=operation?'operation:'+operation:'time:'+at;
+      batches.add(batch);if(!products.has(key))products.set(key,{productId:item.productId,unit:item.unit||'',batches:new Set()});products.get(key).batches.add(batch);
+    }
+  }
+  const rows=[...products.values()].map(({productId,unit,batches})=>({productId,unit,count:batches.size}));
+  return{count:batches.size,productEntries:rows.reduce((n,r)=>n+r.count,0),complete,products:rows};
+}
+
 export function buildFairReport({ event, load, sales, losses = [], productOf = () => null, producer = {}, now = Date.now() }) {
-  const lines = new Map();
+  const lines = new Map(), restockHistory=fairRestockSummary(load), restockCounts=new Map(restockHistory.products.map(p=>[JSON.stringify([p.productId,p.unit]),p.count]));
   const keyOf = (id, unit) => id + '|' + (unit || '');
   for (const i of load?.items || []) lines.set(keyOf(i.productId, i.unit), { id: i.productId, name: i.name, description: i.description || '', unit: i.unit || '', took: Number(i.qty) || 0, restocked: (i.restocks || []).reduce((n, r) => n + (Number(r.qty) || 0), 0), sold: 0, revenue: 0, cost: 0, price: productOf(i.productId)?.price || 0, soldOutAt: '', soldOutIso: '' });
   const ordered = sales.filter(s => s.status === 'completed').sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
@@ -142,7 +161,7 @@ export function buildFairReport({ event, load, sales, losses = [], productOf = (
     const took = l.took == null ? l.sold : l.took;
     const left = quantityValue(took - l.sold - (l.lost || 0));
     const day = l.soldOutIso ? new Date(l.soldOutIso).toLocaleDateString('sv-SE', { timeZone: 'America/Sao_Paulo' }) : '';
-    return { ...l, took, left, oversold: l.took == null ? 0 : Math.max(0, l.sold - l.took), timeToSellOut: l.soldOutIso ? hm(minutesSince(l.soldOutIso, day, event.from)) : '', ratio: took > 0 ? l.sold / took : 0, restocked: l.restocked || 0 };
+    return { ...l, took, left, oversold: l.took == null ? 0 : Math.max(0, l.sold - l.took), timeToSellOut: l.soldOutIso ? hm(minutesSince(l.soldOutIso, day, event.from)) : '', ratio: took > 0 ? l.sold / took : 0, restocked: l.restocked || 0, restockCount:restockCounts.get(JSON.stringify([l.id,l.unit||'']))||0 };
   });
   const tot = k => quantityValue(products.reduce((n, p) => n + p[k], 0));
   const took = tot('took'), sold = tot('sold'), left = tot('left');
@@ -164,6 +183,7 @@ export function buildFairReport({ event, load, sales, losses = [], productOf = (
   // já na praça, não conta como reposição).
   const firstSale = ordered[0] ? Date.parse(ordered[0].date) : null;
   const restocked = products.some(p => p.restocked > 0) || (tookKnown && firstSale != null && load.updatedAt && load.updatedAt !== load.createdAt && load.surplusAdjustedAt !== load.updatedAt && Date.parse(load.updatedAt) > firstSale && !(load.items || []).some(i => i.restocks));
+  const restockSummary={...restockHistory,complete:restockHistory.complete&&(!restocked||products.some(p=>p.restocked>0))};
   const reposicao = restocked ? 'CONSEGUI REPOR' : soldOut.length ? 'FIQUEI SEM REPOSIÇÃO' : 'NÃO PRECISEI REPOR';
   const answers = {
     produtos: products.map(label).join(', '),
@@ -177,6 +197,7 @@ export function buildFairReport({ event, load, sales, losses = [], productOf = (
     saidaBarato: tiers[2].length ? rating(tierRatio(tiers[2])) : '',
     tempoEsgotar: lastOut ? lastOut.timeToSellOut : 'NÃO ESGOTOU',
     reposicao,
+    reposicoesRegistradas: (restockSummary.count===1?'1 confirmação':restockSummary.count+' confirmações')+(restockSummary.complete?'':' · Histórico parcial'),
     repostos: products.some(p => p.restocked) ? products.filter(p => p.restocked).map(p => `${p.restocked} ${label(p)}`).join(', ') : restocked ? 'Repôs durante a feira (quantidade levada atualizada)' : 'NÃO REPUS',
     vendeuAlemDoLevado: products.filter(p => p.oversold).map(p => `${label(p)}: ${p.oversold} a mais`).join(', '),
     esgotouPrimeiro: soldOut[0] ? `${label(soldOut[0])} (${soldOut[0].timeToSellOut})` : 'Não esgotou nenhum',
@@ -194,10 +215,10 @@ export function buildFairReport({ event, load, sales, losses = [], productOf = (
     app: producer.app || '',
     producer: { name: producer.name || '', business: producer.business || '', community: producer.community || '', city: producer.city || '', uf: producer.uf || '' },
     event: { name: event.name, start: event.start, end: event.end, from: event.from || '', until: event.until || '' },
-    totals: { took, sold, left, revenue, sales: ordered.length, ticket: ordered.length ? Math.round(revenue / ordered.length) : 0, tookKnown: tookKnown ? 1 : 0 },
-    answers, payments, hourly,
+    totals: { took, sold, left, revenue, sales: ordered.length, ticket: ordered.length ? Math.round(revenue / ordered.length) : 0, tookKnown: tookKnown ? 1 : 0, restockCount:restockSummary.count, restockCountKnown:restockSummary.complete?1:0 },
+    answers, payments, hourly, restockSummary,
     check,
-    products: products.map(({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, oversold }) => ({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, oversold })),
+    products: products.map(({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, restockCount, oversold }) => ({ id, name, description, unit, took, sold, left, revenue, price, soldOutAt, timeToSellOut, restocked, restockCount, oversold })),
     builtAt: new Date(now).toISOString(),
   };
 }

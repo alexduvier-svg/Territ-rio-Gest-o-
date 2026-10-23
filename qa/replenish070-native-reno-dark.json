@@ -1,0 +1,76 @@
+{
+  "version": "0.12.70",
+  "device": "reno",
+  "theme": "dark",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "reno",
+      "theme": "dark",
+      "physical": true,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 20,
+        "right": 338.8571472167969,
+        "y": 153.70089721679688,
+        "bottom": 658.8660888671875,
+        "w": 359,
+        "h": 788,
+        "buttons": [
+          {
+            "x": 40.85714340209961,
+            "right": 129.19196701049805,
+            "y": 580.0089721679688,
+            "bottom": 628.008975982666,
+            "h": 48.000003814697266
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 338.8571472167969,
+        "y": 82.97322082519531,
+        "bottom": 729.5982208251953,
+        "w": 359,
+        "h": 788,
+        "buttons": [
+          {
+            "x": 40.85714340209961,
+            "right": 318.00002670288086,
+            "y": 650.7410888671875,
+            "bottom": 698.7410926818848,
+            "h": 48.000003814697266
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    }
+  ],
+  "errors": [],
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}

@@ -1,0 +1,76 @@
+{
+  "version": "0.12.70",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "name": "pkj",
+      "theme": "light",
+      "physical": true,
+      "zeroRed": true,
+      "positiveNormal": true,
+      "replenishedNormal": true,
+      "onlyNumeralsRed": true,
+      "oneGeneralMovement": true,
+      "noSilentAllocation": true,
+      "batchCount": true,
+      "idempotentFairSave": true,
+      "managementCount": true,
+      "reloadPreserved": true,
+      "modalBounds": true,
+      "restockBounds": {
+        "x": 20.017181396484375,
+        "right": 339.9828186035156,
+        "y": 165.01866149902344,
+        "bottom": 667.0623626708984,
+        "w": 360,
+        "h": 792,
+        "buttons": [
+          {
+            "x": 41.014923095703125,
+            "right": 129.62258911132812,
+            "y": 604.0691528320312,
+            "bottom": 652.0640258789062,
+            "h": 47.994873046875
+          }
+        ],
+        "overflow": false
+      },
+      "managementBounds": {
+        "x": 20,
+        "right": 340,
+        "y": 91.28125,
+        "bottom": 740.71875,
+        "w": 360,
+        "h": 792,
+        "buttons": [
+          {
+            "x": 41,
+            "right": 319,
+            "y": 677.71875,
+            "bottom": 725.71875,
+            "h": 48
+          }
+        ],
+        "overflow": false
+      },
+      "count": 2,
+      "synthetic": true,
+      "productionDatabaseAccessed": false
+    }
+  ],
+  "errors": [],
+  "nativeStatus": {
+    "configured": true,
+    "enabled": false,
+    "dailyLimit": 10,
+    "sdkInitialized": false,
+    "backgroundRequests": false
+  },
+  "nativeValidation": true,
+  "passed": true
+}
