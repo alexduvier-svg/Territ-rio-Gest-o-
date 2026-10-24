@@ -1,3 +1,17 @@
+# Entrega83 Instalada — Novo Pedido84 Autorizado
+
+83/code123/SHAce873701f9fd5b080e8f5f96510f762bb99bd18f0141fe32a615fccd34a22143/9197683bytes entreguecópiaoriginal+DOISinstall-r24/10Reno14:20:23/PKJ14:20:33/firstInstallpreservados/seismódulosbootfrioTRUEambos.638unit/8browser/4checkout/2focados/4CapacitorDOIS2temasPASS. Fixtures/capturas/forwardsremovidos. NÃOrepetirbuild/verificador/copy/install83. docs/ENTREGA-0.12.83.md/criarGitfechamento83antesalterar84. SemBDreal/WhatsApp/agendapessoal/subagentes/automação/FPSmedidos.
+
+NOVOpedido84durantefechamento: imagem b41.jpeg janelaVendeuMaisdoQueLevou/inputQuantoEntrou abretecladoAndroidalheioaosistema,açõesRepor/AgoraNãoinline. Corrigircomtecladonuméricocomum/rodapé/margens/materialpadrãoeauditarjanelassimilares,semalterarcontagens/movimentos/validação. AindaSEMfonte84/build84. Inspecionarsrclegacy/erp-ui/string ecasossimilares. FecharGit83independentementeantes84.
+
+# 83 — Validação Física Retomada em24/10
+
+Usuárioretornou"desbloqueado"eativouReno; autorizaçãofinalparatestar/instalar83 nosDOIS. APK83jápreparadoSHAce873701f9fd5b080e8f5f96510f762bb99bd18f0141fe32a615fccd34a22143/code123/9197683/nãofazerbuild. Hashroot+originalconferidosnestaetapa. GitfetchconfirmadoAGRO22c2d8ba/Claudecffe32binalterado/worktreelimpo. PKJreencontradoadb-3a945035-mL9gnS._adb-tls-connect._tcp em192.168.2.102:33971;Reno canonicaladb-NJJ7OJRKIF8XFYSO-ybQC0W._adb-tls-connect._tcp em192.168.2.101:43965. Nãoénecessáriopareamento novo.
+
+qa/run-catalog083-native.ps1 emandamento: PKJ2temasPASS/errors[],capturasfictíciasinspecionadascomSuperiorTE3linhas/quantidade123+seta e VerdeArábicaCatuaísemTorra. Renoemqa/catalog083-reno-run.txt/testeisoladoprontoemcurso. NÃOiniciarjornadasduplicadas. FonteAPKinalterada; apenasQA .cjsmetricskey corrigidaparaqa-register082-offset(herdadodoflow82),semretirarassertrealdesviomenor3px. Scriptinstall83agorareutilizacópiaoriginalsehashigual, guardasphysicalJourneys4+validatedmantidas.
+
+Após4nativePASS: inspecionarReno2temas→finalize-catalog083-validation.py(4reports/hashmtime)→pwshinstall-catalog083.ps1→confirmarsixmodulescoldready/firstInstall/versão123DOIS. NÃOrodarverificadorpreparatório,não alteraAPK. Removerapenas own/sdcard/agro-catalog083.png eforwards9341Reno9342PKJ;instaladorremovefixtures. CriardocsENTREGA83comdadosreaisdometadataeGitAGRO2. AtéagoraSEMinstallreal83,meta installedfalseéintencional. SemBDreal/WhatsApp/agenda pessoal/subagentes/automação.
+
 # 0.12.83 Pronta e Publicada — Aguardando Instalação Autorizada no Retorno
 
 Preparação concluída/commitpushc494eeda3d03cf6568ee64a3ada6116dc7d6481fconfirmadoremotoAGRO2/worktreelimpoantesencerramentodocumental. APKoriginal AGRO-Gestao-2-0.12.83.apk/123/9197683bytes/SHAce873701f9fd5b080e8f5f96510f762bb99bd18f0141fe32a615fccd34a22143/certoriginal/v2v3/50assets+2pontes/ZIPeELF16KB. 638unit/8browser2temas320ampliadoleve-reduzido360393412/4checkout3produtos/2visuaisfocadosPASS. Fonte/fixture/assetsmesmos. Nãorepetirbuild/copy/testes83semfalharealnova. Documentação posterior não exigeAPK.

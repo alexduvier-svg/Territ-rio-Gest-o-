@@ -1,5 +1,7 @@
 # AGRO Gestão 2 — Preparação 0.12.83
 
+> Atualização: a conferência física e a instalação foram concluídas em 24/10/2026. Veja [Entrega 0.12.83](ENTREGA-0.12.83.md). O texto abaixo registra a preparação anterior.
+
 Status: APK pronto na pasta original e validado no computador. **Não instalado nos celulares**, conforme pedido para retornar entre 11h e 12h de 24/10/2026. Falta a conferência isolada no Reno14 e no PKJ110, nos dois temas, antes do adb install -r e da confirmação de inicialização fria do pacote definitivo. A 0.12.82 permanece nos aparelhos durante esta preparação.
 
 ## Cafés em Sugestões para Cadastrar
