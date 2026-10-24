@@ -16,13 +16,13 @@ test('catalog is lazy, offline, repeatable, and has no producer transactions', a
   try { await promise; } finally { clearInterval(timer); }
   assert.ok(beats>=2,'first vocabulary load must yield to input/animation tasks');
   assert.equal(isCatalogReady(),true);
-  assert.equal(catalogInfo().total,2480);
+  assert.equal(catalogInfo().total,2498);
   assert.equal(catalogInfo().sourceTotal,2479);
-  assert.equal(catalogInfo().appAdditions,1);
+  assert.equal(catalogInfo().appAdditions,19);
   assert.equal(Object.keys(catalogInfo().categories).length,22);
   assert.equal(catalogInfo().sourceFamilyCount,1270);
-  assert.equal(catalogInfo().families,1270);
-  assert.equal(searchFamilies('',{limit:1}).total,1270);
+  assert.equal(catalogInfo().families,1265);
+  assert.equal(searchFamilies('',{limit:1}).total,1265);
   assert.equal(catalogInfo().rules.some(rule=>rule.includes('Não presuma peso fixo')),true);
 });
 

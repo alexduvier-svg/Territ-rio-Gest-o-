@@ -15,3 +15,8 @@ Referências de processo: [Embrapa](https://www.atermaisdigital.cnptia.embrapa.b
 Manter layout único, três colunas nas vendas, claro/escuro, texto ampliado, telas pequenas e modo leve/reduzido. Não alegar fluidez em aparelhos básicos físicos sem medição correspondente.
 
 Correção 0.12.78: em Fermentação, oferecer Tradicional e Anaeróbica. Aeróbica não é uma sugestão padrão nem aprendida para novos cadastros. Um registro antigo com esse valor continua preservado, para o produtor confirmar a correção; os processos não são convertidos por dedução.
+
+
+## Modelos de Café — Padrão 0.12.80
+
+Especial, Gourmet, Superior e Tradicional: para cada tipo, TC em 250 g, 500 g e 1 kg; depois TM nos mesmos pesos; depois TE. Os exemplos do Modo Teste mostram as36 combinações, além dos outros5 produtos e6clientes fictícios. Em grãos segue a mesma sequência no catálogo. A torra explicitamente escolhida em uma sugestão de catálogo preenche o campo Torra; cadastro não recebe saldo/preço/custo do catálogo. Produtos reais e seus saldos/históricos são preservados; nenhum exemplo migra para o negócio real.

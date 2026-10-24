@@ -1,3 +1,4 @@
+import {stockProductComparator} from './stock-order.js';
 import policy from '../data/product-catalog-policy.json' with { type: 'json' };
 import { STOCK_CATALOG_GUIDELINES } from '../data/stock-catalog-guidelines.js';
 import { PRODUCT_CATALOG_ADDITIONS } from '../data/product-catalog-additions.js';
@@ -47,7 +48,7 @@ export function catalogInfo() {
 }
 export const isCatalogReady = () => ready;
 const familyKeyOf = record => JSON.stringify([normalizeProductName(record.nome_base), normalize(record.sabor), normalize(record.variedade)]);
-const familyName = record => String(record.nome_exibicao || record.nome_base).split(' — ')[0].trim();
+const familyName = record => record.categoria==='Cafés'&&record.coffeeRoast?'Café '+record.variedade:String(record.nome_exibicao || record.nome_base).split(' — ')[0].trim();
 const catalogYield = () => new Promise(resolve => setTimeout(resolve, 0));
 async function decodePacked(packed) {
   if (!Array.isArray(packed.rows) || !Array.isArray(packed.strings) || !Array.isArray(packed.fields)) throw Error('Catálogo inválido');
@@ -64,6 +65,9 @@ async function decodePacked(packed) {
   return decoded;
 }
 function finishRecord(record) {
+    // Decode only a roast explicitly named by this bundled catalogue record, never a producer name.
+    const roast=record.categoria==='Cafés'&&String(record.nome_exibicao||'').match(/^Café\s+(?:Especial|Gourmet|Superior|Tradicional)\s+Torra\s+(Clara|Média|Escura)\s+—/iu)?.[1];
+    if(roast){record.coffeeRoast=roast[0].toLocaleUpperCase('pt-BR')+roast.slice(1).toLocaleLowerCase('pt-BR');if(/^torra (clara|media|escura)$/.test(normalize(record.sabor)))record.sabor=null;}
     record.status = 'sugestao_catalogo';
     record.appCategory = categoryFor(record.categoria, record);
     record.familyKey = familyKeyOf(record);
@@ -94,7 +98,8 @@ export function loadCatalog() {
   return pending;
 }
 export const getCatalogRecord = id => byId.get(String(id)) || null;
-export const familyPresentations = key => [...(byFamily.get(String(key))?.records || [])];
+const coffeeCatalogOrder=(a,b)=>a.categoria==='Cafés'&&b.categoria==='Cafés'?stockProductComparator({...toProductSuggestion(a),id:a.id},{...toProductSuggestion(b),id:b.id}):0;
+export const familyPresentations = key => [...(byFamily.get(String(key))?.records || [])].sort(coffeeCatalogOrder);
 const stopWords = new Set(['de','da','do','das','dos','e']);
 function search(query, { category = '', limit = 12, offset = 0 } = {}, grouped = false) {
   if (!ready) return { items:[], total:0 };
@@ -107,7 +112,7 @@ function search(query, { category = '', limit = 12, offset = 0 } = {}, grouped =
     const score = normalized && (entry.name === normalized || entry.base === normalized) ? 0 : normalized && entry.name.startsWith(normalized) ? 1 : 2;
     hits.push({record:p,score});
   }
-  hits.sort((a,b) => a.score - b.score);
+  hits.sort((a,b) => a.score - b.score || coffeeCatalogOrder(a.record,b.record));
   let result;
   if (grouped) {
     const seen = new Set(); result = [];
@@ -132,6 +137,7 @@ export function toProductSuggestion(record) {
   return {
     category: categoryFor(record.categoria, record), baseName: record.nome_base, name: familyName(record),
     type: coffeeOrEgg ? record.variedade || '' : '', variety: coffeeOrEgg ? '' : record.variedade || '',
+    ...(record.categoria==='Cafés'&&record.coffeeRoast?{coffeeRoast:record.coffeeRoast}:{}),
     flavor: record.sabor || '', format: record.forma || '', unit: legacyUnits[code] || record.unidade_venda,
     weight: q != null && ['g','kg'].includes(contentUnit) ? Number(q) * (contentUnit === 'kg' ? 1000 : 1) : 0,
     volume: q != null && ['ml','l'].includes(contentUnit) ? Number(q) * (contentUnit === 'l' ? 1000 : 1) : 0,

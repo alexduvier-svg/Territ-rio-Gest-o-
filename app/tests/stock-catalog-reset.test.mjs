@@ -7,29 +7,16 @@ import { STOCK_CATALOG_GUIDELINES } from '../src/data/stock-catalog-guidelines.j
 import { CATALOG_KNOWLEDGE } from '../src/data/catalog-knowledge.js';
 import { INTERFACE_GUIDELINES } from '../src/data/interface-guidelines.js';
 
-test('Café Tradicional Torra Escura is visible on the initial coffee page with all six distinct presentations', async () => {
+test('the initial coffee page exposes all four types, with dark roast and distinct weights inside each family', async () => {
   await Catalog.loadCatalog();
-  const page = Catalog.searchFamilies('', { category: 'Cafés', limit: STOCK_CATALOG_GUIDELINES.initialFamilyLimit });
-  const dark = page.items.find(f => f.name === 'Café Tradicional Torra escura');
-  assert.ok(dark, 'the ninth coffee family must not be hidden behind the original limit of eight');
-  const records = Catalog.familyPresentations(dark.key);
-  assert.equal(records.length, 6);
-  assert.deepEqual(records.map(r => [r.forma, r.conteudo_quantidade]), [
-    ['Moído', 250], ['Moído', 500], ['Moído', 1000],
-    ['Em grãos', 250], ['Em grãos', 500], ['Em grãos', 1000],
-  ]);
-  const identities = records.map(r => Catalog.commercialIdentity(Catalog.toProductSuggestion(r)).key);
-  assert.equal(new Set(identities).size, 6);
-  for (const record of records) {
-    const suggested = Catalog.toProductSuggestion(record);
-    assert.equal(suggested.type, 'Tradicional');
-    assert.equal(suggested.flavor, 'Torra escura');
-    assert.equal(suggested.unit, 'Pacote');
-    assert.equal(Catalog.commercialIdentity(record).key, Catalog.commercialIdentity(suggested).key);
-    for (const key of ['id', 'price', 'cost', 'stock', 'min']) assert.equal(Object.hasOwn(suggested, key), false);
-  }
-  const light = Catalog.searchCatalog('café tradicional torra clara').items[0];
-  assert.equal(Catalog.duplicateCandidates([light], records[0]).status, 'none', 'roasts remain commercially distinct');
+  const page=Catalog.searchFamilies('',{category:'Cafés',limit:STOCK_CATALOG_GUIDELINES.initialFamilyLimit});
+  for(const type of ['Especial','Gourmet','Superior','Tradicional'])assert(page.items.some(f=>f.name==='Café '+type));
+  const family=page.items.find(f=>f.name==='Café Tradicional'),records=Catalog.familyPresentations(family.key);
+  assert.equal(records.length,18);assert.equal(new Set(records.map(r=>Catalog.commercialIdentity(r).key)).size,18);
+  const dark=records.filter(r=>r.coffeeRoast==='Escura');assert.equal(dark.length,6);
+  assert.deepEqual(dark.map(r=>[r.forma,r.conteudo_quantidade]),[['Moído',250],['Moído',500],['Moído',1000],['Em grãos',250],['Em grãos',500],['Em grãos',1000]]);
+  for(const record of dark){const p=Catalog.toProductSuggestion(record);assert.equal(p.type,'Tradicional');assert.equal(p.coffeeRoast,'Escura');assert.equal(p.flavor,'');assert.equal(p.unit,'Pacote');assert.equal(Catalog.commercialIdentity(record).key,Catalog.commercialIdentity(p).key);for(const key of ['id','price','cost','stock','min'])assert(!Object.hasOwn(p,key));}
+  const light=Catalog.searchCatalog('café tradicional torra clara').items[0];assert.equal(Catalog.duplicateCandidates([light],dark[0]).status,'none');
 });
 
 test('cold starts repeatedly rebuild the same offline vocabulary independently of storage', async () => {
@@ -38,7 +25,7 @@ test('cold starts repeatedly rebuild the same offline vocabulary independently o
     const cold = await import(new URL('../src/features/product-catalog.js?reset=' + reset, import.meta.url));
     assert.equal(cold.isCatalogReady(), false);
     await cold.loadCatalog();
-    assert.equal(cold.catalogInfo().total, 2480);
+    assert.equal(cold.catalogInfo().total, 2498);
     assert.equal(cold.catalogInfo().sourceTotal, 2479);
     assert.equal(cold.searchCatalog('queijo ralado').total, 1);
     assert.equal(cold.STOCK_CATALOG_GUIDELINES, STOCK_CATALOG_GUIDELINES);
@@ -64,7 +51,7 @@ test('restarting an empty producer model never turns catalog suggestions into st
     for (const key of ['products', 'sales', 'clients', 'events', 'movements', 'expenses']) {
       assert.equal(restored.data[key].length, 0, key + ' remains empty on reset ' + reset);
     }
-    assert.equal(restored.data.catalogKnowledge.total, 2480);
+    assert.equal(restored.data.catalogKnowledge.total, 2498);
     assert.equal(Catalog.searchFamilies('café tradicional torra escura').items.length, 1);
     assert.equal(Catalog.searchCatalog('taioba').items[0].unidade_venda, 'maco');
   }
