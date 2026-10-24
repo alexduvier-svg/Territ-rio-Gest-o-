@@ -1,11 +1,13 @@
 // Local reference knowledge. This is vocabulary and registration policy, never business activity.
 export const CATALOG_KNOWLEDGE = Object.freeze({
-  version: '1.0.4', catalogVersion: '1.0.0', type: 'suggestions_only', total: 2498,
-  sourceTotal: 2479, appAdditions: 19,
+  version: '1.0.5', catalogVersion: '1.0.0', type: 'suggestions_only', total: 2519,
+  sourceTotal: 2479, appAdditions: 40,
   sourceSHA256: 'd21cc68486f8cc478b5c31ccd4d565f7f8034b1927075bf27b5a3e327b1cc116',
   rules: [
     'O catálogo é referência de nomes, sabores, variedades, apresentações, unidades, plurais e aliases.',
     'As 2.479 referências originais permanecem identificadas pela fonte. As adições do app incluem Queijo Ralado em pacote de 50 g e18modelos de Café Superior (TC/TM/TE,250/500/1000g,Moído/EmGrãos), sem alterar a fonte nem criar produto ativo.',
+    'Cafés Especial/Gourmet/Superior/Tradicional têm todas as combinações de250/500/1000g, torra Clara/Média/Escura e Moído/EmGrãos. Drip Coffee tem referências de10/250/500/1000g em três torras, Dose Individual; peso total não informa número de filtros. Tudo é editável e precisa de confirmação, sem cadastrar estoque automaticamente.',
+    'Cafés verdes Commodity têm espécie e variedade explícitas nas sugestões (Arábica/Catuaí/Mundo Novo/Bourbon/Acaiá/Icatu/Catucaí/Topázio/Arara e Canéfora/Conilon/Robusta), sem torra ou peso inferidos. Os registros reais não são reclassificados pelo catálogo.',
     'Disponibilidade, estoque, preço, custo e desempenho vêm somente dos registros do produtor.',
     'Sugestão de café carrega Espécie, Variedade, Torra e Processo no esquema atual; processo indefinido fica vazio. Anaeróbico é escolhido em Processo; Fermentação é mantida apenas como dado legado para preservar identidade e histórico.',
     'Produtos próprios e escolhas confirmadas têm prioridade sobre sugestões genéricas.',

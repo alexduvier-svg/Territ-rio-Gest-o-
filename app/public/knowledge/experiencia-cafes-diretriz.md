@@ -1,4 +1,4 @@
-# Experiência e Cafés — Regra 52
+# Experiência e Cafés — Regra 53
 
 Estoque e Fornecedores compartilham o motor de movimento. A seta do título troca a área; a lupa simples fica sob os indicadores. Conhecer com Exemplos abre o Modo Teste: três fornecedores, uma comparação e três compras fictícias, sem alterar registros reais. Sair descarta somente o treino.
 
@@ -30,3 +30,11 @@ Em Produtos e Estoque, TC/TM/TE aparece depois da segunda palavra: Café Especia
 ## Cadastro Responsivo e Limpeza — 0.12.82
 
 Títulos e valores das configurações mantêm palavras inteiras e usam linhas adicionais quando o espaço exigir, sem esmagar o rótulo. Botões de opções textuais se distribuem conforme a largura; opções numéricas mantêm sua grade compacta. O X do nome mantém o alvo imóvel durante o efeito de toque. Em Novo Produto ele limpa o contexto e as opções de identificação anteriores, preservando valores digitados; em Editar Produto limpa somente o nome do formulário, sem alterar o cadastro antes de salvar.
+
+Regra 53: no Estoque, nome, origem e apresentação ocupam linhas separadas dentro da mesma célula. Espécie/Variedade não pode sobrepor Moído/Peso/Embalagem; quantidade e seta permanecem centralizadas. Não modificar dados nem o motor de movimento para corrigir esse alinhamento. Catálogo inclui Drip Coffee nas três torras e nos pesos de 10/250/500/1000 g; peso total não determina quantidade de doses.
+
+Entrada de Estoque e páginas internas de cadastro reutilizam o material do Histórico das Feiras, mantendo a hierarquia existente. Orientação usa uma seta no controle expansível existente, sem novo motor ou observador; modo leve e movimento reduzido preservados.
+
+O material comum se aplica também às subpáginas e às janelas aninhadas, em qualquer profundidade. O catálogo de café verde/Commodity oferece espécies e variedades, sem atribuir torra, peso fixo ou alterar registros reais.
+
+No cadastro de um café Verde sem torra, o controle de Torra é omitido. Um valor histórico explicitamente registrado continua visível para revisão; não é apagado automaticamente.

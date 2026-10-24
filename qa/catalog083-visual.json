@@ -1,0 +1,32 @@
+{
+  "version": "0.12.83",
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "large": true,
+      "event": {
+        "focusedStockEntryGreenGuidanceInspected": true
+      },
+      "metrics": {
+        "clearOffsetDelta": 0
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "large": true,
+      "event": {
+        "focusedStockEntryGreenGuidanceInspected": true
+      },
+      "metrics": {
+        "clearOffsetDelta": 0
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

@@ -41,7 +41,7 @@ function panel(input) {
   return `<section class="panel advisor" aria-labelledby="advisor-title">
 <div class="advisor-head"><h2 id="advisor-title">Orientação</h2><span class="advisor-period">${esc(g.periodLabel)}</span></div>
 <p class="advisor-situation">${esc(g.situation)}</p>
-<details class="advisor-more event-material-card"><summary>Entender a Orientação</summary>${actions}<section class="advisor-reference-tools"><h3>Consulta e Preparação</h3><p class="small muted">O diagnóstico reúne seus registros. O guia oferece ideias para avaliar na banca.</p><div class="advisor-context-links">${g.all.length?button('advisor-all','Diagnóstico Completo','choice'):''}${button('advisor-guide','Guia da Banca','choice')}</div></section></details>
+<details class="advisor-more event-material-card"><summary><span>Entender a Orientação</span><svg class="icon advisor-more-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>${actions}<section class="advisor-reference-tools"><h3>Consulta e Preparação</h3><p class="small muted">O diagnóstico reúne seus registros. O guia oferece ideias para avaliar na banca.</p><div class="advisor-context-links">${g.all.length?button('advisor-all','Diagnóstico Completo','choice'):''}${button('advisor-guide','Guia da Banca','choice')}</div></section></details>
 </section>`;
 }
 

@@ -25,7 +25,7 @@ test('cold starts repeatedly rebuild the same offline vocabulary independently o
     const cold = await import(new URL('../src/features/product-catalog.js?reset=' + reset, import.meta.url));
     assert.equal(cold.isCatalogReady(), false);
     await cold.loadCatalog();
-    assert.equal(cold.catalogInfo().total, 2498);
+    assert.equal(cold.catalogInfo().total, 2519);
     assert.equal(cold.catalogInfo().sourceTotal, 2479);
     assert.equal(cold.searchCatalog('queijo ralado').total, 1);
     assert.equal(cold.STOCK_CATALOG_GUIDELINES, STOCK_CATALOG_GUIDELINES);
@@ -51,7 +51,7 @@ test('restarting an empty producer model never turns catalog suggestions into st
     for (const key of ['products', 'sales', 'clients', 'events', 'movements', 'expenses']) {
       assert.equal(restored.data[key].length, 0, key + ' remains empty on reset ' + reset);
     }
-    assert.equal(restored.data.catalogKnowledge.total, 2498);
+    assert.equal(restored.data.catalogKnowledge.total, 2519);
     assert.equal(Catalog.searchFamilies('café tradicional torra escura').items.length, 1);
     assert.equal(Catalog.searchCatalog('taioba').items[0].unidade_venda, 'maco');
   }

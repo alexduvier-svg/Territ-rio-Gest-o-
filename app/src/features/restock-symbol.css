@@ -14,9 +14,10 @@
 
 /* Keep quantity and warning centered with the navigation chevron. */
 html[data-page=Estoque] #app .feira-row{display:grid;grid-template-columns:minmax(0,1fr) max-content 18px;column-gap:10px;row-gap:2px;align-items:center;align-content:center}
-html[data-page=Estoque] #app .feira-row>.fr-main{display:contents}
-html[data-page=Estoque] .stock-row-heading{grid-column:1;grid-row:1}
+/* Name, recorded origin and presentation flow in separate rows inside one grid cell. */
+html[data-page=Estoque] #app .feira-row>.fr-main{display:grid;grid-column:1;grid-row:1;gap:3px}
+html[data-page=Estoque] .stock-row-heading{grid-column:auto;grid-row:auto}
 html[data-page=Estoque] .stock-row-heading>strong{display:block}
-html[data-page=Estoque] #app .feira-row>.fr-main>small{grid-column:1;grid-row:2;min-width:0;line-height:1.25}
-html[data-page=Estoque] .feira-row>.fr-side{grid-column:2;grid-row:1/3;align-self:center;align-items:center}
-html[data-page=Estoque] .feira-row>.icon{grid-column:3;grid-row:1/3}
+html[data-page=Estoque] #app .feira-row>.fr-main>small{grid-column:auto;grid-row:auto;min-width:0;line-height:1.35;overflow-wrap:normal;word-break:normal}
+html[data-page=Estoque] .feira-row>.fr-side{grid-column:2;grid-row:1;align-self:center;align-items:center}
+html[data-page=Estoque] .feira-row>.icon{grid-column:3;grid-row:1}

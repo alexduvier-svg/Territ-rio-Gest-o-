@@ -1,7 +1,7 @@
 // Shipped with the app, independently of producer data and reset counters.
 // Copying this premise to a backup is useful; loading it never activates products.
 export const STOCK_CATALOG_GUIDELINES = Object.freeze({
-  version: 4,
+  version: 5,
   type: 'stock_catalog_premises',
   initialFamilyLimit: 12,
   ownHeading: 'Você já tem cadastrado',
@@ -15,6 +15,7 @@ export const STOCK_CATALOG_GUIDELINES = Object.freeze({
     'Cadastrar novo produto começa sem categoria presumida. A categoria é escolhida ou confirmada pelo produtor, sem selecionar Cafés automaticamente.',
     'Formatos e pesos são explícitos e independentes da unidade de venda. Barras, ralado e 50 g ficam disponíveis onde pertinentes; concluir uma escolha recolhe a seção.',
     'Custo zero informado é um valor conhecido e válido; campo vazio continua desconhecido. Salvar captura os valores visíveis antes de validar, sem substituir entradas ou duplicar estoque.',
+    'Matriz completa de cafés: quatro tipos, três torras,250/500/1000g e dois formatos; Drip Coffee inclui10/250/500/1000g nas três torras, Dose Individual, com embalagem e peso confirmados pelo produtor. Nenhuma conversão entre doses e peso é presumida.',
     'Sugestões para cadastrar têm título laranja e pertencem ao catálogo de referência, sem criar estoque, preços, custos ou vendas.',
     'Selecionar uma categoria permite consultar suas sugestões. Nome próprio e apresentação personalizada continuam disponíveis.',
     'A primeira página inclui as quatro famílias de café. Dentro de cada uma ficam as torras TC/TM/TE e pesos em ordem; escolher uma sugestão preenche a torra explícita no campo próprio, sem tratá-la como sabor.',

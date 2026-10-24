@@ -13,3 +13,11 @@ A sugestão não contém preço, custo, estoque ou histórico. Só se torna prod
 ## Configuração de Café — 0.12.82
 
 As sugestões carregam o esquema de Espécie, Variedade, Torra e Processo. Anaeróbico fica nas opções de Processo; campos desconhecidos não ganham valores presumidos. A fonte original de2479referências e os19complementos do app continuam preservados, sem criar produto ou saldo do produtor. Fermentação não é campo novo; informação histórica é preservada no legado.
+
+## Drip Coffee — 0.12.83
+
+Doze referências adicionais: 10 g, 250 g, 500 g e 1 kg, cada peso em torra Clara, Média e Escura, formato Dose Individual. O peso é o conteúdo total declarado; não é convertido em número de filtros. O produtor confirma a embalagem real, sem preço, custo ou saldo sugeridos. A referência genérica original continua com seu ID na mesma família, sem gerar uma segunda família de mesmo nome. São 31 adições do app e 2.510 referências no total; a fonte original de 2.479 continua preservada.
+
+## Cafés Verdes Commodity — 0.12.83
+
+Nove sugestões específicas: Arábica nas variedades Catuaí, Mundo Novo, Bourbon, Acaiá, Icatu, Catucaí, Topázio e Arara; Canéfora Robusta. As duas referências genéricas originais de Arábica Verde e Conilon Verde mantêm IDs, com espécie e formato Verde explícitos no adaptador; Conilon usa sua variedade declarada, Arábica genérica continua sem cultivar presumida. Nenhuma sugestão verde informa torra ou peso fixo. São agora 40 adições e 2.519 referências; a fonte original continua com 2.479 registros. Esta mudança é só nas Sugestões para Cadastrar.

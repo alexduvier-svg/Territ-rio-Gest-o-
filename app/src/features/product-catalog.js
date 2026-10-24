@@ -47,8 +47,8 @@ export function catalogInfo() {
   return { version: policy.version, total: policy.total + PRODUCT_CATALOG_ADDITIONS.length, sourceTotal: policy.total, appAdditions: PRODUCT_CATALOG_ADDITIONS.length, families: ready ? families.length : policy.familyCount, sourceFamilyCount: policy.familyCount, categories, sourceCategories: { ...policy.categories }, categoryMap: { ...policy.categoryMap }, ready, rules: [...policy.rules], sourceSha256: policy.sourceSha256 };
 }
 export const isCatalogReady = () => ready;
-const familyKeyOf = record => JSON.stringify([normalizeProductName(record.nome_base), normalize(record.sabor), normalize(record.variedade)]);
-const familyName = record => record.categoria==='Cafés'&&record.coffeeRoast?'Café '+record.variedade:String(record.nome_exibicao || record.nome_base).split(' — ')[0].trim();
+const familyKeyOf = record => JSON.stringify([normalizeProductName(record.nome_base), normalize(record.sabor), (normalize(record.nome_base)==='drip coffee'&&['','drip coffee'].includes(normalize(record.variedade)))||(record.forma==='Verde'&&record.variedade==='Commodity')?'':normalize(record.variedade)]);
+const familyName = record => normalize(record.nome_base)==='drip coffee'?'Drip Coffee':record.categoria==='Cafés'&&record.coffeeRoast?'Café '+record.variedade:String(record.nome_exibicao || record.nome_base).split(' — ')[0].trim();
 const catalogYield = () => new Promise(resolve => setTimeout(resolve, 0));
 async function decodePacked(packed) {
   if (!Array.isArray(packed.rows) || !Array.isArray(packed.strings) || !Array.isArray(packed.fields)) throw Error('Catálogo inválido');
@@ -65,9 +65,14 @@ async function decodePacked(packed) {
   return decoded;
 }
 function finishRecord(record) {
+    // These two supplied names explicitly identify green grain, not roasted coffee.
+    if(['agro_ef742dbd1f968d29','agro_d68aea319748cf56'].includes(record.id)){record.variedade='Commodity';record.forma='Verde';record.coffeeSpecies=record.id==='agro_ef742dbd1f968d29'?'Arábica':'Canéfora';record.coffeeVariety=record.id==='agro_d68aea319748cf56'?'Conilon':'';record.coffeeRoast='';}
+
     // Decode only a roast explicitly named by this bundled catalogue record, never a producer name.
     const roast=record.categoria==='Cafés'&&String(record.nome_exibicao||'').match(/^Café\s+(?:Especial|Gourmet|Superior|Tradicional)\s+Torra\s+(Clara|Média|Escura)\s+—/iu)?.[1];
     if(roast){record.coffeeRoast=roast[0].toLocaleUpperCase('pt-BR')+roast.slice(1).toLocaleLowerCase('pt-BR');if(/^torra (clara|media|escura)$/.test(normalize(record.sabor)))record.sabor=null;}
+    const coffeePlural=record.categoria==='Cafés'?({Especial:'Cafés Especiais',Gourmet:'Cafés Gourmet',Superior:'Cafés Superiores',Tradicional:'Cafés Tradicionais'}[record.variedade]):'';
+    if(coffeePlural)record.aliases=[...new Set([...record.aliases,coffeePlural])];
     record.status = 'sugestao_catalogo';
     record.appCategory = categoryFor(record.categoria, record);
     record.familyKey = familyKeyOf(record);

@@ -13,3 +13,5 @@ Versão3: Cafés agrupados por Especial, Gourmet, Superior e Tradicional; em cad
 
 
 Versão 4: Novo Produto e Sugestões de Café usam Espécie, Variedade, Torra e Processo. Anaeróbico aparece em Processo; não há campo Fermentação no formulário. Processo desconhecido fica vazio para confirmação pelo produtor. Dados anteriores de fermentação são preservados como legado. Limpar o nome de um novo cadastro remove as opções de identidade anteriores sem apagar números digitados nem registros do negócio.
+
+Versão 5: todos os quatro tipos de café têm as 72 combinações de três torras, três pesos e dois formatos (Moído/Em Grãos). Drip Coffee acrescenta 12 referências em Dose Individual (10/250/500/1000 g, três torras), sem presumir quantidade de doses. Estoque exibe origem e apresentação em linhas distintas, preservando quantidade/seta alinhadas e todos os registros reais.

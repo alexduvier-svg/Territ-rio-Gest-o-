@@ -217,3 +217,11 @@
 
 .advisor-more{margin-top:16px;padding:14px}.advisor-more>summary{display:flex;align-items:center;min-height:44px;font-weight:650;cursor:pointer}.advisor-reference-tools{border-top:1px solid var(--line);padding-top:16px;margin-top:20px}.advisor-context-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.advisor-context-links>.choice{min-width:0;width:100%;min-height:48px;padding:10px 8px;white-space:normal;font-size:14px;text-align:center}
 @media(max-width:350px){.advisor-context-links{grid-template-columns:1fr}}
+
+/* The same disclosure affordance as event cards; transform only, no layout animation. */
+.advisor-more>summary{justify-content:space-between;gap:12px;list-style:none}
+.advisor-more>summary::-webkit-details-marker{display:none}
+.advisor-more-arrow{display:block;flex:none;width:19px;height:19px;color:var(--muted);transition:transform 160ms ease}
+.advisor-more[open]>summary .advisor-more-arrow{transform:rotate(180deg)}
+@media(prefers-reduced-motion:reduce){.advisor-more-arrow{transition:none}}
+html.lite .advisor-more-arrow,html[data-reduce-effects=true] .advisor-more-arrow{transition:none}
