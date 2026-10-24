@@ -219,3 +219,26 @@ html:is(.lite, [data-reduce-effects='true']) dialog:not(.fluid-exit-ghost) { box
 
 /* Digitando numa janela: a página de trás não é desenhada (ver installSheetTyping em interface.js). */
 html.sheet-typing :is(#app, #nav, #nav-glass) { visibility: hidden; }
+
+/* Quantity dialogs use the existing keypad below the scroll body. Actions remain
+   below it, in the same floating frame; no native IME or extra motion layer. */
+:root[data-theme][data-layout] #dialog[data-numeric-sheet] > .checkout-header { order:0; }
+:root[data-theme][data-layout] #dialog[data-numeric-sheet] > .dialog-content { order:1; min-height:0; }
+:root[data-theme][data-layout] #dialog[data-numeric-sheet] > .modal-number-pad:not([hidden]) {
+  order:2; flex:0 0 auto; max-height:36dvh; margin:0 12px 12px; padding:12px;
+  border:1px solid var(--line); border-radius:20px; background:var(--field);
+}
+:root[data-theme][data-layout] #dialog[data-numeric-sheet] > .checkout-footer {
+  order:3; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  flex:0 0 auto; max-height:30dvh; gap:10px;
+}
+#dialog[data-numeric-sheet] .checkout-footer > .sheet-back:last-child:nth-child(odd) { grid-column:1/-1; }
+#dialog[data-numeric-sheet] .number-key { min-height:44px; padding:6px; }
+#dialog[data-numeric-sheet] .number-pad-heading { gap:12px; }
+#dialog[data-numeric-sheet] .number-pad-heading > button { min-height:44px; flex:none; color:var(--text); background:var(--panel); }
+#dialog[data-numeric-sheet] .numeric-field { margin-block:14px; }
+#dialog[data-kind=fair-restock] .fair-restock-context { margin:0 0 12px; }
+#dialog[data-kind=fair-restock] .fair-restock-context p { margin:0; }
+#dialog[data-kind=fair-restock] .fair-restock-entry { margin:0; }
+#dialog[data-kind=fair-restock] .fair-restock-entry .numeric-field { margin:0; }
+#dialog[data-kind=fair-restock] .fair-restock-entry .ds-note { margin:12px 0 0; }

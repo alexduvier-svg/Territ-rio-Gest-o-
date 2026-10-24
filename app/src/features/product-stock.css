@@ -103,3 +103,17 @@ html[data-large-text='true'] dialog[data-kind='movement'] .movement-secondary > 
 .stock-product-flow .panel.event-material-card{margin-bottom:18px}
 .stock-product-flow .event-material-card :is(.stock-family-option,.stock-own-pill,.stock-presentation-option){color:var(--material-text)}
 html.lite .stock-product-flow .panel.event-material-card{box-shadow:inset 0 1px 0 #ffffff12,0 3px 5px #00000012}
+
+/* A separate action, with breathing room after either the grid or More. */
+.stock-product-flow .stock-presentation-chooser > .stock-presentation-other {
+  display:flex; align-items:center; justify-content:center; width:100%; min-height:48px;
+  margin:12px 0 0; padding:12px; text-align:center; line-height:1.4;
+}
+
+/* A full-width title aligned to the cards, rather than squeezed between
+   an unequal Back button and an empty spacer. Both existing returns remain. */
+.stock-product-flow > .stock-entry-header { display:grid; grid-template-columns:minmax(0,1fr); gap:6px; margin-bottom:20px; }
+.stock-entry-header > .back { justify-self:start; margin:0; }
+.stock-entry-header > .title { display:block; width:100%; text-align:left; line-height:1.25; font-size:24px; letter-spacing:-.025em; }
+.stock-entry-header > .spacer { display:none; }
+html[data-large-text=true] .stock-entry-header > .title { font-size:27px; }

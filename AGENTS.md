@@ -1,3 +1,29 @@
+# 0.12.84 Instalada — Fechamento Git, Nova Investigação de Clima
+
+84/code124/SHA9fe6436798492812ad1beaf3f85e6835ed1ea265bf0d365ecfb0b9e83d2664e8/9201779bytes instaladaDOIS24/10Reno15:04:13/PKJ15:04:22/firstInstallpreservados/6módulosbootfrioTRUE/fixturesremovidos/cópiaoriginalhashigual.638unit/8browserfinaisfocados/4CapacitorcompletosDOIS2temasPASS. Certoriginal/v2v3/50assets+2pontes/ZIPeELF16KB. Fonte congelada; NÃO repetir build/verificador/copy/install84. Falta limpeza capturas/forwards,docs/GitAGRO2. Ler docs/ENTREGA-0.12.84.md. SemDBreal/WhatsApp/agendapessoal/subagentes/automação/FPS medidos.
+
+Novo relato após instalação:31°C com ícone de chuva, porém usuário informa muito sol em Carangola/próximo a Manhuaçu. Investigar símbolo/hora/validade/local/fallback da previsão; não deduzir chuva pela temperatura, não trocar fonte às cegas nem criar versão sem bug confirmado. Essa investigação é posterior à entrega84; fechar Git84 antes de mudar fonte. Não acessar DB real. Captura privadaLoja deve ser removida agora.
+
+# 0.12.84 — Validação Física Final em Curso
+
+Fonte84/code124 congelada, APK9201779bytes/SHA9fe6436798492812ad1beaf3f85e6835ed1ea265bf0d365ecfb0b9e83d2664e8/certoriginal/v2v3/50assets+2pontes/ZIPeELF16KB verificados. 638unitPASS/8browser finais focadosPASS(2temas320ampliadoleve-reduzido360393412); primeira matriz completa8 também passou como regressão preliminar, antes do último ajuste Shell. Relatório FINAL válido é qa/keyboard084-review-final.json; não confundir com preliminar. Métrica de deslocamentoX removida somente do relatório focado porque ali não é medida; permanece nas jornadas nativas completas. Fonte não mudou por ajustes de formatoQA.
+
+Fixtures finais recompilados com rerun-tasks após artefatos temporários zerados pela interrupção; ZIP integral testado válido, assets iguais ao APKfinal. Ainda SEM cópiaoriginal/install-r84/Git. DOIS QA final emcurso: qa/keyboard084-reno-final.txt e pkj-final.txt. PKJ foi retomado com ReuseFixture após bloqueio e usuário desbloqueou. Não iniciar ensaio duplicado enquanto rodando; só reports 4passed/errors[]/mtime>=APKfinal contam. Não usar candidato antigo e8fe.
+
+Pendências: 4nativasPASS→inspecionar capturas fictícias→finalize-keyboard084-validation.py→install-keyboard084.ps1 via pwsh com seriais atuais(IPs101:43965Reno/102:33971PKJ; servidorADB reiniciou apósinterrupção e mDNS canônicos ainda não anunciados),6módulosbootfrio/firstInstall preservado→limpezaowncapturas/fixtures/forwards→docs/GitAGRO2. Verificador preparatório já executado; NÃO executar após install/finalizer porque reseta metadata. SemDBreal/WhatsApp/agendapessoal/FPS/básicofísico/subagentes/automação. CaptureprivadaLoja ainda remover ao final. 83 concluída66a53b5não repetir.
+
+# Em Andamento84 — Reposição e Pill Loja no Reno
+
+83 encerrada: commit/push66a53b581c2deceb985613b4c2b8883235b7f9cf confirmado remoto AGRO2. APK123 instalado nos DOIS; não repetir83.
+
+Novo pedido b41: corrigir Vendeu Mais do Que Levou e auditar campos semelhantes. Usar numericField/teclado comum, cartões do material existente e ações no rodapé, sem mudar contagens/estoque/regra financeira. Auditados demanda, revisão de pedido local e preferências/prévia do agente. Ainda sem fonte84/build.
+
+Novo pedido adicional: pill Loja desconfigurada no Reno. Pergunta pendente pill principal ou Vendendo Em. Não há diagnóstico confirmado. Inspeção de UI real autorizada apenas desse defeito: Reno estava Estoque, depois mudou para cadastro durante navegação; PRESERVAR cadastro, sem novos toques reais. Sem DB lido/copiado. Investigar com fixture sintética: estoque zerado substitui ícone verde por caixinha vermelha; larguras/fontes/valores. Captura PRIVADA local private-shop084-reno.png no VIZ e /sdcard/agro-private-shop084.png: remover no encerramento, NÃO publicar.
+
+Auditoria adicional UI: sugestões mostram Pacote · Pacote por unidade/embalagem repetidas; deduplicar somente rótulo, preservando dados/identidade. Não alterar cadastros reais.
+
+Planejado84/code124 após fonte: unit/QA fictícia browser dois temas320 ampliado/360/393/412, teclado e fechamento, estoque zerado/pill longa, regressão boot5abas; fixtures nativos DOIS2temas, APK certoriginal/50assets+2pontes/ZIP-ELF16KB, cópiaoriginal/install-r/6módulosboot/firstInstall/Git AGRO2. Não medir/afirmar FPS ou básico físico. Semsubagentes/automação. Gitfetch24/10 Claude cffe32b/main956fddc sem novidades.
+
 # Entrega83 Instalada — Novo Pedido84 Autorizado
 
 83/code123/SHAce873701f9fd5b080e8f5f96510f762bb99bd18f0141fe32a615fccd34a22143/9197683bytes entreguecópiaoriginal+DOISinstall-r24/10Reno14:20:23/PKJ14:20:33/firstInstallpreservados/seismódulosbootfrioTRUEambos.638unit/8browser/4checkout/2focados/4CapacitorDOIS2temasPASS. Fixtures/capturas/forwardsremovidos. NÃOrepetirbuild/verificador/copy/install83. docs/ENTREGA-0.12.83.md/criarGitfechamento83antesalterar84. SemBDreal/WhatsApp/agendapessoal/subagentes/automação/FPSmedidos.
