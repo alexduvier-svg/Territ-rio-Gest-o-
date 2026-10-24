@@ -62,6 +62,10 @@
     <!-- Optional calendar export, requested only after Escolher Agenda. -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <!-- Optional one-shot foreground weather location. Never requested in the background. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -5,40 +5,43 @@ import {nativeWeather} from './native.js';
 import { forecastWindow, nextForecastPoint, forecastDays, weatherDayKey } from './forecast.js';
 import {weatherReading} from './query.js';
 import {weatherIcon} from './icon.js';
+import {gridPosition,isPointLocation,weatherLocationKey,weatherQuery,forecastMatchesLocation} from './location.js';
 const inflight=new Map(),failures=new Map(),controllers=new Map();let opened=null,appActive=true,clockEngine=null,nativeConfigKey=null,nativeConfigJob=null,epoch=0,checking=false,checkMessage='';
 const bridge=()=>window.TerritorioWorkflowBridge;
-const key=(city,uf)=>String(city||'').normalize('NFD').replace(/\p{M}/gu,'').trim().toLowerCase()+'|'+String(uf||'').toUpperCase();
-const location=event=>({city:event?.city||bridge().data().settings.city,uf:event?.uf||bridge().data().settings.uf});
+let currentPosition=null,locating=false,locationMessage='',locationStatus='',positionEpoch=0,locationJob=null,weatherLocationSession=false;
+const geoForecasts=new Map();
+const municipality=event=>({city:event?.city||bridge().data().settings.city,uf:event?.uf||bridge().data().settings.uf});
+const location=event=>!event&&bridge().data().settings.weatherUseLocation===true&&currentPosition?currentPosition:municipality(event);
 const cache=()=>bridge().data().weatherCacheV1 ||= {};
-const cached=loc=>{const d=cache()[key(loc.city,loc.uf)];return d?.version===1&&d.source==='MET Norway'&&Array.isArray(d.points)&&Number.isFinite(d.retrievedAt)&&Number.isFinite(d.expiresAt)?d:null;};
+const cached=loc=>{const d=isPointLocation(loc)?geoForecasts.get(weatherLocationKey(loc)):cache()[weatherLocationKey(loc)];return d?.version===1&&d.source==='MET Norway'&&forecastMatchesLocation(d,loc)&&Array.isArray(d.points)&&Number.isFinite(d.retrievedAt)&&Number.isFinite(d.expiresAt)?d:null;};
 const number=n=>Number.isFinite(n)?n.toLocaleString('pt-BR',{maximumFractionDigits:1}):'—';
 const clock=t=>new Date(t).toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'});
 const date=t=>new Date(t).toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo',day:'2-digit',month:'2-digit'});
 const esc=value=>bridge().escape(value);
 function freshness(data,loc){
-  const state=weatherFreshness(data,weatherDueAt(data,retryAt(key(loc.city,loc.uf),data)),Date.now(),navigator.onLine!==false);
+  const state=weatherFreshness(data,weatherDueAt(data,retryAt(weatherLocationKey(loc),data)),Date.now(),navigator.onLine!==false);
   return state?'<section class="weather-freshness" aria-label="Atualização da Previsão"><strong>'+esc(state.saved)+'</strong><span>'+esc(state.issued)+'</span>'+(state.checked?'<span>'+esc(state.checked)+'</span>':'')+'<span>'+esc(state.next)+'</span></section>':'';
 }
 async function syncNative(){
   if(!nativeWeather)return;
-  const settings=bridge().data().settings,loc=location(),options={active:settings.weatherEnabled===true,enabled:settings.weatherEnabled===true&&settings.weatherBackgroundEnabled!==false,...loc};
+  const settings=bridge().data().settings,loc=municipality(),options={active:settings.weatherEnabled===true,enabled:settings.weatherEnabled===true&&settings.weatherBackgroundEnabled!==false,...loc};
   const signature=JSON.stringify(options);if(signature===nativeConfigKey)return nativeConfigJob;
   nativeConfigKey=signature;nativeConfigJob=Promise.resolve(nativeConfigJob).catch(()=>{}).then(()=>nativeWeather.configure(options)).catch(()=>{if(nativeConfigKey===signature)nativeConfigKey=null;});return nativeConfigJob;
 }
 function retryAt(id,data){return Math.max(data?.retryAt||0,(failures.get(id)||0)+15*60000);}
-function validForecast(data,loc){return data?.version===1&&data.source==='MET Norway'&&key(data.city?.name,data.city?.uf)===key(loc.city,loc.uf)&&Array.isArray(data.points)&&Number.isFinite(data.expiresAt)&&Number.isFinite(data.retrievedAt);}
+function validForecast(data,loc){return data?.version===1&&data.source==='MET Norway'&&forecastMatchesLocation(data,loc)&&Array.isArray(data.points)&&Number.isFinite(data.expiresAt)&&Number.isFinite(data.retrievedAt);}
 export async function getWeather(loc) {
   if(bridge().data().settings.weatherEnabled!==true)return null;
-  const id=key(loc.city,loc.uf),old=cached(loc),now=Date.now();
+  const id=weatherLocationKey(loc),old=cached(loc),now=Date.now();
   if(old&&now<weatherDueAt(old,retryAt(id,old)))return old;
-  if(document.hidden||!appActive||navigator.onLine===false||!API||!loc.city||!loc.uf||now<retryAt(id,old))return old;
+  if(document.hidden||!appActive||navigator.onLine===false||!API||(!isPointLocation(loc)&&(!loc.city||!loc.uf))||now<retryAt(id,old))return old;
   if(inflight.has(id))return inflight.get(id);
   const token=epoch,job=(async()=>{try{
     let data;
     if(nativeWeather){await syncNative();if(token!==epoch)return null;data=(await nativeWeather.fetch(loc)).data;}
     else{
       const controller=new AbortController();controllers.set(id,controller);
-      const response=await fetch(API+'/api/weather?city='+encodeURIComponent(loc.city)+'&uf='+encodeURIComponent(loc.uf),{signal:AbortSignal.any([controller.signal,AbortSignal.timeout(15000)])});
+      const response=await fetch(API+'/api/weather?'+weatherQuery(loc),{signal:AbortSignal.any([controller.signal,AbortSignal.timeout(15000)])});
       if(!response.ok)throw Error('Sem previsão.');data=await response.json();data.checkedAt=now;
     }
     if(token!==epoch||bridge().data().settings.weatherEnabled!==true)return null;
@@ -46,8 +49,8 @@ export async function getWeather(loc) {
     data.points=data.points.filter(p=>Number.isFinite(Date.parse(p.time))&&Number.isFinite(p.temp)&&p.temp>=-80&&p.temp<=65&&Number.isFinite(p.hours)&&p.hours>=0&&p.hours<=12).slice(0,250);
     if(!data.points.length)throw Error('Sem dados.');
     // Keep provider validity and retrieval time; a cache check is not a new forecast.
-    cache()[id]=data;for(const stale of Object.keys(cache()).sort((a,b)=>cache()[b].retrievedAt-cache()[a].retrievedAt).slice(10))delete cache()[stale];
-    bridge().persist();failures.delete(id);return data;
+    if(isPointLocation(loc)){geoForecasts.set(id,data);for(const oldKey of [...geoForecasts.keys()].slice(0,-3))geoForecasts.delete(oldKey);}else{cache()[id]=data;for(const stale of Object.keys(cache()).sort((a,b)=>cache()[b].retrievedAt-cache()[a].retrievedAt).slice(10))delete cache()[stale];bridge().persist();}
+    failures.delete(id);return data;
   }catch(error){if(error?.name!=='AbortError'&&token===epoch)failures.set(id,now);return old?{...old,stale:true}:null;}finally{inflight.delete(id);controllers.delete(id);}})();
   inflight.set(id,job);return job;
 }
@@ -61,14 +64,17 @@ function eventLabel(data,event,summary=forecastWindow(data,event)){
   return summary.ready?'Chuva prevista · '+number(summary.rain)+' mm':'Previsão disponível mais perto da feira';
 }
 export function eventWeatherControl(event){const data=cached(location(event)),summary=forecastWindow(data,event);return bridge().button('weather-open',weatherIcon(summary.ready?{rain:summary.rain}:null)+'<span>'+esc(eventLabel(data,event,summary))+'</span>','weather-event',{event:event.id});}
-export function localWeatherAnswer(question,event){if(/feira|evento/i.test(question)&&!event)return 'Qual feira, município e data? Selecione o evento na Gestão antes de consultar o tempo; não uso o endereço do negócio como se fosse o local da feira.';const loc=location(event);return weatherReading(question,{...loc,event,data:cached(loc),enabled:bridge().data().settings.weatherEnabled===true});}
+export function localWeatherAnswer(question,event){if(/feira|evento/i.test(question)&&!event)return 'Qual feira, município e data? Selecione o evento na Gestão antes de consultar o tempo; não uso o endereço do negócio como se fosse o local da feira.';const loc=location(event),data=cached(loc),place=isPointLocation(loc)?{city:'Localização Atual'+(data?.city?.name&&data.city.name!=='Localização Atual'?' · Próximo a '+data.city.name:''),uf:data?.city?.uf||''}:loc;return weatherReading(question,{...place,event,data,enabled:bridge().data().settings.weatherEnabled===true});}
 function condition(point){
   const symbol=point?.symbol||'';
   if(/thunder/.test(symbol))return 'Trovoadas previstas';
   if(/sleet/.test(symbol))return 'Chuva e neve';
   if(/snow/.test(symbol))return 'Neve prevista';
-  if(/heavyrain/.test(symbol))return 'Chuva forte';
-  if(/lightrain/.test(symbol))return 'Chuva fraca';
+  if(/heavyrainshowers/.test(symbol))return 'Pancadas fortes previstas';
+  if(/lightrainshowers/.test(symbol))return 'Pancadas leves previstas';
+  if(/rainshowers/.test(symbol))return 'Pancadas previstas';
+  if(/heavyrain/.test(symbol))return 'Chuva forte prevista';
+  if(/lightrain/.test(symbol))return 'Chuva fraca prevista';
   if(/rain/.test(symbol)||point?.rain>0)return 'Chuva prevista';
   if(/fog/.test(symbol))return 'Névoa';
   if(/partlycloudy/.test(symbol))return 'Parcialmente nublado';
@@ -94,19 +100,54 @@ function dailyCards(days){
     return '<details class="weather-day" data-day="'+d.day+'"><summary><span class="weather-day-name"><strong>'+esc(dayTitle(d.day))+'</strong><small>'+d.day.slice(8,10)+'/'+d.day.slice(5,7)+(d.partial?' · parcial':'')+'</small></span><span class="weather-day-condition">'+weatherIcon(representative)+'<span>'+(d.rain===null?'Sem estimativa':number(d.rain)+' mm')+'</span></span><span class="weather-day-range" aria-label="Mínima '+number(d.min)+' e máxima '+number(d.max)+' graus nos horários previstos"><span class="weather-min">'+Math.round(d.min)+'°</span><i class="weather-temperature-track" aria-hidden="true"><i style="left:'+left.toFixed(1)+'%;width:'+width.toFixed(1)+'%"></i></i><strong>'+Math.round(d.max)+'°</strong></span><svg class="weather-day-arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="weather-day-body"><p class="weather-hint">Mínima e máxima dos horários disponíveis.'+(d.partial?' Previsão parcial para este dia.':'')+(d.proportional?' Chuva estimada proporcionalmente nos intervalos que cruzam os limites do dia.':'')+'</p>'+hourCards(d.points,'weather-day-hours')+'</div></details>';
   }).join('')+'<p class="weather-hint">Somente dias disponíveis na previsão. Hoje considera o restante do dia; mínima e máxima são dos horários previstos. Volumes podem ser estimados em intervalos parciais.</p></section>';
 }
+async function locateDevice(requestPermission){
+  if(nativeWeather)return nativeWeather.locate({requestPermission});
+  if(!navigator.geolocation)return {status:'unavailable'};
+  if(!requestPermission){try{if((await navigator.permissions.query({name:'geolocation'})).state!=='granted')return {status:'permission-required'};}catch{return {status:'permission-required'};}}
+  return new Promise(resolve=>navigator.geolocation.getCurrentPosition(p=>resolve({status:'ready',...gridPosition({latitude:p.coords.latitude,longitude:p.coords.longitude}),accuracyMeters:Math.max(150,Math.ceil(p.coords.accuracy+80)),approximate:p.coords.accuracy>1000,capturedAt:p.timestamp}),e=>resolve({status:e.code===1?'permission-denied':e.code===3?'timeout':'unavailable'}),{enableHighAccuracy:true,timeout:12000,maximumAge:0}));
+}
+function cancelPosition(){const pending=locating;positionEpoch++;locating=false;locationJob=null;if(pending)void nativeWeather?.cancelLocation().catch(()=>{});}
+async function usePosition(requestPermission=false){
+  if(opened||bridge().modal()?.kind!=='weather'||bridge().data().settings.weatherEnabled!==true)return;
+  if(locationJob)return locationJob;
+  const token=++positionEpoch;locating=true;locationMessage='Buscando a Localização Atual…';paintOpen();
+  const job=(async()=>{try{
+    const result=await locateDevice(requestPermission);
+    if(token!==positionEpoch||bridge().modal()?.kind!=='weather'||opened)return;
+    const point=result.status==='ready'&&gridPosition(result);
+    locationStatus=result.status;
+    if(point){currentPosition={...point,accuracyMeters:Number.isFinite(result.accuracyMeters)?Math.max(150,result.accuracyMeters):150,capturedAt:Number.isFinite(result.capturedAt)?result.capturedAt:Date.now(),approximate:!!result.approximate};bridge().data().settings.weatherUseLocation=true;bridge().persist();locationMessage=result.approximate?'Localização Aproximada Permitida pelo Android.':'Localização Atual Obtida.';
+      if(nativeWeather){try{const saved=(await nativeWeather.read(currentPosition)).data;if(validForecast(saved,currentPosition))geoForecasts.set(weatherLocationKey(currentPosition),saved);}catch{}}
+      const forecast=await getWeather(location());if(!forecast){currentPosition=null;locationMessage='Posição Obtida, mas sem Previsão Disponível para Esta Área. Exibindo a Cidade Cadastrada.';await getWeather(municipality());}}
+    else{currentPosition=null;const messages={'permission-required':'Toque em Usar Minha Localização para permitir o acesso.','permission-denied':'Localização não autorizada. A cidade cadastrada continua disponível.',disabled:'Ative a Localização nos ajustes do Android e tente novamente.',timeout:'A posição não ficou pronta a tempo. Mantivemos a cidade cadastrada.',cancelled:'Consulta de localização interrompida. A cidade cadastrada continua disponível.'};locationMessage=messages[result.status]||'Localização indisponível agora. Mantivemos a cidade cadastrada.';await getWeather(municipality());}
+  }catch{if(token===positionEpoch){currentPosition=null;locationMessage='Não foi possível obter a localização. A cidade cadastrada continua disponível.';}}
+  finally{if(token===positionEpoch){locating=false;locationJob=null;decorate();paintOpen();update();}}})();
+  locationJob=job;return job;
+}
+function locationControls(event,data){
+  if(event)return '<p class="weather-hint">Local do evento: município informado no agendamento.</p>';
+  const active=isPointLocation(location()),name=data?.city?.name;
+  return '<details class="event-material-card weather-location-controls"><summary><strong>'+(active?'Localização Atual'+(name&&name!=='Localização Atual'?' · Próximo a '+esc(name):''):'Cidade Cadastrada · '+esc(municipality().city||''))+'</strong>'+bridge().icon('down')+'</summary><div class="weather-location-body">'
+    +(active?'<small>Posição consultada às '+clock(currentPosition.capturedAt)+'. Área aproximada de '+number(currentPosition.accuracyMeters)+' m. A previsão cobre uma área maior, de cerca de 9 km.</small>':'')
+    +'<p>Uma leitura ao abrir esta janela. Sem rastreamento contínuo. As coordenadas arredondadas são enviadas ao servidor do AGRO Gestão e ao MET Norway para a previsão; não entram nos registros nem nos backups do negócio.</p>'
+    +'<div class="weather-location-actions">'+bridge().button('weather-use-location',locating?'Localizando…':active?'Atualizar Localização':'Usar Minha Localização','choice',null,locating)+bridge().button('weather-use-city','Usar Cidade Cadastrada','choice',null,locating)+'</div>'
+    +(locationStatus==='disabled'&&nativeWeather?bridge().button('weather-location-settings','Ativar Localização no Android','choice modal-action'):'')
+    +(locationMessage?'<p class="weather-location-status" role="status">'+esc(locationMessage)+'</p>':'')+'</div></details>';
+}
 function content(event){
-  if(bridge().data().settings.weatherEnabled!==true)return '<div class="weather-view"><h3>Tempo na sua cidade e nas feiras</h3><p>Ao ativar, cidade e UF cadastradas são enviadas ao servidor do AGRO Gestão para consultar a previsão do MET Norway. Não usa GPS nem envia vendas, clientes ou estoque. A conexão utiliza endereços IP técnicos. Guardamos a última previsão no aparelho para consulta sem internet. No Android, o cache compartilhado pode ser sincronizado em segundo plano com internet e pelo menos 50% de bateria; você pode pausar essa função.</p>'+bridge().button('weather-enable','Ativar previsão','success modal-action')+'<p class="small muted">Você pode desativar aqui a qualquer momento. Dados: MET Norway, licença CC BY 4.0. Referência municipal: IBGE. A previsão não é certeza de chuva.</p></div>';
+  if(bridge().data().settings.weatherEnabled!==true)return '<div class="weather-view"><h3>Tempo na sua cidade e nas feiras</h3><p>Ao ativar, cidade e UF cadastradas são enviadas ao servidor do AGRO Gestão para consultar a previsão do MET Norway. Por padrão usa a cidade cadastrada. Você também poderá permitir uma leitura pontual da localização, sem rastreamento contínuo. Não enviamos vendas, clientes ou estoque. A conexão utiliza endereços IP técnicos. Guardamos a última previsão no aparelho para consulta sem internet. No Android, o cache compartilhado pode ser sincronizado em segundo plano com internet e pelo menos 50% de bateria; você pode pausar essa função.</p>'+bridge().button('weather-enable','Ativar previsão','success modal-action')+'<p class="small muted">Você pode desativar aqui a qualquer momento. Dados: MET Norway, licença CC BY 4.0. Referência municipal: IBGE. A previsão não é certeza de chuva.</p></div>';
   const loc=location(event),data=cached(loc),point=nextForecastPoint(data),summary=event&&forecastWindow(data,event),days=forecastDays(data),rows=(data?.points||[]).filter(p=>Date.parse(p.time)>=Date.now()-3600000).slice(0,12);
-  return '<div class="weather-view"><p class="weather-city">'+esc(loc.city||'Cidade não cadastrada')+' · '+esc(loc.uf||'')+'</p>'+(data?freshness(data,loc):'<p>Previsão indisponível agora. Confira a conexão e o município em Ajustes. As vendas continuam funcionando.</p>')+(point?'<div class="weather-now">'+weatherIcon(point)+'<div><strong>'+number(point.temp)+'°C</strong><span>'+esc(condition(point))+'</span><small>'+esc(weatherPeriod(point))+'</small></div></div>':'')+(event?'<section class="weather-event-summary"><h3>'+esc(event.name)+'</h3><p>'+esc(eventLabel(data,event))+'</p>'+(summary?.ready&&summary.probability!==null?'<p>Maior chance entre os períodos informados: '+number(summary.probability)+'%.</p>':'')+(summary?.partial?'<p class="small muted">Volume estimado proporcionalmente nos intervalos parciais.</p>':'')+'</section>':'')+(rows.length?'<section><h3>Próximas horas</h3>'+hourCards(rows)+'</section>':'')+dailyCards(days)+'<p class="small muted">Horários de Brasília. Referência: sede municipal; não usa GPS. Previsão não é medição nem certeza de chuva. Sem internet, exibimos a última previsão salva, com data e horário.</p><p class="small muted">Só cidade e UF são consultadas no servidor do AGRO Gestão; não enviamos vendas, clientes ou estoque. O servidor consulta coordenadas públicas do IBGE. Conexões de internet envolvem endereços IP técnicos.</p><p class="weather-source">Dados: <a href="https://api.met.no/" target="_blank" rel="noopener">MET Norway</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Dados resumidos pelo AGRO Gestão. Coordenadas: IBGE, Localidades 2022.</p>'+'<p class="weather-observation-note">Já está chovendo aí? A previsão pode diferir do que acontece no seu local. Atualizar consulta a fonte; não transforma a previsão em medição da chuva.</p>'+bridge().button('weather-check',checking?'Verificando…':'Verificar Atualização','choice modal-action'+(checking?' disabled':''))+(checkMessage?'<p class="weather-check-status" role="status">'+esc(checkMessage)+'</p>':'')+'<p class="small muted">Conferência econômica a partir de 30 minutos, respeitando a validade da fonte. Sem consultas contínuas. Ao voltar ao app, verificamos atualizações pendentes.</p>'+(nativeWeather?'<p class="small muted">Segundo plano: somente cache compartilhado, internet e bateria a partir de 50%. O Android pode adiar a tarefa; não há garantia de previsão nova antes de sair sem sinal.</p>'+bridge().button('weather-background-toggle',bridge().data().settings.weatherBackgroundEnabled===false?'Ativar atualização em segundo plano':'Pausar atualização em segundo plano','choice modal-action'):'')+bridge().button('weather-disable','Desativar previsão','choice modal-action')+'</div>';
+  return '<div class="weather-view"><p class="weather-city">'+esc(isPointLocation(loc)?'Tempo na Localização Atual':[loc.city||'Cidade não cadastrada',loc.uf].filter(Boolean).join(' · '))+'</p>'+(point?'<div class="weather-now">'+weatherIcon(point)+'<div><strong>'+number(point.temp)+'°C</strong><span>'+esc(condition(point))+'</span><small>'+esc(weatherPeriod(point))+'</small></div></div>':'')+locationControls(event,data)+(data?freshness(data,loc):'<p>Previsão indisponível agora. Confira a conexão e o município em Ajustes. As vendas continuam funcionando.</p>')+(event?'<section class="weather-event-summary"><h3>'+esc(event.name)+'</h3><p>'+esc(eventLabel(data,event))+'</p>'+(summary?.ready&&summary.probability!==null?'<p>Maior chance entre os períodos informados: '+number(summary.probability)+'%.</p>':'')+(summary?.partial?'<p class="small muted">Volume estimado proporcionalmente nos intervalos parciais.</p>':'')+'</section>':'')+(rows.length?'<section><h3>Próximas horas</h3>'+hourCards(rows)+'</section>':'')+dailyCards(days)+'<p class="small muted">Horários de Brasília. Referência: sede municipal ou ponto consultado pela localização, conforme a opção acima. Não há rastreamento em segundo plano. Previsão não é medição nem certeza de chuva. Sem internet, exibimos a última previsão salva, com data e horário.</p><p class="small muted">No modo cidade consultamos município e UF; no modo localização consultamos coordenadas arredondadas. Não enviamos vendas, clientes ou estoque. A referência municipal vem do IBGE. Conexões de internet envolvem endereços IP técnicos.</p><p class="weather-source">Dados: <a href="https://api.met.no/" target="_blank" rel="noopener">MET Norway</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>. Dados resumidos pelo AGRO Gestão. Coordenadas: IBGE, Localidades 2022.</p>'+'<p class="weather-observation-note">Já está chovendo aí? O ícone mostra a previsão do intervalo, não uma medição de chuva no celular. A previsão pode diferir do que acontece no seu local. Atualizar consulta a fonte; não transforma a previsão em medição da chuva.</p>'+bridge().button('weather-check',checking?'Verificando…':'Verificar Atualização','choice modal-action'+(checking?' disabled':''))+(checkMessage?'<p class="weather-check-status" role="status">'+esc(checkMessage)+'</p>':'')+'<p class="small muted">Conferência econômica a partir de 30 minutos, respeitando a validade da fonte. Sem consultas contínuas. Ao voltar ao app, verificamos atualizações pendentes.</p>'+(nativeWeather?'<p class="small muted">Segundo plano: somente cache compartilhado, internet e bateria a partir de 50%. O Android pode adiar a tarefa; não há garantia de previsão nova antes de sair sem sinal.</p>'+bridge().button('weather-background-toggle',bridge().data().settings.weatherBackgroundEnabled===false?'Ativar atualização em segundo plano':'Pausar atualização em segundo plano','choice modal-action'):'')+bridge().button('weather-disable','Desativar previsão','choice modal-action')+'</div>';
 }
 function paintOpen(){
   if(bridge().modal()?.kind!=='weather')return;
   const old=document.querySelector('#dialog .weather-view');if(!old)return;
   const scroll=document.getElementById('checkout-scroll'),offset=scroll?.scrollTop||0,firstForecast=!old.querySelector('.weather-now')&&!!nextForecastPoint(cached(location(opened)));
-  const days=new Set([...old.querySelectorAll('.weather-day[open]')].map(el=>el.dataset.day));
+  const locationOpen=!!old.querySelector('.weather-location-controls[open]'),days=new Set([...old.querySelectorAll('.weather-day[open]')].map(el=>el.dataset.day));
   const tracks=[...old.querySelectorAll('.weather-hours,.weather-day-hours')].map(el=>el.scrollLeft);
   old.outerHTML=content(opened);
   const view=document.querySelector('#dialog .weather-view');
+  const locationOptions=view.querySelector('.weather-location-controls');if(locationOptions)locationOptions.open=locationOpen;
   for(const el of view.querySelectorAll('.weather-day'))el.open=days.has(el.dataset.day);
   view.querySelectorAll('.weather-hours,.weather-day-hours').forEach((el,i)=>el.scrollLeft=tracks[i]||0);
   if(scroll)scroll.scrollTop=firstForecast?0:offset;
@@ -120,7 +161,7 @@ function decorate(){
     if(pill){
       const label=point?Math.round(point.temp)+'°':'—°',markup=weatherIcon(point)+'<span>'+label+'</span>';
       const stamp=label+'|'+(point?.symbol||'')+'|'+(point?.rain>0);if(pill.dataset.weatherStamp!==stamp){pill.innerHTML=markup;pill.dataset.weatherStamp=stamp;}
-      const hint='Previsão do tempo em '+(loc.city||'sua cidade')+(point?', '+label+'. '+weatherPeriod(point):'. Toque para consultar');
+      const hint='Previsão do tempo em '+(isPointLocation(loc)?'sua Localização Atual':loc.city||'sua cidade')+(point?', '+label+'. '+weatherPeriod(point):'. Toque para consultar');
       pill.setAttribute('aria-label',hint);pill.setAttribute('title',hint);
     }
   }
@@ -134,21 +175,22 @@ function locations(){
   const result=[location()];
   if(bridge().page()==='Eventos')for(const event of bridge().data().events.filter(e=>e.status==='active').slice(0,15))result.push(location(event));
   if(bridge().modal()?.kind==='weather')result.push(location(opened));
-  return [...new Map(result.filter(l=>l.city&&l.uf).map(l=>[key(l.city,l.uf),l])).values()];
+  return [...new Map(result.filter(l=>isPointLocation(l)||l.city&&l.uf).map(l=>[weatherLocationKey(l),l])).values()];
 }
 const canRun=()=>bridge().data().settings.weatherEnabled===true&&!document.hidden&&appActive&&navigator.onLine!==false&&!!API&&(['Vender','Eventos'].includes(bridge().page())||bridge().modal()?.kind==='weather')&&locations().length>0;
 function pause(){clockEngine?.pause();for(const controller of controllers.values())controller.abort();}
 async function resume(){
   await syncNative();
   if(nativeWeather&&bridge().data().settings.weatherEnabled===true&&appActive&&!document.hidden){let changed=false;
-    for(const loc of locations()){try{const data=(await nativeWeather.read(loc)).data,old=cached(loc);if(validForecast(data,loc)&&(!old||data.retrievedAt>old.retrievedAt||data.expiresAt!==old.expiresAt||data.checkedAt>old.checkedAt)){cache()[key(loc.city,loc.uf)]=data;changed=true;}}catch{}}
+    if(bridge().data().settings.weatherUseLocation===true&&!locating){try{const result=await nativeWeather.readPosition(),point=gridPosition(result.position);if(point&&Number.isFinite(result.position.capturedAt)&&Date.now()-result.position.capturedAt<30*60000){const saved=(await nativeWeather.read(point)).data;if(validForecast(saved,point)){currentPosition={...result.position,...point};geoForecasts.set(weatherLocationKey(point),saved);}else currentPosition=null;}else currentPosition=null;}catch{currentPosition=null;}}
+    for(const loc of locations()){try{const data=(await nativeWeather.read(loc)).data,old=cached(loc);if(validForecast(data,loc)&&(!old||data.retrievedAt>old.retrievedAt||data.expiresAt!==old.expiresAt||data.checkedAt>old.checkedAt)){if(isPointLocation(loc))geoForecasts.set(weatherLocationKey(loc),data);else{cache()[weatherLocationKey(loc)]=data;changed=true;}}}catch{}}
     if(changed)bridge().persist();
   }
   decorate();paintOpen();void clockEngine?.wake();
 }
 function update(){decorate();void syncNative();if(canRun())void clockEngine?.wake();else pause();}
 export function installWeather(){
-  clockEngine=createWeatherClock({canRun,nextAt:()=>Math.min(...locations().map(loc=>{const data=cached(loc),id=key(loc.city,loc.uf);return Math.min(weatherDueAt(data,retryAt(id,data)),weatherPresentationDueAt(data));})),
+  clockEngine=createWeatherClock({canRun,nextAt:()=>Math.min(...locations().map(loc=>{const data=cached(loc),id=weatherLocationKey(loc);return Math.min(weatherDueAt(data,retryAt(id,data)),weatherPresentationDueAt(data));})),
     refresh:async()=>{await syncNative();for(const loc of locations()){if(!canRun())break;await getWeather(loc);}},onDone:()=>{decorate();paintOpen();}});
   bridge().actions['weather-check']=async()=>{
     if(checking)return;checking=true;checkMessage='';paintOpen();
@@ -157,9 +199,13 @@ export function installWeather(){
     }finally{checking=false;decorate();paintOpen();update();}
   };
   bridge().actions['weather-enable']=()=>{bridge().data().settings.weatherEnabled=true;bridge().persist();paintOpen();void resume();};
-  bridge().actions['weather-disable']=()=>{epoch++;bridge().data().settings.weatherEnabled=false;bridge().data().weatherCacheV1={};bridge().persist();pause();void syncNative();decorate();paintOpen();};
+  bridge().actions['weather-disable']=()=>{epoch++;bridge().data().settings.weatherEnabled=false;bridge().data().settings.weatherUseLocation=false;currentPosition=null;geoForecasts.clear();cancelPosition();bridge().data().weatherCacheV1={};bridge().persist();pause();void syncNative();decorate();paintOpen();};
   bridge().actions['weather-background-toggle']=()=>{bridge().data().settings.weatherBackgroundEnabled=bridge().data().settings.weatherBackgroundEnabled===false;bridge().persist();void syncNative();paintOpen();};
-  bridge().actions['weather-open']=async d=>{checkMessage='';opened=d.event?bridge().data().events.find(e=>e.id===d.event):null;bridge().open('Tempo',content(opened),bridge().button('close-modal','Voltar','sheet-back'),'weather');const dialog=document.getElementById('dialog');dialog.setAttribute('data-no-close','');dialog.setAttribute('data-bottom-back','');dialog.querySelector('.dialog-close')?.remove();await getWeather(location(opened));paintOpen();update();};
+  bridge().actions['weather-use-location']=()=>usePosition(true);
+  bridge().actions['weather-use-city']=()=>{cancelPosition();currentPosition=null;bridge().data().settings.weatherUseLocation=false;bridge().persist();locationMessage='Consultando a Cidade Cadastrada.';decorate();paintOpen();void getWeather(municipality()).then(()=>{decorate();paintOpen();update();});};
+  bridge().actions['weather-location-settings']=()=>nativeWeather?.locationSettings();
+  document.getElementById('dialog').addEventListener('close',()=>{if(!weatherLocationSession)return;weatherLocationSession=false;cancelPosition();opened=null;});
+  bridge().actions['weather-open']=async d=>{weatherLocationSession=true;checkMessage='';locationMessage='';opened=d.event?bridge().data().events.find(e=>e.id===d.event):null;bridge().open('Tempo',content(opened),bridge().button('close-modal','Voltar','sheet-back'),'weather');const dialog=document.getElementById('dialog');dialog.setAttribute('data-no-close','');dialog.setAttribute('data-bottom-back','');dialog.querySelector('.dialog-close')?.remove();if(!opened&&bridge().data().settings.weatherUseLocation===true)await usePosition(false);else await getWeather(location(opened));paintOpen();update();};
   new MutationObserver(update).observe(document.getElementById('app'),{childList:true});
   new MutationObserver(()=>{if(canRun())void clockEngine.wake();else pause();}).observe(document.getElementById('dialog'),{attributes:true,attributeFilter:['open']});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();else void resume();});

@@ -1,0 +1,6 @@
+
+br.com.territorio.gestao.WeatherPowerInstrumentedTest:......
+
+Time: 0,043
+
+OK (6 tests)

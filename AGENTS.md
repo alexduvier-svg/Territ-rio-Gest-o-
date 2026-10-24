@@ -1,3 +1,37 @@
+# 0.12.85 Instalada — Fechamento Git Pendente
+
+85/code125/9201779bytes/SHA433f2b3abc069de3ce787a3f3cc2265029ccaa939167fcda803dba4434571a4b entregue pastaoriginal+DOIS install-r24/10 Reno16:16:38/PKJ16:18:02,firstInstallpreservados/6módulosbootfrioTRUEambos.643unitapp/35unitserver/8browser2temas320ampliadoleve-reduzido360393412/4native completos DOIS2temas/6policy instrumentados por aparelho PASS. Certoriginalv2v3/50assets+2pontes/ZIPELF16KB. Fixtures/testpkg/capturasownsdcard/forwards removidos. NÃOrepetirbuild/verificador/copy/install85 por documentos.
+
+GPSopcionalpontual emTempo→cartãolocalização→UsarMinhaLocalização,sembackgroundsensor; coordenadas3decantesponte/rede/cacheprivadoforaERP/backups. Worker seguecidade/cacheOnly/30min/50%. Íconesagorasol/lua/pancadasdeacordosímbolo; previsão nãoobservação. Interface55/docsLOCALIZACAO-TEMPO85. Backenddeploymenta7c7042c-8f29-4955-b013-4a6e6d72a14e/smoke públicosfictíciosPASS. RainViewer não integrado.
+
+Localizaçãoglobaljátrueambos. OEMnegouGRANT_RUNTIME_PERMISSIONSAbaixoADBnoReno; respeitado: permissãoapp requer escolhaAndroid pelo usuário emUsarMinhaLocalização nos DOIS. NãoalegarpermissãograntednemGPSrealtestado; nenhuma posição real lida/logada. UIdepermissãoéfluxonormalparaPlayStore. docsENTREGA85comdetalhesreais/metadados.
+
+Falta SOMENTE prepararGit/docsencerramento/commitpushAGRO2; arquivoqa/prepare-github.pyjátemwhitelist85. CopiarAGENTSmanualmente; rodaraudit-publication.py/diffcheck/revisarstage/commitpush/lsremoteconfirmar. Últimofetch24/10Claude cffe32b/main956fddcsemnovidade,AGRO2pré85 5335e85. Reportsfinais Reno light16:09:51,dark16:16; usar passed/errors[] e não tentativasinterrompidas. QAalterouapenasesperaDOM/traceemcatalog083; appnão mudou. SemBDreal/WhatsApp/agendapessoal/subagentes/automação/FPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos.84concluídaad3a30b/doc5335e85não repetir.
+
+# 85 Compilada — QA Física Final em Curso
+
+APK85/code125/9201779bytes/SHA433f2b3abc069de3ce787a3f3cc2265029ccaa939167fcda803dba4434571a4b congelado. 643unitapp/35unitserver/8browser2temas320ampliadoleve-reduzido360393412 PASS. Certoriginal/v2v3/50assets+2pontes/ZIP-ELF16KB verificados. Fixture final íntegro e assets iguais. Não repetir build sem falha real.
+
+Backend85 publicado deployment a7c7042c-8f29-4955-b013-4a6e6d72a14e. Smoke municipal/point/cacheOnly com coordenadas públicas fictícias PASS em qa/weather085-server-live.json. RainViewer não integrado. Gitfetch24/10: Claude cffe32b/main956fddc sem novidade; AGRO2 ainda5335e85.
+
+Usuário desbloqueou DOIS. Native completos85 rodando em qa/weather085-reno-final.txt/session99935 e qa/weather085-pkj-final.txt/session51364, porta9341/9342; NÃO iniciar jornadas duplicadas. Aguardam4reports passed/errors[]/mtime>=APK. Capturas exclusivamente fixture sintético. Permissão real do fixture é testada locate(requestPermission:false) antes mocks; posição real não lida. Instrumentation6policytests pronta VIZ/weather085-native/instrumentation.apk, ainda não instalada/executada85. ApósUI terminar: instalar testpackage .motionfixture.test e executar SOMENTE WeatherPowerInstrumentedTest em ambos. InspecionarPNG,4PASS+6nativepureBOTH→finalize-weather085-validation.py→install-weather085.ps1. Verificador já rodou: NÃO rerodar após finalizer/install.
+
+AindaSEMcopyoriginal/install85/Git85. Apósinstalar:6móduloscoldready/firstInstallpreservado, limparown /sdcard/agro-weather085.png+forwards+fixtures/testpkg. Usuário autorizou habilitarGPS/permissãoforeground se necessário; não ler/logar posição real, não alterar outrasconfigurações. Ativação de UsarMinhaLocalização continua ação explícita do produtor. DocsLOCALIZACAO-TEMPO85 já escritos. Não alegarFPS/GPU/bateria/básico/TalkBack/runtime16KB medidos. SemBDreal/transação/WhatsApp/agendapessoal/subagentes/automação.
+
+84entreguead3a30b/doc5335e85, NÃOrepetir84.
+
+# 85 Implementada em Fonte — QA e Servidor Pendentes
+
+Fonte85/code125 local: GPS/rede foreground via AgroWeatherPosition/AgroWeatherPlugin, permissão opcional FINE+COARSE, getCurrentLocation compat SDK24 semGoogleSDK,2providers/timeout12s/cancelpause-close. Rawfix sóRAM; arredonda3casas antesbridge/rede; cacheGPSnativo privadoforaERP/backup; Worker permanececidade/cacheOnly/50%/30min. Cachecidade/point estritamenteseparado, validade+1inflight; nega/desliga/timeouts/forecastfailfallbackmunicipal. UIUsarMinhaLocalização/Cidadepadrão, prefapenasboolnoERP; auto pontual ao abrirTempoapósoptin, readcacheonresume nãoGPS; eventospermanecemlocalagendado. Ícones estáticos Sol/Lua/pancadas sourceexplicito; não inventar sol porcalor;textoPancadasPrevistas.
+
+Backendportfolio-server/weather.js mudouADITIVAMENTEpara?lat/lon válidos/arredondados3dec/cachéporcélula/proximidadeIBGE/UAidentificado. Cidadev1igual; Geoextra data.location; BackgroundcacheOnlynuncaMET. NovoGPShelperspure+testsapp5/server3.643unitappPASS/9unitserverclimaPASS(18focusedcomicones); Javacprototypepassou(antesúltimavalidaçãocoords/datafinites). Vite85compilado. AINDAnãoAPK85/fixture85/cópia/install/QAvisual/Git/deploy. 84concluídaad3a30b e doc5335e85; NÃOrepetir84.
+
+Precisa: revisarJSgeocache/currentpointrestauração/emERP nãoGPS/closecancel/fallbackoffline; QA8browser2temas320ampliado360393412 comgeolocalizaçãoSIMULADA+4nativeDOIS2temas(fixture first verify locate(requestPermission:false) required, DEPOIS mockGPS sem lerposição real). Nativeclassespermission/lifecycle/powerchecksrcinstr quandoaplicável. Backendtodosunit/dryrun/deployatômicoapóspass+smokeGPSfictícios(cidadeantiga+nova). Atualizarprivacidade/documentação/memória55eGPSAPI, RainViewerpesquisa2fontes:gratuitopessoal/educacional,nãointegrado/nowcastretirado2026. Nenhuma biblioteca nova.
+
+Atençãoainda: cancelarJS sóweatherclose(semnativecallsnoscadastros); usePositionfazprefetchcacheprivadoparaoffline; resumeusaúltimopontosomente30min ecomforecastsalvo; cachedstrictmatchpoint/cidade. Validarflows e botõessemcortes. nativeIOcomumAgroWeatherCache refatoradoTarget/fetchPointforeground só; valideNative/manifestnostocpermissionerrada. configurecontinuaNEGOCIOmunicipio,nãoGPS. Nenhuma permissãoGPSrealfoigranted/eGPSglobalnãofoialteradoainda; usuárioAUTORIZOUhabilitarGPSnos2sepreciso, porémQAseráfictícia. Nuncaextrair/logarpublicarcoordreais. Quandoinstalar85podehabilitarpermissõesGPSapenasappagro2autorizado; UIoptinfallback devefuncionarparaoutrosprodutoresPlayStore.
+
+Wranglerwhoami/verificaçãoservidorfull emandamento. PrecisaGitfetchantesfinal(durantetarefaúltimoClaude cffe32b). Semsubagentes/automação/dadosreais/FPSmedidos. Captura privada84 járemovida.
+
 # Entrega84 Concluída — Novo85 Localização do Tempo Autorizado
 
 84/code124 instaladaDOIS e pastaoriginal/SHA9fe6436798492812ad1beaf3f85e6835ed1ea265bf0d365ecfb0b9e83d2664e8/9201779bytes.638unit/8browser finais focados/4nativecompletosDOIS2temasPASS,bootfrio6módulosTRUE/firstInstallpreservados/fixtures e capturas privadas/forwardsremovidos. Commit/pushad3a30b263268cc820bde17a3c8224db1c323c2f confirmado remotoAGRO2 limpo. NÃO repetir build/testes/verificador/cópia/install84 por documentos. docs/ENTREGA-0.12.84.md. SemDBreal/transação/WhatsApp/agendapessoal/subagentes/automação/FPS medidos.

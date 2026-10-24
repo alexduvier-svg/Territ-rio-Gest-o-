@@ -32,4 +32,16 @@ public class WeatherPowerInstrumentedTest {
         assertEquals(NetworkType.CONNECTED,request.getWorkSpec().constraints.getRequiredNetworkType());
         assertFalse(request.getWorkSpec().expedited);
     }
+    @Test public void coordinateCellsAreRoundedFiniteAndSeparateFromMunicipality(){
+        assertTrue(AgroWeatherPosition.valid(0,0));assertFalse(AgroWeatherPosition.valid(Double.NaN,0));assertFalse(AgroWeatherPosition.valid(91,0));assertFalse(AgroWeatherPosition.valid(0,-181));
+        assertEquals(-20.733,AgroWeatherPosition.rounded(-20.733456),0);
+        assertEquals("point:-20.733,-42.029",AgroWeatherCache.pointKey(-20.733456,-42.029456));
+        assertEquals(AgroWeatherCache.pointKey(-0d,0d),AgroWeatherCache.pointKey(0d,-0d));
+        assertNotEquals(AgroWeatherCache.key("Carangola","MG"),AgroWeatherCache.pointKey(-20.733,-42.029));
+    }
+    @Test public void GPSDoesNotRequireAMunicipalityButBackgroundWorkDoes(){
+        assertFalse(AgroWeatherPlugin.backgroundEnabled(true,true,"",""));
+        assertTrue(AgroWeatherPlugin.backgroundEnabled(true,true,"Carangola","MG"));
+        assertFalse(AgroWeatherPlugin.backgroundEnabled(false,true,"Carangola","MG"));
+    }
 }

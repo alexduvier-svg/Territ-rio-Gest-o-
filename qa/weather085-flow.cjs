@@ -1,0 +1,49 @@
+const assert=require('node:assert/strict');
+function prepare(){
+ const a=window.__GPS85={mode:'ready',calls:[],queries:[],nativeConfigs:[],cancelled:0,position:null,pending:null};
+ const point=()=>({status:'ready',latitude:-20.193,longitude:-42.034,accuracyMeters:150,capturedAt:Date.now(),approximate:a.mode==='approx',gridDecimals:3});
+ const result=()=>a.mode==='denied'?{status:'permission-denied'}:a.mode==='disabled'?{status:'disabled'}:a.mode==='timeout'?{status:'timeout'}:point();
+ a.forecast=params=>{const h=Math.floor(Date.now()/3600000)*3600000,gps=params.latitude!==undefined||params.lat!==null&&params.lat!==undefined,lat=Number(params.latitude??params.lat),lon=Number(params.longitude??params.lon);a.queries.push({gps,rounded:!gps||(Math.abs(lat*1000-Math.round(lat*1000))<.00001&&Math.abs(lon*1000-Math.round(lon*1000))<.00001)});return{version:1,source:'MET Norway',city:{name:gps?'Manhuaçu':'Carangola',uf:'MG'},retrievedAt:Date.now(),expiresAt:Date.now()+1800000,issuedAt:new Date(h).toISOString(),points:Array.from({length:30},(_,i)=>({time:new Date(h+i*3600000).toISOString(),temp:i?29:31,hours:1,rain:gps?.1:0,symbol:gps?'lightrainshowers_day':'clearsky_day'})),...(gps?{location:{kind:'coordinates',latitude:lat,longitude:lon,gridDecimals:3,municipalityNearby:true,distanceKm:1}}:{})};};
+ const resolve=cb=>{if(a.mode==='delayed')a.pending=()=>cb(point());else cb(result());};
+ if(window.Capacitor?.isNativePlatform()){
+  const real=Capacitor.nativePromise.bind(Capacitor),store=new Map();
+  Capacitor.nativePromise=(plugin,method,args={})=>{
+   if(plugin!=='AgroWeather')return real(plugin,method,args);
+   if(method==='configure'){a.nativeConfigs.push(args);return real(plugin,method,args);}
+   if(method==='locate'){a.calls.push(!!args.requestPermission);return new Promise(cb=>resolve(r=>{if(r.status==='ready')a.position=r;cb(r);}));}
+   if(method==='readPosition')return Promise.resolve({position:a.position});
+   if(method==='cancelLocation'){a.cancelled++;return Promise.resolve({});}
+   if(method==='forecast'){const data=a.forecast(args),k=JSON.stringify(args);store.set(k,data);return Promise.resolve({data});}
+   if(method==='read')return Promise.resolve({data:store.get(JSON.stringify(args))||null});
+   if(method==='locationSettings')return Promise.resolve({});
+   return real(plugin,method,args);
+  };
+ }else{
+  Object.defineProperty(navigator,'geolocation',{configurable:true,value:{getCurrentPosition(success,error,options){a.calls.push(true);assertOptions(options);resolve(r=>r.status==='ready'?success({coords:{latitude:r.latitude,longitude:r.longitude,accuracy:r.approximate?3000:20},timestamp:r.capturedAt}):error({code:r.status==='permission-denied'?1:3}));}}});
+  const query=navigator.permissions?.query?.bind(navigator.permissions);if(query)navigator.permissions.query=params=>params.name==='geolocation'?Promise.resolve({state:'granted'}):query(params);
+ }
+ function assertOptions(options){if(options.enableHighAccuracy!==true||options.maximumAge!==0||options.timeout>12000)throw Error('GPS must be one bounded accurate request');}
+ const m=ERPPreview.model(),data=a.forecast({city:'Carangola',uf:'MG'});m.data.settings.city='Carangola';m.data.settings.uf='MG';m.data.settings.weatherEnabled=true;m.data.settings.weatherUseLocation=false;m.data.weatherCacheV1={'carangola|MG':data};ERPPreview.persist();ERPPreview.render();
+}
+async function exercise(p,capture){
+ const act=(n,d={})=>p.evaluate(([n,d])=>ERPPreview.actions[n](d),[n,d]),close=async()=>{await act('close-modal');await p.waitForTimeout(350);};
+ await p.waitForFunction(()=>window.__AGRO_UI_BOOT_READY__);assert(!await p.evaluate(()=>!!window.__AGRO_UI_BOOT_FAULT__));
+ await act('cancel-product');await act('nav',{page:'Vender'});await p.waitForTimeout(350);
+ const before=await p.evaluate(()=>JSON.stringify({products:ERPPreview.model().data.products,sales:ERPPreview.model().data.sales,movements:ERPPreview.model().data.movements,clients:ERPPreview.model().data.clients,events:ERPPreview.model().data.events}));
+ let nativeGate=false;if(await p.evaluate(()=>!!window.__AGRO_NATIVE_FIXTURE__)){const r=await p.evaluate(()=>Capacitor.nativePromise('AgroWeather','locate',{requestPermission:false}));assert.equal(r.status,'permission-required');nativeGate=true;}
+ await p.evaluate(prepare);
+ const fit=async()=>{await p.waitForTimeout(250);const g=await p.locator('#dialog').evaluate(d=>{const r=d.getBoundingClientRect(),content=d.querySelector('.dialog-content'),footer=d.querySelector('.checkout-footer'),b=footer.getBoundingClientRect();return{margins:r.left>=7&&r.right<=innerWidth-7&&r.top>=7&&r.bottom<=innerHeight-7,scroll:getComputedStyle(content).overflowY==='auto',back:b.top>=r.top&&b.bottom<=r.bottom,buttons:[...d.querySelectorAll('.weather-location-actions button')].filter(e=>e.getBoundingClientRect().height>0).every(e=>e.getBoundingClientRect().height>=44&&e.scrollWidth<=e.clientWidth+1),page:document.documentElement.scrollWidth<=innerWidth+1};});assert(Object.values(g).every(Boolean),JSON.stringify(g));};
+ await act('weather-open');assert.equal(await p.locator('#dialog .weather-location-controls').count(),1);assert.equal(await p.evaluate(()=>__GPS85.calls.length),0);assert.equal(await p.locator('#dialog .weather-now .weather-sun').count(),1);await fit();if(capture)await capture('weather-temperature-first');
+ await p.locator('#dialog .weather-location-controls>summary').click();await act('weather-use-location');await p.waitForFunction(()=>ERPPreview.model().data.settings.weatherUseLocation&&document.querySelector('#dialog .weather-location-controls')?.textContent.includes('Manhuaçu'));assert.match(await p.locator('#dialog .weather-now').innerText(),/31.*Pancadas leves previstas/s);assert(await p.locator('#dialog .weather-now .weather-sun').count());assert(await p.locator('#dialog .weather-now .weather-rain').count());assert.equal(await p.evaluate(()=>__GPS85.calls.length),1);await fit();await p.locator('#dialog .weather-location-controls').scrollIntoViewIfNeeded();if(capture)await capture('gps-weather-current-point');
+ assert(await p.evaluate(()=>new ERP.ERPModel(structuredClone(ERPPreview.model().data)).data.settings.weatherUseLocation===true));
+ const cache=await p.evaluate(()=>JSON.stringify(ERPPreview.model().data.weatherCacheV1));assert(!cache.includes('latitude')&&!cache.includes('coordinates')&&!cache.includes('Manhuaçu'));const calls=await p.evaluate(()=>__GPS85.calls.length);await close();await p.waitForTimeout(500);assert.equal(await p.evaluate(()=>__GPS85.calls.length),calls);
+ await act('weather-open');await p.waitForFunction(n=>__GPS85.calls.length===n+1,calls);assert.match(await p.locator('#dialog .weather-location-controls').innerText(),/Manhuaçu/);await p.locator('#dialog .weather-location-controls>summary').click();await act('weather-use-city');assert(!await p.evaluate(()=>ERPPreview.model().data.settings.weatherUseLocation));assert.match(await p.locator('#dialog .weather-location-controls').innerText(),/Carangola/);
+ await p.evaluate(()=>__GPS85.mode='denied');await act('weather-use-location');assert.match(await p.locator('#dialog .weather-location-status').innerText(),/não autorizada/i);assert.match(await p.locator('#dialog .weather-location-controls').innerText(),/Carangola/);assert(!await p.evaluate(()=>ERPPreview.model().data.settings.weatherUseLocation));await fit();if(capture)await capture('gps-denied-municipality-fallback');
+ await p.evaluate(()=>__GPS85.mode='approx');await act('weather-use-location');assert.match(await p.locator('#dialog .weather-location-status').innerText(),/Aproximada/);await act('weather-use-city');await p.evaluate(()=>__GPS85.mode='timeout');await act('weather-use-location');assert.match(await p.locator('#dialog .weather-location-controls').innerText(),/Cidade Cadastrada/);
+ await p.evaluate(()=>__GPS85.mode='delayed');await p.evaluate(()=>{void ERPPreview.actions['weather-use-location']();});await p.waitForFunction(()=>typeof __GPS85.pending==='function');await close();await p.evaluate(()=>__GPS85.pending());await p.waitForTimeout(400);assert(!await p.locator('#dialog').evaluate(d=>d.open));assert(!await p.evaluate(()=>ERPPreview.model().data.settings.weatherUseLocation));
+ await p.evaluate(()=>__GPS85.mode='ready');await act('weather-open',{event:'qa-upcoming'});assert.equal(await p.locator('#dialog [data-action=weather-use-location]').count(),0);assert.match(await p.locator('#dialog .weather-hint').first().textContent(),/Local do evento/);await close();
+ assert(await p.evaluate(()=>__GPS85.queries.every(q=>q.rounded)&&__GPS85.nativeConfigs.every(c=>!('latitude'in c)&&!('longitude'in c))));
+ const after=await p.evaluate(()=>JSON.stringify({products:ERPPreview.model().data.products,sales:ERPPreview.model().data.sales,movements:ERPPreview.model().data.movements,clients:ERPPreview.model().data.clients,events:ERPPreview.model().data.events}));assert.equal(after,before);const callsAfter=await p.evaluate(()=>__GPS85.calls.length);for(const page of ['Vender','Estoque','Clientes','Eventos','Gestão']){await act('nav',{page});await p.waitForTimeout(250);assert(await p.locator('#app').evaluate(e=>e.childElementCount>0&&document.documentElement.scrollWidth<=innerWidth+1));}assert.equal(await p.evaluate(()=>__GPS85.calls.length),callsAfter);
+ return{...(nativeGate?{nativePermissionGateVerified:true}:{}),noLocationBeforeOptIn:true,currentPointForecast:true,showersAndSunProviderSymbols:true,deniedAndTimeoutFallback:true,approximatePermissionAccepted:true,oneShotOnWeatherOpen:true,closingCancelsLateResult:true,noGPSInBusinessCache:true,preferenceSurvivesBusinessRestore:true,eventLocationNotReplaced:true,workerConfigurationCityOnly:true,coordinatesRoundedBeforeTraffic:true,financialRecordsPreserved:true,fiveTabsNoPassiveGPSCalls:true,commonMarginsAndTargets:true};
+}
+module.exports={exercise,prepare};

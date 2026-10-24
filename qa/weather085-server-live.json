@@ -1,0 +1,11 @@
+{
+  "source": "MET Norway",
+  "realGPSRead": false,
+  "deployment": "a7c7042c-8f29-4955-b013-4a6e6d72a14e",
+  "cacheOnly": true,
+  "pointForecast": true,
+  "businessDataAccessed": false,
+  "municipalBackwardCompatible": true,
+  "passed": true,
+  "syntheticCoordinates": true
+}
