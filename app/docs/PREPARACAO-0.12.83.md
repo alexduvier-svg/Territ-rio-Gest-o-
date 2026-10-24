@@ -37,3 +37,5 @@ Versão 0.12.83, código 123; pacote `br.com.territorio.gestao2`; 9.197.683 byte
 Cópia original com hash conferido: `C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-2-0.12.83.apk`.
 
 Fixture isolado atualizado e compilado, ainda sem instalação. Ao retornar, executar `qa/run-catalog083-native.ps1` para Reno/PKJ nos dois temas. Depois de 4 relatórios aprovados, `qa/finalize-catalog083-validation.py` confere o mesmo hash e autoriza `qa/install-catalog083.ps1`. O instalador recusa prosseguir sem essa validação, preserva primeira instalação e exige os seis módulos no início frio. Não recompilar nem mudar versão apenas para instalar um pacote já preparado; se a QA física revelar falha, corrigir e revalidar antes de instalar.
+
+Preparação publicada no commit `c494eeda3d03cf6568ee64a3ada6116dc7d6481f`, confirmado no remoto AGRO2. Instalação e validação física permanecem aguardando o retorno do usuário, sem necessidade de outra compilação por esta anotação.
