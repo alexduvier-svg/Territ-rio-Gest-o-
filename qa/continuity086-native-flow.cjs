@@ -1,0 +1,1 @@
+const{exercise:previous}=require('./weather085-native-flow.cjs');const{exercise:current}=require('./continuity086-flow.cjs');module.exports={exercise:async(p,capture)=>process.env.AGRO_DIAGNOSTIC_ONLY?require('./continuity086-diagnostic.cjs').exercise(p,capture):({...process.env.AGRO_FOCUS_CONTINUITY?{}:await previous(p,capture),...await current(p,capture)})};
