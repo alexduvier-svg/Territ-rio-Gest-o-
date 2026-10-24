@@ -1,6 +1,6 @@
 # AGRO Gestão 2 — 0.12.86
 
-Status: instalada nos dois aparelhos e cópia na pasta original em 24/10/2026. Publicação Git pendente no momento deste registro.
+Status: instalada nos dois aparelhos e cópia na pasta original em 24/10/2026. Commit/push 9c21e5c7e8189bcaed121514e80bf18fc2365a1c confirmado no ramo codex/atualizacao-agro-gestao2.
 
 ## Resultado
 
