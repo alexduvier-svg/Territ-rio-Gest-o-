@@ -109,7 +109,7 @@ test('revisão de janelas e estoque migra só premissas e permanece no backup se
   assert.equal(m.data.interfaceGuidelines.version,INTERFACE_GUIDELINES.version);
   assert.match(m.data.interfaceGuidelines.windows.placement,/centralizadas/);
   assert.match(m.data.interfaceGuidelines.windows.scrolling,/cortar/);
-  assert.equal(m.data.stockCatalogGuidelines.version,3);
+  assert.equal(m.data.stockCatalogGuidelines.version,4);
   assert.equal(m.data.catalogKnowledge.sourceTotal,2479);
   assert.equal(m.data.catalogKnowledge.appAdditions,19);
   assert.equal(m.data.catalogKnowledge.total,2498);

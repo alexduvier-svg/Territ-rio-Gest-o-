@@ -8,3 +8,8 @@ A sugestão não contém preço, custo, estoque ou histórico. Só se torna prod
 ## Café Superior — 0.12.80
 
 18 sugestões adicionais: Clara (TC), Média (TM) e Escura (TE), em250g/500g/1kg, tanto Moído quanto Em Grãos. Com as referências originais de Especial, Gourmet e Tradicional, são72 modelos (36por formato). A torra escolhida vai ao campo Torra; nenhum preço/custo/estoque é presumido. IDs da fonte original foram preservados. Total2498referências:2479originais+19adições.
+
+
+## Configuração de Café — 0.12.82
+
+As sugestões carregam o esquema de Espécie, Variedade, Torra e Processo. Anaeróbico fica nas opções de Processo; campos desconhecidos não ganham valores presumidos. A fonte original de2479referências e os19complementos do app continuam preservados, sem criar produto ou saldo do produtor. Fermentação não é campo novo; informação histórica é preservada no legado.

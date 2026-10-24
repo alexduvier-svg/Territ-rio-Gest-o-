@@ -3,7 +3,7 @@ import * as Suppliers from '../suppliers/model.js';
 export function trainingData({id,appearance='system',largeText=false,reduceEffects=false,performanceMode='auto',mode='examples',selected=[],now=new Date().toISOString()}={}){
  if(!id)throw Error('Identificação do treino ausente.');
  const prices={Especial:[2500,4500,6500],Gourmet:[1800,3000,5500],Superior:[1600,2800,5000],Tradicional:[1200,2200,4000]};
- let products=[...standardCoffeeModels().map((p,i)=>{const price=prices[p.type][[250,500,1000].indexOf(p.weight)];return{...p,id:i===0?'training-coffee':'training-coffee-'+p.type.toLowerCase()+'-'+roastCode(p).toLowerCase()+'-'+p.weight,stock:10,min:2,price,cost:Math.round(price*.6)};}),
+ let products=[...standardCoffeeModels().map((p,i)=>{const price=prices[p.type][[250,500,1000].indexOf(p.weight)];return{...p,coffeeProcess:['Tradicional','Natural','Anaeróbico'][i%3],id:i===0?'training-coffee':'training-coffee-'+p.type.toLowerCase()+'-'+roastCode(p).toLowerCase()+'-'+p.weight,stock:10,min:2,price,cost:Math.round(price*.6)};}),
  {id:'training-banana',baseName:'Banana Prata',name:'Banana Prata',category:'Hortifruti-Granjeiro',unit:'Dúzia',stock:12,min:2,price:1000,cost:500},
  {id:'training-cheese',baseName:'Queijo Meia Cura',name:'Queijo Meia Cura',category:'Laticínios',unit:'Unidade',stock:8,min:2,price:3500,cost:2000},
  {id:'training-honey',baseName:'Mel',name:'Mel',category:'Apicultura',unit:'Pote',weight:500,stock:6,min:2,price:3000,cost:1800},

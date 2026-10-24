@@ -10,3 +10,6 @@ Cadastros, preferências pessoais e transações são dados do aparelho. Se fore
 
 
 Versão3: Cafés agrupados por Especial, Gourmet, Superior e Tradicional; em cada tipo TC250/500/1000g, TM250/500/1000g, TE250/500/1000g, com formato separado. As torras ficam no campo próprio, nunca no sabor; a seleção de catálogo preserva essa informação. As apresentações ficam dentro da família de cada tipo. Nenhuma referência cria saldo real.
+
+
+Versão 4: Novo Produto e Sugestões de Café usam Espécie, Variedade, Torra e Processo. Anaeróbico aparece em Processo; não há campo Fermentação no formulário. Processo desconhecido fica vazio para confirmação pelo produtor. Dados anteriores de fermentação são preservados como legado. Limpar o nome de um novo cadastro remove as opções de identidade anteriores sem apagar números digitados nem registros do negócio.

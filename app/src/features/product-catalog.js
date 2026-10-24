@@ -137,7 +137,7 @@ export function toProductSuggestion(record) {
   return {
     category: categoryFor(record.categoria, record), baseName: record.nome_base, name: familyName(record),
     type: coffeeOrEgg ? record.variedade || '' : '', variety: coffeeOrEgg ? '' : record.variedade || '',
-    ...(record.categoria==='Cafés'&&record.coffeeRoast?{coffeeRoast:record.coffeeRoast}:{}),
+    ...(record.categoria==='Cafés'?{coffeeSpecies:record.coffeeSpecies||'',coffeeVariety:record.coffeeVariety||'',coffeeRoast:record.coffeeRoast||'',coffeeProcess:record.coffeeProcess||'',coffeeConfigurationVersion:2}:{}),
     flavor: record.sabor || '', format: record.forma || '', unit: legacyUnits[code] || record.unidade_venda,
     weight: q != null && ['g','kg'].includes(contentUnit) ? Number(q) * (contentUnit === 'kg' ? 1000 : 1) : 0,
     volume: q != null && ['ml','l'].includes(contentUnit) ? Number(q) * (contentUnit === 'l' ? 1000 : 1) : 0,

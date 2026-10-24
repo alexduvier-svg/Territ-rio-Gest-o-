@@ -86,7 +86,9 @@ function decorateDimensions() {
     }
     const chosen = pill.querySelector('.choice.selected');
     const text = chosen ? chosen.textContent.trim().replace(/^./, c => c.toUpperCase()) : 'Escolher';
-    if (value.textContent !== text) value.textContent = text; // reescrever igual dispararia o observador de novo
+    let label=value.querySelector('.dim-value-text');
+    if(!label){label=document.createElement('span');label.className='dim-value-text';value.replaceChildren(label);}
+    if(label.textContent!==text)label.textContent=text; // keep the value stable for observers and focus
     value.classList.toggle('empty', !chosen);
     heading.setAttribute('role', 'button');
     heading.setAttribute('aria-expanded', String(i === openIndex));

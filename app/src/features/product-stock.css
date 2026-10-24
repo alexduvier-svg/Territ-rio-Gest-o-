@@ -85,3 +85,16 @@ html[data-large-text='true'] dialog[data-kind='movement'] .movement-secondary > 
 @media (max-width: 350px) { .stock-own-pill { padding: 10px; border-radius: 15px; }.stock-own-pill strong { font-size: 14px; }.stock-product-flow .panel { padding-left: 15px; padding-right: 15px; }.stock-unit-confirm { flex-direction: column; align-items: stretch; } }
 @media (prefers-reduced-motion: reduce) { .stock-section-enter { animation: none; } }
 :root[data-reduce-effects="true"] .stock-section-enter,:root.motion-lite .stock-section-enter { animation: none; }
+
+/* The press engine owns transforms. Center the clear control without a transform to keep its hit area still. */
+#app .product-name-entry .clear-product-name{top:0;bottom:0;margin-block:auto;transform:none}
+/* Labels keep whole words. A value moves below its label when the existing pill cannot fit both. */
+:root[data-layout='feira'][data-page='Produto'] .dimension-pill.acc .dimension-heading{flex-wrap:wrap;column-gap:10px;row-gap:6px;padding-block:12px}
+:root[data-layout='feira'][data-page='Produto'] .dimension-pill.acc .dimension-heading h3{flex:1 1 min-content;order:0;min-width:0;overflow-wrap:normal;word-break:normal;hyphens:none}
+:root[data-layout='feira'][data-page='Produto'] .dimension-pill.acc .dim-value{display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;flex:0 1 auto;order:2;max-width:100%;min-width:0;margin-left:0;white-space:normal}
+:root[data-layout='feira'][data-page='Produto'] .dimension-pill.acc .dim-value-text{min-width:0;white-space:normal;word-break:normal;overflow-wrap:break-word;hyphens:none;line-height:1.35}
+:root[data-layout='feira'][data-page='Produto'] .dimension-pill.acc .dim-value::before,:root[data-layout='feira'][data-page='Produto'] .dimension-pill.acc .dim-value::after{flex:none;margin:0}
+:root[data-layout='feira'][data-page='Produto'] .dimension-pill.acc .dimension-add{order:1;flex:none}
+:root[data-layout='feira'][data-page='Produto'] .dimension-pill.acc.open .dim-value{flex-basis:100%}
+:root[data-page='Produto'] .registration-dimensions .dimension-pill:not([data-dimension-field='weight']):not([data-dimension-field='volume']) .choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,112px),1fr));gap:8px}
+:root[data-page='Produto'] .registration-dimensions .dimension-pill .choices>.choice{grid-column:auto;word-break:normal;overflow-wrap:normal;hyphens:none;line-height:1.35}

@@ -191,7 +191,7 @@ class ERPModel{
    if(p.unit==='Caixa'&&!(number(p.contentCount)>0))throw Error('Informe quantas unidades há na caixa.');
    if(p.unit==='Vidro'&&!(number(p.volume)>0)&&!(number(p.weight)>0))throw Error('Informe o peso ou volume do vidro.');
    if(base.category==='Cafés'&&p.unit==='Pacote'&&!(p.weight>0))throw Error('Informe o peso do pacote.');
-   global.TerritorioCoffee?.validateCoffee(p);p.name=productName(p.name);p.baseName=productName(p.baseName);delete p.priceInput;delete p.costInput;delete p.stockInput;delete p.minInput;return p;
+   if(p.category==='Cafés'&&global.TerritorioCoffee?.coffeeEditorFields)Object.assign(p,global.TerritorioCoffee.coffeeEditorFields(p));global.TerritorioCoffee?.validateCoffee(p);p.name=productName(p.name);p.baseName=productName(p.baseName);delete p.priceInput;delete p.costInput;delete p.stockInput;delete p.minInput;return p;
   });
   const catalog=global.TerritorioProductCatalog,keys=new Set();incoming.forEach(p=>{
    const identity=catalog?.commercialIdentity(p),key=identity?.complete?identity.key:productKey(p);

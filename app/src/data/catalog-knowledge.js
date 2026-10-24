@@ -1,12 +1,13 @@
 // Local reference knowledge. This is vocabulary and registration policy, never business activity.
 export const CATALOG_KNOWLEDGE = Object.freeze({
-  version: '1.0.3', catalogVersion: '1.0.0', type: 'suggestions_only', total: 2498,
+  version: '1.0.4', catalogVersion: '1.0.0', type: 'suggestions_only', total: 2498,
   sourceTotal: 2479, appAdditions: 19,
   sourceSHA256: 'd21cc68486f8cc478b5c31ccd4d565f7f8034b1927075bf27b5a3e327b1cc116',
   rules: [
     'O catálogo é referência de nomes, sabores, variedades, apresentações, unidades, plurais e aliases.',
     'As 2.479 referências originais permanecem identificadas pela fonte. As adições do app incluem Queijo Ralado em pacote de 50 g e18modelos de Café Superior (TC/TM/TE,250/500/1000g,Moído/EmGrãos), sem alterar a fonte nem criar produto ativo.',
     'Disponibilidade, estoque, preço, custo e desempenho vêm somente dos registros do produtor.',
+    'Sugestão de café carrega Espécie, Variedade, Torra e Processo no esquema atual; processo indefinido fica vazio. Anaeróbico é escolhido em Processo; Fermentação é mantida apenas como dado legado para preservar identidade e histórico.',
     'Produtos próprios e escolhas confirmadas têm prioridade sobre sugestões genéricas.',
     'Duplicatas exigem a mesma identidade comercial; campos ausentes ou semelhança textual pedem revisão.',
     'Preserve apresentações distintas, IDs, nomes personalizados, saldos, custos, preços, fotos e histórico.',

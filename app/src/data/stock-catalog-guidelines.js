@@ -1,7 +1,7 @@
 // Shipped with the app, independently of producer data and reset counters.
 // Copying this premise to a backup is useful; loading it never activates products.
 export const STOCK_CATALOG_GUIDELINES = Object.freeze({
-  version: 3,
+  version: 4,
   type: 'stock_catalog_premises',
   initialFamilyLimit: 12,
   ownHeading: 'Você já tem cadastrado',
@@ -18,6 +18,7 @@ export const STOCK_CATALOG_GUIDELINES = Object.freeze({
     'Sugestões para cadastrar têm título laranja e pertencem ao catálogo de referência, sem criar estoque, preços, custos ou vendas.',
     'Selecionar uma categoria permite consultar suas sugestões. Nome próprio e apresentação personalizada continuam disponíveis.',
     'A primeira página inclui as quatro famílias de café. Dentro de cada uma ficam as torras TC/TM/TE e pesos em ordem; escolher uma sugestão preenche a torra explícita no campo próprio, sem tratá-la como sabor.',
+    'Novo café usa Espécie, Variedade, Torra e Processo. Anaeróbico é opção de Processo; Fermentação não é campo do cadastro. A referência não presume um processo desconhecido. Abrir ou cancelar não modifica estoque ou histórico.',
     'Tipo, torra, moagem e conteúdo de café são diferenças comerciais: não unir variantes nem substituir o cadastro do produtor.',
     'Catálogo, textos e regras padrão são recursos embarcados. Recomeçar a demonstração, limpar dados do app ou reinstalar restaura esses padrões sem limite de reinicializações.',
     'Reiniciar não ativa sugestões como produtos reais nem copia atividade de demonstração para a operação real.',
