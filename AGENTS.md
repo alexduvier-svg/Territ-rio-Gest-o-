@@ -1,3 +1,15 @@
+# 0.12.85 — Entrega Concluída
+
+Commit/push b3b960b5bb5d44a2c9e55ea97a212b5d6428e672 confirmado no remoto AGRO2. APK0.12.85/code125/9201779bytes/SHA433f2b3abc069de3ce787a3f3cc2265029ccaa939167fcda803dba4434571a4b na pasta original e instalado nos DOIS em24/10 (Reno16:16:38;PKJ16:18:02). Certificado original, primeiras instalações preservadas e seis módulos confirmados em boot frio. Fixtures/testpackages/capturas próprias/forwards removidos. Não repetir build, testes, verificador, cópia ou instalação85 por documentos.
+
+643 testes app,35servidor,8jornadas browser e4Capacitor DOIS2temas passaram, além de6testes instrumentados por aparelho. Telas pequenas320ampliado/leve/reduzido,360,393,412 verificadas. ZIP/ELF16KB estrutural; sem alegação de execução16KB/FPS/GPU/bateria/aparelho básico/TalkBack medidos. Sem banco real lido/copiado, transações, WhatsApp ou calendário pessoal para QA.
+
+GPS opcional pontual em Tempo→cartão Localização→Usar Minha Localização, apenas durante uso; aproximada/negada/desligada/erro têm alternativa municipal. Coordenadas3dec antes da ponte/rede/cache privado, foraERP/CSV/backup do negócio. Worker continua municipal/cacheOnly/30min/internet/bateria50%. Eventos mantêm local agendado. Ícones seguem símbolos explícitos de sol/lua/nuvens/pancadas; previsão não é observação. Memória55/docsLOCALIZACAO-TEMPO85/ENTREGA85. Backend publicado a7c7042c-8f29-4955-b013-4a6e6d72a14e, smoke público fictício PASS. RainViewer não integrado.
+
+Localização global já estava ligada nos dois. OEM negou GRANT_RUNTIME_PERMISSIONS ao ADB; restrição respeitada. Permissão do APP ainda requer escolha Android ao tocar em Usar Minha Localização nos DOIS. Não declarar permissão concedida nem precisão GPS física testada; nenhuma posição real lida/logada. Esse é o fluxo normal também para novos usuários PlayStore. Sem pendência de implementação/instalação; não reabrir trabalho concluído por esse consentimento normal do usuário.
+
+Último Gitfetch24/10: Claude cffe32b/main956fddc sem novidades. Próxima tarefa começa consultando Git e estado real. Sem subagentes ou automação. 84 também encerrada ad3a30b/doc5335e85; não repetir.
+
 # 0.12.85 Instalada — Fechamento Git Pendente
 
 85/code125/9201779bytes/SHA433f2b3abc069de3ce787a3f3cc2265029ccaa939167fcda803dba4434571a4b entregue pastaoriginal+DOIS install-r24/10 Reno16:16:38/PKJ16:18:02,firstInstallpreservados/6módulosbootfrioTRUEambos.643unitapp/35unitserver/8browser2temas320ampliadoleve-reduzido360393412/4native completos DOIS2temas/6policy instrumentados por aparelho PASS. Certoriginalv2v3/50assets+2pontes/ZIPELF16KB. Fixtures/testpkg/capturasownsdcard/forwards removidos. NÃOrepetirbuild/verificador/copy/install85 por documentos.
