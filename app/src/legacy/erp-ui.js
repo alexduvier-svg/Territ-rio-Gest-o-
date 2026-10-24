@@ -3059,7 +3059,7 @@ window.TerritorioWorkflowBridge.recovery={
  }
 };
 
-function cardName(name,roast=''){const text=String(name||'').replace(roast?new RegExp('\\s+'+roast+'$','i'):/(?!)/,''),cut=text.indexOf(' ');if(!roast)return cut<0?escape(text):'<span class="cn-first">'+escape(text.slice(0,cut))+'</span> <span class="cn-rest">'+escape(text.slice(cut+1))+'</span>';return '<span class="cn-first">'+escape(cut<0?text:text.slice(0,cut))+'</span><span class="cn-rest">'+escape(cut<0?'':text.slice(cut+1))+'</span><span class="coffee-roast-code">'+escape(roast)+'</span>';}
+function cardName(name,roast=''){const text=String(name||''),cut=text.indexOf(' ');if(!roast)return cut<0?escape(text):'<span class="cn-first">'+escape(text.slice(0,cut))+'</span> <span class="cn-rest">'+escape(text.slice(cut+1))+'</span>';const words=text.split(/\s+/).filter(Boolean).filter(word=>word.toUpperCase()!==roast),first=words.shift()||'',second=words.shift()||'',tail=words.join(' ');return '<span class="cn-first">'+escape(first)+'</span><span class="cn-rest"><span class="cn-second">'+escape(second)+'</span> <span class="coffee-roast-code">'+escape(roast)+'</span>'+(tail?' '+escape(tail):'')+'</span>';}
 // One operational event view; analytical tools stay in Gestão.
 const eventDetailBeforeEssentials=eventDetail;
 eventDetail=function(id){if(window.TerritorioEvents?.detail)return window.TerritorioEvents.detail(id);return eventDetailBeforeEssentials(id);};

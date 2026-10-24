@@ -20,3 +20,8 @@ Correção 0.12.78: em Fermentação, oferecer Tradicional e Anaeróbica. Aerób
 ## Modelos de Café — Padrão 0.12.80
 
 Especial, Gourmet, Superior e Tradicional: para cada tipo, TC em 250 g, 500 g e 1 kg; depois TM nos mesmos pesos; depois TE. Os exemplos do Modo Teste mostram as36 combinações, além dos outros5 produtos e6clientes fictícios. Em grãos segue a mesma sequência no catálogo. A torra explicitamente escolhida em uma sugestão de catálogo preenche o campo Torra; cadastro não recebe saldo/preço/custo do catálogo. Produtos reais e seus saldos/históricos são preservados; nenhum exemplo migra para o negócio real.
+
+
+## Posição da Sigla — 0.12.81
+
+Em Produtos e Estoque, TC/TM/TE aparece depois da segunda palavra: Café Especial TC, Café Gourmet TM, Café Superior TE. A sigla permanece inteira, com quebra natural se a largura ou o texto ampliado exigir. As três colunas e o material dos cards são mantidos; os nomes dos cadastros e os dados financeiros não são reescritos.

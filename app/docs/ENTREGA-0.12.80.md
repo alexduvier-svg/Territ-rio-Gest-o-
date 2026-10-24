@@ -38,3 +38,5 @@ Cópia original conferida em `C:/Users/alexd/PROJETOS/Território Gestão/AGRO-G
 - PKJ110 (PKJ110): 2026-10-23 21:22:32; primeira instalação preservada 2026-10-14 18:17:06; abertura e seis módulos confirmados.
 
 Fixtures, imagens temporárias dos aparelhos e forwards próprios removidos. Clima, Firebase Spark/App Check, servidor de pedidos, Calendar, identidade do APK e dados reais preservados. Git somente no ramo AGRO2 autorizado; Claude e main preservados.
+
+Implementação80 publicada no ramoAGRO2 no commit `9a9ebdd73a80306457688d93b89da409d026ec92`, confirmado no remoto antes do ajuste de posição da sigla81.

@@ -1,3 +1,17 @@
+# Entrega81 Instalada — Publicação Git Pendente
+
+SiglaapósSEGUNDApalavraemProdutos/Estoque:Café Especial TC,Café Gourmet TM,Café Superior TE. coffeeNameéformatadorsóleitura/inserenomescompostosnoíndice2;cardName.cn-first/Café,cn-second/Tipo,badgeemfluxoinlineapóstipo;quebranaturalse320ampliado,nãorecortar/nãoforçarfontepequena/3colunas/materialmantidos. Nenhumcadastro/saldo/históricoalterado. Interface51/offline.80entregue9a9ebdd/DOIS120não repetir.
+
+81/code121instalado-r23/10Reno21:34:35/PKJ21:34:44/firstInstallpreservados/bootfrioseismódulosTRUEambos/cópiaoriginalconferida. APK9193587bytes/SHA0fcd46d6006744c6978ae925287fa813d00b1a944ed4abaa478b97936834983b/certoriginal/v2v3/50assets+2pontes/ZIPeELF16KB.630unit/8browser/4CapacitorDOIS2temasPASS,inclui36modelos/dadosdoModoTeste/sameStocklabels/regressão79/failurerollback. Fixtures/capturas/forwardsremovidos. NÃOrepetirbuild/verificador/copy/install81. Sódocs/GitAGRO2pendentes. SemFPS/básicofísicomedidos. LerRETOMADA-SIGLA-0.12.81.md/docs/ENTREGA-0.12.81.md.
+
+ExemplosnovoPadrão80preservados36cafés4tipos×TC/TM/TE×250/500/1kg+5outros/6clientes.ModoTeste/nãonegócioreal. PerguntasantigasdemappingrealsuperadaspelaclarificaçãohumanaEXEMPLOS; NÃOreativarperguntasdeescolhatorrarealsemnovopedido. Operação realépreservada,semclassificaçãoinventada; apenaslegacyflavorEXATOTorraClara/Média/Escurajáregistradoéexibidocomcode. Clima/Firebase/servidor/Calendar/pacote/certpreservados. Semsubagentes/automação.
+
+# Em Andamento81 — Sigla Após a Segunda Palavra em Produtos e Estoque
+
+80entregue:commit/push9a9ebdd73a80306457688d93b89da409d026ec92confirmadoremotoAGRO2limpo/APKoriginalDOIS120/0.12.80/629unit/8browser/4nativePASS. NÃOrefazer80. NOVOpedidoapósinstalação: TC/TM/TE depoisdaSEGUNDApalavra, ex.Café Especial TC,Café Gourmet TM, tambémonoEstoque. HojebadgeficaapósCafénaprimeiralinha; ajustarlayoutsemesticar3colunas/material. stockcoffeeNamejátemcodeaofinal, para2palavrasestácerto; garantirregraapóssegundaparanomescompostossemreescrevercadastro. Nenhumdadosrealouescolharoastnestaetapa; éapenasrótulo/posição.
+
+Plano81: coffeeNameformatterinserecódigodepois2palavras/explícitoroastsó, preservadados;cardNameHTML.cn-firstCafé/block,cn-restcomspan.cn-secondEspecial+badgeinlineTC+tailseexistir;CSSdisplayblock/inlineflowemvezgridcodeprimeiralinha. Nome/TCnãoentrarcorte;wrapnaturalem320ampliadoseprecisar,semforçarcardmaior,nemdiminuirtextoilegível;QAsegundapalavraantesbadge,bounds,nomeslongos/3cols/36exemplos/modes/estoque. Unitdisplaypure/8browser/4nativeDOIS2temas320ampliadoleve-reduzido360393412.81/code121apósfonte;assets/certoriginal/ZIPeELF16KB/copyoriginal/install-rDOIS/healthsafeAGRO.UI/GitAGRO2. Antesdepedirdesbloqueiofixturepronto. Semsubagentes/automação.
+
 # Entrega80 Instalada — Git Pendente
 
 Último pedido humanoEXEMPLOS: substituir café sótipo/peso pelo padrãoTipo+Torra+peso parafuturosprodutores.36cafés4tiposEspecial/Gourmet/Superior/Tradicional×TC/TM/TE×250/500/1kg;41produtosfictíciostotal+6clientes. ModoTesteUsarExemplosmostraemVender/Estoque,mantémownaté5/bloqueiaqualquervenda. NÃOéautorizaçãoparaapagarreais; perguntasantigasdemappingrealsuperadaspelaclarificação"esses que estao de exemplo". Operação realpreservada; sessãodetreinoantigapodeencerrar/reabrirexemplosparacarregarnovo.

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {standardCoffeeModels,roastCode} from '../src/features/coffee.js';
+import {standardCoffeeModels,roastCode,coffeeName} from '../src/features/coffee.js';
 import {trainingData} from '../src/features/training/seed.js';
 import {orderStockProducts} from '../src/features/stock-order.js';
 import {loadCatalog,searchFamilies,familyPresentations,toProductSuggestion,commercialIdentity,duplicateCandidates} from '../src/features/product-catalog.js';
@@ -10,3 +10,5 @@ test('fictional examples replace old coffee pattern in both product and stock da
 test('every standard catalogue presentation keeps its explicitly selected roast when registered',async()=>{await loadCatalog();let total=0;for(const type of types){const f=searchFamilies('café '+type,{category:'Cafés',limit:100}).items.find(f=>f.name==='Café '+type);assert(f,type);const rows=familyPresentations(f.key);assert.equal(rows.length,18,type);for(const format of ['Moído','Em grãos']){const p=rows.filter(r=>r.forma===format).map(toProductSuggestion);assert.deepEqual(p.map(p=>[p.coffeeRoast,p.weight]),roasts.flatMap(r=>weights.map(w=>[r,w])));for(const x of p){assert.equal(x.name,'Café '+type);assert(roastCode(x));for(const field of ['stock','price','cost','min'])assert(!Object.hasOwn(x,field));}}for(const r of rows){assert.equal(commercialIdentity(r).key,commercialIdentity(toProductSuggestion(r)).key);total++;}const sameWeight=rows.filter(r=>r.forma==='Moído'&&r.conteudo_quantidade===250);assert.equal(duplicateCandidates([toProductSuggestion(sameWeight[0])],toProductSuggestion(sameWeight[1])).status,'none');}assert.equal(total,72);});
 
 test('only an explicit legacy roast in the former flavor field supplies the roast code',()=>{for(const [flavor,code]of [['Torra Clara','TC'],['Torra média','TM'],['Torra Escura','TE']]){const p={category:'Cafés',name:'Café Especial',flavor};assert.equal(roastCode(p),code);assert(!p.coffeeRoast);}assert.equal(roastCode({category:'Cafés',name:'Café Especial Torra Clara'}),'');assert.equal(roastCode({category:'Doces',flavor:'Torra Clara'}),'');assert.equal(roastCode({category:'Cafés',flavor:'Chocolate'}),'');});
+
+test('coffee labels place a recorded roast after the second word without mutating compound names',()=>{for(const [name,expected]of [['Café Especial','Café Especial TC'],['Café Gourmet','Café Gourmet TC'],['Café Catuaí Especial','Café Catuaí TC Especial'],['Café Catuaí Especial TC','Café Catuaí TC Especial']]){const p={name,category:'Cafés',coffeeRoast:'Clara'},before=JSON.stringify(p);assert.equal(coffeeName(p),expected);assert.equal(JSON.stringify(p),before);}assert.equal(coffeeName({name:'Café Tradicional',category:'Cafés'}),'Café Tradicional');});

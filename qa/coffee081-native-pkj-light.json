@@ -1,0 +1,42 @@
+{
+  "version": "0.12.81",
+  "device": "pkj",
+  "theme": "light",
+  "physicalCapacitor": true,
+  "synthetic": true,
+  "networkBlocked": true,
+  "productionDatabaseAccessed": false,
+  "cases": [
+    {
+      "event": {
+        "bootWithPendingProductReview": true,
+        "allRequiredModulesReady": true,
+        "fiveTabsCurrent": true,
+        "stockOwnProductsAndNameChoices": true,
+        "salesHistoryOpens": true,
+        "eventCurrentTemplate": true,
+        "managementAndGuidanceCurrent": true,
+        "suppliersAvailable": true,
+        "TC_TM_TEVisibleWithoutClipping": true,
+        "threeColumns": true,
+        "unknownRoastNeverInvented": true,
+        "manualRoastSelectionUpdatesCard": true,
+        "routeFailureKeepsPreviousDOM": true,
+        "siblingFailureKeepsPreviousDOM": true,
+        "stockPricesSalesMovementsPreserved": true,
+        "catalogueRoastCarried": true,
+        "superiorAvailable": true,
+        "all36NewCoffeeExamples": true,
+        "threeColumnsAndCodesFit": true,
+        "same36StockOrder": true,
+        "oldExamplePatternReplaced": true,
+        "trainingCannotRegisterSale": true,
+        "originalBusinessRestored": true,
+        "roastFollowsSecondWord": true,
+        "stockLabelsFollowSecondWord": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}
