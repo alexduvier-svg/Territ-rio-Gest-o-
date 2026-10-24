@@ -1,3 +1,11 @@
+# Entrega81 Concluída — Sem Pendências Autorizadas
+
+TC/TM/TE após a SEGUNDA palavra em Produtos e Estoque: Café Especial TC,Café Gourmet TM,Café Superior TE. Fluxo inline/segunda palavra antes da sigla inteira; quebra natural em320ampliado;3colunas/material mantidos. Nomescompostosseguemmesmaregracomformatadorsóleitura, semreescrevercadastro/saldo/preço/custo/IDs/histórico. Interface51/documentooffline.
+
+0.12.81/code121/APK9193587bytes/SHA0fcd46d6006744c6978ae925287fa813d00b1a944ed4abaa478b97936834983b/certoriginal/v2v3/50assets+2pontes/ZIPeELF16KB.630unit/8browser/4CapacitorDOIS2temasPASS,36exemplos/catálogo/estoque/segundapalavra/regressões79/80. Cópiaoriginal/install-r23/10Reno21:34:35/PKJ21:34:44/firstInstallpreservados/bootfrioseismódulosTRUEambos; fixtures/capturas/forwardsremovidos. Commit/push8aa842769987bd4bc9a12175b8267b44f8997d6f confirmadoremotoAGRO2/worktreelimpoantesencerramentodocumental. NÃOrefazerbuild/testes/verificador/copy/install81porsomentedocumentação.
+
+80entregue9a9ebdd73a80306457688d93b89da409d026ec92mantém36cafés fictícios(4tipos×3torras×3pesos)+5outros/6clientes emAjustes→ModoTeste→UsarExemplos;own5limite/bloqueiavendas/saídarestauraoperaçãoreal. Catálogofonte2479preservada+19adições=2498/72modeloscafé2formatos,torraexplícitavaiparaocampopróprio. AntigomodeloexemplosapenasTipo+Pesofoitrocado; NÃOapagarprodutosREAIS.Nenhumaclassificaçãorealpendente:pedidofinalhumanoEXEMPLOSsuperouasquestõesantigasdemapping; nãoperguntardenovosemnovopedido. Clima/FirebaseSparkAppCheck/servidor/Calendar/identidade/dadosreaispreservados. SemFPS/GPU/bateria/básicofísico/TalkBack/runtime16KBmedidos. Claude cffe32b/main956fddc preservados. Semsubagentes/automação,nãorecriar. Ler docs/ENTREGA-0.12.81.md e RETOMADA-SIGLA-0.12.81.md.
+
 # Entrega81 Instalada — Publicação Git Pendente
 
 SiglaapósSEGUNDApalavraemProdutos/Estoque:Café Especial TC,Café Gourmet TM,Café Superior TE. coffeeNameéformatadorsóleitura/inserenomescompostosnoíndice2;cardName.cn-first/Café,cn-second/Tipo,badgeemfluxoinlineapóstipo;quebranaturalse320ampliado,nãorecortar/nãoforçarfontepequena/3colunas/materialmantidos. Nenhumcadastro/saldo/históricoalterado. Interface51/offline.80entregue9a9ebdd/DOIS120não repetir.
