@@ -28,3 +28,5 @@ Cópia original conferida: `C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Ges
 - PKJ110 (PKJ110): 2026-10-23 22:41:04; primeira instalação preservada 2026-10-14 18:17:06; abertura fria com os seis módulos confirmada.
 
 Fixtures, capturas temporárias nos aparelhos e forwards próprios removidos. Dados reais, identidade, clima, Firebase Spark/App Check, servidor e Calendar preservados. Publicação somente no ramo `codex/atualizacao-agro-gestao2`; Claude cffe32b e main 956fddc não tiveram novidades na consulta e não foram alterados. Encerramento documental não exige repetir build, testes ou instalações.
+
+Implementação publicada no commit `68fd2045887834bfbe6cadb9c685c5f207c1ed90`, confirmado no remoto AGRO2. Nenhuma pendência autorizada restante. O encerramento documental posterior não altera o APK.
