@@ -2051,7 +2051,7 @@ function welcomeHtml(again){const st=model.data.settings,keep=st.onboarding==='p
  +field('wl-name','Seu nome',keep,'autocomplete="name" placeholder="Ex.: Maria Souza"')+field('wl-business','Nome do negócio ou sítio (opcional)','','placeholder="Ex.: Sítio Boa Vista"')
  +'<div class="two">'+field('wl-city','Sua cidade','','autocomplete="address-level2" placeholder="Ex.: Carangola"')+field('wl-uf','UF','','maxlength="2" autocomplete="address-level1" placeholder="MG"')+'</div>'
  +btn('welcome-clean',again?'Apagar tudo e começar do zero':'Começar do zero','success modal-action wl-go')
- +(again?btn('close-modal','Cancelar','link wl-demo'):btn('welcome-demo','Ver com dados de exemplo','link wl-demo')+'<p class="ds-note wl-note">O Modo Teste usa dados fictícios e não permite registrar vendas. Seus dados reais ficam separados.</p>')+'</div>';}
+ +(again?btn('close-modal','Cancelar','link wl-demo'):btn('welcome-demo','Ver com dados de exemplo','link wl-demo')+'<p class="ds-note wl-note">Os exemplos ficam salvos e você pode vender com eles para conhecer o app. Para começar do zero depois, use Ajustes.</p>')+'</div>';}
 function openWelcome(again){openModal('',welcomeHtml(again),again?'welcome-again':'welcome');setTimeout(()=>document.getElementById('wl-name')?.focus(),300);}
 const freshInstall=loaded==null;
 if(freshInstall&&!model.data.settings.onboarding){model.data.settings.onboarding='pending';}
@@ -3394,6 +3394,8 @@ document.addEventListener('keydown',e=>{const t=e.target;if(e.key!=='Enter'||!t?
 // Fornecedores: compra registrada abre o lançamento de custo já preenchido (a pessoa confere e salva).
 window.TerritorioShell.openCostDraft=({kind,title,cents,day})=>{closeModal();page='Gestão';render();finCostDraft={kind:FIN().COST_KINDS.some(([id])=>id===kind)?kind:'producao',title:String(title||''),value:Number.isFinite(cents)&&cents>0?cashInput(cents):'',day:/^\d{4}-\d{2}-\d{2}$/.test(day||'')&&day<=E.dayKey(Date.now())?day:'',place:'loja'};openModal('Lançar custo',costForm(),'mg-detail');};
 window.TerritorioShell.openQuickCompare=()=>{closeModal();calculatorState.mode='contas';calculatorState.contas.open='fornecedores';paintCalculator();};
+// Exemplos como dados do app: grava e reabre o app para as preparações de sempre (lotes, memória, guias).
+window.TerritorioShell.loadExampleData=async data=>{model=new E.ERPModel(data);draft=null;if(!persist())throw Error('Não foi possível salvar os exemplos.');if(window.TerritorioNative?.durable)await window.TerritorioNative.durable();welcomeLeaving=true;closeModal();location.reload();};
 render();
 })();
 
