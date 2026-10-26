@@ -1,3 +1,27 @@
+# Comparação Git Claude92 — Não Houve Merge Integral
+
+Usuário pediu verificar se todas as mudanças do Claude já foram copiadas. Consulta26/10 confirmou Claude0.12.92/fbdcdb9698d442d5cc1f12281b65964bf810622d. Codex0.12.91 é somente a base final88 renomeada, NÃOcópia integral. Comparação salva em `agro-gestao/docs/COMPARACAO-CLAUDE-CODEX-2026-10-26.md`. Diferenças listadas: novas contas, perda direta/avisos por produto, atalhos de compras, finanças, cache, organização visual/cards/Ajustes e exemplos persistentes. Trechos financeiros/lotes permanecem iguais àClaude89; problemas reproduzidos antes não corrigidos automaticamente. Nenhuma integração adicional foi solicitada nem executada nesta consulta. Preservar melhorias próprias e históricos separados.
+
+# AGRO Gestão Codex 0.12.91 — Instalada; Fechamento Git Pendente
+
+26/10/2026: usuário pediu “transforme a base atual final88em91também, mantendo a separação no git”, com nome AGRO Gestão Codex e identificação do nome junto da versão. Isso retoma o trabalho após “pare” e substitui a indicação anterior de referência apenasClaude. Agora Codex e Claude têm bases91 separadas; não fazer merge automático entre elas.
+
+Codex: base final88/4bf346e, agora0.12.91/code131. Nome Android/Ajustes AGRO Gestão Codex; Ajustes exibe “Versão 0.12.91 · Codex”. Pacote br.com.territorio.gestao2 e certificado originais preservados. APK AGRO-Gestao-Codex-0.12.91.apk,9259733bytes,SHA5dc2292bcaf4026f5edd3f19125c2fd8588cdcfd79f8b174ad7f94f4e79975f4. Idêntico emworkspace/pastaoriginal/DOIS; Reno atualizado19:12:05 e PKJ19:12:12, primeiras datas preservadas. Coldlaunch/processo vivoDOIS. Reno sinal técnico seis módulosTRUE; PKJ semsinal, não alegar confirmação humana91(a anterioré88).
+
+Comparados210arquivosruntimeweb/Java combase88, iguais exceto nome/identificação. Oito verificações atuais320/360/393/412claroescuro PASS, sem cortes no nome/versão. Assinatura originalv2/v3, assets57/ZIP/ELF16KB estrutural conferidos. QAfuncional769unit/8browser/4native pertence à88 e é referência herdada, NÃOrepetição91. Nenhuma função/layout/servidor mudou. Nunca reexecutar verify091sobre metadata instalada; não rebuild/reinstalar para documentação.
+
+Falta somente publicar fontes/docs emcodex/atualizacao-agro-gestao2 e confirmar remoto. Não publicar instalador local091(dispositivos). Scriptsbuild-codex091.ps1/verify-codex091.py e relatório docs/ENTREGA-CODEX-0.12.91.md prontos. Claude91/repopróprio/intacto por nós. Arquivos antigos permanecem históricos, sem exclusão/desinstalação autorizada. Sem novos objetivos, automações ou subagentes. Sem pausa ativa.
+
+## Histórico
+
+# AGRO Gestão Codex 0.12.91 — Renomeação em Andamento
+
+Usuário retomou o trabalho e pediu: “transforme a base atual final88em91também, mantendo a separação no git”, com nome “agro gestao codex”. Escopo: derivar a entrega final88 do Codex com número0.12.91/code131 e nomeAGRO Gestão Codex. Pacote br.com.territorio.gestao2 e certificado originais preservados; manter dados com install-r. Não fazer merge do Claude nem mudar funções/layout nessa renumeração. Claude91/gestaoclaude/repositório próprio permanece separado e intocado.
+
+Alterados apenas package/lock/Gradle, nomescapacitor/strings/HTML e nome em Ajustes. Buildnovo `qa/build-codex091.ps1`, saída `AGRO-Gestao-Codex-0.12.91.apk`; não sobrescrever APK88. Validação de domínio/4QA físicos88 é histórica, não alegar novos testes91. Próximo: compilar, comparar fontes/assets com88 exceto nome/versão, conferir assinatura/pacote/ZIP/ELF16KB, smoke UI claro/escuro, pastaoriginal/install-rDOIS/boot/hash/primeirasdatas, docs eGit sócodex/atualizacao-agro-gestao2. Não tocar remotoClaude. Não desinstalar versões antigas nem zerar dados. Nenhuma pausa ativa, subagentes ou novaautomação.
+
+## Histórico
+
 # 0.12.88 Entregue — Pasta, Dois Celulares e Git Confirmados
 
 Entrega concluída em 26/10/2026. Código e QA no commit 4bf346ee64ea79b23db6b2793930985ffe5d8827, confirmado no remoto `codex/atualizacao-agro-gestao2`. Relatório: `agro-gestao/docs/ENTREGA-0.12.88.md`. Não repetir build, instalação ou verificador88 por causa dos checkpoints antigos abaixo.

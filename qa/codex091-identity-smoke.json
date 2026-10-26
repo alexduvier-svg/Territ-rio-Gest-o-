@@ -1,0 +1,90 @@
+{
+  "version": "0.12.91",
+  "label": "AGRO Gestão Codex",
+  "scope": "version-and-label-only",
+  "synthetic": true,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "version": "0.12.91",
+      "title": "AGRO Gestão Codex",
+      "label": "AGRO Gestão Codex",
+      "versionLabel": "Versão 0.12.91 · Codex",
+      "fit": true,
+      "pageFits": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "version": "0.12.91",
+      "title": "AGRO Gestão Codex",
+      "label": "AGRO Gestão Codex",
+      "versionLabel": "Versão 0.12.91 · Codex",
+      "fit": true,
+      "pageFits": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "version": "0.12.91",
+      "title": "AGRO Gestão Codex",
+      "label": "AGRO Gestão Codex",
+      "versionLabel": "Versão 0.12.91 · Codex",
+      "fit": true,
+      "pageFits": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "version": "0.12.91",
+      "title": "AGRO Gestão Codex",
+      "label": "AGRO Gestão Codex",
+      "versionLabel": "Versão 0.12.91 · Codex",
+      "fit": true,
+      "pageFits": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "version": "0.12.91",
+      "title": "AGRO Gestão Codex",
+      "label": "AGRO Gestão Codex",
+      "versionLabel": "Versão 0.12.91 · Codex",
+      "fit": true,
+      "pageFits": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "version": "0.12.91",
+      "title": "AGRO Gestão Codex",
+      "label": "AGRO Gestão Codex",
+      "versionLabel": "Versão 0.12.91 · Codex",
+      "fit": true,
+      "pageFits": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "version": "0.12.91",
+      "title": "AGRO Gestão Codex",
+      "label": "AGRO Gestão Codex",
+      "versionLabel": "Versão 0.12.91 · Codex",
+      "fit": true,
+      "pageFits": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "version": "0.12.91",
+      "title": "AGRO Gestão Codex",
+      "label": "AGRO Gestão Codex",
+      "versionLabel": "Versão 0.12.91 · Codex",
+      "fit": true,
+      "pageFits": true
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

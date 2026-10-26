@@ -1,6 +1,6 @@
 {
   "appId": "br.com.territorio.gestao2",
-  "appName": "AGRO Gestão 2",
+  "appName": "AGRO Gestão Codex",
   "webDir": "dist",
   "android": {
     "backgroundColor": "#000000"
