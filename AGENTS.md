@@ -1,3 +1,9 @@
+# Prévia de Produtos em Lâminas — 26/10/2026
+
+Pedido humano sobreposto ao mockup anterior: famílias/tipos como lâminas que sobem sobre as outras, pills laterais e centralização com três famílias; retornar ao início ao cancelar/concluir venda. Prévia criada em C:/Users/alexd/.codex/visualizations/2026/10/15/01a13f9b-c55a-7a91-8bee-90c8d5f7f38d/agro-produtos-laminas.html. Três cenários, claro/escuro, 18 casos browser PASS atuais; títulos também conferidos por hit-test, sem encobrimento. Cancelar/concluir restaura ordem e scroll; troca usa os mesmos elementos com transformações, sem clonar. Documento docs/PREVIA-PRODUTOS-LAMINAS-2026-10-26.md. Apenas proposta para avaliação, NÃO implementada no APK; não instalar nem incrementar versão por esta prévia. Codex 0.12.92 entregue permanece intacta. Git consultado: Codex c28a5e0, Claude fbdcdb9 sem novidade. Sem alterações no app, servidor, dados ou celulares, sem automações/subagentes.
+
+## Histórico
+
 # Codex 0.12.92 — Entrega Concluída; Prévia de Produtos Separada
 
 Código da correção de Ajustes publicado e confirmado no remoto em 23c02b0050c57ddff79e2948eb8b772823e32e5b, somente codex/atualizacao-agro-gestao2. APK 132/0.12.92 já está na pasta original e instalado nos dois aparelhos; SHA bccc0cbbd083081a5d0dabac2dbda3b203ba1caddd7abfc075f184ce4573e750. Não repetir build, instalação ou verificador por documentação. Vinte casos atuais de Ajustes passaram; testes funcionais 88 são herdados. Reno com sinal técnico; PKJ sem trace, abertura/processo/hash confirmados, sem nova confirmação humana. Servidor, Claude e dados reais preservados.

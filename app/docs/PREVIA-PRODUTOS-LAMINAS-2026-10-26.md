@@ -1,0 +1,11 @@
+# Produtos em Lâminas — Prévia de 26/10/2026
+
+Proposta humana: famílias em seções sobrepostas. Selecionar uma pill ou o cabeçalho promove a própria seção ao topo; as seguintes ocupam as posições abaixo, com títulos acessíveis. Deslizar para cima no cabeçalho avança. O conteúdo da seção ativa pode rolar; no fim, o gesto permite passar à próxima. Pills com rolagem horizontal quando necessário; três famílias centralizadas. Para quem trabalha somente com café, os tipos Especial/Gourmet/Superior/Tradicional ocupam as pills.
+
+Prévia interativa agro-produtos-laminas.html com três cenários: Várias Famílias, Só Cafés e Três Famílias. Cards compactos em três colunas, paleta claro/escuro e material do aplicativo. Cancelar ou concluir uma venda fictícia restaura a ordem inicial e a posição de rolagem. Os elementos das lâminas são preservados e movimentados por transformações; não são clonados. Não há animação contínua, corte animado ou alteração de banco de dados.
+
+Validação desta prévia: 18 cenários de layout e interação, larguras internas de 320/393/736px, três configurações e dois temas. Verificados títulos sem encobrimento por outras lâminas, produtos sem transbordamento, centralização de três pills, promoção por pill/cabeçalho, interrupções rápidas sem clonar elementos, seleção de quantidade, retorno após cancelar e concluir, olho sem abertura de janela e gesto de subir no cabeçalho. Capturas inspecionadas. Não é medição de FPS/bateria nem teste físico do APK.
+
+Somente proposta para avaliação. O APK continua Codex 0.12.92 entregue anteriormente. Nenhuma implementação do motor desta prévia foi instalada, nenhum registro real alterado e nenhuma versão incrementada. Se o desenho for adotado, a implementação deve derivar famílias e tipos do catálogo existente, integrar o motor de movimento atual e passar por validação física nas duas aparências, sem criar outro saldo ou persistência de vendas.
+
+Git consultado antes da prévia: Codex c28a5e0; Claude fbdcdb9, sem nova alteração além da última já examinada. Repositórios mantidos separados. Referências b55.png e b56.mp4 foram lidas apenas como referências visuais.
