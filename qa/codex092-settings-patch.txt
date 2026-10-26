@@ -1,0 +1,7 @@
+
+/* Ajustes: preservar palavras e reservar uma linha para o detalhe em telas estreitas. */
+:root[data-theme][data-layout][data-page=Ajustes] #app .settings-row .settings-value{overflow-wrap:normal;word-break:normal;hyphens:none}
+@media(max-width:359px){
+ :root[data-theme][data-layout][data-page=Ajustes] #app .settings-row{flex-wrap:wrap;row-gap:2px}
+ :root[data-theme][data-layout][data-page=Ajustes] #app .settings-row .settings-value{order:3;flex:1 0 100%;max-width:none;text-align:left;padding-left:48px}
+}

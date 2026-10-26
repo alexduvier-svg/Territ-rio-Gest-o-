@@ -32,3 +32,7 @@ A revisão independente da89registrou763testes aprovados e reproduziu dois probl
 A integração deve ser seletiva, preservando as melhorias próprias do Codex na composição de custos/taxas, teclado comum, origem dos valores, carga elegível e treinamento isolado. Não substituir o arquivo financeiro ou a interface inteira apenas pelo número da versão. Esta solicitação foi uma auditoria: não autoriza ou representa um merge automático de todas as diferenças.
 
 Repositórios, pacotes, assinaturas e bases de dados continuam separados. Nenhum código do checkoutClaude foi alterado nesta comparação e nenhum servidor foi publicado.
+
+## Atualização posterior — Codex0.12.92
+
+A correção de descrição de Ajustes em telas estreitas foi incorporada por pedido explícito. As demais diferenças da comparação continuam separadas; não houve merge integral. Ver ENTREGA-CODEX-0.12.92.md.

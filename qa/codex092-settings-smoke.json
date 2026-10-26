@@ -1,0 +1,790 @@
+{
+  "version": "0.12.92",
+  "app": "AGRO Gestão Codex",
+  "synthetic": true,
+  "scope": "settings-description-wrapping-only",
+  "cases": [
+    {
+      "theme": "light",
+      "largeText": false,
+      "width": 320,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": true,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 150.390625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 201.875
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 213.109375
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 161.6875
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": false,
+      "width": 359,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": true,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 150.390625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 201.875
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 213.109375
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 290.453125
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": false,
+      "width": 360,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 279.765625
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": false,
+      "width": 393,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 272.515625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 324
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 246.671875
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 324
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": false,
+      "width": 412,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 280.28125
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 331.765625
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 343
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 343
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": true,
+      "width": 320,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": true,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 150.390625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 201.875
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 213.109375
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 161.6875
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": true,
+      "width": 359,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": true,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 150.390625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 201.875
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 213.109375
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 290.453125
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": true,
+      "width": 360,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 279.765625
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": true,
+      "width": 393,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 272.515625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 324
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 246.671875
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 324
+        }
+      ]
+    },
+    {
+      "theme": "light",
+      "largeText": true,
+      "width": 412,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 280.28125
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 331.765625
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 343
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 343
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": false,
+      "width": 320,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": true,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 150.390625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 201.875
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 213.109375
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 161.6875
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": false,
+      "width": 359,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": true,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 150.390625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 201.875
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 213.109375
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 290.453125
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": false,
+      "width": 360,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 279.765625
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": false,
+      "width": 393,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 272.515625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 324
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 246.671875
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 324
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": false,
+      "width": 412,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 280.28125
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 331.765625
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 343
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 343
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": true,
+      "width": 320,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": true,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 150.390625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 201.875
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 213.109375
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 161.6875
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": true,
+      "width": 359,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": true,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 150.390625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 201.875
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 213.109375
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 290.453125
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": true,
+      "width": 360,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 279.765625
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 291
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": true,
+      "width": 393,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 272.515625
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 324
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 246.671875
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 324
+        }
+      ]
+    },
+    {
+      "theme": "dark",
+      "largeText": true,
+      "width": 412,
+      "passed": true,
+      "version": "0.12.92",
+      "text": "Diretrizes, Insights e Explicações",
+      "below": false,
+      "unbroken": true,
+      "inside": true,
+      "arrowOverlap": false,
+      "pageFits": true,
+      "words": [
+        {
+          "word": "Diretrizes,",
+          "lines": 1,
+          "inside": true,
+          "right": 280.28125
+        },
+        {
+          "word": "Insights",
+          "lines": 1,
+          "inside": true,
+          "right": 331.765625
+        },
+        {
+          "word": "e",
+          "lines": 1,
+          "inside": true,
+          "right": 343
+        },
+        {
+          "word": "Explicações",
+          "lines": 1,
+          "inside": true,
+          "right": 343
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

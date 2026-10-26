@@ -1,3 +1,21 @@
+# Codex0.12.92 Instalada — Fechamento Git Pendente
+
+Correção de Ajustes implementada,20cenáriosclaro/escuro/normal/ampliado em320/359/360/393/412PASS. Escopo somenteCSSAjustes. APK code132/SHA bccc0cbbd083081a5d0dabac2dbda3b203ba1caddd7abfc075f184ce4573e750/9259733bytes idêntico na pastaoriginal e DOIS. Reno19:27:17 e PKJ19:27:46, primeirasdatas preservadas. Coldlaunch/processo vivoDOIS; seis módulos técnicos noReno, PKJsemtrace(não alegar nova confirmação humana). Metadata installed-settings-verified; não repetir verificador/resetar installed nem rebuild/install para documentação. Comparação210arquivos confirma sóCSSalém versão; cert/assets/ZIP/ELF16KB conferidos. QAfuncional88éherdado, não repetição92. Servidor/Claude/dados reais intocados.
+
+Falta somente commit/push doCodex e confirmação remota. Rotina humana permanente emdocs/ROTINA-DE-ENTREGA.md eabaixo: correçõespedidas devemseraplicadas/validadas/Git/pasta/celularesautomaticamente. Não criarautomação. Último pedido novo: mockup da tela Produtos para ter ideia; prévia isolada a criar comskillvisualize, NÃOimplantar esse redesenho noAPKsem avaliação. Ideias: topo compacto,3colunas,cardssemesticar,avisoscurtos. Semsubagentes/novasmetas.
+
+## Histórico
+
+# Rotina Permanente — Correções Solicitadas e Entrega Automática
+
+Instrução humana de26/10/2026: “todas as correções que eu pedir você aplica automaticamente e faz o commit e atualiza em todos os locais”. Para cada correção autorizada no projeto ativo: implementar, validar os dois temas/telas pequenas, preservar funções/dados/assinatura; atualizar APK na pasta original e celulares acessíveis com install-r; commit/push no Git próprio; registrar conclusão e impedimento concreto. Não parar apenas na constatação de uma correção pedida. Manter Codex/Claude separados. Esta rotina não manda copiar automaticamente toda novidade do Claude; aplica as correções que o humano pedir. Não criar automações ou subagentes por essa instrução.
+
+## Codex0.12.92 em Execução
+
+Solicitado inserir a correção de Ajustes vista noClaude92: descrição “Diretrizes, Insights e Explicações” sem quebra no meio das palavras e em linha própria até359px. Portadas apenas essas regras, limitadas à páginaAjustes. BaseCodex91 preservada; nomeAGRO Gestão Codex, pacotegestao2, assinatura original. Nova entrega92/code132, APKAGRO-Gestao-Codex-0.12.92.apk em preparação, ainda não instalado nem publicado. Verificar20cenários de layout (320/359/360/393/412,claro/escuro,normal/ampliado), certificado/assets/ZIP/ELF16KB e source-diff apenasCSS. Depois copiar/install-rDOIS/GitCodex. Não alegar repetição dos testes funcionais88 por esse ajusteCSS. Nenhuma mudança noClaude/servidor/dados reais.
+
+## Histórico
+
 # AGRO Gestão Codex 0.12.91 — Entrega Concluída e Git Separado
 
 26/10/2026: base final88 renomeada e renumerada por pedido explícito para AGRO Gestão Codex0.12.91/code131. Ajustes mostra “Versão0.12.91·Codex”. Pacote br.com.territorio.gestao2 e certificado originais mantidos. APK `AGRO-Gestao-Codex-0.12.91.apk`,9259733bytes/SHA `5dc2292bcaf4026f5edd3f19125c2fd8588cdcfd79f8b174ad7f94f4e79975f4`, idêntico na pasta original e nos dois aparelhos. Reno19:12:05,PKJ19:12:12; primeiras datas preservadas. Coldlaunch/processo vivoDOIS; sinal seis módulos noReno, sem sinal noPKJ. Não alegar confirmação humana91(a anterioré88).
