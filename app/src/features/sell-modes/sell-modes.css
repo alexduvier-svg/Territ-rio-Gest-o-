@@ -1,76 +1,21 @@
-/* Tela de vendas: Lâminas em Pé e Carrossel. Relevo leve de tecla (luz fina no topo, contorno suave e
-   "espessura" de poucos pixels embaixo), sem sombra pesada, para manter a página leve e simples. */
-:root{--sm-face:linear-gradient(180deg,#f7f9fc,#e9eef4 64px,#e6ebf2);--sm-relief:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -1px 0 rgba(120,135,150,.10),0 3px 0 -1px rgba(120,135,150,.22),0 10px 22px -18px rgba(30,40,55,.40)}
-:root[data-theme=dark]{--sm-face:linear-gradient(180deg,#2e3135,#25272b 64px,#232529);--sm-relief:inset 0 1px 0 rgba(255,255,255,.07),inset 0 -1px 0 rgba(0,0,0,.30),0 3px 0 -1px rgba(0,0,0,.45),0 12px 24px -18px rgba(0,0,0,.70)}
-#app .sm-area{position:relative;margin-top:2px;overflow:hidden;contain:layout paint}
-/* Lâminas em pé */
-#app .sm-pe{border-radius:28px}
-#app .sm-pe .sm-lam{position:absolute;left:0;right:0;top:0;padding:0!important;background:var(--sm-face)!important;border-radius:24px!important;border:1px solid var(--material-line);box-shadow:var(--sm-relief)!important;overflow:hidden;transition:transform .44s cubic-bezier(.2,1.12,.3,1);will-change:transform;contain:layout paint}
-#app .sm-head{display:flex;align-items:center;gap:10px;width:100%;height:46px;min-height:46px;padding:0 16px;margin:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
-#app .sm-head b{flex:1;font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em}
-#app .sm-head small,#app .sm-label small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));white-space:nowrap}
-#app .sm-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
-#app .sm-chev{flex:none;width:18px;height:18px;stroke:var(--material-muted,var(--muted));fill:none;stroke-width:2.2;transition:transform .3s}
-#app .sm-lam.is-active .sm-chev{transform:rotate(180deg)}
-#app .sm-lam.is-behind .sm-head{opacity:.7}
-#app .sm-body{overflow-y:auto;overscroll-behavior:contain;padding:0 8px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-#app .sm-body::-webkit-scrollbar{display:none}
-#app .sm-home{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:48px;margin:12px 0 2px;border-radius:16px;border:1px solid var(--material-line,var(--line))!important;background:var(--material-face,var(--panel))!important;color:var(--material-text,var(--text))!important;box-shadow:var(--sm-relief)!important;font:650 15px/1 'Inter Variable',sans-serif;opacity:1!important}
-#app .sm-home .icon{width:18px;height:18px}
-/* Carrossel (como os apps recentes) */
-#app .sm-car{overflow:visible;touch-action:pan-y;padding-bottom:18px}
-#app .sm-slide{position:absolute;top:0;bottom:18px;left:0;transition:transform .42s cubic-bezier(.2,1.1,.3,1);will-change:transform;contain:layout paint}
-#app .sm-car.is-dragging .sm-slide{transition:none}
-#app .sm-label{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:38px;min-height:38px;margin:0;padding:0 8px;border:0;background:transparent;box-shadow:none;color:var(--material-text,var(--text));font:inherit;cursor:pointer}
-#app .sm-label b{font:700 16px/1.2 'Inter Tight Variable','Inter Variable',sans-serif}
-#app .sm-card{position:absolute;top:40px;left:0;right:0;bottom:0;padding:0!important;background:var(--sm-face)!important;border-radius:24px!important;border:1px solid var(--material-line);box-shadow:var(--sm-relief)!important;overflow:hidden;display:flex;flex-direction:column}
-#app .sm-card .sm-body{flex:1;padding:8px 8px 10px}
-#app .sm-slide.is-side .sm-card{filter:brightness(.97)}
-:root[data-theme=dark] #app .sm-slide.is-side .sm-card{filter:brightness(.82)}
-#app .sm-dots{position:absolute;left:0;right:0;bottom:2px;display:flex;justify-content:center;gap:6px;pointer-events:none}
-#app .sm-dots i{width:6px;height:6px;border-radius:3px;background:var(--material-line,var(--line));transition:width .25s,background .25s}
-#app .sm-dots i.on{width:18px;background:var(--action-green,#7fa653)}
-/* Menos efeitos e reduzir movimento: troca direta, sem deslize. */
-html[data-reduce-effects=true] #app :is(.sm-lam,.sm-slide),html.lite #app :is(.sm-lam,.sm-slide){transition-duration:.01s}
-@media (prefers-reduced-motion: reduce){#app :is(.sm-lam,.sm-slide){transition:none}}
-/* Ajustes › Aparência › Tela de Vendas: um desenho pequeno de cada modo */
-.sm-options{display:grid;gap:8px}
-.sm-option{display:flex!important;align-items:center;gap:12px;width:100%;min-height:64px;padding:10px 14px!important;text-align:left;justify-content:flex-start!important}
-.sm-option-text{display:grid;gap:2px;flex:1;min-width:0}
-.sm-option-text strong{font-size:16px}
-.sm-option-text small{font-size:13px;color:var(--muted);line-height:1.3;font-weight:400}
-.sm-preview{position:relative;flex:none;width:44px;height:52px;border-radius:10px;background:var(--field);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden}
-.sm-preview i{position:absolute;border-radius:3px;background:color-mix(in srgb,var(--action-green,#7fa653) 55%,var(--panel))}
-.sm-preview-grade i{width:10px;height:12px;top:8px}.sm-preview-grade i:nth-child(1){left:6px}.sm-preview-grade i:nth-child(2){left:17px}.sm-preview-grade i:nth-child(3){left:28px}.sm-preview-grade i:nth-child(4){left:6px;top:24px;width:32px;height:12px;opacity:.55}
-.sm-preview-pe i{left:5px;right:5px;height:6px;opacity:.55}.sm-preview-pe i:nth-child(1){top:5px;height:24px;opacity:1}.sm-preview-pe i:nth-child(2){top:32px}.sm-preview-pe i:nth-child(3){top:39px}.sm-preview-pe i:nth-child(4){top:46px;height:3px}
-.sm-preview-carrossel i{top:8px;bottom:8px}.sm-preview-carrossel i:nth-child(1){left:10px;right:10px;z-index:2}.sm-preview-carrossel i:nth-child(2){left:2px;width:10px;top:12px;bottom:12px;opacity:.5}.sm-preview-carrossel i:nth-child(3){right:2px;width:10px;top:12px;bottom:12px;opacity:.5}.sm-preview-carrossel i:nth-child(4){display:none}
-.sm-preview-auto i{width:16px;height:16px}.sm-preview-auto i:nth-child(1){left:5px;top:6px}.sm-preview-auto i:nth-child(2){right:5px;top:6px;opacity:.55}.sm-preview-auto i:nth-child(3){left:5px;bottom:6px;opacity:.55}.sm-preview-auto i:nth-child(4){right:5px;bottom:6px}
-
-/* Ícones das famílias: atalho do carrossel (a aberta mostra o nome) e marca nas lâminas em pé. */
-#app .sm-ico{flex:none;width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-#app .sm-head .sm-ico{color:var(--accent-ink,#4f7a2a)}
-#app .sm-tabs{position:absolute;left:0;right:0;top:0;height:46px;display:flex;justify-content:center;gap:6px;overflow-x:auto;scrollbar-width:none;padding:0 2px;z-index:150}
-#app .sm-tabs::-webkit-scrollbar{display:none}
-#app .sm-tab{position:relative;flex:none;display:flex;align-items:center;gap:6px;height:44px;min-width:44px;padding:0 11px;margin:0;border-radius:22px;border:1px solid var(--material-line,var(--line));background:var(--material-face,var(--panel));box-shadow:var(--sm-relief);color:var(--material-text,var(--text));font:inherit;cursor:pointer;transition:background .2s,color .2s}
-#app .sm-tab b{display:none;font:700 15px/1 'Inter Tight Variable','Inter Variable',sans-serif;white-space:nowrap}
-#app .sm-tab.is-active{background:var(--action-green,#7fa653);border-color:color-mix(in srgb,var(--action-green,#7fa653) 80%,#000);color:var(--green-text,#14210d);padding:0 14px 0 12px}
-#app .sm-tab.is-active b{display:inline}
-#app .sm-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent-ink,#4f7a2a);color:#fff;font:700 11px/18px 'Inter Variable',sans-serif;font-style:normal;text-align:center}
-#app .sm-tab.is-active .sm-badge{background:#14210d}
-#app .sm-car{padding-bottom:0}
-#app .sm-car .sm-slide{top:54px;bottom:0}
-#app .sm-car .sm-card{top:0}
-:root[data-theme][data-layout] dialog .sm-option.selected{background:var(--panel)!important;color:var(--text)!important;border:2px solid var(--action-green,#7fa653)!important;box-shadow:none!important}
-:root[data-theme][data-layout] dialog .sm-option.selected .appearance-check{color:var(--accent-ink,#4f7a2a)}
-
-/* "+" da venda por família: ícones fixos no alto da lista, seções com o mesmo ícone. */
-dialog .sm-pick-tabs{position:sticky;top:0;z-index:2;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px 0 10px;margin-bottom:4px;background:var(--panel)}
-dialog .sm-pick-tabs::-webkit-scrollbar{display:none}
-dialog .sm-pick-tab{position:relative;flex:none;display:flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;border-radius:22px;border:1px solid var(--line);background:var(--field);color:var(--text);font:600 14px/1 'Inter Variable',sans-serif;box-shadow:var(--sm-relief);cursor:pointer}
-dialog .sm-pick-tab.is-active{border-color:var(--action-green,#7fa653);box-shadow:0 0 0 1px var(--action-green,#7fa653) inset}
-dialog .sm-pick-tab .sm-ico,dialog .sm-pick-group h3 .sm-ico{width:20px;height:20px;color:var(--accent-ink,#4f7a2a);stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-dialog .sm-pick-tab .sm-badge{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent-ink,#4f7a2a);color:#fff;font:700 11px/18px 'Inter Variable',sans-serif;font-style:normal;text-align:center}
-dialog .sm-pick-group h3{display:flex;align-items:center;gap:8px;margin:14px 2px 4px}
-dialog .sm-pick-group h3 small{font:600 13px 'Inter Variable',sans-serif}
-dialog .sm-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
-dialog .sm-pick-rows button{padding:14px 6px}
+/* Tela de vendas em seções. Relevo leve de tecla (luz fina no topo, contorno suave e uma pequena "espessura"
+   embaixo), sem sombra pesada, para manter a página leve. Cada seção é opaca: a de baixo não deixa ver a de cima. */
+:root{--sec-face:linear-gradient(180deg,#f7f9fc,#e9eef4 64px,#e6ebf2);--sec-relief:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -1px 0 rgba(120,135,150,.10),0 3px 0 -1px rgba(120,135,150,.22),0 10px 22px -18px rgba(30,40,55,.40)}
+:root[data-theme=dark]{--sec-face:linear-gradient(180deg,#2e3135,#25272b 64px,#232529);--sec-relief:inset 0 1px 0 rgba(255,255,255,.07),inset 0 -1px 0 rgba(0,0,0,.30),0 3px 0 -1px rgba(0,0,0,.45),0 12px 24px -18px rgba(0,0,0,.70)}
+#app .sec-area{position:relative;margin-top:2px;overflow:hidden;transition:height .44s cubic-bezier(.2,1.12,.3,1);contain:layout paint}
+#app .sec{position:absolute;left:0;right:0;top:0;padding:0!important;background:var(--sec-face)!important;border-radius:24px!important;border:1px solid var(--material-line);box-shadow:var(--sec-relief)!important;overflow:hidden;transition:transform .44s cubic-bezier(.2,1.12,.3,1);will-change:transform}
+#app .sec-head{display:flex;align-items:center;gap:10px;width:100%;height:50px;min-height:50px;padding:0 16px;margin:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
+#app .sec-head b{flex:1;font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em}
+#app .sec-head small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));white-space:nowrap}
+#app .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
+#app .sec-chev{flex:none;width:18px;height:18px;stroke:var(--material-muted,var(--muted));fill:none;stroke-width:2.2;transition:transform .3s}
+#app .sec.is-active .sec-chev{transform:rotate(180deg)}
+#app .sec.is-behind .sec-head{opacity:.7}
+#app .sec-body{padding:0 8px 10px}
+html[data-reduce-effects=true] #app :is(.sec,.sec-area),html.lite #app :is(.sec,.sec-area){transition-duration:.01s}
+@media (prefers-reduced-motion: reduce){#app :is(.sec,.sec-area){transition:none}}
+/* "+" da venda por seção */
+dialog .sec-pick-group h3{display:flex;align-items:center;gap:8px;margin:14px 2px 4px}
+dialog .sec-pick-group h3 small{font:600 13px 'Inter Variable',sans-serif}
+dialog .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
+dialog .sec-pick-rows button{padding:14px 6px}

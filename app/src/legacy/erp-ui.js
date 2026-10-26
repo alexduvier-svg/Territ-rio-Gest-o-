@@ -582,7 +582,7 @@ function appearanceModal(){const st=model.data.settings,layout=st.layout==='terr
  const themes=[['dark','Escuro'],['light','Claro'],['system','Do aparelho']];
  const body='<div class="appearance-page"><section class="appearance-section"><h3>Estilo</h3><div class="appearance-layouts">'+layouts.map(([value,label,description])=>btn('set-layout','<span class="appearance-layout-preview '+value+'" aria-hidden="true"><i></i><i></i><i></i></span><span><strong>'+label+'</strong><small>'+description+'</small></span><span class="appearance-check" aria-hidden="true">'+(layout===value?icon('check'):'')+'</span>','appearance-layout choice'+(layout===value?' selected':''),{value})).join('')+'</div></section>'
  +'<section class="appearance-section"><h3>Tema</h3><div class="appearance-themes">'+themes.map(([value,label])=>btn('set-appearance','<span class="appearance-theme-preview '+value+'" aria-hidden="true"><i></i><i></i></span><strong>'+label+'</strong>','appearance-theme choice'+(st.appearance===value?' selected':''),{value})).join('')+'</div></section>'
- +(window.TerritorioSellModes?sellModeSection():'')+'<section class="appearance-section"><h3>Leitura e desempenho</h3><div class="appearance-preferences"><button type="button" data-action="toggle-large-text" class="appearance-preference" role="switch" aria-checked="'+!!st.largeText+'"><span><strong>Texto ampliado</strong><small>Rótulos e valores maiores.</small></span><span class="switch'+(st.largeText?' on':'')+'"><i></i></span></button><button type="button" data-action="toggle-effects" class="appearance-preference" role="switch" aria-checked="'+!!st.reduceEffects+'"><span><strong>Menos efeitos</strong><small>Reduz transparências e animações.</small></span><span class="switch'+(st.reduceEffects?' on':'')+'"><i></i></span></button></div>'+(lite?'<p class="appearance-performance">Modo leve automático ativo neste aparelho.</p>':'')+'</section></div>';
+ +'<section class="appearance-section"><h3>Leitura e desempenho</h3><div class="appearance-preferences"><button type="button" data-action="toggle-large-text" class="appearance-preference" role="switch" aria-checked="'+!!st.largeText+'"><span><strong>Texto ampliado</strong><small>Rótulos e valores maiores.</small></span><span class="switch'+(st.largeText?' on':'')+'"><i></i></span></button><button type="button" data-action="toggle-effects" class="appearance-preference" role="switch" aria-checked="'+!!st.reduceEffects+'"><span><strong>Menos efeitos</strong><small>Reduz transparências e animações.</small></span><span class="switch'+(st.reduceEffects?' on':'')+'"><i></i></span></button></div>'+(lite?'<p class="appearance-performance">Modo leve automático ativo neste aparelho.</p>':'')+'</section></div>';
  openModal('Aparência',body,'appearance');
 }
 function applyAppearance(){const st=model.data.settings,theme=st.appearance==='system'?(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):st.appearance;document.documentElement.setAttribute('data-theme',theme);document.documentElement.setAttribute('data-large-text',String(st.largeText));document.documentElement.setAttribute('data-reduce-effects',String(st.reduceEffects));document.documentElement.setAttribute('data-layout',st.layout==='territorio'?'territorio':'feira');}
@@ -3396,74 +3396,61 @@ window.TerritorioShell.openCostDraft=({kind,title,cents,day})=>{closeModal();pag
 window.TerritorioShell.openQuickCompare=()=>{closeModal();calculatorState.mode='contas';calculatorState.contas.open='fornecedores';paintCalculator();};
 // Exemplos como dados do app: grava e reabre o app para as preparações de sempre (lotes, memória, guias).
 window.TerritorioShell.loadExampleData=async data=>{model=new E.ERPModel(data);draft=null;if(!persist())throw Error('Não foi possível salvar os exemplos.');if(window.TerritorioNative?.durable)await window.TerritorioNative.durable();welcomeLeaving=true;closeModal();location.reload();};
-// --- Tela de vendas em quatro modos (AGRO Gestão Claude 0.12.93): Automático, Grade, Lâminas em Pé e Carrossel ---
-// Regras puras em src/features/sell-modes/model.js. Os cards são os mesmos da grade, na ordem do Estoque;
-// só muda a forma de mostrar. Leveza: só a família aberta e as vizinhas ficam montadas, as outras entram
-// ao chegar perto; o movimento usa apenas deslocamento e escala. Ao concluir ou cancelar a venda (sem
-// rascunho de venda), volta para a primeira família. Tocar em "Vender" já em Vender também volta ao início.
+// --- Tela de vendas em seções (AGRO Gestão Claude 0.12.94) ---
+// A grade de sempre, dividida em seções (cada tipo de café; os outros produtos pela categoria), só do que foi
+// cadastrado e na ordem do Estoque. A seção aberta mostra a sua grade inteira; as seguintes aparecem embaixo
+// só com o nome. Tocar no nome de uma seção faz ela subir e se sobrepor à aberta (que vira uma faixa fina no
+// alto); as de baixo sobem junto. Até 9 produtos, ou uma seção só, fica a grade simples de antes.
+// Regras puras em src/features/sell-modes/model.js. Leveza: só a seção aberta e as vizinhas ficam montadas,
+// e o movimento usa apenas deslocamento. Volta à primeira seção ao tocar em Vender e ao concluir ou cancelar.
 const SM=()=>window.TerritorioSellModes;
-let sellMode={active:0,hadDraft:false,key:'',groups:[],mode:'grade',drag:0};
+let sellSec={active:0,hadDraft:false,key:'',groups:[]};
 function sellCardHtml(p){const out=!canSelectProduct(p.id),code=window.TerritorioCoffee.roastCode(p);return btn(out?'restock-product-card':'sell-product','<strong'+(code?' class="coffee-card-title"':'')+'>'+cardName(titleName(p.name),code)+'</strong>'+cardDetail(sellingCardDescription(p))+(out?'<em class="card-out">Sem estoque</em>'+window.TerritorioRestockSymbol():cardPrice(p.price)),'feira-card'+(out?' is-out':''),{id:p.id}).replace('class="feira-card','aria-label="'+escape((out?'Repor Estoque de ':'Vender ')+titleName(window.TerritorioCoffee.coffeeName(p))+' · '+sellingCardDescription(p))+'" class="feira-card');}
-function sellGroupBody(i){const g=sellMode.groups[i];if(!g)return '';return '<div class="feira-grid">'+g.items.map(sellCardHtml).join('')+'</div>'+(i===sellMode.groups.length-1?'<button type="button" class="sm-home choice" data-sm-open="0">'+icon('back')+'<span>Voltar ao Início</span></button>':'');}
-const smNear=i=>Math.abs(i-sellMode.active)<=1;
-const SM_ICONS={cafe:'<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3c-1 1 1 2 0 3M12 3c-1 1 1 2 0 3"/>',horti:'<path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14zM5 19l7-7"/>',lati:'<path d="M3 15l9-7 9 7v4H3zM3 15h18M8 18h.01M14 17h.01"/>',doce:'<path d="M4 11h16v8H4zM4 15h16M12 11V8M12 8a2 2 0 1 0 0-.01M7 11V9M17 11V9"/>',mel:'<path d="M12 3l7 4v8l-7 4-7-4V7zM12 9l3 2v3l-3 2-3-2v-3z"/>',bebida:'<path d="M10 3h4v4l2 3v10H8V10l2-3z M8 14h8"/>',grao:'<path d="M12 21V8M12 8c-3-1-4-3-4-5 3 0 4 2 4 5zM12 8c3-1 4-3 4-5-3 0-4 2-4 5zM12 13c-3-1-4-3-4-5M12 13c3-1 4-3 4-5M12 18c-3-1-4-3-4-5M12 18c3-1 4-3 4-5"/>',peixe:'<path d="M3 12c3-4 7-5 11-5 3 0 5 2 7 5-2 3-4 5-7 5-4 0-8-1-11-5zM3 12l-1-3M3 12l-1 3M16 11h.01"/>',carne:'<path d="M15 4a5 5 0 0 1 0 10l-4 4a2 2 0 1 1-3-3l4-4A5 5 0 0 1 15 4z"/>',flor:'<path d="M12 12a3 3 0 1 0 0-.01M12 9c0-3 1-5 3-6 1 2 0 5-3 6zM12 15v6M9 18c-2 0-4-1-5-3 2-1 4 0 5 3z"/>',pote:'<path d="M7 4h10v3H7zM6 7h12v13H6zM9 12h6"/>',arte:'<path d="M5 19L19 5M15 5h4v4M7 14l3 3"/>',beleza:'<path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/>',caixa:'<path d="M4 8l8-4 8 4v8l-8 4-8-4zM4 8l8 4 8-4M12 12v8"/>'};
-function smIcon(g){const k=E.normalize(g.key);const id=/caf/.test(k)?'cafe':/horti|fruta|verdur|legum/.test(k)?'horti':/latic|queijo|leite/.test(k)?'lati':/doce|bolo|panific|confeit/.test(k)?'doce':/mel|apic/.test(k)?'mel':/bebida|suco|cacha/.test(k)?'bebida':/grao|cereal/.test(k)?'grao':/peix|piscic/.test(k)?'peixe':/carne|ave|charcut/.test(k)?'carne':/planta|flor/.test(k)?'flor':/conserva|tempero/.test(k)?'pote':/artesan/.test(k)?'arte':/beleza/.test(k)?'beleza':(window.ERP?.COFFEE_TYPES||[]).some(t=>E.normalize(t)===k)?'cafe':'caixa';
- const letter=id==='cafe'&&!/caf/.test(k)?'<text x="12" y="15.5" text-anchor="middle" font-size="7" font-weight="800" stroke="none" fill="currentColor">'+escape(g.label.slice(0,1))+'</text>':'';
- return '<svg class="sm-ico" viewBox="0 0 24 24" aria-hidden="true">'+(letter?'<circle cx="12" cy="12" r="8"/>'+letter:SM_ICONS[id])+'</svg>';}
-function smMeta(g,n){return g.items.length+(g.items.length===1?' produto':' produtos')+(n?' · <span class="sm-cart">'+n+' no carrinho</span>':'');}
-function sellModeView(){const items=productList(false);if(!items.length||!SM())return null;
- const list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM().sellGroups(list,{typeOf:p=>p.category==='Cafés'?(p.type||''):''}),mode=SM().resolveMode(model.data.settings.sellMode||'auto',groups);
- if(mode==='grade')return null;
- const has=!!draft;if(sellMode.hadDraft&&!has)sellMode.active=0;sellMode.hadDraft=has;
- const key=mode+'|'+groups.map(g=>g.key).join(',');if(key!==sellMode.key){sellMode.key=key;sellMode.active=0;}
- sellMode.groups=groups;sellMode.mode=mode;sellMode.active=SM().clampActive(sellMode.active,groups);
- const counts=SM().cartByGroup(groups,draft?.items||[]),chev='<svg class="sm-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
- const body=i=>smNear(i)?sellGroupBody(i):'<div class="sm-lazy" data-sm-lazy="'+i+'"></div>';
- if(mode==='pe')return '<div class="sm-area sm-pe" data-sm-mode="pe">'+groups.map((g,i)=>'<section class="sm-lam glass-products-plane'+(i===sellMode.active?' is-active':'')+'" data-i="'+i+'"><button type="button" class="sm-head" data-sm-open="'+i+'" aria-expanded="'+(i===sellMode.active)+'">'+smIcon(g)+'<b>'+escape(g.label)+'</b><small>'+smMeta(g,counts[i])+'</small>'+chev+'</button><div class="sm-body">'+body(i)+'</div></section>').join('')+'</div>';
- return '<div class="sm-area sm-car" data-sm-mode="carrossel"><div class="sm-tabs" role="tablist" aria-label="Famílias">'+groups.map((g,i)=>'<button type="button" class="sm-tab'+(i===sellMode.active?' is-active':'')+'" role="tab" aria-selected="'+(i===sellMode.active)+'" aria-label="'+escape(g.label)+'" data-sm-open="'+i+'">'+smIcon(g)+'<b>'+escape(g.label)+'</b>'+(counts[i]?'<i class="sm-badge">'+counts[i]+'</i>':'')+'</button>').join('')+'</div>'+groups.map((g,i)=>'<section class="sm-slide'+(i===sellMode.active?' is-active':'')+'" data-i="'+i+'" aria-label="'+escape(g.label+' · '+g.items.length+(g.items.length===1?' produto':' produtos'))+'"><div class="sm-card glass-products-plane"><div class="sm-body">'+body(i)+'</div></div></section>').join('')+'</div>';}
-const sellListBeforeModes=feiraSellList;
-feiraSellList=function(){try{const v=sellModeView();if(v)return v;}catch(e){console.error(e);}sellMode.key='';return sellListBeforeModes();};
-// Medidas: a área ocupa a altura que sobra até a barra de baixo; as lâminas e o carrossel se encaixam nela.
-const SM_PEEK=12,SM_HEAD=46;
-function smFill(){document.querySelectorAll('#app [data-sm-lazy]').forEach(el=>{const i=+el.dataset.smLazy;if(smNear(i))el.outerHTML=sellGroupBody(i);});}
-function smLayout(){const area=document.querySelector('#app .sm-area');if(!area)return;const nav=document.getElementById('nav'),top=area.getBoundingClientRect().top+window.scrollY,limit=(nav?nav.getBoundingClientRect().top:innerHeight)-24;area.style.height=Math.max(300,Math.round(limit-top))+'px';
- const H=area.clientHeight,n=sellMode.groups.length,a=sellMode.active;
- if(area.dataset.smMode==='pe'){const below=n-1-a;area.querySelectorAll('.sm-lam').forEach((el,i)=>{const y=i<a?i*SM_PEEK:i===a?a*SM_PEEK:H-(n-i)*SM_HEAD;el.style.transform='translate3d(0,'+y+'px,0)';el.style.height=(H-(i<=a?i*SM_PEEK:0))+'px';el.style.zIndex=i;el.classList.toggle('is-active',i===a);el.classList.toggle('is-behind',i<a);el.querySelector('.sm-head').setAttribute('aria-expanded',String(i===a));const b=el.querySelector('.sm-body');b.style.height=Math.max(120,H-a*SM_PEEK-below*SM_HEAD-SM_HEAD)+'px';});}
- else{const W=area.clientWidth,cw=Math.round(W*.86),step=cw*.93;area.querySelectorAll('.sm-slide').forEach((el,i)=>{const off=i-a+sellMode.drag/step,abs=Math.abs(off),x=(W-cw)/2+off*step,s=1-Math.min(abs,1)*.06;el.style.width=cw+'px';el.style.transform='translate3d('+x.toFixed(1)+'px,0,0) scale('+s.toFixed(3)+')';el.style.zIndex=100-Math.round(abs*10);el.style.visibility=abs>1.6?'hidden':'visible';el.classList.toggle('is-active',i===a);el.classList.toggle('is-side',abs>.5);});area.querySelectorAll('.sm-tab').forEach((t,i)=>{t.classList.toggle('is-active',i===a);t.setAttribute('aria-selected',String(i===a));if(i===a)t.scrollIntoView?.({block:'nearest',inline:'center'});});}}
-const smQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
-function smOpen(i,{silent=false}={}){const n=sellMode.groups.length;if(!n)return;i=Math.max(0,Math.min(i,n-1));const changed=i!==sellMode.active;sellMode.active=i;sellMode.drag=0;smFill();smLayout();const b=document.querySelector('#app .sm-area [data-i="'+i+'"] .sm-body');if(b)b.scrollTop=0;if(changed&&!silent&&!smQuiet())window.TerritorioHaptics?.tick?.();}
-// Mantém a rolagem da família aberta quando a tela é redesenhada (ex.: voltar da venda para pôr mais um).
-const renderBeforeSellModes=render;
-render=function(...args){const keep=document.querySelector('#app .sm-area .is-active .sm-body')?.scrollTop||0,had=!!document.querySelector('#app .sm-area');const out=renderBeforeSellModes.apply(this,args);if(document.querySelector('#app .sm-area')){smLayout();if(had&&keep){const b=document.querySelector('#app .sm-area .is-active .sm-body');if(b)b.scrollTop=keep;}}return out;};
-window.addEventListener('resize',()=>requestAnimationFrame(smLayout),{passive:true});
-document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-sm-open]');if(!t)return;e.preventDefault();smOpen(+t.dataset.smOpen);},true);
-// Tocar em "Vender" quando já está em Vender: primeira família e topo.
-document.addEventListener('click',e=>{const t=e.target.closest?.('#nav [data-page="Vender"]');if(!t||page!=='Vender'||!document.querySelector('#app .sm-area'))return;e.preventDefault();e.stopImmediatePropagation();window.scrollTo({top:0});smOpen(0);},true);
-// Lâminas em pé: no fim da lista, passar o dedo para cima traz a próxima; no começo, para baixo, volta a anterior.
-(()=>{let y0=null,x0=null,at=0,lock=0;const body=e=>e.target.closest?.('#app .sm-pe .is-active .sm-body');
- const edge=(b,dir)=>{if(Date.now()-lock<650)return;if(dir>0&&b.scrollTop+b.clientHeight>=b.scrollHeight-2){lock=Date.now();smOpen(sellMode.active+1);}else if(dir<0&&b.scrollTop<=0){lock=Date.now();smOpen(sellMode.active-1);}};
- document.addEventListener('touchstart',e=>{const b=body(e);if(!b)return;y0=e.touches[0].clientY;x0=e.touches[0].clientX;at=b.scrollTop;},{passive:true});
- document.addEventListener('touchend',e=>{const b=body(e);if(!b||y0===null)return;const dy=y0-e.changedTouches[0].clientY,dx=x0-e.changedTouches[0].clientX;y0=null;if(Math.abs(dy)>48&&Math.abs(dy)>Math.abs(dx)&&b.scrollTop===at)edge(b,Math.sign(dy));},{passive:true});
- document.addEventListener('wheel',e=>{const b=body(e);if(b)edge(b,Math.sign(e.deltaY));},{passive:true});})();
-// Carrossel: arrastar para o lado troca de família; um toque na borda de uma vizinha traz ela para o centro.
-(()=>{let x0=null,y0=null,moved=false,horizontal=null;
- document.addEventListener('pointerdown',e=>{if(!e.target.closest?.('#app .sm-car'))return;x0=e.clientX;y0=e.clientY;moved=false;horizontal=null;},{passive:true});
- document.addEventListener('pointermove',e=>{if(x0===null)return;const dx=e.clientX-x0,dy=e.clientY-y0;if(horizontal===null&&(Math.abs(dx)>10||Math.abs(dy)>10))horizontal=Math.abs(dx)>Math.abs(dy)*1.2;if(!horizontal)return;moved=true;const area=document.querySelector('#app .sm-car');if(!area)return;area.classList.add('is-dragging');const edgeLimit=(sellMode.active===0&&dx>0)||(sellMode.active===sellMode.groups.length-1&&dx<0);sellMode.drag=edgeLimit?dx/3:dx;smLayout();},{passive:true});
- const end=e=>{if(x0===null)return;const dx=e.clientX-x0;x0=null;const area=document.querySelector('#app .sm-car');area?.classList.remove('is-dragging');if(moved&&horizontal&&Math.abs(dx)>50)smOpen(sellMode.active+(dx<0?1:-1));else{sellMode.drag=0;smLayout();}};
- document.addEventListener('pointerup',end,{passive:true});document.addEventListener('pointercancel',end,{passive:true});
- document.addEventListener('click',e=>{if(!e.target.closest?.('#app .sm-car'))return;if(moved){moved=false;e.preventDefault();e.stopImmediatePropagation();return;}const s=e.target.closest('.sm-slide');if(s&&+s.dataset.i!==sellMode.active){e.preventDefault();e.stopImmediatePropagation();smOpen(+s.dataset.i);}},true);})();
-// Ajustes › Aparência: a escolha com um desenho de cada modo e, no Automático, qual está valendo agora.
-function sellModeSection(){const cur=model.data.settings.sellMode||'auto',items=productList(false);let now='';try{if(items.length&&SM()){const g=SM().sellGroups(soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),{typeOf:p=>p.category==='Cafés'?(p.type||''):''}),m=SM().resolveMode(cur,g),name=Object.fromEntries(SM().MODES.map(([v,l])=>[v,l]));now='Agora: '+name[m]+(m==='grade'&&cur!=='grade'?' (seus produtos cabem na tela)':'')+'.';}}catch(e){}
- return '<section class="appearance-section"><h3>Tela de Vendas</h3><div class="sm-options">'+SM().MODES.map(([value,label,description])=>btn('set-sell-mode','<span class="sm-preview sm-preview-'+value+'" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sm-option-text"><strong>'+label+'</strong><small>'+description+'</small></span><span class="appearance-check" aria-hidden="true">'+(cur===value?icon('check'):'')+'</span>','sm-option choice'+(cur===value?' selected':''),{value})).join('')+'</div>'+(now?'<p class="appearance-performance">'+escape(now)+(model.data.settings.layout==='territorio'?' Vale para o estilo Feira.':'')+'</p>':'')+'</section>';}
-actions['set-sell-mode']=d=>{if(!SM()?.MODES.some(([v])=>v===d.value))return;model.data.settings.sellMode=d.value;sellMode.key='';sellMode.active=0;persist();render();appearanceModal();};
-// Venda com várias famílias: o "+" da venda lista por família, com os mesmos ícones e o carrinho de cada uma.
-function addProductList(){const items=productList(false),list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM()?SM().sellGroups(list,{typeOf:p=>p.category==='Cafés'?(p.type||''):''}):[{key:'',label:'',items:list}],counts=SM()?SM().cartByGroup(groups,draft?.items||[]):[];
+const secNear=i=>Math.abs(i-sellSec.active)<=1;
+const secBody=i=>{const g=sellSec.groups[i];return g?'<div class="feira-grid">'+g.items.map(sellCardHtml).join('')+'</div>':'';};
+const secTypeOf=p=>p.category==='Cafés'?(p.type||''):'';
+function sellSectionsView(){const items=productList(false);if(!items.length||!SM())return null;
+ const list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM().sellSections(list,{typeOf:secTypeOf});
+ if(!SM().useSections(groups))return null;
+ const has=!!draft;if(sellSec.hadDraft&&!has)sellSec.active=0;sellSec.hadDraft=has;
+ const key=groups.map(g=>g.key+':'+g.items.length).join(',');if(key!==sellSec.key){sellSec.key=key;sellSec.active=0;}
+ sellSec.groups=groups;sellSec.active=SM().clampActive(sellSec.active,groups);
+ const counts=SM().cartByGroup(groups,draft?.items||[]),chev='<svg class="sec-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+ return '<div class="sec-area">'+groups.map((g,i)=>'<section class="sec glass-products-plane'+(i===sellSec.active?' is-active':'')+'" data-i="'+i+'"><button type="button" class="sec-head" data-sec-open="'+i+'" aria-expanded="'+(i===sellSec.active)+'"><b>'+escape(g.label)+'</b><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small>'+chev+'</button><div class="sec-body">'+(secNear(i)?secBody(i):'<div data-sec-lazy="'+i+'"></div>')+'</div></section>').join('')+'</div>';}
+const sellListBeforeSections=feiraSellList;
+feiraSellList=function(){try{const v=sellSectionsView();if(v)return v;}catch(e){console.error(e);}sellSec.key='';return sellListBeforeSections();};
+// Posições: as de cima viram faixas de 12 px atrás da aberta; a aberta mostra a grade inteira; as de baixo,
+// só o nome, logo depois dela. A altura da área acompanha a seção aberta (a página rola normalmente).
+const SEC_PEEK=12,SEC_HEAD=50;
+function secLayout(){const area=document.querySelector('#app .sec-area');if(!area)return;const a=sellSec.active,n=sellSec.groups.length,secs=[...area.querySelectorAll('.sec')],open=secs[a];if(!open)return;
+ const bodyH=open.querySelector('.sec-body').scrollHeight,topA=a*SEC_PEEK,afterA=topA+SEC_HEAD+bodyH;
+ secs.forEach((el,i)=>{const y=i<a?i*SEC_PEEK:i===a?topA:afterA+(i-a-1)*SEC_HEAD;el.style.transform='translate3d(0,'+y+'px,0)';el.style.zIndex=String(i<a?i:i===a?n:n+i);el.classList.toggle('is-active',i===a);el.classList.toggle('is-behind',i<a);el.querySelector('.sec-head').setAttribute('aria-expanded',String(i===a));});
+ area.style.height=(afterA+(n-1-a)*SEC_HEAD+2)+'px';}
+const secQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+function secOpen(i,{silent=false}={}){const n=sellSec.groups.length;if(!n)return;i=Math.max(0,Math.min(i,n-1));const changed=i!==sellSec.active;sellSec.active=i;
+ document.querySelectorAll('#app [data-sec-lazy]').forEach(el=>{const k=+el.dataset.secLazy;if(secNear(k))el.outerHTML=secBody(k);});secLayout();
+ const area=document.querySelector('#app .sec-area');if(area&&changed){const top=area.getBoundingClientRect().top+window.scrollY-90;if(window.scrollY>top)window.scrollTo({top:Math.max(0,top),behavior:secQuiet()?'auto':'smooth'});}
+ if(changed&&!silent&&!secQuiet())window.TerritorioHaptics?.tick?.();}
+const renderBeforeSections=render;
+render=function(...args){const out=renderBeforeSections.apply(this,args);if(document.querySelector('#app .sec-area'))secLayout();return out;};
+window.addEventListener('resize',()=>requestAnimationFrame(secLayout),{passive:true});
+document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-sec-open]');if(!t)return;e.preventDefault();secOpen(+t.dataset.secOpen);},true);
+// Tocar em "Vender" quando já está em Vender: primeira seção e topo.
+document.addEventListener('click',e=>{const t=e.target.closest?.('#nav [data-page="Vender"]');if(!t||page!=='Vender'||!document.querySelector('#app .sec-area'))return;e.preventDefault();e.stopImmediatePropagation();window.scrollTo({top:0});secOpen(0);},true);
+// Empurrar a seção aberta para baixo faz ela descer e devolve a que estava por baixo dela. Só quando a página
+// não rolou durante o gesto (no topo da seção), para não brigar com a rolagem normal.
+(()=>{let y0=null,x0=null,s0=0,t0=0;
+ document.addEventListener('touchstart',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-active');if(!sec||sellSec.active<1)return;y0=e.touches[0].clientY;x0=e.touches[0].clientX;s0=window.scrollY;t0=Date.now();},{passive:true});
+ document.addEventListener('touchmove',e=>{if(y0===null)return;const dy=e.touches[0].clientY-y0,area=document.querySelector('#app .sec-area .sec.is-active');if(dy>0&&window.scrollY===s0&&area){area.style.transition='none';area.style.transform='translate3d(0,'+(sellSec.active*SEC_PEEK+Math.min(dy*.5,90))+'px,0)';}},{passive:true});
+ document.addEventListener('touchend',e=>{if(y0===null)return;const dy=e.changedTouches[0].clientY-y0,dx=Math.abs(e.changedTouches[0].clientX-x0),still=window.scrollY===s0;y0=null;const open=document.querySelector('#app .sec-area .sec.is-active');if(open)open.style.transition='';if(still&&dy>70&&dx<dy*.6&&Date.now()-t0<900)secOpen(sellSec.active-1);else secLayout();},{passive:true});})();
+// A faixa fina da seção que ficou por baixo também abre ao toque (área de toque maior que a faixa).
+document.addEventListener('click',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-behind');if(!sec)return;e.preventDefault();e.stopImmediatePropagation();secOpen(+sec.dataset.i);},true);
+// O "+" da venda lista por seção, com o carrinho de cada uma e o nome com a sigla da torra.
+function addProductList(){const items=productList(false),list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM()?SM().sellSections(list,{typeOf:secTypeOf}):[{key:'',label:'',items:list}],counts=SM()?SM().cartByGroup(groups,draft?.items||[]):[];
  const row=p=>btn('pick-sale-product','<span><strong>'+escape(contasName(p))+'</strong><small>'+E.quantity(sellingAvailableStock(p.id))+' disponíveis</small></span><span>'+E.money(p.price)+'</span>','list-row',{id:p.id},!canSelectProduct(p.id));
  if(groups.length<2)return '<div class="modal-list">'+list.map(row).join('')+'</div>';
- return '<div class="sm-pick-tabs" role="tablist" aria-label="Famílias">'+groups.map((g,k)=>'<button type="button" class="sm-pick-tab" data-sm-jump="'+k+'" aria-label="'+escape(g.label)+'">'+smIcon(g)+'<span>'+escape(g.label)+'</span>'+(counts[k]?'<i class="sm-badge">'+counts[k]+'</i>':'')+'</button>').join('')+'</div>'
-  +groups.map((g,k)=>'<section class="sm-pick-group" id="sm-pick-'+k+'"><h3>'+smIcon(g)+escape(g.label)+(counts[k]?' <small class="sm-cart">'+counts[k]+' no carrinho</small>':'')+'</h3><div class="sm-pick-rows">'+g.items.map(row).join('')+'</div></section>').join('');}
+ return groups.map(g=>'<section class="sec-pick-group"><h3>'+escape(g.label)+(counts[groups.indexOf(g)]?' <small class="sec-cart">'+counts[groups.indexOf(g)]+' no carrinho</small>':'')+'</h3><div class="sec-pick-rows">'+g.items.map(row).join('')+'</div></section>').join('');}
 actions['sale-add-product']=()=>openModal('Adicionar Produto',addProductList(),'pick-product');
-document.addEventListener('click',e=>{const t=e.target.closest?.('dialog[open] [data-sm-jump]');if(!t)return;e.preventDefault();const g=document.getElementById('sm-pick-'+t.dataset.smJump),box=g?.closest('.dialog-content')||g?.parentElement;if(!g||!box)return;const tabs=box.querySelector('.sm-pick-tabs');box.scrollTo({top:g.offsetTop-(tabs?tabs.offsetHeight+6:0),behavior:smQuiet()?'auto':'smooth'});document.querySelectorAll('dialog[open] .sm-pick-tab').forEach(x=>x.classList.toggle('is-active',x===t));t.scrollIntoView?.({block:'nearest',inline:'center',behavior:smQuiet()?'auto':'smooth'});if(!smQuiet())window.TerritorioHaptics?.tick?.();},true);
 render();
 })();
 
