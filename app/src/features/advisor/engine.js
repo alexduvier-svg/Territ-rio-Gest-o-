@@ -7,6 +7,7 @@
 import { TOPICS } from './knowledge.js';
 import {productPareto} from '../product-pareto.js';
 import { forecastNextEvent, runOut } from './forecast.js';
+import {stockValidityRules} from './validity-rules.js';
 import { FINANCE_RULES } from './finance-rules.js';
 import { evidenceQuality } from './quality.js';
 import { explainMethod } from './method.js';
@@ -417,17 +418,17 @@ function nextEventPlan(input) {
 // Produto que, no ritmo atual, acaba em poucos dias (e ainda não está abaixo do mínimo).
 function runningOut(input) {
   if (!input.history) return [];
-  const soon = runOut(input).filter(r => r.days <= 5 && r.stock > (r.min || 0));
+  const soon = runOut(input).filter(r => !r.limited && r.days <= 5 && r.stock > (r.min || 0));
   if (!soon.length) return [];
   const days = r => Math.max(1, Math.round(r.days));
   return [item('acaba-logo', 'atencao', {
     title: 'Projeção de duração do estoque',
     happened: list(soon.slice(0, 3).map(r => `${r.name}: saldo para ~${plural(days(r), 'dia', 'dias')}`)) + '.',
-    todo: `Reponha ${list(soon.slice(0, 3).map(r => r.name))} nesta semana.`,
-    why: 'O saldo é dividido pelo ritmo observado em dias corridos. É uma projeção, não uma data garantida; sazonalidade, validade e mudanças de demanda podem alterá-la.',
-    numbers: soon.map(r => ({ label: r.name, value: `${fmtQty(r.stock)} ${r.unitLabel}`, detail: `vende ${fmtQty(r.perDay)} por dia` })),
+    todo: `Confira o mínimo definido, as entradas previstas e o prazo de entrega de ${list(soon.slice(0, 3).map(r => r.name))} antes de avaliar uma reposição.`,
+    why: 'O saldo disponível é dividido pelo ritmo observado em dias corridos, sem comprovar todos os dias em que o produto esteve exposto ou com estoque. É uma referência limitada; sazonalidade e feiras pontuais podem alterar o resultado. Sem prazo de entrega e estoque de segurança, não há quantidade de compra calculada.',
+    numbers: soon.map(r => ({ label: r.name, value: `${fmtQty(r.stock)} ${r.unitLabel}`, detail: `${fmtQty(r.perDay)} por dia corrido · ${r.daysObserved} dias considerados, ${r.samples} com vendas registradas` })),
     topics: ['giro'],
-    cta: { label: 'Repor agora', action: 'restock-ids', data: { ids: soon.map(r => r.id).join(',') } },
+    cta: { label: 'Conferir Estoque', action: 'nav', data: { page: 'Estoque' } },
     impact: soon.reduce((n, r) => n + Math.round(r.perDay * 7 * (r.price || 0)), 0),
   })];
 }
@@ -477,7 +478,7 @@ export function calendarPlanning(input){
   topics:['parcerias','encarte'],impact:0,
  }));
 }
-const RULES = [...WEATHER_RULES, bestFirst, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, productRoles, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests,calendarPlanning,practiceCandidates];
+const RULES = [...WEATHER_RULES, stockValidityRules, bestFirst, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, productRoles, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests,calendarPlanning,practiceCandidates];
 
 // ------------------------------------------------------------------------------------- saída
 

@@ -3,9 +3,10 @@ import * as R from './receivables.js';
 export function installReceivables() {
   const b = window.TerritorioWorkflowBridge, a = b.actions, e = b.escape, money = b.money;
   const button = (action,text,cls='choice',data) => b.button(action,text,cls,data);
+  const receiveLabel = '<span class="receivable-title-part"><span class="receivable-currency" aria-hidden="true">$</span> Receber</span>';
   let terms = null, receiving = null, busy = false;
   const footer = (action='credit-back',label='Voltar') => button(action,b.icon('back')+'<span>'+label+'</span>','sheet-back');
-  function open(title,body,foot,kind) { b.open(title,body,foot,kind); document.getElementById('dialog').setAttribute('data-no-close','');document.querySelector('#dialog .dialog-close')?.remove(); }
+  function open(title,body,foot,kind) { b.open(title,body,foot,kind); document.getElementById('dialog').setAttribute('data-no-close','');document.querySelector('#dialog .dialog-close')?.remove();if(kind==='receivables')document.getElementById('dialog-title').innerHTML='Clientes a '+receiveLabel; }
   function back() { terms=null;b.checkout(); }
   function other() {
     open('Outras formas de pagamento','<div class="credit-options">'+button('credit-terms','<strong>Fiado</strong><small>Cliente e data para receber</small>')+button('payment-other-confirm','<strong>Outro</strong><small>Já recebido de outra forma</small>')+button('credit-split','<strong>Mais de uma forma</strong><small>Combinar dois pagamentos</small>')+'</div>',footer(),'credit-other');
@@ -26,7 +27,7 @@ export function installReceivables() {
   function entry(clientId) {
     const rows=R.outstanding(b.data().sales,clientId),total=rows.reduce((n,s)=>n+R.balance(s),0);
     if(clientId&&!rows.length)return '';
-    return button('receivables','<span><strong>'+(clientId?'A <span class="receivable-currency" aria-hidden="true">$</span> Receber deste Cliente':'Clientes a <span class="receivable-currency" aria-hidden="true">$</span> Receber')+'</strong><small>'+(rows.length?rows.length+' '+(rows.length===1?'pagamento pendente':'pagamentos pendentes'):'Nenhum pagamento pendente')+'</small></span><strong class="tabular">'+money(total)+'</strong>','receivable-entry',{client:clientId||''});
+    return button('receivables','<span><strong>'+(clientId?'A '+receiveLabel+' deste Cliente':'Clientes a '+receiveLabel)+'</strong><small>'+(rows.length?rows.length+' '+(rows.length===1?'pagamento pendente':'pagamentos pendentes'):'Nenhum pagamento pendente')+'</small></span><strong class="tabular">'+money(total)+'</strong>','receivable-entry',{client:clientId||''});
   }
   function list(clientId='') {
     const rows=R.outstanding(b.data().sales,clientId),limit=Math.min(rows.length,100);

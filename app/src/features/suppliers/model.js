@@ -40,6 +40,9 @@ export function requestFrom(data,input,{id,uid,now=new Date().toISOString()}={})
 }
 export function offerFrom(input,{id,uid,now=new Date().toISOString()}={}){
  const o={id:id||uid(),supplierId:text(input.supplierId,100),packLabel:text(input.packLabel,120),packSize:text(input.packSize,24),price:text(input.price,24),freight:text(input.freight,24),discount:text(input.discount,24),charges:text(input.charges,24),minimum:text(input.minimum||'1',12),multiple:text(input.multiple||'1',12),quotedAt:input.quotedAt||'',validUntil:input.validUntil||'',delivery:input.delivery||'',expiry:input.expiry||'',payment:text(input.payment,160),equivalent:!!input.equivalent,available:!!input.available,yield:text(input.yield,16),yieldSource:text(input.yieldSource,160),notes:text(input.notes,600),updatedAt:now};
+ if(input.calendarReminders!==undefined&&typeof input.calendarReminders!=='boolean')throw Error('Confira a preferência de avisos da cotação.');
+ if(input.reminderTime&&!/^([01]\d|2[0-3]):[0-5]\d$/.test(input.reminderTime))throw Error('Confira o horário dos avisos da cotação.');
+ Object.assign(o,{calendarReminders:input.calendarReminders===true,reminderTime:input.reminderTime||'08:00',dateConfirmedOn:input.dateConfirmedOn&&validDay(input.dateConfirmedOn)?input.dateConfirmedOn:''});
  if(!o.supplierId||!o.packLabel)throw Error('Escolha fornecedor e apresentação oferecida.');
  decimal(o.packSize,3,{positive:true});decimal(o.price,2,{positive:true});
  for(const k of ['freight','discount','charges'])decimal(o[k],2,{optional:true});

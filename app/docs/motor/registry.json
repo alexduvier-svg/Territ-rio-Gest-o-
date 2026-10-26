@@ -261,5 +261,26 @@
       "management066.test.mjs"
     ],
     "nota": "Apenas identificador de tópico fixo, sem DTO de negócio."
+  },
+  "estoque_lotes_validade": {
+    "arquivo": "app/src/features/stock-lots/domain.js",
+    "funcao": "initializeLots/prepareLotMovements/scopedLots/prepareEventLots/calendarEntries",
+    "versao": "1",
+    "estado": "Entregue na 0.12.87; instalado Reno14 e PKJ110 em 26/10/2026",
+    "nota": "Alocações da quantidade canônica; datas civis e reservas. Não altera a política financeira de custeio.",
+    "testes": [
+      "stock-lots087.test.mjs",
+      "stock-lots087-integration.test.mjs",
+      "validity087.test.mjs",
+      "lot-reservations087.test.mjs",
+      "lot-ui087.test.mjs"
+    ]
+  },
+  "orientacao_validade": {
+    "arquivo": "app/src/features/advisor/validity-rules.js",
+    "funcao": "stockValidityRules",
+    "versao": "1",
+    "estado": "Entregue na 0.12.87, no motor de Orientação existente",
+    "nota": "Mesmo RULES/release existente; fatos e limitações, sem novo motor."
   }
 }

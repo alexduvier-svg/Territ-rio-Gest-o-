@@ -161,13 +161,18 @@ try {
   window.TERRITORIO_API = API;
   startupStage='resource-policy';
   installResourcePolicy();
+  startupStage='stock-lots';
+  window.TerritorioStockLots=await import('./features/stock-lots/domain.js');
+  window.TerritorioStockLotsUI=await import('./features/stock-lots/ui.js');
+  await import('./features/stock-lots/lots.css');
   startupStage='legacy-ui';
   await import('./legacy/erp-ui.js');
+  window.TerritorioStockLotsUI.installStockLotsUI(window.TerritorioWorkflowBridge);
   startupStage='financial-session';
   installFinancialSession({data:()=>window.ERPPreview.model().data,conceal:()=>window.ERPPreview.concealFinancialUI()});
   startupStage='migrations';
   const savedModel = window.ERPPreview?.model?.();
-  if (savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled || savedModel?.decisionGuidelinesInstalled || savedModel?.adaptationGuidelinesInstalled) {
+  if (savedModel?.stockLotsInitialized || savedModel?.productMemoryInitialized || savedModel?.catalogKnowledgeInstalled || savedModel?.interfaceGuidelinesInstalled || savedModel?.stockCatalogGuidelinesInstalled || savedModel?.engagementGuidelinesInstalled || savedModel?.voiceGuidelinesInstalled || savedModel?.decisionGuidelinesInstalled || savedModel?.adaptationGuidelinesInstalled) {
     window.ERPPreview.persist?.();
     if (window.TerritorioNative?.isNative) await window.TerritorioNative.durable?.();
   }

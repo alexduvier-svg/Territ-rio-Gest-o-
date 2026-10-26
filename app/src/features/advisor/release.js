@@ -42,7 +42,9 @@ export function releaseInsights(guidance, operational, { actorId, dataOrigin, sc
     const key = digest(context), fingerprint = digest([RELEASE_VERSION, d.decision?.rule_version || d.ruleVersion || 1, d.evidence, d.action, d.numbers || [], d.evidenceRefs || []]);
     const prior = ledger.entries.find(e => e.key === key && e.fingerprint === fingerprint);
     const feedback = prior?.status;
-    const suppressed = !d.urgentIntegrity && (['useful', 'dismissed'].includes(feedback) || feedback === 'snoozed' && prior.until > now);
+    const cadencePrior=d.cadenceDays?ledger.entries.filter(e=>e.ruleId===d.ruleId&&e.source===d.source).sort((a,b)=>(b.lastReleasedAt||b.firstSeenAt)-(a.lastReleasedAt||a.firstSeenAt))[0]:null;
+    const lastRelease=cadencePrior?.lastReleasedAt||cadencePrior?.firstSeenAt||0,sameDay=lastRelease&&Math.floor((now-3*3600000)/DAY)===Math.floor((lastRelease-3*3600000)/DAY),cadenceBlocked=lastRelease&&!sameDay&&now-lastRelease<d.cadenceDays*DAY&&!(cadencePrior.status==='snoozed'&&cadencePrior.until<=now);
+    const suppressed = !d.urgentIntegrity && (['useful', 'dismissed'].includes(feedback) || feedback === 'snoozed' && prior.until > now || cadenceBlocked);
     const item = { ...d, key, fingerprint, periodLabel: guidance.periodLabel, reason: d.urgentIntegrity ? 'A integridade dos registros tem prioridade.' : 'O recorte e os critérios desta regra possuem evidência suficiente.', firstSeenAt: prior?.firstSeenAt || now };
     if (suppressed) { waiting.push(item); continue; }
     eligible.push(item);
@@ -63,6 +65,7 @@ export function releaseInsights(guidance, operational, { actorId, dataOrigin, sc
     ledger.entries.push({ key: d.key, fingerprint: d.fingerprint, ruleId: d.ruleId, source: d.source, firstSeenAt: now, status: 'shown', at: now }); changed = true;
   }
   for(const d of selected.filter(i=>i.educational)){const entry=ledger.entries.find(e=>e.key===d.key&&e.fingerprint===d.fingerprint);if(entry.rotationDay!==rotationDay){entry.rotationDay=rotationDay;changed=true;}}
+  for(const d of selected.filter(i=>i.cadenceDays)){const entry=ledger.entries.find(e=>e.key===d.key&&e.fingerprint===d.fingerprint);if(!entry.lastReleasedAt||now-entry.lastReleasedAt>=d.cadenceDays*DAY||entry.status==='snoozed'&&entry.until<=now){entry.lastReleasedAt=now;changed=true;}}
   ledger.entries = ledger.entries.slice(-160);
   return { version: RELEASE_VERSION, items: selected, waiting: waiting.length, memory: ledger, changed, blocked, candidates: eligible };
 }

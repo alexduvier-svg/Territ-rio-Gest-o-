@@ -1,4 +1,5 @@
 import {day,balance,outstanding,validDay} from './receivables/receivables.js';
+import {calendarNotices} from './stock-lots/derived.js';
 export const terminal=order=>['delivered','cancelled'].includes(order.status);
 export function notificationPromptEligible({permission,asked,onboarding,modal}){return permission!=='granted'&&!asked&&onboarding!=='pending'&&!modal;}
 export function activeOrders(data){const actor=data.dataContext?.id||data.productMemory?.scopeId,s=data.onlineShop;if(!s||s.actorId!==actor||s.slug!==(data.portfolio?.slug||''))return[];return(s.orders||[]).filter(o=>!terminal(o)&&!((s.finishOnSale||[]).includes(o.id)&&(data.sales||[]).some(v=>v.operationId==='order-'+o.id&&v.status==='completed')));}
@@ -10,4 +11,9 @@ export function followupNotices(data,now=Date.now()){
  const groups=new Map();for(const sale of outstanding(data.sales||[])){const date=sale.credit?.dueDate;if(!validDay(date))continue;const key=date<=today?today:date;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(sale);}
  for(const [date,rows]of [...groups].sort().slice(0,32)){const at=Date.parse(date+'T09:00:00-03:00');result.push({key:'credit:'+date,kind:'credit-followup',at:Math.max(now+1000,at),title:'Pagamento de Fiado para conferir',body:'O cliente já pagou? Abra o AGRO e confirme antes de dar baixa.',signature:rows.map(s=>s.id+':'+s.credit.dueDate).sort().join('|'),date});}
  return result;
+}
+// Same reconciler and native schedule. One invalid calendar cannot suppress an
+// order/debt reminder; the stock UI still reports its own integrity problems.
+export function notificationNotices(data,now=Date.now()){
+ const list=followupNotices(data,now);try{return list.concat(calendarNotices(data,now));}catch{return list;}
 }

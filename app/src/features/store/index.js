@@ -23,7 +23,7 @@ async function save(){if(!b().persist()||window.TerritorioNative?.isNative&&!awa
 const api=(path,options={})=>request('/api/shops/'+state().slug+path,{timeoutMs:15000,...options,token:b().data().portfolio?.token});
 const ownSale=id=>b().data().sales.find(s=>s.operationId==='order-'+id&&s.status==='completed');
 const pending=()=>activeOrders(b().data());
-async function supported(){if(capability===null){const info=await request('/api/shops/_capabilities',{method:'GET',timeoutMs:15000});capability=info.available;}if(!capability)throw Error('A loja online ainda não foi ativada no servidor. O cadastro e as vendas locais continuam disponíveis.');}
+async function supported(){if(capability===null)capability=await request('/api/shops/_capabilities',{method:'GET',timeoutMs:15000});if(!capability.available)throw Error('A loja online ainda não foi ativada no servidor. O cadastro e as vendas locais continuam disponíveis.');if(b().data().stockLotsVersion===1&&capability.lotAvailability!==1)throw Error('A lista clicável aguarda a atualização do controle de lotes no servidor. Use o envio por texto enquanto isso; o estoque local continua disponível.');}
 function snapshot(){return shopSnapshot(b().data(),state().comingSoonIds,p=>b().description(p));}
 let syncFlight=null,listPublishing=false;
 function synchronize(options={}){const actor=state().actorId;if(syncFlight)return syncFlight.catch(()=>{}).then(()=>{if(state().actorId!==actor)throw Error('O produtor mudou. Reabra os pedidos.');return synchronize(options);});syncFlight=performSync(options).finally(()=>{syncFlight=null;});return syncFlight;}

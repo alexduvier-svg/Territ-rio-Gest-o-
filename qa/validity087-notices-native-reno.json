@@ -1,0 +1,11 @@
+{
+  "device": "reno",
+  "version": "0.12.87-QA",
+  "synthetic": true,
+  "productionDatabaseAccessed": false,
+  "errors": [],
+  "delayMs": 54563,
+  "delivered": true,
+  "cancelled": true,
+  "passed": true
+}

@@ -1,0 +1,1 @@
+const{exercise:previous}=require('./weather085-native-flow.cjs');const{exercise:current}=require('./validity087-continuity-flow.cjs');module.exports={exercise:async(p,capture)=>({...await previous(p,capture),...await current(p,capture)})};

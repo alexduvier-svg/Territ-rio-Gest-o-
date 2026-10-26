@@ -105,7 +105,7 @@ export function forecastNextEvent(input) {
       warnings.add('Sem feiras comparáveis para alguns produtos: a referência usa dias corridos desde o primeiro registro, sem ajuste por movimento da feira.');
     }
     if (!finite(qty) || !(qty > 0)) continue;
-    const take = unitsRound(qty, p.decimal), stock = finite(p.stock) && p.stock >= 0 ? p.stock : null;
+    const take = unitsRound(qty, p.decimal), candidate=p.upcomingStock??p.stock,stock = finite(candidate) && candidate >= 0 ? candidate : null;
     const priceKnown = finite(p.price) && p.price >= 0;
     if (!priceKnown) warnings.add('Há preços ausentes: os valores monetários são parciais.');
     lines.push({ id: p.id, name: p.name, unit: p.unitShort || '', take, stock,

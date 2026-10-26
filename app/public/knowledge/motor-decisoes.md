@@ -92,3 +92,8 @@ histórica continua em `advisor/forecast.js`.
 ## Hierarquia e Entrega de Insights — 22/10/2026
 
 Consulte `hierarquia-inteligencia.md` (versão 1). Fonte ERP → contexto Connect → interpretação canônica → proposta Action → Audit obrigatório → liberação de até três insights. Gemini é somente explicação geral opcional, sem dados do produtor, cálculos ou comandos. A referência não substitui evidência; feedback não altera registros.
+
+
+## Estoque: Contexto e Limites das Orientações
+
+Ver [Estoque, Lotes e Orientações](estoque-validade-contexto.md). Estoque físico, elegível e reservado são visões da mesma fonte. Validade é opcional por entrada e data civil; custos históricos de vendas permanecem preservados. Cobertura por dias corridos não comprova exposição, nem ausência de vendas comprova baixa procura. Sem prazo de entrega, segurança e entradas confirmadas, não calcular compra. As regras de validade participam da liberação única da Orientação; nenhum novo motor ou execução automática. Integração em desenvolvimento na 0.12.87; referência não equivale a entrega.

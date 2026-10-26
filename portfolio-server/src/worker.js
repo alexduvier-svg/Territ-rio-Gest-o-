@@ -1,6 +1,7 @@
 import interFont from './fonts/inter-latin.woff2';
 import interTightFont from './fonts/inter-tight-latin.woff2';
 import { weatherRoute } from './weather.js';
+import {lotShopCapabilities} from './lot-availability.js';
 // Território — public producer portfolios.
 //
 // Public pages (no JavaScript, opened from the QR code shown after a sale):
@@ -266,7 +267,7 @@ export default {
       try {
         let response;
         if(pathname==='/api/weather'){response=await weatherRoute(request);for(const[k,v]of Object.entries(cors))response.headers.set(k,v);return response;}
-        if(pathname==='/api/shops/_capabilities'&&request.method==='GET')return json({version:1,available:!!env.SHOPS},200,cors);
+        if(pathname==='/api/shops/_capabilities'&&request.method==='GET')return json(lotShopCapabilities(env),200,cors);
         const shop=pathname.match(/^\/api\/shops\/([a-z0-9-]{3,48})\/(catalog|orders(?:\/[\w-]+)?|track|inventory|alerts)$/);
         if(shop){response=await routeShop(request,env,shop[1],shop[2],authorize);for(const[k,v]of Object.entries(cors))response.headers.set(k,v);return response;}
         const backup = pathname.match(BACKUP_ROUTE);

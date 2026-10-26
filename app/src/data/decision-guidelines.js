@@ -3,10 +3,10 @@
 // Agro_Gestao_Diretrizes_Matematicas_Probabilisticas (Codex, v1.0), de 20/10/2026. Conhecimento de
 // referência: não é instrução executável e não autoriza vendas, baixas, envios ou compras.
 export const DECISION_GUIDELINES = Object.freeze({
-  version: 4,
+  version: 5,
   id: 'decision-engine',
   authority: 'reference_only',
-  sources: ['docs/motor/MOTOR_INTELIGENCIA_AGRO_GESTAOclaude.pdf v1.0', 'docs/motor/Agro_Gestao_Diretrizes_Matematicas_Probabilisticas_Codex.docx v1.0'],
+  sources: ['docs/motor/MOTOR_INTELIGENCIA_AGRO_GESTAOclaude.pdf v1.0', 'docs/motor/Agro_Gestao_Diretrizes_Matematicas_Probabilisticas_Codex.docx v1.0', 'docs/DIRETRIZ-RECEBIDA-DECISOES-VALIDADE-2026-10-24.md', 'docs/DIRETRIZ-RECEBIDA-ESTOQUE-CONTEXTO-2026-10-25.md'],
   hierarchy: 'intelligence-hierarchy v1: fatos/cálculos canônicos, Connect, Orientação, Action, Audit obrigatório, liberação única e explicação geral opcional. Gemini não recebe dados do produtor nem interfere em decisões.',
   release: 'advisor/release.js: apresentação local de até três insights; contexto, evidência, conflitos e feedback; sem cálculos financeiros paralelos.',
   engine: 'Um só motor: src/features/advisor/engine.js (Orientação). Regras novas entram na lista RULES; não criar motor paralelo de clima, estoque, finanças, CRM ou KPIs.',
@@ -26,7 +26,15 @@ export const DECISION_GUIDELINES = Object.freeze({
     rounding: 'só na exibição; dinheiro meio-par; temperatura e chuva 1 casa; probabilidade em múltiplos de 5 %',
     sums: 'Kahan para séries longas; variância por Welford',
     division: 'denominador nulo devolve null com motivo, nunca Infinity/NaN',
-    dates: 'UTC no armazenamento; America/Sao_Paulo na exibição e nas agregações locais',
+    dates: 'Instantes de registro em UTC; agregações de vendas conforme o fuso de negócio. Validade, revisão e validade de cotação são datas civis YYYY-MM-DD, sem converter meia-noite para UTC. Avisos usam o fuso local e não inventam um dia para rótulo mensal.',
+  },
+  stock: {
+    reference: 'knowledge/estoque-validade-contexto.md',
+    scope: 'Um saldo físico canônico por variação; lotes são alocações dos mesmos movimentos. Disponível comercial exclui vencidos, quarentena e reservas aplicáveis, sem dupla baixa. Separar planejamento de feira de entrada física.',
+    validity: 'Validade opcional por entrada: Não Informada, Com Validade ou Não Se Aplica. FEFO entre lotes elegíveis, histórico preservado, retorno em avaliação. Alertas D−5/D0 e revisões reutilizam o reconciliador existente; sem calendário externo obrigatório.',
+    evidence: 'Cobertura por vendas em dias corridos é referência limitada, sem comprovar exposição ou demanda. Não calcular compra sem prazo confiável, estoque de segurança e entradas futuras confirmadas. Ausência de venda não prova falta de procura.',
+    finance: 'Custos ausentes são lacunas. Novos lotes não reescrevem custos de vendas antigas; compras históricas de fornecedores não viram entradas, dívidas ou despesas automaticamente. Promoção exige custo e despesas conhecidos e nunca envolve item vencido.',
+    implementation: 'A integração de lotes usa stockLotsVersion=1. O registro desta diretriz não ativa os módulos nem comprova instalação; consultar o relatório de entrega da versão.',
   },
   confidence: {
     alta: 'dados verificados, método canônico e calibração medida (skill > 0,2) — ainda não disponível no app',

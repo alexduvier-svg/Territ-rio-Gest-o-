@@ -1,6 +1,6 @@
 # Premissas permanentes de interface — AGRO Gestão
 
-Versão 46, atualizada em 23/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
+Versão 57, atualizada em 26/10/2026. Aplica-se a todos os títulos, subtítulos, rótulos, controles e superfícies, inclusive em novas telas.
 
 - **Volume:** hierarquia coerente por tamanho, peso e espaçamento. Não simular volume com excesso de negrito ou relevo nas letras.
 - **Nitidez:** leitura clara e contraste nos temas claro e escuro. Sem blur ou brilho nas letras. Rótulos de formulário com pelo menos 14 px, respeitando texto ampliado.
@@ -161,3 +161,10 @@ Evento finalizado sai dos ativos de Produtos e vai para Histórico das Feiras, i
 Chavinha junto de Toque para Repor alterna para Fornecedores na aba Estoque. Cadastro e cotações privados e locais; pessoa compartilhada com Clientes é referência, sem fusão automática. Até20 propostas por item, unidades explícitas, custo total/frete/prazo/pagamento e lacunas visíveis. Reutilizar Agent/Worker e cálculo determinístico. Preferência não compra, não cria dívida e não altera estoque. Pareto usa linhas auditadas de receita e lucro bruto, custo histórico, unidade comparável, devoluções e descontos; nenhum80/20 presumido, nenhuma previsão automática de procura ou lucro líquido.
 
 Histórico de Compras: confirmação explícita do produtor, calendário comum; comparação da mesma especificação/unidade com o mesmo fornecedor e outros fornecedores. Compra não é cotação. Desconsiderar mantém original/motivo; backup e CSV preservam histórico. Sem duplicar estoque/despesas ou afirmar que preço antigo é oferta vigente.
+
+
+## Lote e Validade — Premissa 57
+
+Seção opcional antes de Valores e Estoque, com o mesmo material, calendário, teclado e botões do app. Nova reposição começa vazia, com validade própria; não herdar data anterior. Estoque mostra prazo informado, vencimento e restante separados, com detalhes por lote; preservar tamanho dos cards em Vender. Carga da feira mostra faixa de dias na data do evento, somente dos lotes separados. Acerto antigo pede data confirmada e escolha dos lotes quando houver alternativas. Rodapés com espaçamento, rolagem interna, dois temas e modo leve. Ver [Estoque, Lotes e Orientações](estoque-validade-contexto.md). Registro de referência não comprova instalação.
+
+Ajuste humano de26/10: em O Que Vou Levar, Adicionar Depois à esquerda e Salvar à direita; retirar Inserir Quantidade. O teclado compartilhado mantém apenas Próximo/Concluir, com alvo de44px e espaçamento. Em Clientes a Receber, símbolo $ vermelho imediatamente antes de Receber, no card e no título da janela, sem separar símbolo e palavra na quebra.

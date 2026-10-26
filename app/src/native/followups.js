@@ -1,8 +1,8 @@
 import {Capacitor} from '@capacitor/core';
 import {App} from '@capacitor/app';
 import {LocalNotifications} from '@capacitor/local-notifications';
-import {followupNotices,notificationPromptEligible} from '../features/followups.js';
-const channel='pedidos-recebimentos',kind=n=>['order-followup','credit-followup'].includes(n.extra?.kind)||(Number(n.id)>=1800000000&&Number(n.id)<1900000000);
+import {notificationNotices,notificationPromptEligible} from '../features/followups.js';
+const channel='pedidos-recebimentos',kind=n=>['order-followup','credit-followup','business-calendar'].includes(n.extra?.kind)||(Number(n.id)>=1800000000&&Number(n.id)<1900000000);
 function noticeId(key){let h=5381;for(const c of key)h=(Math.imul(h,33)^c.charCodeAt(0))>>>0;return 1800000000+(h%100000000);}
 export function installFollowupNotifications(){
  if(window.TerritorioWorkspace?.active||!Capacitor.isNativePlatform())return;
@@ -13,7 +13,7 @@ export function installFollowupNotifications(){
  async function performSync(){
   if(!bridge())return;
   try{
-   const list=followupNotices(bridge().data()),scope=bridge().data().dataContext?.id||bridge().data().productMemory?.scopeId;
+   const list=notificationNotices(bridge().data()),scope=bridge().data().dataContext?.id||bridge().data().productMemory?.scopeId;
    const wanted=new Map(list.map(n=>[noticeId(scope+':'+n.key),n]));
    const pending=(await bounded(LocalNotifications.getPending())).notifications||[],rawDelivered=(await bounded(LocalNotifications.getDeliveredNotifications())).notifications||[];
    // Android's delivered schema omits `extra`. Recover it by id from the plugin's
@@ -29,9 +29,9 @@ export function installFollowupNotifications(){
    if(remove.size)await bounded(LocalNotifications.removeDeliveredNotifications({notifications:[...remove.values()]}));
    const permission=await bounded(LocalNotifications.checkPermissions());if(permission.display!=='granted')return;
    // Recheck after native awaits; never resurrect a just-paid debt or a completed delivery.
-   const current=new Map(followupNotices(bridge().data()).map(n=>[noticeId(scope+':'+n.key),n]));if((bridge().data().dataContext?.id||bridge().data().productMemory?.scopeId)!==scope)return;
+   const current=new Map(notificationNotices(bridge().data()).map(n=>[noticeId(scope+':'+n.key),n]));if((bridge().data().dataContext?.id||bridge().data().productMemory?.scopeId)!==scope)return;
    const keep=new Set([...pending,...delivered].filter(n=>kind(n)&&!stale(n)).map(n=>n.id));
-   const notifications=[...wanted].filter(([id,n])=>current.get(id)?.signature===n.signature&&!keep.has(id)).map(([id,n])=>({id,channelId:channel,title:n.title,body:n.body,smallIcon:'ic_stat_territorio',iconColor:'#D99955',ongoing:true,autoCancel:false,extra:{kind:n.kind,scope,signature:n.signature,reminderKey:n.key},schedule:{at:new Date(n.at),allowWhileIdle:true},isExactNotification:false}));
+   const notifications=[...wanted].filter(([id,n])=>n.allowSchedule!==false&&current.get(id)?.signature===n.signature&&current.get(id)?.allowSchedule!==false&&!keep.has(id)).map(([id,n])=>({id,channelId:channel,title:n.title,body:n.body,smallIcon:'ic_stat_territorio',iconColor:'#D99955',ongoing:n.kind!=='business-calendar',autoCancel:n.kind==='business-calendar',extra:{kind:n.kind,scope,signature:n.signature,reminderKey:n.key},schedule:{at:new Date(n.at),allowWhileIdle:true},isExactNotification:false}));
    if(notifications.length)await bounded(LocalNotifications.schedule({notifications}));
   }catch(error){console.warn('Acompanhamento não agendado',error);}
  }
@@ -45,10 +45,10 @@ export function installFollowupNotifications(){
  }
  const answered=()=>{try{localStorage.setItem(promptKey,'answered');}catch{}};
  const queue=()=>{clearTimeout(timer);timer=setTimeout(()=>{void sync();void offerPermission();},600);};
- LocalNotifications.createChannel({id:channel,name:'Pedidos e Recebimentos',description:'Acompanhamento dos pedidos recebidos e datas do Fiado.',importance:3,visibility:0,vibration:false,lights:false}).catch(()=>{});
- LocalNotifications.addListener('localNotificationActionPerformed',event=>{if(!kind(event.notification))return;const scope=bridge()?.data().dataContext?.id||bridge()?.data().productMemory?.scopeId;if(event.notification.extra?.scope!==scope)return;setTimeout(()=>{if(event.notification.extra.kind==='credit-followup')bridge()?.actions['receivables-due']?.();else bridge()?.actions['store-orders']?.();},450);});
+ LocalNotifications.createChannel({id:channel,name:'Acompanhamento do AGRO',description:'Pedidos, recebimentos, validades e revisões.',importance:3,visibility:0,vibration:false,lights:false}).catch(()=>{});
+ LocalNotifications.addListener('localNotificationActionPerformed',event=>{if(!kind(event.notification))return;const scope=bridge()?.data().dataContext?.id||bridge()?.data().productMemory?.scopeId;if(event.notification.extra?.scope!==scope)return;setTimeout(()=>{if(event.notification.extra.kind==='credit-followup')bridge()?.actions['receivables-due']?.();else if(event.notification.extra.kind==='business-calendar')bridge()?.actions['lots-agenda']?.();else bridge()?.actions['store-orders']?.();},450);});
  window.addEventListener('territorio:orders-updated',queue);window.addEventListener('territorio:saved',queue);window.addEventListener('territorio:resume',queue);App.addListener('resume',queue);document.addEventListener('visibilitychange',()=>{if(!document.hidden)queue();});setTimeout(queue,2500);
- window.TerritorioFollowupNotifications={sync,offerPermission,notices:()=>followupNotices(bridge().data())};
+ window.TerritorioFollowupNotifications={sync,offerPermission,notices:()=>notificationNotices(bridge().data())};
  bridge().actions['notice-consent-later']=()=>{answered();bridge().close();};
  bridge().actions['notice-consent-allow']=async()=>{answered();bridge().close();await bridge().actions['followup-enable']();};
  bridge().actions['followup-enable']=async()=>{try{let permission=await bounded(LocalNotifications.checkPermissions());if(permission.display==='prompt'||permission.display==='prompt-with-rationale')permission=await bounded(LocalNotifications.requestPermissions());if(permission.display!=='granted'){bridge().toast('Permita as notificações nas configurações do celular. Os avisos dentro do app continuam disponíveis.');return;}bridge().data().settings.orderReminders=true;if(!bridge().persist())throw Error('Gravação pendente.');window.dispatchEvent(new Event('territorio:reminders-enabled'));await sync();bridge().toast('Lembretes no celular ativados. O Android controla o horário de entrega.');}catch{bridge().toast('Não foi possível ativar agora. Tente novamente.');}};

@@ -1,3 +1,5 @@
+import {renderHistoricalChoices,readHistoricalChoices} from './stock-lots/historical.js';
+import {saleLotContext} from './stock-lots/reservations.js';
 import {recordFairActivity} from './fair-activity.js';
 import {stockPartition,eventProductBalance} from './store/availability.js';
 import {dominantEventPayment} from './fair-surplus.js';
@@ -24,6 +26,7 @@ export function installFairSurplusUI(b) {
     });
     const note=document.getElementById('surplus-note');
     if(note)state.note=note.value.slice(0,600);
+    const day=document.getElementById('surplus-occurred');if(day)state.occurrenceDay=day.value;const confirm=document.getElementById('surplus-date-confirmed');if(confirm)state.occurrenceConfirmed=confirm.checked;state.historicalSelections=readHistoricalChoices(document.getElementById('dialog'));
   };
   const unit = row => b.shortUnit(row.unit) || row.unit;
   const paint = () => {
@@ -31,6 +34,7 @@ export function installFairSurplusUI(b) {
     if(state.stage==='activity'){paintActivity();return;}
     const r=b.reportFor(e),edit=state.stage!=='confirm',q=state.question;
     let body=`<p class="surplus-event">${esc(e.fairName||e.name)}</p><div class="surplus-summary"><span>Vendas <strong>${r.totals.sales}</strong></span><span>Total vendido <strong>${esc(b.money(r.totals.revenue))}</strong></span></div>`;
+    if(b.getModel().data.stockLotsVersion===1)body+='<section class="client-form-surface">'+b.dateField('surplus-occurred','Data dos Acertos Não Registrados',state.occurrenceDay||'','min="'+esc(e.start)+'" max="'+esc(e.end)+'"')+'<label class="lot-check"><input id="surplus-date-confirmed" type="checkbox"'+(state.occurrenceConfirmed?' checked':'')+'>As Vendas ou Perdas Aconteceram Nesta Data</label><p class="small muted">Preencha apenas se for registrar vendas ou perdas faltantes. A data não será presumida pelo aplicativo.</p></section>';
     body+='<section class="surplus-check"><h3>Antes de Finalizar</h3><p class="surplus-note">Acerte apenas o que ainda não foi registrado. Depois, confira a sobra.</p><div class="surplus-correction-cards">'+[['added','Reposições','Repus ou levei produtos depois.'],['sold','Vendas Não Registradas','Vendi e ainda não anotei.'],['lost','Perdas ou Brindes','Saiu estoque sem uma venda.']].map(([mode,title,note])=>{const count=(e.fairActivities||[]).filter(a=>a[mode]>0).length;return button('surplus-activity','<span><strong>'+title+'</strong><small>'+note+(count?' '+count+' '+(count===1?'acerto registrado.':'acertos registrados.'):'')+'</small></span>'+b.icon('chevron'),'choice event-material-card surplus-correction-card',{mode});}).join('')+'</div></section>';
     if(state.snapshot.eligible){
       body+=`<section class="surplus-check"><h3>Pelo app, sobrou:</h3><div class="surplus-rows">`;
@@ -47,6 +51,7 @@ export function installFairSurplusUI(b) {
     }else if(!state.snapshot.hasLoad){
       body+='<p class="surplus-note">Sem carga registrada, a conferência da sobra não se aplica. As vendas continuam no relatório.</p>';
     }
+    if(b.getModel().data.stockLotsVersion===1){try{const planned=plan(false);body+=planned.sales.map((line,index)=>renderHistoricalChoices(b.getModel().data,{productId:line.productId,eventId:e.id,onDay:state.occurrenceDay,selections:state.historicalSelections?.[line.productId]||[],prefix:'surplus-lot-'+index},b)).join('');}catch{}}
     if(e.fairId)body+=`<label class="surplus-feedback"><span>Observação para a organização <small>Opcional</small></span><textarea id="surplus-note" rows="2" maxlength="600" placeholder="Algo sobre a feira?">${esc(state.note)}</textarea></label><p class="surplus-note">${esc(b.consentText)}</p>`;
     if(state.error)body+=`<p class="error" role="alert">${esc(state.error)}</p>`;
     const label=e.fairId?'Finalizar e enviar relatório':'Finalizar evento';
@@ -88,14 +93,15 @@ export function installFairSurplusUI(b) {
     try{
       if(copy.eventLifecycle(id).closed)throw Error('Este evento já foi encerrado.');
       b.setLateBusy(true);
+      const occurrence=copy.data.stockLotsVersion===1&&(p.sales.length||p.losses.length)?saleLotContext(copy.data,{scope:id,occurrenceDay:state.occurrenceDay,occurrenceConfirmed:state.occurrenceConfirmed}):null;if(occurrence&&!state.occurrenceDay)throw Error('Informe e confirme a data dos acertos antes de salvar.');
       for(const line of p.sales){
         const sale=copy.complete({scope:id,items:[{productId:line.productId,rawQty:String(line.qty)}],payment:p.payment,
-          customerType:'PF',discountMode:'R$',discountValue:'0'});
+          customerType:'PF',discountMode:'R$',discountValue:'0',...(occurrence?{occurrenceDay:occurrence.onDay,occurrenceConfirmed:true,lotSelections:state.historicalSelections}:{})});
         Object.assign(sale,{date:stamp,registeredAt:stamp,unregistered:true,late:true,surplusCheckId:checkId});
         copy.data.movements.filter(m=>m.saleId===sale.id).forEach(m=>Object.assign(m,{date:stamp,eventId:id,note:'Venda não registrada · conferência da sobra',surplusCheckId:checkId}));
       }
       for(const line of p.losses){
-        const loss=copy.move(line.productId,'loss',line.qty,'Perda / brinde · conferência da sobra');
+        const loss=copy.move(line.productId,'loss',line.qty,'Perda / brinde · conferência da sobra',{eventId:id,occurrenceDay:occurrence?.onDay,occurrenceConfirmed:true});
         Object.assign(loss,{date:stamp,eventId:id,surplusCheckId:checkId});
       }
       if(p.loadAdjustments.length){
@@ -143,17 +149,21 @@ export function installFairSurplusUI(b) {
   const paintActivity=()=>{
     const model=b.getModel(),e=event(),a=state.activity,p=model.product(a.productId),list=model.data.products.filter(p=>p.active!==false&&!p.archived&&p.price>0);if(!e||!p)return;
     const split=stockPartition(model.data,p.id),remaining=eventProductBalance(model.data,e.id,p.id),unit=b.shortUnit(p.unit)||p.unit;
-    const material=(key,title,content)=>'<details class="event-material-card surplus-activity-card"'+(a.mode===key?' open':'')+'><summary>'+title+'</summary>'+content+'</details>';
-    const body='<p class="surplus-event">'+esc(e.name)+'</p><section class="client-form-surface"><label for="fair-activity-product">Produto</label><select id="fair-activity-product">'+list.map(item=>'<option value="'+esc(item.id)+'"'+(item.id===p.id?' selected':'')+'>'+esc(b.titleName(item.name)+' · '+(item.description||window.TerritorioWorkflowBridge?.description(item)||'')+' · '+item.unit)+'</option>').join('')+'</select><p class="surplus-note">Estoque geral: '+b.quantity(split.total)+' '+esc(unit)+' · livres em casa: '+b.quantity(split.home)+' · saldo na feira: '+b.quantity(remaining)+'. A carga não é uma nova entrada.</p></section><div class="surplus-correction-cards">'
-    +material('added','1 · Reposições',b.numericField('fair-activity-added','Repus ou Levei Depois',a.added,'inputmode="decimal"')+'<label for="fair-activity-source">Origem da Reposição</label><select id="fair-activity-source"><option value="existing"'+(a.source==='existing'?' selected':'')+'>Estoque de Casa</option><option value="new"'+(a.source==='new'?' selected':'')+'>Entrada Nova Ainda Não Registrada</option></select><p class="surplus-note">Estoque de Casa só transfere a carga. Entrada Nova também registra a entrada no estoque geral.</p>')
-    +material('sold','2 · Vendas Não Registradas',b.numericField('fair-activity-sold','Quanto Vendeu sem Registrar?',a.sold,'inputmode="decimal"')+'<label for="fair-activity-payment">Pagamento</label><select id="fair-activity-payment">'+['Pix','Dinheiro','Crédito','Débito','Outro'].map(method=>'<option'+(a.payment===method?' selected':'')+'>'+method+'</option>').join('')+'</select><p class="surplus-note">Não repita vendas já anotadas. Para Fiado ou pagamento dividido, use o carrinho com os dados completos.</p>')
+    const material=(key,title,content)=>'<details data-activity-section="'+key+'" class="event-material-card surplus-activity-card"'+((a.openSections?a.openSections.includes(key):a.mode===key)?' open':'')+'><summary>'+title+'</summary>'+content+'</details>';
+    if(model.data.stockLotsVersion===1&&window.TerritorioStockLotsUI)window.TerritorioStockLotsUI.bindDraft('fair-entry-lot',()=>state?.activity?(state.activity.lotInput||={}):null);
+    const lotEntry=model.data.stockLotsVersion===1&&a.source==='new'&&window.TerritorioStockLotsUI?window.TerritorioStockLotsUI.form('fair-entry-lot',a.lotInput||={},b):'';
+    const lotChoices=model.data.stockLotsVersion===1?renderHistoricalChoices(model.data,{productId:p.id,eventId:e.id,onDay:a.occurrenceDay,newQuantity:a.source==='new'?b.number(a.added||'0'):0,selections:a.lotSelections||[],prefix:'activity-lot'},b):'';
+    const dateSection=model.data.stockLotsVersion===1?'<section class="client-form-surface">'+b.dateField('fair-activity-occurrenceDay','Data em que Ocorreu',a.occurrenceDay||'','min="'+esc(e.start)+'" max="'+esc(e.end)+'"')+'<label class="lot-check"><input id="fair-activity-occurrenceConfirmed" type="checkbox"'+(a.occurrenceConfirmed?' checked':'')+'>Conferi a Data da Reposição, Venda ou Perda</label></section>':'';
+    const body='<p class="surplus-event">'+esc(e.name)+'</p>'+dateSection+'<section class="client-form-surface"><label for="fair-activity-product">Produto</label><select id="fair-activity-product">'+list.map(item=>'<option value="'+esc(item.id)+'"'+(item.id===p.id?' selected':'')+'>'+esc(b.titleName(item.name)+' · '+(item.description||window.TerritorioWorkflowBridge?.description(item)||'')+' · '+item.unit)+'</option>').join('')+'</select><p class="surplus-note">Estoque geral: '+b.quantity(split.total)+' '+esc(unit)+' · livres em casa: '+b.quantity(split.home)+' · saldo na feira: '+b.quantity(remaining)+'. A carga não é uma nova entrada.</p></section><div class="surplus-correction-cards">'
+    +material('added','1 · Reposições',b.numericField('fair-activity-added','Repus ou Levei Depois',a.added,'inputmode="decimal"')+'<label for="fair-activity-source">Origem da Reposição</label><select id="fair-activity-source"><option value="existing"'+(a.source==='existing'?' selected':'')+'>Estoque de Casa</option><option value="new"'+(a.source==='new'?' selected':'')+'>Entrada Nova Ainda Não Registrada</option></select><p class="surplus-note">Estoque de Casa só transfere a carga. Entrada Nova também registra a entrada no estoque geral.</p>'+lotEntry)
+    +material('sold','2 · Vendas Não Registradas',b.numericField('fair-activity-sold','Quanto Vendeu sem Registrar?',a.sold,'inputmode="decimal"')+'<label for="fair-activity-payment">Pagamento</label><select id="fair-activity-payment">'+['Pix','Dinheiro','Crédito','Débito','Outro'].map(method=>'<option'+(a.payment===method?' selected':'')+'>'+method+'</option>').join('')+'</select><p class="surplus-note">Não repita vendas já anotadas. Para Fiado ou pagamento dividido, use o carrinho com os dados completos.</p><div id="activity-lot-choices">'+lotChoices+'</div>')
     +material('lost','3 · Perdas ou Brindes',b.numericField('fair-activity-lost','Quantidade que Saiu sem Venda',a.lost,'inputmode="decimal"')+'<label for="fair-activity-lossReason">Motivo</label><select id="fair-activity-lossReason"><option value=""'+(!a.lossReason?' selected':'')+'>Escolher Motivo</option><option value="loss"'+(a.lossReason==='loss'?' selected':'')+'>Perda</option><option value="gift"'+(a.lossReason==='gift'?' selected':'')+'>Brinde</option></select><p class="surplus-note">Reduz o estoque uma vez e não cria faturamento.</p>')+'</div>'+(state.error?'<p class="error" role="alert">'+esc(state.error)+'</p>':'');
-    b.openModal('Acertos da Feira',body,'fair-activity',{id:e.id},button('surplus-activity-save','Registrar e Conferir','success')+button('surplus-activity-back','Voltar','sheet-back'));
+    b.openModal('Acertos da Feira',body,'fair-activity',{id:e.id},'<div class="surplus-actions">'+button('surplus-activity-save','Registrar e Conferir','success')+button('surplus-activity-back','Voltar','sheet-back')+'</div>');
   };
-  const captureActivity=()=>{const a=state?.activity;if(!a)return;for(const key of ['added','sold','lost','lossReason','source','payment']){const el=document.getElementById('fair-activity-'+key);if(el)a[key]=el.value;}};
+  const captureActivity=()=>{const a=state?.activity;if(!a)return;for(const key of ['added','sold','lost','lossReason','source','payment','occurrenceDay','occurrenceConfirmed']){const el=document.getElementById('fair-activity-'+key);if(el)a[key]=el.type==='checkbox'?el.checked:['added','sold','lost'].includes(key)&&el.value.trim()===''?'0':el.value;}a.openSections=[...document.querySelectorAll('#dialog[open] [data-activity-section][open]')].map(el=>el.dataset.activitySection);a.lotSelections=readHistoricalChoices(document.getElementById('dialog'))[a.productId]||[];};
   const saveActivity=async()=>{
     if(!state||state.busy||!state.activity)return;captureActivity();const previous=b.getModel(),copy=new b.Model(JSON.parse(JSON.stringify(previous.data)));state.busy=true;
-    try{b.setLateBusy(true);recordFairActivity(copy,{...state.activity,eventId:state.id});b.setModel(copy);if(!b.persist()){b.setModel(previous);throw Error('Não foi possível salvar. Libere espaço e tente novamente.');}if(window.TerritorioNative?.isNative&&!await window.TerritorioNative.durable())throw Error('Gravação pendente. Tente salvar novamente; o mesmo registro não será duplicado.');state.snapshot=snapshot(state.id);state.counts={};state.reasons={};state.activity=null;state.stage='confirm';state.error='';state.busy=false;b.closeNumberPad();b.render();paint();b.toast('Acertos registrados. Confira agora o que sobrou.');}
+    try{b.setLateBusy(true);const lotInput=state.activity.source==='new'&&b.number(state.activity.added||'0')>0&&window.TerritorioStockLotsUI?window.TerritorioStockLotsUI.read('fair-entry-lot',state.activity.lotInput||{}):undefined;recordFairActivity(copy,{...state.activity,eventId:state.id,lotInput});b.setModel(copy);if(!b.persist()){b.setModel(previous);throw Error('Não foi possível salvar. Libere espaço e tente novamente.');}if(window.TerritorioNative?.isNative&&!await window.TerritorioNative.durable())throw Error('Gravação pendente. Tente salvar novamente; o mesmo registro não será duplicado.');state.snapshot=snapshot(state.id);state.counts={};state.reasons={};state.activity=null;state.stage='confirm';state.error='';state.busy=false;b.closeNumberPad();b.render();paint();b.toast('Acertos registrados. Confira agora o que sobrou.');}
     catch(error){state.error=error.message;state.busy=false;paintActivity();}finally{b.setLateBusy(false);}
   };
 
@@ -175,7 +185,9 @@ export function installFairSurplusUI(b) {
     'surplus-edit-back':()=>{if(!state)return;state.question=null;state.stage='edit';paint();},
     'surplus-cancel':()=>{if(state?.busy)return;state=null;b.closeNumberPad();b.closeModal();},
   });
-  document.addEventListener('change',event=>{if(event.target.id!=='fair-activity-product'||state?.stage!=='activity'||state.busy)return;state.activity={...state.activity,productId:event.target.value,added:'0',sold:'0',lost:'0',lossReason:'',operationId:b.uid()};state.error='';b.closeNumberPad();paint();});
+  document.addEventListener('change',event=>{if(event.target.id!=='fair-activity-product'||state?.stage!=='activity'||state.busy)return;state.activity={...state.activity,productId:event.target.value,added:'0',sold:'0',lost:'0',lossReason:'',lotInput:{},lotSelections:[],operationId:b.uid()};state.error='';b.closeNumberPad();paint();});
+  document.addEventListener('change',event=>{const id=event.target.id;if(!state||state.busy)return;if(id==='fair-activity-source'||id==='fair-activity-occurrenceDay'){captureActivity();if(id.endsWith('occurrenceDay')){state.activity.occurrenceConfirmed=false;state.activity.lotSelections=[];}b.closeNumberPad();paintActivity();}else if(id==='surplus-occurred'){capture();state.occurrenceConfirmed=false;state.historicalSelections={};b.closeNumberPad();paint();}});
+  let lotChoiceTimer;document.addEventListener('input',event=>{if(!['fair-activity-added','fair-activity-sold'].includes(event.target.id)||state?.stage!=='activity'||state.busy)return;clearTimeout(lotChoiceTimer);lotChoiceTimer=setTimeout(()=>{if(state?.stage!=='activity')return;captureActivity();const a=state.activity,target=document.getElementById('activity-lot-choices');if(target)target.innerHTML=renderHistoricalChoices(b.getModel().data,{productId:a.productId,eventId:state.id,onDay:a.occurrenceDay,newQuantity:a.source==='new'?b.number(a.added||'0'):0,selections:a.lotSelections||[],prefix:'activity-lot'},b);},250);});
   b.preview.fairSurplusState=()=>state;
   b.preview.fairReportFor=id=>b.reportFor(b.getModel().data.events.find(e=>e.id===id));
   b.preview.syncFairReports=b.syncReports;

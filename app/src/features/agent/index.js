@@ -18,7 +18,7 @@ export function installAgent(){
  function persist(){const result=b.persist();if(result===false)throw Error('Não foi possível salvar. A cópia anterior foi preservada.');return result;}
  function rpcNow(type,options,text,signal){return new Promise((resolve,reject)=>{
   if(signal?.aborted)return reject(Error('Análise adiada para priorizar sua operação.'));
-  const intent=type==='query'?parseRequest(text,b.data(),options).intent:'',data=type==='journeys'?options.journeyInput:type==='suppliers'?null:readAgentContext(b.data(),{type,intent,profile:window.TerritorioResourcePolicy?.snapshot().intelligenceProfile||'essential'});
+  const intent=type==='query'?parseRequest(text,b.data(),options).intent:'',data=type==='journeys'?options.journeyInput:type==='suppliers'?null:readAgentContext(b.data(),{type,intent,scopeId:options.scopeId||'all',profile:window.TerritorioResourcePolicy?.snapshot().intelligenceProfile||'essential'});
   if(!worker){try{worker=new Worker(new URL('./worker.js',import.meta.url),{type:'module'});worker.onmessage=e=>{const p=pending.get(e.data.id);if(!p)return;pending.delete(e.data.id);p.cleanup();e.data.error?p.reject(Error(e.data.error)):p.resolve(e.data.result);};worker.onerror=()=>stopWorker('A análise foi interrompida. Tente novamente.');}catch{if(type==='suppliers')return resolve(compareOffers(options));if(intent==='stock')return resolve(answerQuery(data,parseRequest(text,data,options),options));if(type==='index')return resolve(productIndex(data));return reject(Error('Análise local indisponível neste momento. Vendas, estoque e relatórios continuam disponíveis.'));}}
   const id=++sequence,abort=()=>stopWorker('Análise adiada para priorizar sua operação.',true),timer=setTimeout(()=>stopWorker('A consulta demorou demais. Tente um recorte menor.'),12000);
   pending.set(id,{resolve,reject,timer,cleanup:()=>{clearTimeout(timer);signal?.removeEventListener('abort',abort);}});signal?.addEventListener('abort',abort,{once:true});
@@ -58,6 +58,7 @@ export function installAgent(){
  const back=()=>'<button type="button" class="sheet-back" data-action="agent-back">'+window.TerritorioWorkflowBridge.icon('back')+'<span>Voltar</span></button>';
  async function ask(text,source='text',requestId=uid()){
   const base=view?.ctx||context(),ctx=b.queryContext?.(text,base)||base,actor=contextOf(b.data()).actorId,token=++epoch;if(!current(ctx))return b.toast('O produtor mudou. Abra a análise novamente.');
+  if(window.TerritorioStockLotsUI?.handleQuestion(text)){audit(state(),requestId,'query-stock-validity',{intent:'stock-validity',scopeId:'all'});persist();return;}
   const request=parseRequest(text,b.data(),{scopeId:ctx.scopeId,source,requestId});
   if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')request.intent='management';
   if(request.intent==='sale'){request.scopeId=b.saleScope();const p=proposeSale(b.data(),request,{proposalId:uid()});persist();return paintProposal(p,ctx);}

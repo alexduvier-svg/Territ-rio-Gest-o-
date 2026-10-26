@@ -10,7 +10,7 @@ export function printProducts(data,description=()=> ''){
   if(['cancelled','delivered'].includes(order.status)||order.accountedSale||completed.has('order-'+order.id))continue;
   for(const line of order.items||[]){globalHeld.set(line.productId,(globalHeld.get(line.productId)||0)+line.quantity);if(!order.event)homeHeld.set(line.productId,(homeHeld.get(line.productId)||0)+line.quantity);}
  }
- return shopSnapshot(data,[],description).map(p=>({...p,name:properName(p.name),available:Math.max(0,round(Math.min(p.stock-(globalHeld.get(p.productId)||0),p.homeStock-(homeHeld.get(p.productId)||0))))}));
+ return shopSnapshot(data,[],description).map(p=>({...p,name:properName(p.name),available:Math.max(0,round(Math.min((p.eligibleStock??p.stock)-(globalHeld.get(p.productId)||0),(p.eligibleHomeStock??p.homeStock)-(homeHeld.get(p.productId)||0))))}));
 }
 export function printOffer(data,ids,{description,at=Date.now(),theme='light'}={}){
  const selected=new Set(ids);if(!selected.size)throw Error('Selecione os produtos para enviar.');if(selected.size>PRINT_LIMIT)throw Error('Escolha até '+PRINT_LIMIT+' produtos por envio para manter a lista legível.');
