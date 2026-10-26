@@ -241,6 +241,6 @@ try {
   console.error(error);
   SplashScreen.hide().catch(() => {});
   document.getElementById('app').innerHTML =
-    '<section class="panel" style="margin-top:40px"><h2>Não foi possível abrir o AGRO Gestão</h2>' +
+    '<section class="panel" style="margin-top:40px"><h2>Não foi possível abrir o AGRO Gestão Claude</h2>' +
     '<p class="muted">Seus dados continuam guardados no aparelho. Feche e abra o app novamente.</p></section>';
 }
