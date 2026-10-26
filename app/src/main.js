@@ -75,6 +75,8 @@ import * as Finance from './features/finance/finance.js';
 import { runAudit } from './features/finance/audit.js';
 import * as ProducerCalcs from './features/finance/producer-calcs.js';
 import './features/producer-calcs.css';
+import * as SellModes from './features/sell-modes/model.js';
+import './features/sell-modes/sell-modes.css';
 import { API } from './features/server.js';
 import * as FairReport from './features/fair-report.js';
 import * as FairSurplus from './features/fair-surplus.js';
@@ -144,6 +146,7 @@ try {
   window.TerritorioAdaptationGuidelines = ADAPTATION_GUIDELINES;
   window.TerritorioRecoveryInspect = inspectRecovery;
   window.TerritorioFinance = { ...Finance, ...ProducerCalcs, runAudit };
+  window.TerritorioSellModes = SellModes;
   window.TerritorioReceivables = Receivables;
   window.TerritorioSaleRound = SaleRound;
   window.TerritorioRestockSymbol = restockSymbol;
