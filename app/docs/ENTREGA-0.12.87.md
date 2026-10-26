@@ -1,6 +1,6 @@
 # AGRO Gestão 2 — 0.12.87
 
-Entrega instalada em 26/10/2026 no Reno14 e PKJ110, com cópia conferida na pasta original. Publicação exclusiva no ramo codex/atualizacao-agro-gestao2. A calculadora Contas foi avaliada separadamente; ainda não integra esta versão.
+Entrega instalada em 26/10/2026 no Reno14 e PKJ110, com cópia conferida na pasta original. Código e QA no commit fd7d81bc32fb73e877c6b3d045128107fa79730b, push e hash remoto confirmados exclusivamente no ramo codex/atualizacao-agro-gestao2. A calculadora Contas foi avaliada separadamente; ainda não integra esta versão.
 
 ## Comportamento entregue
 

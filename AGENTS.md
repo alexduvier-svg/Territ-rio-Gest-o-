@@ -1,4 +1,10 @@
-# 87 — Entregue nos Dois Aparelhos e Pasta Original; Fechar Git AGRO2
+# 0.12.87 Entregue — Instalação, Pasta Original e Git Concluídos
+
+Código e QA publicados no commit fd7d81bc32fb73e877c6b3d045128107fa79730b, confirmado por ls-remote no ramo codex/atualizacao-agro-gestao2 em 26/10/2026. Entrega 87 concluída; não repetir build, instalação, deploy ou testes por causa de checkpoints históricos abaixo. Não executar verify-validity087.py de novo sobre os metadados finais, pois gera estado pré-instalação. Relatório docs/ENTREGA-0.12.87.md e metadados locais registram o arquivo, preservação e limites de verificação.
+
+Nova calculadora Contas: avaliação concluída e desenho humano registrado, implementação ainda pendente como próxima alteração. Não alegar que veio na 0.12.87. Sem pausa ativa, subagentes ou novas automações. Em futura tarefa, consultar Git/Claude antes de editar e manter apenas AGRO2 como destino de publicação.
+
+## Instalação concluída (registro anterior ao fechamento Git)
 
 26/10/2026: 0.12.87/code127 instalada com -r no Reno14 (13:41:17) e PKJ110 (13:41:31); primeiras instalações preservadas 21/10/2026 18:58:01 e 14/10/2026 18:17:06. APK 9243258 bytes/SHA19846277f6b785f75ca6fb632ef713e4948ebe4190756b2358cdf062d148bc12 idêntico na pasta original e nos DOIS. Certificado original/v2/v3/56 assets+2pontes/ZIP e ELF16KB estrutural confirmados. NÃO repetir build/install87 por documentação.
 
