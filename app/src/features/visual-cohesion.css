@@ -63,3 +63,8 @@
 :root[data-theme][data-layout] .lot-lead-row input { min-height: 44px; text-align: center; font-size: 16px; font-weight: 600; }
 :root[data-theme][data-layout] dialog .lot-loss { margin-top: 8px; }
 .sup-quick { margin: 0 0 14px; }
+
+/* Cards de venda na altura aprovada (cerca de 118 px a 360 px, print do Alex de 26/10/2026). A grade usava
+   linhas iguais (1fr): um nome de três linhas (ex.: Café Gourmet TM) esticava TODOS os cards para 137 px.
+   Agora cada fileira tem a altura do seu card mais alto; o preço continua no pé do card. */
+:root[data-theme][data-layout] #app .glass-products-plane .feira-grid { grid-auto-rows: auto; }
