@@ -42,3 +42,5 @@ Codex: repositório `alexduvier-svg/Territ-rio-Gest-o-`, ramo `codex/atualizacao
 Claude: repositório `alexduvier-svg/agro-gestao-claude`, pacote `br.com.territorio.gestaoclaude`. O nome, os dados, os APKs e o histórico do Claude permanecem separados.
 
 Scripts locais: `qa/build-codex091.ps1`, `qa/verify-codex091.py`; evidência de identificação em `qa/codex091-identity-smoke.json`. O instalador de produção permanece local, por conter identidades dos aparelhos. Metadados locais: `native-apk-validation-codex-0.12.91.json`; não repetir o verificador após instalar, pois ele inicia o estado pré-instalação.
+
+Código, identificação, verificação e comparação publicados no commit `d968043361ad1c73e4629dc131bcc7e1ec7645d1`, confirmado no remoto exclusivo do Codex em26/10/2026.

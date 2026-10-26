@@ -1,3 +1,17 @@
+# AGRO Gestão Codex 0.12.91 — Entrega Concluída e Git Separado
+
+26/10/2026: base final88 renomeada e renumerada por pedido explícito para AGRO Gestão Codex0.12.91/code131. Ajustes mostra “Versão0.12.91·Codex”. Pacote br.com.territorio.gestao2 e certificado originais mantidos. APK `AGRO-Gestao-Codex-0.12.91.apk`,9259733bytes/SHA `5dc2292bcaf4026f5edd3f19125c2fd8588cdcfd79f8b174ad7f94f4e79975f4`, idêntico na pasta original e nos dois aparelhos. Reno19:12:05,PKJ19:12:12; primeiras datas preservadas. Coldlaunch/processo vivoDOIS; sinal seis módulos noReno, sem sinal noPKJ. Não alegar confirmação humana91(a anterioré88).
+
+Código e documentos publicados e confirmados no commit `d968043361ad1c73e4629dc131bcc7e1ec7645d1`, exclusivamente `codex/atualizacao-agro-gestao2` no repositórioTerrit-rio-Gest-o-. Claude mantém repoagro-gestao-claude e pacotegestaoclaude separados; não escrevemos nele. Relatório `agro-gestao/docs/ENTREGA-CODEX-0.12.91.md`. Não repetir build/install/verificador por checkpoints históricos.
+
+Validação atual de identidade: oito telas320/360/393/412nos dois temas, nome e número sem transbordamento; assinatura/ZIP/ELF16KB estruturais e assets57 conferidos. Comparados210arquivosruntimeweb/Java combase88: iguais exceto identificação. QAfuncional769unit/8browser/4native pertence à88, não foi apresentado como repetição91. Layout e funções foram mantidos nesta renomeação. Nenhum servidor, BDreal, reset, WhatsApp ou agenda pessoal acessados.
+
+Pedido seguinte de buscaGit concluído: Claude atual consultado0.12.92/fbdcdb9698d442d5cc1f12281b65964bf810622d. NÃOcopiamos tudo. Codex91 conserva a base88 e suas melhorias próprias. Diferenças em novas contas, validade por produto/perda direta, atalhos de fornecedores, finanças, cache, organização visual/cards/Ajustes e exemplos persistentes documentadas em `agro-gestao/docs/COMPARACAO-CLAUDE-CODEX-2026-10-26.md`. Nenhum merge adicional autorizado/executado nessa consulta. Não afirmar equivalência funcional pelo número. Se o usuário pedir integração depois, revalidar correções e preservar a separação; não importar cegamente os problemas já reproduzidos na revisão89.
+
+Tudo desta etapa está concluído. Sem pausa ativa, subagentes ou novas automações. Heartbeats sem novo pedido ou pendência concreta devem ficar em silêncio; não inventar tarefas ou versões.
+
+## Histórico
+
 # Comparação Git Claude92 — Não Houve Merge Integral
 
 Usuário pediu verificar se todas as mudanças do Claude já foram copiadas. Consulta26/10 confirmou Claude0.12.92/fbdcdb9698d442d5cc1f12281b65964bf810622d. Codex0.12.91 é somente a base final88 renomeada, NÃOcópia integral. Comparação salva em `agro-gestao/docs/COMPARACAO-CLAUDE-CODEX-2026-10-26.md`. Diferenças listadas: novas contas, perda direta/avisos por produto, atalhos de compras, finanças, cache, organização visual/cards/Ajustes e exemplos persistentes. Trechos financeiros/lotes permanecem iguais àClaude89; problemas reproduzidos antes não corrigidos automaticamente. Nenhuma integração adicional foi solicitada nem executada nesta consulta. Preservar melhorias próprias e históricos separados.
