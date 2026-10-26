@@ -230,5 +230,47 @@
     "funcao": "installFrameBudget",
     "versao": "1.1",
     "nota": ">10% de ~150 quadros >20 ms em 4 movimentos; reavaliado a cada 7 dias"
+  },
+  "preco_markup": {
+    "arquivo": "app/src/features/finance/producer-calcs.js",
+    "versao": "1.0",
+    "testes": [
+      "producer-calcs.test.mjs"
+    ],
+    "funcao": "markupPrice",
+    "nota": "despesas sobre o preço (divisão); mostra o erro de somar porcentagens"
+  },
+  "equilibrio_unidades": {
+    "arquivo": "app/src/features/finance/producer-calcs.js",
+    "versao": "1.0",
+    "testes": [
+      "producer-calcs.test.mjs"
+    ],
+    "funcao": "breakEvenUnits",
+    "nota": "simulação por unidade da calculadora; o do mês registrado é statement.breakEven"
+  },
+  "indicadores_periodo": {
+    "arquivo": "app/src/features/finance/producer-calcs.js",
+    "versao": "1.0",
+    "testes": [
+      "producer-calcs.test.mjs"
+    ],
+    "funcao": "periodIndicators"
+  },
+  "impacto_desconto": {
+    "arquivo": "app/src/features/finance/producer-calcs.js",
+    "versao": "1.0",
+    "testes": [
+      "producer-calcs.test.mjs"
+    ],
+    "funcao": "discountImpact"
+  },
+  "taxa_maquininha": {
+    "arquivo": "app/src/features/finance/producer-calcs.js",
+    "versao": "1.0",
+    "testes": [
+      "producer-calcs.test.mjs"
+    ],
+    "funcao": "cardNet"
   }
 }

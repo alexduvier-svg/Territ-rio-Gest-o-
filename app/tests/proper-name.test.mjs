@@ -38,3 +38,8 @@ test('stored names are corrected in place and only names change', () => {
   assert.equal(data.settings.businessName, 'Sítio Boa Vista');
   assert.equal(normalizeRecordNames(data), 0, 'a second pass changes nothing');
 });
+
+test('pelo, pela e ou ficam minúsculos no meio do título', () => {
+  assert.equal(properName('preço de venda pelo markup'), 'Preço de Venda pelo Markup');
+  assert.equal(properName('feira pela manhã ou tarde'), 'Feira pela Manhã ou Tarde');
+});

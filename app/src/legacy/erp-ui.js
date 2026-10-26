@@ -187,7 +187,7 @@ function calculateExpression(expression,angle){const source=String(expression).r
  const result=sum();if(at!==tokens.length)throw Error('Revise os operadores e os parênteses.');return Object.is(result,-0)?0:result;}
 let calculatorState={expression:'',result:null,error:'',scientific:false,angle:'deg',memory:0,finished:false};
 function calculatorNumber(value){if(value==null)return '0';return Math.abs(value)>=1e12||(value!==0&&Math.abs(value)<1e-7)?value.toExponential(8).replace('.',','):value.toLocaleString('pt-BR',{maximumSignificantDigits:12});}
-function paintCalculator(){const show=x=>String(x).replace(/\*/g,'×').replace(/\//g,'÷').replace(/\./g,',').replace(/-/g,'−'),c=calculatorState,keys=[['AC','clear'],['⌫','erase'],['%','%'],['÷','/'],['7','7'],['8','8'],['9','9'],['×','*'],['4','4'],['5','5'],['6','6'],['−','-'],['1','1'],['2','2'],['3','3'],['+','+'],['±','sign'],['0','0'],[',','.'],['=','equals']],science=[['sin','sin('],['cos','cos('],['tan','tan('],['π','pi'],['e','e'],['asin','asin('],['acos','acos('],['atan','atan('],['ln','ln('],['log','log('],['√','sqrt('],['x²','^2'],['xʸ','^'],['x!','!'],['1/x','reciprocal'],['(','('],[')',')'],['|x|','abs('],['eˣ','exp('],['Graus/Rad','angle']];openModal('Calculadora','<div class="calculator-mode"><span>'+ (c.scientific?'Científica · '+(c.angle==='deg'?'Graus':'Radianos'):'Básica')+'</span>'+btn('calculator-scientific',icon('scientific')+'<span class="sr-only">Alternar calculadora científica</span>','round')+'</div><div class="calc-screen'+(c.error?' has-error':'')+'" role="status" aria-live="polite"><span class="calc-line">'+escape(c.error||(c.finished&&c.expression&&c.expression!==String(c.result)?show(c.expression)+' =':''))+'</span>'+(v=>'<output class="calc-value tabular'+(v.length>16?' xlong':v.length>10?' long':'')+'" id="calculator-expression">'+escape(v)+'</output>')(c.finished?calculatorNumber(c.result):show(c.expression)||'0')+'</div><div class="calculator-memory">'+[['MC','clear'],['MR','recall'],['M+','add'],['M−','subtract']].map(([label,op])=>btn('calculator-memory',label,'choice',{op})).join('')+'</div>'+(c.scientific?'<div class="calculator-science">'+science.map(([label,token])=>btn('calculator-key',label,'calculator-key',{token})).join(''):'')+'<div class="calculator-keypad">'+keys.map(([label,token])=>btn('calculator-key',label,'calculator-key'+(token==='equals'?' selected':''),{token})).join('')+'</div><p class="small muted calculator-help">Percentual: 10% = 0,1. '+(c.memory?'Memória: '+calculatorNumber(c.memory)+'.':'')+'</p>','calculator',null,btn('close-modal','Voltar','choice'));}
+function paintCalculator(){const show=x=>String(x).replace(/\*/g,'×').replace(/\//g,'÷').replace(/\./g,',').replace(/-/g,'−'),c=calculatorState,keys=[['AC','clear'],['⌫','erase'],['%','%'],['÷','/'],['7','7'],['8','8'],['9','9'],['×','*'],['4','4'],['5','5'],['6','6'],['−','-'],['1','1'],['2','2'],['3','3'],['+','+'],['±','sign'],['0','0'],[',','.'],['=','equals']],science=[['sin','sin('],['cos','cos('],['tan','tan('],['π','pi'],['e','e'],['asin','asin('],['acos','acos('],['atan','atan('],['ln','ln('],['log','log('],['√','sqrt('],['x²','^2'],['xʸ','^'],['x!','!'],['1/x','reciprocal'],['(','('],[')',')'],['|x|','abs('],['eˣ','exp('],['Graus/Rad','angle']];openModal('Calculadora',calcModes()+'<div class="calc-screen'+(c.error?' has-error':'')+'" role="status" aria-live="polite"><span class="calc-line">'+escape(c.error||(c.finished&&c.expression&&c.expression!==String(c.result)?show(c.expression)+' =':''))+'</span>'+(v=>'<output class="calc-value tabular'+(v.length>16?' xlong':v.length>10?' long':'')+'" id="calculator-expression">'+escape(v)+'</output>')(c.finished?calculatorNumber(c.result):show(c.expression)||'0')+'</div><div class="calculator-memory">'+[['MC','clear'],['MR','recall'],['M+','add'],['M−','subtract']].map(([label,op])=>btn('calculator-memory',label,'choice',{op})).join('')+'</div>'+(c.scientific?'<div class="calculator-science">'+science.map(([label,token])=>btn('calculator-key',label,'calculator-key',{token})).join(''):'')+'<div class="calculator-keypad">'+keys.map(([label,token])=>btn('calculator-key',label,'calculator-key'+(token==='equals'?' selected':''),{token})).join('')+'</div><p class="small muted calculator-help">Percentual: 10% = 0,1. '+(c.scientific?'Ângulos em '+(c.angle==='deg'?'graus':'radianos')+'. ':'')+(c.memory?'Memória: '+calculatorNumber(c.memory)+'.':'')+'</p>','calculator',null,btn('close-modal','Voltar','choice'));}
 function calculatorKey(token){const c=calculatorState;c.error='';try{if(token==='clear'){c.expression='';c.result=null;c.finished=false;}else if(token==='erase'){c.expression=c.expression.slice(0,-1);c.finished=false;}else if(token==='angle')c.angle=c.angle==='deg'?'rad':'deg';else if(['equals','sign','reciprocal'].includes(token)){const answer=calculateExpression(c.expression,c.angle);c.result=token==='sign'?-answer:token==='reciprocal'?(answer===0?calculateExpression('1/0',c.angle):1/answer):answer;if(token!=='equals')c.expression=String(c.result);c.finished=true;}else{if(c.finished){c.expression=/^[+\-*/^!%]/.test(token)?(c.result<0||/e/.test(String(c.result))?'('+String(c.result)+')':String(c.result)):'';c.finished=false;}if(c.expression.length+token.length<=300)c.expression+=token;}if(token!=='equals'&&!c.finished){try{c.result=c.expression?calculateExpression(c.expression,c.angle):null;}catch(e){c.result=null;}}}catch(e){c.error=e.message;c.finished=false;}paintCalculator();}
 function calculatorMemory(op){const c=calculatorState;try{if(op==='clear')c.memory=0;else if(op==='recall'){c.expression=String(c.memory);c.result=c.memory;c.finished=true;c.error='';}else{const number=calculateExpression(c.expression,c.angle);const updated=c.memory+(op==='subtract'?-1:1)*number;if(!Number.isFinite(updated))throw Error('O valor ultrapassou o limite da memória.');c.memory=updated;}}catch(e){c.error=e.message;}paintCalculator();}
 
@@ -2995,5 +2995,108 @@ Object.assign(actions,{
  'fiado-paid':d=>{const sale=model.data.sales.find(s=>s.id===d.id&&s.receivable?.status==='open');if(!sale||!['Pix','Dinheiro','Crédito','Débito','Outro'].includes(d.method))return;
   sale.receivable={...sale.receivable,status:'paid',method:d.method,paidAt:new Date().toISOString()};if(!persist())return toast('Não foi possível salvar. Libere espaço e tente novamente.');closeModal();render();toast('Recebido. '+titleName(sale.customerName||'Cliente')+' pagou '+E.money(sale.receivable.amount)+' no '+d.method+'.');}
 });
+// Calculadora: modo Contas (Básica · Científica · Contas). Contas da banca abertas por seta, dentro da
+// própria calculadora. Campos com "seus dados" vêm dos registros do app (custo do produto, taxas,
+// custos fixos, vendas); o que o app não sabe fica vazio, sem número inventado. Nada é gravado aqui:
+// "Usar este preço" abre o cadastro do produto com o preço preenchido para o produtor conferir e salvar.
+// Fórmulas: src/features/finance/producer-calcs.js (testes em tests/producer-calcs.test.mjs).
+calculatorState.mode=calculatorState.scientific?'scientific':'basic';
+calculatorState.contas={open:null,product:'',values:{}};
+function calcModes(){const m=calculatorState.mode;return '<div class="cm-modes" role="tablist" aria-label="Tipo de calculadora">'+[['basic','Básica'],['scientific','Científica'],['contas','Contas']].map(([id,label])=>btn('calculator-mode',label,'cm-mode'+(m===id?' on':''),{mode:id})).join('')+'</div>';}
+const CONTAS_SUBJECTS=[
+ {id:'preco',ic:'R$',title:'Preço',sub:'Preço de venda pelo markup',calcs:['markup']},
+ {id:'vendas',ic:'↗',title:'Vendas',sub:'Ponto de equilíbrio · indicadores do período',calcs:['equilibrio','indicadores']},
+ {id:'descontos',ic:'%',title:'Descontos e Taxas',sub:'Impacto do desconto · taxa da maquininha',calcs:['desconto','taxa']},
+ {id:'fornecedores',ic:'⇄',title:'Fornecedores',sub:'Comparar · à vista ou a prazo · relação de troca',soon:true},
+ {id:'estoque',ic:'▦',title:'Estoque e Caixa',sub:'Quanto comprar e quando · ciclo de caixa',soon:true},
+ {id:'rural',ic:'☘',title:'Produção Rural',sub:'Custo da safra · conversão de medidas',soon:true},
+ {id:'credito',ic:'∑',title:'Crédito e Investimento',sub:'Parcela do financiamento · retorno',soon:true}];
+// Dados do app em reais. undefined = o app não sabe (o campo fica vazio).
+function contasProduct(){const id=calculatorState.contas.product;return id?model.product(id):null;}
+function contasCostKnown(p){return !!p&&(p.costKnown===true||p.costKnown!==false&&Number.isFinite(p.cost)&&p.cost>0);}
+function contasFees(){return finSettings();}
+function contasSales(from,until){return model.data.sales.filter(s=>s.status==='completed'&&(!from||String(s.date)>=from)&&(!until||String(s.date)<until));}
+function contasMonthStart(offset){const d=new Date();d.setDate(1);d.setHours(0,0,0,0);d.setMonth(d.getMonth()+offset);return d.toISOString();}
+function contasSoldQty(p){if(!p)return undefined;const since=new Date(Date.now()-30*864e5).toISOString();let q=0;for(const s of contasSales(since))for(const i of s.items||[])if(i.productId===p.id)q+=Number(i.qty)||0;return q>0?q:undefined;}
+const reais=c=>Number.isFinite(c)?c/100:undefined;
+const CONTAS_CALCS={
+ markup:{title:'Preço de venda pelo markup',product:true,fields:[
+  {k:'cost',l:'Custo por unidade',u:'R$',src:()=>{const p=contasProduct();return contasCostKnown(p)?reais(p.cost):undefined;}},
+  {k:'margin',l:'Margem desejada',u:'%'},
+  {k:'card',l:'Taxa do cartão',u:'%',src:()=>contasFees().cardFees['Crédito']},
+  {k:'fair',l:'Taxa da feira',u:'%'},
+  {k:'tax',l:'Imposto',u:'%',src:()=>contasFees().salesTaxRate>0?contasFees().salesTaxRate:undefined}],
+  run:v=>FIN().markupPrice(v)},
+ equilibrio:{title:'Ponto de equilíbrio e meta',product:true,fields:[
+  {k:'fixed',l:'Custos fixos do mês',u:'R$',src:()=>{const s=contasFees(),n=s.fixedCosts.reduce((t,f)=>t+(Number(f.amount)||0),0)+(s.drawOn?s.drawMonthly:0);return n>0?n/100:undefined;}},
+  {k:'price',l:'Preço de venda',u:'R$',src:()=>{const p=contasProduct();return p&&p.price>0?reais(p.price):undefined;}},
+  {k:'variable',l:'Custo por unidade',u:'R$',hint:'Some embalagem e taxas da venda, se houver.',src:()=>{const p=contasProduct();return contasCostKnown(p)?reais(p.cost):undefined;}},
+  {k:'profit',l:'Lucro desejado no mês',u:'R$',src:()=>{const g=contasFees().goal;return g>0?g/100:undefined;}}],
+  run:v=>FIN().breakEvenUnits(v)},
+ indicadores:{title:'Indicadores do período',fields:[
+  {k:'revenue',l:'Vendido neste mês',u:'R$',src:()=>{const n=contasSales(contasMonthStart(0)).reduce((t,s)=>t+s.total,0);return n>0?n/100:undefined;}},
+  {k:'count',l:'Número de vendas',u:'vendas',src:()=>{const n=contasSales(contasMonthStart(0)).length;return n>0?n:undefined;}},
+  {k:'previous',l:'Vendido no mês passado',u:'R$',src:()=>{const n=contasSales(contasMonthStart(-1),contasMonthStart(0)).reduce((t,s)=>t+s.total,0);return n>0?n/100:undefined;}},
+  {k:'taken',l:'Quantidade levada',u:'un'},
+  {k:'lost',l:'Perdida ou que voltou',u:'un'}],
+  run:v=>FIN().periodIndicators(v)},
+ desconto:{title:'Impacto do desconto',product:true,fields:[
+  {k:'price',l:'Preço normal',u:'R$',src:()=>{const p=contasProduct();return p&&p.price>0?reais(p.price):undefined;}},
+  {k:'variable',l:'Custo por unidade',u:'R$',src:()=>{const p=contasProduct();return contasCostKnown(p)?reais(p.cost):undefined;}},
+  {k:'discount',l:'Desconto',u:'%'},
+  {k:'qty',l:'Vendidos em 30 dias',u:'un',src:()=>contasSoldQty(contasProduct())}],
+  run:v=>FIN().discountImpact(v)},
+ taxa:{title:'Taxa do cartão e da maquininha',product:true,fields:[
+  {k:'value',l:'Valor da venda',u:'R$',src:()=>{const p=contasProduct();return p&&p.price>0?reais(p.price):undefined;}},
+  {k:'rate',l:'Taxa cobrada',u:'%',src:()=>contasFees().cardFees['Crédito']},
+  {k:'wanted',l:'Quero receber',u:'R$'}],
+  run:v=>FIN().cardNet(v)}};
+function contasNum(n,d=2){return Number.isFinite(n)?n.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';}
+function contasBRL(n){return Number.isFinite(n)?'R$ '+contasNum(n):'—';}
+function contasPct(r,d=1){return Number.isFinite(r)?contasNum(r*100,d)+'%':'—';}
+function contasInt(n){return Number.isFinite(n)?Math.round(n).toLocaleString('pt-BR'):'—';}
+function contasText(n,u){if(!Number.isFinite(n))return '';return u==='R$'?contasNum(n):String(Math.round(n*100)/100).replace('.',',');}
+// Valor do campo: o que o produtor digitou vale mais que o dado do app.
+function contasField(id,f){const key=id+'.'+f.k,typed=calculatorState.contas.values[key];if(typed!==undefined)return {text:typed,mine:false};const v=f.src?f.src():undefined;return Number.isFinite(v)?{text:contasText(v,f.u),mine:true}:{text:'',mine:false};}
+function contasValues(id){const c=CONTAS_CALCS[id],v={};for(const f of c.fields)v[f.k]=FIN().parseBR(contasField(id,f).text);return v;}
+function contasRows(rows){return '<dl>'+rows.filter(Boolean).map(([a,b])=>'<div><dt>'+escape(a)+'</dt><dd class="tabular">'+escape(b)+'</dd></div>').join('')+'</dl>';}
+function contasBox(label,big,rows,note,tone){return '<div class="cm-res"><span class="lab">'+escape(label)+'</span><span class="big tabular">'+escape(big)+'</span>'+(rows?contasRows(rows):'')+'</div>'+(note?'<p class="cm-note'+(tone==='good'?' good':'')+'">'+note+'</p>':'');}
+function contasEmpty(text){return '<p class="cm-wait">'+escape(text)+'</p>';}
+function contasFormula(text){return '<details class="cm-formula"><summary>Fórmula</summary><p>'+escape(text)+'</p></details>';}
+function contasResult(id){const v=contasValues(id),r=CONTAS_CALCS[id].run(v),p=contasProduct();
+ if(id==='markup'){if(!r)return contasEmpty(Number.isFinite(v.cost)?'Informe a margem desejada para ver o preço.':'Informe o custo por unidade e a margem desejada.');
+  if(r.status==='impossible')return contasBox('Preço sugerido','Impossível',null,'Taxas e margem somam <b>'+contasPct(r.expenseRate+r.marginRate)+'</b> do preço. Precisam somar menos de 100%.');
+  return contasBox('Preço sugerido por unidade',contasBRL(r.price),[['Lucro por unidade',contasBRL(r.profit)],['Despesas da venda',contasBRL(r.expenses)],['Markup',contasNum(r.markup,3)+'×'],['Acréscimo sobre o custo',contasPct(r.overCost)]],r.expenseRate>0?'<b>Erro comum:</b> somar '+contasPct(r.expenseRate+r.marginRate,2)+' ao custo dá '+contasBRL(r.naive)+'. Com esse preço a margem real cai para '+contasPct(r.naiveMargin)+', e não '+contasPct(r.marginRate,0)+'.':'')
+   +'<div class="cm-acts">'+(p?btn('contas-use-price','Usar este preço','cm-use',{id:p.id,cents:String(Math.round(r.price*100))}):'<span class="cm-hint">Escolha um produto para usar este preço.</span>')+contasFormula('Markup = 1 ÷ (1 − taxas% − margem%) · Preço = custo × markup')+'</div>';}
+ if(id==='equilibrio'){if(!r)return contasEmpty('Informe os custos fixos, o preço e o custo por unidade.');
+  if(r.status==='no-margin')return contasBox('Ponto de equilíbrio','Não existe',null,'O custo é maior ou igual ao preço: <b>vender mais aumenta o prejuízo</b>. Revise o preço ou o custo.');
+  return contasBox('Unidades para empatar no mês',contasInt(r.units)+' un',[['Cada venda deixa',contasBRL(r.contribution)+' ('+contasPct(r.contributionRate)+')'],['Empate em vendas',contasBRL(r.revenue)],r.hasGoal&&['Meta para o lucro',contasInt(r.goalUnits)+' un'],r.hasGoal&&['Vendas da meta',contasBRL(r.goalRevenue)]],'A partir da unidade '+contasInt(r.units+1)+', o que entra é lucro.','good')+contasFormula('Cada venda deixa = preço − custo · Empate = fixos ÷ o que cada venda deixa · Meta = (fixos + lucro) ÷ o que cada venda deixa');}
+ if(id==='indicadores'){if(!r)return contasEmpty('Informe o valor vendido e o número de vendas.');
+  return contasBox('Ticket médio',contasBRL(r.ticket),[['Contra o mês passado',r.change==null?'—':(r.change>=0?'+':'')+contasPct(r.change)],['Perdas e sobras',r.lossRate==null?'—':contasPct(r.lossRate)],['Aproveitamento',r.used==null?'—':contasPct(r.used)]],r.lossRate==null?'':r.lossRate>0.1?'Perdas e sobras passaram de 10% do que foi levado. Vale ajustar a quantidade para a próxima vez.':'Perdas e sobras em '+contasPct(r.lossRate)+' do que foi levado, um nível controlado.',r.lossRate!=null&&r.lossRate<=0.1?'good':'')+contasFormula('Ticket = vendido ÷ vendas · Variação = (atual − anterior) ÷ anterior · Perdas = perdido ÷ levado');}
+ if(id==='desconto'){if(!r)return contasEmpty(Number.isFinite(v.price)&&Number.isFinite(v.variable)?'Informe o desconto que quer dar.':'Informe o preço, o custo por unidade e o desconto.');
+  if(r.status==='no-margin')return contasBox('Desconto máximo','Nenhum',null,'O custo já é maior ou igual ao preço: qualquer desconto dá prejuízo.');
+  if(r.status==='loss')return contasBox('Precisa vender a mais','Sem limite',[['Preço com desconto',contasBRL(r.newPrice)],['Desconto máximo sem prejuízo',contasPct(r.maxDiscount)]],'Com esse desconto <b>cada venda dá prejuízo</b>.');
+  return contasBox('Precisa vender a mais',contasPct(r.extra),[['Preço com desconto',contasBRL(r.newPrice)],['Cada venda deixa antes',contasBRL(r.before)],['Cada venda deixa depois',contasBRL(r.after)],r.newQty!=null&&['Nova quantidade',contasInt(r.newQty)+' un'],['Desconto máximo sem prejuízo',contasPct(r.maxDiscount)]],'O desconto corta <b>'+contasPct(r.marginCut)+'</b> do que cada venda deixa. Só compensa se as vendas crescerem '+contasPct(r.extra)+' ou mais.')+contasFormula('Vender a mais = deixa antes ÷ deixa depois − 1 · Desconto máximo = (preço − custo) ÷ preço');}
+ if(id==='taxa'){if(!r)return contasEmpty('Informe o valor da venda ou quanto quer receber, e a taxa.');
+  return contasBox(r.net!=null?'Você recebe':'Cobre',r.net!=null?contasBRL(r.net):contasBRL(r.grossFor),[r.fee!=null&&['Valor da taxa',contasBRL(r.fee)],r.net!=null&&r.grossFor!=null&&['Cobre para receber '+contasBRL(v.wanted),contasBRL(r.grossFor)],r.increase!=null&&['Acréscimo no preço',contasPct(r.increase,2)]],r.grossFor!=null?'Somar só '+contasPct(v.rate/100,2)+' ao preço não basta: a taxa incide também sobre o acréscimo.':'','good')+contasFormula('Recebe = venda × (1 − taxa) · Cobrar = quero receber ÷ (1 − taxa)');}
+ return '';}
+function contasCard(id){const c=CONTAS_CALCS[id],p=contasProduct();
+ return '<div class="cm-card" data-conta="'+id+'"><h3>'+escape(c.title)+'</h3>'+(c.product&&p?'<p class="cm-prod">'+escape(titleName(p.name))+(E.description(p)?' '+escape(E.description(p)):'')+'</p>':'')+'<div class="cm-fields">'+c.fields.map(f=>{const v=contasField(id,f),fid='cm-'+id+'-'+f.k;return '<div class="cm-f"><label for="'+fid+'">'+escape(f.l)+(v.mine?' <span class="cm-tag">seus dados</span>':'')+'</label><div class="cm-in">'+(f.u==='R$'?'<em>R$</em>':'')+'<input id="'+fid+'" class="cm-input" data-conta="'+id+'" data-k="'+f.k+'" type="text" inputmode="decimal" autocomplete="off" value="'+escape(v.text)+'">'+(f.u!=='R$'?'<em>'+escape(f.u)+'</em>':'')+'</div>'+(f.hint?'<small class="cm-fhint">'+escape(f.hint)+'</small>':'')+'</div>';}).join('')+'</div><div class="cm-out" id="cm-out-'+id+'" aria-live="polite">'+contasResult(id)+'</div></div>';}
+function contasProductPicker(){const list=model.data.products.slice(),ordered=window.TerritorioStockOrder?window.TerritorioStockOrder.orderStockProducts(list):sortProducts(list),cur=calculatorState.contas.product;
+ return '<label class="cm-pick"><span>Produto</span><select id="cm-product"><option value="">Nenhum (contas livres)</option>'+ordered.map(p=>'<option value="'+escape(p.id)+'"'+(p.id===cur?' selected':'')+'>'+escape(titleName(p.name)+(E.description(p)?' '+E.description(p):''))+'</option>').join('')+'</select></label>';}
+function paintContas(){const s=calculatorState.contas,chev='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+ const rows=CONTAS_SUBJECTS.map(x=>{const open=s.open===x.id;const head='<span class="ic" aria-hidden="true">'+x.ic+'</span><span class="tx"><strong>'+escape(x.title)+'</strong><small>'+escape(x.sub)+'</small></span>'+(x.soon?'<span class="cm-soon">em breve</span>':chev);
+  return (x.soon?'<div class="cm-row is-soon">'+head+'</div>':btn('contas-open',head,'cm-row'+(open?' open':''),{id:x.id}))+(open?'<div class="cm-body">'+x.calcs.map(contasCard).join('')+'</div>':'');}).join('');
+ openModal('Calculadora',calcModes()+'<p class="cm-intro">Contas da banca com os seus números. Toque num assunto para abrir.</p>'+contasProductPicker()+'<div class="cm-list">'+rows+'</div><p class="small muted cm-foot">“Seus dados” vem do que está registrado no app. Os resultados são estimativas para ajudar a decidir; impostos como Funrural e Simples, confirme com o seu contador.</p>','calculator',null,btn('close-modal','Voltar','choice'));}
+const r64PaintCalculator=paintCalculator;paintCalculator=function(){if(calculatorState.mode==='contas')return paintContas();return r64PaintCalculator.apply(this,arguments);};
+Object.assign(actions,{
+ 'calculator-mode':d=>{if(!['basic','scientific','contas'].includes(d.mode))return;calculatorState.mode=d.mode;if(d.mode!=='contas')calculatorState.scientific=d.mode==='scientific';paintCalculator();},
+ 'calculator-scientific':()=>{calculatorState.scientific=!calculatorState.scientific;calculatorState.mode=calculatorState.scientific?'scientific':'basic';paintCalculator();},
+ 'contas-open':d=>{const s=calculatorState.contas;s.open=s.open===d.id?null:d.id;paintContas();if(s.open)requestAnimationFrame(()=>document.querySelector('dialog[open] .cm-row.open')?.scrollIntoView({block:'start',behavior:'smooth'}));},
+ 'contas-use-price':d=>{const p=model.product(d.id),cents=Number(d.cents);if(!p||!(cents>0))return;closeModal();startProduct(p.id);if(productForm?.variants?.[0]){productForm.variants[0].priceInput=cashInput(cents);render();}toast('Preço de '+E.money(cents)+' preenchido. Confira e salve o produto.');}
+});
+// Digitar recalcula só o resultado daquela conta, sem redesenhar a janela (o teclado não fecha).
+document.addEventListener('input',e=>{const t=e.target;if(!t?.classList?.contains('cm-input'))return;const id=t.dataset.conta;calculatorState.contas.values[id+'.'+t.dataset.k]=t.value;const tag=t.closest('.cm-f')?.querySelector('.cm-tag');if(tag)tag.remove();const out=document.getElementById('cm-out-'+id);if(out)out.innerHTML=contasResult(id);});
+document.addEventListener('change',e=>{if(e.target?.id!=='cm-product')return;const s=calculatorState.contas;s.product=e.target.value;s.values={};paintContas();});
 render();
 })();

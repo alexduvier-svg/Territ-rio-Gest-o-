@@ -66,6 +66,10 @@ divisão protegida e arredondamento de probabilidade (múltiplos de 5 %).
 Margens, ponto de equilíbrio e taxas continuam em `finance/finance.js`; a previsão de venda por referência
 histórica continua em `advisor/forecast.js`.
 
+Contas da calculadora (modo Contas, `finance/producer-calcs.js`): preço pelo markup (as taxas incidem sobre o preço,
+por isso é divisão), ponto de equilíbrio e meta por unidade, indicadores do período, impacto do desconto e taxa da
+maquininha. Só preenchem o que o app sabe ("seus dados"); o resto fica vazio e nada é gravado sem o produtor salvar.
+
 ## Proibições
 
 - Não prescrever produto, dose ou mistura de defensivo (receituário agronômico, Lei 14.785/2023).
