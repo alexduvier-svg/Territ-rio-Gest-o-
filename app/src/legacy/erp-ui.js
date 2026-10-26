@@ -2961,5 +2961,39 @@ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.classList?.
 // A primeira palavra e o resto ficam em partes separadas: em cartão estreito (tela menor) o resto
 // desce para a linha de baixo ("Café" / "Especial"), em vez de as duas se espremerem numa linha.
 function cardName(name){const text=String(name||''),cut=text.indexOf(' ');return cut<0?escape(text):'<span class="cn-first">'+escape(text.slice(0,cut))+'</span> <span class="cn-rest">'+escape(text.slice(cut+1))+'</span>';}
+
+// --- Finalizar Venda: formas de pagamento à vista e Fiado (22/10/2026) ---
+// Com até 3 produtos, todas as formas cabem na tela, sem rolar: Pix | Dinheiro, Crédito | Débito,
+// Outro | Fiado. "+ Produtos" fica logo abaixo dos produtos (e desce conforme eles aumentam). O título
+// fica centrado; dividir o pagamento virou um link discreto abaixo das formas. Fiado pede o cliente (os
+// já cadastrados aparecem como sugestão e são reaproveitados) e a data do pagamento, num calendário; a
+// venda fica em "Clientes a Receber" até ser recebida.
+const PAY_ORDER=['Pix','Dinheiro','Crédito','Débito','Outro','Fiado'];
+function fiadoClient(name){const n=E.normalize(name||'');return n?model.data.clients.find(c=>E.normalize(c.name)===n):null;}
+function fiadoFields(){const names=[...new Set(model.data.clients.map(c=>c.name).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+ return '<div class="fiado-fields"><div class="form-field"><label for="fiado-client">Cliente</label><input id="fiado-client" list="fiado-clients" value="'+escape(draft.clientName||'')+'" autocomplete="off" placeholder="Nome do cliente"><datalist id="fiado-clients">'+names.map(n=>'<option value="'+escape(n)+'"></option>').join('')+'</datalist></div>'+field('fiado-due','Pagar em',draft.fiadoDue||'','type="date"')+'</div>';}
+checkoutPaymentControls=function(){
+ const addProducts=btn('continue-shopping','<span class="payment-add-plus" aria-hidden="true">+</span><span>Produtos</span>','choice payment-add-products checkout-add-products');
+ const tiles=PAY_ORDER.filter(m=>E.PAYMENTS.includes(m)).map(m=>{const selected=!draft.split&&draft.payment===m;return btn('payment','<span class="payment-method-label">'+m+'</span>'+(selected?'<span class="payment-check" aria-hidden="true">'+icon('check')+'</span>':''),'choice payment-choice'+(m==='Fiado'?' payment-fiado':'')+(selected?' selected':''),{value:m});});
+ return '<div class="checkout-add-row">'+addProducts+'</div><section class="checkout-payment-controls checkout-pay-6" aria-label="Método de Pagamento"><h2 class="payment-title">Método de Pagamento</h2><div class="payment-grid payment-grid-6">'+tiles.join('')+'</div>'+(!draft.split&&draft.payment==='Fiado'?fiadoFields():'')+btn('split-payment',draft.split?'Pagar de uma forma só':'Dividir em duas formas','link payment-split-link')+'</section>';};
+// Dividir não oferece Fiado (fiado é a venda inteira para um cliente).
+const r50Split=checkoutSplitFields;checkoutSplitFields=function(){return r50Split().replace(/<option(?: selected)?>Fiado<\/option>/g,'');};
+const r50SaleError=saleError;saleError=function(){const error=r50SaleError.apply(this,arguments);if(error||!draft||draft.split||draft.payment!=='Fiado')return error;
+ if(!String(draft.clientName||'').trim())return 'Para vender fiado, informe o cliente.';if(!/^\d{4}-\d{2}-\d{2}$/.test(String(draft.fiadoDue||'')))return 'Para vender fiado, escolha a data do pagamento.';return error;};
+function refreshFiado(){if(!pendingCheckout)return;const error=saleError(),go=document.querySelector('dialog[open] [data-action="finalize-purchase"]'),box=document.getElementById('checkout-payment-error');if(go)go.disabled=!!error;if(box){box.textContent=error||'';box.className=error?'error checkout-validation':'sr-only';}}
+document.addEventListener('input',e=>{if(e.target?.id!=='fiado-client'||!draft)return;const c=fiadoClient(e.target.value);draft.clientName=e.target.value;draft.clientId=c?.id||'';if(c){draft.uf=c.uf||'';draft.city=c.city||draft.city||'';}refreshFiado();});
+const r50PickDate=pickDate;pickDate=function(day){const id=datePickerState?.id;r50PickDate.apply(this,arguments);if(id==='fiado-due'&&draft){draft.fiadoDue=day;refreshFiado();}};
+// Clientes a Receber: no topo da aba Clientes, com o total em aberto e "Recebi" para dar baixa.
+function openReceivables(){return model.data.sales.filter(s=>s.status==='completed'&&s.receivable?.status==='open').sort((a,b)=>String(a.receivable.due).localeCompare(String(b.receivable.due)));}
+function receivablesSection(){const list=openReceivables();if(!list.length)return '';const today=E.dayKey(Date.now()),sum=list.reduce((n,s)=>n+(s.receivable.amount||0),0);
+ const rows=list.map(s=>{const late=String(s.receivable.due)<today;return btn('fiado-receive','<span class="rv-main"><strong>'+escape(titleName(s.customerName||'Cliente'))+'</strong><small class="'+(late?'late':'')+'">'+(late?'Venceu em ':'Pagar em ')+escape(dateBR(s.receivable.due))+'</small></span><strong class="rv-value tabular">'+E.money(s.receivable.amount)+'</strong>','receivable-row'+(late?' is-late':''),{id:s.id});}).join('');
+ return '<section class="panel receivables"><div class="rv-head"><h2>Clientes a Receber</h2><span class="tabular">'+E.money(sum)+'</span></div>'+rows+'</section>';}
+const r50ClientsPage=clientsPage;clientsPage=function(){const html=r50ClientsPage(),section=receivablesSection();if(!section)return html;const at=html.indexOf('<div class="clients-layout">');return at<0?section+html:html.slice(0,at)+section+html.slice(at);};
+Object.assign(actions,{
+ 'fiado-receive':d=>{const sale=model.data.sales.find(s=>s.id===d.id&&s.receivable?.status==='open');if(!sale)return;
+  openModal('Receber Fiado','<div class="rv-sheet"><strong>'+escape(titleName(sale.customerName||'Cliente'))+'</strong><span class="rv-amount tabular">'+E.money(sale.receivable.amount)+'</span><small>Venda de '+escape(dateBR(E.dayKey(Date.parse(sale.date))))+' · combinado para '+escape(dateBR(sale.receivable.due))+'</small></div><h3 class="payment-title">Como recebeu?</h3><div class="payment-grid payment-grid-6">'+['Pix','Dinheiro','Crédito','Débito','Outro'].map(m=>btn('fiado-paid',m,'choice payment-choice',{id:sale.id,method:m})).join('')+'</div>','workflow-fiado',null);},
+ 'fiado-paid':d=>{const sale=model.data.sales.find(s=>s.id===d.id&&s.receivable?.status==='open');if(!sale||!['Pix','Dinheiro','Crédito','Débito','Outro'].includes(d.method))return;
+  sale.receivable={...sale.receivable,status:'paid',method:d.method,paidAt:new Date().toISOString()};if(!persist())return toast('Não foi possível salvar. Libere espaço e tente novamente.');closeModal();render();toast('Recebido. '+titleName(sale.customerName||'Cliente')+' pagou '+E.money(sale.receivable.amount)+' no '+d.method+'.');}
+});
 render();
 })();

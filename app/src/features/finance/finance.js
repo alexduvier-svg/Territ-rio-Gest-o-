@@ -122,11 +122,16 @@ export function statement({ sales, returns = [], expenses, losses = 0, settings:
   // Caixa do período (o dinheiro que entrou e saiu, diferente do resultado): recebimentos por forma de
   // pagamento, menos devoluções pagas, taxas, custos, contas fixas, retirada e investimentos.
   const received = {};
-  for (const s of sales) for (const p of s.payments || []) received[p.method] = (received[p.method] || 0) + p.amount;
-  const cashIn = grossSales - returned - fees;
+  // Fiado só entra no caixa quando é recebido, e na forma em que foi pago.
+  for (const s of sales) for (const p of s.payments || []) {
+    const method = p.method === 'Fiado' ? (s.receivable?.status === 'paid' ? s.receivable.method || 'Outro' : null) : p.method;
+    if (method) received[method] = (received[method] || 0) + p.amount;
+  }
+  const receivableOpen = sales.reduce((n, s) => n + (s.receivable?.status === 'open' ? Number(s.receivable.amount) || 0 : 0), 0);
+  const cashIn = grossSales - returned - fees - receivableOpen;
   const cashOut = operating + fixed + draw + kinds.investimento + taxes;
   return {
-    grossSales, returned, revenue, discounts, cmv, fees, taxes, contribution, contributionRate,
+    grossSales, returned, revenue, discounts, cmv, fees, taxes, contribution, contributionRate, receivableOpen,
     costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, result, salesCount: sales.length,
     investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
     monthlyFixed, monthlyFixedReference,

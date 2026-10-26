@@ -2,7 +2,7 @@
 // eventLoads.items[].qty já contém a carga inicial + todas as reposições.
 // Preços, totais e check.vendasNaoRegistradas.valor seguem o ERP: centavos.
 
-const PAYMENTS = ['Pix', 'Dinheiro', 'Débito', 'Crédito', 'Outro'];
+const PAYMENTS = ['Pix', 'Dinheiro', 'Débito', 'Crédito', 'Outro', 'Fiado'];
 const milli = n => Math.round(n * 1000);
 const quantity = n => n / 1000;
 const validNumber = n => typeof n === 'number' && Number.isFinite(n);
