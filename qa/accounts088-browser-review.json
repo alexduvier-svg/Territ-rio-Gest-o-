@@ -1,0 +1,169 @@
+{
+  "version": "0.12.88",
+  "synthetic": true,
+  "physical": false,
+  "cases": [
+    {
+      "theme": "light",
+      "width": 320,
+      "result": {
+        "basicScientificMemoryPreserved": true,
+        "pillControls": true,
+        "oneCalculatorAndAccordion": true,
+        "goldenResults": true,
+        "costAndTaxComposition": true,
+        "fieldExplanations": true,
+        "stableInputAndFocus": true,
+        "readOnlySimulations": true,
+        "priceDraftOnly": true,
+        "supplierAndStockAccess": true,
+        "disabledZeroStock": true,
+        "overshootWarningPreservesQuantity": true,
+        "canonicalLoadNoStockDuplication": true,
+        "marginsAndFooter": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "result": {
+        "basicScientificMemoryPreserved": true,
+        "pillControls": true,
+        "oneCalculatorAndAccordion": true,
+        "goldenResults": true,
+        "costAndTaxComposition": true,
+        "fieldExplanations": true,
+        "stableInputAndFocus": true,
+        "readOnlySimulations": true,
+        "priceDraftOnly": true,
+        "supplierAndStockAccess": true,
+        "disabledZeroStock": true,
+        "overshootWarningPreservesQuantity": true,
+        "canonicalLoadNoStockDuplication": true,
+        "marginsAndFooter": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "result": {
+        "basicScientificMemoryPreserved": true,
+        "pillControls": true,
+        "oneCalculatorAndAccordion": true,
+        "goldenResults": true,
+        "costAndTaxComposition": true,
+        "fieldExplanations": true,
+        "stableInputAndFocus": true,
+        "readOnlySimulations": true,
+        "priceDraftOnly": true,
+        "supplierAndStockAccess": true,
+        "disabledZeroStock": true,
+        "overshootWarningPreservesQuantity": true,
+        "canonicalLoadNoStockDuplication": true,
+        "marginsAndFooter": true
+      }
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "result": {
+        "basicScientificMemoryPreserved": true,
+        "pillControls": true,
+        "oneCalculatorAndAccordion": true,
+        "goldenResults": true,
+        "costAndTaxComposition": true,
+        "fieldExplanations": true,
+        "stableInputAndFocus": true,
+        "readOnlySimulations": true,
+        "priceDraftOnly": true,
+        "supplierAndStockAccess": true,
+        "disabledZeroStock": true,
+        "overshootWarningPreservesQuantity": true,
+        "canonicalLoadNoStockDuplication": true,
+        "marginsAndFooter": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "result": {
+        "basicScientificMemoryPreserved": true,
+        "pillControls": true,
+        "oneCalculatorAndAccordion": true,
+        "goldenResults": true,
+        "costAndTaxComposition": true,
+        "fieldExplanations": true,
+        "stableInputAndFocus": true,
+        "readOnlySimulations": true,
+        "priceDraftOnly": true,
+        "supplierAndStockAccess": true,
+        "disabledZeroStock": true,
+        "overshootWarningPreservesQuantity": true,
+        "canonicalLoadNoStockDuplication": true,
+        "marginsAndFooter": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "result": {
+        "basicScientificMemoryPreserved": true,
+        "pillControls": true,
+        "oneCalculatorAndAccordion": true,
+        "goldenResults": true,
+        "costAndTaxComposition": true,
+        "fieldExplanations": true,
+        "stableInputAndFocus": true,
+        "readOnlySimulations": true,
+        "priceDraftOnly": true,
+        "supplierAndStockAccess": true,
+        "disabledZeroStock": true,
+        "overshootWarningPreservesQuantity": true,
+        "canonicalLoadNoStockDuplication": true,
+        "marginsAndFooter": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "result": {
+        "basicScientificMemoryPreserved": true,
+        "pillControls": true,
+        "oneCalculatorAndAccordion": true,
+        "goldenResults": true,
+        "costAndTaxComposition": true,
+        "fieldExplanations": true,
+        "stableInputAndFocus": true,
+        "readOnlySimulations": true,
+        "priceDraftOnly": true,
+        "supplierAndStockAccess": true,
+        "disabledZeroStock": true,
+        "overshootWarningPreservesQuantity": true,
+        "canonicalLoadNoStockDuplication": true,
+        "marginsAndFooter": true
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "result": {
+        "basicScientificMemoryPreserved": true,
+        "pillControls": true,
+        "oneCalculatorAndAccordion": true,
+        "goldenResults": true,
+        "costAndTaxComposition": true,
+        "fieldExplanations": true,
+        "stableInputAndFocus": true,
+        "readOnlySimulations": true,
+        "priceDraftOnly": true,
+        "supplierAndStockAccess": true,
+        "disabledZeroStock": true,
+        "overshootWarningPreservesQuantity": true,
+        "canonicalLoadNoStockDuplication": true,
+        "marginsAndFooter": true
+      }
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

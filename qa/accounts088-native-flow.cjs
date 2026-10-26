@@ -1,0 +1,1 @@
+const{exercise:base}=require('./accounts088-keyboard-flow.cjs');const{exercise:gps}=require('./weather085-flow.cjs');const{exercise:continuity}=require('./accounts088-continuity-flow.cjs');module.exports={exercise:async(p,capture)=>({...await base(p,capture),...await gps(p,capture),...await continuity(p,capture)})};

@@ -1,3 +1,5 @@
+Registro posterior: a primeira implementação foi entregue na0.12.88, com composição de custos/taxas e guarda de carga. Ver ENTREGA-0.12.88.md. A avaliação abaixo descreve o momento anterior, quando a0.12.87 ainda não incluía Contas.
+
 # Avaliação — Calculadora Contas e Integração com Finanças
 
 26/10/2026. Pedido humano: continuar a entrega anterior, avaliar se é possível e se integra Finanças da Gestão. PDF de8páginas lido integralmente; páginas2/7 conferidas visualmente. Git atualizado: origin/claude/agro-gestao3 avançou de cffe32b para22e3813, a implementação citada foi localizada e revisada. Nenhum merge/cherry-pick desse ramo foi realizado. AGRO2 permanece no seu ramo autorizado.

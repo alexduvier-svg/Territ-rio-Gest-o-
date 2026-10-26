@@ -1,0 +1,14 @@
+{
+  "version": "0.12.88",
+  "apkSHA256": "29ba1f09d723b63a68a8a21d206362089beb5cf6dbe6727fb3e4deff0ceae053",
+  "apkSize": 9259733,
+  "fixtureSHA256": "2563d2e17a944a568da7af219b97b927520ef5bf42069a714854ca9471da54a4",
+  "assetCountWithBridges": 59,
+  "matchingAssets": true,
+  "originalSignature": true,
+  "zip16KB": true,
+  "structuralOnly": true,
+  "validatedForInstallation": false,
+  "pending": null,
+  "finalValidationReport": "agro-gestao/native-apk-validation-0.12.88.json"
+}

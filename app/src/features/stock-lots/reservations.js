@@ -74,13 +74,22 @@ export function allocateScopedLots(data,productId,quantity,{scope='all',onDay=ci
  if(need)for(const a of allocateLots(snapshot,need)){const found=result.find(r=>r.lotId===a.lotId);if(found)found.quantity=round(found.quantity+a.quantity);else result.push(a);}
  return result;
 }
+// Same capacity for preparation UI and reservation commit; a fair's own load is not subtracted twice.
+export function eventLoadLimit(data,eventId,productId,{onDay,held=id=>orderHolds(data,id,{exceptEvent:eventId})}={}){
+ const event=data.events?.find(e=>e.id===eventId),p=data.products?.find(p=>p.id===productId);
+ if(!event||!p||!validCivil(onDay||event.end))return{available:0,used:0,maxTotal:0,issues:['invalid-context']};
+ const before=data.eventLoads?.find(l=>l.eventId===eventId)?.items.find(i=>i.productId===p.id&&i.unit===p.unit)?.qty||0;
+ const used=Math.max(0,round(before-remainingLoad(data,eventId,p.id,p.unit))),snapshot=scopedLots(data,p.id,{scope:eventId,onDay:onDay||event.end});
+ const available=p.active===false||p.archived||snapshot.issues.length?0:Math.max(0,round(snapshot.available-held(p.id)));
+ return{available,used,maxTotal:round(used+available),issues:snapshot.issues,until:onDay||event.end};
+}
 export function prepareEventLots(data,eventId,items,{now=Date.now(),onDay,historicalConfirmed=false,held=id=>orderHolds(data,id,{exceptEvent:eventId})}={}){
  const event=data.events?.find(e=>e.id===eventId);if(!event||!openLotAllocation(event)||!validCivil(event.end)||event.end<civilDay(now)&&!historicalConfirmed)fail('Confira a carga na data da feira. Para um evento passado, registre o ocorrido na conferência.');
  const day=onDay||event.end;if(!validCivil(day)||day<event.start||day>event.end||onDay&&(!historicalConfirmed||day>civilDay(now)))fail('Confirme a data efetiva da carga dentro do período da feira.');
  const seen=new Set(),products=[];
  for(const item of items){const p=data.products.find(p=>p.id===item.productId);if(!p||p.unit!==item.unit||seen.has(p.id)||!Number.isFinite(item.qty)||item.qty<0||round(item.qty)!==item.qty)fail('Confira os produtos e quantidades da carga.');seen.add(p.id);
-  const old=data.eventLoads?.find(l=>l.eventId===eventId),before=old?.items.find(i=>i.productId===p.id&&i.unit===p.unit)?.qty||0,used=before-remainingLoad(data,eventId,p.id,p.unit),quantity=round(item.qty-used);if(quantity<0)fail('O total levado deve cobrir as vendas e perdas já registradas.');
-  const snapshot=scopedLots(data,p.id,{scope:eventId,onDay:day});if(quantity>Math.max(0,round(snapshot.available-held(p.id))))fail('A carga de '+p.name+' supera o estoque elegível até o fim da feira. Confira os lotes, as reservas e a validade.');
+  const limit=eventLoadLimit(data,eventId,p.id,{onDay:day,held}),quantity=round(item.qty-limit.used);if(quantity<0)fail('O total levado deve cobrir as vendas e perdas já registradas.');
+  const snapshot=scopedLots(data,p.id,{scope:eventId,onDay:day});if(quantity>limit.available)fail('A carga de '+p.name+' supera o estoque elegível até o fim da feira. Confira os lotes, as reservas e a validade.');
   products.push({productId:p.id,unit:p.unit,allocations:quantity?allocateLots(snapshot,quantity):[]});
  }
  return{version:1,actorId:owner(data),baselineRevision:data.stockLotsRevision,onDay:day,...(historicalConfirmed?{historicalConfirmed:true}:{}),products};
