@@ -51,3 +51,9 @@ O Claude publicou a 0.12.90, commit `cde94a1fb9e9b911e00b378f3c9a9df75f6e0881`, 
 ## Encaminhamento
 
 Aproveitar seletivamente as correções de custo conhecido, marcação de estimativas, cache de formatadores, avisos configuráveis e novas simulações, após correção e QA próprio. Preservar a calculadora Contas do AGRO2 (ajuda em todos os campos, composição de custos/taxas e teclado comum) e sua identidade, certificado, dados e modo teste. Nenhum merge integral ou mudança de versão do AGRO2 foi executado por esta inspeção.
+
+## Pedido posterior: cards no AGRO Gestão Claude
+
+O usuário esclareceu que os cards esticados eram do AGRO Gestão Claude. A correção já estava em andamento nesse checkout e foi preservada; o Claude publicou a0.12.91, commit f3c6fca69bf1ce980895df31e7321f3486de9fcd. A regra `grid-auto-rows:auto` evita que um nome longo aumente a altura de todas as fileiras. Nossa verificação independente do APK final passou nos oito cenários320/360/393/412, claro/escuro, com três colunas, conteúdo e preços preservados e sem overflow. Cards de linhas com nomes mais extensos podem crescer o necessário para não cortar texto.
+
+APK `AGRO-Gestao-Claude-0.12.91.apk`,11.738.285bytes, SHA256 `1612dc9c5ec5fd516935c14d8e1f83aacd4f9d7c211e4fbb0f044c60caf42250`, confirmado idêntico na pasta original e nos dois aparelhos. Primeiras instalações do pacote Claude preservadas. Não foi criado outro APK ou commit no checkout do Claude por esta revisão. A correção dos cards não altera os defeitos de negócio listados acima.

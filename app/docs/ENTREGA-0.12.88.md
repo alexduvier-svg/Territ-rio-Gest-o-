@@ -1,6 +1,6 @@
 # AGRO Gestão 2 — 0.12.88
 
-Instalada em26/10/2026 no Reno14 e PKJ110, com arquivo idêntico na pasta original. Publicação de código/QA/documentação exclusivamente no ramo codex/atualizacao-agro-gestao2; confirmação remota será registrada no checkpoint final.
+Instalada em26/10/2026 no Reno14 e PKJ110, com arquivo idêntico na pasta original. Código, QA e documentação publicados no commit 4bf346ee64ea79b23db6b2793930985ffe5d8827, confirmado no remoto exclusivamente no ramo codex/atualizacao-agro-gestao2.
 
 ## Comportamento entregue
 
@@ -46,3 +46,5 @@ Relatórios:qa/accounts088-final-review.json, accounts088-native-{reno,pkj}-{lig
 ## Claude — revisão separada
 
 Revisão89 em REVISAO-CLAUDE-0.12.89-2026-10-26.md:763testes do commitd051181 passaram, com casos adicionais que expuseram falha de rollback e caixa previsto misturado. Não houve merge. O Claude publicou depois90e91 no repositório agro-gestao-claude. A91corrige cards por grid-auto-rows:auto; esse ajuste já estava em andamento no checkoutClaude e foi preservado, com autoria do Claude. Ele não faz parte do APKAGRO2 desta entrega.
+
+A correção dos cards do Claude foi conferida no APK final0.12.91, SHA2561612dc9c5ec5fd516935c14d8e1f83aacd4f9d7c211e4fbb0f044c60caf42250, com ZIP íntegro. Oito casos de layout compilado aprovados,320/360/393/412nos dois temas, comparados com a90: três colunas, preços e produtos preservados, sem overflow e sem esticar todas as fileiras pelo nome mais longo. Hash instalado idêntico nos dois aparelhos. Commit do Claude f3c6fca69bf1ce980895df31e7321f3486de9fcd confirmado no repositório próprio. Não fizemos outro build/commit no Claude nem substituímos seu trabalho em andamento.

@@ -1,3 +1,19 @@
+# 0.12.88 Entregue — Pasta, Dois Celulares e Git Confirmados
+
+Entrega concluída em 26/10/2026. Código e QA no commit 4bf346ee64ea79b23db6b2793930985ffe5d8827, confirmado no remoto `codex/atualizacao-agro-gestao2`. Relatório: `agro-gestao/docs/ENTREGA-0.12.88.md`. Não repetir build, instalação ou verificador88 por causa dos checkpoints antigos abaixo.
+
+APK 128/0.12.88, 9.259.733 bytes, SHA256 `29ba1f09d723b63a68a8a21d206362089beb5cf6dbe6727fb3e4deff0ceae053`, idêntico na pasta original e nos dois aparelhos. Reno atualizado às18:19:04, PKJ às18:19:14; primeiras datas preservadas. Reno com sinal técnico dos seis módulos. PKJ sem sinalAGRO.UI; usuário confirmou explicitamente “Abriu normalmente” nesta88. Metadados `installed-and-validated`; não reexecutar verify88, que inicializa installed=false. Sem reset ou leitura de bancos reais.
+
+769 testes unitários, oito jornadas compiladas e quatro jornadas físicas completas nos dois temas aprovados. Candidato final29ba corrigiu a largura interna dos inputs;600não fica cortado. QA de Orientação aguarda resumos periódicos e estabilidade do DOM; mesmas asserções e fontes históricas83/84 preservadas. Fixtures, captura própria e forwards removidos. Backend sem mudança88; prova físicaD0 pertence à87, sem alegar novo teste. Sem medições de FPS/GPU/bateria, aparelho básico físico, TalkBack ou runtime16KB.
+
+Pedido dos cards esticados era para o AGRO Gestão Claude, confirmado pelo usuário. Outro agente já corrigia o mesmo CSS; preservamos sua alteração e não escrevemos no checkoutClaude. Claude entregou0.12.91/code131, commit `f3c6fca69bf1ce980895df31e7321f3486de9fcd`, confirmado no remoto próprio. APK11.738.285bytes/SHA256 `1612dc9c5ec5fd516935c14d8e1f83aacd4f9d7c211e4fbb0f044c60caf42250`, idêntico na pasta original e nos dois aparelhos. Nossa verificação independente dos assets do APK91 passou em oito layouts320/360/393/412, claro/escuro. Mantém três colunas e altura por fileira, sem esticar toda a grade. Não gerar outro91 ou commit duplicado. Evidências no VIZ `claude-cards-final091-review.json` e scripts/capturas próprios.
+
+Regra para próximas tarefas: conferir também `https://github.com/alexduvier-svg/agro-gestao-claude.git`, checkout `C:/Users/alexd/PROJETOS/AGRO-Gestao-Claude`; o ramo antigo Claude3 permanece22e3813/64. A revisão89/d051181 está em docs/REVISAO-CLAUDE-0.12.89-2026-10-26.md:763 testes pinados passaram, mas persistência da perda, caixa previsto e comparação com frete desconhecido precisam de cuidados. Não houve merge integral. A90/cde94a1 permite vender com exemplos; não importar automaticamente para o Modo Teste seguroAGRO2. Pacotes Claude e AGRO2 separados.
+
+Tudo autorizado desta etapa está concluído. Sem pausa ativa, subagentes ou novas automações. Heartbeats sem nova pendência devem permanecer em silêncio. Não inventar tarefas ou incrementar versões sem alteração necessária.
+
+## Checkpoints históricos
+
 # 0.12.88 Instalada — Fechamento Git Pendente
 
 26/10/2026: APK128/0.12.88 instalado com-r no Reno14às18:19:04 e PKJ110às18:19:14. Primeiras datas21/10 18:58:01e14/10 18:17:06 preservadas. SHA29ba1f09d723b63a68a8a21d206362089beb5cf6dbe6727fb3e4deff0ceae053/9259733bytes idêntico emworkspace/pastaoriginal/DOIS. Reno sinal técnico seis módulosTRUE; PKJ semtrace, mas usuário confirmou explicitamente “Abriu normalmente” nesta88. Metadata installed-and-validated. NÃOreexecutarverify88(reinicia installed=false), NÃOrebuild/reinstall88 para documentação.
