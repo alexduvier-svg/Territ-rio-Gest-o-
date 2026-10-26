@@ -6,7 +6,7 @@ import {NATIONAL_DATES,NATIONAL_REFERENCE,corpusChristi} from './national.js';
 import './municipal.css';
 export function installMunicipalCalendar(){
  const b=window.TerritorioWorkflowBridge,e=b.escape,button=b.button;let actor='',location=null,month='',pending=null,busy=false;
- const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+ const todayFormat=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}),today=()=>todayFormat.format(new Date());
  const state=()=>calendarState(b.data()),current=()=>{if(state().actorId+'|'+state().origin!==actor)throw Error('O produtor mudou. Reabra a agenda.');};
  const referenceDates=()=>[...NATIONAL_DATES,corpusChristi(Number((month||today()).slice(0,4)))];
  const date=s=>new Date(s+'T12:00:00Z').toLocaleDateString('pt-BR',{timeZone:'UTC'});

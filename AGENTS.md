@@ -1,10 +1,10 @@
 # AGRO Gestão Claude (este repositório)
 
-App separado, criado em 26/10/2026 a partir do AGRO Gestão 2 0.12.87 (commit a4dab1f do Codex). Pacote `br.com.territorio.gestaoclaude`, nome "AGRO Gestão Claude", 0.12.88/code128, chave debug do PC do produtor. Começa vazio e não lê os dados do AGRO Gestão (`gestao`), AGRO Gestão 2 (`gestao2`) nem AGRO Gestão 3 (`gestao3`). Atualização: mesmo pacote, mesma assinatura, `adb install -r`, sem limpar dados.
+App separado, criado em 26/10/2026 a partir do AGRO Gestão 2 0.12.87 (commit a4dab1f do Codex). Pacote `br.com.territorio.gestaoclaude`, nome "AGRO Gestão Claude", 0.12.89/code129, chave debug do PC do produtor. Começa vazio e não lê os dados do AGRO Gestão (`gestao`), AGRO Gestão 2 (`gestao2`) nem AGRO Gestão 3 (`gestao3`). Atualização: mesmo pacote, mesma assinatura, `adb install -r`, sem limpar dados.
 
 O que mudou e por quê: `app/docs/ANALISE-ENTREGA-0.12.88-CLAUDE.md`. Diretriz das Contas para o Codex: `app/docs/DIRETRIZ-CALCULADORA-CONTAS.md`. Coerência visual das janelas: `app/src/features/visual-cohesion.css` (carregado por último; medidas só no texto normal, texto ampliado mantém as regras próprias). Finanças: uma regra de custo conhecido (`costKnown`), taxa padrão marcada como estimativa, retirada mês a mês, caixa separa lançado de previsto. Gestão abre cada assunto por um caminho só.
 
-Build: `npm run sync` e depois `android\gradlew.bat assembleDebug` com JAVA_HOME no JDK 21. Testes: `node --test tests/*.test.mjs` (755). Instalado no Reno14 em 26/10/2026 16:59 (primeira instalação).
+Build: `npm run sync` e depois `android\gradlew.bat assembleDebug` com JAVA_HOME no JDK 21. Testes: `node --test tests/*.test.mjs` (763). 0.12.89 instalada com -r no Reno14 e Find X8 Ultra (PKJ110) em 26/10/2026 17:28, dados preservados. Datas: nunca criar Intl.DateTimeFormat por chamada (custava 0,2 s na abertura).
 
 O conteúdo abaixo é o histórico herdado do AGRO Gestão 2; vale como referência, não como destino de publicação.
 

@@ -3213,10 +3213,10 @@ const CONTAS_SUBJECTS=[
  {id:'preco',ic:'R$',title:'Preço',sub:'Preço de venda pelo markup',calcs:['markup']},
  {id:'vendas',ic:'↗',title:'Vendas',sub:'Ponto de equilíbrio · indicadores do mês',calcs:['equilibrio','indicadores']},
  {id:'descontos',ic:'%',title:'Descontos e Taxas',sub:'Impacto do desconto · taxa da maquininha',calcs:['desconto','taxa']},
- {id:'fornecedores',ic:'⇄',title:'Fornecedores',sub:'Pagar à vista ou a prazo',calcs:['prazo']},
- {id:'estoque',ic:'▦',title:'Estoque e Caixa',sub:'Quanto comprar e quando · ciclo de caixa',soon:true},
- {id:'rural',ic:'☘',title:'Produção Rural',sub:'Custo da safra · conversão de medidas',soon:true},
- {id:'credito',ic:'∑',title:'Crédito e Investimento',sub:'Parcela do financiamento · retorno',soon:true}];
+ {id:'fornecedores',ic:'⇄',title:'Fornecedores',sub:'Comparar preços · à vista ou a prazo',calcs:['rapida','prazo']},
+ {id:'estoque',ic:'▦',title:'Estoque e Caixa',sub:'Quanto comprar e quando · ciclo de caixa',calcs:['reposicao','ciclo']},
+ {id:'rural',ic:'☘',title:'Produção Rural',sub:'Custo da safra · conversão de medidas',calcs:['safra','medidas']},
+ {id:'credito',ic:'∑',title:'Crédito e Investimento',sub:'Parcela do financiamento · retorno',calcs:['financiamento','investimento']}];
 // Nome como no Estoque: sigla da torra depois da segunda palavra (Café Especial TC), para os três cafés não parecerem iguais.
 function contasName(p){const code=window.TerritorioCoffee?.roastCode?.(p)||'',words=titleName(p.name).split(' ').filter(w=>!code||w.toUpperCase()!==code);if(code)words.splice(Math.min(2,words.length),0,code);return words.join(' ')+(E.description(p)?' '+E.description(p):'');}
 function contasProduct(){const id=calculatorState.contas.product;return id?model.product(id):null;}
@@ -3262,6 +3262,52 @@ const CONTAS_CALCS={
   {k:'rate',l:'Taxa cobrada',u:'%',src:contasCardFee},
   {k:'wanted',l:'Quero receber',u:'R$'}],
   run:v=>FIN().cardNet(v)},
+ reposicao:{title:'Quando Pedir e Quanto Comprar',product:true,fields:[
+  {k:'daily',l:'Vende por dia',u:'un',hint:'Média dos últimos 30 dias, quando há vendas.',src:()=>{const q=contasSoldQty(contasProduct());return q?Math.round(q/30*100)/100:undefined;}},
+  {k:'onHand',l:'Estoque agora',u:'un',src:()=>{const p=contasProduct();if(!p)return undefined;const n=Number(model.availableStock?model.availableStock(p.id):p.stock);return Number.isFinite(n)?n:undefined;}},
+  {k:'leadDays',l:'Dias até chegar',u:'dias'},
+  {k:'safetyDays',l:'Folga',u:'dias',hint:'Dias a mais para não faltar. Opcional.'},
+  {k:'coverDays',l:'Comprar para',u:'dias'}],
+  run:v=>FIN().restockPlan(v)},
+ ciclo:{title:'Ciclo de Caixa',fields:[
+  {k:'stockDays',l:'Dias no estoque',u:'dias',hint:'Da compra até a venda.'},
+  {k:'receiveDays',l:'Dias para receber',u:'dias',hint:'0 se recebe na hora; crédito e Fiado demoram.'},
+  {k:'payDays',l:'Prazo do fornecedor',u:'dias'},
+  {k:'monthlyCost',l:'Custo dos produtos no mês',u:'R$',hint:'Do mês passado, quando há vendas com custo.',src:()=>{const t=new Date(),y=t.getFullYear(),m=t.getMonth(),from=new Date(Date.UTC(y,m-1,1)).toISOString().slice(0,10),until=new Date(Date.UTC(y,m,0)).toISOString().slice(0,10),st=contasCut(from,until);return st.cmv>0?st.cmv/100:undefined;}}],
+  run:v=>FIN().cashCycle(v)},
+ safra:{title:'Custo da Safra',fields:[
+  {k:'inputs',l:'Insumos',u:'R$',hint:'Adubo, sementes, defensivos, embalagem.'},
+  {k:'labor',l:'Mão de obra',u:'R$'},
+  {k:'machines',l:'Máquinas e frete',u:'R$'},
+  {k:'other',l:'Outros',u:'R$'},
+  {k:'produced',l:'Produção colhida',u:'un',hint:'Na unidade em que você vende (saca, kg, caixa).'},
+  {k:'price',l:'Preço de venda',u:'R$',hint:'Por unidade colhida. Opcional.'}],
+  run:v=>FIN().harvestCost(v)},
+ medidas:{title:'Conversão de Medidas',fields:[
+  {k:'value',l:'Quantidade',u:''},
+  {k:'from',l:'Medida',type:'select',options:()=>Object.values(FIN().MEASURES).flatMap(g=>Object.entries(g).map(([id,[label]])=>[id,label])),initial:'saca'}],
+  run:v=>FIN().convertMeasure(v)},
+ financiamento:{title:'Parcela do Financiamento',fields:[
+  {k:'principal',l:'Valor financiado',u:'R$'},
+  {k:'rate',l:'Juro',u:'% mês'},
+  {k:'months',l:'Parcelas',u:'meses'}],
+  run:v=>FIN().loanPayment(v)},
+ investimento:{title:'Retorno do Investimento',fields:[
+  {k:'cost',l:'Valor do investimento',u:'R$',hint:'Balança, freezer, barraca, máquina.'},
+  {k:'monthlyGain',l:'Quanto traz por mês',u:'R$',hint:'Venda a mais ou gasto que deixa de ter, já sem os custos.'},
+  {k:'lifeMonths',l:'Vida útil',u:'meses',hint:'Opcional.'}],
+  run:v=>FIN().investmentReturn(v)},
+ rapida:{title:'Comparação Rápida',grid3:true,fields:[
+  {k:'aPrice',l:'Preço',u:'R$',row:'Fornecedor A'},
+  {k:'aQty',l:'Unidades',u:''},
+  {k:'aFreight',l:'Frete',u:'R$'},
+  {k:'bPrice',l:'Preço',u:'R$',row:'Fornecedor B'},
+  {k:'bQty',l:'Unidades',u:''},
+  {k:'bFreight',l:'Frete',u:'R$'},
+  {k:'cPrice',l:'Preço',u:'R$',row:'Fornecedor C'},
+  {k:'cQty',l:'Unidades',u:''},
+  {k:'cFreight',l:'Frete',u:'R$'},],
+  run:v=>FIN().quickCompare(['a','b','c'].map(x=>({price:v[x+'Price'],qty:v[x+'Qty'],freight:v[x+'Freight']})))},
  prazo:{title:'À Vista ou a Prazo',fields:[
   {k:'cash',l:'Preço à vista',u:'R$'},
   {k:'term',l:'Preço a prazo',u:'R$'},
@@ -3275,14 +3321,14 @@ function contasInt(n){return Number.isFinite(n)?Math.round(n).toLocaleString('pt
 function contasText(n,u){if(!Number.isFinite(n))return '';return u==='R$'?contasNum(n):String(Math.round(n*100)/100).replace('.',',');}
 const contasLabel=f=>typeof f.l==='function'?f.l():f.l;
 // Valor do campo: o que o produtor digitou vale mais que o dado do app.
-function contasField(id,f){const typed=calculatorState.contas.values[id+'.'+f.k];if(typed!==undefined)return {text:typed,mine:false};const v=f.src?f.src():undefined;return Number.isFinite(v)?{text:contasText(v,f.u),mine:true}:{text:'',mine:false};}
-function contasValues(id){const v={};for(const f of CONTAS_CALCS[id].fields)v[f.k]=FIN().parseBR(contasField(id,f).text);return v;}
+function contasField(id,f){const typed=calculatorState.contas.values[id+'.'+f.k];if(typed!==undefined)return {text:typed,mine:false};if(f.type==='select')return {text:f.initial||'',mine:false};const v=f.src?f.src():undefined;return Number.isFinite(v)?{text:contasText(v,f.u),mine:true}:{text:'',mine:false};}
+function contasValues(id){const v={};for(const f of CONTAS_CALCS[id].fields)v[f.k]=f.type==='select'?contasField(id,f).text:FIN().parseBR(contasField(id,f).text);return v;}
 function contasRows(rows){return '<dl>'+rows.filter(Boolean).map(([a,b])=>'<div><dt>'+escape(a)+'</dt><dd class="tabular">'+escape(b)+'</dd></div>').join('')+'</dl>';}
 function contasBox(label,big,rows,note,tone){return '<div class="cm-res"><span class="lab">'+escape(label)+'</span><span class="big tabular">'+escape(big)+'</span>'+(rows?contasRows(rows):'')+'</div>'+(note?'<p class="cm-note'+(tone==='good'?' good':tone==='info'?' info':'')+'">'+note+'</p>':'');}
 function contasEmpty(text){return '<p class="cm-wait">'+escape(text)+'</p>';}
 function contasFormula(text){return '<details class="cm-formula"><summary>Fórmula</summary><p>'+escape(text)+'</p></details>';}
 // Campo digitado que não é número (ex.: 1.23.4) é avisado, em vez de virar um valor aparente.
-function contasInvalid(id){const bad=CONTAS_CALCS[id].fields.filter(f=>{const t=contasField(id,f).text.trim();return t!==''&&!Number.isFinite(FIN().parseBR(t));});return bad.length?contasEmpty('Confira '+bad.map(f=>contasLabel(f).toLocaleLowerCase('pt-BR')).join(' e ')+': use números como 1.234,56 ou 12,5.'):'';}
+function contasInvalid(id){const bad=CONTAS_CALCS[id].fields.filter(f=>{if(f.type==='select')return false;const t=contasField(id,f).text.trim();return t!==''&&!Number.isFinite(FIN().parseBR(t));});return bad.length?contasEmpty('Confira '+bad.map(f=>contasLabel(f).toLocaleLowerCase('pt-BR')).join(' e ')+': use números como 1.234,56 ou 12,5.'):'';}
 function contasResult(id){const invalid=contasInvalid(id);if(invalid)return invalid;const v=contasValues(id),r=CONTAS_CALCS[id].run(v),p=contasProduct();
  if(id==='markup'){if(!r){if(v.cost===0)return contasEmpty('Custo 0 não define preço pelo markup, porque o markup multiplica o custo. Informe quanto custa produzir ou comprar.');return contasEmpty(Number.isFinite(v.cost)?'Informe a margem desejada para ver o preço.':'Informe o custo por unidade e a margem desejada.');}
   if(r.status==='impossible')return contasBox('Preço sugerido','Impossível',null,'Taxas e margem somam <b>'+contasPct(r.expenseRate+r.marginRate)+'</b> do preço. Precisam somar menos de 100%.');
@@ -3301,13 +3347,30 @@ function contasResult(id){const invalid=contasInvalid(id);if(invalid)return inva
   return contasBox('Precisa vender a mais',contasPct(r.extra),[['Preço com desconto',contasBRL(r.newPrice)],['Cada venda deixa antes',contasBRL(r.before)],['Cada venda deixa depois',contasBRL(r.after)],r.newQty!=null&&['Para deixar o mesmo',contasInt(r.newQty)+' un'],['Desconto máximo sem prejuízo',contasPct(r.maxDiscount)]],'Com os custos informados, o desconto corta <b>'+contasPct(r.marginCut)+'</b> do que cada venda deixa. Para manter o mesmo, seria preciso vender '+contasPct(r.extra)+' a mais. Isso não prevê a procura nem garante que as vendas vão crescer.')+contasFormula('Vender a mais = deixa antes ÷ deixa depois − 1 · Desconto máximo = (preço − custo) ÷ preço');}
  if(id==='taxa'){if(!r)return contasEmpty('Informe a taxa e o valor da venda ou quanto quer receber.');
   return contasBox(r.net!=null?'Você recebe':'Cobre',r.net!=null?contasBRL(r.net):contasBRL(r.grossFor),[r.fee!=null&&['Valor da taxa',contasBRL(r.fee)],r.net!=null&&r.grossFor!=null&&['Cobre para receber '+contasBRL(v.wanted),contasBRL(r.grossFor)],r.increase!=null&&['Acréscimo no preço',contasPct(r.increase,2)]],r.grossFor!=null?'Somar só '+contasPct(v.rate/100,2)+' ao preço não basta: a taxa incide também sobre o acréscimo.':'','good')+contasFormula('Recebe = venda × (1 − taxa) · Cobrar = quero receber ÷ (1 − taxa)');}
+ if(id==='reposicao'){if(!r)return contasEmpty('Informe quanto vende por dia, o estoque agora, os dias até chegar e para quantos dias comprar.');
+  const un=n=>contasNum(n,n%1?1:0)+' un';
+  return contasBox(r.orderNow?'Peça hoje':'Peça em '+contasInt(Math.floor(r.daysLeft))+(Math.floor(r.daysLeft)===1?' dia':' dias'),r.quantity>0?'Comprar '+un(r.quantity):'Não precisa comprar',[['Pedir quando o estoque chegar a',un(r.reorderAt)],['O estoque de agora dura',contasNum(r.lastsDays,1)+' dias']],r.orderNow?'O estoque já está no ponto de pedido: se pedir hoje, chega quando estiver acabando.':'Conta pela média de venda; feira, festa e época do ano mudam a procura.',r.orderNow?'':'info')+contasFormula('Ponto de pedido = venda por dia × (dias até chegar + folga) · Comprar = venda por dia × (chegar + folga + dias) − estoque');}
+ if(id==='ciclo'){if(!r)return contasEmpty('Informe os dias no estoque, para receber e o prazo do fornecedor.');
+  return contasBox('Ciclo de caixa',contasInt(r.cycle)+(Math.abs(r.cycle)===1?' dia':' dias'),[['Da compra ao dinheiro na mão',contasInt(r.operating)+' dias'],r.working!=null&&['Dinheiro preso no giro',contasBRL(r.working)]],r.cycle>0?'Você paga o fornecedor antes de receber das vendas: esse dinheiro precisa sair do caixa. Prazo maior do fornecedor ou receber mais rápido encurta o ciclo.':'O fornecedor espera mais do que a mercadoria leva para virar dinheiro: as vendas pagam a compra.','info')+contasFormula('Ciclo = dias no estoque + dias para receber − prazo do fornecedor · Giro = custo do mês ÷ 30 × ciclo');}
+ if(id==='safra'){if(!r)return contasEmpty('Informe pelo menos um custo e a produção colhida.');
+  return contasBox('Custo por unidade colhida',contasBRL(r.unit),[['Custo total da safra',contasBRL(r.total)],r.perUnit!=null&&['Sobra por unidade',contasBRL(r.perUnit)+' ('+contasPct(r.margin)+')'],r.breakEvenQty!=null&&['Vender para pagar a safra',contasNum(r.breakEvenQty,1)+' un']],(r.informed<4?'Custos vazios ficaram de fora: o custo real pode ser maior. ':'')+(r.perUnit!=null&&r.perUnit<0?'<b>Com esse preço a safra dá prejuízo.</b>':''),r.perUnit!=null&&r.perUnit>=0?'good':'info')+contasFormula('Custo por unidade = (insumos + mão de obra + máquinas + outros) ÷ produção');}
+ if(id==='medidas'){if(!r)return contasEmpty('Informe a quantidade e escolha a medida.');
+  return contasBox('Equivale a',contasNum(r.rows[0].value,r.rows[0].value%1?2:0)+' '+r.rows[0].short,r.rows.slice(1).map(x=>[x.label,contasNum(x.value,x.value%1?2:0)]),r.group==='peso'?'Saca de 60 kg e arroba de 15 kg. Confira se o comprador usa outra medida.':'Alqueire mineiro 48.400 m² e paulista 24.200 m². O tamanho do alqueire muda de região para região.','info');}
+ if(id==='financiamento'){if(!r)return contasEmpty('Informe o valor, o juro ao mês e o número de parcelas (inteiro).');
+  return contasBox('Parcela por mês',contasBRL(r.payment),[['Total pago',contasBRL(r.total)],['Juros no total',contasBRL(r.interest)]],'Parcela fixa (tabela Price). Confira tarifas, seguro e IOF no contrato: eles aumentam o custo.','info')+contasFormula('Parcela = valor × juro ÷ (1 − (1 + juro) ^ −parcelas)');}
+ if(id==='investimento'){if(!r)return contasEmpty('Informe o valor do investimento e quanto ele traz por mês.');
+  if(r.status==='no-return')return contasBox('Retorno','Não volta',null,'Sem ganho por mês, o investimento não se paga.');
+  return contasBox('Volta em',contasNum(r.payback,1)+' meses',[r.gainLife!=null&&['Traz na vida útil',contasBRL(r.gainLife)],r.roi!=null&&['Retorno sobre o valor',contasPct(r.roi)]],r.paysBeforeEnd===false?'<b>Não se paga dentro da vida útil.</b>':'O ganho por mês é estimativa sua: se for menor, demora mais para voltar.',r.paysBeforeEnd===false?'':'good')+contasFormula('Volta em = valor ÷ ganho por mês · Retorno = (ganho × vida útil − valor) ÷ valor');}
+ if(id==='rapida'){if(!r)return contasEmpty('Informe preço e quantidade de pelo menos dois fornecedores, na mesma unidade.');
+  const name=i=>'Fornecedor '+'ABC'[i];
+  return contasBox(r.tie?'Custo por unidade':'Mais barato por unidade',r.tie?'Empate':name(r.best),r.rows.map(x=>[name(x.i),contasBRL(x.unit)+' / un']),(r.tie?'Os dois saem pelo mesmo custo por unidade.':name(r.best)+' sai '+contasPct(r.saving)+' mais barato que o seguinte.')+(r.missingFreight?' Frete vazio entrou como zero; confirme com o fornecedor.':'')+' Prazo, pagamento e qualidade ficam na comparação completa, em Fornecedores.',r.tie?'info':'good')+contasFormula('Custo por unidade = (preço + frete) ÷ quantidade');}
  if(id==='prazo'){if(!r)return contasEmpty('Informe o preço à vista, o preço a prazo e o prazo em dias.');
   const limit=' Não considera falta de caixa, entrega ou qualidade.';
   if(!r.hasRate)return contasBox('Juro embutido no prazo',r.implicit<=0?'Nenhum':contasPct(r.implicit,2)+' ao mês',null,(r.implicit<=0?'A prazo não sai mais caro que à vista: pagar depois não custa nada a mais.':'Pagar a prazo só compensa se o seu dinheiro render mais que '+contasPct(r.implicit,2)+' ao mês. Informe quanto ele rende para comparar.')+limit,'info')+contasFormula('Juro ao mês = (a prazo ÷ à vista) ^ (30 ÷ dias) − 1');
   return contasBox(r.best==='cash'?'Melhor pagar à vista':r.best==='term'?'Melhor pagar a prazo':'Dá no mesmo',r.best==='same'?'Empate':contasBRL(Math.abs(r.diff))+' a menos',[['A prazo em valor de hoje',contasBRL(r.today)],['Juro embutido no prazo',contasPct(r.implicit,2)+' ao mês']],(r.best==='cash'?'O juro do prazo é maior que o que o seu dinheiro rende.':r.best==='term'?'O seu dinheiro rende mais que o juro do prazo.':'O juro do prazo é igual ao que o seu dinheiro rende.')+limit,'good')+contasFormula('A prazo hoje = a prazo ÷ (1 + rende%) ^ (dias ÷ 30) · Compare com o preço à vista');}
  return '';}
 function contasCard(id){const c=CONTAS_CALCS[id],p=contasProduct();
- return '<div class="cm-card" data-conta="'+id+'"><h3>'+escape(c.title)+'</h3>'+(c.product&&p?'<p class="cm-prod">'+escape(contasName(p))+'</p>':'')+'<div class="cm-fields">'+c.fields.map(f=>{const v=contasField(id,f),fid='cm-'+id+'-'+f.k;return '<div class="cm-f"><label for="'+fid+'">'+escape(contasLabel(f))+(v.mine?' <span class="cm-tag">seus dados</span>':'')+'</label><div class="cm-in">'+(f.u==='R$'?'<em>R$</em>':'')+'<input id="'+fid+'" class="cm-input" data-conta="'+id+'" data-k="'+f.k+'" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="next" value="'+escape(v.text)+'">'+(f.u!=='R$'?'<em>'+escape(f.u)+'</em>':'')+'</div>'+(f.hint?'<small class="cm-fhint">'+escape(f.hint)+'</small>':'')+'</div>';}).join('')+'</div><div class="cm-out" id="cm-out-'+id+'" aria-live="polite">'+contasResult(id)+'</div></div>';}
+ return '<div class="cm-card" data-conta="'+id+'"><h3>'+escape(c.title)+'</h3>'+(c.product&&p?'<p class="cm-prod">'+escape(contasName(p))+'</p>':'')+'<div class="cm-fields'+(c.grid3?' cm-grid3':'')+'">'+c.fields.map(f=>{const v=contasField(id,f),fid='cm-'+id+'-'+f.k;return (f.row?'<p class="cm-rowlabel">'+escape(f.row)+'</p>':'')+'<div class="cm-f"><label for="'+fid+'">'+escape(contasLabel(f))+(v.mine?' <span class="cm-tag">seus dados</span>':'')+'</label>'+(f.type==='select'?'<select id="'+fid+'" class="cm-input cm-select" data-conta="'+id+'" data-k="'+f.k+'">'+f.options().map(([value,label])=>'<option value="'+escape(value)+'"'+(value===v.text?' selected':'')+'>'+escape(label)+'</option>').join('')+'</select>':'<div class="cm-in">'+(f.u==='R$'?'<em>R$</em>':'')+'<input id="'+fid+'" class="cm-input" data-conta="'+id+'" data-k="'+f.k+'" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="next" value="'+escape(v.text)+'">'+(f.u&&f.u!=='R$'?'<em>'+escape(f.u)+'</em>':'')+'</div>')+(f.hint?'<small class="cm-fhint">'+escape(f.hint)+'</small>':'')+'</div>';}).join('')+'</div><div class="cm-out" id="cm-out-'+id+'" aria-live="polite">'+contasResult(id)+'</div></div>';}
 function contasProductPicker(){const list=model.data.products.filter(p=>p.active!==false&&!p.archived),ordered=window.TerritorioStockOrder?window.TerritorioStockOrder.orderStockProducts(list):sortProducts(list),cur=calculatorState.contas.product;
  return '<label class="cm-pick"><span>Produto</span><select id="cm-product"><option value="">Nenhum (contas livres)</option>'+ordered.map(p=>'<option value="'+escape(p.id)+'"'+(p.id===cur?' selected':'')+'>'+escape(contasName(p))+'</option>').join('')+'</select></label>';}
 function calcModeRow(label){const contas=calculatorState.mode==='contas';return '<div class="calculator-mode"><span>'+escape(label)+'</span><span class="calc-mode-tools">'+btn('calculator-scientific',icon('scientific')+'<span class="sr-only">Calculadora científica</span>','round'+(calculatorState.scientific&&!contas?' is-on':''))+btn('calculator-contas','<span aria-hidden="true">$</span><span class="sr-only">'+(contas?'Voltar para a calculadora':'Contas do produtor')+'</span>','round calc-contas-toggle'+(contas?' is-on':''),{})+'</span></div>';}
@@ -3325,11 +3388,12 @@ Object.assign(actions,{
 });
 // Digitar recalcula só o resultado daquela conta, sem redesenhar a janela (o teclado não fecha).
 document.addEventListener('input',e=>{const t=e.target;if(!t?.classList?.contains('cm-input'))return;const id=t.dataset.conta;calculatorState.contas.values[id+'.'+t.dataset.k]=t.value;const tag=t.closest('.cm-f')?.querySelector('.cm-tag');if(tag)tag.remove();const out=document.getElementById('cm-out-'+id);if(out)out.innerHTML=contasResult(id);});
-document.addEventListener('change',e=>{if(e.target?.id!=='cm-product')return;const s=calculatorState.contas;s.product=e.target.value;s.values={};paintContas();});
+document.addEventListener('change',e=>{const t=e.target;if(t?.classList?.contains('cm-select')){calculatorState.contas.values[t.dataset.conta+'.'+t.dataset.k]=t.value;const out=document.getElementById('cm-out-'+t.dataset.conta);if(out)out.innerHTML=contasResult(t.dataset.conta);return;}if(e.target?.id!=='cm-product')return;const s=calculatorState.contas;s.product=e.target.value;s.values={};paintContas();});
 // Enter no teclado do celular passa para o próximo campo da mesma conta.
 document.addEventListener('keydown',e=>{const t=e.target;if(e.key!=='Enter'||!t?.classList?.contains('cm-input'))return;e.preventDefault();const all=[...t.closest('.cm-card').querySelectorAll('.cm-input')],next=all[all.indexOf(t)+1];if(next)next.focus();else t.blur();});
 // Fornecedores: compra registrada abre o lançamento de custo já preenchido (a pessoa confere e salva).
 window.TerritorioShell.openCostDraft=({kind,title,cents,day})=>{closeModal();page='Gestão';render();finCostDraft={kind:FIN().COST_KINDS.some(([id])=>id===kind)?kind:'producao',title:String(title||''),value:Number.isFinite(cents)&&cents>0?cashInput(cents):'',day:/^\d{4}-\d{2}-\d{2}$/.test(day||'')&&day<=E.dayKey(Date.now())?day:'',place:'loja'};openModal('Lançar custo',costForm(),'mg-detail');};
+window.TerritorioShell.openQuickCompare=()=>{closeModal();calculatorState.mode='contas';calculatorState.contas.open='fornecedores';paintCalculator();};
 render();
 })();
 

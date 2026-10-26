@@ -2,7 +2,8 @@ import {properName} from '../proper-name.js';
 export const VERSION=1,MAX_OFFERS=20;
 export const actorOf=d=>d.dataContext?.id||d.productMemory?.scopeId||'';
 const norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
-export const day=(at=Date.now())=>new Date(at).toLocaleDateString('en-CA',{timeZone:'America/Sao_Paulo'});
+const dayFormat=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'});
+export const day=(at=Date.now())=>dayFormat.format(new Date(at));
 export const validDay=s=>{if(!/^\d{4}-\d\d-\d\d$/.test(s||''))return false;const d=new Date(s+'T12:00:00Z');return Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===s;};
 export function decimal(raw,precision=3,{optional=false,positive=false}={}){
  const s=String(raw??'').trim();if(!s&&optional)return null;

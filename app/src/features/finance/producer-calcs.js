@@ -75,6 +75,70 @@ export function cashOrTerm({ cash, term, days, rate }) {
   return { status: 'ok', implicit, hasRate: true, today, diff, best };
 }
 
+// Fornecedores, comparação rápida: até 3 ofertas com preço, quantidade e frete; vence o menor custo por
+// unidade. Só compara o que foi informado; qualidade, prazo e pagamento ficam para a comparação completa.
+export function quickCompare(offers) {
+  const rows = (offers || []).map((o, i) => ({ i, ...o })).filter(o => ok(o.price, o.qty) && o.price > 0 && o.qty > 0 && (!ok(o.freight) || o.freight >= 0))
+    .map(o => { const total = o.price + opt(o.freight); return { i: o.i, total, unit: total / o.qty, freightKnown: ok(o.freight) }; });
+  if (rows.length < 2) return null;
+  const sorted = [...rows].sort((a, b) => a.unit - b.unit || a.i - b.i), best = sorted[0], next = sorted[1];
+  const tie = Math.abs(next.unit - best.unit) < 1e-9;
+  return { rows, best: tie ? null : best.i, tie, saving: tie ? 0 : (next.unit - best.unit) / next.unit, missingFreight: rows.some(r => !r.freightKnown) };
+}
+
+// Estoque: quando pedir e quanto comprar. Ponto de pedido = venda por dia × (dias até chegar + folga);
+// a compra cobre os dias pedidos depois que a mercadoria chega, descontado o que já está no estoque.
+export function restockPlan({ daily, onHand, leadDays, safetyDays, coverDays }) {
+  if (!ok(daily, onHand, leadDays, coverDays) || daily <= 0 || onHand < 0 || leadDays < 0 || coverDays <= 0) return null;
+  const safety = Math.max(0, opt(safetyDays)), reorderAt = daily * (leadDays + safety);
+  const daysLeft = (onHand - reorderAt) / daily, quantity = Math.max(0, Math.ceil(daily * (leadDays + safety + coverDays) - onHand - 1e-9));
+  return { reorderAt, daysLeft, orderNow: daysLeft <= 0, quantity, lastsDays: onHand / daily };
+}
+
+// Ciclo de caixa: quantos dias o dinheiro fica parado entre pagar o fornecedor e receber do cliente.
+// Com o custo do mês, mostra o dinheiro de giro que esse ciclo prende.
+export function cashCycle({ stockDays, receiveDays, payDays, monthlyCost }) {
+  if (!ok(stockDays, receiveDays, payDays) || stockDays < 0 || receiveDays < 0 || payDays < 0) return null;
+  const cycle = stockDays + receiveDays - payDays, hasCost = ok(monthlyCost) && monthlyCost > 0;
+  return { cycle, operating: stockDays + receiveDays, working: hasCost && cycle > 0 ? monthlyCost / 30 * cycle : hasCost ? 0 : null };
+}
+
+// Produção rural: custo da safra por unidade colhida (saca, kg, caixa) e, com o preço, a sobra por unidade.
+export function harvestCost({ inputs, labor, machines, other, produced, price }) {
+  const parts = [inputs, labor, machines, other].filter(v => Number.isFinite(v));
+  if (!parts.length || parts.some(v => v < 0) || !ok(produced) || produced <= 0) return null;
+  const total = parts.reduce((n, v) => n + v, 0), unit = total / produced, hasPrice = ok(price) && price > 0;
+  return { total, unit, informed: parts.length, margin: hasPrice ? (price - unit) / price : null, perUnit: hasPrice ? price - unit : null, breakEvenQty: hasPrice ? total / price : null };
+}
+
+// Medidas do campo. Saca de café/grãos 60 kg, arroba 15 kg; alqueire mineiro 48.400 m², paulista 24.200 m².
+export const MEASURES = {
+  peso: { kg: ['Quilo (kg)', 1, 'kg'], saca: ['Saca de 60 kg', 60, 'sacas'], arroba: ['Arroba (15 kg)', 15, 'arrobas'], t: ['Tonelada', 1000, 't'] },
+  area: { ha: ['Hectare', 10000, 'ha'], alqmg: ['Alqueire mineiro', 48400, 'alqueires mineiros'], alqsp: ['Alqueire paulista', 24200, 'alqueires paulistas'], m2: ['Metro quadrado', 1, 'm²'] },
+};
+export function convertMeasure({ value, from }) {
+  if (!ok(value) || value < 0) return null;
+  const group = Object.entries(MEASURES).find(([, units]) => units[from]);
+  if (!group) return null;
+  const [name, units] = group, base = value * units[from][1];
+  return { group: name, rows: Object.entries(units).filter(([id]) => id !== from).map(([id, [label, size, short]]) => ({ id, label, short, value: base / size })) };
+}
+
+// Financiamento pela tabela Price (parcela fixa). Juro 0 divide em partes iguais.
+export function loanPayment({ principal, rate, months }) {
+  if (!ok(principal, rate, months) || principal <= 0 || rate < 0 || rate >= 100 || months < 1 || months > 600 || !Number.isInteger(months)) return null;
+  const i = rate / 100, payment = i === 0 ? principal / months : principal * i / (1 - Math.pow(1 + i, -months));
+  return { payment, total: payment * months, interest: payment * months - principal };
+}
+
+// Investimento (balança, freezer, barraca): em quantos meses volta e quanto rende na vida útil.
+export function investmentReturn({ cost, monthlyGain, lifeMonths }) {
+  if (!ok(cost, monthlyGain) || cost <= 0) return null;
+  if (monthlyGain <= 0) return { status: 'no-return' };
+  const payback = cost / monthlyGain, hasLife = ok(lifeMonths) && lifeMonths > 0;
+  return { status: 'ok', payback, gainLife: hasLife ? monthlyGain * lifeMonths : null, roi: hasLife ? (monthlyGain * lifeMonths - cost) / cost : null, paysBeforeEnd: hasLife ? payback <= lifeMonths : null };
+}
+
 // Número digitado em pt-BR: "1.234,56", "12,5", "R$ 9", "1.200" ou "9.5". Vazio é desconhecido (NaN),
 // não zero, e agrupamento errado ("1.23.4", "12.34,5", "1,2,3") também não vira número.
 export function parseBR(text) {

@@ -56,3 +56,8 @@ dialog[data-kind=calculator] .cm-use{display:inline-flex;align-items:center;just
 
 .cm-note.info{background:var(--field)}
 .fin-row .fin-estimate{display:block;font-size:12px;font-weight:500;color:var(--muted)}
+dialog[data-kind=calculator] .cm-select{width:100%;min-height:46px;padding:0 34px 0 10px;border-radius:12px;background:var(--field);box-shadow:inset 0 0 0 1px var(--line);border:0;color:var(--text);font-size:15px;font-weight:600}
+.cm-fields.cm-grid3{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cm-grid3 .cm-in{padding:0 8px}
+.cm-rowlabel{grid-column:1/-1;margin:6px 0 -2px;font-size:14px;font-weight:650;color:var(--text)}
+.cm-f label{overflow-wrap:normal;word-break:normal;hyphens:none}

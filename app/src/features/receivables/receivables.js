@@ -1,6 +1,7 @@
 // Valores em centavos. Fiado é venda entregue, não entrada de dinheiro.
 export const CASH_METHODS = ['Pix', 'Dinheiro', 'Crédito', 'Débito', 'Outro'];
-export const day = (at = Date.now()) => new Intl.DateTimeFormat('en-CA', {timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(at));
+const dayFormat = new Intl.DateTimeFormat('en-CA', {timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'});
+export const day = (at = Date.now()) => dayFormat.format(new Date(at));
 export function validDay(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value || '')) return false;
   const at = new Date(value + 'T12:00:00Z');

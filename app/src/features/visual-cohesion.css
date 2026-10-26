@@ -56,3 +56,10 @@
   /* Contadores do Estoque (Em dia, Baixo, Esgotado). */
   html[data-page=Estoque] .feira-stock-count { padding-left: 5px; padding-right: 5px; }
 }
+
+/* Lotes: antecedência do aviso e botão de perda no mesmo padrão dos campos e ações do app. */
+:root[data-theme][data-layout] .lot-lead-row { display: grid; grid-template-columns: auto minmax(64px, 88px) auto; gap: 10px; align-items: center; margin-top: 8px; }
+:root[data-theme][data-layout] dialog .lot-lead-row label { font-size: 14px; font-weight: 600; line-height: 1.25; margin: 0; }
+:root[data-theme][data-layout] .lot-lead-row input { min-height: 44px; text-align: center; font-size: 16px; font-weight: 600; }
+:root[data-theme][data-layout] dialog .lot-loss { margin-top: 8px; }
+.sup-quick { margin: 0 0 14px; }

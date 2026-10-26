@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { markupPrice, breakEvenUnits, periodIndicators, discountImpact, cardNet, cashOrTerm, parseBR } from '../src/features/finance/producer-calcs.js';
+import { markupPrice, breakEvenUnits, periodIndicators, discountImpact, cardNet, cashOrTerm, quickCompare, restockPlan, cashCycle, harvestCost, convertMeasure, loanPayment, investmentReturn, parseBR } from '../src/features/finance/producer-calcs.js';
 
 const near = (a, b, eps = 1e-6) => assert.ok(Math.abs(a - b) < eps, `${a} ≠ ${b}`);
 
@@ -88,4 +88,63 @@ test('fornecedor: à vista ou a prazo', () => {
   assert.equal(cashOrTerm({ cash: 990, term: 1000, days: 60, rate: 3 }).best, 'term');
   assert.equal(cashOrTerm({ cash: 950, term: 1000, days: 0 }), null);
   assert.equal(cashOrTerm({ cash: NaN, term: 1000, days: 30 }), null);
+});
+
+test('estoque: quando pedir e quanto comprar', () => {
+  const r = restockPlan({ daily: 4, onHand: 40, leadDays: 3, safetyDays: 2, coverDays: 7 });
+  assert.equal(r.reorderAt, 20);
+  assert.equal(r.daysLeft, 5);
+  assert.equal(r.orderNow, false);
+  assert.equal(r.quantity, 8); // 4 × (3 + 2 + 7) − 40
+  assert.equal(restockPlan({ daily: 4, onHand: 10, leadDays: 3, coverDays: 7 }).orderNow, true);
+  assert.equal(restockPlan({ daily: 0, onHand: 10, leadDays: 3, coverDays: 7 }), null);
+});
+
+test('ciclo de caixa e dinheiro de giro', () => {
+  const r = cashCycle({ stockDays: 20, receiveDays: 15, payDays: 30, monthlyCost: 3000 });
+  assert.equal(r.cycle, 5);
+  near(r.working, 500);
+  assert.equal(cashCycle({ stockDays: 5, receiveDays: 0, payDays: 30, monthlyCost: 3000 }).working, 0);
+  assert.equal(cashCycle({ stockDays: 5, receiveDays: 0, payDays: 30 }).working, null);
+});
+
+test('custo da safra por unidade; campos vazios não viram zero, mas não impedem a conta', () => {
+  const r = harvestCost({ inputs: 8000, labor: 6000, machines: 2000, other: NaN, produced: 40, price: 1200 });
+  assert.equal(r.total, 16000);
+  assert.equal(r.unit, 400);
+  assert.equal(r.informed, 3);
+  near(r.margin, 800 / 1200);
+  near(r.breakEvenQty, 16000 / 1200);
+  assert.equal(harvestCost({ inputs: NaN, labor: NaN, produced: 40 }), null);
+});
+
+test('medidas do campo', () => {
+  const r = convertMeasure({ value: 3, from: 'saca' });
+  assert.equal(r.rows.find(x => x.id === 'kg').value, 180);
+  assert.equal(r.rows.find(x => x.id === 'arroba').value, 12);
+  near(convertMeasure({ value: 1, from: 'alqmg' }).rows.find(x => x.id === 'ha').value, 4.84);
+  assert.equal(convertMeasure({ value: 1, from: 'litro' }), null);
+});
+
+test('financiamento pela tabela Price e retorno do investimento', () => {
+  const r = loanPayment({ principal: 10000, rate: 2, months: 12 });
+  near(r.payment, 945.5960, 1e-3);
+  near(r.interest, r.payment * 12 - 10000);
+  near(loanPayment({ principal: 1200, rate: 0, months: 12 }).payment, 100);
+  assert.equal(loanPayment({ principal: 1200, rate: 2, months: 1.5 }), null);
+  const i = investmentReturn({ cost: 3000, monthlyGain: 250, lifeMonths: 60 });
+  assert.equal(i.payback, 12);
+  near(i.roi, 4);
+  assert.equal(investmentReturn({ cost: 3000, monthlyGain: 0 }).status, 'no-return');
+});
+
+test('comparação rápida de fornecedores pelo custo por unidade com frete', () => {
+  const r = quickCompare([{ price: 100, qty: 10, freight: 20 }, { price: 110, qty: 10, freight: 0 }, { price: NaN, qty: 5 }]);
+  assert.equal(r.rows.length, 2);
+  assert.equal(r.best, 1); // 11,00 contra 12,00 por unidade
+  near(r.saving, 1 / 12);
+  assert.equal(r.missingFreight, false);
+  assert.equal(quickCompare([{ price: 100, qty: 10 }]), null);
+  assert.equal(quickCompare([{ price: 100, qty: 10 }, { price: 50, qty: 5 }]).tie, true);
+  assert.equal(quickCompare([{ price: 100, qty: 10 }, { price: 40, qty: 5 }]).missingFreight, true);
 });

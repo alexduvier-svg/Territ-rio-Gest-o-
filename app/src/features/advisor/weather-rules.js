@@ -15,7 +15,8 @@ const STALE_MS = 6 * 3600000;
 const FROST_SHELTER_MIN = 3;   // °C no abrigo → até −1 °C na folha (c = 4 °C)
 const RAIN_MIN_MM = 1;         // chuva mensurável no horário da feira
 const HEAT_MAX = 30;           // °C: perecíveis e pessoas pedem sombra e água
-const clock = t => new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' }).format(new Date(t));
+const clockFormat = new Intl.DateTimeFormat('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Sao_Paulo' });
+const clock = t => clockFormat.format(new Date(t));
 const mm = v => (v < 10 ? v.toFixed(1).replace('.', ',') : String(Math.round(v))) + ' mm';
 const when = d => d <= 0 ? 'hoje' : d === 1 ? 'amanhã' : `em ${d} dias`;
 

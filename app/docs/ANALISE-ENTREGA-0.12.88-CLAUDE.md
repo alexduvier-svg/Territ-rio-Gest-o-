@@ -134,3 +134,36 @@ Os dados de exemplo não têm vendas, então o ganho de tempo fica pequeno. Cada
 - Os testes visuais foram feitos no Chrome em tamanho de celular, nos dois temas, em 320, 360, 393 e 412 px e com texto ampliado. Faltam o teclado real do Android e o TalkBack.
 - Nas Contas, ainda estão "em breve": Estoque e Caixa, Produção Rural e Crédito e Investimento.
 - As mudanças estão só no AGRO Gestão Claude. O AGRO Gestão 2 (Codex) e o AGRO Gestão 3 não recebem nada automaticamente; a diretriz das Contas continua valendo para o Codex.
+
+## 8. Versão 0.12.89: as cinco recomendações concluídas
+
+Instalada em 26/10/2026 no Reno14 e no Find X8 Ultra por cima da 0.12.88, com os dados preservados.
+
+| Recomendação | O que foi feito |
+| --- | --- |
+| Lote vencido virar perda | Na tela "Lotes e Validade", cada lote vencido tem o botão "Registrar Como Perda". Ele mostra quantidade e valor ao custo, pede confirmação e baixa **só aquele lote**. O valor entra em "Perdas de Estoque" de Finanças e o registro fica no histórico. |
+| Antecedência do aviso por produto | Na mesma tela, o campo "Aviso Antes do Vencimento" aceita de 1 a 90 dias, com padrão de 5. Ele muda o "vence em breve", a Orientação e o dia do lembrete no celular. |
+| Comparação rápida de fornecedores | Em Contas › Fornecedores e no botão "Comparação Rápida" da aba Comparar: até 3 fornecedores com preço, unidades e frete, mostrando o custo por unidade e quanto o mais barato economiza. |
+| Os três assuntos "em breve" das Contas | **Estoque e Caixa:** quando pedir e quanto comprar, e o ciclo de caixa com o dinheiro preso no giro. **Produção Rural:** custo da safra por unidade e conversão de saca, arroba, tonelada, hectare e alqueire mineiro e paulista. **Crédito e Investimento:** parcela pela tabela Price e em quantos meses o investimento volta. |
+| Leveza para celular fraco | Veja a correção abaixo. |
+
+**Correção do que eu tinha recomendado:**
+
+- PDF e catálogo de produtos **já carregavam só quando usados** na 0.12.87, e o módulo de voz nem entra no pacote. Por isso não havia o que adiar ali.
+- Medi a abertura com perfil de processador. O maior desperdício estava nas funções de data da validade, que recriavam o formatador de datas do sistema a cada lote e a cada tela: eram 0,21 s na abertura. O mesmo acontecia no Fiado, em Fornecedores, no Calendário do Município e no Tempo.
+- Os formatadores agora são criados uma vez. O fuso do aparelho é conferido a cada minuto, e o resultado das datas é o mesmo de antes.
+
+| Celular fraco simulado (CPU 6×, 360 × 780, dados de exemplo) | 0.12.87 | Claude 0.12.89 |
+| --- | --- | --- |
+| Abrir o app até a tela pronta | 0,68 s | 0,54 s (−20%) |
+| Trocar para a aba Gestão | 0,49 s | 0,40 s (−18%) |
+| Abrir Finanças | 0,19 s | 0,19 s |
+| Recálculos do demonstrativo (Gestão / Finanças) | 12 / 17 | 4 / 4 |
+
+**Verificação:**
+
+- 763 testes passam. Há testes novos para as contas, para a perda do lote certo e para a antecedência com o dia do lembrete.
+- A auditoria de texto cortado dá zero em 320, 360, 393 e 412 px, nos dois temas e com texto ampliado.
+- O app abriu sem erro nos dois celulares.
+
+**O que não foi medido:** a velocidade num celular básico físico e o uso real com muitas vendas registradas.
