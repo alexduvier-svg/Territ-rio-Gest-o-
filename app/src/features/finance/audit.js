@@ -9,6 +9,8 @@
 //   5. Produtos vendidos têm custo.                     11. O demonstrativo fecha (prova real).
 //   6. Nenhum produto vendido abaixo do custo.         12. Cópia de segurança recente.
 
+import { costKnown } from './finance.js';
+
 const brl = cents => (cents / 100).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 const plural = (n, one, many) => `${n.toLocaleString('pt-BR')} ${n === 1 ? one : many}`;
 
@@ -61,7 +63,7 @@ export function runAudit({ sales = [], products = [], movements = [], expenses =
   }));
 
   const soldIds = new Set(done.flatMap(s => (s.items || []).map(i => i.productId)));
-  const noCost = products.filter(p => soldIds.has(p.id) && p.price > 0 && !(p.cost > 0));
+  const noCost = products.filter(p => soldIds.has(p.id) && p.price > 0 && !costKnown(p));
   out.push(check('custo', !noCost.length, {
     title: 'Produtos vendidos têm custo cadastrado',
     problem: `${plural(noCost.length, 'produto vendido está', 'produtos vendidos estão')} sem custo: o lucro aparece maior do que é.`,

@@ -73,6 +73,8 @@ import { ENGAGEMENT_GUIDELINES } from './data/engagement-guidelines.js';
 import './features/product-stock.css';
 import * as Finance from './features/finance/finance.js';
 import { runAudit } from './features/finance/audit.js';
+import * as ProducerCalcs from './features/finance/producer-calcs.js';
+import './features/producer-calcs.css';
 import { API } from './features/server.js';
 import * as FairReport from './features/fair-report.js';
 import * as FairSurplus from './features/fair-surplus.js';
@@ -141,7 +143,7 @@ try {
   window.TerritorioDecisionGuidelines = DECISION_GUIDELINES;
   window.TerritorioAdaptationGuidelines = ADAPTATION_GUIDELINES;
   window.TerritorioRecoveryInspect = inspectRecovery;
-  window.TerritorioFinance = { ...Finance, runAudit };
+  window.TerritorioFinance = { ...Finance, ...ProducerCalcs, runAudit };
   window.TerritorioReceivables = Receivables;
   window.TerritorioSaleRound = SaleRound;
   window.TerritorioRestockSymbol = restockSymbol;
@@ -165,6 +167,7 @@ try {
   window.TerritorioStockLots=await import('./features/stock-lots/domain.js');
   window.TerritorioStockLotsUI=await import('./features/stock-lots/ui.js');
   await import('./features/stock-lots/lots.css');
+  await import('./features/visual-cohesion.css');
   startupStage='legacy-ui';
   await import('./legacy/erp-ui.js');
   window.TerritorioStockLotsUI.installStockLotsUI(window.TerritorioWorkflowBridge);

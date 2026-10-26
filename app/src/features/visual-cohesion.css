@@ -1,0 +1,58 @@
+/* Coerência visual (AGRO Gestão Claude 0.12.88): janelas, avisos e instruções de todos os níveis com o
+   mesmo aspecto principal do app. Carregado por último. Medido numa varredura de 200 telas: 1 família de
+   janela diferente (datas), textos de apoio de 11 a 17 px, títulos de seção de 13 a 20 px e ação principal
+   azul em janelas onde o app usa verde-oliva (DESIGN.md: nunca o azul do iOS).
+   As medidas valem para o texto normal; com "texto ampliado" ligado ficam as regras próprias de cada tela. */
+
+/* Ação principal e seleção dentro das janelas: verde-oliva, como "Adicionar ao Estoque". */
+:root[data-theme][data-layout] dialog :is(button.primary, .chip.selected, .state-button.selected, .calendar-day.selected, .calculator-key.selected):not(:disabled) {
+  background: var(--action-green, #7fa653);
+  border: 1px solid color-mix(in srgb, var(--action-green, #7fa653) 80%, #000);
+  color: var(--green-text, #14210d);
+}
+:root[data-theme][data-layout] dialog button.primary { min-height: 48px; border-radius: 16px; font-weight: 700; }
+:root[data-theme][data-layout] dialog :is(.calendar-nav, .calculator-mode) .round { color: var(--accent-ink, #a7c97f); }
+
+/* Título de toda janela: 25 px (23 px abaixo de 360 px, regra do sistema de janelas). */
+@media (min-width: 360px) {
+  :root[data-theme][data-layout]:not([data-large-text=true]) dialog#dialog .checkout-header > h2 { font-size: 25px; font-weight: 750; }
+}
+:root[data-theme][data-layout]:not([data-large-text=true]) dialog#date-picker-dialog .date-picker-heading h2 { font-size: 25px; font-weight: 750; letter-spacing: -.025em; line-height: 1.18; }
+
+/* Títulos de seção: Inter Tight 17 px, como os grupos do Estoque (o rótulo em caixa alta da Orientação fica). */
+:root[data-theme][data-layout]:not([data-large-text=true]) :is(dialog#dialog h3:not(.advisor-label), .ds-card > h3, .mg-report-guide > h3, .agent-journey-entry > h3):not(.sr-only) {
+  font-family: 'Inter Tight Variable', 'Inter Tight', 'Inter Variable', Inter, system-ui, sans-serif;
+  font-size: 17px; font-weight: 700; line-height: 1.3; letter-spacing: -.01em; color: var(--text); text-transform: none;
+}
+
+/* Texto que abre a janela ou explica a tela (o mais usado é .dialog-text, 17 px). */
+:root[data-theme][data-layout]:not([data-large-text=true]) :is(.mg-sheet-lead, .restock-intro, .print-selection-help) { font-size: 17px; line-height: 1.45; }
+
+/* Notas, avisos curtos e instruções: 14 px, cinza do sistema, leitura confortável. */
+:root[data-theme][data-layout]:not([data-large-text=true]) :is(.ds-note, .ds-hero-note, .settings-note, dialog#dialog .settings-note, .sup-note, .agent-note, .agent-review-status, .credit-help, .fj-hint, .feira-stock-hint, .fin-hint, .calculator-help, .cm-foot, .cm-intro) {
+  font-size: 14px; line-height: 1.45; letter-spacing: 0; color: var(--muted);
+}
+/* Dica embaixo de um campo: 13 px, logo abaixo do rótulo de 14 px. */
+:root[data-theme][data-layout]:not([data-large-text=true]) :is(.cm-fhint, .field-hint) { font-size: 13px; line-height: 1.35; }
+
+/* Lista ou quadro vazio: 15 px, mesma frase discreta em todas as abas. */
+:root[data-theme][data-layout]:not([data-large-text=true]) :is(.ds-empty, .feira-chart-empty, p.empty, .fin-empty) { font-size: 15px; line-height: 1.45; color: var(--muted); }
+
+/* Selos de estado (Sem Vendas no Recorte, Sua Marca): legíveis e nas cores do app. */
+:root[data-theme][data-layout]:not([data-large-text=true]) :is(.mg-report-status, p.info) { font-size: 12px; font-weight: 650; letter-spacing: .01em; }
+:root[data-theme][data-layout] p.info { color: var(--accent-ink, #a7c97f); }
+
+/* Telas estreitas: nada de texto cortado (DESIGN.md, regra 1). Os cortes já existiam na 0.12.87. */
+/* Ajustes: o nome do item nunca encolhe menos que a maior palavra; o detalhe quebra linha. */
+:root[data-theme][data-layout] .settings-row .settings-name { min-width: min-content; }
+/* Nome do produtor no topo: duas linhas em vez de reticências. */
+:root[data-theme][data-layout] .profile-pill span { white-space: normal; line-height: 1.15; overflow: visible; text-overflow: clip; overflow-wrap: normal; }
+@media (max-width: 359px) {
+  :root[data-theme][data-layout] .profile-pill { max-width: 205px; }
+  /* Cada coluna dos números do topo tem pelo menos a largura da maior palavra do rótulo. */
+  :root[data-theme][data-layout] .feira-hero-stats:not(.ds-stats) { grid-template-columns: repeat(3, minmax(min-content, 1fr)); }
+  :root[data-theme][data-layout] .feira-hero-stats > div { padding-left: 10px; padding-right: 10px; }
+  :root[data-theme][data-layout] .feira-hero-stats small { white-space: normal; }
+  /* Contadores do Estoque (Em dia, Baixo, Esgotado). */
+  html[data-page=Estoque] .feira-stock-count { padding-left: 5px; padding-right: 5px; }
+}

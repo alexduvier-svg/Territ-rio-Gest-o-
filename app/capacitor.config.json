@@ -1,6 +1,6 @@
 {
-  "appId": "br.com.territorio.gestao2",
-  "appName": "AGRO Gestão 2",
+  "appId": "br.com.territorio.gestaoclaude",
+  "appName": "AGRO Gestão Claude",
   "webDir": "dist",
   "android": {
     "backgroundColor": "#000000"
