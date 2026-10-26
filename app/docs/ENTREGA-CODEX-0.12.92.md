@@ -30,3 +30,7 @@ O instalador local inicialmente comparava a string da versão91 depois de instal
 ## Rotina de entrega
 
 Registrada a instrução permanente: aplicar as correções solicitadas no projeto ativo, validar, atualizar Git e APK na pasta original e instalar nos aparelhos acessíveis. Preservar a separação de Codex/Claude e registrar impedimentos concretos. Não significa copiar toda novidade do Claude sem pedido, nem implantar mockups antes de avaliação.
+
+## Git e prévia seguinte
+
+Código publicado e confirmado em 23c02b0050c57ddff79e2948eb8b772823e32e5b, exclusivamente no ramo codex/atualizacao-agro-gestao2. A prévia interativa de Produtos solicitada em seguida é uma proposta separada e não altera este APK.

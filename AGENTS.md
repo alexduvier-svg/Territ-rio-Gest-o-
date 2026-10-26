@@ -1,3 +1,11 @@
+# Codex 0.12.92 — Entrega Concluída; Prévia de Produtos Separada
+
+Código da correção de Ajustes publicado e confirmado no remoto em 23c02b0050c57ddff79e2948eb8b772823e32e5b, somente codex/atualizacao-agro-gestao2. APK 132/0.12.92 já está na pasta original e instalado nos dois aparelhos; SHA bccc0cbbd083081a5d0dabac2dbda3b203ba1caddd7abfc075f184ce4573e750. Não repetir build, instalação ou verificador por documentação. Vinte casos atuais de Ajustes passaram; testes funcionais 88 são herdados. Reno com sinal técnico; PKJ sem trace, abertura/processo/hash confirmados, sem nova confirmação humana. Servidor, Claude e dados reais preservados.
+
+Pedido atual: mockup de Produtos para ter ideia. Prévia isolada em C:/Users/alexd/.codex/visualizations/2026/10/15/01a13f9b-c55a-7a91-8bee-90c8d5f7f38d/agro-produtos-previa.html. Duas alternativas, Produtos em Foco e Atalhos Discretos, mantendo três colunas e cards compactos. Aparência claro/escuro, dados fictícios e interações locais. Não implantada no APK; não incrementar versão nem instalar por causa desta prévia. Manter rotina permanente de entrega automática de correções solicitadas, separação dos repositórios e preservação dos dados. Sem subagentes, metas ou novas automações.
+
+## Histórico
+
 # Codex0.12.92 Instalada — Fechamento Git Pendente
 
 Correção de Ajustes implementada,20cenáriosclaro/escuro/normal/ampliado em320/359/360/393/412PASS. Escopo somenteCSSAjustes. APK code132/SHA bccc0cbbd083081a5d0dabac2dbda3b203ba1caddd7abfc075f184ce4573e750/9259733bytes idêntico na pastaoriginal e DOIS. Reno19:27:17 e PKJ19:27:46, primeirasdatas preservadas. Coldlaunch/processo vivoDOIS; seis módulos técnicos noReno, PKJsemtrace(não alegar nova confirmação humana). Metadata installed-settings-verified; não repetir verificador/resetar installed nem rebuild/install para documentação. Comparação210arquivos confirma sóCSSalém versão; cert/assets/ZIP/ELF16KB conferidos. QAfuncional88éherdado, não repetição92. Servidor/Claude/dados reais intocados.
