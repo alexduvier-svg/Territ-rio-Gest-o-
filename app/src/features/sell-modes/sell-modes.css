@@ -6,7 +6,7 @@
 #app .fam-head small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));white-space:nowrap}
 #app .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
 #app .fam:not(.is-open) .fam-extra{display:none}
-#app .fam-more{display:grid;place-items:center;width:44px;height:44px;margin:4px 0 0;padding:0;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--accent-ink,#4f7a2a);cursor:pointer}
+#app .fam-more{display:grid;place-items:center;width:44px;height:44px;margin:4px 0 0;padding:0;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--material-muted,var(--muted));cursor:pointer}
 #app .fam-more svg{width:24px;height:24px;flex:none;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
 #app .fam.is-open .fam-more svg{transform:rotate(180deg)}
 #app .fam-rows{display:flex;flex-direction:column;gap:8px}
@@ -63,7 +63,7 @@ html.multi-returned #app .fam-wx{animation:fam-wx-in .26s cubic-bezier(.25,.8,.2
 
 /* Tracinho do mapa: discreto, no centro do pé da primeira seção (área de toque de 44 px). */
 #app .fam-map{position:absolute;left:50%;bottom:15px;width:64px;height:30px;margin:0 0 0 -32px;padding:0;border:0;background:transparent;box-shadow:none;display:grid;place-items:center;cursor:pointer;z-index:1}
-#app .fam-map span{display:block;width:34px;height:4px;border-radius:2px;background:var(--material-muted,var(--muted));opacity:.35}
+#app .fam-map span{display:block;width:22px;height:3px;border-radius:2px;background:var(--material-muted,var(--muted));opacity:.35}
 #app .fam-map:active span{opacity:.6}
 #app .fam-head{cursor:pointer}
 /* Janela "Seções": miniaturas de cada seção, duas por linha, no relevo das seções. */
