@@ -53,4 +53,5 @@ html.multi-returned #app .fam-wx{animation:fam-wx-in .26s cubic-bezier(.25,.8,.2
 @media (prefers-reduced-motion: reduce){html.multi-returned #app .fam-wx{animation:none}}
 /* Em Vender, a ponta da seção seguinte que passa por trás da barra de baixo some num degradê mais alto, com
    desfoque leve, para não parecer outra aba. No modo leve e com transparência reduzida a faixa fica sólida. */
-:root[data-theme][data-layout]:has(#app .fam-list) .nav-glass{height:156px;background:linear-gradient(to bottom,transparent 0,color-mix(in srgb,var(--bg) 55%,transparent) 26px,color-mix(in srgb,var(--bg) 92%,transparent) 52px,var(--bg) 70px);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 34px);mask-image:linear-gradient(to bottom,transparent 0,#000 34px)}
+:root[data-theme][data-layout]:has(#app .fam-list) .nav-glass{height:156px;background:linear-gradient(to bottom,transparent 0,color-mix(in srgb,var(--bg) 55%,transparent) 26px,color-mix(in srgb,var(--bg) 92%,transparent) 52px,var(--bg) 70px);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 34px);mask-image:linear-gradient(to bottom,transparent 0,#000 34px)}
+#app .fam.is-closing .fam-more{position:absolute;left:8px;bottom:8px;margin:0}

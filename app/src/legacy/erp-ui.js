@@ -3462,29 +3462,30 @@ function famIdle(k){clearTimeout(famTimers.get(k));if(!sellSec.open.has(k))retur
 // (a mesma mola de entrar numa aba).
 function famSpring(el,frame,{spring='open',delay=0}={}){const S=window.TerritorioSpring;if(!S||!el.animate)return null;const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
  for(let k=0;k<n;k+=2)frames.push(frame(c.values[k]));frames.push(frame(1));return el.animate(frames,{duration:c.duration,delay,easing:'linear',fill:'backwards'});}
-// Abrir: os cards novos saltam com a mola e as seções de baixo acompanham. Fechar: os extras encolhem e
-// esmaecem (do último para o primeiro; por filtro, porque a opacidade dos cards é fixa no estilo); depois a seção diminui com a mola de fechar (sem quique), levando a
-// setinha junto, e as de baixo sobem com ela.
+// Abrir: os cards novos saltam com a mola e as seções de baixo acompanham. Fechar: ver abaixo. O esmaecer é
+// por filtro, porque a opacidade dos cards é fixa no estilo.
 function famToggle(sec,k,open,{auto=false}={}){const g=sellSec.groups.find(x=>x.key===k),t=sec.querySelector('[data-fam-more]');if(!g||!t)return;
  const quiet=famQuiet(),extras=()=>[...sec.querySelectorAll('.fam-extra')];
- if(sec._famClosing){clearTimeout(sec._famClosing);sec._famClosing=null;sec.classList.remove('is-closing');extras().forEach(c=>c.getAnimations().forEach(x=>x.cancel()));}
+ if(sec._famAnim){const an=sec._famAnim;sec._famAnim=null;an.cancel();sec.classList.remove('is-closing');sec.style.overflow='';extras().forEach(c=>c.getAnimations().forEach(x=>x.cancel()));}
  const state=()=>{if(open)sellSec.open.add(k);else sellSec.open.delete(k);sec.classList.toggle('is-open',open);t.setAttribute('aria-expanded',String(open));t.setAttribute('aria-label',famMoreText(g,open,SM().sectionLayout(g.items).more));famIdle(k);};
  if(open){const below=[];for(let n=sec.nextElementSibling;n;n=n.nextElementSibling){const r=n.getBoundingClientRect();if(r.top>innerHeight*2)break;below.push([n,r.top]);}
   state();requestAnimationFrame(()=>window.TerritorioFitCards?.());
   if(!quiet){extras().forEach((c,n)=>famSpring(c,v=>({filter:'opacity('+Math.min(1,v*1.8).toFixed(3)+')',transform:'translate3d(0,'+(20*(1-v)).toFixed(2)+'px,0) scale('+(.88+.12*v).toFixed(4)+')'}),{spring:'tabEnter',delay:Math.min(n,5)*35}));
    below.forEach(([n,y])=>{const d=y-n.getBoundingClientRect().top;if(Math.abs(d)>1)famSpring(n,v=>({transform:'translate3d(0,'+(d*(1-v)).toFixed(2)+'px,0)'}),{spring:'section'});});}
   if(!auto&&!quiet)window.TerritorioHaptics?.tick?.();return;}
- const shrink=()=>{sec._famClosing=null;sec.classList.remove('is-closing');const top0=sec.getBoundingClientRect().top,h0=sec.offsetHeight,a0=t.getBoundingClientRect().top;
-  state();extras().forEach(c=>c.getAnimations().forEach(x=>x.cancel()));const h1=sec.offsetHeight,da=a0-t.getBoundingClientRect().top;
-  if(!quiet&&!(auto&&top0<0)){sec.style.overflow='hidden';const an=famSpring(sec,v=>({height:(h0+(h1-h0)*v).toFixed(1)+'px'}),{spring:'close'});famSpring(t,v=>({transform:'translate3d(0,'+(da*(1-v)).toFixed(2)+'px,0)'}),{spring:'close'});
-   if(an)an.onfinish=an.oncancel=()=>{sec.style.overflow='';};else sec.style.overflow='';}
-  if(auto){if(top0<0)window.scrollBy(0,h1-h0);}else if(top0<0)window.scrollBy({top:top0-80,behavior:quiet?'auto':'smooth'});};
- const out=quiet?[]:extras().filter(c=>c.offsetParent);
- if(!out.length){shrink();}
- else{sec.classList.add('is-closing');t.setAttribute('aria-expanded','false');
-  out.forEach((c,i)=>c.animate([{filter:'opacity(1)',transform:'none'},{filter:'opacity(0)',transform:'translate3d(0,10px,0) scale(.9)'}],{duration:150,delay:(out.length-1-i)*20,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}));
-  sec._famClosing=setTimeout(shrink,150+(out.length-1)*20);}
- if(!auto&&!quiet)window.TerritorioHaptics?.tick?.();}
+ // Fechar sem pausa: a seção encolhe na hora, como uma gaveta por cima dos extras (que esmaecem ao mesmo
+ // tempo), com a setinha presa ao fundo; só no fim os extras saem do lugar. As de baixo sobem junto.
+ const top0=sec.getBoundingClientRect().top,h0=sec.offsetHeight;
+ sec.classList.remove('is-open');const h1=sec.offsetHeight;
+ sellSec.open.delete(k);t.setAttribute('aria-expanded','false');t.setAttribute('aria-label',famMoreText(g,false,SM().sectionLayout(g.items).more));famIdle(k);
+ if(quiet||(auto&&top0<0)){if(auto&&top0<0)window.scrollBy(0,h1-h0);return;}
+ sec.classList.add('is-open','is-closing');sec.style.overflow='hidden';
+ extras().filter(c=>c.offsetParent).forEach(c=>c.animate([{filter:'opacity(1)',transform:'none'},{filter:'opacity(0)',transform:'translate3d(0,-8px,0) scale(.94)'}],{duration:180,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}));
+ const an=famSpring(sec,v=>({height:(h0+(h1-h0)*v).toFixed(1)+'px'}),{spring:'tab'});sec._famAnim=an;
+ const done=()=>{if(sec._famAnim!==an)return;sec._famAnim=null;sec.classList.remove('is-closing');if(!sellSec.open.has(k))sec.classList.remove('is-open');sec.style.overflow='';extras().forEach(c=>c.getAnimations().forEach(x=>x.cancel()));};
+ if(an){an.onfinish=done;an.oncancel=done;}else done();
+ if(!auto&&top0<0)window.scrollBy({top:top0-80,behavior:'smooth'});
+ if(!auto)window.TerritorioHaptics?.tick?.();}
 document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-fam-more]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();
  const sec=t.closest('.fam'),k=t.dataset.famMore;if(sec)famToggle(sec,k,!sellSec.open.has(k));},true);
 document.addEventListener('pointerdown',e=>{const sec=e.target.closest?.('#app .fam.is-open');if(sec)famIdle(sec.dataset.fam);},{capture:true,passive:true});
