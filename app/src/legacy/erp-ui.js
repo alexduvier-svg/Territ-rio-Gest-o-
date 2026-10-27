@@ -3409,6 +3409,7 @@ function sellCardHtml(p,extra){const out=sellOut(p),code=window.TerritorioCoffee
 function sellRowHtml(p){const out=sellOut(p),code=window.TerritorioCoffee.roastCode(p);return btn(out?'restock-product-card':'sell-product','<span class="fam-row-t"><strong>'+cardName(titleName(p.name),code)+'</strong><small>'+escape(sellingCardDescription(p))+'</small></span><span class="fam-row-p">'+(out?'<em class="card-out">Sem estoque</em>'+window.TerritorioRestockSymbol():cardPrice(p.price))+'</span>','fam-row'+(out?' is-out':''),{id:p.id}).replace('class="fam-row','aria-label="'+sellLabel(p)+'" class="fam-row');}
 const secTypeOf=p=>p.category==='Cafés'?(p.type||''):'';
 const famMoreText=(g,open,more)=>open?'Mostrar menos':'Mais '+more+' '+(g.key.startsWith('Café ')?(more===1?'pacote':'pacotes'):(more===1?'produto':'produtos'));
+const FAM_DASH='<button type="button" class="fam-map" data-fam-map aria-label="Ver todas as seções"><span></span></button>';
 const famChev='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 function sellSectionsView(){const items=productList(false);if(!items.length||!SM())return null;
  const list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM().orderSections(SM().sellSections(list,{typeOf:secTypeOf}),model.data.settings.sellSectionOrder);
@@ -3417,10 +3418,10 @@ function sellSectionsView(){const items=productList(false);if(!items.length||!SM
  const key=groups.map(g=>g.key).join(',');if(key!==sellSec.key){sellSec.key=key;sellSec.open.clear();}
  sellSec.groups=groups;sellSec.open.forEach(k=>{if(!famTimers.has(k))famIdle(k);});const counts=SM().cartByGroup(groups,draft?.items||[]);
  return '<div class="fam-list">'+groups.map((g,i)=>{const open=sellSec.open.has(g.key),L=SM().sectionLayout(g.items,open);
-  return '<section class="fam glass-products-plane'+(open?' is-open':'')+(i===0?' has-map'+(L.more?'':' map-pad'):'')+'" data-fam="'+escape(g.key)+'"><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
+  return '<section class="fam glass-products-plane'+(open?' is-open':'')+(i===0||i===groups.length-1?' has-map'+(L.more?'':' map-pad'):'')+'" data-fam="'+escape(g.key)+'"><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
   +(L.mode==='rows'?'<div class="fam-rows">'+L.shown.map(sellRowHtml).join('')+'</div>'
    :'<div class="feira-grid">'+L.shown.map(p=>sellCardHtml(p)).join('')+L.extra.map(p=>sellCardHtml(p,true)).join('')+'</div>'
-   +(i===0?'<button type="button" class="fam-map" data-fam-map aria-label="Ver todas as seções"><span></span></button>':'')+(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'" aria-label="'+escape(famMoreText(g,open,L.more))+'">'+famChev+'</button>':''))+'</section>';}).join('')+'</div>';}
+   +(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'" aria-label="'+escape(famMoreText(g,open,L.more))+'">'+famChev+'</button>':''))+(i===0||i===groups.length-1?FAM_DASH:'')+'</section>';}).join('')+'</div>';}
 const sellListBeforeSections=feiraSellList;
 feiraSellList=function(){try{const v=sellSectionsView();if(v)return v;}catch(e){console.error(e);}sellSec.key='';return sellListBeforeSections();};
 const famQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -3505,11 +3506,12 @@ function famMapHtml(){const counts=SM().cartByGroup(sellSec.groups,draft?.items|
   return '<button type="button" class="fam-thumb" data-fam-jump="'+escape(g.key)+'"><span class="fam-thumb-art'+(rows?' is-rows':'')+'">'+g.items.slice(0,rows?2:n).map(p=>'<i>'+escape(titleName(window.TerritorioCoffee.coffeeName(p)).split(' ').slice(-1)[0])+'</i>').join('')+'</span><b>'+escape(g.label)+'</b><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></button>';}).join('')+'</div>';}
 actions['fam-map']=()=>openModal('Seções',famMapHtml(),'fam-map');
 // Aplica na aba Vender a ordem que está na janela: as seções trocam de lugar sem refazer a tela, e o
-// tracinho do atalho fica sempre na primeira.
+// tracinho do atalho fica no pé da primeira e da última.
 function famApplyOrder(keys){const saved=model.data.settings.sellSectionOrder||[];model.data.settings.sellSectionOrder=[...keys,...saved.filter(k=>!keys.includes(k))];persist();
  const list=document.querySelector('#app .fam-list');if(!list)return;const secs=[...list.querySelectorAll(':scope > .fam')],byKey=new Map(secs.map(x=>[x.dataset.fam,x]));
- keys.forEach(k=>{const el=byKey.get(k);if(el)list.append(el);});const first=list.querySelector(':scope > .fam'),dash=list.querySelector('.fam-map');
- secs.forEach(x=>x.classList.remove('has-map','map-pad'));if(first&&dash){first.append(dash);first.classList.add('has-map');if(!first.querySelector('.fam-more'))first.classList.add('map-pad');}
+ keys.forEach(k=>{const el=byKey.get(k);if(el)list.append(el);});// Os tracinhos do atalho ficam sempre no pé da primeira e da última seção.
+ list.querySelectorAll('.fam-map').forEach(x=>x.remove());secs.forEach(x=>x.classList.remove('has-map','map-pad'));
+ const ends=[list.firstElementChild,list.lastElementChild].filter((x,i,a)=>x&&a.indexOf(x)===i);ends.forEach(x=>{x.insertAdjacentHTML('beforeend',FAM_DASH);x.classList.add('has-map');if(!x.querySelector('.fam-more'))x.classList.add('map-pad');});
  sellSec.groups=SM().orderSections(sellSec.groups,model.data.settings.sellSectionOrder);}
 // Arrastar as miniaturas: segurar 0,38 s levanta; as outras abrem espaço deslizando (só deslocamento).
 (()=>{const HOLD=380;let timer=null,item=null,grid=null,x0=0,y0=0,lx=0,ly=0,off=null,drag=false,swallow=0;

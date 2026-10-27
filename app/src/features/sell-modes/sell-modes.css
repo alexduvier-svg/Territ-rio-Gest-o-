@@ -84,3 +84,4 @@ dialog .fam-map-hint{margin:0 2px 10px;font:500 14px/1.35 'Inter Variable',sans-
 dialog .fam-thumb{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 dialog .fam-thumb.is-lifted{position:relative;z-index:3;box-shadow:0 16px 34px -14px rgba(20,30,45,.5),var(--material-depth,none)}
 :root[data-theme=dark] dialog .fam-thumb.is-lifted{box-shadow:0 16px 34px -12px rgba(0,0,0,.85),var(--material-depth,none)}
+:root:not([data-theme=dark]) #app .fam-more{color:color-mix(in srgb,var(--material-muted,var(--muted)) 62%,transparent)}
