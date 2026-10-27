@@ -3713,38 +3713,58 @@ document.addEventListener('input',e=>{const t=e.target;if(!t?.classList?.contain
 // Dentro da seção "Peixes Ornamentais" o card não repete "Ornamental".
 const sellingCardDescriptionBeforeFish=sellingCardDescription;
 sellingCardDescription=function(p){const t=sellingCardDescriptionBeforeFish(p);return p?.category==='Piscicultura'&&p.type==='Ornamental'?String(t).replace(/^Ornamental( · )?/,'')||'Vivo':t;};
-// --- Estoque por área (0.12.115) ---
-let stockArea=null;
+// --- Estoque por área e subgrupo (0.12.117) ---
+// Três níveis: Áreas (Cafés, Hortifruti, Laticínios…) → subgrupos da área (cada tipo de café; nas outras,
+// famílias com mais de um produto, como Queijos ou Bettas) → os produtos, com as seções de sempre. Os cards
+// mostram só a palavra do estado do estoque. No fim de cada página, "‹ Áreas" volta aos cards de área.
+let stockArea=null,stockSub=null;
 const stockAreaKey=p=>p.category==='Piscicultura'&&p.type==='Ornamental'?'Peixes Ornamentais':(p.category||'Outros');
 const stockAreaLabel=k=>window.TerritorioSellModes?.groupLabel?.(k)||k;
-const stockAreaIcon=k=>k==='Peixes Ornamentais'?'fish':categoryIcon(k);
+const stockWord=items=>items.some(p=>p.stock<=0)?['out','Zerado']:items.some(p=>p.stock<=(p.min||0))?['low','Acabando']:['ok','Em dia'];
+// Plural só onde a regra é segura (termina em vogal); o resto fica como está.
+const stockPlural=w=>/[aeiou]$/i.test(w)?w+'s':w;
 function stockAreas(){const list=window.TerritorioStockOrder?window.TerritorioStockOrder.orderStockProducts(productList(true)):productList(true),map=new Map();
  for(const p of list){const k=stockAreaKey(p);if(!map.has(k))map.set(k,[]);map.get(k).push(p);}return [...map].map(([key,items])=>({key,label:stockAreaLabel(key),items}));}
-function stockAreasHome(){const areas=stockAreas();if(areas.length<2)return null;
- const card=a=>{const out=a.items.filter(p=>p.stock<=0).length,low=a.items.filter(p=>p.stock>0&&p.stock<=(p.min||0)).length,lots=a.items.filter(p=>{try{return window.TerritorioStockLots?.lotSnapshot(model.data,p.id).issues.length;}catch{return false;}}).length;
-  const alerts=(out?'<span class="sa-tag out">'+out+(out===1?' esgotado':' esgotados')+'</span>':'')+(low?'<span class="sa-tag low">'+low+' baixo'+(low===1?'':'s')+'</span>':'')+(lots?'<span class="sa-tag low">Conferir lotes</span>':'');
-  return '<button type="button" class="stock-area-card" data-action="stock-area" data-area="'+escape(a.key)+'"><span class="sa-ico" aria-hidden="true">'+icon(stockAreaIcon(a.key))+'</span><span class="sa-txt"><strong>'+escape(a.label)+'</strong><small>'+a.items.length+(a.items.length===1?' produto':' produtos')+'</small>'+(alerts?'<span class="sa-tags">'+alerts+'</span>':'<span class="sa-tags"><span class="sa-tag ok">Em dia</span></span>')+'</span>'+icon('chevron')+'</button>';};
- return '<div class="stock-area-grid">'+areas.map(card).join('')+'</div>';}
+function stockSubgroups(area){
+ if(area.key==='Cafés'){const m=new Map();for(const p of area.items){const k='Café '+(p.type||'Sem tipo');if(!m.has(k))m.set(k,[]);m.get(k).push(p);}return [...m].map(([key,items])=>({key,label:key,items}));}
+ // Pela primeira palavra do nome-base (Queijo Minas e Queijo Meia Cura → Queijos); só vira card com 2 ou mais.
+ const first=p=>String(p.baseName||p.name||'').trim().split(/\s+/)[0]||'Outros',m=new Map();
+ for(const p of area.items){const k=E.normalize(first(p));if(!m.has(k))m.set(k,{label:titleName(first(p)),items:[]});m.get(k).items.push(p);}
+ return [...m].map(([key,g])=>({key,label:g.items.length>1?stockPlural(g.label):g.label,items:g.items}));}
+const stockCard=(action,key,label,items)=>{const [cls,word]=stockWord(items);return '<button type="button" class="stock-area-card" data-action="'+action+'" data-area="'+escape(key)+'"><span class="sa-txt"><strong>'+escape(label)+'</strong><small>'+items.length+(items.length===1?' produto':' produtos')+'</small><span class="sa-tags"><span class="sa-tag '+cls+'">'+word+'</span></span></span>'+icon('chevron')+'</button>';};
+function stockAreasHome(){const areas=stockAreas();if(areas.length<2)return null;return '<div class="stock-area-grid">'+areas.map(a=>stockCard('stock-area',a.key,a.label,a.items)).join('')+'</div>';}
+// Só as seções de sempre com os produtos pedidos; famílias de um produto só ficam juntas num quadro.
+function stockRowsFor(html,items,title){const ids=new Set(items.map(p=>p.id)),t=document.createElement('template');t.innerHTML=html;
+ [...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')).forEach(sec=>{const rows=[...sec.querySelectorAll('[data-action="stock-product"]')];if(!rows.some(r=>ids.has(r.dataset.id))){sec.remove();return;}rows.forEach(r=>{if(!ids.has(r.dataset.id))r.remove();});sec.querySelectorAll('details.workflow-stock-more').forEach(d=>d.open=true);});
+ const singles=[...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')&&x.querySelectorAll('[data-action="stock-product"]').length===1);
+ if(singles.length>1){const box=singles[0],rows=box.querySelector('.feira-rows'),h=box.querySelector('.feira-group');if(h)h.textContent=title;box.querySelector('[data-action="stock-family-add"]')?.remove();singles.slice(1).forEach(x=>{x.querySelectorAll('[data-action="stock-product"]').forEach(r=>rows.append(r));x.remove();});}
+ [...t.content.children].filter(x=>!x.classList?.contains('workflow-stock-family')).forEach(x=>x.remove());
+ return t.innerHTML;}
+const stockHead=(back,backLabel,title,items)=>'<div class="stock-area-head"><button type="button" class="stock-area-back" data-action="'+back+'" aria-label="Voltar para '+escape(backLabel)+'">'+icon('back')+'<span>'+escape(backLabel)+'</span></button><h2>'+escape(title)+'</h2><small>'+items.length+(items.length===1?' produto':' produtos')+'</small></div>';
+const stockFoot='<div class="stock-area-foot"><button type="button" class="stock-area-back" data-action="stock-area-home" aria-label="Voltar para todas as áreas">'+icon('back')+'<span>Áreas</span></button></div>';
 const feiraStockListBeforeAreas=feiraStockList;
 feiraStockList=function(){const html=feiraStockListBeforeAreas();if(String(query||'').trim()||page!=='Estoque')return html;
  if(!stockArea){const home=stockAreasHome();return home||html;}
- const area=stockAreas().find(a=>a.key===stockArea);if(!area){stockArea=null;return stockAreasHome()||html;}
- const ids=new Set(area.items.map(p=>p.id)),t=document.createElement('template');t.innerHTML=html;
- [...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')).forEach(sec=>{const rows=[...sec.querySelectorAll('[data-action="stock-product"]')];if(!rows.some(r=>ids.has(r.dataset.id)))sec.remove();else sec.querySelectorAll('details.workflow-stock-more').forEach(d=>d.open=true);});
- // Famílias de um produto só (cada peixe, por exemplo) ficam juntas num quadro com o nome da área.
- const singles=[...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')&&x.querySelectorAll('[data-action="stock-product"]').length===1);
- if(singles.length>1){const box=singles[0],rows=box.querySelector('.feira-rows'),h=box.querySelector('.feira-group');if(h)h.textContent=area.label;box.querySelector('[data-action="stock-family-add"]')?.remove();singles.slice(1).forEach(x=>{x.querySelectorAll('[data-action="stock-product"]').forEach(r=>rows.append(r));x.remove();});}
- return '<div class="stock-area-head"><button type="button" class="stock-area-back" data-action="stock-area-back" aria-label="Voltar para todas as áreas">'+icon('back')+'<span>Áreas</span></button><h2><span class="sa-ico" aria-hidden="true">'+icon(stockAreaIcon(area.key))+'</span>'+escape(area.label)+'</h2><small>'+area.items.length+(area.items.length===1?' produto':' produtos')+'</small></div>'+t.innerHTML;};
-// Entrar numa área e voltar: a lista troca no lugar e entra deslizando com a mola do app (sem refazer a tela).
-function stockAreaGo(key,dir){stockArea=key;const list=document.getElementById('feira-list');if(!list){render();return;}list.innerHTML=feiraStockList();
+ const area=stockAreas().find(a=>a.key===stockArea);if(!area){stockArea=stockSub=null;return stockAreasHome()||html;}
+ const subs=stockSubgroups(area),groups=subs.filter(g=>g.items.length>1);
+ if(stockSub){const sub=subs.find(g=>g.key===stockSub);if(sub)return stockHead('stock-sub-back',area.label,sub.label,sub.items)+stockRowsFor(html,sub.items,sub.label)+stockFoot;stockSub=null;}
+ // Subgrupos só ajudam quando separam alguma coisa: pelo menos dois, ou um grupo e produtos soltos.
+ if(groups.length&&subs.length>1){const loose=subs.filter(g=>g.items.length===1).flatMap(g=>g.items);
+  return stockHead('stock-area-home','Áreas',area.label,area.items)+'<div class="stock-area-grid">'+groups.map(g=>stockCard('stock-sub',g.key,g.label,g.items)).join('')+'</div>'+(loose.length?'<h3 class="stock-loose-title">Outros produtos</h3>'+stockRowsFor(html,loose,'Outros produtos'):'')+stockFoot;}
+ return stockHead('stock-area-home','Áreas',area.label,area.items)+stockRowsFor(html,area.items,area.label)+stockFoot;};
+// Entrar e voltar: a lista troca no lugar e entra deslizando com a mola do app (sem refazer a tela).
+function stockAreaGo(area,sub,dir){stockArea=area;stockSub=sub;const list=document.getElementById('feira-list');if(!list){render();return;}list.innerHTML=feiraStockList();
  const S=window.TerritorioSpring,quiet=document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
  const top=list.getBoundingClientRect().top+window.scrollY-90;if(window.scrollY>top)window.scrollTo({top:Math.max(0,top)});
  if(!quiet&&S&&list.animate){const c=S.curve(S.SPRINGS.tab),n=c.values.length,fr=[];for(let k=0;k<n;k+=2){const v=c.values[k];fr.push({transform:'translate3d('+(dir*28*(1-v)).toFixed(1)+'px,0,0)',opacity:Math.min(1,.2+v*1.3)});}fr.push({transform:'none',opacity:1});list.animate(fr,{duration:c.duration,easing:'linear'});}
  window.TerritorioHaptics?.tick?.();}
-actions['stock-area']=d=>stockAreaGo(d.area,1);
-actions['stock-area-back']=()=>stockAreaGo(null,-1);
+actions['stock-area']=d=>stockAreaGo(d.area,null,1);
+actions['stock-sub']=d=>stockAreaGo(stockArea,d.area,1);
+actions['stock-sub-back']=()=>stockAreaGo(stockArea,null,-1);
+actions['stock-area-home']=()=>stockAreaGo(null,null,-1);
+actions['stock-area-back']=actions['stock-area-home'];
 // Tocar em Estoque no rodapé volta para as áreas.
-document.addEventListener('click',e=>{if(e.target.closest?.('#nav [data-page="Estoque"]'))stockArea=null;},true);
+document.addEventListener('click',e=>{if(e.target.closest?.('#nav [data-page="Estoque"]'))stockArea=stockSub=null;},true);
 // --- Volta da venda para o card (0.12.115) ---
 // Ao abrir a venda a partir de Produtos guarda-se a rolagem; ao voltar (Cancelar ou Voltar) ela é restaurada
 // na hora, antes de a animação procurar o card, para a venda encolher de volta ao card tocado.

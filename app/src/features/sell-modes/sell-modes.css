@@ -117,3 +117,13 @@ dialog .fam-thumb.is-lifted{position:relative;z-index:3;box-shadow:0 16px 34px -
 #app .stock-area-head h2{grid-area:title;display:flex;align-items:center;gap:10px;margin:0;font:750 24px/1.15 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.02em}
 #app .stock-area-head small{grid-area:count;margin:2px 0 0 50px;font:600 14px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
 @media (max-width: 359px){#app .stock-area-grid{gap:8px}#app .stock-area-card{padding:12px 10px 10px;min-height:124px}#app .stock-area-card strong{font-size:16px}}
+
+/* 0.12.117: cards de área e subgrupo sem ícone; estado em palavra; seta "‹ Áreas" no fim da página. */
+#app .stock-area-card{min-height:104px;gap:6px;padding:14px 14px 12px}
+#app .stock-area-card .sa-ico,#app .stock-area-head .sa-ico{display:none}
+#app .stock-area-head{grid-template-areas:'back' 'title' 'count';grid-template-columns:1fr}
+#app .stock-area-head small{margin:2px 0 0}
+#app .stock-area-foot{display:flex;justify-content:flex-start;margin:6px 0 10px}
+#app .stock-area-foot .stock-area-back{margin:0 0 0 -6px}
+#app .stock-loose-title{margin:6px 4px 8px;font:700 16px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;color:var(--material-text,var(--text))}
+#app .stock-loose-title + .workflow-stock-family .feira-group{display:none}
