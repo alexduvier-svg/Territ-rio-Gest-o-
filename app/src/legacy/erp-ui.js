@@ -3562,6 +3562,17 @@ const sellPageBeforeSectionTop=feiraSellPage;
 feiraSellPage=function(){const html=sellPageBeforeSectionTop.apply(this,arguments);if(!html.includes('class="fam-list"'))return html;
  return html.replace('<div class="glass-area-row">','<div class="glass-area-row fam-wx-row">').replace('<p class="glass-area-label">Área de vendas</p>','<span class="glass-sales-toolbar fam-wx"></span>');};
 if(sellPage===sellPageBeforeSectionTop)sellPage=feiraSellPage;
+// --- Topo padronizado (AGRO Gestão Claude 0.12.111) ---
+// Vender e Estoque passam a usar o mesmo topo de Clientes, Eventos e Gestão: a pílula do produtor (foto e
+// nome, numa linha) com as ações da aba à direita e o título embaixo.
+function profilePill(){const st=model.data.settings,name=st.producerName||'Seu perfil';return btn('profile','<img src="'+escape(st.photo||PROFILE_PHOTO)+'" alt="'+(st.photo?escape(name):'Retrato fictício de Luiz Claudio')+'"><span>'+escape(name)+'</span>'+icon('down'),'profile-pill');}
+const topBeforeStandard=top;
+top=function(){
+ if(page==='Vender')return '<div class="topbar">'+profilePill()+'<div class="top-actions">'+btn('day-summary',icon('receipt'),'round')+btn('settings',icon('settings'),'round')+'</div></div><div class="page-title"><h1>Produtos</h1></div>';
+ if(page==='Estoque')return '<div class="topbar">'+profilePill()+'<div class="top-actions">'+btn('settings',icon('settings'),'round')+'</div></div>'+topBeforeStandard();
+ return topBeforeStandard();};
+// Exemplos antigos: o produtor fictício ganha o nome que aparece no retrato.
+if(model.data.dataContext?.type==='demo'&&model.data.settings.producerName==='Produtor de Exemplo'){model.data.settings.producerName='Luiz Claudio';persist();}
 render();
 })();
 
