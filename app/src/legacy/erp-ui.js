@@ -3421,7 +3421,7 @@ const sellListBeforeSections=feiraSellList;
 feiraSellList=function(){try{const v=sellSectionsView();if(v)return v;}catch(e){console.error(e);}sellSec.key='';return sellListBeforeSections();};
 // Posições: as de cima viram faixas de 12 px atrás da aberta; a aberta mostra a grade inteira; as de baixo,
 // só o nome, logo depois dela. A altura da área acompanha a seção aberta (a página rola normalmente).
-const SEC_PEEK=12,SEC_HEAD=50;
+const SEC_PEEK=10,SEC_HEAD=44;
 // Posições: as de cima ficam atrás como faixas de 12 px, um pouco recolhidas (escala 0,985), dando
 // profundidade; a aberta mostra a grade inteira; as de baixo, só o nome. Devolve a posição de cada seção.
 const SEC_BACK=.985;
@@ -3472,6 +3472,12 @@ function addProductList(){const items=productList(false),list=soldOutLast(window
  if(groups.length<2)return '<div class="modal-list">'+list.map(row).join('')+'</div>';
  return groups.map(g=>'<section class="sec-pick-group"><h3>'+escape(g.label)+(counts[groups.indexOf(g)]?' <small class="sec-cart">'+counts[groups.indexOf(g)]+' no carrinho</small>':'')+'</h3><div class="sec-pick-rows">'+g.items.map(row).join('')+'</div></section>').join('');}
 actions['sale-add-product']=()=>openModal('Adicionar Produto',addProductList(),'pick-product');
+// Com seções, sai a linha "Área de vendas" para as seções começarem mais acima; o tempo vai para a barra da
+// Loja (o módulo do tempo coloca o seu botão no primeiro .glass-sales-toolbar que encontrar).
+const sellPageBeforeSectionTop=feiraSellPage;
+feiraSellPage=function(){const html=sellPageBeforeSectionTop.apply(this,arguments);if(!html.includes('class="sec-area"'))return html;
+ return html.replace('<div class="glass-area-row">','<div class="glass-area-row sec-hidden" aria-hidden="true">').replace('<p class="glass-area-label">Área de vendas</p>','').replace(/(<button[^>]*data-action="weekly-sales")/,'<span class="glass-sales-toolbar sec-wx"></span>$1');};
+if(sellPage===sellPageBeforeSectionTop)sellPage=feiraSellPage;
 render();
 })();
 

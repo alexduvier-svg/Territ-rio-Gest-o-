@@ -4,7 +4,7 @@
 :root[data-theme=dark]{--sec-face:linear-gradient(180deg,#2e3135,#25272b 64px,#232529);--sec-relief:inset 0 1px 0 rgba(255,255,255,.07),inset 0 -1px 0 rgba(0,0,0,.30),0 3px 0 -1px rgba(0,0,0,.45),0 12px 24px -18px rgba(0,0,0,.70)}
 #app .sec-area{position:relative;margin-top:2px;overflow:hidden;transition:height .42s cubic-bezier(.25,.8,.25,1);contain:layout paint}
 #app .sec{position:absolute;left:0;right:0;top:0;padding:0!important;background:var(--sec-face)!important;border-radius:24px!important;border:1px solid var(--material-line);box-shadow:var(--sec-relief)!important;overflow:hidden;transform-origin:50% 0;will-change:transform}
-#app .sec-head{display:flex;align-items:center;gap:10px;width:100%;height:50px;min-height:50px;padding:0 16px;margin:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
+#app .sec-head{display:flex;align-items:center;gap:10px;width:100%;height:44px;min-height:44px;padding:0 16px;margin:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
 #app .sec-head b{flex:1;font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em}
 #app .sec-head small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));white-space:nowrap}
 #app .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
@@ -19,3 +19,12 @@ dialog .sec-pick-group h3{display:flex;align-items:center;gap:8px;margin:14px 2p
 dialog .sec-pick-group h3 small{font:600 13px 'Inter Variable',sans-serif}
 dialog .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
 dialog .sec-pick-rows button{padding:14px 6px}
+
+/* Com seções: sem a linha "Área de vendas"; o tempo fica na barra da Loja, discreto. */
+#app .glass-area-row.sec-hidden{display:none}
+#app .glass-sales-location .sec-wx{display:flex;align-items:center;flex:none}
+#app .glass-sales-location .sec-wx .weather-pill{min-height:44px;padding:0 6px;background:transparent;border:0;box-shadow:none;font-size:15px}
+#app:has(.sec-area) .glass-sales-location{margin-bottom:12px}
+#app .sec-body{padding-bottom:8px}
+@media (max-width: 359px){#app .glass-sales-location .sec-wx .weather-pill span{display:none}#app .glass-sales-location .sec-wx .weather-pill{padding:0 2px}}
+@media (max-width: 359px){#app:has(.sec-area) .glass-sales-location{padding-left:8px;padding-right:6px;gap:2px}}
