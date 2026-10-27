@@ -3395,7 +3395,7 @@ document.addEventListener('keydown',e=>{const t=e.target;if(e.key!=='Enter'||!t?
 window.TerritorioShell.openCostDraft=({kind,title,cents,day})=>{closeModal();page='Gestão';render();finCostDraft={kind:FIN().COST_KINDS.some(([id])=>id===kind)?kind:'producao',title:String(title||''),value:Number.isFinite(cents)&&cents>0?cashInput(cents):'',day:/^\d{4}-\d{2}-\d{2}$/.test(day||'')&&day<=E.dayKey(Date.now())?day:'',place:'loja'};openModal('Lançar custo',costForm(),'mg-detail');};
 window.TerritorioShell.openQuickCompare=()=>{closeModal();calculatorState.mode='contas';calculatorState.contas.open='fornecedores';paintCalculator();};
 // Exemplos como dados do app: grava e reabre o app para as preparações de sempre (lotes, memória, guias).
-window.TerritorioShell.loadExampleData=async data=>{model=new E.ERPModel(data);draft=null;if(!persist())throw Error('Não foi possível salvar os exemplos.');if(window.TerritorioNative?.durable)await window.TerritorioNative.durable();welcomeLeaving=true;closeModal();location.reload();};
+window.TerritorioShell.loadExampleData=async data=>{model=new E.ERPModel(data);draft=null;try{seedDemoMonth(model);}catch(error){console.warn('Exemplo sem vendas:',error);}if(!persist())throw Error('Não foi possível salvar os exemplos.');if(window.TerritorioNative?.durable)await window.TerritorioNative.durable();welcomeLeaving=true;closeModal();location.reload();};
 // --- Tela de vendas em seções (AGRO Gestão Claude 0.12.101) ---
 // A página de cards de sempre, dividida em seções de família, uma embaixo da outra (cada tipo de café; os outros
 // produtos pela categoria), só do que foi cadastrado e na ordem do Estoque. De 3 produtos em diante a seção é a
@@ -3635,6 +3635,33 @@ contasReorder('reposicao',['onHand','daily','leadDays','safetyDays','coverDays']
  const mo=CONTAS_CALCS.financiamento.fields.find(x=>x.k==='rate');if(mo&&!mo.hint)mo.hint='Juro por mês que o banco cobra.';})();
 const contasCardBeforePurpose=contasCard;
 contasCard=function(id){const html=contasCardBeforePurpose(id),why=CONTAS_PURPOSE[id];return why?html.replace('</h3>','</h3><p class="cm-why">'+escape(why)+'</p>'):html;};
+// --- Gestão: Fornecedores (0.12.111) ---
+// Só leitura: compras confirmadas na área Fornecedores, no período e local escolhidos na Gestão.
+function mgSupplierData(sel){const bookData=model.data.supplierBook||{},list=(bookData.purchases||[]).filter(p=>!p.voidedAt&&p.occurredOn&&matchesSelection({date:p.occurredOn+'T12:00:00-03:00',scope:sel.scope},sel)),names=new Map((bookData.suppliers||[]).map(x=>[x.id,x.name]));
+ const by=new Map();for(const p of list){const k=p.supplierId,row=by.get(k)||{name:names.get(k)||'Fornecedor',count:0,total:0};row.count++;row.total+=Number(p.total)||0;by.set(k,row);}
+ return {list,total:list.reduce((n,p)=>n+(Number(p.total)||0),0),rows:[...by.values()].sort((a,b)=>b.total-a.total),suppliers:(bookData.suppliers||[]).filter(x=>!x.archived).length};}
+const mgRowsBeforeSuppliers=mgRows;
+mgRows=function(sel,m){const d=mgSupplierData(sel);return mgRowsBeforeSuppliers(sel,m)+mgRow('fornecedores','users','Fornecedores',d.list.length?d.list.length+(d.list.length===1?' compra':' compras')+' · '+E.money(d.total):(d.suppliers?'Nenhuma compra no período':'Cadastre seus fornecedores no Estoque'));};
+const mgDetailBeforeSuppliers=mgDetail;
+mgDetail=function(key,sel,m){if(key!=='fornecedores')return mgDetailBeforeSuppliers(key,sel,m);const d=mgSupplierData(sel);
+ const body='<p class="small muted">'+escape(periodText(sel))+'</p>'+(d.list.length?'<section class="mg-sup-total"><small>Compras confirmadas</small><strong class="tabular">'+E.money(d.total)+'</strong><span>'+d.list.length+(d.list.length===1?' compra':' compras')+'</span></section><div class="mg-sup-list">'+d.rows.map(r=>'<div class="mg-sup-row"><span><strong>'+escape(r.name)+'</strong><small>'+r.count+(r.count===1?' compra':' compras')+'</small></span><b class="tabular">'+E.money(r.total)+'</b></div>').join('')+'</div>':'<p class="cm-wait">Nenhuma compra registrada neste período.</p>')
+  +'<p class="ds-note">As compras não entram no Resultado. O custo de cada produto entra quando ele é vendido, para não contar duas vezes.</p>'+btn('mg-open-suppliers',icon('users')+'<span>Abrir Fornecedores</span>','choice modal-action');
+ return ['Fornecedores',body];};
+actions['mg-open-suppliers']=()=>{closeModal();setTimeout(()=>{if(page!=='Estoque')actions.nav?actions.nav({page:'Estoque'}):null;setTimeout(()=>{if(!window.TerritorioSuppliers?.active())actions['sup-toggle']?.();},120);},60);};
+// --- Exemplo com um mês de vendas (0.12.111) ---
+// Só em dados de exemplo e só quando ainda não há vendas: cada venda passa por model.complete (estoque,
+// movimento e auditoria iguais aos de uma venda de verdade) e depois recebe a data de um dia passado.
+function seedDemoMonth(m){if(m.data.dataContext?.type!=='demo'||m.data.sales.length)return;
+ const pick=m.data.products.filter(p=>p.active!==false&&!p.archived&&p.stock>0&&p.price>0),pays=['Pix','Dinheiro','Pix','Débito','Crédito','Pix'],now=Date.now();if(pick.length<3)return;
+ let seq=7;const rnd=n=>{seq=(seq*48271)%2147483647;return seq%n;};
+ for(let back=27;back>=1;back--){const count=1+rnd(3);for(let k=0;k<count;k++){
+  const p=pick[rnd(pick.length)],qty=['kg','Litro','g','ml'].includes(p.unit)?1:1+rnd(2);if(m.availableStock(p.id)<qty)continue;
+  let sale;try{const c=m.data.clients.length&&rnd(5)<2?m.data.clients[rnd(m.data.clients.length)]:null;sale=m.complete({items:[{productId:p.id,rawQty:String(qty)}],payment:pays[rnd(pays.length)],scope:'loja',customerType:c?.personType||'PF',...(c?{clientId:c.id,clientName:c.name,uf:c.uf||'',city:c.city||'',neighborhood:c.neighborhood||''}:{})});}catch(e){continue;}
+  const when=new Date(now-back*864e5);when.setHours(8+rnd(9),rnd(60),0,0);const iso=when.toISOString();
+  sale.date=iso;m.data.movements.forEach(x=>{if(x.saleId===sale.id)x.date=iso;});}}
+ m.data.sales.sort((x,y)=>y.date.localeCompare(x.date));m.data.movements.sort((x,y)=>String(y.date).localeCompare(String(x.date)));
+ const day=n=>E.dayKey(now-n*864e5)+'T12:00:00-03:00';
+ m.data.expenses.unshift(...[['Taxa da feira',3000,4],['Combustível',8000,11],['Embalagens',4500,19]].map(([title,amount,n],i)=>({id:'demo-expense-'+i,title,amount,date:day(n),scope:'loja'})));}
 render();
 })();
 

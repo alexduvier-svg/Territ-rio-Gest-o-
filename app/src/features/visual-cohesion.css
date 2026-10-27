@@ -79,3 +79,13 @@
 /* Topo padronizado: nome do produtor numa linha (corta com reticências se for longo). */
 #app .topbar .profile-pill span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}
 #app .topbar + .stock-heading{margin-top:2px}
+
+/* Gestão › Fornecedores */
+dialog .mg-sup-total{display:flex;flex-direction:column;gap:2px;margin:8px 0 12px;padding:14px 16px;border-radius:20px;background:var(--material-plane,var(--panel));border:1px solid var(--material-line,var(--line));box-shadow:var(--material-depth,none)}
+dialog .mg-sup-total small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
+dialog .mg-sup-total strong{font:750 28px/1.1 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.02em}
+dialog .mg-sup-total span{font-size:14px;color:var(--material-muted,var(--muted))}
+dialog .mg-sup-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+dialog .mg-sup-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;border-radius:16px;background:var(--field);border:1px solid var(--material-line,var(--line))}
+dialog .mg-sup-row>span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+dialog .mg-sup-row small{font-size:13px;color:var(--material-muted,var(--muted))}
