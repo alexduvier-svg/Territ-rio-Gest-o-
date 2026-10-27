@@ -89,3 +89,4 @@ dialog .mg-sup-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12p
 dialog .mg-sup-row{display:flex;align-items:center;gap:12px;min-height:56px;padding:10px 14px;border-radius:16px;background:var(--field);border:1px solid var(--material-line,var(--line))}
 dialog .mg-sup-row>span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
 dialog .mg-sup-row small{font-size:13px;color:var(--material-muted,var(--muted))}
+@media (max-width: 359px){#app .topbar.has-tools .profile-pill>span,#app .topbar.has-tools .profile-pill>.icon{display:none}#app .topbar.has-tools .profile-pill{padding-right:4px}}

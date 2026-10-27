@@ -1,24 +1,24 @@
 /* Tela de vendas em seções, uma embaixo da outra: cada seção é a superfície de cards de sempre
    (glass-products-plane), com o nome no alto. Até 2 produtos, linhas largas com o mesmo relevo dos cards. */
-#app .fam-list{display:flex;flex-direction:column;gap:12px}
-#app .fam-head{display:flex;align-items:baseline;gap:10px;padding:8px 10px 10px}
-#app .fam-head h3{flex:1;margin:0;font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;color:var(--material-text,var(--text))}
-#app .fam-head small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));white-space:nowrap}
-#app .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
-#app .fam:not(.is-open) .fam-extra{display:none}
-#app .fam-more{display:grid;place-items:center;width:44px;height:44px;margin:4px 0 0;padding:0;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--material-muted,var(--muted));cursor:pointer}
-#app .fam-more svg{width:24px;height:24px;flex:none;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
-#app .fam.is-open .fam-more svg{transform:rotate(180deg)}
-#app .fam-rows{display:flex;flex-direction:column;gap:8px}
-#app .fam-row{display:flex;align-items:center;gap:12px;width:100%;min-height:72px;margin:0;padding:12px 16px;border-radius:20px;background:var(--material-face);border:1px solid var(--material-line);box-shadow:var(--material-depth);color:var(--material-text);text-align:left;font:inherit;cursor:pointer}
-#app .fam-row-t{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}
-#app .fam-row-t strong{font:750 16px/1.25 'Inter Tight Variable',sans-serif;letter-spacing:-.02em;overflow-wrap:break-word}
-#app .fam-row-t small{font:450 14px/1.3 'Inter Variable',sans-serif;color:var(--material-muted)}
-#app .fam-row-p{flex:none;display:flex;align-items:center;gap:6px;font-weight:750}
-#app .fam-row-p .tabular,#app .fam-row-p span{font-size:16px;letter-spacing:-.03em}
-#app .fam-row-p em{font-size:13px;font-style:normal;color:var(--material-muted)}
-#app .fam-row:active{transform:scale(.985)}
-@media (prefers-reduced-motion: reduce){#app .fam-more svg{transition:none}}
+:is(#app,.fluid-page-morph-context) .fam-list{display:flex;flex-direction:column;gap:12px}
+:is(#app,.fluid-page-morph-context) .fam-head{display:flex;align-items:baseline;gap:10px;padding:8px 10px 10px}
+:is(#app,.fluid-page-morph-context) .fam-head h3{flex:1;margin:0;font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;color:var(--material-text,var(--text))}
+:is(#app,.fluid-page-morph-context) .fam-head small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));white-space:nowrap}
+:is(#app,.fluid-page-morph-context) .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
+:is(#app,.fluid-page-morph-context) .fam:not(.is-open) .fam-extra{display:none}
+:is(#app,.fluid-page-morph-context) .fam-more{display:grid;place-items:center;width:44px;height:44px;margin:4px 0 0;padding:0;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--material-muted,var(--muted));cursor:pointer}
+:is(#app,.fluid-page-morph-context) .fam-more svg{width:24px;height:24px;flex:none;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+:is(#app,.fluid-page-morph-context) .fam.is-open .fam-more svg{transform:rotate(180deg)}
+:is(#app,.fluid-page-morph-context) .fam-rows{display:flex;flex-direction:column;gap:8px}
+:is(#app,.fluid-page-morph-context) .fam-row{display:flex;align-items:center;gap:12px;width:100%;min-height:72px;margin:0;padding:12px 16px;border-radius:20px;background:var(--material-face);border:1px solid var(--material-line);box-shadow:var(--material-depth);color:var(--material-text);text-align:left;font:inherit;cursor:pointer}
+:is(#app,.fluid-page-morph-context) .fam-row-t{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}
+:is(#app,.fluid-page-morph-context) .fam-row-t strong{font:750 16px/1.25 'Inter Tight Variable',sans-serif;letter-spacing:-.02em;overflow-wrap:break-word}
+:is(#app,.fluid-page-morph-context) .fam-row-t small{font:450 14px/1.3 'Inter Variable',sans-serif;color:var(--material-muted)}
+:is(#app,.fluid-page-morph-context) .fam-row-p{flex:none;display:flex;align-items:center;gap:6px;font-weight:750}
+:is(#app,.fluid-page-morph-context) .fam-row-p .tabular,:is(#app,.fluid-page-morph-context) .fam-row-p span{font-size:16px;letter-spacing:-.03em}
+:is(#app,.fluid-page-morph-context) .fam-row-p em{font-size:13px;font-style:normal;color:var(--material-muted)}
+:is(#app,.fluid-page-morph-context) .fam-row:active{transform:scale(.985)}
+@media (prefers-reduced-motion: reduce){:is(#app,.fluid-page-morph-context) .fam-more svg{transition:none}}
 /* "+" da venda por seção */
 dialog .sec-pick-group h3{display:flex;align-items:center;gap:8px;margin:14px 2px 4px}
 dialog .sec-pick-group h3 small{font:600 13px 'Inter Variable',sans-serif}
@@ -26,46 +26,46 @@ dialog .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
 dialog .sec-pick-rows button{padding:14px 6px}
 
 /* Com seções: sem a frase "Área de vendas"; o tempo fica no centro, numa linha baixa, e os cards sobem. */
-#app .glass-area-row.fam-wx-row{display:flex;align-items:center;justify-content:center;min-height:52px;margin:12px 0 14px}
-#app .glass-area-row.fam-wx-row .weather-pill{min-height:44px}
+:is(#app,.fluid-page-morph-context) .glass-area-row.fam-wx-row{display:flex;align-items:center;justify-content:center;min-height:52px;margin:12px 0 14px}
+:is(#app,.fluid-page-morph-context) .glass-area-row.fam-wx-row .weather-pill{min-height:44px}
 
-@media (max-width: 359px){#app .fam-row{padding:12px}}
-#app .fam-row-p .sale-currency{margin-right:3px;font-size:13px;font-weight:600;color:var(--material-muted)}
+@media (max-width: 359px){:is(#app,.fluid-page-morph-context) .fam-row{padding:12px}}
+:is(#app,.fluid-page-morph-context) .fam-row-p .sale-currency{margin-right:3px;font-size:13px;font-weight:600;color:var(--material-muted)}
 /* html.fam-page (posta ao desenhar) no lugar de :has(), que faria o navegador revarrer a página inteira a cada mudança. */
-html.fam-page #app .glass-sales-location{margin-bottom:0}
-html.fam-page #app .glass-sales-location+:not(.glass-area-row){margin-top:14px}
-html:not(.multi-select):not(.reorder-edit) #app .glass-area-row.fam-wx-row:not(:has(.weather-pill)){min-height:0;margin:0 0 22px}
-html:is(.multi-select,.reorder-edit) #app .fam-wx{display:none}
+html.fam-page :is(#app,.fluid-page-morph-context) .glass-sales-location{margin-bottom:0}
+html.fam-page :is(#app,.fluid-page-morph-context) .glass-sales-location+:not(.glass-area-row){margin-top:14px}
+html:not(.multi-select):not(.reorder-edit) :is(#app,.fluid-page-morph-context) .glass-area-row.fam-wx-row:not(:has(.weather-pill)){min-height:0;margin:0 0 22px}
+html:is(.multi-select,.reorder-edit) :is(#app,.fluid-page-morph-context) .fam-wx{display:none}
 
 /* Mover seções: a seção erguida cresce um quase nada e ganha sombra, sem perder a leveza. */
-#app .fam{position:relative}
-#app .fam-head{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
-#app .fam.is-lifted{z-index:5;box-shadow:0 18px 40px -16px rgba(20,30,45,.45),var(--material-depth)!important;transition:box-shadow .2s}
-:root[data-theme=dark] #app .fam.is-lifted{box-shadow:0 18px 40px -14px rgba(0,0,0,.8),var(--material-depth)!important}
-html.fam-dragging #app .fam:not(.is-lifted){transition:none}
+:is(#app,.fluid-page-morph-context) .fam{position:relative}
+:is(#app,.fluid-page-morph-context) .fam-head{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+:is(#app,.fluid-page-morph-context) .fam.is-lifted{z-index:5;box-shadow:0 18px 40px -16px rgba(20,30,45,.45),var(--material-depth)!important;transition:box-shadow .2s}
+:root[data-theme=dark] :is(#app,.fluid-page-morph-context) .fam.is-lifted{box-shadow:0 18px 40px -14px rgba(0,0,0,.8),var(--material-depth)!important}
+html.fam-dragging :is(#app,.fluid-page-morph-context) .fam:not(.is-lifted){transition:none}
 html.fam-dragging{-webkit-user-select:none;user-select:none}
 /* Enquanto move: cada seção vira só o nome. */
-html.fam-dragging #app .fam :is(.feira-grid,.fam-rows,.fam-more,.fam-map){display:none}
-html.fam-dragging #app .fam.map-pad{padding-bottom:8px!important}
-html.fam-dragging #app .fam-head{padding-bottom:8px}
-#app .fam.is-closing .fam-more svg{transform:none}
-html.multi-leaving #app .fam-wx{display:none}
-html.multi-returned #app .fam-wx{animation:fam-wx-in .26s cubic-bezier(.25,.8,.25,1) both}
+html.fam-dragging :is(#app,.fluid-page-morph-context) .fam :is(.feira-grid,.fam-rows,.fam-more,.fam-map){display:none}
+html.fam-dragging :is(#app,.fluid-page-morph-context) .fam.map-pad{padding-bottom:8px!important}
+html.fam-dragging :is(#app,.fluid-page-morph-context) .fam-head{padding-bottom:8px}
+:is(#app,.fluid-page-morph-context) .fam.is-closing .fam-more svg{transform:none}
+html.multi-leaving :is(#app,.fluid-page-morph-context) .fam-wx{display:none}
+html.multi-returned :is(#app,.fluid-page-morph-context) .fam-wx{animation:fam-wx-in .26s cubic-bezier(.25,.8,.25,1) both}
 @keyframes fam-wx-in{from{opacity:0;transform:translateY(-4px) scale(.96)}}
-@media (prefers-reduced-motion: reduce){html.multi-returned #app .fam-wx{animation:none}}
+@media (prefers-reduced-motion: reduce){html.multi-returned :is(#app,.fluid-page-morph-context) .fam-wx{animation:none}}
 /* Em Vender, entre os cards e a barra de baixo, uma faixa de vidro fosco: o que passa por trás aparece
    desfocado, sem virar outra aba. No modo leve e com transparência reduzida a faixa fica sólida. */
 :root[data-theme][data-layout].fam-page .nav-glass{height:150px;background:linear-gradient(to bottom,color-mix(in srgb,var(--bg) 20%,transparent) 0,color-mix(in srgb,var(--bg) 55%,transparent) 44px,color-mix(in srgb,var(--bg) 68%,transparent) 100%);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 40px);mask-image:linear-gradient(to bottom,transparent 0,#000 40px)}
 /* Fechando: o fundo da seção vira uma camada que encolhe (transform), em vez de mudar a altura a cada quadro. */
-#app .fam.is-closing{isolation:isolate;background:transparent!important;border-color:transparent!important;box-shadow:none!important}
-#app .fam.is-closing::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:calc(var(--fam-h0) + 2px);box-sizing:border-box;border:1px solid var(--fam-bd);border-radius:var(--fam-r);background:var(--fam-bg);box-shadow:var(--fam-sh);transform-origin:50% 0;z-index:-1;pointer-events:none;will-change:transform}
-#app .fam-ghost{z-index:1}
+:is(#app,.fluid-page-morph-context) .fam.is-closing{isolation:isolate;background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+:is(#app,.fluid-page-morph-context) .fam.is-closing::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:calc(var(--fam-h0) + 2px);box-sizing:border-box;border:1px solid var(--fam-bd);border-radius:var(--fam-r);background:var(--fam-bg);box-shadow:var(--fam-sh);transform-origin:50% 0;z-index:-1;pointer-events:none;will-change:transform}
+:is(#app,.fluid-page-morph-context) .fam-ghost{z-index:1}
 
 /* Tracinho do mapa: discreto, no centro do pé da primeira seção (área de toque de 44 px). */
-#app .fam-map{position:absolute;left:50%;bottom:15px;width:64px;height:30px;margin:0 0 0 -32px;padding:0;border:0;background:transparent;box-shadow:none;display:grid;place-items:center;cursor:pointer;z-index:1}
-#app .fam-map span{display:block;width:22px;height:3px;border-radius:2px;background:var(--material-muted,var(--muted));opacity:.35}
-#app .fam-map:active span{opacity:.6}
-#app .fam-head{cursor:pointer}
+:is(#app,.fluid-page-morph-context) .fam-map{position:absolute;left:50%;bottom:15px;width:64px;height:30px;margin:0 0 0 -32px;padding:0;border:0;background:transparent;box-shadow:none;display:grid;place-items:center;cursor:pointer;z-index:1}
+:is(#app,.fluid-page-morph-context) .fam-map span{display:block;width:22px;height:3px;border-radius:2px;background:var(--material-muted,var(--muted));opacity:.35}
+:is(#app,.fluid-page-morph-context) .fam-map:active span{opacity:.6}
+:is(#app,.fluid-page-morph-context) .fam-head{cursor:pointer}
 /* Janela "Seções": miniaturas de cada seção, duas por linha, no relevo das seções. */
 dialog .fam-map-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:2px 0 6px}
 dialog .fam-thumb{display:flex;flex-direction:column;align-items:stretch;gap:4px;min-width:0;margin:0;padding:8px 8px 10px;border:1px solid var(--material-line,var(--line));border-radius:18px;background:var(--material-plane,var(--panel));box-shadow:var(--material-depth,none);color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
@@ -76,54 +76,54 @@ dialog .fam-thumb-art.is-rows i{padding:7px 8px}
 dialog .fam-thumb b{font:700 15px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;overflow-wrap:anywhere;padding:0 2px}
 dialog .fam-thumb small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));padding:0 2px}
 dialog .fam-thumb:active{transform:scale(.97)}
-#app .fam.map-pad{padding-bottom:34px!important}
-#app .fam.map-pad .fam-map{bottom:2px}
+:is(#app,.fluid-page-morph-context) .fam.map-pad{padding-bottom:34px!important}
+:is(#app,.fluid-page-morph-context) .fam.map-pad .fam-map{bottom:2px}
 
 /* Mover na janela "Seções": a miniatura erguida cresce um quase nada e ganha sombra. */
 dialog .fam-map-hint{margin:0 2px 10px;font:500 14px/1.35 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
 dialog .fam-thumb{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:manipulation}
 dialog .fam-thumb.is-lifted{position:relative;z-index:3;box-shadow:0 16px 34px -14px rgba(20,30,45,.5),var(--material-depth,none)}
 :root[data-theme=dark] dialog .fam-thumb.is-lifted{box-shadow:0 16px 34px -12px rgba(0,0,0,.85),var(--material-depth,none)}
-:root:not([data-theme=dark]) #app .fam-more{color:color-mix(in srgb,var(--material-muted,var(--muted)) 62%,transparent)}
+:root:not([data-theme=dark]) :is(#app,.fluid-page-morph-context) .fam-more{color:color-mix(in srgb,var(--material-muted,var(--muted)) 62%,transparent)}
 /* Nos cards de café das seções a sigla (TC/TM/TE) fica na 1ª linha, à direita de "Café", e o tipo na 2ª:
    todos os nomes de café ocupam duas linhas e os cards ficam da mesma altura em todas as seções. */
-:root[data-theme][data-layout] #app .fam .feira-card>strong.coffee-card-title{display:grid!important;grid-template-columns:minmax(0,1fr) auto;column-gap:4px;align-items:baseline;align-self:stretch;width:100%}
-#app .fam .coffee-card-title>.cn-rest{display:contents}
-#app .fam .coffee-card-title>.cn-first{grid-column:1;grid-row:1}
-#app .fam .coffee-card-title .coffee-roast-code{grid-column:2;grid-row:1}
-#app .fam .coffee-card-title .cn-second{grid-column:1/-1;grid-row:2;min-width:0;overflow-wrap:anywhere}
+:root[data-theme][data-layout] :is(#app,.fluid-page-morph-context) .fam .feira-card>strong.coffee-card-title{display:grid!important;grid-template-columns:minmax(0,1fr) auto;column-gap:4px;align-items:baseline;align-self:stretch;width:100%}
+:is(#app,.fluid-page-morph-context) .fam .coffee-card-title>.cn-rest{display:contents}
+:is(#app,.fluid-page-morph-context) .fam .coffee-card-title>.cn-first{grid-column:1;grid-row:1}
+:is(#app,.fluid-page-morph-context) .fam .coffee-card-title .coffee-roast-code{grid-column:2;grid-row:1}
+:is(#app,.fluid-page-morph-context) .fam .coffee-card-title .cn-second{grid-column:1/-1;grid-row:2;min-width:0;overflow-wrap:anywhere}
 /* Na compra múltipla a bolinha de marcar desce para o canto de baixo, ao lado do preço (a sigla fica em cima). */
-.multi-select #app .fam [data-action='sell-product']::after,.multi-leaving #app .fam [data-action='sell-product']::after{top:auto;bottom:8px}
+.multi-select :is(#app,.fluid-page-morph-context) .fam [data-action='sell-product']::after,.multi-leaving :is(#app,.fluid-page-morph-context) .fam [data-action='sell-product']::after{top:auto;bottom:8px}
 
 /* Estoque por área: um card por área, duas colunas, no relevo dos cards. */
-#app .stock-area-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:4px 0 12px}
-#app .stock-area-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:132px;margin:0;padding:14px 14px 12px;border:1px solid var(--material-line,var(--line));border-radius:22px;background:var(--material-face,var(--panel));box-shadow:var(--material-depth,none);color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
-#app .stock-area-card>.icon{position:absolute;right:12px;top:16px;width:18px;height:18px;color:var(--material-muted,var(--muted))}
-#app .stock-area-card .sa-ico,#app .stock-area-head .sa-ico{display:grid;place-items:center;width:40px;height:40px;border-radius:14px;background:color-mix(in srgb,var(--action-green,#7fa653) 14%,transparent);color:var(--accent-ink,#4f7a2a);flex:none}
-#app .stock-area-card .sa-ico .icon,#app .stock-area-head .sa-ico .icon{width:22px;height:22px}
-#app .stock-area-card .sa-txt{display:flex;flex-direction:column;gap:3px;min-width:0;width:100%}
-#app .stock-area-card strong{font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;overflow-wrap:anywhere}
-#app .stock-area-card small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
-#app .sa-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-#app .sa-tag{display:inline-flex;align-items:center;min-height:22px;padding:0 8px;border-radius:11px;font:650 12px/1 'Inter Variable',sans-serif}
-#app .sa-tag.ok{background:color-mix(in srgb,var(--action-green,#7fa653) 14%,transparent);color:var(--accent-ink,#4f7a2a)}
-#app .sa-tag.low{background:color-mix(in srgb,#f2a03d 18%,transparent);color:#9a5a00}
-#app .sa-tag.out{background:color-mix(in srgb,#e5484d 16%,transparent);color:#b4232a}
-:root[data-theme=dark] #app .sa-tag.low{color:#f5b860}:root[data-theme=dark] #app .sa-tag.out{color:#ff8a8e}:root[data-theme=dark] #app .sa-tag.ok{color:#a7cf7d}
-#app .stock-area-card:active{transform:scale(.97)}
-#app .stock-area-head{display:grid;grid-template-columns:auto 1fr;grid-template-areas:'back back' 'title title' 'count count';gap:2px;margin:0 0 10px}
-#app .stock-area-back{grid-area:back;justify-self:start;display:flex;align-items:center;gap:4px;min-height:44px;margin:0 0 4px -6px;padding:0 12px 0 6px;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--accent-ink,#4f7a2a);font:650 15px/1 'Inter Variable',sans-serif;cursor:pointer}
-#app .stock-area-back .icon{width:20px;height:20px}
-#app .stock-area-head h2{grid-area:title;display:flex;align-items:center;gap:10px;margin:0;font:750 24px/1.15 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.02em}
-#app .stock-area-head small{grid-area:count;margin:2px 0 0 50px;font:600 14px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
-@media (max-width: 359px){#app .stock-area-grid{gap:8px}#app .stock-area-card{padding:12px 10px 10px;min-height:124px}#app .stock-area-card strong{font-size:16px}}
+:is(#app,.fluid-page-morph-context) .stock-area-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:4px 0 12px}
+:is(#app,.fluid-page-morph-context) .stock-area-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:132px;margin:0;padding:14px 14px 12px;border:1px solid var(--material-line,var(--line));border-radius:22px;background:var(--material-face,var(--panel));box-shadow:var(--material-depth,none);color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
+:is(#app,.fluid-page-morph-context) .stock-area-card>.icon{position:absolute;right:12px;top:16px;width:18px;height:18px;color:var(--material-muted,var(--muted))}
+:is(#app,.fluid-page-morph-context) .stock-area-card .sa-ico,:is(#app,.fluid-page-morph-context) .stock-area-head .sa-ico{display:grid;place-items:center;width:40px;height:40px;border-radius:14px;background:color-mix(in srgb,var(--action-green,#7fa653) 14%,transparent);color:var(--accent-ink,#4f7a2a);flex:none}
+:is(#app,.fluid-page-morph-context) .stock-area-card .sa-ico .icon,:is(#app,.fluid-page-morph-context) .stock-area-head .sa-ico .icon{width:22px;height:22px}
+:is(#app,.fluid-page-morph-context) .stock-area-card .sa-txt{display:flex;flex-direction:column;gap:3px;min-width:0;width:100%}
+:is(#app,.fluid-page-morph-context) .stock-area-card strong{font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;overflow-wrap:anywhere}
+:is(#app,.fluid-page-morph-context) .stock-area-card small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
+:is(#app,.fluid-page-morph-context) .sa-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+:is(#app,.fluid-page-morph-context) .sa-tag{display:inline-flex;align-items:center;min-height:22px;padding:0 8px;border-radius:11px;font:650 12px/1 'Inter Variable',sans-serif}
+:is(#app,.fluid-page-morph-context) .sa-tag.ok{background:color-mix(in srgb,var(--action-green,#7fa653) 14%,transparent);color:var(--accent-ink,#4f7a2a)}
+:is(#app,.fluid-page-morph-context) .sa-tag.low{background:color-mix(in srgb,#f2a03d 18%,transparent);color:#9a5a00}
+:is(#app,.fluid-page-morph-context) .sa-tag.out{background:color-mix(in srgb,#e5484d 16%,transparent);color:#b4232a}
+:root[data-theme=dark] :is(#app,.fluid-page-morph-context) .sa-tag.low{color:#f5b860}:root[data-theme=dark] :is(#app,.fluid-page-morph-context) .sa-tag.out{color:#ff8a8e}:root[data-theme=dark] :is(#app,.fluid-page-morph-context) .sa-tag.ok{color:#a7cf7d}
+:is(#app,.fluid-page-morph-context) .stock-area-card:active{transform:scale(.97)}
+:is(#app,.fluid-page-morph-context) .stock-area-head{display:grid;grid-template-columns:auto 1fr;grid-template-areas:'back back' 'title title' 'count count';gap:2px;margin:0 0 10px}
+:is(#app,.fluid-page-morph-context) .stock-area-back{grid-area:back;justify-self:start;display:flex;align-items:center;gap:4px;min-height:44px;margin:0 0 4px -6px;padding:0 12px 0 6px;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--accent-ink,#4f7a2a);font:650 15px/1 'Inter Variable',sans-serif;cursor:pointer}
+:is(#app,.fluid-page-morph-context) .stock-area-back .icon{width:20px;height:20px}
+:is(#app,.fluid-page-morph-context) .stock-area-head h2{grid-area:title;display:flex;align-items:center;gap:10px;margin:0;font:750 24px/1.15 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.02em}
+:is(#app,.fluid-page-morph-context) .stock-area-head small{grid-area:count;margin:2px 0 0 50px;font:600 14px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
+@media (max-width: 359px){:is(#app,.fluid-page-morph-context) .stock-area-grid{gap:8px}:is(#app,.fluid-page-morph-context) .stock-area-card{padding:12px 10px 10px;min-height:124px}:is(#app,.fluid-page-morph-context) .stock-area-card strong{font-size:16px}}
 
 /* 0.12.117: cards de área e subgrupo sem ícone; estado em palavra; seta "‹ Áreas" no fim da página. */
-#app .stock-area-card{min-height:104px;gap:6px;padding:14px 14px 12px}
-#app .stock-area-card .sa-ico,#app .stock-area-head .sa-ico{display:none}
-#app .stock-area-head{grid-template-areas:'back' 'title' 'count';grid-template-columns:1fr}
-#app .stock-area-head small{margin:2px 0 0}
-#app .stock-area-foot{display:flex;justify-content:flex-start;margin:6px 0 10px}
-#app .stock-area-foot .stock-area-back{margin:0 0 0 -6px}
-#app .stock-loose-title{margin:6px 4px 8px;font:700 16px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;color:var(--material-text,var(--text))}
-#app .stock-loose-title + .workflow-stock-family .feira-group{display:none}
+:is(#app,.fluid-page-morph-context) .stock-area-card{min-height:104px;gap:6px;padding:14px 14px 12px}
+:is(#app,.fluid-page-morph-context) .stock-area-card .sa-ico,:is(#app,.fluid-page-morph-context) .stock-area-head .sa-ico{display:none}
+:is(#app,.fluid-page-morph-context) .stock-area-head{grid-template-areas:'back' 'title' 'count';grid-template-columns:1fr}
+:is(#app,.fluid-page-morph-context) .stock-area-head small{margin:2px 0 0}
+:is(#app,.fluid-page-morph-context) .stock-area-foot{display:flex;justify-content:flex-start;margin:6px 0 10px}
+:is(#app,.fluid-page-morph-context) .stock-area-foot .stock-area-back{margin:0 0 0 -6px}
+:is(#app,.fluid-page-morph-context) .stock-loose-title{margin:6px 4px 8px;font:700 16px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;color:var(--material-text,var(--text))}
+:is(#app,.fluid-page-morph-context) .stock-loose-title + .workflow-stock-family .feira-group{display:none}

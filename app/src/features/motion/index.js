@@ -209,7 +209,7 @@ function liftPage(app, onTop, page) {
 // piece; fixed bars (sale dock, keypad) rise into place on their own.
 function arrivePage(app, entry, pivot, springName, fixedFrom = { y: 28, opacity: 0 }) {
   const blocks = [...app.children].flatMap(el => el.classList.contains('subview') ? [...el.children] : [el]);
-  const prepared = blocks.filter(el => !el.hidden && !el.matches('script, style')).map(element => {
+  const prepared = blocks.filter(el => !el.hidden && !el.matches('script, style') && el.dataset.motionStill !== '1').map(element => {
     const bounds = element.getBoundingClientRect();
     const fixed = getComputedStyle(element).position === 'fixed' || !!element.querySelector(fixedContentSelector);
     return { element, bounds, fixed };
@@ -305,7 +305,9 @@ function installPageTransitions(listen) {
 
 // Sibling areas inside one tab use the same compositor and move the old DOM once.
 // No cloned cards, frame-by-frame clipping, or asynchronous route delay.
-export function transitionSubview(render,direction=1){
+// subtle: the shared top bar stays still (it is the same on both views) and the content only cross-fades
+// with a small shift — used when switching areas inside one tab, such as Estoque and Fornecedores.
+export function transitionSubview(render,direction=1,{subtle=false}={}){
  const app=document.getElementById('app');endPageTransition();
  if(!app||!enabled()||document.hidden){render();return;}
  let lift,t;
@@ -315,9 +317,12 @@ export function transitionSubview(render,direction=1){
  try{render();}catch(error){app.removeEventListener('territorio:before-page',commit);endPageTransition();throw error;}
  app.removeEventListener('territorio:before-page',commit);if(!t)return;
  lift?.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node=>node.remove());
- const done=()=>{if(pageTransition===t){pageTransition=null;t.layer?.remove();}},shift=(limited()?5:18)*direction;
+ if(subtle)lift?.surface.querySelectorAll('.fluid-page-morph-context > .topbar').forEach(node=>node.style.visibility='hidden');
+ const done=()=>{if(pageTransition===t){pageTransition=null;t.layer?.remove();}},shift=(subtle?(limited()?2:6):(limited()?5:18))*direction;
  if(lift)t.handles.push(animate(lift.surface,{from:REST,to:{x:-shift,opacity:0},spring:spring('tab'),shape:dissolve(0,.4),onFinish:done}));
+ const fixedTop=subtle?app.querySelector(':scope > .topbar'):null;if(fixedTop)fixedTop.dataset.motionStill='1';
  t.handles.push(...arrivePage(app,{x:shift,opacity:0,scale:1},[innerWidth/2,innerHeight/2],'tab',{y:0,opacity:0}));
+ if(fixedTop)delete fixedTop.dataset.motionStill;
  if(!lift)t.handles.at(-1)?.finished.then(done);
 }
 
