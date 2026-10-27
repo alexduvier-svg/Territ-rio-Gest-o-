@@ -1375,7 +1375,7 @@ function feiraSellPage(){const today=E.dayKey(new Date()),sales=model.data.sales
  +draftResumeBanner()+feiraSearch()+feiraChips()+'<div id="feira-list">'+feiraSellList()+'</div>';}
 function stockGroups(){const ok=[],low=[],out=[],products=window.TerritorioStockOrder?window.TerritorioStockOrder.orderStockProducts(model.data.products):model.data.products;products.forEach(p=>(p.stock<=0?out:p.stock<=(p.min||0)?low:ok).push(p));return{ok,low,out};}
 function feiraStockStatus(){const g=stockGroups();if(!model.data.products.length)return '';const tile=(key,label,list,cls)=>btn('feira-restock','<small>'+label+'</small><strong class="tabular">'+list.length+'</strong>','feira-stock-count '+key+(list.length&&cls?' '+cls:''),{group:key},!list.length);
- return '<section class="feira-stock" aria-label="Situação do estoque"><div class="feira-stock-counts">'+tile('ok','Em dia',g.ok,'')+tile('low','Baixo',g.low,'warn')+tile('out','Esgotado',g.out,'alert')+'</div><p class="feira-stock-hint">Toque para repor.</p></section>';}
+ return '<section class="feira-stock" aria-label="Situação do estoque"><div class="feira-stock-counts">'+tile('ok','Em dia',g.ok,'')+tile('low','Baixo',g.low,'warn')+tile('out','Esgotado',g.out,'alert')+'</div><p class="feira-stock-hint">Toque + para repor.</p></section>';}
 function resourceLimit(key,total){return window.TerritorioResourcePolicy?.limitFor(key,total)??Math.min(total,60);}
 function resourceMore(key,total,shown){return total>shown?btn('resource-more','Mostrar mais produtos','choice modal-action resource-more',{key}):'';}
 function feiraStockList(){const items=productList(true);if(!items.length)return '<div class="empty"><strong>Nenhum produto encontrado</strong></div>';const families=new Map();for(const p of items){const family=window.TerritorioStockOrder?.stockFamily?.(p)||E.normalize(p.category==='Cafés'?'Cafés':p.baseName||p.name);const key=p.category+'|'+family;if(!families.has(key))families.set(key,[]);families.get(key).push(p);}const row=p=>{const state=p.stock<=0?'out':p.stock<=(p.min||0)?'low':'ok';return btn('stock-product','<span class="fr-main"><span class="stock-row-heading"><strong>'+escape(titleName(window.TerritorioCoffee.coffeeName(p)))+'</strong></span>'+(window.TerritorioCoffee.coffeeOrigin(p)?'<small class="coffee-origin">'+escape(window.TerritorioCoffee.coffeeOrigin(p))+'</small>':'')+'<small>'+escape(stockCardDescription(p))+'</small>'+(window.TerritorioStockLotsUI?.brief(model.data,p)||'')+'</span><span class="fr-side"><b class="tabular '+state+'">'+(p.stock<=0?icon('warning').replace('class="icon"','class="icon stock-empty-warning"'):'')+E.quantity(p.stock)+'</b><small>'+escape(shortUnit(p.unit))+'</small></span>'+icon('chevron'),'feira-row',{id:p.id});};const groups=[...families.values()],shown=resourceLimit('stock-families',groups.length);return groups.slice(0,shown).map(list=>'<section class="workflow-stock-family"><h3 class="feira-group" data-family-query="'+escape(window.TerritorioStockOrder?.stockFamily?.(list[0])||list[0].baseName||list[0].name)+'">'+escape(titleName(window.TerritorioStockOrder?.stockFamilyLabel?.(list[0])||list[0].baseName||list[0].name))+'</h3><div class="feira-rows">'+list.slice(0,3).map(row).join('')+'</div>'+(list.length>3?'<details data-resource-group="'+escape(list[0].id)+'" class="workflow-stock-more"><summary>Mais '+(list.length-3)+' '+(list.length===4?'apresentação':'apresentações')+' '+icon('down')+'</summary><div class="feira-rows">'+list.slice(3,resourceLimit('stock-'+list[0].id,list.length)).map(row).join('')+'</div>'+resourceMore('stock-'+list[0].id,list.length,resourceLimit('stock-'+list[0].id,list.length))+'</details>':'')+'</section>').join('')+resourceMore('stock-families',groups.length,shown);}
@@ -3172,7 +3172,7 @@ actions['event-loss-back']=({id})=>{closeModal();reviewEventLosses(id);};
 
 // The stock/supplier switch selects one surface; it never mounts a second ERP.
 const stockBeforeSuppliers=stockPage;
-stockPage=function(){const s=window.TerritorioSuppliers;return s?.active()?s.header()+s.page():stockBeforeSuppliers().replace('<h1>Estoque</h1>',s?s.heading('Estoque'):'<h1>Estoque</h1>').replace('<p class="feira-stock-hint">Toque para repor.</p>',s?s.modeControl():'<p class="feira-stock-hint">Toque para repor.</p>');};
+stockPage=function(){const s=window.TerritorioSuppliers;return s?.active()?s.header()+s.page():stockBeforeSuppliers().replace('<h1>Estoque</h1>',s?s.heading('Estoque'):'<h1>Estoque</h1>').replace('<p class="feira-stock-hint">Toque + para repor.</p>',s?s.modeControl():'<p class="feira-stock-hint">Toque + para repor.</p>');};
 CSV_TYPES.push(['suppliers','Fornecedores'],['supplierquotes','Cotações de Fornecedores'],['supplierpurchases','Compras de Fornecedores']);
 exportGroups.push(['Fornecedores e Cotações',['suppliers','supplierquotes','supplierpurchases']]);
 const csvBeforeSuppliers=csvRows;csvRows=function(kind){if(['suppliers','supplierquotes','supplierpurchases'].includes(kind)){const r=window.TerritorioSuppliers.exportRows();return kind==='suppliers'?r.suppliers:kind==='supplierquotes'?r.quotes:r.purchases;}return csvBeforeSuppliers(kind);};
@@ -3411,27 +3411,68 @@ const secTypeOf=p=>p.category==='Cafés'?(p.type||''):'';
 const famMoreText=(g,open,more)=>open?'Mostrar menos':'Mais '+more+' '+(g.key.startsWith('Café ')?(more===1?'pacote':'pacotes'):(more===1?'produto':'produtos'));
 const famChev='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 function sellSectionsView(){const items=productList(false);if(!items.length||!SM())return null;
- const list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM().sellSections(list,{typeOf:secTypeOf});
+ const list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM().orderSections(SM().sellSections(list,{typeOf:secTypeOf}),model.data.settings.sellSectionOrder);
  if(!SM().useSections(groups))return null;
  const has=!!draft;if(sellSec.hadDraft&&!has)sellSec.open.clear();sellSec.hadDraft=has;
  const key=groups.map(g=>g.key).join(',');if(key!==sellSec.key){sellSec.key=key;sellSec.open.clear();}
- sellSec.groups=groups;const counts=SM().cartByGroup(groups,draft?.items||[]);
+ sellSec.groups=groups;sellSec.open.forEach(k=>{if(!famTimers.has(k))famIdle(k);});const counts=SM().cartByGroup(groups,draft?.items||[]);
  return '<div class="fam-list">'+groups.map((g,i)=>{const open=sellSec.open.has(g.key),L=SM().sectionLayout(g.items,open);
-  return '<section class="fam glass-products-plane'+(open?' is-open':'')+'" data-fam="'+escape(g.key)+'"><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
+  return '<section class="fam glass-products-plane'+(open?' is-open':'')+'" data-fam="'+escape(g.key)+'"><span class="fam-grip" aria-hidden="true"></span><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
   +(L.mode==='rows'?'<div class="fam-rows">'+L.shown.map(sellRowHtml).join('')+'</div>'
    :'<div class="feira-grid">'+L.shown.map(p=>sellCardHtml(p)).join('')+L.extra.map(p=>sellCardHtml(p,true)).join('')+'</div>'
-   +(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'">'+famChev+'<span>'+famMoreText(g,open,L.more)+'</span></button>':''))+'</section>';}).join('')+'</div>';}
+   +(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'" aria-label="'+escape(famMoreText(g,open,L.more))+'">'+famChev+'</button>':''))+'</section>';}).join('')+'</div>';}
 const sellListBeforeSections=feiraSellList;
 feiraSellList=function(){try{const v=sellSectionsView();if(v)return v;}catch(e){console.error(e);}sellSec.key='';return sellListBeforeSections();};
 const famQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Segurar a borda de cima (o nome) ou a de baixo de uma seção e arrastar muda a seção de lugar: enquanto o dedo
+// segura, todas se recolhem ao nome (lista curta, fácil de ordenar) e voltam ao soltar. Os cards e as linhas
+// ficam de fora: neles, segurar continua sendo a venda de vários produtos.
+(()=>{const HOLD=380,GAP=12;let timer=null,sec=null,list=null,y0=0,x0=0,sc0=0,drag=false,lastY=0,swallowUntil=0;
+ const edge=(t,y)=>{const f=t.closest?.('#app .fam-list .fam');if(!f||t.closest('.feira-card,.fam-row'))return null;if(t.closest('.fam-head,.fam-grip,.fam-more'))return f;const r=f.getBoundingClientRect();return y>r.bottom-36||y<r.top+20?f:null;};
+ const reset=()=>{clearTimeout(timer);timer=null;};
+ const off=()=>document.documentElement.classList.contains('multi-select')||document.documentElement.classList.contains('reorder-edit');
+ const place=y=>{const dy=y-y0+(window.scrollY-sc0);sec.style.transform='translate3d(0,'+dy+'px,0) scale(1.015)';
+  const me=sec.getBoundingClientRect(),mid=me.top+me.height/2,prev=sec.previousElementSibling,next=sec.nextElementSibling;
+  const shift=(el,by)=>{if(!famQuiet()&&el.animate)el.animate([{transform:'translate3d(0,'+by+'px,0)'},{transform:'none'}],{duration:200,easing:'cubic-bezier(.25,.8,.25,1)'});};
+  if(prev){const r=prev.getBoundingClientRect();if(mid<r.top+r.height/2){list.insertBefore(sec,prev);y0-=r.height+GAP;shift(prev,-(me.height+GAP));window.TerritorioHaptics?.tick?.();return place(y);}}
+  if(next){const r=next.getBoundingClientRect();if(mid>r.top+r.height/2){list.insertBefore(next,sec);y0+=r.height+GAP;shift(next,me.height+GAP);window.TerritorioHaptics?.tick?.();return place(y);}}};
+ const finish=()=>{const el=sec,from=el.style.transform;el.style.transform='';const b=el.getBoundingClientRect().top;el.classList.remove('is-lifted');document.documentElement.classList.remove('fam-dragging');window.scrollBy(0,el.getBoundingClientRect().top-b);
+  if(!famQuiet()&&el.animate&&from)el.animate([{transform:from},{transform:'none'}],{duration:240,easing:'cubic-bezier(.25,.8,.25,1)'});
+  const keys=[...list.querySelectorAll('.fam')].map(x=>x.dataset.fam),saved=model.data.settings.sellSectionOrder||[];
+  model.data.settings.sellSectionOrder=[...keys,...saved.filter(k=>!keys.includes(k))];persist();swallowUntil=Date.now()+450;sec=null;drag=false;};
+ document.addEventListener('touchstart',e=>{reset();if(drag||off()||page!=='Vender'||e.touches.length>1)return;const t=e.touches[0],f=edge(e.target,t.clientY);if(!f)return;
+  sec=f;list=f.parentElement;y0=lastY=t.clientY;x0=t.clientX;sc0=window.scrollY;
+  timer=setTimeout(()=>{timer=null;if(!sec)return;drag=true;const b=sec.getBoundingClientRect().top;sec.classList.add('is-lifted');document.documentElement.classList.add('fam-dragging');window.scrollBy(0,sec.getBoundingClientRect().top-b+(lastY-b-22));y0=lastY;sc0=window.scrollY;window.TerritorioHaptics?.tick?.();place(lastY);},HOLD);},{passive:true});
+ document.addEventListener('touchmove',e=>{const t=e.touches[0];if(!sec)return;lastY=t.clientY;
+  if(!drag){if(Math.abs(t.clientY-y0)>8||Math.abs(t.clientX-x0)>8){reset();sec=null;}return;}
+  e.preventDefault();if(t.clientY<110)window.scrollBy(0,-10);else if(t.clientY>innerHeight-150)window.scrollBy(0,10);place(t.clientY);},{passive:false});
+ const end=()=>{reset();if(drag&&sec)finish();else sec=null;};
+ document.addEventListener('touchend',end,{passive:true});document.addEventListener('touchcancel',end,{passive:true});
+ document.addEventListener('click',e=>{if(Date.now()<swallowUntil&&e.target.closest?.('#app .fam')){e.preventDefault();e.stopImmediatePropagation();}},true);
+ document.addEventListener('contextmenu',e=>{if(e.target.closest?.('#app .fam-head,#app .fam-grip'))e.preventDefault();});})();
 // Setinha no fim da seção: mostra os outros pacotes (já montados, só escondidos) ou recolhe, sem refazer a tela.
+// Aberta, a seção se recolhe sozinha depois de FAM_IDLE sem toque nela (cada toque na seção recomeça a conta).
+const FAM_IDLE=20000,famTimers=new Map();
+function famIdle(k){clearTimeout(famTimers.get(k));if(!sellSec.open.has(k))return famTimers.delete(k);famTimers.set(k,setTimeout(()=>{famTimers.delete(k);const sec=[...document.querySelectorAll('#app .fam')].find(x=>x.dataset.fam===k);if(sec&&sellSec.open.has(k))famToggle(sec,k,false,{auto:true});else sellSec.open.delete(k);},FAM_IDLE));}
+// Mola do app (motion/engine.js) para os cards que aparecem: saltam para o lugar, passam um pouco e assentam
+// (a mesma mola de entrar numa aba).
+function famSpring(el,frame,{spring='open',delay=0}={}){const S=window.TerritorioSpring;if(!S||!el.animate)return;const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
+ for(let k=0;k<n;k+=2)frames.push(frame(c.values[k]));frames.push(frame(1));el.animate(frames,{duration:c.duration,delay,easing:'linear',fill:'backwards'});}
+function famToggle(sec,k,open,{auto=false}={}){const g=sellSec.groups.find(x=>x.key===k),t=sec.querySelector('[data-fam-more]');if(!g||!t)return;
+ const top0=sec.getBoundingClientRect().top,h0=sec.offsetHeight,below=[];for(let n=sec.nextElementSibling;n;n=n.nextElementSibling){const r=n.getBoundingClientRect();if(r.top>innerHeight*2)break;below.push([n,r.top]);}
+ if(open)sellSec.open.add(k);else sellSec.open.delete(k);sec.classList.toggle('is-open',open);t.setAttribute('aria-expanded',String(open));t.setAttribute('aria-label',famMoreText(g,open,SM().sectionLayout(g.items).more));famIdle(k);
+ if(open){requestAnimationFrame(()=>window.TerritorioFitCards?.());if(!famQuiet())sec.querySelectorAll('.fam-extra').forEach((c,n)=>famSpring(c,v=>({opacity:Math.min(1,v*1.8),transform:'translate3d(0,'+(20*(1-v)).toFixed(2)+'px,0) scale('+(.88+.12*v).toFixed(4)+')'}),{spring:'tabEnter',delay:Math.min(n,5)*35}));}
+ // As seções de baixo acompanham com a mesma mola em vez de pular de uma vez.
+ if(!famQuiet()&&!(auto&&top0<0))below.forEach(([n,y])=>{const d=y-n.getBoundingClientRect().top;if(Math.abs(d)>1)famSpring(n,v=>({transform:'translate3d(0,'+(d*(1-v)).toFixed(2)+'px,0)'}),{spring:'section'});});
+ else if(auto){if(top0<0)window.scrollBy(0,sec.offsetHeight-h0);}
+ else if(top0<0)window.scrollBy({top:top0-80,behavior:famQuiet()?'auto':'smooth'});
+ if(!auto&&!famQuiet())window.TerritorioHaptics?.tick?.();}
 document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-fam-more]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();
- const sec=t.closest('.fam'),k=t.dataset.famMore,g=sellSec.groups.find(x=>x.key===k);if(!sec||!g)return;const open=!sellSec.open.has(k);
- if(open)sellSec.open.add(k);else sellSec.open.delete(k);sec.classList.toggle('is-open',open);t.setAttribute('aria-expanded',String(open));
- t.querySelector('span').textContent=famMoreText(g,open,SM().sectionLayout(g.items).more);
- if(open&&!famQuiet())sec.querySelectorAll('.fam-extra').forEach((c,n)=>c.animate?.([{opacity:0,transform:'translate3d(0,-6px,0)'},{opacity:1,transform:'none'}],{duration:220,delay:Math.min(n,5)*24,easing:'cubic-bezier(.25,.8,.25,1)',fill:'backwards'}));
- if(!open){const top=sec.getBoundingClientRect().top;if(top<0)window.scrollBy({top:top-80,behavior:famQuiet()?'auto':'smooth'});}
- if(!famQuiet())window.TerritorioHaptics?.tick?.();},true);
+ const sec=t.closest('.fam'),k=t.dataset.famMore;if(sec)famToggle(sec,k,!sellSec.open.has(k));},true);
+document.addEventListener('pointerdown',e=>{const sec=e.target.closest?.('#app .fam.is-open');if(sec)famIdle(sec.dataset.fam);},{capture:true,passive:true});
+// A descrição dos cards ("Moído · 250 g" numa linha ou em duas) é medida de novo depois que a tela assenta.
+const renderBeforeFam=render;
+render=function(...args){const out=renderBeforeFam.apply(this,args);if(document.querySelector('#app .fam-list'))requestAnimationFrame(()=>window.TerritorioFitCards?.());return out;};
 // O "+" da venda lista por seção, com o carrinho de cada uma e o nome com a sigla da torra.
 function addProductList(){const items=productList(false),list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM()?SM().sellSections(list,{typeOf:secTypeOf}):[{key:'',label:'',items:list}],counts=SM()?SM().cartByGroup(groups,draft?.items||[]):[];
  const row=p=>btn('pick-sale-product','<span><strong>'+escape(contasName(p))+'</strong><small>'+E.quantity(sellingAvailableStock(p.id))+' disponíveis</small></span><span>'+E.money(p.price)+'</span>','list-row',{id:p.id},!canSelectProduct(p.id));
@@ -3439,10 +3480,10 @@ function addProductList(){const items=productList(false),list=soldOutLast(window
  return groups.map(g=>'<section class="sec-pick-group"><h3>'+escape(g.label)+(counts[groups.indexOf(g)]?' <small class="sec-cart">'+counts[groups.indexOf(g)]+' no carrinho</small>':'')+'</h3><div class="sec-pick-rows">'+g.items.map(row).join('')+'</div></section>').join('');}
 actions['sale-add-product']=()=>openModal('Adicionar Produto',addProductList(),'pick-product');
 // Com seções, sai a frase "Área de vendas" (cada seção já tem o seu nome) e o tempo fica sozinho, no centro,
-// numa linha mais baixa, para os cards subirem.
+// entre a Loja e a primeira seção (o módulo do tempo põe o seu botão no primeiro .glass-sales-toolbar).
 const sellPageBeforeSectionTop=feiraSellPage;
 feiraSellPage=function(){const html=sellPageBeforeSectionTop.apply(this,arguments);if(!html.includes('class="fam-list"'))return html;
- return html.replace('<div class="glass-area-row">','<div class="glass-area-row fam-wx-row">').replace('<p class="glass-area-label">Área de vendas</p>','');};
+ return html.replace('<div class="glass-area-row">','<div class="glass-area-row fam-wx-row">').replace('<p class="glass-area-label">Área de vendas</p>','<span class="glass-sales-toolbar fam-wx"></span>');};
 if(sellPage===sellPageBeforeSectionTop)sellPage=feiraSellPage;
 render();
 })();

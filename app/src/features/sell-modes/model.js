@@ -19,6 +19,15 @@ export function sellSections(products, { typeOf = p => p.type || '' } = {}) {
   return [...map].map(([key, items]) => ({ key, label: groupLabel(key), items }));
 }
 
+// Ordem das seções escolhida pela pessoa (segurando a borda e arrastando). As seções que já têm lugar salvo
+// seguem essa ordem nos lugares delas; uma família nova fica onde a ordem do Estoque a coloca.
+export function orderSections(sections, saved = []) {
+  const pos = new Map((Array.isArray(saved) ? saved : []).map((k, i) => [k, i]));
+  const known = sections.filter(s => pos.has(s.key)).sort((a, b) => pos.get(a.key) - pos.get(b.key));
+  let k = 0;
+  return sections.map(s => pos.has(s.key) ? known[k++] : s);
+}
+
 // Seções só quando separam alguma coisa: pelo menos duas famílias.
 export const useSections = sections => sections.length >= 2;
 

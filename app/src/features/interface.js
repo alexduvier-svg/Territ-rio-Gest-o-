@@ -304,6 +304,7 @@ export function installInterface() {
     fitCardDetails();
   }).observe(root, { childList: true, subtree: true });
   window.addEventListener('resize', () => { fitStockHeading(); fitCardDetails(); }, { passive: true });
+  window.TerritorioFitCards = fitCardDetails; // telas que mostram cards depois (seções que abrem)
   document.fonts?.ready.then(() => { fitStockHeading(); fitCardDetails(); });
   new MutationObserver(() => decorateDimensions()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-layout'] });
   const toast = document.getElementById('toast');

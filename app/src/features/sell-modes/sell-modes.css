@@ -6,8 +6,8 @@
 #app .fam-head small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));white-space:nowrap}
 #app .sec-cart{color:var(--accent-ink,#4f7a2a);font-weight:700}
 #app .fam:not(.is-open) .fam-extra{display:none}
-#app .fam-more{display:flex;align-items:center;gap:6px;min-height:44px;margin:6px 0 0;padding:0 12px 0 6px;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--accent-ink,#4f7a2a);font:650 14px/1 'Inter Variable',sans-serif;cursor:pointer}
-#app .fam-more svg{width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+#app .fam-more{display:grid;place-items:center;width:44px;height:44px;margin:4px 0 0;padding:0;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--accent-ink,#4f7a2a);cursor:pointer}
+#app .fam-more svg{width:24px;height:24px;flex:none;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
 #app .fam.is-open .fam-more svg{transform:rotate(180deg)}
 #app .fam-rows{display:flex;flex-direction:column;gap:8px}
 #app .fam-row{display:flex;align-items:center;gap:12px;width:100%;min-height:72px;margin:0;padding:12px 16px;border-radius:20px;background:var(--material-face);border:1px solid var(--material-line);box-shadow:var(--material-depth);color:var(--material-text);text-align:left;font:inherit;cursor:pointer}
@@ -28,9 +28,23 @@ dialog .sec-pick-rows button{padding:14px 6px}
 /* Com seções: sem a frase "Área de vendas"; o tempo fica no centro, numa linha baixa, e os cards sobem. */
 #app .glass-area-row.fam-wx-row{display:flex;align-items:center;justify-content:center;min-height:52px;margin:12px 0 14px}
 #app .glass-area-row.fam-wx-row .weather-pill{min-height:44px}
-html:is(.multi-select,.reorder-edit) #app .glass-area-row.fam-wx-row{justify-content:flex-start}
+
 @media (max-width: 359px){#app .fam-row{padding:12px}}
 #app .fam-row-p .sale-currency{margin-right:3px;font-size:13px;font-weight:600;color:var(--material-muted)}
 #app:has(.fam-list) .glass-sales-location{margin-bottom:0}
 #app:has(.fam-list) .glass-sales-location:not(:has(+ .glass-area-row)){margin-bottom:14px}
-#app .glass-area-row.fam-wx-row:not(:has(.weather-pill)){min-height:0;margin:0 0 22px}
+html:not(.multi-select):not(.reorder-edit) #app .glass-area-row.fam-wx-row:not(:has(.weather-pill)){min-height:0;margin:0 0 22px}
+html:is(.multi-select,.reorder-edit) #app .fam-wx{display:none}
+
+/* Mover seções: uma alça discreta no alto avisa que dá para segurar e arrastar; a seção erguida cresce um
+   quase nada e ganha sombra, sem perder a leveza. */
+#app .fam{position:relative}
+#app .fam-grip{position:absolute;top:6px;left:50%;width:30px;height:4px;margin-left:-15px;border-radius:2px;background:var(--material-muted,var(--muted));opacity:.28;pointer-events:none}
+#app .fam-head{user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+#app .fam.is-lifted{z-index:5;box-shadow:0 18px 40px -16px rgba(20,30,45,.45),var(--material-depth)!important;transition:box-shadow .2s}
+:root[data-theme=dark] #app .fam.is-lifted{box-shadow:0 18px 40px -14px rgba(0,0,0,.8),var(--material-depth)!important}
+html.fam-dragging #app .fam:not(.is-lifted){transition:none}
+html.fam-dragging{-webkit-user-select:none;user-select:none}
+/* Enquanto move: cada seção vira só o nome. */
+html.fam-dragging #app .fam :is(.feira-grid,.fam-rows,.fam-more){display:none}
+html.fam-dragging #app .fam-head{padding-bottom:8px}

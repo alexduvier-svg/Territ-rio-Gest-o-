@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { sellSections, useSections, cartByGroup, sectionLayout, groupLabel } from '../src/features/sell-modes/model.js';
+import { sellSections, useSections, cartByGroup, sectionLayout, orderSections, groupLabel } from '../src/features/sell-modes/model.js';
 
 const p = (id, category, type = '') => ({ id, category, type });
 const cafes = (n, type) => Array.from({ length: n }, (_, i) => p(type + i, 'Cafés', type));
@@ -35,4 +35,11 @@ test('até 2 produtos a seção vira linhas; de 3 em diante, grade com 6 à most
 test('carrinho por seção soma unidades; peso conta produtos', () => {
   const g = sellSections([p('a', 'Cafés', 'Especial'), p('b', 'Cafés', 'Especial'), p('t', 'Hortifruti-Granjeiro'), p('m', 'Mel e apícolas')]);
   assert.deepEqual(cartByGroup(g, [{ productId: 'a', rawQty: '2' }, { productId: 'b', rawQty: '1' }, { productId: 't', rawQty: '1,5' }]), [3, 1, 0]);
+});
+
+test('a ordem escolhida das seções vale; família nova fica no lugar do Estoque', () => {
+  const g = sellSections([p('a', 'Cafés', 'Especial'), p('b', 'Cafés', 'Gourmet'), p('q', 'Laticínios'), p('d', 'Doces')]);
+  assert.deepEqual(orderSections(g, ['Doces', 'Café Especial', 'Laticínios', 'Café Gourmet']).map(s => s.key), ['Doces', 'Café Especial', 'Laticínios', 'Café Gourmet']);
+  assert.deepEqual(orderSections(g, ['Laticínios', 'Café Especial']).map(s => s.key), ['Laticínios', 'Café Gourmet', 'Café Especial', 'Doces']);
+  assert.deepEqual(orderSections(g, null).map(s => s.key), g.map(s => s.key));
 });
