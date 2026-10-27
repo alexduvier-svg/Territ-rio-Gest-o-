@@ -1,10 +1,10 @@
 # AGRO Gestão Claude (este repositório)
 
-App separado, criado em 26/10/2026 a partir do AGRO Gestão 2 0.12.87 (commit a4dab1f do Codex). Pacote `br.com.territorio.gestaoclaude`, nome "AGRO Gestão Claude", 0.12.115/code155, chave debug do PC do produtor. Começa vazio e não lê os dados do AGRO Gestão (`gestao`), AGRO Gestão 2 (`gestao2`) nem AGRO Gestão 3 (`gestao3`). Atualização: mesmo pacote, mesma assinatura, `adb install -r`, sem limpar dados.
+App separado, criado em 26/10/2026 a partir do AGRO Gestão 2 0.12.87 (commit a4dab1f do Codex). Pacote `br.com.territorio.gestaoclaude`, nome "AGRO Gestão Claude", 0.12.116/code156, chave debug do PC do produtor. Começa vazio e não lê os dados do AGRO Gestão (`gestao`), AGRO Gestão 2 (`gestao2`) nem AGRO Gestão 3 (`gestao3`). Atualização: mesmo pacote, mesma assinatura, `adb install -r`, sem limpar dados.
 
 O que mudou e por quê: `app/docs/ANALISE-ENTREGA-0.12.88-CLAUDE.md`. Diretriz das Contas para o Codex: `app/docs/DIRETRIZ-CALCULADORA-CONTAS.md`. Coerência visual das janelas: `app/src/features/visual-cohesion.css` (carregado por último; medidas só no texto normal, texto ampliado mantém as regras próprias). Finanças: uma regra de custo conhecido (`costKnown`), taxa padrão marcada como estimativa, retirada mês a mês, caixa separa lançado de previsto. Gestão abre cada assunto por um caminho só.
 
-Build: `npm run sync` e depois `android\gradlew.bat assembleDebug` com JAVA_HOME no JDK 21. Testes: `node --test tests/*.test.mjs` (768). 0.12.115 instalada com -r no Reno14 e Find X8 Ultra (PKJ110) em 26/10/2026, dados preservados. Datas: nunca criar Intl.DateTimeFormat por chamada (custava 0,2 s na abertura).
+Build: `npm run sync` e depois `android\gradlew.bat assembleDebug` com JAVA_HOME no JDK 21. Testes: `node --test tests/*.test.mjs` (768). 0.12.116 instalada com -r no Reno14 e Find X8 Ultra (PKJ110) em 26/10/2026, dados preservados. Datas: nunca criar Intl.DateTimeFormat por chamada (custava 0,2 s na abertura).
 
 "Ver com dados de exemplo" (boas-vindas) carrega os exemplos do sistema como dados do app: ficam salvos e permitem vender. O Modo Teste continua em Ajustes. O Alex decide zerar os dados mais adiante, antes de publicar o app.
 
@@ -19,6 +19,8 @@ O conteúdo abaixo é o histórico herdado do AGRO Gestão 2; vale como referên
 Código e QA publicados no commit fd7d81bc32fb73e877c6b3d045128107fa79730b, confirmado por ls-remote no ramo codex/atualizacao-agro-gestao2 em 26/10/2026. Entrega 87 concluída; não repetir build, instalação, deploy ou testes por causa de checkpoints históricos abaixo. Não executar verify-validity087.py de novo sobre os metadados finais, pois gera estado pré-instalação. Relatório docs/ENTREGA-0.12.87.md e metadados locais registram o arquivo, preservação e limites de verificação.
 
 Nova calculadora Contas: avaliação concluída e desenho humano registrado, implementação ainda pendente como próxima alteração. Não alegar que veio na 0.12.87. Sem pausa ativa, subagentes ou novas automações. Em futura tarefa, consultar Git/Claude antes de editar e manter apenas AGRO2 como destino de publicação.
+
+**Regra dura de movimento:** toda abertura e fechamento seguem DIRETRIZ_ABERTURAS_E_MOVIMENTO.md (também em app/src/data/interface-guidelines.js, chave motionExcellence).
 
 ## Instalação concluída (registro anterior ao fechamento Git)
 
