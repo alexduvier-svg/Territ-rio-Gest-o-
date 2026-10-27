@@ -133,27 +133,44 @@ function chartSimulation(svg, done) {
 }
 
 function calendarSimulation(svg, done) {
-  const sheet = svg.querySelector('.nav-calendar-sheet');
-  if (!sheet) return null;
+  const sheet = svg.querySelector('.nav-calendar-sheet'), frame = svg.querySelector('.nav-calendar-frame');
+  if (!sheet || !frame) return null;
+  // The front leaf turns up over the rings and goes behind the calendar, like a page flipped back;
+  // the next leaf is already underneath and its days appear one by one. Two flat layers only.
   const restore = prepare([sheet]), lite = fluidMotionLite();
-  let progress = { position: 0, velocity: 0 }, elapsed = 0;
+  const next = sheet.cloneNode(true);
+  next.classList.remove('nav-calendar-sheet', 'nav-physical-part');
+  next.classList.add('nav-calendar-next');
+  next.removeAttribute('transform');
+  next.style.opacity = '';
+  sheet.before(next);
+  const dots = [...next.querySelectorAll('.nav-calendar-day circle')];
+  dots.forEach(dot => { dot.style.opacity = '0'; });
+  let turn = { position: 0, velocity: 0 }, elapsed = 0, behind = false;
+  const hinge = 8.8, spring = lite ? { stiffness: 160, damping: 25, mass: 1 } : { stiffness: 72, damping: 13.5, mass: 1 };
   return createPhysicalFrameMotion(svg, {
     advance(seconds) {
       elapsed += seconds;
-      progress = stepSpring(progress, 1, seconds, { stiffness: lite ? 260 : 150, damping: lite ? 34 : 18, mass: 1 });
-      return settled(progress, 1) || elapsed > 1.6;
+      turn = stepSpring(turn, 1, seconds, spring);
+      return settled(turn, 1) || elapsed > 1.4;
     },
     draw() {
-      // A hinged projection of the paper: the second half reveals the next leaf. Its frame and
-      // rings stay still. No 3D layer, layout animation, timer or repeating keyframe is needed.
-      const angle = Math.PI * progress.position;
-      const fold = Math.sin(angle);
-      const scale = lite ? 1 - 0.12 * Math.abs(fold) : Math.max(0.035, Math.abs(Math.cos(angle)));
-      const skew = (lite ? 1 : 5) * fold;
-      sheet.setAttribute('transform', `translate(12 8.8) skewX(${fmt(skew)}) scale(1 ${fmt(scale)}) translate(-12 -8.8)`);
-      sheet.style.opacity = fmt(lite ? 1 : 0.35 + 0.65 * Math.min(1, scale));
+      const angle = Math.PI * bound(turn.position, 0, 1.08);
+      const lift = Math.cos(angle), side = Math.sin(angle);
+      // Projected rotation about the top hinge: below it while facing us, above it once turned over.
+      const scaleY = Math.abs(lift) < 0.02 ? 0.02 * (lift < 0 ? -1 : 1) : lift;
+      sheet.setAttribute('transform', 'translate(12 ' + hinge + ') skewX(' + fmt((lite ? 2 : 7) * side) + ') scale(' + fmt(1 - 0.06 * side) + ' ' + fmt(scaleY) + ') translate(-12 -' + hinge + ')');
+      if (lift < 0 && !behind) { frame.before(sheet); behind = true; }
+      sheet.style.opacity = fmt(lift >= 0 ? 1 : bound(1 + lift * 1.25));
+      const reveal = bound((turn.position - 0.25) / 0.6);
+      dots.forEach((dot, i) => { dot.style.opacity = fmt(bound(reveal * 1.6 - i * 0.12)); });
     },
-    onRest() { restore(); done(); },
+    onRest() {
+      next.remove();
+      svg.append(sheet);
+      restore();
+      done();
+    },
   });
 }
 
