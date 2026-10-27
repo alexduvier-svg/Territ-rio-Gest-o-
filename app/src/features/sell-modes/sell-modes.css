@@ -130,3 +130,13 @@ dialog .fam-thumb.is-lifted{position:relative;z-index:3;box-shadow:0 16px 34px -
 
 /* 0.12.125: a barra do rodapé é 98% opaca; desfocar atrás dela de novo (sobre a faixa de vidro) só custava quadros. */
 :root[data-theme][data-layout] .nav{-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* 0.12.126: voltar do Estoque só com a seta "‹", na tinta neutra; seções fora da tela só são diagramadas ao aparecer. */
+:is(#app,.fluid-page-morph-context) .stock-area-back{color:var(--material-text,var(--text));width:44px;height:44px;min-width:44px;padding:0;justify-content:center;gap:0}
+:is(#app,.fluid-page-morph-context) .stock-area-back>span{display:none}
+:is(#app,.fluid-page-morph-context) .stock-area-back .icon{width:22px;height:22px}
+#feira-list>.workflow-stock-family{content-visibility:auto;contain-intrinsic-size:auto 320px}
+#app .stock-leaving{will-change:transform,opacity}
+/* A seta de voltar é um botão redondo de 48 px na superfície neutra do app: fácil de achar e de tocar com o polegar. */
+:is(#app,.fluid-page-morph-context) .stock-area-back{width:48px;height:48px;min-width:48px;min-height:48px;margin:0 0 8px;border-radius:24px;background:var(--material-face,var(--panel));border:1px solid var(--material-line,var(--line));box-shadow:var(--material-depth,none)}
+:is(#app,.fluid-page-morph-context) .stock-area-foot .stock-area-back{margin:4px 0 0}
