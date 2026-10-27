@@ -3607,6 +3607,34 @@ const closeDatePickerBeforeMotion=closeDatePicker;
 closeDatePicker=function(){calendarShown='';closeDatePickerBeforeMotion();};
 // O dia tocado afunda e fica marcado no mesmo instante (antes de a janela fechar).
 document.addEventListener('pointerdown',e=>{const b=e.target.closest?.('#date-picker-dialog .calendar-day:not([disabled])');if(!b)return;b.closest('.calendar-grid')?.querySelectorAll('.calendar-day.selected').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');},{capture:true,passive:true});
+// --- Contas mais simples (0.12.111) ---
+// Assuntos na ordem do trabalho: produzir, dar preço, vender, repor, comprar, investir.
+const CONTAS_ORDER=['rural','preco','descontos','vendas','estoque','fornecedores','credito'];
+CONTAS_SUBJECTS.sort((a,b)=>CONTAS_ORDER.indexOf(a.id)-CONTAS_ORDER.indexOf(b.id));
+// Para que serve cada conta, em uma frase simples.
+const CONTAS_PURPOSE={markup:'Descubra o preço que paga o custo, as taxas e ainda deixa o lucro que você quer.',
+ equilibrio:'Quantas unidades vender no mês para pagar as contas e chegar ao lucro que você quer.',
+ indicadores:'Veja como está o mês: o valor médio de cada venda, a comparação com o mês passado e as perdas.',
+ desconto:'Saiba quanto a mais precisa vender para o desconto valer a pena.',
+ taxa:'Veja quanto sobra depois da taxa da maquininha e quanto cobrar para receber o que quer.',
+ rapida:'Compare até 3 fornecedores pelo preço de cada unidade, já com o frete.',
+ prazo:'Pagar à vista ou parcelado: veja qual sai mais barato para você.',
+ reposicao:'Saiba quando fazer o pedido para não faltar e quanto comprar.',
+ ciclo:'Saiba quantos dias o seu dinheiro fica parado entre comprar e receber.',
+ safra:'Descubra quanto custou produzir cada unidade que você colheu.',
+ medidas:'Converta sacas, arrobas, quilos e litros.',
+ financiamento:'Veja de quanto vai ser cada parcela de um empréstimo.',
+ investimento:'Descubra em quantos meses uma compra se paga.'};
+// Campos do concreto (o produto) para o mês; ajuda curta onde a palavra pode confundir.
+const contasReorder=(id,keys)=>{const c=CONTAS_CALCS[id];c.fields.sort((a,b)=>keys.indexOf(a.k)-keys.indexOf(b.k));};
+contasReorder('equilibrio',['price','variable','fixed','profit']);
+contasReorder('reposicao',['onHand','daily','leadDays','safetyDays','coverDays']);
+(()=>{const fx=CONTAS_CALCS.equilibrio.fields.find(x=>x.k==='fixed');if(fx&&!fx.hint)fx.hint='Aluguel, luz, internet e a sua retirada.';const pf=CONTAS_CALCS.equilibrio.fields.find(x=>x.k==='profit');if(pf&&!pf.hint)pf.hint='Opcional.';
+ const lead=CONTAS_CALCS.reposicao.fields.find(x=>x.k==='leadDays');if(lead&&!lead.hint)lead.hint='Do pedido até o produto chegar.';const cover=CONTAS_CALCS.reposicao.fields.find(x=>x.k==='coverDays');if(cover&&!cover.hint)cover.hint='Quantos dias de venda a compra deve durar.';
+ const pz=CONTAS_CALCS.prazo.fields.find(x=>x.k==='rate');if(pz)pz.l='Quanto seu dinheiro rende';
+ const mo=CONTAS_CALCS.financiamento.fields.find(x=>x.k==='rate');if(mo&&!mo.hint)mo.hint='Juro por mês que o banco cobra.';})();
+const contasCardBeforePurpose=contasCard;
+contasCard=function(id){const html=contasCardBeforePurpose(id),why=CONTAS_PURPOSE[id];return why?html.replace('</h3>','</h3><p class="cm-why">'+escape(why)+'</p>'):html;};
 render();
 })();
 

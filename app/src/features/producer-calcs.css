@@ -61,3 +61,19 @@ dialog[data-kind=calculator] .cm-select{width:100%;min-height:46px;padding:0 34p
 .cm-grid3 .cm-in{padding:0 8px}
 .cm-rowlabel{grid-column:1/-1;margin:6px 0 -2px;font-size:14px;font-weight:650;color:var(--text)}
 .cm-f label{overflow-wrap:normal;word-break:normal;hyphens:none}
+
+/* Uma linha por campo: rótulo e dica à esquerda, caixa à direita (mesma largura em todas as contas). */
+.cm-why{margin:2px 0 12px;font-size:14px;line-height:1.4;color:var(--muted)}
+.cm-fields:not(.cm-grid3){display:flex;flex-direction:column;gap:0;margin-top:4px}
+.cm-fields:not(.cm-grid3) .cm-f{display:grid;grid-template-columns:minmax(0,1fr) minmax(112px,42%);grid-template-areas:'lab box' 'hint box';column-gap:12px;row-gap:2px;align-items:center;padding:10px 0;border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.cm-fields:not(.cm-grid3) .cm-f:first-child{border-top:0}
+.cm-fields:not(.cm-grid3) .cm-f>label{grid-area:lab;align-self:end}
+.cm-fields:not(.cm-grid3) .cm-f>.cm-in,.cm-fields:not(.cm-grid3) .cm-f>select{grid-area:box;align-self:center}
+.cm-fields:not(.cm-grid3) .cm-f>.cm-fhint{grid-area:hint;align-self:start}
+.cm-fields:not(.cm-grid3) .cm-f:not(:has(.cm-fhint))>label{grid-row:1/3;align-self:center}
+.cm-fields:not(.cm-grid3) .cm-in input{text-align:right}
+.cm-fields:not(.cm-grid3) .cm-f>select{min-height:46px}
+.cm-fields:not(.cm-grid3) .cm-f{grid-template-areas:'lab box' 'hint hint'}
+.cm-fields:not(.cm-grid3) .cm-f>label{align-self:center}
+.cm-fields:not(.cm-grid3) .cm-f>.cm-fhint{margin-top:4px;font-size:13px}
+.cm-fields:not(.cm-grid3) .cm-f:not(:has(.cm-fhint))>label{grid-row:auto}
