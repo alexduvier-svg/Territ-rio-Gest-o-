@@ -1,6 +1,7 @@
 import * as Coffee from './features/coffee.js';
 import {installDailyGuidance} from './native/daily-guidance.js';
 import {initTrainingWorkspace,installTrainingUI} from './features/training/index.js';
+import {DEMO_FISH} from './features/training/seed.js';
 import * as EventReminders from './features/event-reminders.js';
 import {installAutoCollapse} from './features/auto-collapse.js';
 import {installFinancialSession} from './features/financial-session.js';
@@ -148,6 +149,7 @@ try {
   window.TerritorioRecoveryInspect = inspectRecovery;
   window.TerritorioFinance = { ...Finance, ...ProducerCalcs, runAudit };
   window.TerritorioSellModes = SellModes;
+  window.TerritorioTrainingFish = DEMO_FISH;
   window.TerritorioSpring = Object.freeze({ curve: motionSpringCurve, SPRINGS: MOTION_SPRINGS });
   window.TerritorioReceivables = Receivables;
   window.TerritorioSaleRound = SaleRound;

@@ -12,7 +12,8 @@ export function sellSections(products, { typeOf = p => p.type || '' } = {}) {
   const map = new Map();
   for (const p of products) {
     const type = p.category === 'Cafés' ? typeOf(p) : '';
-    const key = type ? 'Café ' + type : (p.category || 'Outros');
+    // Peixes ornamentais não se misturam com os de consumo: seção própria.
+    const key = type ? 'Café ' + type : p.category === 'Piscicultura' && p.type === 'Ornamental' ? 'Peixes Ornamentais' : (p.category || 'Outros');
     if (!map.has(key)) map.set(key, []);
     map.get(key).push(p);
   }

@@ -43,3 +43,8 @@ test('a ordem escolhida das seções vale; família nova fica no lugar do Estoqu
   assert.deepEqual(orderSections(g, ['Laticínios', 'Café Especial']).map(s => s.key), ['Laticínios', 'Café Gourmet', 'Café Especial', 'Doces']);
   assert.deepEqual(orderSections(g, null).map(s => s.key), g.map(s => s.key));
 });
+
+test('peixes ornamentais têm seção própria, separados dos peixes de consumo', () => {
+  const g = sellSections([{ id: 't', category: 'Piscicultura', type: 'Para consumo' }, { id: 'b', category: 'Piscicultura', type: 'Ornamental' }, { id: 'g', category: 'Piscicultura', type: 'Ornamental' }]);
+  assert.deepEqual(g.map(s => [s.label, s.items.length]), [['Piscicultura', 1], ['Peixes Ornamentais', 2]]);
+});
