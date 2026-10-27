@@ -3183,7 +3183,7 @@ function paretoHtml(rows,units){const p=window.TerritorioProductPareto.productPa
 
 // Optional lot metadata stays in the existing stock/management pages.
 const stockPageBeforeLots=stockPage;
-stockPage=function(){const html=stockPageBeforeLots();return html+(window.TerritorioStockLotsUI&&!window.TerritorioSuppliers?.active()?window.TerritorioStockLotsUI.entry():'');};
+stockPage=function(){const html=stockPageBeforeLots(),at=html.lastIndexOf('<p class="coffee-legend">'),legend=at<0?'':html.slice(at),body=at<0?html:html.slice(0,at);return body+(window.TerritorioStockLotsUI&&!window.TerritorioSuppliers?.active()?window.TerritorioStockLotsUI.entry():'')+legend;};
 const advisorInputBeforeLots=advisorInput;
 advisorInput=function(...args){const input=advisorInputBeforeLots.apply(this,args);if(window.TerritorioStockLots){input.stockValidity=window.TerritorioStockLots.stockValidityFacts(model.data);const next=model.data.events.filter(e=>e.status==='active'&&!e.fairCancelled&&e.start>=window.TerritorioStockLots.civilDay()).sort((a,b)=>a.start.localeCompare(b.start))[0];input.products=input.products.map(p=>({...p,physicalStock:p.stock,stock:model.availableStock(p.id),...(next?{upcomingStock:Math.max(0,window.TerritorioStockLots.scopedLots(model.data,p.id,{scope:next.id,onDay:next.end}).available-window.TerritorioStockLots.orderHolds(model.data,p.id,{exceptEvent:next.id}))}:{})}));}return input;};
 CSV_TYPES.push(['lots','Lotes e Validades'],['lot-movements','Alocações por Lote'],['validity-calendar','Agenda de Validades e Revisões']);

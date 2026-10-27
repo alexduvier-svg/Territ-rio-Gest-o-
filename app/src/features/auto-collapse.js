@@ -29,7 +29,9 @@ export function installAutoCollapse(){
   registry.retain(keys);
  }
  function schedule(){if(!queued){queued=true;requestAnimationFrame(scan);}}
- for(const type of ['pointerdown','input','keydown','wheel','touchmove','focusin'])document.addEventListener(type,event=>{registry.touch(event.target);schedule();},{passive:true});
+ for(const type of ['pointerdown','input','keydown','focusin'])document.addEventListener(type,event=>{registry.touch(event.target);schedule();},{passive:true});
+ // Rolar só renova os prazos: varrer a tela a cada quadro do dedo pesava a rolagem em celulares básicos.
+ for(const type of ['wheel','touchmove'])document.addEventListener(type,event=>registry.touch(event.target),{passive:true});
  document.addEventListener('toggle',schedule,true);document.addEventListener('click',schedule);document.addEventListener('territorio:sheet',schedule);document.addEventListener('visibilitychange',()=>{if(document.hidden)registry.pause();else registry.resume();schedule();});
  new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['open','aria-expanded']});
  window.TerritorioAutoCollapse={scan,schedule,delay:EXPANSION_IDLE_MS,count:()=>registry.size()};schedule();

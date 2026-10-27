@@ -370,7 +370,7 @@ function installPress(listen) {
     if (!enabled() || !button.isConnected) { current?.cancel(); return; }
     animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: 1 }, spring: button.matches('.multi-next-pill') ? PILL_UP : SPRINGS.release, velocity: current ? carriedVelocity(current, from, { scale: 1 }) : 0 });
   };
-  const releaseAll = () => { pointers.clear(); for (const button of [...pressed]) release(button); };
+  const releaseAll = () => { for (const held of pointers.values()) cancelWait(held); pointers.clear(); for (const button of [...pressed]) release(button); };
   const press = button => {
     if (!enabled() || !button || button.disabled || button.getAttribute('aria-disabled') === 'true' || button.closest('[inert]')) return;
     const current = motionOf(button);
@@ -378,22 +378,36 @@ function installPress(listen) {
     pressed.add(button);
     animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: depth(button) }, spring: button.matches('.multi-next-pill') ? PILL_DOWN : SPRINGS.press, persist: true });
   };
+  // A finger that lands on a card to scroll must not sink it: on touch, buttons in the scrolling page wait
+  // TOUCH_PRESS_DELAY before going down (like iOS delaysContentTouches). Moving or scrolling first cancels it;
+  // a quick tap still goes down and springs back.
+  const TOUCH_PRESS_DELAY = 90;
+  const scrolling = button => !!button.closest('#app') && !button.closest('dialog,.sale-dock,.multi-bar,.glass-sales-dock');
+  const cancelWait = held => { if (held?.wait) { clearTimeout(held.wait); held.wait = 0; } };
   listen(document, 'pointerdown', event => {
     if (event.button !== 0 || event.isPrimary === false) return;
     const button = event.target.closest?.('button');
     if (!button || button.disabled) return;
-    pointers.set(event.pointerId, { button, x: event.clientX, y: event.clientY });
-    press(button);
+    const held = { button, x: event.clientX, y: event.clientY, wait: 0 };
+    pointers.set(event.pointerId, held);
+    if (event.pointerType === 'touch' && scrolling(button)) held.wait = setTimeout(() => { held.wait = 0; if (pointers.get(event.pointerId) === held) press(button); }, TOUCH_PRESS_DELAY);
+    else press(button);
   }, { capture: true, passive: true });
   listen(document, 'pointermove', event => {
     const held = pointers.get(event.pointerId);
-    if (!held || Math.hypot(event.clientX - held.x, event.clientY - held.y) < 9) return;
+    if (!held || Math.hypot(event.clientX - held.x, event.clientY - held.y) < (held.wait ? 6 : 9)) return;
     pointers.delete(event.pointerId);
-    release(held.button);
+    if (held.wait) cancelWait(held); else release(held.button);
   }, { capture: true, passive: true });
-  for (const type of ['pointerup', 'pointercancel']) listen(document, type, event => {
+  listen(document, 'pointerup', event => {
     const held = pointers.get(event.pointerId);
-    if (held) { pointers.delete(event.pointerId); release(held.button); }
+    if (!held) return;
+    pointers.delete(event.pointerId);
+    if (held.wait) { cancelWait(held); press(held.button); requestAnimationFrame(() => release(held.button)); } else release(held.button);
+  }, { capture: true, passive: true });
+  listen(document, 'pointercancel', event => {
+    const held = pointers.get(event.pointerId);
+    if (held) { pointers.delete(event.pointerId); if (held.wait) cancelWait(held); else release(held.button); }
   }, { capture: true, passive: true });
   listen(document, 'keydown', event => {
     if (event.repeat || !['Enter', ' '].includes(event.key) || !event.target.matches?.('button')) return;

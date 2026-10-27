@@ -127,3 +127,6 @@ dialog .fam-thumb.is-lifted{position:relative;z-index:3;box-shadow:0 16px 34px -
 :is(#app,.fluid-page-morph-context) .stock-area-foot .stock-area-back{margin:0 0 0 -6px}
 :is(#app,.fluid-page-morph-context) .stock-loose-title{margin:6px 4px 8px;font:700 16px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;color:var(--material-text,var(--text))}
 :is(#app,.fluid-page-morph-context) .stock-loose-title + .workflow-stock-family .feira-group{display:none}
+
+/* 0.12.125: a barra do rodapé é 98% opaca; desfocar atrás dela de novo (sobre a faixa de vidro) só custava quadros. */
+:root[data-theme][data-layout] .nav{-webkit-backdrop-filter:none;backdrop-filter:none}
