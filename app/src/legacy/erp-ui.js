@@ -3587,6 +3587,26 @@ paintCustomer=function(){paintCustomerBeforeLook();const d=document.getElementBy
   seg.innerHTML=[['PF','Pessoa física'],['PJ','Empresa · CNPJ']].map(([v,t])=>'<button type="button" role="radio" data-client-type="'+v+'" aria-checked="'+(sel.value===v)+'"'+(sel.value===v?' class="is-on"':'')+'>'+t+'</button>').join('');
   sel.after(seg);if(lab)lab.setAttribute('id','client-type-label'),seg.setAttribute('aria-labelledby','client-type-label');}};
 document.addEventListener('click',e=>{const b=e.target.closest?.('#dialog [data-client-type]');if(!b)return;e.preventDefault();const sel=document.getElementById('client-type');if(!sel||sel.value===b.dataset.clientType)return;sel.value=b.dataset.clientType;sel.dispatchEvent(new Event('change',{bubbles:true}));},true);
+// --- Calendário mais fluido (0.12.111) ---
+let calendarShown='';
+const paintDatePickerBeforeMotion=paintDatePicker;
+paintDatePicker=function(){const d=datePickerState,prev=calendarShown;paintDatePickerBeforeMotion();if(!d)return;const el=document.getElementById('date-picker-dialog'),grid=el?.querySelector('.calendar-grid');if(!grid)return;
+ // Sempre 6 semanas: completa a grade com espaços vazios.
+ const cells=grid.querySelectorAll('.calendar-day').length+[...grid.querySelectorAll('.calendar-gap')].reduce((n,g)=>n+(Number((g.style.gridColumn||'').replace('span ',''))||1),0);
+ for(let i=cells;i<42;i++)grid.insertAdjacentHTML('beforeend','<span class="calendar-gap" aria-hidden="true"></span>');
+ const dayH=grid.querySelector('.calendar-day')?.offsetHeight;if(dayH)grid.querySelectorAll('.calendar-gap').forEach(g=>g.style.minHeight=dayH+'px');
+ calendarShown=d.month;
+ const quiet=document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches,S=window.TerritorioSpring;
+ if(!prev||prev===d.month||quiet||!S||!grid.animate)return;
+ const dir=d.month>prev?1:-1,c=S.curve(S.SPRINGS.tab),n=c.values.length,frames=[],label=[];
+ for(let k=0;k<n;k+=2){const v=c.values[k];frames.push({transform:'translate3d('+(dir*36*(1-v)).toFixed(1)+'px,0,0)',opacity:Math.min(1,.15+v*1.2)});label.push({transform:'translate3d('+(dir*14*(1-v)).toFixed(1)+'px,0,0)',opacity:Math.min(1,.2+v*1.1)});}
+ frames.push({transform:'none',opacity:1});label.push({transform:'none',opacity:1});
+ const days=[...grid.children].filter(x=>!x.classList.contains('calendar-weekday'));days.forEach(x=>x.animate(frames,{duration:c.duration,easing:'linear'}));
+ el.querySelector('.calendar-nav strong')?.animate(label,{duration:c.duration,easing:'linear'});};
+const closeDatePickerBeforeMotion=closeDatePicker;
+closeDatePicker=function(){calendarShown='';closeDatePickerBeforeMotion();};
+// O dia tocado afunda e fica marcado no mesmo instante (antes de a janela fechar).
+document.addEventListener('pointerdown',e=>{const b=e.target.closest?.('#date-picker-dialog .calendar-day:not([disabled])');if(!b)return;b.closest('.calendar-grid')?.querySelectorAll('.calendar-day.selected').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');},{capture:true,passive:true});
 render();
 })();
 
