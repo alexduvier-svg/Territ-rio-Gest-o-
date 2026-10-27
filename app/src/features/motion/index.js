@@ -16,7 +16,9 @@ const root = () => document.documentElement;
 const limited = () => root().classList.contains('lite');
 const reduced = () => preference?.matches || root().dataset.reduceEffects === 'true';
 const enabled = () => installed && !reduced() && !document.hidden && typeof Element.prototype.animate === 'function';
-const spring = name => limited() && !['press', 'release'].includes(name) ? SPRINGS.lite : SPRINGS[name];
+// Light mode keeps the app's springs (settle and slight overshoot): the curve is precomputed and played by the
+// compositor as transform/opacity, so it costs the same as a flat one. Only the amplitudes get smaller.
+const spring = name => SPRINGS[name] || SPRINGS.lite;
 
 function requestFrame() {
   if (!frame && running.size) frame = requestAnimationFrame(tick);
@@ -221,6 +223,27 @@ function arrivePage(app, entry, pivot, springName, fixedFrom = { y: 28, opacity:
       origin: `${(pivot[0] - bounds.left).toFixed(1)}px ${(pivot[1] - bounds.top).toFixed(1)}px` }));
 }
 
+// Keep a group of movements whole through stalled frames. On slower phones the GPU may stall a frame or two
+// while it paints the page that just arrived (Produtos most of all); a spring that keeps running would land
+// half-way and lose its settle. After a long frame every movement of the group is set back by the time lost
+// beyond one frame, so the next frame continues from the pose last seen. Only a clock read per frame.
+const STALL_MS = 34, WATCH_MS = 1400;
+function keepSpringWhole(handles) {
+  const list = handles.filter(h => h?.animation);
+  if (!list.length) return;
+  const begin = performance.now();
+  let last = begin;
+  const tick = now => {
+    const gap = now - last; last = now;
+    if (gap > STALL_MS) {
+      const lost = gap - 16.7;
+      for (const h of list) if (h.running) { try { h.animation.currentTime = Math.max(0, (Number(h.animation.currentTime) || 0) - lost); } catch {} }
+    }
+    if (list.some(h => h.running) && now - begin < WATCH_MS) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
 function installPageTransitions(listen) {
   const app = document.getElementById('app');
   // Read the page rules while the app is idle, so the first page change does not pay for the scan.
@@ -258,10 +281,11 @@ function installPageTransitions(listen) {
       if (lift && document.getElementById('nav')?.getClientRects().length) lift.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node => node.remove());
       if (nav) {
         const step = Math.sign(NAV_ORDER.indexOf(nextPage) - NAV_ORDER.indexOf(previousPage)) || 0;
-        const shift = (limited() ? 10 : 44) * step;
+        const shift = (limited() ? 26 : 44) * step;
         if (lift) t.handles.push(animate(lift.surface, { from: { x: 0, scale: 1, opacity: 1 }, to: { x: -shift, scale: 0.985, opacity: 0 }, spring: spring('tab'), shape: dissolve(0, 0.42), onFinish: done }));
-        t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.985 : 0.93, opacity: 0 }, center, 'tabEnter', { y: 0, opacity: 0 }));
+        t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.965 : 0.93, opacity: 0 }, center, 'tabEnter', { y: 0, opacity: 0 }));
         if (!lift) t.handles.at(-1)?.finished.then(done);
+        keepSpringWhole(t.handles);
         return;
       }
       if (goingBack) {
