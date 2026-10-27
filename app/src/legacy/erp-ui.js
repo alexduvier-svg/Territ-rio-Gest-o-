@@ -3404,7 +3404,7 @@ window.TerritorioShell.loadExampleData=async data=>{model=new E.ERPModel(data);d
 // Regras puras em src/features/sell-modes/model.js. Leveza: só a seção aberta e as vizinhas ficam montadas,
 // e o movimento usa apenas deslocamento. Volta à primeira seção ao tocar em Vender e ao concluir ou cancelar.
 const SM=()=>window.TerritorioSellModes;
-let sellSec={active:0,hadDraft:false,key:'',groups:[]};
+let sellSec={active:0,hadDraft:false,key:'',groups:[],fan:false};
 function sellCardHtml(p){const out=!canSelectProduct(p.id),code=window.TerritorioCoffee.roastCode(p);return btn(out?'restock-product-card':'sell-product','<strong'+(code?' class="coffee-card-title"':'')+'>'+cardName(titleName(p.name),code)+'</strong>'+cardDetail(sellingCardDescription(p))+(out?'<em class="card-out">Sem estoque</em>'+window.TerritorioRestockSymbol():cardPrice(p.price)),'feira-card'+(out?' is-out':''),{id:p.id}).replace('class="feira-card','aria-label="'+escape((out?'Repor Estoque de ':'Vender ')+titleName(window.TerritorioCoffee.coffeeName(p))+' · '+sellingCardDescription(p))+'" class="feira-card');}
 const secNear=i=>Math.abs(i-sellSec.active)<=1;
 const secBody=i=>{const g=sellSec.groups[i];return g?'<div class="feira-grid">'+g.items.map(sellCardHtml).join('')+'</div>':'';};
@@ -3427,9 +3427,17 @@ const SEC_PEEK=10,SEC_HEAD=44;
 const SEC_BACK=.985;
 const secPose=(y,back)=>'translate3d(0,'+y+'px,0)'+(back?' scale('+SEC_BACK+')':'');
 function secLayout(){const area=document.querySelector('#app .sec-area');if(!area)return [];const a=sellSec.active,n=sellSec.groups.length,secs=[...area.querySelectorAll('.sec')],open=secs[a];if(!open)return [];
- const bodyH=open.querySelector('.sec-body').scrollHeight,topA=a*SEC_PEEK,afterA=topA+SEC_HEAD+bodyH,out=[];
- secs.forEach((el,i)=>{const y=i<a?i*SEC_PEEK:i===a?topA:afterA+(i-a-1)*SEC_HEAD;el.style.transform=secPose(y,i<a);el.style.zIndex=String(i<a?i:i===a?n:n+i);el.classList.toggle('is-active',i===a);el.classList.toggle('is-behind',i<a);el.querySelector('.sec-head').setAttribute('aria-expanded',String(i===a));out.push({el,y,back:i<a});});
- area.style.height=(afterA+(n-1-a)*SEC_HEAD+2)+'px';return out;}
+ const fan=!!sellSec.fan,pitch=fan?SEC_HEAD:SEC_PEEK,bodyH=open.querySelector('.sec-body').scrollHeight,topA=a*pitch,afterA=topA+SEC_HEAD+bodyH,out=[];area.classList.toggle('is-fan',fan);
+ secs.forEach((el,i)=>{const y=i<a?i*pitch:i===a?topA:afterA+(i-a-1)*SEC_HEAD;el.style.transform=secPose(y,i<a&&!fan);el.style.zIndex=String(i<a?i:i===a?n:n+i);el.classList.toggle('is-active',i===a);el.classList.toggle('is-behind',i<a);el.querySelector('.sec-head').setAttribute('aria-expanded',String(i===a));out.push({el,y,back:i<a&&!fan});});
+ area.style.height=(afterA+(n-1-a)*SEC_HEAD+2)+'px';secMinis(area,secs,a);return out;}
+// Páginas numeradas embaixo das seções (todas, na ordem do Estoque; a aberta marcada): ocupam o vazio
+// quando a aberta é curta e levam a qualquer seção com um toque. Só refaz quando a aberta muda.
+function secMinis(area,secs,a){let m=area.nextElementSibling;if(!m?.classList.contains('sec-minis')){m=document.createElement('div');m.className='sec-minis';area.after(m);}
+ if(m.dataset.a===String(a))return;m.dataset.a=String(a);
+ const fresh=!m.childElementCount;
+ m.innerHTML='<p class="sec-minis-title">Seções</p><div class="sec-minis-grid">'+secs.map((el,i)=>'<button type="button" class="sec-mini'+(i===a?' is-current':'')+'" data-sec-mini="'+i+'"'+(i===a?' aria-current="true"':'')+'><span class="sec-mini-n">'+(i+1)+'</span><span class="sec-mini-t"><b>'+escape(sellSec.groups[i].label)+'</b><small>'+(el.querySelector('.sec-head small')?.innerHTML||'')+'</small></span></button>').join('')+'</div>';
+ if(!fresh)return;
+ if(!secQuiet()&&m.animate)[...m.querySelectorAll('.sec-mini')].forEach((b,k)=>b.animate([{opacity:0,transform:'translate3d(0,8px,0)'},{opacity:1,transform:'none'}],{duration:220,delay:120+Math.min(k,6)*30,easing:'cubic-bezier(.25,.8,.25,1)',fill:'backwards'}));}
 const secQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Abrir uma seção: a que sobe dá um salto leve (sobe, cresce um quase nada e assenta por cima); a que fica
 // coberta recua de leve; as de baixo acompanham em sequência curta. Só deslocamento e escala, no compositor.
@@ -3440,7 +3448,12 @@ function secSpring(el,from,to,{spring='open',lift=0,delay=0}={}){const S=window.
  const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
  for(let k=0;k<n;k+=2){const v=c.values[k],t=k/(n-1),sc=(from.s+((to.back?SEC_BACK:1)-from.s)*Math.min(1,v))+lift*Math.sin(Math.PI*Math.min(1,t*1.6));frames.push({transform:'translate3d(0,'+(from.y+(to.y-from.y)*v).toFixed(2)+'px,0) scale('+sc.toFixed(4)+')'});}
  frames.push({transform:secPose(to.y,to.back)});el.animate(frames,{duration:c.duration,easing:'linear',delay,fill:'backwards'});}
-function secOpen(i,{silent=false}={}){const n=sellSec.groups.length;if(!n)return;i=Math.max(0,Math.min(i,n-1));const from=sellSec.active,changed=i!==from;sellSec.active=i;
+// Abre ou fecha o leque das seções de trás, com a mola de seção.
+function secFan(on){const area=document.querySelector('#app .sec-area');if(!area||!!sellSec.fan===on)return;const secs=[...area.querySelectorAll('.sec')],before=secs.map(secY);
+ secs.forEach(el=>el.getAnimations?.().forEach(x=>x.cancel()));sellSec.fan=on;const poses=secLayout();
+ if(!secQuiet()&&typeof Element.prototype.animate==='function')poses.forEach(({el,y,back},k)=>{const b=before[k];if(b&&Math.abs(b.y-y)>.5)secSpring(el,b,{y,back},{spring:'section',delay:on?Math.min(Math.abs(sellSec.active-k),6)*14:0});});
+ if(on&&!secQuiet())window.TerritorioHaptics?.tick?.();}
+function secOpen(i,{silent=false}={}){const n=sellSec.groups.length;if(!n)return;sellSec.fan=false;i=Math.max(0,Math.min(i,n-1));const from=sellSec.active,changed=i!==from;sellSec.active=i;
  document.querySelectorAll('#app [data-sec-lazy]').forEach(el=>{const k=+el.dataset.secLazy;if(secNear(k))el.outerHTML=secBody(k);});
  const area=document.querySelector('#app .sec-area'),before=area?[...area.querySelectorAll('.sec')].map(secY):[];
  area?.getAnimations?.().forEach(x=>x.cancel());area?.querySelectorAll('.sec').forEach(el=>el.getAnimations?.().forEach(x=>x.cancel()));
@@ -3455,27 +3468,32 @@ function secOpen(i,{silent=false}={}){const n=sellSec.groups.length;if(!n)return
 const renderBeforeSections=render;
 render=function(...args){const out=renderBeforeSections.apply(this,args);if(document.querySelector('#app .sec-area'))secLayout();return out;};
 window.addEventListener('resize',()=>requestAnimationFrame(secLayout),{passive:true});
-document.addEventListener('click',e=>{const back=e.target.closest?.('#app [data-sec-back]');if(back){e.preventDefault();e.stopImmediatePropagation();secOpen(+back.dataset.secBack);return;}const t=e.target.closest?.('#app [data-sec-open]');if(!t)return;e.preventDefault();secOpen(+t.dataset.secOpen);},true);
+document.addEventListener('click',e=>{const mini=e.target.closest?.('#app [data-sec-mini]');if(mini){e.preventDefault();e.stopImmediatePropagation();secOpen(+mini.dataset.secMini);return;}const back=e.target.closest?.('#app [data-sec-back]');if(back){e.preventDefault();e.stopImmediatePropagation();secOpen(+back.dataset.secBack);return;}const t=e.target.closest?.('#app [data-sec-open]');if(!t)return;e.preventDefault();if(t.closest('.sec')?.classList.contains('is-behind')&&!sellSec.fan&&sellSec.active>1){e.stopImmediatePropagation();secFan(true);return;}secOpen(+t.dataset.secOpen);},true);
 // Tocar em "Vender" quando já está em Vender: primeira seção e topo.
 document.addEventListener('click',e=>{const t=e.target.closest?.('#nav [data-page="Vender"]');if(!t||page!=='Vender'||!document.querySelector('#app .sec-area'))return;e.preventDefault();e.stopImmediatePropagation();window.scrollTo({top:0});secOpen(0);},true);
 // Voltar para a seção anterior: empurrar a aberta para baixo (só com a página parada, para não brigar com a
-// rolagem) ou descartá-la para o lado; ela sai como um cartão e volta ao seu lugar embaixo.
-(()=>{let y0=null,x0=null,s0=0,t0=0,dir=null,el=null,lx=0,lt=0,vx=0;
+// rolagem; quanto mais puxa, mais volta) ou com o polegar: para a direita volta, para a esquerda avança.
+(()=>{let y0=null,x0=null,s0=0,t0=0,dir=null,el=null,lx=0,lt=0,vx=0,hint=null,hintText='',ly=0;
+ const still=()=>s0<=1||window.scrollY===s0;
+ const side=dx=>{const t=dx>0?sellSec.active-1:sellSec.active+1;return t>=0&&t<sellSec.groups.length?t:-1;};
+ const steps=dy=>dy<60?0:Math.min(sellSec.active,1+Math.floor((dy-60)/70));
+ const showHint=k=>{if(!hint)return;hint.textContent=k?'Soltar: '+sellSec.groups[sellSec.active-k].label:hintText;hint.classList.toggle('sec-cart',!!k);};
+ const dropHint=()=>{if(hint){hint.textContent=hintText;hint.classList.remove('sec-cart');}hint=null;};
  const fade=dx=>String(Math.max(.15,1-Math.abs(dx)/((el?.offsetWidth||360)*.6)).toFixed(3));
- const pose=(dx,dy)=>dir==='x'?'translate3d('+dx+'px,'+(sellSec.active*SEC_PEEK)+'px,0) rotate('+(dx/50).toFixed(2)+'deg)':secPose(sellSec.active*SEC_PEEK+Math.min(dy*.5,90),false);
- document.addEventListener('touchstart',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-active');if(!sec||sellSec.active<1||e.target.closest('.sec-back')){y0=null;return;}el=sec;dir=null;vx=0;y0=e.touches[0].clientY;x0=lx=e.touches[0].clientX;s0=window.scrollY;t0=lt=Date.now();},{passive:true});
+ const pose=(dx,dy)=>dir==='x'?'translate3d('+dx+'px,'+(sellSec.active*SEC_PEEK)+'px,0) rotate('+(dx/50).toFixed(2)+'deg)':secPose(sellSec.active*SEC_PEEK+150*(1-Math.exp(-Math.max(0,dy)/260)),false);
+ document.addEventListener('touchstart',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-active');if(!sec||sellSec.groups.length<2||e.target.closest('.sec-back')){y0=null;return;}if(sellSec.fan)secFan(false);el=sec;dir=null;vx=0;y0=e.touches[0].clientY;x0=lx=e.touches[0].clientX;s0=window.scrollY;ly=0;t0=lt=Date.now();hint=sec.querySelector('.sec-head small');hintText=hint?.textContent||'';},{passive:true});
  document.addEventListener('touchmove',e=>{if(y0===null||!el)return;const p=e.touches[0],dy=p.clientY-y0,dx=p.clientX-x0,now=Date.now();if(now>lt){vx=(p.clientX-lx)/(now-lt);lx=p.clientX;lt=now;}
   if(!dir&&(Math.abs(dx)>8||Math.abs(dy)>10))dir=Math.abs(dx)>Math.abs(dy)*1.1?'x':'y';
-  if(dir==='x'){el.style.transform=pose(dx,dy);if(!secQuiet())el.style.opacity=fade(dx);}else if(dir==='y'&&dy>0&&window.scrollY===s0)el.style.transform=pose(dx,dy);},{passive:true});
- document.addEventListener('touchend',e=>{if(y0===null||!el)return;const dy=e.changedTouches[0].clientY-y0,dx=e.changedTouches[0].clientX-x0,sec=el,d=dir;y0=null;el=null;dir=null;
-  if(d==='x'&&(Math.abs(dx)>44||(Math.abs(dx)>16&&Math.abs(vx)>.3))){const sign=(dx||vx)>0?1:-1,W=sec.offsetWidth,done=()=>{sec.style.opacity='0';secOpen(sellSec.active-1);sec.style.opacity='';if(!secQuiet()&&sec.animate)sec.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out'});};
+  if(dir==='x'){const free=side(dx)>=0;el.style.transform=pose(free?dx:dx*.2,dy);if(!secQuiet())el.style.opacity=free?fade(dx):'';}else if(dir==='y'&&dy>0&&still()){ly=dy;el.style.transform=pose(dx,dy);showHint(steps(dy));}},{passive:true});
+ document.addEventListener('touchend',e=>{if(y0===null||!el)return;const dy=e.changedTouches[0].clientY-y0,dx=e.changedTouches[0].clientX-x0,sec=el,d=dir;y0=null;el=null;dir=null;dropHint();
+  if(d==='x'&&(Math.abs(dx)>44||(Math.abs(dx)>16&&Math.abs(vx)>.3))&&side(dx||vx)>=0){const sign=(dx||vx)>0?1:-1,W=sec.offsetWidth,target=side(dx||vx),done=()=>{sec.style.opacity='0';secOpen(target);sec.style.opacity='';if(!secQuiet()&&sec.animate)sec.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out'});};
    if(!secQuiet()&&sec.animate){const a=sec.animate([{transform:pose(dx,0),opacity:sec.style.opacity||1},{transform:'translate3d('+sign*W*.55+'px,'+(sellSec.active*SEC_PEEK)+'px,0) rotate('+sign*4+'deg)',opacity:0}],{duration:160,easing:'cubic-bezier(.2,.6,.4,1)',fill:'forwards'});a.onfinish=done;}else done();return;}
   sec.style.opacity='';
-  if(d==='y'&&window.scrollY===s0&&dy>60&&Math.abs(dx)<dy*.7&&Date.now()-t0<900){secOpen(sellSec.active-1);return;}
+  if(d==='y'&&still()&&steps(dy)&&Math.abs(dx)<dy*.7){secOpen(sellSec.active-steps(dy));return;}
   secLayout();},{passive:true});
- document.addEventListener('touchcancel',()=>{if(el){el.style.opacity='';y0=null;el=null;dir=null;secLayout();}},{passive:true});})();
+ document.addEventListener('touchcancel',()=>{dropHint();if(el&&dir==='y'&&steps(ly)){el.style.opacity='';const k=steps(ly);y0=null;el=null;dir=null;secOpen(sellSec.active-k);return;}if(el){el.style.opacity='';y0=null;el=null;dir=null;secLayout();}},{passive:true});})();
 // A faixa fina da seção que ficou por baixo também abre ao toque (área de toque maior que a faixa).
-document.addEventListener('click',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-behind');if(!sec)return;e.preventDefault();e.stopImmediatePropagation();secOpen(+sec.dataset.i);},true);
+document.addEventListener('click',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-behind');if(!sec){if(sellSec.fan)secFan(false);return;}e.preventDefault();e.stopImmediatePropagation();if(!sellSec.fan&&sellSec.active>1)secFan(true);else secOpen(+sec.dataset.i);},true);
 // O "+" da venda lista por seção, com o carrinho de cada uma e o nome com a sigla da torra.
 function addProductList(){const items=productList(false),list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM()?SM().sellSections(list,{typeOf:secTypeOf}):[{key:'',label:'',items:list}],counts=SM()?SM().cartByGroup(groups,draft?.items||[]):[];
  const row=p=>btn('pick-sale-product','<span><strong>'+escape(contasName(p))+'</strong><small>'+E.quantity(sellingAvailableStock(p.id))+' disponíveis</small></span><span>'+E.money(p.price)+'</span>','list-row',{id:p.id},!canSelectProduct(p.id));

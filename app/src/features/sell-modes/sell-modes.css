@@ -35,3 +35,24 @@ dialog .sec-pick-rows button{padding:14px 6px}
 #app .sec.is-active.has-prev .sec-back{display:flex}
 #app .sec.is-active.has-prev .sec-head{padding-left:44px}
 #app .sec{touch-action:pan-y}
+
+/* Páginas numeradas das seções: mesmo relevo das seções; a aberta com contorno verde. */
+#app .sec-minis{margin:14px 0 4px}
+#app .sec-minis-title{margin:0 4px 8px;font:600 14px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
+#app .sec-minis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+@media (min-width: 560px){#app .sec-minis-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
+@media (max-width: 359px){#app .sec-mini{padding:8px 10px 8px 8px;gap:8px}#app .sec-mini-n{width:26px;height:26px}}
+#app .sec-mini{display:flex;align-items:center;gap:10px;min-height:58px;margin:0;padding:8px 12px 8px 10px;border:1px solid var(--material-line);border-radius:18px;background:var(--sec-face);box-shadow:var(--sec-relief);color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer;min-width:0}
+#app .sec-mini-n{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:15px;background:var(--material-line);font:700 14px/1 'Inter Tight Variable','Inter Variable',sans-serif;font-variant-numeric:tabular-nums}
+#app .sec-mini-t{display:flex;flex-direction:column;gap:3px;min-width:0}
+#app .sec-mini b{font:700 15px/1.15 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;overflow-wrap:anywhere}
+#app .sec-mini small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
+#app .sec-mini.is-current{border-color:var(--accent,#7FA653);box-shadow:var(--sec-relief),0 0 0 1px var(--accent,#7FA653)}
+#app .sec-mini.is-current .sec-mini-n{background:var(--accent,#7FA653);color:#fff}
+#app .sec-mini:active{transform:scale(.97)}
+
+/* O nome da seção aberta é a alça de puxar: ali o sistema não rola a página nem cancela o gesto. */
+#app .sec.is-active .sec-head,#app .sec.is-active .sec-back{touch-action:none}
+
+/* Leque aberto: as seções de trás mostram o nome inteiro, sem o recuo. */
+#app .sec-area.is-fan .sec.is-behind .sec-head{opacity:1}
