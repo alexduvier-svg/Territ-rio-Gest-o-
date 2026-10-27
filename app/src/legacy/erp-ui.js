@@ -3736,8 +3736,10 @@ function stockAreasHome(){const areas=stockAreas();if(areas.length<2)return null
 // Só as seções de sempre com os produtos pedidos; famílias de um produto só ficam juntas num quadro.
 function stockRowsFor(html,items,title){const ids=new Set(items.map(p=>p.id)),t=document.createElement('template');t.innerHTML=html;
  [...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')).forEach(sec=>{const rows=[...sec.querySelectorAll('[data-action="stock-product"]')];if(!rows.some(r=>ids.has(r.dataset.id))){sec.remove();return;}rows.forEach(r=>{if(!ids.has(r.dataset.id))r.remove();});
-  // Dentro de uma área ou subgrupo todas as apresentações ficam à vista: as que estavam em "Mais N apresentações" sobem para a lista (a contagem do recolhido era da família inteira).
-  const main=sec.querySelector(':scope > .feira-rows');sec.querySelectorAll('details.workflow-stock-more').forEach(d=>{if(main)d.querySelectorAll('[data-action="stock-product"]').forEach(r=>main.append(r));d.remove();});});
+  // Dentro de uma área ou subgrupo o recolhido é refeito com o que sobrou (a contagem antiga era da família inteira).
+  const main=sec.querySelector(':scope > .feira-rows');sec.querySelectorAll('details.workflow-stock-more').forEach(d=>{if(main)d.querySelectorAll('[data-action="stock-product"]').forEach(r=>main.append(r));d.remove();});
+  // Três à vista e o resto recolhido, com a contagem do que realmente sobrou.
+  const all=main?[...main.querySelectorAll(':scope > [data-action="stock-product"]')]:[];if(all.length>3){const d=document.createElement('details');d.className='workflow-stock-more';const n=all.length-3;d.innerHTML='<summary>Mais '+n+' '+(n===1?'apresentação':'apresentações')+' '+icon('down')+'</summary><div class="feira-rows"></div>';all.slice(3).forEach(r=>d.lastElementChild.append(r));main.after(d);}});
  const singles=[...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')&&x.querySelectorAll('[data-action="stock-product"]').length===1);
  if(singles.length>1){const box=singles[0],rows=box.querySelector('.feira-rows'),h=box.querySelector('.feira-group');if(h)h.textContent=title;box.querySelector('[data-action="stock-family-add"]')?.remove();singles.slice(1).forEach(x=>{x.querySelectorAll('[data-action="stock-product"]').forEach(r=>rows.append(r));x.remove();});}
  [...t.content.children].filter(x=>!x.classList?.contains('workflow-stock-family')).forEach(x=>x.remove());
