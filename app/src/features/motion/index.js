@@ -244,6 +244,9 @@ function keepSpringWhole(handles) {
   requestAnimationFrame(tick);
 }
 
+// The same protection for loose WAAPI animations started elsewhere (Estoque areas and subgroups).
+window.TerritorioKeepSpringWhole = animations => keepSpringWhole(animations.filter(Boolean).map(animation => ({ animation, get running() { return animation.playState === 'running'; } })));
+
 function installPageTransitions(listen) {
   const app = document.getElementById('app');
   // Read the page rules while the app is idle, so the first page change does not pay for the scan.

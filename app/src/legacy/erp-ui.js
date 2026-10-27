@@ -3183,7 +3183,7 @@ function paretoHtml(rows,units){const p=window.TerritorioProductPareto.productPa
 
 // Optional lot metadata stays in the existing stock/management pages.
 const stockPageBeforeLots=stockPage;
-stockPage=function(){const html=stockPageBeforeLots(),at=html.lastIndexOf('<p class="coffee-legend">'),legend=at<0?'':html.slice(at),body=at<0?html:html.slice(0,at);return body+(window.TerritorioStockLotsUI&&!window.TerritorioSuppliers?.active()?window.TerritorioStockLotsUI.entry():'')+legend;};
+stockPage=function(){const html=stockPageBeforeLots(),at=html.lastIndexOf('<p class="coffee-legend">'),legend=at<0?'':html.slice(at),body=at<0?html:html.slice(0,at);return body+(body.includes('lot-agenda-entry')?'':stockLotsEntry())+legend;};
 const advisorInputBeforeLots=advisorInput;
 advisorInput=function(...args){const input=advisorInputBeforeLots.apply(this,args);if(window.TerritorioStockLots){input.stockValidity=window.TerritorioStockLots.stockValidityFacts(model.data);const next=model.data.events.filter(e=>e.status==='active'&&!e.fairCancelled&&e.start>=window.TerritorioStockLots.civilDay()).sort((a,b)=>a.start.localeCompare(b.start))[0];input.products=input.products.map(p=>({...p,physicalStock:p.stock,stock:model.availableStock(p.id),...(next?{upcomingStock:Math.max(0,window.TerritorioStockLots.scopedLots(model.data,p.id,{scope:next.id,onDay:next.end}).available-window.TerritorioStockLots.orderHolds(model.data,p.id,{exceptEvent:next.id}))}:{})}));}return input;};
 CSV_TYPES.push(['lots','Lotes e Validades'],['lot-movements','Alocações por Lote'],['validity-calendar','Agenda de Validades e Revisões']);
@@ -3751,15 +3751,16 @@ function stockRowsFor(html,items,title){const ids=new Set(items.map(p=>p.id)),t=
 const stockHead=(back,backLabel,title,items)=>'<div class="stock-area-head"><button type="button" class="stock-area-back" data-action="'+back+'" aria-label="Voltar para '+escape(backLabel)+'">'+icon('back')+'<span>'+escape(backLabel)+'</span></button><h2>'+escape(title)+'</h2><small>'+items.length+(items.length===1?' produto':' produtos')+'</small></div>';
 const stockFoot='<div class="stock-area-foot"><button type="button" class="stock-area-back" data-action="stock-area-home" aria-label="Voltar para todas as áreas">'+icon('back')+'<span>Áreas</span></button></div>';
 const feiraStockListBeforeAreas=feiraStockList;
+const stockLotsEntry=()=>window.TerritorioStockLotsUI&&!window.TerritorioSuppliers?.active()?window.TerritorioStockLotsUI.entry():'';
 feiraStockList=function(){const html=feiraStockListBeforeAreas();if(String(query||'').trim()||page!=='Estoque')return html;
- if(!stockArea){const home=stockAreasHome();return home||html;}
+ if(!stockArea){const home=stockAreasHome();return home?home+stockLotsEntry():html;}
  const area=stockAreas().find(a=>a.key===stockArea);if(!area){stockArea=stockSub=null;return stockAreasHome()||html;}
  const subs=stockSubgroups(area),groups=subs.filter(g=>g.items.length>1);
- if(stockSub){const sub=subs.find(g=>g.key===stockSub);if(sub)return stockHead('stock-sub-back',area.label,sub.label,sub.items)+stockRowsFor(html,sub.items,sub.label)+stockFoot;stockSub=null;}
+ if(stockSub){const sub=subs.find(g=>g.key===stockSub);if(sub)return stockHead('stock-sub-back',area.label,sub.label,sub.items)+stockRowsFor(html,sub.items,sub.label)+stockLotsEntry()+stockFoot;stockSub=null;}
  // Subgrupos só ajudam quando separam alguma coisa: pelo menos dois, ou um grupo e produtos soltos.
  if(groups.length&&subs.length>1){const loose=subs.filter(g=>g.items.length===1).flatMap(g=>g.items);
-  return stockHead('stock-area-home','Áreas',area.label,area.items)+'<div class="stock-area-grid">'+groups.map(g=>stockCard('stock-sub',g.key,g.label,g.items)).join('')+'</div>'+(loose.length?'<h3 class="stock-loose-title">Outros produtos</h3>'+stockRowsFor(html,loose,'Outros produtos'):'')+stockFoot;}
- return stockHead('stock-area-home','Áreas',area.label,area.items)+stockRowsFor(html,area.items,area.label)+stockFoot;};
+  return stockHead('stock-area-home','Áreas',area.label,area.items)+'<div class="stock-area-grid">'+groups.map(g=>stockCard('stock-sub',g.key,g.label,g.items)).join('')+'</div>'+(loose.length?'<h3 class="stock-loose-title">Outros produtos</h3>'+stockRowsFor(html,loose,'Outros produtos'):'')+stockLotsEntry()+stockFoot;}
+ return stockHead('stock-area-home','Áreas',area.label,area.items)+stockRowsFor(html,area.items,area.label)+stockLotsEntry()+stockFoot;};
 // Entrar e voltar: a lista troca no lugar e entra deslizando com a mola do app (sem refazer a tela).
 // Rolagem de cada nível (Áreas, área, subgrupo), para voltar exatamente onde estava.
 const stockScroll=new Map(),stockLevel=()=>(stockArea||'')+'|'+(stockSub||'');
@@ -3776,14 +3777,16 @@ function stockAreaGo(area,sub,dir,from){const list=document.getElementById('feir
  if(quiet)return;
  const target=dir<0?(prevSub?stockCardOf('stock-sub',prevSub):stockCardOf('stock-area',prevArea)):null,L=list.getBoundingClientRect();
  const C=origin||target?.getBoundingClientRect()||{left:L.left+L.width/2-1,top:L.top+60,width:2,height:2};
- const grow=dir>0,cx=C.left+C.width/2,cy=C.top+C.height/2,c=S.curve(grow?S.SPRINGS.open:S.SPRINGS.nested),n=c.values.length;
+ const grow=dir>0,cx=C.left+C.width/2,cy=C.top+C.height/2,c=S.curve(S.SPRINGS.open),n=c.values.length;
  const fromIn=grow?.8:1.04,toOut=grow?.96:.84,fade=grow?.25:.3,inF=[],outF=[];
  for(let k=0;k<n;k+=2){const v=c.values[k],p=k/(n-1);inF.push({transform:'scale('+(fromIn+(1-fromIn)*v).toFixed(4)+')',opacity:Math.min(1,p/.3).toFixed(3)});outF.push({transform:'scale('+(1+(toOut-1)*Math.min(1,v)).toFixed(4)+')',opacity:Math.max(0,1-p/fade).toFixed(3)});}
  inF.push({transform:'none',opacity:1});outF.push({transform:'scale('+toOut+')',opacity:0});
  list.style.transformOrigin=(cx-L.left).toFixed(1)+'px '+(cy-L.top).toFixed(1)+'px';
  old.style.transformOrigin=(cx-O.left).toFixed(1)+'px '+(cy-O.top).toFixed(1)+'px';
- const dur=c.duration;list.animate(inF,{duration:dur,easing:'linear'}).finished.then(()=>{list.style.transformOrigin='';}).catch(()=>{});
- old.animate(outF,{duration:dur,easing:'linear',fill:'forwards'}).finished.finally(()=>old.remove()).catch(()=>{});}
+ const dur=c.duration,inA=list.animate(inF,{duration:dur,easing:'linear'}),outA=old.animate(outF,{duration:dur,easing:'linear',fill:'forwards'});
+ inA.finished.then(()=>{list.style.transformOrigin='';}).catch(()=>{});outA.finished.finally(()=>old.remove()).catch(()=>{});
+ // No celular o GPU pode travar pintando a lista nova: a mola devolve o tempo perdido e não pula o começo.
+ window.TerritorioKeepSpringWhole?.([inA,outA]);}
 actions['stock-area']=(d,el)=>stockAreaGo(d.area,null,1,el||stockCardOf('stock-area',d.area));
 actions['stock-sub']=(d,el)=>stockAreaGo(stockArea,d.area,1,el||stockCardOf('stock-sub',d.area));
 actions['stock-sub-back']=()=>stockAreaGo(stockArea,null,-1);
