@@ -3735,10 +3735,13 @@ const stockCard=(action,key,label,items)=>{const [cls,word]=stockWord(items);ret
 function stockAreasHome(){const areas=stockAreas();if(areas.length<2)return null;return '<div class="stock-area-grid">'+areas.map(a=>stockCard('stock-area',a.key,a.label,a.items)).join('')+'</div>';}
 // Só as seções de sempre com os produtos pedidos; famílias de um produto só ficam juntas num quadro.
 function stockRowsFor(html,items,title){const ids=new Set(items.map(p=>p.id)),t=document.createElement('template');t.innerHTML=html;
- [...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')).forEach(sec=>{const rows=[...sec.querySelectorAll('[data-action="stock-product"]')];if(!rows.some(r=>ids.has(r.dataset.id))){sec.remove();return;}rows.forEach(r=>{if(!ids.has(r.dataset.id))r.remove();});sec.querySelectorAll('details.workflow-stock-more').forEach(d=>d.open=true);});
+ [...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')).forEach(sec=>{const rows=[...sec.querySelectorAll('[data-action="stock-product"]')];if(!rows.some(r=>ids.has(r.dataset.id))){sec.remove();return;}rows.forEach(r=>{if(!ids.has(r.dataset.id))r.remove();});
+  // Dentro de uma área ou subgrupo todas as apresentações ficam à vista: as que estavam em "Mais N apresentações" sobem para a lista (a contagem do recolhido era da família inteira).
+  const main=sec.querySelector(':scope > .feira-rows');sec.querySelectorAll('details.workflow-stock-more').forEach(d=>{if(main)d.querySelectorAll('[data-action="stock-product"]').forEach(r=>main.append(r));d.remove();});});
  const singles=[...t.content.children].filter(x=>x.classList?.contains('workflow-stock-family')&&x.querySelectorAll('[data-action="stock-product"]').length===1);
  if(singles.length>1){const box=singles[0],rows=box.querySelector('.feira-rows'),h=box.querySelector('.feira-group');if(h)h.textContent=title;box.querySelector('[data-action="stock-family-add"]')?.remove();singles.slice(1).forEach(x=>{x.querySelectorAll('[data-action="stock-product"]').forEach(r=>rows.append(r));x.remove();});}
  [...t.content.children].filter(x=>!x.classList?.contains('workflow-stock-family')).forEach(x=>x.remove());
+ const left=[...t.content.children];if(left.length===1){const h=left[0].querySelector('.feira-group');if(h)h.textContent=title;}
  return t.innerHTML;}
 const stockHead=(back,backLabel,title,items)=>'<div class="stock-area-head"><button type="button" class="stock-area-back" data-action="'+back+'" aria-label="Voltar para '+escape(backLabel)+'">'+icon('back')+'<span>'+escape(backLabel)+'</span></button><h2>'+escape(title)+'</h2><small>'+items.length+(items.length===1?' produto':' produtos')+'</small></div>';
 const stockFoot='<div class="stock-area-foot"><button type="button" class="stock-area-back" data-action="stock-area-home" aria-label="Voltar para todas as áreas">'+icon('back')+'<span>Áreas</span></button></div>';
