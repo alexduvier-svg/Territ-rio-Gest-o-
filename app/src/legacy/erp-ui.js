@@ -1668,7 +1668,8 @@ window.TerritorioShell={
   if(dialog.open){const cancel=new Event('cancel',{cancelable:true});if(dialog.dispatchEvent(cancel)&&dialog.open)dialog.close();return true;}
   const subBack=app.querySelector('.subheader [data-action]');
   if(subBack){subBack.click();return true;}
-  if(page!=='Vender'){actions.nav({page:'Vender'});return true;}
+  // O gesto de voltar toca o próprio botão Vender: mesma mola da troca de abas e o carrinho se mexe como no toque.
+  if(page!=='Vender'){const vb=nav.querySelector('button[data-page="Vender"]');if(vb&&!nav.hidden)vb.click();else actions.nav({page:'Vender'});return true;}
   return false;
  }
 };
