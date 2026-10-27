@@ -45,7 +45,8 @@ html:is(.multi-select,.reorder-edit) #app .fam-wx{display:none}
 html.fam-dragging #app .fam:not(.is-lifted){transition:none}
 html.fam-dragging{-webkit-user-select:none;user-select:none}
 /* Enquanto move: cada seção vira só o nome. */
-html.fam-dragging #app .fam :is(.feira-grid,.fam-rows,.fam-more){display:none}
+html.fam-dragging #app .fam :is(.feira-grid,.fam-rows,.fam-more,.fam-map){display:none}
+html.fam-dragging #app .fam.map-pad{padding-bottom:8px!important}
 html.fam-dragging #app .fam-head{padding-bottom:8px}
 #app .fam.is-closing .fam-more svg{transform:none}
 html.multi-leaving #app .fam-wx{display:none}
@@ -61,7 +62,7 @@ html.multi-returned #app .fam-wx{animation:fam-wx-in .26s cubic-bezier(.25,.8,.2
 #app .fam-ghost{z-index:1}
 
 /* Tracinho do mapa: discreto, no centro do pé da primeira seção (área de toque de 44 px). */
-#app .fam-map{position:absolute;left:50%;bottom:2px;width:64px;height:30px;margin:0 0 0 -32px;padding:0;border:0;background:transparent;box-shadow:none;display:grid;place-items:center;cursor:pointer;z-index:1}
+#app .fam-map{position:absolute;left:50%;bottom:15px;width:64px;height:30px;margin:0 0 0 -32px;padding:0;border:0;background:transparent;box-shadow:none;display:grid;place-items:center;cursor:pointer;z-index:1}
 #app .fam-map span{display:block;width:34px;height:4px;border-radius:2px;background:var(--material-muted,var(--muted));opacity:.35}
 #app .fam-map:active span{opacity:.6}
 #app .fam-head{cursor:pointer}
@@ -75,3 +76,5 @@ dialog .fam-thumb-art.is-rows i{padding:7px 8px}
 dialog .fam-thumb b{font:700 15px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;overflow-wrap:anywhere;padding:0 2px}
 dialog .fam-thumb small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));padding:0 2px}
 dialog .fam-thumb:active{transform:scale(.97)}
+#app .fam.map-pad{padding-bottom:34px!important}
+#app .fam.map-pad .fam-map{bottom:2px}
