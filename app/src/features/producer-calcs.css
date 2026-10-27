@@ -77,3 +77,49 @@ dialog[data-kind=calculator] .cm-select{width:100%;min-height:46px;padding:0 34p
 .cm-fields:not(.cm-grid3) .cm-f>label{align-self:center}
 .cm-fields:not(.cm-grid3) .cm-f>.cm-fhint{margin-top:4px;font-size:13px}
 .cm-fields:not(.cm-grid3) .cm-f:not(:has(.cm-fhint))>label{grid-row:auto}
+
+/* Escolha do produto: botão com nome e apresentação; folha organizada por seção. */
+.cm-pick{display:grid;gap:6px;margin:0 0 12px}
+.cm-pick>span{font-size:14px;font-weight:600;color:var(--text)}
+.cm-pick-btn{display:flex;align-items:center;gap:10px;width:100%;min-height:56px;margin:0;padding:8px 14px;border:1px solid var(--material-line,var(--line));border-radius:16px;background:var(--field);color:var(--text);text-align:left;font:inherit;cursor:pointer}
+.cm-pick-btn>span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.cm-pick-btn strong{font:650 16px/1.25 'Inter Variable',sans-serif}
+.cm-pick-btn small{font-size:13px;color:var(--muted)}
+.cm-pick-btn .icon{flex:none;width:18px;height:18px;color:var(--muted)}
+dialog.cm-psheet h2{margin:0 0 4px}
+dialog.cm-psheet .cm-ps-hint{margin:0 0 12px;font-size:14px;line-height:1.35;color:var(--muted)}
+dialog.cm-psheet .cm-ps-search{display:flex;align-items:center;gap:8px;min-height:48px;margin:0 0 10px;padding:0 12px;border-radius:14px;background:var(--field);border:1px solid var(--material-line,var(--line))}
+dialog.cm-psheet .cm-ps-search .icon{width:18px;height:18px;color:var(--muted);flex:none}
+dialog.cm-psheet .cm-ps-search input{flex:1;min-width:0;min-height:44px;border:0;background:transparent;box-shadow:none;padding:0;font-size:16px;color:var(--text);outline:none}
+dialog.cm-psheet .cm-ps-list{flex:0 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin:0 -2px;padding:0 2px 6px}
+dialog.cm-psheet .cm-ps-group h3{display:flex;align-items:baseline;gap:8px;margin:14px 4px 6px;font:700 15px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;color:var(--text)}
+dialog.cm-psheet .cm-ps-group h3 small{font:600 13px 'Inter Variable',sans-serif;color:var(--muted)}
+dialog.cm-psheet .cm-ps-row{display:flex;align-items:center;gap:10px;width:100%;min-height:56px;margin:0 0 6px;padding:8px 14px;border:1px solid var(--material-line,var(--line));border-radius:14px;background:var(--material-face,var(--panel));box-shadow:none;color:var(--text);text-align:left;font:inherit;cursor:pointer}
+dialog.cm-psheet .cm-ps-row>span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+dialog.cm-psheet .cm-ps-row strong{font:600 15px/1.25 'Inter Variable',sans-serif;letter-spacing:0;overflow-wrap:anywhere}
+dialog.cm-psheet .cm-ps-row small{font:500 13px/1.25 'Inter Variable',sans-serif;color:var(--muted)}
+dialog.cm-psheet .cm-ps-row.is-on{border-color:var(--accent-ink,#4f7a2a);background:color-mix(in srgb,var(--action-green,#7fa653) 12%,var(--material-face,var(--panel)))}
+dialog.cm-psheet .cm-ps-row b{color:var(--accent-ink,#4f7a2a);font-size:16px}
+dialog.cm-psheet .cm-ps-none{margin-bottom:4px}
+dialog.cm-psheet .sheet-back{flex:none;margin-top:10px}
+/* Valores acrescentados pela pessoa. */
+.cm-extras{display:flex;flex-direction:column;gap:6px;margin:2px 0 8px}
+.cm-fields:not(.cm-grid3)~.cm-extras .cm-extra,.cm-extras .cm-extra{display:grid;grid-template-columns:minmax(0,1fr) minmax(104px,36%) 40px;gap:8px;align-items:center;padding:6px 0;border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.cm-extra-name{min-height:44px;padding:0 12px;border-radius:12px;border:0;background:var(--field);box-shadow:inset 0 0 0 1px var(--line);font-size:15px;color:var(--text);min-width:0}
+.cm-extra .cm-in input{text-align:right}
+.cm-extra-del{display:grid;place-items:center;width:40px;height:44px;margin:0;padding:0;border:0;border-radius:12px;background:transparent;box-shadow:none;color:var(--muted);cursor:pointer}
+.cm-extra-del .icon{width:18px;height:18px}
+.cm-extra-add{display:flex;align-items:center;gap:6px;align-self:flex-start;min-height:44px;margin:0;padding:0 12px 0 6px;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--accent-ink,#4f7a2a);font:650 14px/1 'Inter Variable',sans-serif;cursor:pointer}
+.cm-extra-add .icon{width:18px;height:18px}
+dialog.cm-psheet .cm-ps-row{border-color:color-mix(in srgb,var(--text) 12%,transparent)}
+.cm-fields:not(.cm-grid3) > .cm-extras{margin:0 0 4px;padding-bottom:6px}
+.cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra{grid-template-areas:none;grid-template-columns:minmax(0,1fr) minmax(96px,34%) 40px;column-gap:8px;padding:6px 0;border-top:0}
+.cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra>*{grid-area:auto;grid-row:auto}
+.cm-extra-add{white-space:nowrap}
+@media (max-width: 379px){
+ .cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra{grid-template-columns:minmax(0,1fr) 40px;row-gap:6px}
+ .cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra>.cm-extra-name{grid-column:1;grid-row:1}
+ .cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra>.cm-extra-del{grid-column:2;grid-row:1}
+ .cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra>.cm-in{grid-column:1;grid-row:2}
+}
+.cm-fields:not(.cm-grid3){align-items:stretch}
