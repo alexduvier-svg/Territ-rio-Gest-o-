@@ -94,3 +94,26 @@ dialog .fam-thumb.is-lifted{position:relative;z-index:3;box-shadow:0 16px 34px -
 #app .fam .coffee-card-title .cn-second{grid-column:1/-1;grid-row:2;min-width:0;overflow-wrap:anywhere}
 /* Na compra múltipla a bolinha de marcar desce para o canto de baixo, ao lado do preço (a sigla fica em cima). */
 .multi-select #app .fam [data-action='sell-product']::after,.multi-leaving #app .fam [data-action='sell-product']::after{top:auto;bottom:8px}
+
+/* Estoque por área: um card por área, duas colunas, no relevo dos cards. */
+#app .stock-area-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:4px 0 12px}
+#app .stock-area-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:132px;margin:0;padding:14px 14px 12px;border:1px solid var(--material-line,var(--line));border-radius:22px;background:var(--material-face,var(--panel));box-shadow:var(--material-depth,none);color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
+#app .stock-area-card>.icon{position:absolute;right:12px;top:16px;width:18px;height:18px;color:var(--material-muted,var(--muted))}
+#app .stock-area-card .sa-ico,#app .stock-area-head .sa-ico{display:grid;place-items:center;width:40px;height:40px;border-radius:14px;background:color-mix(in srgb,var(--action-green,#7fa653) 14%,transparent);color:var(--accent-ink,#4f7a2a);flex:none}
+#app .stock-area-card .sa-ico .icon,#app .stock-area-head .sa-ico .icon{width:22px;height:22px}
+#app .stock-area-card .sa-txt{display:flex;flex-direction:column;gap:3px;min-width:0;width:100%}
+#app .stock-area-card strong{font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;overflow-wrap:anywhere}
+#app .stock-area-card small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
+#app .sa-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+#app .sa-tag{display:inline-flex;align-items:center;min-height:22px;padding:0 8px;border-radius:11px;font:650 12px/1 'Inter Variable',sans-serif}
+#app .sa-tag.ok{background:color-mix(in srgb,var(--action-green,#7fa653) 14%,transparent);color:var(--accent-ink,#4f7a2a)}
+#app .sa-tag.low{background:color-mix(in srgb,#f2a03d 18%,transparent);color:#9a5a00}
+#app .sa-tag.out{background:color-mix(in srgb,#e5484d 16%,transparent);color:#b4232a}
+:root[data-theme=dark] #app .sa-tag.low{color:#f5b860}:root[data-theme=dark] #app .sa-tag.out{color:#ff8a8e}:root[data-theme=dark] #app .sa-tag.ok{color:#a7cf7d}
+#app .stock-area-card:active{transform:scale(.97)}
+#app .stock-area-head{display:grid;grid-template-columns:auto 1fr;grid-template-areas:'back back' 'title title' 'count count';gap:2px;margin:0 0 10px}
+#app .stock-area-back{grid-area:back;justify-self:start;display:flex;align-items:center;gap:4px;min-height:44px;margin:0 0 4px -6px;padding:0 12px 0 6px;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--accent-ink,#4f7a2a);font:650 15px/1 'Inter Variable',sans-serif;cursor:pointer}
+#app .stock-area-back .icon{width:20px;height:20px}
+#app .stock-area-head h2{grid-area:title;display:flex;align-items:center;gap:10px;margin:0;font:750 24px/1.15 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.02em}
+#app .stock-area-head small{grid-area:count;margin:2px 0 0 50px;font:600 14px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
+@media (max-width: 359px){#app .stock-area-grid{gap:8px}#app .stock-area-card{padding:12px 10px 10px;min-height:124px}#app .stock-area-card strong{font-size:16px}}
