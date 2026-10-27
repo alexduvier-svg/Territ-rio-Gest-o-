@@ -231,9 +231,18 @@ function fitStockHeading() {
 // ---------------------------------------------------------------- cards de venda (salesCardAnatomy)
 // Os detalhes do card ficam numa linha com " · " enquanto cabem; se não cabem, cada parte vai para
 // a sua linha. Todas as leituras antes de todas as escritas: uma medição para a grade inteira.
-function fitCardDetails() {
+// The answer only depends on the screen width and the text, so it is kept: going back to a page with the
+// same cards reapplies it without measuring (measuring made the browser lay the page out twice). A
+// "settled" pass (after the page is drawn) is trusted; an early pass right after a render is not.
+const fitCache = new Map();
+function fitCardDetails({ settle = false } = {}) {
   const details = [...(app()?.querySelectorAll('.feira-card .card-detail') || [])];
   if (!details.length) return;
+  const key = innerWidth + '|' + devicePixelRatio, known = fitCache.get(key);
+  if (known?.settled && details.every(el => known.text.has(el.textContent))) {
+    details.forEach(el => { const want = known.text.get(el.textContent) || (known.anyMulti && el.children.length > 1); if (el.classList.contains('is-stacked') !== want) el.classList.toggle('is-stacked', want); });
+    return;
+  }
   details.forEach(el => el.classList.remove('is-stacked'));
   const stack = details.map(el => {
     const parts = el.children;
@@ -244,6 +253,9 @@ function fitCardDetails() {
   // several parts uses separate lines too (single-part details only wrap when they must).
   const anyMulti = details.some((el, i) => stack[i] && el.children.length > 1);
   details.forEach((el, i) => { if (stack[i] || (anyMulti && el.children.length > 1)) el.classList.add('is-stacked'); });
+  const text = settle || !known ? new Map() : known.text;
+  details.forEach((el, i) => text.set(el.textContent, stack[i]));
+  fitCache.set(key, { settled: settle || !!known?.settled, anyMulti: anyMulti || (!settle && !!known?.anyMulti), text });
 }
 
 // ---------------------------------------------------------------- observadores
@@ -303,9 +315,9 @@ export function installInterface() {
     fitStockHeading();
     fitCardDetails();
   }).observe(root, { childList: true, subtree: true });
-  window.addEventListener('resize', () => { fitStockHeading(); fitCardDetails(); }, { passive: true });
-  window.TerritorioFitCards = fitCardDetails; // telas que mostram cards depois (seções que abrem)
-  document.fonts?.ready.then(() => { fitStockHeading(); fitCardDetails(); });
+  window.addEventListener('resize', () => { fitStockHeading(); fitCardDetails({ settle: true }); }, { passive: true });
+  window.TerritorioFitCards = () => fitCardDetails({ settle: true }); // depois que a tela assenta (seções que abrem)
+  document.fonts?.ready.then(() => { fitCache.clear(); fitStockHeading(); fitCardDetails({ settle: true }); });
   new MutationObserver(() => decorateDimensions()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-layout'] });
   const toast = document.getElementById('toast');
   if (toast) new MutationObserver(() => classifyToast(toast)).observe(toast, { attributes: true, attributeFilter: ['hidden'], childList: true, characterData: true, subtree: true });

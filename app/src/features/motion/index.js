@@ -223,6 +223,8 @@ function arrivePage(app, entry, pivot, springName, fixedFrom = { y: 28, opacity:
 
 function installPageTransitions(listen) {
   const app = document.getElementById('app');
+  // Read the page rules while the app is idle, so the first page change does not pay for the scan.
+  (window.requestIdleCallback || (fn => setTimeout(fn, 1500)))(() => pageSelectors(''), { timeout: 4000 });
   let currentPage = root().dataset.page || window.TerritorioShell?.page?.();
   const history = [];
   const before = event => {

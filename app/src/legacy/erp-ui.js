@@ -3420,7 +3420,7 @@ function sellSectionsView(){const items=productList(false);if(!items.length||!SM
   return '<section class="fam glass-products-plane'+(open?' is-open':'')+'" data-fam="'+escape(g.key)+'"><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
   +(L.mode==='rows'?'<div class="fam-rows">'+L.shown.map(sellRowHtml).join('')+'</div>'
    :'<div class="feira-grid">'+L.shown.map(p=>sellCardHtml(p)).join('')+L.extra.map(p=>sellCardHtml(p,true)).join('')+'</div>'
-   +(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'" aria-label="'+escape(famMoreText(g,open,L.more))+'">'+famChev+'</button>':''))+'</section>';}).join('')+'</div>';}
+   +(i===0?'<button type="button" class="fam-map" data-fam-map aria-label="Ver todas as seções"><span></span></button>':'')+(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'" aria-label="'+escape(famMoreText(g,open,L.more))+'">'+famChev+'</button>':''))+'</section>';}).join('')+'</div>';}
 const sellListBeforeSections=feiraSellList;
 feiraSellList=function(){try{const v=sellSectionsView();if(v)return v;}catch(e){console.error(e);}sellSec.key='';return sellListBeforeSections();};
 const famQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -3496,9 +3496,20 @@ function famToggle(sec,k,open,{auto=false}={}){const g=sellSec.groups.find(x=>x.
 document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-fam-more]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();
  const sec=t.closest('.fam'),k=t.dataset.famMore;if(sec)famToggle(sec,k,!sellSec.open.has(k));},true);
 document.addEventListener('pointerdown',e=>{const sec=e.target.closest?.('#app .fam.is-open');if(sec)famIdle(sec.dataset.fam);},{capture:true,passive:true});
+// Levar uma seção ao topo da tela, logo abaixo da barra da Loja quando ela está à vista.
+function famGo(sec){if(!sec)return;const y=sec.getBoundingClientRect().top+window.scrollY-16;if(Math.abs(window.scrollY-y)<8)return;window.scrollTo({top:Math.max(0,y),behavior:famQuiet()?'auto':'smooth'});if(!famQuiet())window.TerritorioHaptics?.tick?.();}
+document.addEventListener('click',e=>{const h=e.target.closest?.('#app .fam-list .fam-head');if(!h)return;e.preventDefault();famGo(h.closest('.fam'));},true);
+// Mapa das seções: miniaturas com o nome, a contagem e um desenho dos cards (até 6), na ordem da tela.
+function famMapHtml(){const counts=SM().cartByGroup(sellSec.groups,draft?.items||[]),secs=[...document.querySelectorAll('#app .fam-list .fam')];
+ return '<div class="fam-map-grid">'+secs.map(el=>{const g=sellSec.groups.find(x=>x.key===el.dataset.fam);if(!g)return '';const i=sellSec.groups.indexOf(g),n=Math.min(g.items.length,6),rows=g.items.length<=2;
+  return '<button type="button" class="fam-thumb" data-fam-jump="'+escape(g.key)+'"><span class="fam-thumb-art'+(rows?' is-rows':'')+'">'+g.items.slice(0,rows?2:n).map(p=>'<i>'+escape(titleName(window.TerritorioCoffee.coffeeName(p)).split(' ').slice(-1)[0])+'</i>').join('')+'</span><b>'+escape(g.label)+'</b><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></button>';}).join('')+'</div>';}
+actions['fam-map']=()=>openModal('Seções',famMapHtml(),'fam-map');
+document.addEventListener('click',e=>{if(e.target.closest?.('#app [data-fam-map]')){e.preventDefault();e.stopImmediatePropagation();actions['fam-map']();return;}
+ const t=e.target.closest?.('[data-fam-jump]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();const k=t.dataset.famJump;closeModal();
+ setTimeout(()=>famGo([...document.querySelectorAll('#app .fam')].find(x=>x.dataset.fam===k)),famQuiet()?0:220);},true);
 // A descrição dos cards ("Moído · 250 g" numa linha ou em duas) é medida de novo depois que a tela assenta.
 const renderBeforeFam=render;
-render=function(...args){const out=renderBeforeFam.apply(this,args);if(document.querySelector('#app .fam-list'))requestAnimationFrame(()=>window.TerritorioFitCards?.());return out;};
+render=function(...args){const out=renderBeforeFam.apply(this,args),fam=!!document.querySelector('#app .fam-list');if(document.documentElement.classList.contains('fam-page')!==fam)document.documentElement.classList.toggle('fam-page',fam);if(fam)requestAnimationFrame(()=>window.TerritorioFitCards?.());return out;};
 // O "+" da venda lista por seção, com o carrinho de cada uma e o nome com a sigla da torra.
 function addProductList(){const items=productList(false),list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM()?SM().sellSections(list,{typeOf:secTypeOf}):[{key:'',label:'',items:list}],counts=SM()?SM().cartByGroup(groups,draft?.items||[]):[];
  const row=p=>btn('pick-sale-product','<span><strong>'+escape(contasName(p))+'</strong><small>'+E.quantity(sellingAvailableStock(p.id))+' disponíveis</small></span><span>'+E.money(p.price)+'</span>','list-row',{id:p.id},!canSelectProduct(p.id));
