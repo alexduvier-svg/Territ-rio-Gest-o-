@@ -133,45 +133,23 @@ function chartSimulation(svg, done) {
 }
 
 function calendarSimulation(svg, done) {
-  const sheet = svg.querySelector('.nav-calendar-sheet'), frame = svg.querySelector('.nav-calendar-frame');
-  if (!sheet || !frame) return null;
-  // The front leaf turns to the left (toward Clientes) and goes behind the calendar, like a page
-  // turned in a book; the next leaf is already underneath and its days appear one by one.
-  const restore = prepare([sheet]), lite = fluidMotionLite();
-  const next = sheet.cloneNode(true);
-  next.classList.remove('nav-calendar-sheet', 'nav-physical-part');
-  next.classList.add('nav-calendar-next');
-  next.removeAttribute('transform');
-  next.style.opacity = '';
-  sheet.before(next);
-  const dots = [...next.querySelectorAll('.nav-calendar-day circle')];
-  dots.forEach(dot => { dot.style.opacity = '0'; });
-  let turn = { position: 0, velocity: 0 }, elapsed = 0, behind = false;
-  const edge = 3, spring = lite ? { stiffness: 160, damping: 25, mass: 1 } : { stiffness: 72, damping: 13.5, mass: 1 };
+  // The tick at the corner is drawn again from left to right, like someone ticking the day: a short
+  // spring on the stroke (halo and mark together), nothing else moves.
+  const parts = [...svg.querySelectorAll('.nav-calendar-tick path')];
+  if (!parts.length) return null;
+  const lite = fluidMotionLite();
+  let draw = { position: 0, velocity: 0 }, elapsed = 0;
+  const spring = lite ? { stiffness: 320, damping: 36, mass: 1 } : { stiffness: 150, damping: 19, mass: 1 };
+  for (const p of parts) { p.style.strokeDasharray = '1'; p.style.strokeDashoffset = '1'; }
   return createPhysicalFrameMotion(svg, {
     advance(seconds) {
       elapsed += seconds;
-      turn = stepSpring(turn, 1, seconds, spring);
-      return settled(turn, 1) || elapsed > 1.4;
+      if (elapsed < (lite ? 0.02 : 0.06)) return false;
+      draw = stepSpring(draw, 1, seconds, spring);
+      return settled(draw, 1) || elapsed > 1.2;
     },
-    draw() {
-      // Turned about its left edge, toward Clientes: narrows to the left while facing us, then passes
-      // behind the calendar on the left side and fades. A slight vertical skew gives the perspective.
-      const angle = Math.PI * bound(turn.position, 0, 1.08);
-      const face = Math.cos(angle), side = Math.sin(angle);
-      const scaleX = Math.abs(face) < 0.02 ? 0.02 * (face < 0 ? -1 : 1) : face;
-      sheet.setAttribute('transform', 'translate(' + edge + ' 15) skewY(' + fmt(-(lite ? 2 : 8) * side) + ') scale(' + fmt(scaleX) + ' ' + fmt(1 - 0.05 * side) + ') translate(-' + edge + ' -15)');
-      if (face < 0 && !behind) { frame.before(sheet); behind = true; }
-      sheet.style.opacity = fmt(face >= 0 ? 1 : bound(1 + face * 1.25));
-      const reveal = bound((turn.position - 0.25) / 0.6);
-      dots.forEach((dot, i) => { dot.style.opacity = fmt(bound(reveal * 1.6 - i * 0.12)); });
-    },
-    onRest() {
-      next.remove();
-      svg.append(sheet);
-      restore();
-      done();
-    },
+    draw() { const off = fmt(1 - bound(draw.position)); for (const p of parts) p.style.strokeDashoffset = off; },
+    onRest() { for (const p of parts) { p.style.strokeDasharray = ''; p.style.strokeDashoffset = ''; } done(); },
   });
 }
 

@@ -110,3 +110,9 @@ dialog .mg-sup-row small{font-size:13px;color:var(--material-muted,var(--muted))
 @media (max-width: 359px){#app .title-topbar{gap:6px}#app .title-topbar .top-actions .round{width:38px;height:38px;min-width:38px;min-height:38px}#app .title-topbar .stock-area-switch>.icon{width:16px;height:16px}}
 @media (max-width: 379px){#app .title-topbar{gap:6px}#app .title-topbar .top-actions{gap:4px}#app .title-topbar .top-actions .round{width:38px;height:38px;min-width:38px;min-height:38px}#app .title-topbar .stock-area-switch>.icon{width:16px;height:16px}#app .title-topbar .stock-area-title .stock-area-switch{font-size:clamp(20px,6.5vw,30px)!important;gap:2px}}
 @media (max-width: 339px){#app .title-topbar .stock-area-title .stock-area-switch{letter-spacing:-.04em;font-size:20px!important}}
+
+/* V do calendário: um contorno da cor da barra separa o V do desenho, como no ícone de referência. */
+#nav .nav-calendar-tick-halo{stroke:var(--nav-tick-halo,var(--panel,#fff))}
+#nav button.active .nav-calendar-tick-mark{stroke:var(--accent-ink,var(--action-green))}
+/* 320px: os títulos de abas com três botões (Clientes) cabem inteiros. */
+@media (max-width: 339px){#app .title-topbar h1:not(.stock-area-title){font-size:25px;letter-spacing:-.03em}}
