@@ -3501,9 +3501,42 @@ function famGo(sec){if(!sec)return;const y=sec.getBoundingClientRect().top+windo
 document.addEventListener('click',e=>{const h=e.target.closest?.('#app .fam-list .fam-head');if(!h)return;e.preventDefault();famGo(h.closest('.fam'));},true);
 // Mapa das seções: miniaturas com o nome, a contagem e um desenho dos cards (até 6), na ordem da tela.
 function famMapHtml(){const counts=SM().cartByGroup(sellSec.groups,draft?.items||[]),secs=[...document.querySelectorAll('#app .fam-list .fam')];
- return '<div class="fam-map-grid">'+secs.map(el=>{const g=sellSec.groups.find(x=>x.key===el.dataset.fam);if(!g)return '';const i=sellSec.groups.indexOf(g),n=Math.min(g.items.length,6),rows=g.items.length<=2;
+ return '<p class="fam-map-hint">Toque para ir. Segure e arraste para mudar a ordem.</p><div class="fam-map-grid">'+secs.map(el=>{const g=sellSec.groups.find(x=>x.key===el.dataset.fam);if(!g)return '';const i=sellSec.groups.indexOf(g),n=Math.min(g.items.length,6),rows=g.items.length<=2;
   return '<button type="button" class="fam-thumb" data-fam-jump="'+escape(g.key)+'"><span class="fam-thumb-art'+(rows?' is-rows':'')+'">'+g.items.slice(0,rows?2:n).map(p=>'<i>'+escape(titleName(window.TerritorioCoffee.coffeeName(p)).split(' ').slice(-1)[0])+'</i>').join('')+'</span><b>'+escape(g.label)+'</b><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></button>';}).join('')+'</div>';}
 actions['fam-map']=()=>openModal('Seções',famMapHtml(),'fam-map');
+// Aplica na aba Vender a ordem que está na janela: as seções trocam de lugar sem refazer a tela, e o
+// tracinho do atalho fica sempre na primeira.
+function famApplyOrder(keys){const saved=model.data.settings.sellSectionOrder||[];model.data.settings.sellSectionOrder=[...keys,...saved.filter(k=>!keys.includes(k))];persist();
+ const list=document.querySelector('#app .fam-list');if(!list)return;const secs=[...list.querySelectorAll(':scope > .fam')],byKey=new Map(secs.map(x=>[x.dataset.fam,x]));
+ keys.forEach(k=>{const el=byKey.get(k);if(el)list.append(el);});const first=list.querySelector(':scope > .fam'),dash=list.querySelector('.fam-map');
+ secs.forEach(x=>x.classList.remove('has-map','map-pad'));if(first&&dash){first.append(dash);first.classList.add('has-map');if(!first.querySelector('.fam-more'))first.classList.add('map-pad');}
+ sellSec.groups=SM().orderSections(sellSec.groups,model.data.settings.sellSectionOrder);}
+// Arrastar as miniaturas: segurar 0,38 s levanta; as outras abrem espaço deslizando (só deslocamento).
+(()=>{const HOLD=380;let timer=null,item=null,grid=null,x0=0,y0=0,lx=0,ly=0,off=null,drag=false,swallow=0;
+ const thumbs=()=>[...grid.querySelectorAll('.fam-thumb')];
+ const block=e=>{if(drag)e.preventDefault();};
+ const natural=()=>{const t=item.style.transform;item.style.transform='none';const r=item.getBoundingClientRect();item.style.transform=t;return r;};
+ const follow=()=>{const n=natural();item.style.transform='translate3d('+(lx-off.x-n.left).toFixed(1)+'px,'+(ly-off.y-n.top).toFixed(1)+'px,0) scale(1.04)';};
+ const reorder=()=>{const others=thumbs().filter(t=>t!==item),hit=others.find(t=>{const r=t.getBoundingClientRect();return lx>=r.left&&lx<=r.right&&ly>=r.top&&ly<=r.bottom;});if(!hit)return;
+  const all=thumbs(),from=all.indexOf(item),to=all.indexOf(hit),before=new Map(others.map(t=>[t,t.getBoundingClientRect()]));
+  grid.insertBefore(item,to>from?hit.nextSibling:hit);
+  if(!famQuiet())others.forEach(t=>{const a=before.get(t),b=t.getBoundingClientRect(),dx=a.left-b.left,dy=a.top-b.top;if(Math.abs(dx)+Math.abs(dy)>1)t.animate([{transform:'translate3d('+dx+'px,'+dy+'px,0)'},{transform:'none'}],{duration:220,easing:'cubic-bezier(.25,.8,.25,1)'});});
+  window.TerritorioHaptics?.tick?.();};
+ const scroller=()=>{for(let n=grid.parentElement;n;n=n.parentElement){const st=getComputedStyle(n);if(/(auto|scroll)/.test(st.overflowY)&&n.scrollHeight>n.clientHeight)return n;}return null;};
+ const reset=()=>{clearTimeout(timer);timer=null;item?.removeEventListener('touchmove',block);};
+ const end=()=>{const was=drag,el=item;reset();item=null;drag=false;if(!was||!el)return;
+  const from=el.style.transform;el.style.transform='';el.classList.remove('is-lifted');if(!famQuiet()&&from)el.animate([{transform:from},{transform:'none'}],{duration:200,easing:'cubic-bezier(.25,.8,.25,1)'});
+  swallow=Date.now()+450;famApplyOrder([...grid.querySelectorAll('.fam-thumb')].map(t=>t.dataset.famJump));};
+ document.addEventListener('touchstart',e=>{reset();const t=e.target.closest?.('dialog[open] .fam-thumb');if(!t||e.touches.length>1){item=null;return;}
+  item=t;grid=t.parentElement;x0=lx=e.touches[0].clientX;y0=ly=e.touches[0].clientY;t.addEventListener('touchmove',block,{passive:false});
+  timer=setTimeout(()=>{timer=null;if(!item)return;drag=true;const r=item.getBoundingClientRect();off={x:lx-r.left,y:ly-r.top};item.classList.add('is-lifted');window.TerritorioHaptics?.tick?.();follow();},HOLD);},{passive:true});
+ document.addEventListener('touchmove',e=>{if(!item)return;const p=e.touches[0];lx=p.clientX;ly=p.clientY;
+  if(!drag){if(Math.abs(lx-x0)>8||Math.abs(ly-y0)>8){reset();item=null;}return;}
+  const sc=scroller();if(sc){const r=sc.getBoundingClientRect();if(ly<r.top+50)sc.scrollTop-=10;else if(ly>r.bottom-50)sc.scrollTop+=10;}
+  reorder();follow();},{passive:true});
+ document.addEventListener('touchend',end,{passive:true});document.addEventListener('touchcancel',end,{passive:true});
+ document.addEventListener('click',e=>{if(Date.now()<swallow&&e.target.closest?.('dialog .fam-thumb')){e.preventDefault();e.stopImmediatePropagation();}},true);
+ document.addEventListener('contextmenu',e=>{if(e.target.closest?.('dialog .fam-thumb'))e.preventDefault();});})();
 document.addEventListener('click',e=>{if(e.target.closest?.('#app [data-fam-map]')){e.preventDefault();e.stopImmediatePropagation();actions['fam-map']();return;}
  const t=e.target.closest?.('[data-fam-jump]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();const k=t.dataset.famJump;closeModal();
  setTimeout(()=>famGo([...document.querySelectorAll('#app .fam')].find(x=>x.dataset.fam===k)),famQuiet()?0:220);},true);
