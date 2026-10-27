@@ -3172,7 +3172,7 @@ actions['event-loss-back']=({id})=>{closeModal();reviewEventLosses(id);};
 
 // The stock/supplier switch selects one surface; it never mounts a second ERP.
 const stockBeforeSuppliers=stockPage;
-stockPage=function(){const s=window.TerritorioSuppliers;return s?.active()?s.header()+s.page():stockBeforeSuppliers().replace('<h1>Estoque</h1>',s?s.heading('Estoque'):'<h1>Estoque</h1>').replace('<p class="feira-stock-hint">Toque + para repor.</p>',s?s.modeControl():'<p class="feira-stock-hint">Toque + para repor.</p>');};
+stockPage=function(){const s=window.TerritorioSuppliers;return s?.active()?(typeof profilePill==='function'?'<div class="topbar">'+profilePill()+'<div class="top-actions">'+btn('settings',icon('settings'),'round')+'</div></div>':'')+s.header()+s.page():stockBeforeSuppliers().replace('<h1>Estoque</h1>',s?s.heading('Estoque'):'<h1>Estoque</h1>').replace('<p class="feira-stock-hint">Toque + para repor.</p>',s?s.modeControl():'<p class="feira-stock-hint">Toque + para repor.</p>');};
 CSV_TYPES.push(['suppliers','Fornecedores'],['supplierquotes','Cotações de Fornecedores'],['supplierpurchases','Compras de Fornecedores']);
 exportGroups.push(['Fornecedores e Cotações',['suppliers','supplierquotes','supplierpurchases']]);
 const csvBeforeSuppliers=csvRows;csvRows=function(kind){if(['suppliers','supplierquotes','supplierpurchases'].includes(kind)){const r=window.TerritorioSuppliers.exportRows();return kind==='suppliers'?r.suppliers:kind==='supplierquotes'?r.quotes:r.purchases;}return csvBeforeSuppliers(kind);};
@@ -3706,6 +3706,8 @@ document.addEventListener('input',e=>{const t=e.target;if(!t?.classList?.contain
 (()=>{const d=model.data,FISH=window.TerritorioTrainingFish;if(d.dataContext?.type!=='demo'||d.settings.demoFishVersion===2||!FISH)return;const actor=d.dataContext.id,now=new Date().toISOString();
  const old=d.products.find(x=>x.id==='training-fish-betta');if(old&&old.name==='Betta'){const v=FISH.find(x=>x.id===old.id);Object.assign(old,{name:v.name,baseName:v.baseName,price:v.price,cost:v.cost});}
  for(const p of FISH){if(d.products.some(x=>x.id===p.id))continue;d.products.push({...p,actorId:actor,stockGroup:'general',demo:true});d.movements.unshift({id:'training-initial-'+p.id,productId:p.id,name:p.name,date:now,kind:'initial',qty:p.stock,before:0,after:p.stock,note:'Saldo Fictício de Treino',unit:p.unit});}
+ // O lote inicial de cada peixe novo é criado já (o app só faz isso sozinho ao abrir); sem ele o Estoque pedia Conferir Lotes.
+ try{window.TerritorioStockLots?.initializeLots(d);}catch(e){console.warn(e);}
  try{const list=window.TerritorioStockOrder.orderStockProducts(d.products.filter(p=>p.active!==false&&!p.archived)),keys=SM().orderSections(SM().sellSections(list,{typeOf:secTypeOf}),d.settings.sellSectionOrder).map(g=>g.key).filter(k=>k!=='Peixes Ornamentais'&&k!=='Piscicultura'),at=keys.indexOf('Hortifruti-Granjeiro');keys.splice(at<0?keys.length:at,0,'Peixes Ornamentais','Piscicultura');d.settings.sellSectionOrder=keys;}catch(e){console.warn(e);}
  d.settings.demoFishVersion=2;persist();})();
 // Dentro da seção "Peixes Ornamentais" o card não repete "Ornamental".
