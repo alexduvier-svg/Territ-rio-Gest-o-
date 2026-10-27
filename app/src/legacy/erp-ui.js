@@ -3417,7 +3417,7 @@ function sellSectionsView(){const items=productList(false);if(!items.length||!SM
  const key=groups.map(g=>g.key).join(',');if(key!==sellSec.key){sellSec.key=key;sellSec.open.clear();}
  sellSec.groups=groups;sellSec.open.forEach(k=>{if(!famTimers.has(k))famIdle(k);});const counts=SM().cartByGroup(groups,draft?.items||[]);
  return '<div class="fam-list">'+groups.map((g,i)=>{const open=sellSec.open.has(g.key),L=SM().sectionLayout(g.items,open);
-  return '<section class="fam glass-products-plane'+(open?' is-open':'')+'" data-fam="'+escape(g.key)+'"><span class="fam-grip" aria-hidden="true"></span><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
+  return '<section class="fam glass-products-plane'+(open?' is-open':'')+'" data-fam="'+escape(g.key)+'"><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
   +(L.mode==='rows'?'<div class="fam-rows">'+L.shown.map(sellRowHtml).join('')+'</div>'
    :'<div class="feira-grid">'+L.shown.map(p=>sellCardHtml(p)).join('')+L.extra.map(p=>sellCardHtml(p,true)).join('')+'</div>'
    +(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'" aria-label="'+escape(famMoreText(g,open,L.more))+'">'+famChev+'</button>':''))+'</section>';}).join('')+'</div>';}
@@ -3427,8 +3427,8 @@ const famQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matc
 // Segurar a borda de cima (o nome) ou a de baixo de uma seção e arrastar muda a seção de lugar: enquanto o dedo
 // segura, todas se recolhem ao nome (lista curta, fácil de ordenar) e voltam ao soltar. Os cards e as linhas
 // ficam de fora: neles, segurar continua sendo a venda de vários produtos.
-(()=>{const HOLD=380,GAP=12;let timer=null,sec=null,list=null,y0=0,x0=0,sc0=0,drag=false,lastY=0,swallowUntil=0;
- const edge=(t,y)=>{const f=t.closest?.('#app .fam-list .fam');if(!f||t.closest('.feira-card,.fam-row'))return null;if(t.closest('.fam-head,.fam-grip,.fam-more'))return f;const r=f.getBoundingClientRect();return y>r.bottom-36||y<r.top+20?f:null;};
+(()=>{const HOLD=380,GAP=12;let hooked=null,timer=null,sec=null,list=null,y0=0,x0=0,sc0=0,drag=false,lastY=0,swallowUntil=0;
+ const edge=(t,y)=>{const f=t.closest?.('#app .fam-list .fam');if(!f||t.closest('.feira-card,.fam-row'))return null;if(t.closest('.fam-head,.fam-more'))return f;const r=f.getBoundingClientRect();return y>r.bottom-36||y<r.top+20?f:null;};
  const reset=()=>{clearTimeout(timer);timer=null;};
  const off=()=>document.documentElement.classList.contains('multi-select')||document.documentElement.classList.contains('reorder-edit');
  const place=y=>{const dy=y-y0+(window.scrollY-sc0);sec.style.transform='translate3d(0,'+dy+'px,0) scale(1.015)';
@@ -3441,32 +3441,50 @@ const famQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matc
   const keys=[...list.querySelectorAll('.fam')].map(x=>x.dataset.fam),saved=model.data.settings.sellSectionOrder||[];
   model.data.settings.sellSectionOrder=[...keys,...saved.filter(k=>!keys.includes(k))];persist();swallowUntil=Date.now()+450;sec=null;drag=false;};
  document.addEventListener('touchstart',e=>{reset();if(drag||off()||page!=='Vender'||e.touches.length>1)return;const t=e.touches[0],f=edge(e.target,t.clientY);if(!f)return;
-  sec=f;list=f.parentElement;y0=lastY=t.clientY;x0=t.clientX;sc0=window.scrollY;
+  sec=f;list=f.parentElement;hooked=f;f.addEventListener('touchmove',block,{passive:false});y0=lastY=t.clientY;x0=t.clientX;sc0=window.scrollY;
   timer=setTimeout(()=>{timer=null;if(!sec)return;drag=true;const b=sec.getBoundingClientRect().top;sec.classList.add('is-lifted');document.documentElement.classList.add('fam-dragging');window.scrollBy(0,sec.getBoundingClientRect().top-b+(lastY-b-22));y0=lastY;sc0=window.scrollY;window.TerritorioHaptics?.tick?.();place(lastY);},HOLD);},{passive:true});
+ // Só a seção segurada bloqueia a rolagem, e só enquanto o dedo está nela (como em reorder.js): um ouvinte
+ // que bloqueia na página inteira faria o navegador esperar o app a cada movimento de rolagem.
+ const block=e=>{if(drag)e.preventDefault();};
  document.addEventListener('touchmove',e=>{const t=e.touches[0];if(!sec)return;lastY=t.clientY;
-  if(!drag){if(Math.abs(t.clientY-y0)>8||Math.abs(t.clientX-x0)>8){reset();sec=null;}return;}
-  e.preventDefault();if(t.clientY<110)window.scrollBy(0,-10);else if(t.clientY>innerHeight-150)window.scrollBy(0,10);place(t.clientY);},{passive:false});
- const end=()=>{reset();if(drag&&sec)finish();else sec=null;};
+  if(!drag){if(Math.abs(t.clientY-y0)>8||Math.abs(t.clientX-x0)>8){reset();unhook();sec=null;}return;}
+  if(t.clientY<110)window.scrollBy(0,-10);else if(t.clientY>innerHeight-150)window.scrollBy(0,10);place(t.clientY);},{passive:true});
+ const unhook=()=>{hooked?.removeEventListener('touchmove',block);hooked=null;};
+ const end=()=>{reset();unhook();if(drag&&sec)finish();else sec=null;};
  document.addEventListener('touchend',end,{passive:true});document.addEventListener('touchcancel',end,{passive:true});
  document.addEventListener('click',e=>{if(Date.now()<swallowUntil&&e.target.closest?.('#app .fam')){e.preventDefault();e.stopImmediatePropagation();}},true);
- document.addEventListener('contextmenu',e=>{if(e.target.closest?.('#app .fam-head,#app .fam-grip'))e.preventDefault();});})();
+ document.addEventListener('contextmenu',e=>{if(e.target.closest?.('#app .fam-head'))e.preventDefault();});})();
 // Setinha no fim da seção: mostra os outros pacotes (já montados, só escondidos) ou recolhe, sem refazer a tela.
 // Aberta, a seção se recolhe sozinha depois de FAM_IDLE sem toque nela (cada toque na seção recomeça a conta).
 const FAM_IDLE=20000,famTimers=new Map();
 function famIdle(k){clearTimeout(famTimers.get(k));if(!sellSec.open.has(k))return famTimers.delete(k);famTimers.set(k,setTimeout(()=>{famTimers.delete(k);const sec=[...document.querySelectorAll('#app .fam')].find(x=>x.dataset.fam===k);if(sec&&sellSec.open.has(k))famToggle(sec,k,false,{auto:true});else sellSec.open.delete(k);},FAM_IDLE));}
 // Mola do app (motion/engine.js) para os cards que aparecem: saltam para o lugar, passam um pouco e assentam
 // (a mesma mola de entrar numa aba).
-function famSpring(el,frame,{spring='open',delay=0}={}){const S=window.TerritorioSpring;if(!S||!el.animate)return;const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
- for(let k=0;k<n;k+=2)frames.push(frame(c.values[k]));frames.push(frame(1));el.animate(frames,{duration:c.duration,delay,easing:'linear',fill:'backwards'});}
+function famSpring(el,frame,{spring='open',delay=0}={}){const S=window.TerritorioSpring;if(!S||!el.animate)return null;const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
+ for(let k=0;k<n;k+=2)frames.push(frame(c.values[k]));frames.push(frame(1));return el.animate(frames,{duration:c.duration,delay,easing:'linear',fill:'backwards'});}
+// Abrir: os cards novos saltam com a mola e as seções de baixo acompanham. Fechar: os extras encolhem e
+// esmaecem (do último para o primeiro; por filtro, porque a opacidade dos cards é fixa no estilo); depois a seção diminui com a mola de fechar (sem quique), levando a
+// setinha junto, e as de baixo sobem com ela.
 function famToggle(sec,k,open,{auto=false}={}){const g=sellSec.groups.find(x=>x.key===k),t=sec.querySelector('[data-fam-more]');if(!g||!t)return;
- const top0=sec.getBoundingClientRect().top,h0=sec.offsetHeight,below=[];for(let n=sec.nextElementSibling;n;n=n.nextElementSibling){const r=n.getBoundingClientRect();if(r.top>innerHeight*2)break;below.push([n,r.top]);}
- if(open)sellSec.open.add(k);else sellSec.open.delete(k);sec.classList.toggle('is-open',open);t.setAttribute('aria-expanded',String(open));t.setAttribute('aria-label',famMoreText(g,open,SM().sectionLayout(g.items).more));famIdle(k);
- if(open){requestAnimationFrame(()=>window.TerritorioFitCards?.());if(!famQuiet())sec.querySelectorAll('.fam-extra').forEach((c,n)=>famSpring(c,v=>({opacity:Math.min(1,v*1.8),transform:'translate3d(0,'+(20*(1-v)).toFixed(2)+'px,0) scale('+(.88+.12*v).toFixed(4)+')'}),{spring:'tabEnter',delay:Math.min(n,5)*35}));}
- // As seções de baixo acompanham com a mesma mola em vez de pular de uma vez.
- if(!famQuiet()&&!(auto&&top0<0))below.forEach(([n,y])=>{const d=y-n.getBoundingClientRect().top;if(Math.abs(d)>1)famSpring(n,v=>({transform:'translate3d(0,'+(d*(1-v)).toFixed(2)+'px,0)'}),{spring:'section'});});
- else if(auto){if(top0<0)window.scrollBy(0,sec.offsetHeight-h0);}
- else if(top0<0)window.scrollBy({top:top0-80,behavior:famQuiet()?'auto':'smooth'});
- if(!auto&&!famQuiet())window.TerritorioHaptics?.tick?.();}
+ const quiet=famQuiet(),extras=()=>[...sec.querySelectorAll('.fam-extra')];
+ if(sec._famClosing){clearTimeout(sec._famClosing);sec._famClosing=null;sec.classList.remove('is-closing');extras().forEach(c=>c.getAnimations().forEach(x=>x.cancel()));}
+ const state=()=>{if(open)sellSec.open.add(k);else sellSec.open.delete(k);sec.classList.toggle('is-open',open);t.setAttribute('aria-expanded',String(open));t.setAttribute('aria-label',famMoreText(g,open,SM().sectionLayout(g.items).more));famIdle(k);};
+ if(open){const below=[];for(let n=sec.nextElementSibling;n;n=n.nextElementSibling){const r=n.getBoundingClientRect();if(r.top>innerHeight*2)break;below.push([n,r.top]);}
+  state();requestAnimationFrame(()=>window.TerritorioFitCards?.());
+  if(!quiet){extras().forEach((c,n)=>famSpring(c,v=>({filter:'opacity('+Math.min(1,v*1.8).toFixed(3)+')',transform:'translate3d(0,'+(20*(1-v)).toFixed(2)+'px,0) scale('+(.88+.12*v).toFixed(4)+')'}),{spring:'tabEnter',delay:Math.min(n,5)*35}));
+   below.forEach(([n,y])=>{const d=y-n.getBoundingClientRect().top;if(Math.abs(d)>1)famSpring(n,v=>({transform:'translate3d(0,'+(d*(1-v)).toFixed(2)+'px,0)'}),{spring:'section'});});}
+  if(!auto&&!quiet)window.TerritorioHaptics?.tick?.();return;}
+ const shrink=()=>{sec._famClosing=null;sec.classList.remove('is-closing');const top0=sec.getBoundingClientRect().top,h0=sec.offsetHeight,a0=t.getBoundingClientRect().top;
+  state();extras().forEach(c=>c.getAnimations().forEach(x=>x.cancel()));const h1=sec.offsetHeight,da=a0-t.getBoundingClientRect().top;
+  if(!quiet&&!(auto&&top0<0)){sec.style.overflow='hidden';const an=famSpring(sec,v=>({height:(h0+(h1-h0)*v).toFixed(1)+'px'}),{spring:'close'});famSpring(t,v=>({transform:'translate3d(0,'+(da*(1-v)).toFixed(2)+'px,0)'}),{spring:'close'});
+   if(an)an.onfinish=an.oncancel=()=>{sec.style.overflow='';};else sec.style.overflow='';}
+  if(auto){if(top0<0)window.scrollBy(0,h1-h0);}else if(top0<0)window.scrollBy({top:top0-80,behavior:quiet?'auto':'smooth'});};
+ const out=quiet?[]:extras().filter(c=>c.offsetParent);
+ if(!out.length){shrink();}
+ else{sec.classList.add('is-closing');t.setAttribute('aria-expanded','false');
+  out.forEach((c,i)=>c.animate([{filter:'opacity(1)',transform:'none'},{filter:'opacity(0)',transform:'translate3d(0,10px,0) scale(.9)'}],{duration:150,delay:(out.length-1-i)*20,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}));
+  sec._famClosing=setTimeout(shrink,150+(out.length-1)*20);}
+ if(!auto&&!quiet)window.TerritorioHaptics?.tick?.();}
 document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-fam-more]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();
  const sec=t.closest('.fam'),k=t.dataset.famMore;if(sec)famToggle(sec,k,!sellSec.open.has(k));},true);
 document.addEventListener('pointerdown',e=>{const sec=e.target.closest?.('#app .fam.is-open');if(sec)famIdle(sec.dataset.fam);},{capture:true,passive:true});
