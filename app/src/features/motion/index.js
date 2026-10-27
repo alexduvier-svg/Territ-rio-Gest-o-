@@ -500,7 +500,8 @@ function installDialogs() {
     const rect = dialog.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     state.morph = fresh ? usable(source) : state.morph;
-    state.compact = fresh ? dialog.dataset.kind === 'business' : state.compact;
+    // Every sheet, including Perfil, grows from the control that opened it and returns to it.
+    state.compact = false;
     let from;
     if (fresh && state.compact) from = { ...insightSheetGeometry(rect,source,limited()),opacity:0 };
     else if (fresh && usable(source)) from = launchPose(rect, source);

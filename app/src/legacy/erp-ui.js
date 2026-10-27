@@ -3700,10 +3700,14 @@ document.addEventListener('click',e=>{const add=e.target.closest?.('[data-contas
  const del=e.target.closest?.('[data-contas-extra-del]');if(del){e.preventDefault();const id=del.dataset.contasExtraDel;contasExtras(id).splice(Number(del.dataset.i),1);contasRepaintCard(id);}},true);
 document.addEventListener('input',e=>{const t=e.target;if(!t?.classList?.contains('cm-extra-name')&&!t?.classList?.contains('cm-extra-value'))return;const id=t.dataset.conta,x=contasExtras(id)[Number(t.dataset.i)];if(!x)return;if(t.classList.contains('cm-extra-name'))x.name=t.value;else{x.value=t.value;const out=document.getElementById('cm-out-'+id);if(out)out.innerHTML=contasResult(id);}});
 // --- Peixes ornamentais no exemplo (0.12.113) ---
-// Exemplos já carregados recebem os nove peixes uma única vez, com a entrada inicial de estoque.
-(()=>{const d=model.data;if(d.dataContext?.type!=='demo'||d.settings.demoFishAdded||!window.TerritorioTrainingFish)return;const actor=d.dataContext.id,now=new Date().toISOString();
- for(const p of window.TerritorioTrainingFish){if(d.products.some(x=>x.id===p.id))continue;d.products.push({...p,actorId:actor,stockGroup:'general',demo:true});d.movements.unshift({id:'training-initial-'+p.id,productId:p.id,name:p.name,date:now,kind:'initial',qty:p.stock,before:0,after:p.stock,note:'Saldo Fictício de Treino',unit:p.unit});}
- d.settings.demoFishAdded=true;persist();})();
+// Exemplos (novos ou já carregados) ficam com os peixes da lista atual uma única vez: entram os que faltam,
+// com a entrada inicial de estoque; o "Betta" antigo vira o Halfmoon; as seções de peixes sobem para
+// antes de Hortifruti (a ordem fica salva e a pessoa pode mudar depois).
+(()=>{const d=model.data,FISH=window.TerritorioTrainingFish;if(d.dataContext?.type!=='demo'||d.settings.demoFishVersion===2||!FISH)return;const actor=d.dataContext.id,now=new Date().toISOString();
+ const old=d.products.find(x=>x.id==='training-fish-betta');if(old&&old.name==='Betta'){const v=FISH.find(x=>x.id===old.id);Object.assign(old,{name:v.name,baseName:v.baseName,price:v.price,cost:v.cost});}
+ for(const p of FISH){if(d.products.some(x=>x.id===p.id))continue;d.products.push({...p,actorId:actor,stockGroup:'general',demo:true});d.movements.unshift({id:'training-initial-'+p.id,productId:p.id,name:p.name,date:now,kind:'initial',qty:p.stock,before:0,after:p.stock,note:'Saldo Fictício de Treino',unit:p.unit});}
+ try{const list=window.TerritorioStockOrder.orderStockProducts(d.products.filter(p=>p.active!==false&&!p.archived)),keys=SM().orderSections(SM().sellSections(list,{typeOf:secTypeOf}),d.settings.sellSectionOrder).map(g=>g.key).filter(k=>k!=='Peixes Ornamentais'&&k!=='Piscicultura'),at=keys.indexOf('Hortifruti-Granjeiro');keys.splice(at<0?keys.length:at,0,'Peixes Ornamentais','Piscicultura');d.settings.sellSectionOrder=keys;}catch(e){console.warn(e);}
+ d.settings.demoFishVersion=2;persist();})();
 // Dentro da seção "Peixes Ornamentais" o card não repete "Ornamental".
 const sellingCardDescriptionBeforeFish=sellingCardDescription;
 sellingCardDescription=function(p){const t=sellingCardDescriptionBeforeFish(p);return p?.category==='Piscicultura'&&p.type==='Ornamental'?String(t).replace(/^Ornamental( · )?/,'')||'Vivo':t;};

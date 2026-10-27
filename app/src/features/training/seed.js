@@ -1,8 +1,14 @@
 import {standardCoffeeModels,roastCode} from '../coffee.js';
 import * as Suppliers from '../suppliers/model.js';
 // Peixes ornamentais de exemplo (vivos, por unidade). Preços e custos fictícios.
-export const DEMO_FISH=[['betta','Betta',2500],['guppy','Guppy',800],['kinguio','Kinguio',1500],['molinesia','Molinésia',900],['plati','Plati',800],['tetra-neon','Tetra Neon',600],['acara-bandeira','Acará-bandeira',1800],['corydoras','Corydoras',1500],['carpa-koi','Carpa Koi',4500]]
- .map(([k,name,price])=>({id:'training-fish-'+k,baseName:name,name,category:'Piscicultura',type:'Ornamental',format:'Vivo',unit:'Unidade',stock:10,min:2,price,cost:Math.round(price*.5)}));
+export const DEMO_FISH=[
+ // Ornamentais: nove variedades de betta e outros oito peixes, vivos e por unidade.
+ ...[['betta','Betta Halfmoon',3500],['betta-plakat','Betta Plakat',2800],['betta-crowntail','Betta Crowntail',3000],['betta-veu','Betta Véu',2000],['betta-orelha-de-elefante','Betta Orelha de Elefante',4500],['betta-koi','Betta Koi',4000],['betta-cauda-dupla','Betta Cauda Dupla',3200],['betta-gigante','Betta Gigante',4200],['betta-femea','Betta Fêmea',1500],
+  ['guppy','Guppy',800],['kinguio','Kinguio',1500],['molinesia','Molinésia',900],['plati','Plati',800],['tetra-neon','Tetra Neon',600],['acara-bandeira','Acará-bandeira',1800],['corydoras','Corydoras',1500],['carpa-koi','Carpa Koi',4500]]
+  .map(([k,name,price])=>({id:'training-fish-'+k,baseName:name,name,category:'Piscicultura',type:'Ornamental',format:'Vivo',unit:'Unidade',stock:k.startsWith('betta')?6:10,min:2,price,cost:Math.round(price*.5)})),
+ // Para consumo: três peixes inteiros, por quilo.
+ ...[['tilapia','Tilápia',2200],['tambaqui','Tambaqui',2800],['pacu','Pacu',2600]]
+  .map(([k,name,price])=>({id:'training-fish-'+k,baseName:name,name,category:'Piscicultura',type:'Para consumo',format:'Inteiro',unit:'kg',stock:15,min:3,price,cost:Math.round(price*.55)}))];
 export function trainingData({id,appearance='system',largeText=false,reduceEffects=false,performanceMode='auto',mode='examples',selected=[],now=new Date().toISOString()}={}){
  if(!id)throw Error('Identificação do treino ausente.');
  const prices={Especial:[2500,4500,6500],Gourmet:[1800,3000,5500],Superior:[1600,2800,5000],Tradicional:[1200,2200,4000]};
