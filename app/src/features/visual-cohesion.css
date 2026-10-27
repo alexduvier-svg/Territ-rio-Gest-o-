@@ -90,3 +90,23 @@ dialog .mg-sup-row{display:flex;align-items:center;gap:12px;min-height:56px;padd
 dialog .mg-sup-row>span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
 dialog .mg-sup-row small{font-size:13px;color:var(--material-muted,var(--muted))}
 @media (max-width: 359px){#app .topbar.has-tools .profile-pill>span,#app .topbar.has-tools .profile-pill>.icon{display:none}#app .topbar.has-tools .profile-pill{padding-right:4px}}
+
+/* Topo com o título (0.12.120): título à esquerda, ícones e a foto do produtor à direita, numa linha. */
+#app .topbar.title-topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:6px 0 18px}
+#app .title-topbar .title-slot{display:flex;align-items:center;gap:6px;min-width:0;flex:1}
+#app .title-topbar .title-slot>.stock-title{display:flex;align-items:center;min-width:0}
+#app .title-topbar h1{margin:0;font-size:clamp(30px,9.5vw,40px);line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#app .title-topbar .top-actions{display:flex;align-items:center;gap:8px;flex:none}
+#app .title-topbar .avatar-only{width:44px;height:44px;padding:0;border-radius:22px;overflow:hidden}
+#app .title-topbar .avatar-only img{width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
+@media (max-width: 359px){#app .title-topbar .top-actions{gap:4px}#app .title-topbar .top-actions .round{width:40px;height:40px;min-width:40px;min-height:40px}#app .title-topbar h1{font-size:27px}}
+/* Título com menu (Estoque ▾ / Fornecedores ▾): a setinha nunca encosta no texto, o nome encolhe primeiro. */
+#app .title-topbar h1.stock-area-title{overflow:visible;font-size:clamp(24px,7.4vw,32px)}
+#app .title-topbar .stock-area-switch{max-width:100%;min-width:0}
+#app .title-topbar .stock-area-switch>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#app .title-topbar .title-slot>.stock-title{flex:1}
+#app .title-topbar .stock-area-title .stock-area-switch{font-size:clamp(24px,7.2vw,31px)!important;gap:4px}
+#app .title-topbar .stock-area-title .stock-area-switch{font-size:clamp(21px,6.8vw,30px)!important}
+@media (max-width: 359px){#app .title-topbar{gap:6px}#app .title-topbar .top-actions .round{width:38px;height:38px;min-width:38px;min-height:38px}#app .title-topbar .stock-area-switch>.icon{width:16px;height:16px}}
+@media (max-width: 379px){#app .title-topbar{gap:6px}#app .title-topbar .top-actions{gap:4px}#app .title-topbar .top-actions .round{width:38px;height:38px;min-width:38px;min-height:38px}#app .title-topbar .stock-area-switch>.icon{width:16px;height:16px}#app .title-topbar .stock-area-title .stock-area-switch{font-size:clamp(20px,6.5vw,30px)!important;gap:2px}}
+@media (max-width: 339px){#app .title-topbar .stock-area-title .stock-area-switch{letter-spacing:-.04em;font-size:20px!important}}

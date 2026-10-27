@@ -3172,7 +3172,7 @@ actions['event-loss-back']=({id})=>{closeModal();reviewEventLosses(id);};
 
 // The stock/supplier switch selects one surface; it never mounts a second ERP.
 const stockBeforeSuppliers=stockPage;
-stockPage=function(){const s=window.TerritorioSuppliers;return s?.active()?(typeof topWithTools==='function'?topWithTools(s.header()):s.header())+s.page():stockBeforeSuppliers().replace('<h1>Estoque</h1>',s?s.heading('Estoque'):'<h1>Estoque</h1>').replace('<p class="feira-stock-hint">Toque + para repor.</p>',s?s.modeControl():'<p class="feira-stock-hint">Toque + para repor.</p>');};
+stockPage=function(){const s=window.TerritorioSuppliers;return s?.active()?(typeof topWithTools==='function'?titleTop(topWithTools(s.header())):s.header())+s.page():stockBeforeSuppliers().replace('<h1>Estoque</h1>',s?s.heading('Estoque'):'<h1>Estoque</h1>').replace('<p class="feira-stock-hint">Toque + para repor.</p>',s?s.modeControl():'<p class="feira-stock-hint">Toque + para repor.</p>');};
 CSV_TYPES.push(['suppliers','Fornecedores'],['supplierquotes','Cotações de Fornecedores'],['supplierpurchases','Compras de Fornecedores']);
 exportGroups.push(['Fornecedores e Cotações',['suppliers','supplierquotes','supplierpurchases']]);
 const csvBeforeSuppliers=csvRows;csvRows=function(kind){if(['suppliers','supplierquotes','supplierpurchases'].includes(kind)){const r=window.TerritorioSuppliers.exportRows();return kind==='suppliers'?r.suppliers:kind==='supplierquotes'?r.quotes:r.purchases;}return csvBeforeSuppliers(kind);};
@@ -3779,6 +3779,18 @@ document.addEventListener('click',e=>{if(e.target.closest?.('#nav [data-page="Es
 let sellReturnScroll=null;
 document.addEventListener('click',e=>{if(page==='Vender'&&e.target.closest?.('#app [data-action="sell-product"]'))sellReturnScroll=window.scrollY;},true);
 for(const name of ['cancel-sale','back-sale']){const before=actions[name];if(typeof before!=='function')continue;actions[name]=function(...args){const y=sellReturnScroll,out=before.apply(this,args);if(page==='Vender'&&y!==null){window.scrollTo(0,y);sellReturnScroll=null;}return out;};}
+// --- Topo com o título (0.12.120) ---
+// Uma linha só: o título da aba à esquerda (no lugar da pílula do produtor) e, à direita, os ícones da aba com
+// a foto do produtor por último (só a foto). O que vinha depois do topo (contexto de vendas etc.) continua.
+const avatarButton=()=>{const st=model.data.settings,name=st.producerName||'Seu perfil';return btn('profile','<img src="'+escape(st.photo||PROFILE_PHOTO)+'" alt="">','round avatar-only').replace('<button ','<button aria-label="'+escape('Perfil de '+name)+'" ');};
+function titleTop(html){const t=document.createElement('template');t.innerHTML=html;const kids=[...t.content.children],bar=kids.find(x=>x.classList?.contains('topbar'));if(!bar)return html;
+ const title=kids.find(x=>x.classList?.contains('page-title'))||kids.find(x=>x.classList?.contains('stock-heading'));if(!title)return html;
+ const actions=[...(bar.querySelector('.top-actions')?.children||[])].map(x=>x.outerHTML).join('');
+ const slot=title.classList.contains('stock-heading')?(title.querySelector('.stock-title')?.outerHTML||title.innerHTML):title.innerHTML;
+ const extra=kids.filter(x=>x!==bar&&x!==title).map(x=>x.outerHTML).join('');
+ return '<div class="topbar title-topbar"><div class="title-slot">'+slot+'</div><div class="top-actions">'+actions+avatarButton()+'</div></div>'+extra;}
+const topBeforeTitle=top;
+top=function(){return titleTop(topBeforeTitle());};
 render();
 })();
 
