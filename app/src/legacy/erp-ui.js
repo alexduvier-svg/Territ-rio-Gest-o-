@@ -3461,8 +3461,8 @@ const FAM_IDLE=20000,famTimers=new Map();
 function famIdle(k){clearTimeout(famTimers.get(k));if(!sellSec.open.has(k))return famTimers.delete(k);famTimers.set(k,setTimeout(()=>{famTimers.delete(k);const sec=[...document.querySelectorAll('#app .fam')].find(x=>x.dataset.fam===k);if(sec&&sellSec.open.has(k))famToggle(sec,k,false,{auto:true});else sellSec.open.delete(k);},FAM_IDLE));}
 // Mola do app (motion/engine.js) para os cards que aparecem: saltam para o lugar, passam um pouco e assentam
 // (a mesma mola de entrar numa aba).
-function famSpring(el,frame,{spring='open',delay=0}={}){const S=window.TerritorioSpring;if(!S||!el.animate)return null;const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
- for(let k=0;k<n;k+=2)frames.push(frame(c.values[k]));frames.push(frame(1));return el.animate(frames,{duration:c.duration,delay,easing:'linear',fill:'backwards'});}
+function famSpring(el,frame,{spring='open',delay=0,pseudo}={}){const S=window.TerritorioSpring;if(!S||!el.animate)return null;const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
+ for(let k=0;k<n;k+=2)frames.push(frame(c.values[k]));frames.push(frame(1));return el.animate(frames,{duration:c.duration,delay,easing:'linear',fill:'backwards',...(pseudo?{pseudoElement:pseudo}:{})});}
 // Abrir: os cards novos saltam com a mola e as seções de baixo acompanham. Fechar: ver abaixo. O esmaecer é
 // por filtro, porque a opacidade dos cards é fixa no estilo.
 function famToggle(sec,k,open,{auto=false}={}){const g=sellSec.groups.find(x=>x.key===k),t=sec.querySelector('[data-fam-more]');if(!g||!t)return;
@@ -3483,15 +3483,17 @@ function famToggle(sec,k,open,{auto=false}={}){const g=sellSec.groups.find(x=>x.
  sec.classList.remove('is-open');const h1=sec.offsetHeight;
  sellSec.open.delete(k);t.setAttribute('aria-expanded','false');t.setAttribute('aria-label',famMoreText(g,false,SM().sectionLayout(g.items).more));famIdle(k);
  if(quiet||(auto&&top0<0)){if(auto&&top0<0)window.scrollBy(0,h1-h0);return;}
- const cs=getComputedStyle(sec),ease='cubic-bezier(.2,.9,.25,1)',ms=300;
+ // Mola leve (a mesma dos cards que saltam ao abrir): fundo, seta, tracinho e seções de baixo seguem a mesma
+ // curva, passam um pouquinho e assentam juntos.
+ const cs=getComputedStyle(sec),SP='tabEnter',r=h1/h0;
  sec.style.setProperty('--fam-h0',h0+'px');sec.style.setProperty('--fam-bg',cs.backgroundImage!=='none'?cs.backgroundImage+','+cs.backgroundColor:cs.backgroundColor);sec.style.setProperty('--fam-bd',cs.borderTopColor);sec.style.setProperty('--fam-sh',cs.boxShadow);sec.style.setProperty('--fam-r',cs.borderTopLeftRadius);
  sec.classList.add('is-closing');ghosts.forEach(x=>sec.append(x));
- const anims=[sec.animate([{transform:'scaleY(1)'},{transform:'scaleY('+(h1/h0).toFixed(4)+')'}],{duration:ms,easing:ease,pseudoElement:'::before'})];
- const da=a0-t.getBoundingClientRect().top;if(Math.abs(da)>1)[t,sec.querySelector('.fam-map')].filter(Boolean).forEach(el=>anims.push(el.animate([{transform:'translate3d(0,'+da+'px,0)'},{transform:'none'}],{duration:ms,easing:ease})));
- below.forEach(([n,y])=>{const d=y-n.getBoundingClientRect().top;if(Math.abs(d)>1)anims.push(n.animate([{transform:'translate3d(0,'+d+'px,0)'},{transform:'none'}],{duration:ms,easing:ease}));});
+ const anims=[famSpring(sec,v=>({transform:'scaleY('+(1+(r-1)*v).toFixed(4)+')'}),{spring:SP,pseudo:'::before'})].filter(Boolean);
+ const da=a0-t.getBoundingClientRect().top;if(Math.abs(da)>1)[t,sec.querySelector('.fam-map')].filter(Boolean).forEach(el=>anims.push(famSpring(el,v=>({transform:'translate3d(0,'+(da*(1-v)).toFixed(2)+'px,0)'}),{spring:SP})));
+ below.forEach(([n,y])=>{const d=y-n.getBoundingClientRect().top;if(Math.abs(d)>1)anims.push(famSpring(n,v=>({transform:'translate3d(0,'+(d*(1-v)).toFixed(2)+'px,0)'}),{spring:SP}));});
  ghosts.forEach((x,i)=>x.animate([{filter:'opacity(1)',transform:'none'},{filter:'opacity(0)',transform:'translate3d(0,-6px,0) scale(.95)'}],{duration:170,delay:i*15,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}));
  const done=()=>{if(sec._famAnim!==anims[0])return;sec._famAnim=null;sec.classList.remove('is-closing');ghosts.forEach(x=>x.remove());['--fam-h0','--fam-bg','--fam-bd','--fam-sh','--fam-r'].forEach(p=>sec.style.removeProperty(p));};
- sec._famAnim=anims[0];sec._famStop=()=>{anims.forEach(x=>x.cancel());ghosts.forEach(x=>x.remove());};anims[0].onfinish=done;anims[0].oncancel=done;
+ if(!anims[0]){ghosts.forEach(x=>x.remove());sec.classList.remove('is-closing');return;}sec._famAnim=anims[0];sec._famStop=()=>{anims.forEach(x=>x?.cancel());ghosts.forEach(x=>x.remove());};anims[0].onfinish=done;anims[0].oncancel=done;
  if(!auto&&top0<0)window.scrollBy({top:top0-80,behavior:'smooth'});
  if(!auto)window.TerritorioHaptics?.tick?.();}
 document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-fam-more]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();

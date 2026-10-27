@@ -83,13 +83,10 @@ export function installWorkflows(){
  },{capture:true,passive:true});
  document.addEventListener('click',event=>{
   const card=event.target.closest?.('#app [data-action="sell-product"]');if(!card||card.disabled||b.page()!=='Vender'||window.TerritorioSelection?.active())return;
-  // Toques no cartão: 1 abre a venda, 2 mostram o estoque dele (segurar abre a seleção de vários).
-  // O 1º toque espera TAP_GAP por um próximo (o cartão já afunda ao toque); o 2º age na hora.
-  event.preventDefault();event.stopImmediatePropagation();const id=card.dataset.id,now=Date.now();
-  if(tap&&tap.id===id&&(tap.armed||now-tap.at<TAP_GAP)){clearTimeout(tap.timer);tap.count++;tap.at=now;}
-  else{if(tap){clearTimeout(tap.timer);resolveTaps(tap);}tap={id,count:1,at:now,timer:0};}
-  if(tap.count>=2){const done=tap;tap=null;serial++;b.actions['stock-peek']({id:done.id});return;}
-  const current=++serial,pending=tap;pending.timer=setTimeout(()=>{if(current!==serial||tap!==pending)return;tap=null;resolveTaps(pending);},TAP_GAP);
+  // Um toque no cartão abre a venda na hora (é o gesto mais usado; o produtor pediu que abra como a folha
+  // do histórico, sem espera). Segurar continua abrindo a seleção de vários. O toque duplo não espia mais
+  // o estoque: a tela de venda já mostra o disponível.
+  event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['sell-product']({id:card.dataset.id});
  },true);
  let zeroTap=null;document.addEventListener('pointerup',event=>{const card=event.target.closest?.('#app [data-action="sell-product"][disabled]');if(!card||b.page()!=='Vender')return;const id=card.dataset.id;if(zeroTap?.id===id&&Date.now()-zeroTap.at<320){zeroTap=null;b.actions['stock-peek']({id});}else zeroTap={id,at:Date.now()};},true);
  document.addEventListener('keydown',event=>{const card=event.target.closest?.('body > #app [data-action="sell-product"]');if(card&&(event.key==='ContextMenu'||event.shiftKey&&event.key==='Enter')){event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['stock-peek']({id:card.dataset.id});}},true);

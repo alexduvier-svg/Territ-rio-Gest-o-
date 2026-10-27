@@ -85,3 +85,12 @@ dialog .fam-thumb{-webkit-user-select:none;user-select:none;-webkit-touch-callou
 dialog .fam-thumb.is-lifted{position:relative;z-index:3;box-shadow:0 16px 34px -14px rgba(20,30,45,.5),var(--material-depth,none)}
 :root[data-theme=dark] dialog .fam-thumb.is-lifted{box-shadow:0 16px 34px -12px rgba(0,0,0,.85),var(--material-depth,none)}
 :root:not([data-theme=dark]) #app .fam-more{color:color-mix(in srgb,var(--material-muted,var(--muted)) 62%,transparent)}
+/* Nos cards de café das seções a sigla (TC/TM/TE) fica na 1ª linha, à direita de "Café", e o tipo na 2ª:
+   todos os nomes de café ocupam duas linhas e os cards ficam da mesma altura em todas as seções. */
+:root[data-theme][data-layout] #app .fam .feira-card>strong.coffee-card-title{display:grid!important;grid-template-columns:minmax(0,1fr) auto;column-gap:4px;align-items:baseline;align-self:stretch;width:100%}
+#app .fam .coffee-card-title>.cn-rest{display:contents}
+#app .fam .coffee-card-title>.cn-first{grid-column:1;grid-row:1}
+#app .fam .coffee-card-title .coffee-roast-code{grid-column:2;grid-row:1}
+#app .fam .coffee-card-title .cn-second{grid-column:1/-1;grid-row:2;min-width:0;overflow-wrap:anywhere}
+/* Na compra múltipla a bolinha de marcar desce para o canto de baixo, ao lado do preço (a sigla fica em cima). */
+.multi-select #app .fam [data-action='sell-product']::after,.multi-leaving #app .fam [data-action='sell-product']::after{top:auto;bottom:8px}

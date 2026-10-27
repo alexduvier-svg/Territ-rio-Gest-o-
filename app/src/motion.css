@@ -157,6 +157,11 @@ html[data-app-inactive] #app .draft-resume,html[data-app-inactive] #app .draft-r
 .fluid-page-morph-surface { position: absolute; inset: 0; overflow: hidden; background: var(--page-morph-bg, #000); }
 .fluid-page-morph-layer.is-front .fluid-page-morph-surface { border-radius: 30px; box-shadow: 0 18px 60px rgb(0 0 0 / 34%); }
 :root[data-theme='light'] .fluid-page-morph-layer.is-front .fluid-page-morph-surface { box-shadow: 0 18px 60px rgb(36 45 55 / 22%); }
+/* Opening from a card: a sheet surface grows from the card (same spring as the content) over the dimmed
+   page; it reaches past the screen edges so its rounded corners never show at rest. */
+.fluid-card-scrim { position: absolute; inset: 0; background: #000; opacity: 0; }
+.fluid-card-sheet { position: absolute; inset: -28px; border-radius: 44px; background: var(--page-morph-bg, #000); box-shadow: 0 18px 60px rgb(0 0 0 / 30%); }
+:root[data-theme='light'] .fluid-card-sheet { box-shadow: 0 18px 60px rgb(36 45 55 / 20%); }
 .fluid-page-morph-context { position: absolute !important; margin: 0 !important; max-width: none !important; min-height: 0 !important; box-sizing: border-box; }
 
 /* Returning from a nested sheet: the nested sheet shrinks into its row above the restored parent,

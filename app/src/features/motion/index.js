@@ -276,9 +276,19 @@ function installPageTransitions(listen) {
         return;
       }
       if (usable(source) && !source.insideDialog) {
-        if (lift) t.handles.push(animate(lift.surface, { from: REST, to: { x: 0, y: 0, scale: limited() ? 1.02 : 1.06, opacity: 0 }, spring: spring('page'), shape: dissolve(0, 0.5), origin: `${source.cx}px ${source.cy}px`, onFinish: done }));
+        // A tap on a card opens the page the way the sheets open from their icon: one surface grows from the
+        // card with the opening spring, the content grows inside it, and the page behind only recedes and dims.
         const entry = launchPose(view, source);
-        t.handles.push(...arrivePage(app, entry, center, 'page'));
+        if (lift) {
+          const sheet = document.createElement('div'), scrim = document.createElement('div');
+          sheet.className = 'fluid-card-sheet'; scrim.className = 'fluid-card-scrim';
+          sheet.style.setProperty('--page-morph-bg', getComputedStyle(document.body).backgroundColor);
+          lift.layer.append(scrim, sheet);
+          t.handles.push(animate(scrim, { from: { x: 0, y: 0, scale: 1, opacity: 0 }, to: { x: 0, y: 0, scale: 1, opacity: limited() ? 0.08 : 0.14 }, spring: spring('open') }));
+          t.handles.push(animate(sheet, { from: { ...entry, opacity: 1 }, to: REST, spring: spring('open') }));
+          t.handles.push(animate(lift.surface, { from: REST, to: { x: 0, y: 0, scale: limited() ? 0.995 : 0.975, opacity: 1 }, spring: spring('open'), onFinish: done }));
+        }
+        t.handles.push(...arrivePage(app, entry, center, 'open'));
         if (!lift) t.handles.at(-1)?.finished.then(done);
         return;
       }
