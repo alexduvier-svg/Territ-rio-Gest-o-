@@ -3573,6 +3573,20 @@ top=function(){
  return topBeforeStandard();};
 // Exemplos antigos: o produtor fictício ganha o nome que aparece no retrato.
 if(model.data.dataContext?.type==='demo'&&model.data.settings.producerName==='Produtor de Exemplo'){model.data.settings.producerName='Luiz Claudio';persist();}
+// --- Janela de cliente no padrão do app (0.12.111) ---
+const CLIENT_SECTIONS={'Identificação':['<path d="M4 6h16v12H4z"/><circle cx="9" cy="11" r="2.2"/><path d="M6.5 15.5c.6-1.5 1.5-2.2 2.5-2.2s1.9.7 2.5 2.2M14 10h4M14 13h3"/>','Como o cliente vai aparecer nas vendas.'],
+ 'Localidade':['<path d="M12 21s-6-5.4-6-10a6 6 0 0 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/>','Para avisar das feiras perto dele.'],
+ 'Autorizações':['<path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="m9 12 2 2 4-4"/>','Só marque se o cliente concordou.']};
+const paintCustomerBeforeLook=paintCustomer;
+paintCustomer=function(){paintCustomerBeforeLook();const d=document.getElementById('dialog');if(!d?.querySelector('.client-editor-layout'))return;
+ d.querySelector('.client-editor-layout').classList.add('client-editor-look');
+ d.querySelectorAll('.client-editor-layout > .client-form-surface > h3').forEach(h=>{const k=h.textContent.trim(),meta=CLIENT_SECTIONS[k];if(!meta||h.querySelector('.cfs-icon'))return;
+  h.outerHTML='<header class="cfs-head"><span class="cfs-icon" aria-hidden="true"><svg viewBox="0 0 24 24">'+meta[0]+'</svg></span><span class="cfs-text"><h3>'+escape(k)+'</h3><small>'+escape(meta[1])+'</small></span></header>';});
+ const sel=d.querySelector('#client-type');if(sel&&!d.querySelector('.client-type-seg')){const lab=d.querySelector('label[for="client-type"]');sel.hidden=true;
+  const seg=document.createElement('div');seg.className='client-type-seg';seg.setAttribute('role','radiogroup');seg.setAttribute('aria-label','Tipo de cliente');
+  seg.innerHTML=[['PF','Pessoa física'],['PJ','Empresa · CNPJ']].map(([v,t])=>'<button type="button" role="radio" data-client-type="'+v+'" aria-checked="'+(sel.value===v)+'"'+(sel.value===v?' class="is-on"':'')+'>'+t+'</button>').join('');
+  sel.after(seg);if(lab)lab.setAttribute('id','client-type-label'),seg.setAttribute('aria-labelledby','client-type-label');}};
+document.addEventListener('click',e=>{const b=e.target.closest?.('#dialog [data-client-type]');if(!b)return;e.preventDefault();const sel=document.getElementById('client-type');if(!sel||sel.value===b.dataset.clientType)return;sel.value=b.dataset.clientType;sel.dispatchEvent(new Event('change',{bubbles:true}));},true);
 render();
 })();
 
