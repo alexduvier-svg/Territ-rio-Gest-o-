@@ -2,8 +2,8 @@
    embaixo), sem sombra pesada, para manter a página leve. Cada seção é opaca: a de baixo não deixa ver a de cima. */
 :root{--sec-face:linear-gradient(180deg,#f7f9fc,#e9eef4 64px,#e6ebf2);--sec-relief:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -1px 0 rgba(120,135,150,.10),0 3px 0 -1px rgba(120,135,150,.22),0 10px 22px -18px rgba(30,40,55,.40)}
 :root[data-theme=dark]{--sec-face:linear-gradient(180deg,#2e3135,#25272b 64px,#232529);--sec-relief:inset 0 1px 0 rgba(255,255,255,.07),inset 0 -1px 0 rgba(0,0,0,.30),0 3px 0 -1px rgba(0,0,0,.45),0 12px 24px -18px rgba(0,0,0,.70)}
-#app .sec-area{position:relative;margin-top:2px;overflow:hidden;transition:height .44s cubic-bezier(.2,1.12,.3,1);contain:layout paint}
-#app .sec{position:absolute;left:0;right:0;top:0;padding:0!important;background:var(--sec-face)!important;border-radius:24px!important;border:1px solid var(--material-line);box-shadow:var(--sec-relief)!important;overflow:hidden;transition:transform .44s cubic-bezier(.2,1.12,.3,1);will-change:transform}
+#app .sec-area{position:relative;margin-top:2px;overflow:hidden;transition:height .42s cubic-bezier(.25,.8,.25,1);contain:layout paint}
+#app .sec{position:absolute;left:0;right:0;top:0;padding:0!important;background:var(--sec-face)!important;border-radius:24px!important;border:1px solid var(--material-line);box-shadow:var(--sec-relief)!important;overflow:hidden;transform-origin:50% 0;will-change:transform}
 #app .sec-head{display:flex;align-items:center;gap:10px;width:100%;height:50px;min-height:50px;padding:0 16px;margin:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--material-text,var(--text));text-align:left;font:inherit;cursor:pointer}
 #app .sec-head b{flex:1;font:700 17px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em}
 #app .sec-head small{font:600 13px/1.2 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted));white-space:nowrap}

@@ -3422,14 +3422,35 @@ feiraSellList=function(){try{const v=sellSectionsView();if(v)return v;}catch(e){
 // Posições: as de cima viram faixas de 12 px atrás da aberta; a aberta mostra a grade inteira; as de baixo,
 // só o nome, logo depois dela. A altura da área acompanha a seção aberta (a página rola normalmente).
 const SEC_PEEK=12,SEC_HEAD=50;
-function secLayout(){const area=document.querySelector('#app .sec-area');if(!area)return;const a=sellSec.active,n=sellSec.groups.length,secs=[...area.querySelectorAll('.sec')],open=secs[a];if(!open)return;
- const bodyH=open.querySelector('.sec-body').scrollHeight,topA=a*SEC_PEEK,afterA=topA+SEC_HEAD+bodyH;
- secs.forEach((el,i)=>{const y=i<a?i*SEC_PEEK:i===a?topA:afterA+(i-a-1)*SEC_HEAD;el.style.transform='translate3d(0,'+y+'px,0)';el.style.zIndex=String(i<a?i:i===a?n:n+i);el.classList.toggle('is-active',i===a);el.classList.toggle('is-behind',i<a);el.querySelector('.sec-head').setAttribute('aria-expanded',String(i===a));});
- area.style.height=(afterA+(n-1-a)*SEC_HEAD+2)+'px';}
+// Posições: as de cima ficam atrás como faixas de 12 px, um pouco recolhidas (escala 0,985), dando
+// profundidade; a aberta mostra a grade inteira; as de baixo, só o nome. Devolve a posição de cada seção.
+const SEC_BACK=.985;
+const secPose=(y,back)=>'translate3d(0,'+y+'px,0)'+(back?' scale('+SEC_BACK+')':'');
+function secLayout(){const area=document.querySelector('#app .sec-area');if(!area)return [];const a=sellSec.active,n=sellSec.groups.length,secs=[...area.querySelectorAll('.sec')],open=secs[a];if(!open)return [];
+ const bodyH=open.querySelector('.sec-body').scrollHeight,topA=a*SEC_PEEK,afterA=topA+SEC_HEAD+bodyH,out=[];
+ secs.forEach((el,i)=>{const y=i<a?i*SEC_PEEK:i===a?topA:afterA+(i-a-1)*SEC_HEAD;el.style.transform=secPose(y,i<a);el.style.zIndex=String(i<a?i:i===a?n:n+i);el.classList.toggle('is-active',i===a);el.classList.toggle('is-behind',i<a);el.querySelector('.sec-head').setAttribute('aria-expanded',String(i===a));out.push({el,y,back:i<a});});
+ area.style.height=(afterA+(n-1-a)*SEC_HEAD+2)+'px';return out;}
 const secQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
-function secOpen(i,{silent=false}={}){const n=sellSec.groups.length;if(!n)return;i=Math.max(0,Math.min(i,n-1));const changed=i!==sellSec.active;sellSec.active=i;
- document.querySelectorAll('#app [data-sec-lazy]').forEach(el=>{const k=+el.dataset.secLazy;if(secNear(k))el.outerHTML=secBody(k);});secLayout();
- const area=document.querySelector('#app .sec-area');if(area&&changed){const top=area.getBoundingClientRect().top+window.scrollY-90;if(window.scrollY>top)window.scrollTo({top:Math.max(0,top),behavior:secQuiet()?'auto':'smooth'});}
+// Abrir uma seção: a que sobe dá um salto leve (sobe, cresce um quase nada e assenta por cima); a que fica
+// coberta recua de leve; as de baixo acompanham em sequência curta. Só deslocamento e escala, no compositor.
+const secY=el=>{const m=new DOMMatrix(getComputedStyle(el).transform);return {y:m.m42,s:m.a||1};};
+// Quadros da mola: a posição segue a curva da mola do app (passa um pouquinho e assenta); "lift" faz a
+// seção crescer um quase nada no meio do salto e voltar ao tamanho certo.
+function secSpring(el,from,to,{spring='open',lift=0,delay=0}={}){const S=window.TerritorioSpring;if(!S){el.animate([{transform:secPose(from.y,from.s<1)},{transform:secPose(to.y,to.back)}],{duration:420,easing:'cubic-bezier(.25,.8,.25,1)',delay,fill:'backwards'});return;}
+ const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
+ for(let k=0;k<n;k+=2){const v=c.values[k],t=k/(n-1),sc=(from.s+((to.back?SEC_BACK:1)-from.s)*Math.min(1,v))+lift*Math.sin(Math.PI*Math.min(1,t*1.6));frames.push({transform:'translate3d(0,'+(from.y+(to.y-from.y)*v).toFixed(2)+'px,0) scale('+sc.toFixed(4)+')'});}
+ frames.push({transform:secPose(to.y,to.back)});el.animate(frames,{duration:c.duration,easing:'linear',delay,fill:'backwards'});}
+function secOpen(i,{silent=false}={}){const n=sellSec.groups.length;if(!n)return;i=Math.max(0,Math.min(i,n-1));const from=sellSec.active,changed=i!==from;sellSec.active=i;
+ document.querySelectorAll('#app [data-sec-lazy]').forEach(el=>{const k=+el.dataset.secLazy;if(secNear(k))el.outerHTML=secBody(k);});
+ const area=document.querySelector('#app .sec-area'),before=area?[...area.querySelectorAll('.sec')].map(secY):[];
+ area?.getAnimations?.().forEach(x=>x.cancel());area?.querySelectorAll('.sec').forEach(el=>el.getAnimations?.().forEach(x=>x.cancel()));
+ const poses=secLayout();
+ if(changed&&!secQuiet()&&poses.length&&typeof Element.prototype.animate==='function'){const up=i>from,soft='cubic-bezier(.25,.8,.25,1)';
+  poses.forEach(({el,y,back},k)=>{const b=before[k];if(!b)return;if(Math.abs(b.y-y)<.5&&Math.abs(b.s-(back?SEC_BACK:1))<.001)return;const to={y,back};
+   if(k===i)secSpring(el,b,to,{spring:up?'open':'section',lift:up?.012:0});
+   else if(k===from)secSpring(el,b,to,{spring:'close'});
+   else secSpring(el,b,to,{spring:'section',delay:Math.min(Math.abs(k-i),5)*18});});}
+ if(area&&changed){const top=area.getBoundingClientRect().top+window.scrollY-90;if(window.scrollY>top)window.scrollTo({top:Math.max(0,top),behavior:secQuiet()?'auto':'smooth'});}
  if(changed&&!silent&&!secQuiet())window.TerritorioHaptics?.tick?.();}
 const renderBeforeSections=render;
 render=function(...args){const out=renderBeforeSections.apply(this,args);if(document.querySelector('#app .sec-area'))secLayout();return out;};
@@ -3441,7 +3462,7 @@ document.addEventListener('click',e=>{const t=e.target.closest?.('#nav [data-pag
 // não rolou durante o gesto (no topo da seção), para não brigar com a rolagem normal.
 (()=>{let y0=null,x0=null,s0=0,t0=0;
  document.addEventListener('touchstart',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-active');if(!sec||sellSec.active<1)return;y0=e.touches[0].clientY;x0=e.touches[0].clientX;s0=window.scrollY;t0=Date.now();},{passive:true});
- document.addEventListener('touchmove',e=>{if(y0===null)return;const dy=e.touches[0].clientY-y0,area=document.querySelector('#app .sec-area .sec.is-active');if(dy>0&&window.scrollY===s0&&area){area.style.transition='none';area.style.transform='translate3d(0,'+(sellSec.active*SEC_PEEK+Math.min(dy*.5,90))+'px,0)';}},{passive:true});
+ document.addEventListener('touchmove',e=>{if(y0===null)return;const dy=e.touches[0].clientY-y0,area=document.querySelector('#app .sec-area .sec.is-active');if(dy>0&&window.scrollY===s0&&area){area.style.transition='none';area.style.transform=secPose(sellSec.active*SEC_PEEK+Math.min(dy*.5,90),false);}},{passive:true});
  document.addEventListener('touchend',e=>{if(y0===null)return;const dy=e.changedTouches[0].clientY-y0,dx=Math.abs(e.changedTouches[0].clientX-x0),still=window.scrollY===s0;y0=null;const open=document.querySelector('#app .sec-area .sec.is-active');if(open)open.style.transition='';if(still&&dy>70&&dx<dy*.6&&Date.now()-t0<900)secOpen(sellSec.active-1);else secLayout();},{passive:true});})();
 // A faixa fina da seção que ficou por baixo também abre ao toque (área de toque maior que a faixa).
 document.addEventListener('click',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-behind');if(!sec)return;e.preventDefault();e.stopImmediatePropagation();secOpen(+sec.dataset.i);},true);

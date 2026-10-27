@@ -76,6 +76,7 @@ import { runAudit } from './features/finance/audit.js';
 import * as ProducerCalcs from './features/finance/producer-calcs.js';
 import './features/producer-calcs.css';
 import * as SellModes from './features/sell-modes/model.js';
+import { springCurve as motionSpringCurve, SPRINGS as MOTION_SPRINGS } from './features/motion/engine.js';
 import './features/sell-modes/sell-modes.css';
 import { API } from './features/server.js';
 import * as FairReport from './features/fair-report.js';
@@ -147,6 +148,7 @@ try {
   window.TerritorioRecoveryInspect = inspectRecovery;
   window.TerritorioFinance = { ...Finance, ...ProducerCalcs, runAudit };
   window.TerritorioSellModes = SellModes;
+  window.TerritorioSpring = Object.freeze({ curve: motionSpringCurve, SPRINGS: MOTION_SPRINGS });
   window.TerritorioReceivables = Receivables;
   window.TerritorioSaleRound = SaleRound;
   window.TerritorioRestockSymbol = restockSymbol;
