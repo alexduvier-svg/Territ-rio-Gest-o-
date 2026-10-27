@@ -3396,115 +3396,53 @@ window.TerritorioShell.openCostDraft=({kind,title,cents,day})=>{closeModal();pag
 window.TerritorioShell.openQuickCompare=()=>{closeModal();calculatorState.mode='contas';calculatorState.contas.open='fornecedores';paintCalculator();};
 // Exemplos como dados do app: grava e reabre o app para as preparações de sempre (lotes, memória, guias).
 window.TerritorioShell.loadExampleData=async data=>{model=new E.ERPModel(data);draft=null;if(!persist())throw Error('Não foi possível salvar os exemplos.');if(window.TerritorioNative?.durable)await window.TerritorioNative.durable();welcomeLeaving=true;closeModal();location.reload();};
-// --- Tela de vendas em seções (AGRO Gestão Claude 0.12.94) ---
-// A grade de sempre, dividida em seções (cada tipo de café; os outros produtos pela categoria), só do que foi
-// cadastrado e na ordem do Estoque. A seção aberta mostra a sua grade inteira; as seguintes aparecem embaixo
-// só com o nome. Tocar no nome de uma seção faz ela subir e se sobrepor à aberta (que vira uma faixa fina no
-// alto); as de baixo sobem junto. Até 9 produtos, ou uma seção só, fica a grade simples de antes.
-// Regras puras em src/features/sell-modes/model.js. Leveza: só a seção aberta e as vizinhas ficam montadas,
-// e o movimento usa apenas deslocamento. Volta à primeira seção ao tocar em Vender e ao concluir ou cancelar.
+// --- Tela de vendas em seções (AGRO Gestão Claude 0.12.101) ---
+// A página de cards de sempre, dividida em seções de família, uma embaixo da outra (cada tipo de café; os outros
+// produtos pela categoria), só do que foi cadastrado e na ordem do Estoque. De 3 produtos em diante a seção é a
+// grade de sempre com 6 à mostra e uma setinha no fim para os outros pacotes; até 2, linhas largas como as do
+// Estoque. Uma família só fica a grade simples. Regras puras em src/features/sell-modes/model.js.
 const SM=()=>window.TerritorioSellModes;
-let sellSec={active:0,hadDraft:false,key:'',groups:[],fan:false};
-function sellCardHtml(p){const out=!canSelectProduct(p.id),code=window.TerritorioCoffee.roastCode(p);return btn(out?'restock-product-card':'sell-product','<strong'+(code?' class="coffee-card-title"':'')+'>'+cardName(titleName(p.name),code)+'</strong>'+cardDetail(sellingCardDescription(p))+(out?'<em class="card-out">Sem estoque</em>'+window.TerritorioRestockSymbol():cardPrice(p.price)),'feira-card'+(out?' is-out':''),{id:p.id}).replace('class="feira-card','aria-label="'+escape((out?'Repor Estoque de ':'Vender ')+titleName(window.TerritorioCoffee.coffeeName(p))+' · '+sellingCardDescription(p))+'" class="feira-card');}
-const secNear=i=>Math.abs(i-sellSec.active)<=1;
-const secBody=i=>{const g=sellSec.groups[i];return g?'<div class="feira-grid">'+g.items.map(sellCardHtml).join('')+'</div>':'';};
+let sellSec={open:new Set(),hadDraft:false,key:'',groups:[]};
+const sellOut=p=>!canSelectProduct(p.id);
+const sellLabel=p=>escape((sellOut(p)?'Repor Estoque de ':'Vender ')+titleName(window.TerritorioCoffee.coffeeName(p))+' · '+sellingCardDescription(p));
+function sellCardHtml(p,extra){const out=sellOut(p),code=window.TerritorioCoffee.roastCode(p);return btn(out?'restock-product-card':'sell-product','<strong'+(code?' class="coffee-card-title"':'')+'>'+cardName(titleName(p.name),code)+'</strong>'+cardDetail(sellingCardDescription(p))+(out?'<em class="card-out">Sem estoque</em>'+window.TerritorioRestockSymbol():cardPrice(p.price)),'feira-card'+(out?' is-out':'')+(extra?' fam-extra':''),{id:p.id}).replace('class="feira-card','aria-label="'+sellLabel(p)+'" class="feira-card');}
+function sellRowHtml(p){const out=sellOut(p),code=window.TerritorioCoffee.roastCode(p);return btn(out?'restock-product-card':'sell-product','<span class="fam-row-t"><strong>'+cardName(titleName(p.name),code)+'</strong><small>'+escape(sellingCardDescription(p))+'</small></span><span class="fam-row-p">'+(out?'<em class="card-out">Sem estoque</em>'+window.TerritorioRestockSymbol():cardPrice(p.price))+'</span>','fam-row'+(out?' is-out':''),{id:p.id}).replace('class="fam-row','aria-label="'+sellLabel(p)+'" class="fam-row');}
 const secTypeOf=p=>p.category==='Cafés'?(p.type||''):'';
+const famMoreText=(g,open,more)=>open?'Mostrar menos':'Mais '+more+' '+(g.key.startsWith('Café ')?(more===1?'pacote':'pacotes'):(more===1?'produto':'produtos'));
+const famChev='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 function sellSectionsView(){const items=productList(false);if(!items.length||!SM())return null;
  const list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM().sellSections(list,{typeOf:secTypeOf});
  if(!SM().useSections(groups))return null;
- const has=!!draft;if(sellSec.hadDraft&&!has)sellSec.active=0;sellSec.hadDraft=has;
- const key=groups.map(g=>g.key+':'+g.items.length).join(',');if(key!==sellSec.key){sellSec.key=key;sellSec.active=0;}
- sellSec.groups=groups;sellSec.active=SM().clampActive(sellSec.active,groups);
- const counts=SM().cartByGroup(groups,draft?.items||[]),chev='<svg class="sec-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
- return '<div class="sec-area">'+groups.map((g,i)=>'<section class="sec glass-products-plane'+(i===sellSec.active?' is-active':'')+(i>0?' has-prev':'')+'" data-i="'+i+'">'+(i>0?'<button type="button" class="sec-back" data-sec-back="'+(i-1)+'" aria-label="'+escape('Voltar para '+groups[i-1].label)+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>':'')+'<button type="button" class="sec-head" data-sec-open="'+i+'" aria-expanded="'+(i===sellSec.active)+'"><b>'+escape(g.label)+'</b><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small>'+chev+'</button><div class="sec-body">'+(secNear(i)?secBody(i):'<div data-sec-lazy="'+i+'"></div>')+'</div></section>').join('')+'</div>';}
+ const has=!!draft;if(sellSec.hadDraft&&!has)sellSec.open.clear();sellSec.hadDraft=has;
+ const key=groups.map(g=>g.key).join(',');if(key!==sellSec.key){sellSec.key=key;sellSec.open.clear();}
+ sellSec.groups=groups;const counts=SM().cartByGroup(groups,draft?.items||[]);
+ return '<div class="fam-list">'+groups.map((g,i)=>{const open=sellSec.open.has(g.key),L=SM().sectionLayout(g.items,open);
+  return '<section class="fam glass-products-plane'+(open?' is-open':'')+'" data-fam="'+escape(g.key)+'"><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
+  +(L.mode==='rows'?'<div class="fam-rows">'+L.shown.map(sellRowHtml).join('')+'</div>'
+   :'<div class="feira-grid">'+L.shown.map(p=>sellCardHtml(p)).join('')+L.extra.map(p=>sellCardHtml(p,true)).join('')+'</div>'
+   +(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'">'+famChev+'<span>'+famMoreText(g,open,L.more)+'</span></button>':''))+'</section>';}).join('')+'</div>';}
 const sellListBeforeSections=feiraSellList;
 feiraSellList=function(){try{const v=sellSectionsView();if(v)return v;}catch(e){console.error(e);}sellSec.key='';return sellListBeforeSections();};
-// Posições: as de cima viram faixas de 12 px atrás da aberta; a aberta mostra a grade inteira; as de baixo,
-// só o nome, logo depois dela. A altura da área acompanha a seção aberta (a página rola normalmente).
-const SEC_PEEK=10,SEC_HEAD=44;
-// Posições: as de cima ficam atrás como faixas de 12 px, um pouco recolhidas (escala 0,985), dando
-// profundidade; a aberta mostra a grade inteira; as de baixo, só o nome. Devolve a posição de cada seção.
-const SEC_BACK=.985;
-const secPose=(y,back)=>'translate3d(0,'+y+'px,0)'+(back?' scale('+SEC_BACK+')':'');
-function secLayout(){const area=document.querySelector('#app .sec-area');if(!area)return [];const a=sellSec.active,n=sellSec.groups.length,secs=[...area.querySelectorAll('.sec')],open=secs[a];if(!open)return [];
- const fan=!!sellSec.fan,pitch=fan?SEC_HEAD:SEC_PEEK,bodyH=open.querySelector('.sec-body').scrollHeight,topA=a*pitch,afterA=topA+SEC_HEAD+bodyH,out=[];area.classList.toggle('is-fan',fan);
- secs.forEach((el,i)=>{const y=i<a?i*pitch:i===a?topA:afterA+(i-a-1)*SEC_HEAD;el.style.transform=secPose(y,i<a&&!fan);el.style.zIndex=String(i<a?i:i===a?n:n+i);el.classList.toggle('is-active',i===a);el.classList.toggle('is-behind',i<a);el.querySelector('.sec-head').setAttribute('aria-expanded',String(i===a));out.push({el,y,back:i<a&&!fan});});
- area.style.height=(afterA+(n-1-a)*SEC_HEAD+2)+'px';secMinis(area,secs,a);return out;}
-// Páginas numeradas embaixo das seções (todas, na ordem do Estoque; a aberta marcada): ocupam o vazio
-// quando a aberta é curta e levam a qualquer seção com um toque. Só refaz quando a aberta muda.
-function secMinis(area,secs,a){let m=area.nextElementSibling;if(!m?.classList.contains('sec-minis')){m=document.createElement('div');m.className='sec-minis';area.after(m);}
- if(m.dataset.a===String(a))return;m.dataset.a=String(a);
- const fresh=!m.childElementCount;
- m.innerHTML='<p class="sec-minis-title">Seções</p><div class="sec-minis-grid">'+secs.map((el,i)=>'<button type="button" class="sec-mini'+(i===a?' is-current':'')+'" data-sec-mini="'+i+'"'+(i===a?' aria-current="true"':'')+'><span class="sec-mini-n">'+(i+1)+'</span><span class="sec-mini-t"><b>'+escape(sellSec.groups[i].label)+'</b><small>'+(el.querySelector('.sec-head small')?.innerHTML||'')+'</small></span></button>').join('')+'</div>';
- if(!fresh)return;
- if(!secQuiet()&&m.animate)[...m.querySelectorAll('.sec-mini')].forEach((b,k)=>b.animate([{opacity:0,transform:'translate3d(0,8px,0)'},{opacity:1,transform:'none'}],{duration:220,delay:120+Math.min(k,6)*30,easing:'cubic-bezier(.25,.8,.25,1)',fill:'backwards'}));}
-const secQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
-// Abrir uma seção: a que sobe dá um salto leve (sobe, cresce um quase nada e assenta por cima); a que fica
-// coberta recua de leve; as de baixo acompanham em sequência curta. Só deslocamento e escala, no compositor.
-const secY=el=>{const m=new DOMMatrix(getComputedStyle(el).transform);return {y:m.m42,s:m.a||1};};
-// Quadros da mola: a posição segue a curva da mola do app (passa um pouquinho e assenta); "lift" faz a
-// seção crescer um quase nada no meio do salto e voltar ao tamanho certo.
-function secSpring(el,from,to,{spring='open',lift=0,delay=0}={}){const S=window.TerritorioSpring;if(!S){el.animate([{transform:secPose(from.y,from.s<1)},{transform:secPose(to.y,to.back)}],{duration:420,easing:'cubic-bezier(.25,.8,.25,1)',delay,fill:'backwards'});return;}
- const c=S.curve(S.SPRINGS[spring]||S.SPRINGS.open),n=c.values.length,frames=[];
- for(let k=0;k<n;k+=2){const v=c.values[k],t=k/(n-1),sc=(from.s+((to.back?SEC_BACK:1)-from.s)*Math.min(1,v))+lift*Math.sin(Math.PI*Math.min(1,t*1.6));frames.push({transform:'translate3d(0,'+(from.y+(to.y-from.y)*v).toFixed(2)+'px,0) scale('+sc.toFixed(4)+')'});}
- frames.push({transform:secPose(to.y,to.back)});el.animate(frames,{duration:c.duration,easing:'linear',delay,fill:'backwards'});}
-// Abre ou fecha o leque das seções de trás, com a mola de seção.
-function secFan(on){const area=document.querySelector('#app .sec-area');if(!area||!!sellSec.fan===on)return;const secs=[...area.querySelectorAll('.sec')],before=secs.map(secY);
- secs.forEach(el=>el.getAnimations?.().forEach(x=>x.cancel()));sellSec.fan=on;const poses=secLayout();
- if(!secQuiet()&&typeof Element.prototype.animate==='function')poses.forEach(({el,y,back},k)=>{const b=before[k];if(b&&Math.abs(b.y-y)>.5)secSpring(el,b,{y,back},{spring:'section',delay:on?Math.min(Math.abs(sellSec.active-k),6)*14:0});});
- if(on&&!secQuiet())window.TerritorioHaptics?.tick?.();}
-function secOpen(i,{silent=false}={}){const n=sellSec.groups.length;if(!n)return;sellSec.fan=false;i=Math.max(0,Math.min(i,n-1));const from=sellSec.active,changed=i!==from;sellSec.active=i;
- document.querySelectorAll('#app [data-sec-lazy]').forEach(el=>{const k=+el.dataset.secLazy;if(secNear(k))el.outerHTML=secBody(k);});
- const area=document.querySelector('#app .sec-area'),before=area?[...area.querySelectorAll('.sec')].map(secY):[];
- area?.getAnimations?.().forEach(x=>x.cancel());area?.querySelectorAll('.sec').forEach(el=>el.getAnimations?.().forEach(x=>x.cancel()));
- const poses=secLayout();
- if(changed&&!secQuiet()&&poses.length&&typeof Element.prototype.animate==='function'){const up=i>from,soft='cubic-bezier(.25,.8,.25,1)';
-  poses.forEach(({el,y,back},k)=>{const b=before[k];if(!b)return;if(Math.abs(b.y-y)<.5&&Math.abs(b.s-(back?SEC_BACK:1))<.001)return;const to={y,back};
-   if(k===i)secSpring(el,b,to,{spring:up?'open':'section',lift:up?.012:0});
-   else if(k===from)secSpring(el,b,to,{spring:'close'});
-   else secSpring(el,b,to,{spring:'section',delay:Math.min(Math.abs(k-i),5)*18});});}
- if(area&&changed){const top=area.getBoundingClientRect().top+window.scrollY-90;if(window.scrollY>top)window.scrollTo({top:Math.max(0,top),behavior:secQuiet()?'auto':'smooth'});}
- if(changed&&!silent&&!secQuiet())window.TerritorioHaptics?.tick?.();}
-const renderBeforeSections=render;
-render=function(...args){const out=renderBeforeSections.apply(this,args);if(document.querySelector('#app .sec-area'))secLayout();return out;};
-window.addEventListener('resize',()=>requestAnimationFrame(secLayout),{passive:true});
-document.addEventListener('click',e=>{const mini=e.target.closest?.('#app [data-sec-mini]');if(mini){e.preventDefault();e.stopImmediatePropagation();secOpen(+mini.dataset.secMini);return;}const back=e.target.closest?.('#app [data-sec-back]');if(back){e.preventDefault();e.stopImmediatePropagation();secOpen(+back.dataset.secBack);return;}const t=e.target.closest?.('#app [data-sec-open]');if(!t)return;e.preventDefault();if(t.closest('.sec')?.classList.contains('is-behind')&&!sellSec.fan&&sellSec.active>1){e.stopImmediatePropagation();secFan(true);return;}secOpen(+t.dataset.secOpen);},true);
-// Tocar em "Vender" quando já está em Vender: primeira seção e topo.
-document.addEventListener('click',e=>{const t=e.target.closest?.('#nav [data-page="Vender"]');if(!t||page!=='Vender'||!document.querySelector('#app .sec-area'))return;e.preventDefault();e.stopImmediatePropagation();window.scrollTo({top:0});secOpen(0);},true);
-// Voltar para a seção anterior: empurrar a aberta para baixo (só com a página parada, para não brigar com a
-// rolagem; quanto mais puxa, mais volta) ou com o polegar: para a direita volta, para a esquerda avança.
-(()=>{let y0=null,x0=null,s0=0,t0=0,dir=null,el=null,lx=0,lt=0,vx=0,hint=null,hintText='',ly=0;
- const still=()=>s0<=1||window.scrollY===s0;
- const side=dx=>{const t=dx>0?sellSec.active-1:sellSec.active+1;return t>=0&&t<sellSec.groups.length?t:-1;};
- const steps=dy=>dy<60?0:Math.min(sellSec.active,1+Math.floor((dy-60)/70));
- const showHint=k=>{if(!hint)return;hint.textContent=k?'Soltar: '+sellSec.groups[sellSec.active-k].label:hintText;hint.classList.toggle('sec-cart',!!k);};
- const dropHint=()=>{if(hint){hint.textContent=hintText;hint.classList.remove('sec-cart');}hint=null;};
- const fade=dx=>String(Math.max(.15,1-Math.abs(dx)/((el?.offsetWidth||360)*.6)).toFixed(3));
- const pose=(dx,dy)=>dir==='x'?'translate3d('+dx+'px,'+(sellSec.active*SEC_PEEK)+'px,0) rotate('+(dx/50).toFixed(2)+'deg)':secPose(sellSec.active*SEC_PEEK+150*(1-Math.exp(-Math.max(0,dy)/260)),false);
- document.addEventListener('touchstart',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-active');if(!sec||sellSec.groups.length<2||e.target.closest('.sec-back')){y0=null;return;}if(sellSec.fan)secFan(false);el=sec;dir=null;vx=0;y0=e.touches[0].clientY;x0=lx=e.touches[0].clientX;s0=window.scrollY;ly=0;t0=lt=Date.now();hint=sec.querySelector('.sec-head small');hintText=hint?.textContent||'';},{passive:true});
- document.addEventListener('touchmove',e=>{if(y0===null||!el)return;const p=e.touches[0],dy=p.clientY-y0,dx=p.clientX-x0,now=Date.now();if(now>lt){vx=(p.clientX-lx)/(now-lt);lx=p.clientX;lt=now;}
-  if(!dir&&(Math.abs(dx)>8||Math.abs(dy)>10))dir=Math.abs(dx)>Math.abs(dy)*1.1?'x':'y';
-  if(dir==='x'){const free=side(dx)>=0;el.style.transform=pose(free?dx:dx*.2,dy);if(!secQuiet())el.style.opacity=free?fade(dx):'';}else if(dir==='y'&&dy>0&&still()){ly=dy;el.style.transform=pose(dx,dy);showHint(steps(dy));}},{passive:true});
- document.addEventListener('touchend',e=>{if(y0===null||!el)return;const dy=e.changedTouches[0].clientY-y0,dx=e.changedTouches[0].clientX-x0,sec=el,d=dir;y0=null;el=null;dir=null;dropHint();
-  if(d==='x'&&(Math.abs(dx)>44||(Math.abs(dx)>16&&Math.abs(vx)>.3))&&side(dx||vx)>=0){const sign=(dx||vx)>0?1:-1,W=sec.offsetWidth,target=side(dx||vx),done=()=>{sec.style.opacity='0';secOpen(target);sec.style.opacity='';if(!secQuiet()&&sec.animate)sec.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out'});};
-   if(!secQuiet()&&sec.animate){const a=sec.animate([{transform:pose(dx,0),opacity:sec.style.opacity||1},{transform:'translate3d('+sign*W*.55+'px,'+(sellSec.active*SEC_PEEK)+'px,0) rotate('+sign*4+'deg)',opacity:0}],{duration:160,easing:'cubic-bezier(.2,.6,.4,1)',fill:'forwards'});a.onfinish=done;}else done();return;}
-  sec.style.opacity='';
-  if(d==='y'&&still()&&steps(dy)&&Math.abs(dx)<dy*.7){secOpen(sellSec.active-steps(dy));return;}
-  secLayout();},{passive:true});
- document.addEventListener('touchcancel',()=>{dropHint();if(el&&dir==='y'&&steps(ly)){el.style.opacity='';const k=steps(ly);y0=null;el=null;dir=null;secOpen(sellSec.active-k);return;}if(el){el.style.opacity='';y0=null;el=null;dir=null;secLayout();}},{passive:true});})();
-// A faixa fina da seção que ficou por baixo também abre ao toque (área de toque maior que a faixa).
-document.addEventListener('click',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-behind');if(!sec){if(sellSec.fan)secFan(false);return;}e.preventDefault();e.stopImmediatePropagation();if(!sellSec.fan&&sellSec.active>1)secFan(true);else secOpen(+sec.dataset.i);},true);
+const famQuiet=()=>document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Setinha no fim da seção: mostra os outros pacotes (já montados, só escondidos) ou recolhe, sem refazer a tela.
+document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-fam-more]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();
+ const sec=t.closest('.fam'),k=t.dataset.famMore,g=sellSec.groups.find(x=>x.key===k);if(!sec||!g)return;const open=!sellSec.open.has(k);
+ if(open)sellSec.open.add(k);else sellSec.open.delete(k);sec.classList.toggle('is-open',open);t.setAttribute('aria-expanded',String(open));
+ t.querySelector('span').textContent=famMoreText(g,open,SM().sectionLayout(g.items).more);
+ if(open&&!famQuiet())sec.querySelectorAll('.fam-extra').forEach((c,n)=>c.animate?.([{opacity:0,transform:'translate3d(0,-6px,0)'},{opacity:1,transform:'none'}],{duration:220,delay:Math.min(n,5)*24,easing:'cubic-bezier(.25,.8,.25,1)',fill:'backwards'}));
+ if(!open){const top=sec.getBoundingClientRect().top;if(top<0)window.scrollBy({top:top-80,behavior:famQuiet()?'auto':'smooth'});}
+ if(!famQuiet())window.TerritorioHaptics?.tick?.();},true);
 // O "+" da venda lista por seção, com o carrinho de cada uma e o nome com a sigla da torra.
 function addProductList(){const items=productList(false),list=soldOutLast(window.TerritorioStockOrder.orderStockProducts(items)),groups=SM()?SM().sellSections(list,{typeOf:secTypeOf}):[{key:'',label:'',items:list}],counts=SM()?SM().cartByGroup(groups,draft?.items||[]):[];
  const row=p=>btn('pick-sale-product','<span><strong>'+escape(contasName(p))+'</strong><small>'+E.quantity(sellingAvailableStock(p.id))+' disponíveis</small></span><span>'+E.money(p.price)+'</span>','list-row',{id:p.id},!canSelectProduct(p.id));
  if(groups.length<2)return '<div class="modal-list">'+list.map(row).join('')+'</div>';
  return groups.map(g=>'<section class="sec-pick-group"><h3>'+escape(g.label)+(counts[groups.indexOf(g)]?' <small class="sec-cart">'+counts[groups.indexOf(g)]+' no carrinho</small>':'')+'</h3><div class="sec-pick-rows">'+g.items.map(row).join('')+'</div></section>').join('');}
 actions['sale-add-product']=()=>openModal('Adicionar Produto',addProductList(),'pick-product');
-// Com seções, sai a linha "Área de vendas" para as seções começarem mais acima; o tempo vai para a barra da
-// Loja (o módulo do tempo coloca o seu botão no primeiro .glass-sales-toolbar que encontrar).
+// Com seções, sai a frase "Área de vendas" (cada seção já tem o seu nome) e o tempo fica sozinho, no centro,
+// numa linha mais baixa, para os cards subirem.
 const sellPageBeforeSectionTop=feiraSellPage;
-feiraSellPage=function(){const html=sellPageBeforeSectionTop.apply(this,arguments);if(!html.includes('class="sec-area"'))return html;
- return html.replace('<div class="glass-area-row">','<div class="glass-area-row sec-hidden" aria-hidden="true">').replace('<p class="glass-area-label">Área de vendas</p>','').replace(/(<button[^>]*data-action="weekly-sales")/,'<span class="glass-sales-toolbar sec-wx"></span>$1');};
+feiraSellPage=function(){const html=sellPageBeforeSectionTop.apply(this,arguments);if(!html.includes('class="fam-list"'))return html;
+ return html.replace('<div class="glass-area-row">','<div class="glass-area-row fam-wx-row">').replace('<p class="glass-area-label">Área de vendas</p>','');};
 if(sellPage===sellPageBeforeSectionTop)sellPage=feiraSellPage;
 render();
 })();
