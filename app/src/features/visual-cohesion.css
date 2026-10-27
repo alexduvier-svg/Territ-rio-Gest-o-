@@ -117,5 +117,6 @@ dialog .mg-sup-row small{font-size:13px;color:var(--material-muted,var(--muted))
 /* 320px: os títulos de abas com três botões (Clientes) cabem inteiros. */
 @media (max-width: 339px){#app .title-topbar h1:not(.stock-area-title){font-size:25px;letter-spacing:-.03em}}
 
-/* Foto do produtor em preto e branco até a pessoa ligar "Foto colorida" em Aparência (0.12.121). */
-html:not([data-photo-color="true"]) :is(.avatar-only,.producer-photo-field) img{filter:grayscale(1)}
+
+/* Ícone de perfil no topo (0.12.122): mesmo botão redondo e mesmo traço dos outros ícones do topo; a foto real
+   fica só na janela do Perfil. */
