@@ -3782,14 +3782,16 @@ for(const name of ['cancel-sale','back-sale']){const before=actions[name];if(typ
 // --- Topo com o título (0.12.120) ---
 // Uma linha só: o título da aba à esquerda (no lugar da pílula do produtor) e, à direita, os ícones da aba com
 // a foto do produtor por último (só a foto). O que vinha depois do topo (contexto de vendas etc.) continua.
-paths.profileUser='<circle cx="12" cy="12" r="9.6"/><circle cx="12" cy="9.5" r="3.1"/><path d="M7.4 18.6v-1.5a2.6 2.6 0 0 1 2.6-2.6h4a2.6 2.6 0 0 1 2.6 2.6v1.5"/>';
+paths.profileUser='<circle cx="12" cy="12" r="10.2"/><circle cx="12" cy="9.3" r="3.6"/><path d="M6.6 19.6v-1.8a3 3 0 0 1 3-3h4.8a3 3 0 0 1 3 3v1.8"/>';
 const avatarButton=()=>{const st=model.data.settings,name=st.producerName||'Seu perfil';return btn('profile',icon('profileUser'),'round profile-icon').replace('<button ','<button aria-label="'+escape('Perfil de '+name)+'" ');};
 function titleTop(html){const t=document.createElement('template');t.innerHTML=html;const kids=[...t.content.children],bar=kids.find(x=>x.classList?.contains('topbar'));if(!bar)return html;
  const title=kids.find(x=>x.classList?.contains('page-title'))||kids.find(x=>x.classList?.contains('stock-heading'));if(!title)return html;
  const actions=[...(bar.querySelector('.top-actions')?.children||[])].map(x=>x.outerHTML).join('');
  const slot=title.classList.contains('stock-heading')?(title.querySelector('.stock-title')?.outerHTML||title.innerHTML):title.innerHTML;
  const extra=kids.filter(x=>x!==bar&&x!==title).map(x=>x.outerHTML).join('');
- return '<div class="topbar title-topbar"><div class="title-slot">'+slot+'</div><div class="top-actions">'+actions+(page==='Vender'?avatarButton():'')+'</div></div>'+extra;}
+ return '<div class="topbar title-topbar"><div class="title-slot">'+slot+'</div><div class="top-actions">'+(page==='Vender'?topWithAvatar(actions):actions)+'</div></div>'+extra;}
+// Em Produtos o perfil fica no meio e os Ajustes no canto.
+function topWithAvatar(actions){const at=actions.indexOf('data-action="settings"');if(at<0)return actions+avatarButton();const start=actions.lastIndexOf('<button',at);return actions.slice(0,start)+avatarButton()+actions.slice(start);}
 const topBeforeTitle=top;
 top=function(){return titleTop(topBeforeTitle());};
 render();
