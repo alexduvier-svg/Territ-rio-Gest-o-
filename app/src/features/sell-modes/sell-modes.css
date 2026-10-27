@@ -28,3 +28,10 @@ dialog .sec-pick-rows button{padding:14px 6px}
 #app .sec-body{padding-bottom:8px}
 @media (max-width: 359px){#app .glass-sales-location .sec-wx .weather-pill span{display:none}#app .glass-sales-location .sec-wx .weather-pill{padding:0 2px}}
 @media (max-width: 359px){#app:has(.sec-area) .glass-sales-location{padding-left:8px;padding-right:6px;gap:2px}}
+
+/* Botão discreto "‹" à esquerda do nome da seção aberta: volta para a anterior. */
+#app .sec-back{display:none;position:absolute;left:4px;top:0;z-index:2;width:44px;height:44px;margin:0;padding:0;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--material-muted,var(--muted));align-items:center;justify-content:center;cursor:pointer}
+#app .sec-back svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+#app .sec.is-active.has-prev .sec-back{display:flex}
+#app .sec.is-active.has-prev .sec-head{padding-left:44px}
+#app .sec{touch-action:pan-y}

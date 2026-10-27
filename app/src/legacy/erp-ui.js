@@ -3416,7 +3416,7 @@ function sellSectionsView(){const items=productList(false);if(!items.length||!SM
  const key=groups.map(g=>g.key+':'+g.items.length).join(',');if(key!==sellSec.key){sellSec.key=key;sellSec.active=0;}
  sellSec.groups=groups;sellSec.active=SM().clampActive(sellSec.active,groups);
  const counts=SM().cartByGroup(groups,draft?.items||[]),chev='<svg class="sec-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
- return '<div class="sec-area">'+groups.map((g,i)=>'<section class="sec glass-products-plane'+(i===sellSec.active?' is-active':'')+'" data-i="'+i+'"><button type="button" class="sec-head" data-sec-open="'+i+'" aria-expanded="'+(i===sellSec.active)+'"><b>'+escape(g.label)+'</b><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small>'+chev+'</button><div class="sec-body">'+(secNear(i)?secBody(i):'<div data-sec-lazy="'+i+'"></div>')+'</div></section>').join('')+'</div>';}
+ return '<div class="sec-area">'+groups.map((g,i)=>'<section class="sec glass-products-plane'+(i===sellSec.active?' is-active':'')+(i>0?' has-prev':'')+'" data-i="'+i+'">'+(i>0?'<button type="button" class="sec-back" data-sec-back="'+(i-1)+'" aria-label="'+escape('Voltar para '+groups[i-1].label)+'"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>':'')+'<button type="button" class="sec-head" data-sec-open="'+i+'" aria-expanded="'+(i===sellSec.active)+'"><b>'+escape(g.label)+'</b><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small>'+chev+'</button><div class="sec-body">'+(secNear(i)?secBody(i):'<div data-sec-lazy="'+i+'"></div>')+'</div></section>').join('')+'</div>';}
 const sellListBeforeSections=feiraSellList;
 feiraSellList=function(){try{const v=sellSectionsView();if(v)return v;}catch(e){console.error(e);}sellSec.key='';return sellListBeforeSections();};
 // Posições: as de cima viram faixas de 12 px atrás da aberta; a aberta mostra a grade inteira; as de baixo,
@@ -3455,15 +3455,25 @@ function secOpen(i,{silent=false}={}){const n=sellSec.groups.length;if(!n)return
 const renderBeforeSections=render;
 render=function(...args){const out=renderBeforeSections.apply(this,args);if(document.querySelector('#app .sec-area'))secLayout();return out;};
 window.addEventListener('resize',()=>requestAnimationFrame(secLayout),{passive:true});
-document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-sec-open]');if(!t)return;e.preventDefault();secOpen(+t.dataset.secOpen);},true);
+document.addEventListener('click',e=>{const back=e.target.closest?.('#app [data-sec-back]');if(back){e.preventDefault();e.stopImmediatePropagation();secOpen(+back.dataset.secBack);return;}const t=e.target.closest?.('#app [data-sec-open]');if(!t)return;e.preventDefault();secOpen(+t.dataset.secOpen);},true);
 // Tocar em "Vender" quando já está em Vender: primeira seção e topo.
 document.addEventListener('click',e=>{const t=e.target.closest?.('#nav [data-page="Vender"]');if(!t||page!=='Vender'||!document.querySelector('#app .sec-area'))return;e.preventDefault();e.stopImmediatePropagation();window.scrollTo({top:0});secOpen(0);},true);
-// Empurrar a seção aberta para baixo faz ela descer e devolve a que estava por baixo dela. Só quando a página
-// não rolou durante o gesto (no topo da seção), para não brigar com a rolagem normal.
-(()=>{let y0=null,x0=null,s0=0,t0=0;
- document.addEventListener('touchstart',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-active');if(!sec||sellSec.active<1)return;y0=e.touches[0].clientY;x0=e.touches[0].clientX;s0=window.scrollY;t0=Date.now();},{passive:true});
- document.addEventListener('touchmove',e=>{if(y0===null)return;const dy=e.touches[0].clientY-y0,area=document.querySelector('#app .sec-area .sec.is-active');if(dy>0&&window.scrollY===s0&&area){area.style.transition='none';area.style.transform=secPose(sellSec.active*SEC_PEEK+Math.min(dy*.5,90),false);}},{passive:true});
- document.addEventListener('touchend',e=>{if(y0===null)return;const dy=e.changedTouches[0].clientY-y0,dx=Math.abs(e.changedTouches[0].clientX-x0),still=window.scrollY===s0;y0=null;const open=document.querySelector('#app .sec-area .sec.is-active');if(open)open.style.transition='';if(still&&dy>70&&dx<dy*.6&&Date.now()-t0<900)secOpen(sellSec.active-1);else secLayout();},{passive:true});})();
+// Voltar para a seção anterior: empurrar a aberta para baixo (só com a página parada, para não brigar com a
+// rolagem) ou descartá-la para o lado; ela sai como um cartão e volta ao seu lugar embaixo.
+(()=>{let y0=null,x0=null,s0=0,t0=0,dir=null,el=null,lx=0,lt=0,vx=0;
+ const fade=dx=>String(Math.max(.15,1-Math.abs(dx)/((el?.offsetWidth||360)*.6)).toFixed(3));
+ const pose=(dx,dy)=>dir==='x'?'translate3d('+dx+'px,'+(sellSec.active*SEC_PEEK)+'px,0) rotate('+(dx/50).toFixed(2)+'deg)':secPose(sellSec.active*SEC_PEEK+Math.min(dy*.5,90),false);
+ document.addEventListener('touchstart',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-active');if(!sec||sellSec.active<1||e.target.closest('.sec-back')){y0=null;return;}el=sec;dir=null;vx=0;y0=e.touches[0].clientY;x0=lx=e.touches[0].clientX;s0=window.scrollY;t0=lt=Date.now();},{passive:true});
+ document.addEventListener('touchmove',e=>{if(y0===null||!el)return;const p=e.touches[0],dy=p.clientY-y0,dx=p.clientX-x0,now=Date.now();if(now>lt){vx=(p.clientX-lx)/(now-lt);lx=p.clientX;lt=now;}
+  if(!dir&&(Math.abs(dx)>8||Math.abs(dy)>10))dir=Math.abs(dx)>Math.abs(dy)*1.1?'x':'y';
+  if(dir==='x'){el.style.transform=pose(dx,dy);if(!secQuiet())el.style.opacity=fade(dx);}else if(dir==='y'&&dy>0&&window.scrollY===s0)el.style.transform=pose(dx,dy);},{passive:true});
+ document.addEventListener('touchend',e=>{if(y0===null||!el)return;const dy=e.changedTouches[0].clientY-y0,dx=e.changedTouches[0].clientX-x0,sec=el,d=dir;y0=null;el=null;dir=null;
+  if(d==='x'&&(Math.abs(dx)>44||(Math.abs(dx)>16&&Math.abs(vx)>.3))){const sign=(dx||vx)>0?1:-1,W=sec.offsetWidth,done=()=>{sec.style.opacity='0';secOpen(sellSec.active-1);sec.style.opacity='';if(!secQuiet()&&sec.animate)sec.animate([{opacity:0},{opacity:1}],{duration:220,easing:'ease-out'});};
+   if(!secQuiet()&&sec.animate){const a=sec.animate([{transform:pose(dx,0),opacity:sec.style.opacity||1},{transform:'translate3d('+sign*W*.55+'px,'+(sellSec.active*SEC_PEEK)+'px,0) rotate('+sign*4+'deg)',opacity:0}],{duration:160,easing:'cubic-bezier(.2,.6,.4,1)',fill:'forwards'});a.onfinish=done;}else done();return;}
+  sec.style.opacity='';
+  if(d==='y'&&window.scrollY===s0&&dy>60&&Math.abs(dx)<dy*.7&&Date.now()-t0<900){secOpen(sellSec.active-1);return;}
+  secLayout();},{passive:true});
+ document.addEventListener('touchcancel',()=>{if(el){el.style.opacity='';y0=null;el=null;dir=null;secLayout();}},{passive:true});})();
 // A faixa fina da seção que ficou por baixo também abre ao toque (área de toque maior que a faixa).
 document.addEventListener('click',e=>{const sec=e.target.closest?.('#app .sec-area .sec.is-behind');if(!sec)return;e.preventDefault();e.stopImmediatePropagation();secOpen(+sec.dataset.i);},true);
 // O "+" da venda lista por seção, com o carrinho de cada uma e o nome com a sigla da torra.
