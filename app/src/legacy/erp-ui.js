@@ -3418,7 +3418,7 @@ function sellSectionsView(){const items=productList(false);if(!items.length||!SM
  const key=groups.map(g=>g.key).join(',');if(key!==sellSec.key){sellSec.key=key;sellSec.open.clear();}
  sellSec.groups=groups;sellSec.open.forEach(k=>{if(!famTimers.has(k))famIdle(k);});const counts=SM().cartByGroup(groups,draft?.items||[]);
  return '<div class="fam-list">'+groups.map((g,i)=>{const open=sellSec.open.has(g.key),L=SM().sectionLayout(g.items,open);
-  return '<section class="fam glass-products-plane'+(open?' is-open':'')+(i===0||i===groups.length-1?' has-map'+(L.more?'':' map-pad'):'')+'" data-fam="'+escape(g.key)+'"><header class="fam-head"><h3>'+escape(g.label)+'</h3><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></header>'
+  return '<section class="fam glass-products-plane'+(open?' is-open':'')+(i===0||i===groups.length-1?' has-map'+(L.more?'':' map-pad'):'')+'" data-fam="'+escape(g.key)+'"><header class="fam-head"><h3>'+escape(g.label)+'</h3>'+(counts[i]?'<small><span class="sec-cart">'+counts[i]+' no carrinho</span></small>':'')+'</header>'
   +(L.mode==='rows'?'<div class="fam-rows">'+L.shown.map(sellRowHtml).join('')+'</div>'
    :'<div class="feira-grid">'+L.shown.map(p=>sellCardHtml(p)).join('')+L.extra.map(p=>sellCardHtml(p,true)).join('')+'</div>'
    +(L.more?'<button type="button" class="fam-more" data-fam-more="'+escape(g.key)+'" aria-expanded="'+open+'" aria-label="'+escape(famMoreText(g,open,L.more))+'">'+famChev+'</button>':''))+(i===0||i===groups.length-1?FAM_DASH:'')+'</section>';}).join('')+'</div>';}
@@ -3506,7 +3506,7 @@ document.addEventListener('click',e=>{const h=e.target.closest?.('#app .fam-list
 function famMapHtml(){const counts=SM().cartByGroup(sellSec.groups,draft?.items||[]),secs=[...document.querySelectorAll('#app .fam-list .fam')];
  return '<p class="fam-map-hint">Toque para ir. Segure e arraste para mudar a ordem.</p><div class="fam-map-grid">'+secs.map(el=>{const g=sellSec.groups.find(x=>x.key===el.dataset.fam);if(!g)return '';const i=sellSec.groups.indexOf(g),n=Math.min(g.items.length,6),rows=g.items.length<=2;
   return '<button type="button" class="fam-thumb" data-fam-jump="'+escape(g.key)+'"><span class="fam-thumb-art'+(rows?' is-rows':'')+'">'+g.items.slice(0,rows?2:n).map(p=>'<i>'+escape(titleName(window.TerritorioCoffee.coffeeName(p)).split(' ').slice(-1)[0])+'</i>').join('')+'</span><b>'+escape(g.label)+'</b><small>'+g.items.length+(g.items.length===1?' produto':' produtos')+(counts[i]?' · <span class="sec-cart">'+counts[i]+' no carrinho</span>':'')+'</small></button>';}).join('')+'</div>';}
-actions['fam-map']=()=>openModal('Seções',famMapHtml(),'fam-map');
+actions['fam-map']=()=>openModal('Seções',famMapHtml(),'fam-map',null,btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back'));
 // Aplica na aba Vender a ordem que está na janela: as seções trocam de lugar sem refazer a tela, e o
 // tracinho do atalho fica no pé da primeira e da última.
 function famApplyOrder(keys){const saved=model.data.settings.sellSectionOrder||[];model.data.settings.sellSectionOrder=[...keys,...saved.filter(k=>!keys.includes(k))];persist();
@@ -3516,15 +3516,18 @@ function famApplyOrder(keys){const saved=model.data.settings.sellSectionOrder||[
  const ends=[list.firstElementChild,list.lastElementChild].filter((x,i,a)=>x&&a.indexOf(x)===i);ends.forEach(x=>{x.insertAdjacentHTML('beforeend',FAM_DASH);x.classList.add('has-map');if(!x.querySelector('.fam-more'))x.classList.add('map-pad');});
  sellSec.groups=SM().orderSections(sellSec.groups,model.data.settings.sellSectionOrder);}
 // Arrastar as miniaturas: segurar 0,38 s levanta; as outras abrem espaço deslizando (só deslocamento).
-(()=>{const HOLD=380;let timer=null,item=null,grid=null,x0=0,y0=0,lx=0,ly=0,off=null,drag=false,swallow=0;
+(()=>{const HOLD=380;let slots=[],timer=null,item=null,grid=null,x0=0,y0=0,lx=0,ly=0,off=null,drag=false,swallow=0;
  const thumbs=()=>[...grid.querySelectorAll('.fam-thumb')];
  const block=e=>{if(drag)e.preventDefault();};
  const natural=()=>{const t=item.style.transform;item.style.transform='none';const r=item.getBoundingClientRect();item.style.transform=t;return r;};
  const follow=()=>{const n=natural();item.style.transform='translate3d('+(lx-off.x-n.left).toFixed(1)+'px,'+(ly-off.y-n.top).toFixed(1)+'px,0) scale(1.04)';};
- const reorder=()=>{const others=thumbs().filter(t=>t!==item),hit=others.find(t=>{const r=t.getBoundingClientRect();return lx>=r.left&&lx<=r.right&&ly>=r.top&&ly<=r.bottom;});if(!hit)return;
-  const all=thumbs(),from=all.indexOf(item),to=all.indexOf(hit),before=new Map(others.map(t=>[t,t.getBoundingClientRect()]));
-  grid.insertBefore(item,to>from?hit.nextSibling:hit);
-  if(!famQuiet())others.forEach(t=>{const a=before.get(t),b=t.getBoundingClientRect(),dx=a.left-b.left,dy=a.top-b.top;if(Math.abs(dx)+Math.abs(dy)>1)t.animate([{transform:'translate3d('+dx+'px,'+dy+'px,0)'},{transform:'none'}],{duration:220,easing:'cubic-bezier(.25,.8,.25,1)'});});
+ // Lugares fixos da grade, medidos ao levantar (relativos à grade): o destino é o lugar mais perto do dedo,
+ // nunca a posição de uma miniatura no meio do movimento (isso fazia a vizinha ir e voltar).
+ const slotAt=()=>{const g=grid.getBoundingClientRect();let best=0,d=Infinity;slots.forEach((r,i)=>{const dx=lx-(g.left+r.x),dy=ly-(g.top+r.y),q=dx*dx+dy*dy;if(q<d){d=q;best=i;}});return best;};
+ const reorder=()=>{const all=thumbs(),from=all.indexOf(item),to=slotAt();if(to===from)return;
+  const others=all.filter(t=>t!==item),seen=new Map(others.map(t=>[t,t.getBoundingClientRect()]));
+  others.forEach(t=>t.getAnimations().forEach(x=>x.cancel()));grid.insertBefore(item,others[to]||null);
+  if(!famQuiet())others.forEach(t=>{const a=seen.get(t),b=t.getBoundingClientRect(),dx=a.left-b.left,dy=a.top-b.top;if(Math.abs(dx)+Math.abs(dy)>1)famSpring(t,v=>({transform:'translate3d('+(dx*(1-v)).toFixed(1)+'px,'+(dy*(1-v)).toFixed(1)+'px,0)'}),{spring:'section'});});
   window.TerritorioHaptics?.tick?.();};
  const scroller=()=>{for(let n=grid.parentElement;n;n=n.parentElement){const st=getComputedStyle(n);if(/(auto|scroll)/.test(st.overflowY)&&n.scrollHeight>n.clientHeight)return n;}return null;};
  const reset=()=>{clearTimeout(timer);timer=null;item?.removeEventListener('touchmove',block);};
@@ -3533,7 +3536,7 @@ function famApplyOrder(keys){const saved=model.data.settings.sellSectionOrder||[
   swallow=Date.now()+450;famApplyOrder([...grid.querySelectorAll('.fam-thumb')].map(t=>t.dataset.famJump));};
  document.addEventListener('touchstart',e=>{reset();const t=e.target.closest?.('dialog[open] .fam-thumb');if(!t||e.touches.length>1){item=null;return;}
   item=t;grid=t.parentElement;x0=lx=e.touches[0].clientX;y0=ly=e.touches[0].clientY;t.addEventListener('touchmove',block,{passive:false});
-  timer=setTimeout(()=>{timer=null;if(!item)return;drag=true;const r=item.getBoundingClientRect();off={x:lx-r.left,y:ly-r.top};item.classList.add('is-lifted');window.TerritorioHaptics?.tick?.();follow();},HOLD);},{passive:true});
+  timer=setTimeout(()=>{timer=null;if(!item)return;drag=true;const r=item.getBoundingClientRect(),g=grid.getBoundingClientRect();slots=thumbs().map(t=>{const q=t.getBoundingClientRect();return {x:q.left-g.left+q.width/2,y:q.top-g.top+q.height/2};});off={x:lx-r.left,y:ly-r.top};item.classList.add('is-lifted');window.TerritorioHaptics?.tick?.();follow();},HOLD);},{passive:true});
  document.addEventListener('touchmove',e=>{if(!item)return;const p=e.touches[0];lx=p.clientX;ly=p.clientY;
   if(!drag){if(Math.abs(lx-x0)>8||Math.abs(ly-y0)>8){reset();item=null;}return;}
   const sc=scroller();if(sc){const r=sc.getBoundingClientRect();if(ly<r.top+50)sc.scrollTop-=10;else if(ly>r.bottom-50)sc.scrollTop+=10;}
