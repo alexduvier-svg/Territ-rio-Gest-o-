@@ -51,7 +51,10 @@ html.multi-leaving #app .fam-wx{display:none}
 html.multi-returned #app .fam-wx{animation:fam-wx-in .26s cubic-bezier(.25,.8,.25,1) both}
 @keyframes fam-wx-in{from{opacity:0;transform:translateY(-4px) scale(.96)}}
 @media (prefers-reduced-motion: reduce){html.multi-returned #app .fam-wx{animation:none}}
-/* Em Vender, a ponta da seção seguinte que passa por trás da barra de baixo some num degradê mais alto, com
-   desfoque leve, para não parecer outra aba. No modo leve e com transparência reduzida a faixa fica sólida. */
-:root[data-theme][data-layout]:has(#app .fam-list) .nav-glass{height:132px;background:linear-gradient(to bottom,transparent 0,color-mix(in srgb,var(--bg) 55%,transparent) 14px,color-mix(in srgb,var(--bg) 92%,transparent) 30px,var(--bg) 42px);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 20px);mask-image:linear-gradient(to bottom,transparent 0,#000 20px)}
-#app .fam.is-closing .fam-more{position:absolute;left:8px;bottom:8px;margin:0}
+/* Em Vender, entre os cards e a barra de baixo, uma faixa de vidro fosco: o que passa por trás aparece
+   desfocado, sem virar outra aba. No modo leve e com transparência reduzida a faixa fica sólida. */
+:root[data-theme][data-layout]:has(#app .fam-list) .nav-glass{height:150px;background:linear-gradient(to bottom,color-mix(in srgb,var(--bg) 20%,transparent) 0,color-mix(in srgb,var(--bg) 55%,transparent) 44px,color-mix(in srgb,var(--bg) 68%,transparent) 100%);-webkit-backdrop-filter:blur(16px) saturate(1.2);backdrop-filter:blur(16px) saturate(1.2);-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 40px);mask-image:linear-gradient(to bottom,transparent 0,#000 40px)}
+/* Fechando: o fundo da seção vira uma camada que encolhe (transform), em vez de mudar a altura a cada quadro. */
+#app .fam.is-closing{isolation:isolate;background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+#app .fam.is-closing::before{content:"";position:absolute;left:-1px;right:-1px;top:-1px;height:calc(var(--fam-h0) + 2px);box-sizing:border-box;border:1px solid var(--fam-bd);border-radius:var(--fam-r);background:var(--fam-bg);box-shadow:var(--fam-sh);transform-origin:50% 0;z-index:-1;pointer-events:none;will-change:transform}
+#app .fam-ghost{z-index:1}

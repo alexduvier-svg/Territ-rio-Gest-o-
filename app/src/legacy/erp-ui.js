@@ -3466,24 +3466,31 @@ function famSpring(el,frame,{spring='open',delay=0}={}){const S=window.Territori
 // por filtro, porque a opacidade dos cards é fixa no estilo.
 function famToggle(sec,k,open,{auto=false}={}){const g=sellSec.groups.find(x=>x.key===k),t=sec.querySelector('[data-fam-more]');if(!g||!t)return;
  const quiet=famQuiet(),extras=()=>[...sec.querySelectorAll('.fam-extra')];
- if(sec._famAnim){const an=sec._famAnim;sec._famAnim=null;an.cancel();sec.classList.remove('is-closing');sec.style.overflow='';extras().forEach(c=>c.getAnimations().forEach(x=>x.cancel()));}
+ if(sec._famAnim){const stop=sec._famStop;sec._famStop=null;stop?.();}
  const state=()=>{if(open)sellSec.open.add(k);else sellSec.open.delete(k);sec.classList.toggle('is-open',open);t.setAttribute('aria-expanded',String(open));t.setAttribute('aria-label',famMoreText(g,open,SM().sectionLayout(g.items).more));famIdle(k);};
  if(open){const below=[];for(let n=sec.nextElementSibling;n;n=n.nextElementSibling){const r=n.getBoundingClientRect();if(r.top>innerHeight*2)break;below.push([n,r.top]);}
   state();requestAnimationFrame(()=>window.TerritorioFitCards?.());
   if(!quiet){extras().forEach((c,n)=>famSpring(c,v=>({filter:'opacity('+Math.min(1,v*1.8).toFixed(3)+')',transform:'translate3d(0,'+(20*(1-v)).toFixed(2)+'px,0) scale('+(.88+.12*v).toFixed(4)+')'}),{spring:'tabEnter',delay:Math.min(n,5)*35}));
    below.forEach(([n,y])=>{const d=y-n.getBoundingClientRect().top;if(Math.abs(d)>1)famSpring(n,v=>({transform:'translate3d(0,'+(d*(1-v)).toFixed(2)+'px,0)'}),{spring:'section'});});}
   if(!auto&&!quiet)window.TerritorioHaptics?.tick?.();return;}
- // Fechar sem pausa: a seção encolhe na hora, como uma gaveta por cima dos extras (que esmaecem ao mesmo
- // tempo), com a setinha presa ao fundo; só no fim os extras saem do lugar. As de baixo sobem junto.
- const top0=sec.getBoundingClientRect().top,h0=sec.offsetHeight;
+ // Fechar sem pausa e sem recalcular a página a cada quadro: a seção assume o tamanho final de uma vez; o
+ // fundo dela (uma camada própria) encolhe de cima para baixo, a setinha e as seções de baixo deslizam do
+ // lugar antigo ao novo, e cópias leves dos extras esmaecem. Tudo por deslocamento, que a placa de vídeo faz.
+ const top0=sec.getBoundingClientRect().top,h0=sec.offsetHeight,a0=t.getBoundingClientRect().top,below=[];
+ for(let n=sec.nextElementSibling;n;n=n.nextElementSibling){const r=n.getBoundingClientRect();if(r.top>innerHeight*2)break;below.push([n,r.top]);}
+ const sr=sec.getBoundingClientRect(),ghosts=quiet?[]:extras().filter(c=>c.offsetParent).map(c=>{const r=c.getBoundingClientRect(),k=c.cloneNode(true);k.removeAttribute('data-action');k.removeAttribute('data-id');k.classList.remove('fam-extra');k.classList.add('fam-ghost');k.setAttribute('aria-hidden','true');k.style.cssText='position:absolute;left:'+(r.left-sr.left)+'px;top:'+(r.top-sr.top)+'px;width:'+r.width+'px;height:'+r.height+'px;margin:0;pointer-events:none';return k;});
  sec.classList.remove('is-open');const h1=sec.offsetHeight;
  sellSec.open.delete(k);t.setAttribute('aria-expanded','false');t.setAttribute('aria-label',famMoreText(g,false,SM().sectionLayout(g.items).more));famIdle(k);
  if(quiet||(auto&&top0<0)){if(auto&&top0<0)window.scrollBy(0,h1-h0);return;}
- sec.classList.add('is-open','is-closing');sec.style.overflow='hidden';
- extras().filter(c=>c.offsetParent).forEach(c=>c.animate([{filter:'opacity(1)',transform:'none'},{filter:'opacity(0)',transform:'translate3d(0,-8px,0) scale(.94)'}],{duration:180,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}));
- const an=famSpring(sec,v=>({height:(h0+(h1-h0)*v).toFixed(1)+'px'}),{spring:'tab'});sec._famAnim=an;
- const done=()=>{if(sec._famAnim!==an)return;sec._famAnim=null;sec.classList.remove('is-closing');if(!sellSec.open.has(k))sec.classList.remove('is-open');sec.style.overflow='';extras().forEach(c=>c.getAnimations().forEach(x=>x.cancel()));};
- if(an){an.onfinish=done;an.oncancel=done;}else done();
+ const cs=getComputedStyle(sec),ease='cubic-bezier(.2,.9,.25,1)',ms=300;
+ sec.style.setProperty('--fam-h0',h0+'px');sec.style.setProperty('--fam-bg',cs.backgroundImage!=='none'?cs.backgroundImage+','+cs.backgroundColor:cs.backgroundColor);sec.style.setProperty('--fam-bd',cs.borderTopColor);sec.style.setProperty('--fam-sh',cs.boxShadow);sec.style.setProperty('--fam-r',cs.borderTopLeftRadius);
+ sec.classList.add('is-closing');ghosts.forEach(x=>sec.append(x));
+ const anims=[sec.animate([{transform:'scaleY(1)'},{transform:'scaleY('+(h1/h0).toFixed(4)+')'}],{duration:ms,easing:ease,pseudoElement:'::before'})];
+ const da=a0-t.getBoundingClientRect().top;if(Math.abs(da)>1)anims.push(t.animate([{transform:'translate3d(0,'+da+'px,0)'},{transform:'none'}],{duration:ms,easing:ease}));
+ below.forEach(([n,y])=>{const d=y-n.getBoundingClientRect().top;if(Math.abs(d)>1)anims.push(n.animate([{transform:'translate3d(0,'+d+'px,0)'},{transform:'none'}],{duration:ms,easing:ease}));});
+ ghosts.forEach((x,i)=>x.animate([{filter:'opacity(1)',transform:'none'},{filter:'opacity(0)',transform:'translate3d(0,-6px,0) scale(.95)'}],{duration:170,delay:i*15,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}));
+ const done=()=>{if(sec._famAnim!==anims[0])return;sec._famAnim=null;sec.classList.remove('is-closing');ghosts.forEach(x=>x.remove());['--fam-h0','--fam-bg','--fam-bd','--fam-sh','--fam-r'].forEach(p=>sec.style.removeProperty(p));};
+ sec._famAnim=anims[0];sec._famStop=()=>{anims.forEach(x=>x.cancel());ghosts.forEach(x=>x.remove());};anims[0].onfinish=done;anims[0].oncancel=done;
  if(!auto&&top0<0)window.scrollBy({top:top0-80,behavior:'smooth'});
  if(!auto)window.TerritorioHaptics?.tick?.();}
 document.addEventListener('click',e=>{const t=e.target.closest?.('#app [data-fam-more]');if(!t)return;e.preventDefault();e.stopImmediatePropagation();
