@@ -1,5 +1,14 @@
 import {standardCoffeeModels,roastCode} from '../coffee.js';
 import * as Suppliers from '../suppliers/model.js';
+// Peixes ornamentais de exemplo (vivos, por unidade). Preços e custos fictícios.
+export const DEMO_FISH=[
+ // Ornamentais: nove variedades de betta e outros oito peixes, vivos e por unidade.
+ ...[['betta','Betta Halfmoon',3500],['betta-plakat','Betta Plakat',2800],['betta-crowntail','Betta Crowntail',3000],['betta-veu','Betta Véu',2000],['betta-orelha-de-elefante','Betta Orelha de Elefante',4500],['betta-koi','Betta Koi',4000],['betta-cauda-dupla','Betta Cauda Dupla',3200],['betta-gigante','Betta Gigante',4200],['betta-femea','Betta Fêmea',1500],
+  ['guppy','Guppy',800],['kinguio','Kinguio',1500],['molinesia','Molinésia',900],['plati','Plati',800],['tetra-neon','Tetra Neon',600],['acara-bandeira','Acará-bandeira',1800],['corydoras','Corydoras',1500],['carpa-koi','Carpa Koi',4500]]
+  .map(([k,name,price])=>({id:'training-fish-'+k,baseName:name,name,category:'Piscicultura',type:'Ornamental',format:'Vivo',unit:'Unidade',stock:k.startsWith('betta')?6:10,min:2,price,cost:Math.round(price*.5)})),
+ // Para consumo: três peixes inteiros, por quilo.
+ ...[['tilapia','Tilápia',2200],['tambaqui','Tambaqui',2800],['pacu','Pacu',2600]]
+  .map(([k,name,price])=>({id:'training-fish-'+k,baseName:name,name,category:'Piscicultura',type:'Para consumo',format:'Inteiro',unit:'kg',stock:15,min:3,price,cost:Math.round(price*.55)}))];
 export function trainingData({id,appearance='system',largeText=false,reduceEffects=false,performanceMode='auto',mode='examples',selected=[],now=new Date().toISOString()}={}){
  if(!id)throw Error('Identificação do treino ausente.');
  const prices={Especial:[2500,4500,6500],Gourmet:[1800,3000,5500],Superior:[1600,2800,5000],Tradicional:[1200,2200,4000]};
@@ -9,9 +18,9 @@ export function trainingData({id,appearance='system',largeText=false,reduceEffec
  {id:'training-honey',baseName:'Mel',name:'Mel',category:'Apicultura',unit:'Pote',weight:500,stock:6,min:2,price:3000,cost:1800},
  {id:'training-eggs',baseName:'Ovos Caipiras',name:'Ovos Caipiras',category:'Hortifruti-Granjeiro',unit:'Dúzia',stock:10,min:2,price:1500,cost:800},
  {id:'training-jam',baseName:'Geleia de Morango',name:'Geleia de Morango',category:'Doces',unit:'Pote',weight:250,stock:6,min:2,price:1800,cost:900}
- ].map(p=>({...p,actorId:id,stockGroup:'general',demo:true}));
+ ,...DEMO_FISH].map(p=>({...p,actorId:id,stockGroup:'general',demo:true}));
  if(mode==='own'){if(selected.length>5)throw Error('Escolha até 5 produtos para o treino.');const fields=['baseName','name','category','coffeeSpecies','coffeeVariety','coffeeRoast','coffeeProcess','coffeeFermentation','type','format','unit','weight','volume','contentCount','contentUnit','stock','min','price','cost'];products=selected.map((p,i)=>({...Object.fromEntries(fields.filter(k=>p[k]!==undefined).map(k=>[k,p[k]])),id:'training-own-'+i,actorId:id,stockGroup:'general',demo:true}));}
- const data={schema:1,demoRevision:6,inventoryRevision:20,training:{version:1,actorId:id,mode,productLimit:mode==='own'?5:products.length},dataContext:{id,type:'demo'},products,sales:[],expenses:[],events:[],eventLoads:[],profiles:{},contacts:[],clients:['Ana Exemplo','Bruno Exemplo','Carla Exemplo','Daniel Exemplo','Elisa Exemplo','Fabio Exemplo'].map((name,i)=>({id:'training-client-'+i,name,phone:'',uf:'MG',city:'Carangola',neighborhood:'Centro',demo:true})),movements:products.map(p=>({id:'training-initial-'+p.id,productId:p.id,name:p.name,date:now,kind:'initial',qty:p.stock,before:0,after:p.stock,note:'Saldo Fictício de Treino',unit:p.unit})),settings:{onboarding:'demo',businessName:'Negócio de Exemplo',producerName:'Produtor de Exemplo',phone:'',email:'',city:'Carangola',uf:'MG',appearance,largeText,reduceEffects,performanceMode,financialVisible:false,backupReminder:false,firstUseAt:now},catalog:{title:'Produtos de Exemplo',story:'',publicUrl:'',photos:{}}};
+ const data={schema:1,demoRevision:6,inventoryRevision:20,training:{version:1,actorId:id,mode,productLimit:mode==='own'?5:products.length},dataContext:{id,type:'demo'},products,sales:[],expenses:[],events:[],eventLoads:[],profiles:{},contacts:[],clients:['Ana Exemplo','Bruno Exemplo','Carla Exemplo','Daniel Exemplo','Elisa Exemplo','Fabio Exemplo'].map((name,i)=>({id:'training-client-'+i,name,phone:'',uf:'MG',city:'Carangola',neighborhood:'Centro',demo:true})),movements:products.map(p=>({id:'training-initial-'+p.id,productId:p.id,name:p.name,date:now,kind:'initial',qty:p.stock,before:0,after:p.stock,note:'Saldo Fictício de Treino',unit:p.unit})),settings:{onboarding:'demo',businessName:'Negócio de Exemplo',producerName:'Luiz Claudio',phone:'',email:'',city:'Carangola',uf:'MG',appearance,largeText,reduceEffects,performanceMode,financialVisible:false,backupReminder:false,firstUseAt:now},catalog:{title:'Produtos de Exemplo',story:'',publicUrl:'',photos:{}}};
  seedSuppliers(data,now);return data;
 }
 

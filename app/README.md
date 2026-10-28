@@ -1,4 +1,6 @@
-# AGRO Gestão 2 — app Android
+# AGRO Gestão Codex — app Android
+
+Versão **0.12.132/code172**, com todas as atualizações da branch Claude até `d170ef9`, mais as melhorias Codex preservadas. Veja [integração e validação](docs/INTEGRACAO-CLAUDE-CODEX-0.12.132.md). O pacote continua `br.com.territorio.gestao2`; a atualização usa a assinatura original.
 
 App Android (Capacitor 8) com vendas, estoque, clientes, eventos e gestão local. A fonte atual está em `src/`; o mockup original é referência histórica. Não reexecutar a migração sobre o código atual.
 

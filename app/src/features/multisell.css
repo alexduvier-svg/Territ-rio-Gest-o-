@@ -15,7 +15,20 @@
   border: 2px solid color-mix(in srgb, var(--text) 35%, transparent);
   background: var(--panel);
   transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1), background 0.2s ease;
+  animation: multi-dot-in 0.28s cubic-bezier(0.32, 0.72, 0, 1) both;
 }
+/* Ao cancelar, a bolinha encolhe e some (a seleção sai suave, em vez de sumir de uma vez). */
+.multi-leaving [data-action='sell-product']::after {
+  content: ''; position: absolute; top: 8px; right: 8px; width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--text) 35%, transparent); background: var(--panel);
+  animation: multi-dot-out 0.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+.multi-bar.is-leaving { animation: multi-bar-out 0.22s cubic-bezier(0.4, 0, 1, 1) forwards; pointer-events: none; }
+@keyframes multi-dot-in { from { opacity: 0; transform: scale(0.4); } }
+@keyframes multi-dot-out { to { opacity: 0; transform: scale(0.4); } }
+@keyframes multi-bar-out { to { transform: translate(-50%, 24px); opacity: 0; } }
+:root:is(.lite, [data-reduce-effects='true']) :is(.multi-select, .multi-leaving) [data-action='sell-product']::after { animation: none; }
+@media (prefers-reduced-motion: reduce) { :is(.multi-select, .multi-leaving) [data-action='sell-product']::after, .multi-bar.is-leaving { animation: none; } }
 .multi-select [data-action='sell-product'].multi-selected {
   box-shadow: inset 0 0 0 2px var(--action-green, #7fa653);
   background: color-mix(in srgb, var(--action-green, #7fa653) 12%, var(--panel));

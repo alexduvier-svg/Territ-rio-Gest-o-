@@ -33,8 +33,11 @@ export const DEFAULT_FEES = { Débito: 1.99, Crédito: 4.98 };
 export function financeSettings(raw) {
   const f = raw || {};
   const fees = { ...DEFAULT_FEES, ...(f.cardFees || {}) };
+  // Taxa que a pessoa salvou nos ajustes; a ausente usa o padrão, mas não é tratada como dado dela.
+  const saved = k => !!f.cardFees && Object.prototype.hasOwnProperty.call(f.cardFees, k) && Number.isFinite(Number(f.cardFees[k]));
   return {
     cardFees: { Débito: Math.max(0, Number(fees.Débito) || 0), Crédito: Math.max(0, Number(fees.Crédito) || 0) },
+    feesConfirmed: { Débito: saved('Débito'), Crédito: saved('Crédito') },
     goal: Math.max(0, Math.round(Number(f.goal) || 0)),
     drawOn: !!f.drawOn,
     drawMonthly: Math.max(0, Math.round(Number(f.drawMonthly) || 0)),
@@ -42,6 +45,12 @@ export function financeSettings(raw) {
     salesTaxRate: Math.min(30, Math.max(0, Number(f.salesTaxRate) || 0)),
     fixedCosts: Array.isArray(f.fixedCosts) ? f.fixedCosts.filter(x => x && x.title && x.amount > 0) : [],
   };
+}
+
+// Custo do produto conhecido: custo 0 informado (costKnown true) é conhecido; vazio não vira zero.
+// Mesma regra do resumo do dia e do cadastro; usada por lacunas, conferência e orientação.
+export function costKnown(p) {
+  return !!p && Number.isFinite(p.cost) && p.cost >= 0 && p.costKnown !== false && (p.costKnown === true || p.cost > 0);
 }
 
 // Despesas antigas não tinham tipo: "Marketing" vira divulgação; o resto, custo de feira/operação.
@@ -105,15 +114,27 @@ export function statement({ sales, returns = [], expenses, receipts = collection
   const discounts = sales.reduce((n, s) => n + (s.discount || 0), 0);
   const cmv = sales.reduce((n, s) => n + (s.cost || 0), 0) - returns.reduce((n, s) => n + (s.cost || 0), 0);
   const fees = cardFeesOf(sales, settings) + cardFeesOf(receipts.map(r=>({payments:[r]})),settings);
+  // Houve cartão cobrado com taxa padrão (não salva pela pessoa): a linha de taxas é estimativa.
+  const feesDefault = [...sales.flatMap(s => s.payments || []), ...receipts].some(p => p.amount > 0 && p.method in settings.feesConfirmed && !settings.feesConfirmed[p.method]);
   const taxes = Math.round(Math.max(0, revenue) * settings.salesTaxRate / 100);
   const contribution = revenue - cmv - fees - taxes;
   const kinds = Object.fromEntries(COST_KINDS.map(([id]) => [id, 0]));
   for (const x of expenses) kinds[costKind(x)] += x.amount;
   const fixed = general ? fixedFor(settings, shares) : 0;
   const lossValue = general ? Math.round(losses) : 0;
-  // Retirada: a realizada (lançada) vale mais que a planejada; nunca as duas somadas.
+  // Retirada: a realizada (lançada) vale mais que a planejada; nunca as duas somadas. A troca é feita
+  // mês a mês: no ano, uma retirada lançada em março não apaga a planejada dos outros meses. Retirada
+  // lançada sem data reconhecível mantém a regra antiga (substitui toda a planejada do período).
+  const drawLogged = new Map();
+  let drawUndated = false;
+  for (const x of expenses) if (costKind(x) === 'retirada') {
+    const m = String(x.date || '').slice(0, 7);
+    if (/^\d{4}-\d{2}$/.test(m)) drawLogged.set(m, (drawLogged.get(m) || 0) + x.amount); else drawUndated = true;
+  }
   const drawPlanned = general && settings.drawOn ? Math.round(shares.reduce((n, s) => n + s.share, 0) * settings.drawMonthly) : 0;
-  const draw = kinds.retirada > 0 ? kinds.retirada : drawPlanned;
+  const drawOpen = general && settings.drawOn && !drawUndated ? Math.round(shares.filter(s => !(drawLogged.get(s.month) > 0)).reduce((n, s) => n + s.share, 0) * settings.drawMonthly) : 0;
+  const draw = kinds.retirada > 0 ? kinds.retirada + drawOpen : drawPlanned;
+  const drawForecast = draw - kinds.retirada;
   const operating = kinds.feira + kinds.producao + kinds.marketing;
   const result = contribution - operating - lossValue - fixed - draw;
   const contributionRate = revenue > 0 ? contribution / revenue : 0;
@@ -121,18 +142,23 @@ export function statement({ sales, returns = [], expenses, receipts = collection
   // retain the legacy all-costs indicator and expose its unspecified month.
   const monthlyFixedReference = shares.map(s => s.month).filter(m => /^\d{4}-\d{2}$/.test(m || '')).sort().at(-1) || null;
   const monthlyFixed = fixedMonthly(settings, monthlyFixedReference) + (settings.drawOn ? settings.drawMonthly : 0);
-  // Caixa do período (o dinheiro que entrou e saiu, diferente do resultado): recebimentos por forma de
-  // pagamento, menos devoluções pagas, taxas, custos, contas fixas, retirada e investimentos.
+  // Caixa do período: pagamentos registrados, devoluções, taxas/impostos estimados e saídas lançadas.
+  // Fixos rateados e retirada apenas planejada pertencem à projeção, nunca a um pagamento realizado.
   const received = {};
   for (const s of sales) for (const p of s.payments || []) if(p.method!=='Fiado') received[p.method] = (received[p.method] || 0) + p.amount;
   for (const r of receipts) received[r.method]=(received[r.method]||0)+r.amount;
   const creditSold=sales.reduce((n,s)=>n+principal(s),0),collected=receipts.reduce((n,r)=>n+r.amount,0),cashRefunded=returns.reduce((n,s)=>n+refundedCash(s),0);
   const cashIn = grossSales - creditSold + collected - cashRefunded - fees;
-  const cashOut = operating + fixed + draw + kinds.investimento + taxes;
+  const cashOut = operating + kinds.retirada + kinds.investimento + taxes;
+  const cashForecast = fixed + drawForecast;
+  const cashProjectedOut = cashOut + cashForecast;
+  const cash = cashIn - cashOut;
   return {
-    grossSales, returned, revenue, discounts, cmv, fees, taxes, contribution, contributionRate,
-    costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, result, salesCount: sales.length,
-    creditSold, collected, cashRefunded, investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
+    grossSales, returned, revenue, discounts, cmv, fees, feesDefault, taxes, contribution, contributionRate,
+    costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, drawLogged: kinds.retirada, drawForecast, result, salesCount: sales.length,
+    // Parte do caixa que é previsão (fixos rateados e retirada planejada), não pagamento lançado no app.
+    cashForecast, cashProjectedOut, cashProjected: cash - cashForecast,
+    creditSold, collected, cashRefunded, investments: kinds.investimento, received, cashIn, cashOut, cash,
     monthlyFixed, monthlyFixedReference,
     chargeEstimates: {
       fees: { basis: 'configured-rate-per-recorded-payment', rounding: 'integer-cent-per-payment' },

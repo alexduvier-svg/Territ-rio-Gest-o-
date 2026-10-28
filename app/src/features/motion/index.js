@@ -16,7 +16,9 @@ const root = () => document.documentElement;
 const limited = () => root().classList.contains('lite');
 const reduced = () => preference?.matches || root().dataset.reduceEffects === 'true';
 const enabled = () => installed && !reduced() && !document.hidden && typeof Element.prototype.animate === 'function';
-const spring = name => limited() && !['press', 'release'].includes(name) ? SPRINGS.lite : SPRINGS[name];
+// Light mode keeps the app's springs (settle and slight overshoot): the curve is precomputed and played by the
+// compositor as transform/opacity, so it costs the same as a flat one. Only the amplitudes get smaller.
+const spring = name => SPRINGS[name] || SPRINGS.lite;
 
 function requestFrame() {
   if (!frame && running.size) frame = requestAnimationFrame(tick);
@@ -209,7 +211,7 @@ function liftPage(app, onTop, page) {
 // piece; fixed bars (sale dock, keypad) rise into place on their own.
 function arrivePage(app, entry, pivot, springName, fixedFrom = { y: 28, opacity: 0 }) {
   const blocks = [...app.children].flatMap(el => el.classList.contains('subview') ? [...el.children] : [el]);
-  const prepared = blocks.filter(el => !el.hidden && !el.matches('script, style')).map(element => {
+  const prepared = blocks.filter(el => !el.hidden && !el.matches('script, style') && el.dataset.motionStill !== '1').map(element => {
     const bounds = element.getBoundingClientRect();
     const fixed = getComputedStyle(element).position === 'fixed' || !!element.querySelector(fixedContentSelector);
     return { element, bounds, fixed };
@@ -221,8 +223,34 @@ function arrivePage(app, entry, pivot, springName, fixedFrom = { y: 28, opacity:
       origin: `${(pivot[0] - bounds.left).toFixed(1)}px ${(pivot[1] - bounds.top).toFixed(1)}px` }));
 }
 
+// Keep a group of movements whole through stalled frames. On slower phones the GPU may stall a frame or two
+// while it paints the page that just arrived (Produtos most of all); a spring that keeps running would land
+// half-way and lose its settle. After a long frame every movement of the group is set back by the time lost
+// beyond one frame, so the next frame continues from the pose last seen. Only a clock read per frame.
+const STALL_MS = 34, WATCH_MS = 1400;
+function keepSpringWhole(handles) {
+  const list = handles.filter(h => h?.animation);
+  if (!list.length) return;
+  const begin = performance.now();
+  let last = begin;
+  const tick = now => {
+    const gap = now - last; last = now;
+    if (gap > STALL_MS) {
+      const lost = gap - 16.7;
+      for (const h of list) if (h.running) { try { h.animation.currentTime = Math.max(0, (Number(h.animation.currentTime) || 0) - lost); } catch {} }
+    }
+    if (list.some(h => h.running) && now - begin < WATCH_MS) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+// The same protection for loose WAAPI animations started elsewhere (Estoque areas and subgroups).
+window.TerritorioKeepSpringWhole = animations => keepSpringWhole(animations.filter(Boolean).map(animation => ({ animation, get running() { return animation.playState === 'running'; } })));
+
 function installPageTransitions(listen) {
   const app = document.getElementById('app');
+  // Read the page rules while the app is idle, so the first page change does not pay for the scan.
+  (window.requestIdleCallback || (fn => setTimeout(fn, 1500)))(() => pageSelectors(''), { timeout: 4000 });
   let currentPage = root().dataset.page || window.TerritorioShell?.page?.();
   const history = [];
   const before = event => {
@@ -256,10 +284,11 @@ function installPageTransitions(listen) {
       if (lift && document.getElementById('nav')?.getClientRects().length) lift.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node => node.remove());
       if (nav) {
         const step = Math.sign(NAV_ORDER.indexOf(nextPage) - NAV_ORDER.indexOf(previousPage)) || 0;
-        const shift = (limited() ? 10 : 44) * step;
+        const shift = (limited() ? 26 : 44) * step;
         if (lift) t.handles.push(animate(lift.surface, { from: { x: 0, scale: 1, opacity: 1 }, to: { x: -shift, scale: 0.985, opacity: 0 }, spring: spring('tab'), shape: dissolve(0, 0.42), onFinish: done }));
-        t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.985 : 0.93, opacity: 0 }, center, 'tabEnter', { y: 0, opacity: 0 }));
+        t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.965 : 0.93, opacity: 0 }, center, 'tabEnter', { y: 0, opacity: 0 }));
         if (!lift) t.handles.at(-1)?.finished.then(done);
+        keepSpringWhole(t.handles);
         return;
       }
       if (goingBack) {
@@ -274,9 +303,19 @@ function installPageTransitions(listen) {
         return;
       }
       if (usable(source) && !source.insideDialog) {
-        if (lift) t.handles.push(animate(lift.surface, { from: REST, to: { x: 0, y: 0, scale: limited() ? 1.02 : 1.06, opacity: 0 }, spring: spring('page'), shape: dissolve(0, 0.5), origin: `${source.cx}px ${source.cy}px`, onFinish: done }));
+        // A tap on a card opens the page the way the sheets open from their icon: one surface grows from the
+        // card with the opening spring, the content grows inside it, and the page behind only recedes and dims.
         const entry = launchPose(view, source);
-        t.handles.push(...arrivePage(app, entry, center, 'page'));
+        if (lift) {
+          const sheet = document.createElement('div'), scrim = document.createElement('div');
+          sheet.className = 'fluid-card-sheet'; scrim.className = 'fluid-card-scrim';
+          sheet.style.setProperty('--page-morph-bg', getComputedStyle(document.body).backgroundColor);
+          lift.layer.append(scrim, sheet);
+          t.handles.push(animate(scrim, { from: { x: 0, y: 0, scale: 1, opacity: 0 }, to: { x: 0, y: 0, scale: 1, opacity: limited() ? 0.08 : 0.14 }, spring: spring('open') }));
+          t.handles.push(animate(sheet, { from: { ...entry, opacity: 1 }, to: REST, spring: spring('open') }));
+          t.handles.push(animate(lift.surface, { from: REST, to: { x: 0, y: 0, scale: limited() ? 0.995 : 0.975, opacity: 1 }, spring: spring('open'), onFinish: done }));
+        }
+        t.handles.push(...arrivePage(app, entry, center, 'open'));
         if (!lift) t.handles.at(-1)?.finished.then(done);
         return;
       }
@@ -293,7 +332,9 @@ function installPageTransitions(listen) {
 
 // Sibling areas inside one tab use the same compositor and move the old DOM once.
 // No cloned cards, frame-by-frame clipping, or asynchronous route delay.
-export function transitionSubview(render,direction=1){
+// subtle: the shared top bar stays still (it is the same on both views) and the content only cross-fades
+// with a small shift — used when switching areas inside one tab, such as Estoque and Fornecedores.
+export function transitionSubview(render,direction=1,{subtle=false}={}){
  const app=document.getElementById('app');endPageTransition();
  if(!app||!enabled()||document.hidden){render();return;}
  let lift,t;
@@ -303,9 +344,12 @@ export function transitionSubview(render,direction=1){
  try{render();}catch(error){app.removeEventListener('territorio:before-page',commit);endPageTransition();throw error;}
  app.removeEventListener('territorio:before-page',commit);if(!t)return;
  lift?.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node=>node.remove());
- const done=()=>{if(pageTransition===t){pageTransition=null;t.layer?.remove();}},shift=(limited()?5:18)*direction;
+ if(subtle)lift?.surface.querySelectorAll('.fluid-page-morph-context > .topbar').forEach(node=>node.style.visibility='hidden');
+ const done=()=>{if(pageTransition===t){pageTransition=null;t.layer?.remove();}},shift=(subtle?(limited()?2:6):(limited()?5:18))*direction;
  if(lift)t.handles.push(animate(lift.surface,{from:REST,to:{x:-shift,opacity:0},spring:spring('tab'),shape:dissolve(0,.4),onFinish:done}));
+ const fixedTop=subtle?app.querySelector(':scope > .topbar'):null;if(fixedTop)fixedTop.dataset.motionStill='1';
  t.handles.push(...arrivePage(app,{x:shift,opacity:0,scale:1},[innerWidth/2,innerHeight/2],'tab',{y:0,opacity:0}));
+ if(fixedTop)delete fixedTop.dataset.motionStill;
  if(!lift)t.handles.at(-1)?.finished.then(done);
 }
 
@@ -353,7 +397,7 @@ function installPress(listen) {
     if (!enabled() || !button.isConnected) { current?.cancel(); return; }
     animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: 1 }, spring: button.matches('.multi-next-pill') ? PILL_UP : SPRINGS.release, velocity: current ? carriedVelocity(current, from, { scale: 1 }) : 0 });
   };
-  const releaseAll = () => { pointers.clear(); for (const button of [...pressed]) release(button); };
+  const releaseAll = () => { for (const held of pointers.values()) cancelWait(held); pointers.clear(); for (const button of [...pressed]) release(button); };
   const press = button => {
     if (!enabled() || !button || button.disabled || button.getAttribute('aria-disabled') === 'true' || button.closest('[inert]')) return;
     const current = motionOf(button);
@@ -361,22 +405,36 @@ function installPress(listen) {
     pressed.add(button);
     animate(button, { from: { scale: from.scale ?? 1 }, to: { scale: depth(button) }, spring: button.matches('.multi-next-pill') ? PILL_DOWN : SPRINGS.press, persist: true });
   };
+  // A finger that lands on a card to scroll must not sink it: on touch, buttons in the scrolling page wait
+  // TOUCH_PRESS_DELAY before going down (like iOS delaysContentTouches). Moving or scrolling first cancels it;
+  // a quick tap still goes down and springs back.
+  const TOUCH_PRESS_DELAY = 90;
+  const scrolling = button => !!button.closest('#app') && !button.closest('dialog,.sale-dock,.multi-bar,.glass-sales-dock');
+  const cancelWait = held => { if (held?.wait) { clearTimeout(held.wait); held.wait = 0; } };
   listen(document, 'pointerdown', event => {
     if (event.button !== 0 || event.isPrimary === false) return;
     const button = event.target.closest?.('button');
     if (!button || button.disabled) return;
-    pointers.set(event.pointerId, { button, x: event.clientX, y: event.clientY });
-    press(button);
+    const held = { button, x: event.clientX, y: event.clientY, wait: 0 };
+    pointers.set(event.pointerId, held);
+    if (event.pointerType === 'touch' && scrolling(button)) held.wait = setTimeout(() => { held.wait = 0; if (pointers.get(event.pointerId) === held) press(button); }, TOUCH_PRESS_DELAY);
+    else press(button);
   }, { capture: true, passive: true });
   listen(document, 'pointermove', event => {
     const held = pointers.get(event.pointerId);
-    if (!held || Math.hypot(event.clientX - held.x, event.clientY - held.y) < 9) return;
+    if (!held || Math.hypot(event.clientX - held.x, event.clientY - held.y) < (held.wait ? 6 : 9)) return;
     pointers.delete(event.pointerId);
-    release(held.button);
+    if (held.wait) cancelWait(held); else release(held.button);
   }, { capture: true, passive: true });
-  for (const type of ['pointerup', 'pointercancel']) listen(document, type, event => {
+  listen(document, 'pointerup', event => {
     const held = pointers.get(event.pointerId);
-    if (held) { pointers.delete(event.pointerId); release(held.button); }
+    if (!held) return;
+    pointers.delete(event.pointerId);
+    if (held.wait) { cancelWait(held); press(held.button); requestAnimationFrame(() => release(held.button)); } else release(held.button);
+  }, { capture: true, passive: true });
+  listen(document, 'pointercancel', event => {
+    const held = pointers.get(event.pointerId);
+    if (held) { pointers.delete(event.pointerId); if (held.wait) cancelWait(held); else release(held.button); }
   }, { capture: true, passive: true });
   listen(document, 'keydown', event => {
     if (event.repeat || !['Enter', ' '].includes(event.key) || !event.target.matches?.('button')) return;
@@ -488,7 +546,8 @@ function installDialogs() {
     const rect = dialog.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     state.morph = fresh ? usable(source) : state.morph;
-    state.compact = fresh ? dialog.dataset.kind === 'business' : state.compact;
+    // Every sheet, including Perfil, grows from the control that opened it and returns to it.
+    state.compact = false;
     let from;
     if (fresh && state.compact) from = { ...insightSheetGeometry(rect,source,limited()),opacity:0 };
     else if (fresh && usable(source)) from = launchPose(rect, source);

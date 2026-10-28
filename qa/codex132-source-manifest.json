@@ -1,0 +1,527 @@
+{
+  "version": "0.12.132",
+  "codexBase": "0d29c22ef617e46ff0bb6b036da06142310372b4",
+  "commonBase": "a4dab1f7f44f4448340dbb896b1422a9d727c04a",
+  "claudeHead": "d170ef9b6d573eb192e9fb5ac88f14f0a7525a3b",
+  "commits": 59,
+  "history": [
+    {
+      "sha": "d47fc0e0348ae079ee6670c4bfed617a9585912c",
+      "subject": "AGRO Gestão Claude 0.12.88: novo app a partir da 0.12.87"
+    },
+    {
+      "sha": "d051181d5b6472dc22b240a013ba64ff209f62fc",
+      "subject": "AGRO Gestão Claude 0.12.89: perda de lote vencido, aviso por produto, contas completas e abertura mais leve"
+    },
+    {
+      "sha": "cde94a1fb9e9b911e00b378f3c9a9df75f6e0881",
+      "subject": "AGRO Gestão Claude 0.12.90: exemplos ficam como dados do app"
+    },
+    {
+      "sha": "f3c6fca69bf1ce980895df31e7321f3486de9fcd",
+      "subject": "AGRO Gestão Claude 0.12.91: cards de venda na altura aprovada"
+    },
+    {
+      "sha": "fbdcdb9698d442d5cc1f12281b65964bf810622d",
+      "subject": "AGRO Gestão Claude 0.12.92: nome Claude na versão e nas telas"
+    },
+    {
+      "sha": "cb13b6f7267cfb257c7d320a17c9a5ce85995af2",
+      "subject": "AGRO Gestão Claude 0.12.93: tela de vendas com Automático, Grade, Lâminas em Pé e Carrossel"
+    },
+    {
+      "sha": "a781d500aa4c748f35345c1cc1c958a096ea88e5",
+      "subject": "AGRO Gestão Claude 0.12.95: tela de vendas em seções que sobem e se sobrepõem"
+    },
+    {
+      "sha": "5e311b32544bf1b2704f8cc15ced35b6f0c82cb8",
+      "subject": "AGRO Gestão Claude 0.12.96: seções com a mola do app"
+    },
+    {
+      "sha": "89e526335ce6a7ed85ef557aa8075156c69f21c5",
+      "subject": "AGRO Gestão Claude 0.12.97: seções mais acima e mais nomes à vista"
+    },
+    {
+      "sha": "0e845f1611ba8ffac92d6bfd4d60dbd7eac7a4e1",
+      "subject": "Vender: voltar à seção anterior com setinha e descarte para o lado (0.12.98)"
+    },
+    {
+      "sha": "352a62917de2cc429b7d9c0248bf1ccea1f418c9",
+      "subject": "Vender: navegar entre seções com o polegar, leque e páginas numeradas (0.12.100)"
+    },
+    {
+      "sha": "b1e3688c73762310634983f712217d7a76f01ae8",
+      "subject": "Vender: cards de sempre em seções de família, uma embaixo da outra (0.12.101)"
+    },
+    {
+      "sha": "8e7fdbbe3ac92959b9629303e7ddb1d27272e6cc",
+      "subject": "Vender: mover seções, setinha com mola e recolher sozinha (0.12.102)"
+    },
+    {
+      "sha": "1a0c3eab5f9dfa1f6c096e4c0d28864a0f9dc695",
+      "subject": "Vender: fechar suave, compra múltipla suave e rolagem livre (0.12.103)"
+    },
+    {
+      "sha": "b023c5e96f27131deb59f74ae3260927ad761e1d",
+      "subject": "Vender: fechar a setinha sem agarrar e desfoque menor (0.12.104)"
+    },
+    {
+      "sha": "8156b96d232eccd3ae2b25f02d58c2f4130274a5",
+      "subject": "Vender: faixa de desfoque acima da barra de baixo mais baixa (0.12.105)"
+    },
+    {
+      "sha": "3edfde549039a7406c1b3ca6db70679f6adf803a",
+      "subject": "Vender: fechar a setinha só com deslocamento e faixa de vidro fosco (0.12.106)"
+    },
+    {
+      "sha": "2d88f2f905526f419b3627029bb2663f76b0866a",
+      "subject": "wip: mapa de seções e toque no nome (antes dos testes)"
+    },
+    {
+      "sha": "3267a17c047cdfe2e87a56555389627d68ac8ef0",
+      "subject": "Vender: mapa de seções, tocar no nome sobe a seção e venda mais leve (0.12.107)"
+    },
+    {
+      "sha": "62db0bb902d04012003223ce2bfe1cb09198f1c8",
+      "subject": "wip: mover seções na janela Seções"
+    },
+    {
+      "sha": "2c1b1456f486624f160aaee55c78018cd15230ab",
+      "subject": "Vender: mover seções pela janela Seções; seta cinza e tracinho menor (0.12.108)"
+    },
+    {
+      "sha": "2e6498eb8b09172a052663cd5fee77a54a35c9bd",
+      "subject": "Diretrizes: rapidez, fluidez, elegância e design em toda abertura e janela"
+    },
+    {
+      "sha": "b3ebbd20ef17f99b2399eb29b8dcb6acd455bffd",
+      "subject": "Vender: tracinho também na última seção e seta mais clara (0.12.109)"
+    },
+    {
+      "sha": "69c749b071b5c3a8770cdbd0023ed6022940dafa",
+      "subject": "wip: venda abre na hora como folha, cards de café iguais, mola ao recolher"
+    },
+    {
+      "sha": "1270db4c70c26714f64dcab2e02a4d17b8b47171",
+      "subject": "wip: miniaturas com lugares fixos, Voltar, sem contagem no nome"
+    },
+    {
+      "sha": "30389c882eeafe2d2502eb82aa6e3d4fc622d693",
+      "subject": "Vender: venda abre na hora, cards iguais, miniaturas sem tremor (0.12.110)"
+    },
+    {
+      "sha": "651a8b250b9b264f5c6ad139ba11185393e7ba79",
+      "subject": "wip: topo igual em todas as abas, produtor de exemplo Luiz Claudio"
+    },
+    {
+      "sha": "905d96f781df40507430bb22052bc9a5a08dff63",
+      "subject": "wip: janela de cliente no padrão do app"
+    },
+    {
+      "sha": "fb293fe15f940358443a773e34683e3e75411e4a",
+      "subject": "wip: calendário com 6 semanas fixas e troca de mês deslizando"
+    },
+    {
+      "sha": "2642ab0c3582edba3517ba5c71dde7c1ba3448db",
+      "subject": "wip: Contas em uma linha por campo, para que serve e ordem natural"
+    },
+    {
+      "sha": "6b96b6555690c047f6df429d81c4ee122ff2ace1",
+      "subject": "Topo padronizado, cliente, calendário, Contas e Gestão de fornecedores (0.12.111)"
+    },
+    {
+      "sha": "f928b251204a11f1666e0de85062fac43b5e455c",
+      "subject": "Calculadora: $ primeiro, produto por seção e valores a mais nas contas (0.12.112)"
+    },
+    {
+      "sha": "400867e0e3b0f32913549c67a1243b04149862a6",
+      "subject": "wip: peixes ornamentais no exemplo e seção própria"
+    },
+    {
+      "sha": "172a9ece0d5bc46df8b87de4d2f69d05f0146ce5",
+      "subject": "Peixes ornamentais no exemplo e folha do calendário virando (0.12.113)"
+    },
+    {
+      "sha": "4029222f8f0e3641fe068a4da8f1b0a5bcd046d4",
+      "subject": "wip: janela Seções volta para o tracinho"
+    },
+    {
+      "sha": "9498bc09ca7a89ae27b9be32ec0c336d33d49ecd",
+      "subject": "wip: bettas, peixes de consumo, Perfil volta à pílula, folha para a esquerda"
+    },
+    {
+      "sha": "6f2d9318074b76a0d7d1ce6a2635b213dd22ffd5",
+      "subject": "Peixes no exemplo, janelas voltam à origem e calculadora em Fornecedores (0.12.114)"
+    },
+    {
+      "sha": "a416c6d3e815e12370e2312a54bd6c491ccfea8a",
+      "subject": "Estoque por área e venda cancelada volta ao card (0.12.115)"
+    },
+    {
+      "sha": "b55992ebad91a88f7109c4216485c164c1f582ec",
+      "subject": "Diretriz de aberturas e movimento; primeira abertura da venda sem tranco (0.12.116)"
+    },
+    {
+      "sha": "9bd8ae7bd948b5dfabb517fa7d73587ffdfdb987",
+      "subject": "wip: estoque com subgrupos (antes dos testes)"
+    },
+    {
+      "sha": "a85fc26570a45d9358c20adffe5788bf0669c215",
+      "subject": "Estoque com subgrupos, estado em palavra e volta no fim da página (0.12.117)"
+    },
+    {
+      "sha": "fc355440d2dd0e90ff0b89c853c98b149331c26d",
+      "subject": "Estoque: subgrupo mostra todas as apresentações, sem contagem errada (0.12.118)"
+    },
+    {
+      "sha": "bab384859c6bdaa922435718883d7f895a7a9da7",
+      "subject": "Estoque: subgrupo mantém o recolhido, com a contagem certa (0.12.118)"
+    },
+    {
+      "sha": "d0cdaccc23c5ec219b168d562cdedb8d4ac8c29a",
+      "subject": "Estoque: botões no topo e troca sutil para Fornecedores (0.12.119)"
+    },
+    {
+      "sha": "f673c01f39288f2b1ea8bafb61ad111589e37195",
+      "subject": "wip: topo com título à esquerda e foto à direita"
+    },
+    {
+      "sha": "28713aaad985be2408bce3785e014f0e835d9a07",
+      "subject": "Topo com título e foto, V do calendário que se desenha (0.12.120)"
+    },
+    {
+      "sha": "f82da6d17a89e99d865229e191d797c19cea698a",
+      "subject": "Foto só em Produtos, em preto e branco com opção colorida (0.12.121)"
+    },
+    {
+      "sha": "966b68a2ddb365224e0579c6a93f20230bff6533",
+      "subject": "Ícone de perfil no topo, foto colorida só na janela do Perfil (0.12.122)"
+    },
+    {
+      "sha": "3afbafa942f49d8e2376eb00e70fcb81d18d8e1c",
+      "subject": "Perfil do mesmo tamanho dos outros ícones e no meio do topo (0.12.123)"
+    },
+    {
+      "sha": "abde24cc57d5c9973c99f91c67acaef13499837e",
+      "subject": "Ícone do tempo cinza na página, colorido só na janela (0.12.124)"
+    },
+    {
+      "sha": "5d4b719f703592e1a54295fc9aecb6c74d393c79",
+      "subject": "Rolagem de Produtos sem agarrar; legenda dos cafés abaixo de Validades (0.12.125)"
+    },
+    {
+      "sha": "34058469d7b7be5d775f107c671e0ed5869aec6f",
+      "subject": "Estoque abre famílias do card com a mola do sistema; setas só ‹ (0.12.126)"
+    },
+    {
+      "sha": "bf2447e37c36ab1750745d9134717e574925aefe",
+      "subject": "Troca de abas com a mola inteira no celular e modo leve com as molas do app (0.12.128)"
+    },
+    {
+      "sha": "f90bc28fe432c7649e0ceb2d9bd1ef779f5ee339",
+      "subject": "Seta de voltar do Estoque sem círculo (0.12.129)"
+    },
+    {
+      "sha": "8f6018a55a716c32246fcd427495591029f94ec2",
+      "subject": "Estoque: Validades acima da seta; abrir e voltar com a mola inteira (0.12.130)"
+    },
+    {
+      "sha": "a42672aa502a40ad8e6fb01616e2d9ac2c16b716",
+      "subject": "Gesto de voltar para Produtos com a mesma mola das abas (0.12.131)"
+    },
+    {
+      "sha": "7c958d66d75db95739738bf99a0b71957087531b",
+      "subject": "Voltar uma tela por vez, aviso de venda só com produto, calculadora consertada, $ depois de Receber (0.12.132)"
+    },
+    {
+      "sha": "6f61af992e17b871443202748ff2bbd628a878a7",
+      "subject": "Registro: 0.12.132 instalada no Find X8"
+    },
+    {
+      "sha": "d170ef9b6d573eb192e9fb5ac88f14f0a7525a3b",
+      "subject": "Registro: 0.12.132 instalada também no Reno14"
+    }
+  ],
+  "changedSourceFiles": [
+    {
+      "path": "AGENTS.md",
+      "integrated": true,
+      "mergedSHA256": "abde476e78aff25b662d9d7216924b43dee9b381dfcd884e24235937713a3a50"
+    },
+    {
+      "path": "DIRETRIZ_ABERTURAS_E_MOVIMENTO.md",
+      "integrated": true,
+      "mergedSHA256": "1160379bca993f1a70e29a4d15a7f5739f41f075adb8157b1ffc34981be6c798"
+    },
+    {
+      "path": "app/android/app/build.gradle",
+      "integrated": true,
+      "mergedSHA256": "1caf799bd90e7992787f68192745f0ec84a680cb0d516356e1c754a1333a1d5e"
+    },
+    {
+      "path": "app/android/app/src/main/res/values/strings.xml",
+      "integrated": true,
+      "mergedSHA256": "18cf37ad5684c8ed8d66e8c0c0f09b9d6f34d503a2db02b69cc6437892421692"
+    },
+    {
+      "path": "app/capacitor.config.json",
+      "integrated": true,
+      "mergedSHA256": "5f77abece88d41a8196d120712c9ba5c7d8273745835f6b3131fd0a162c7f468"
+    },
+    {
+      "path": "app/docs/ANALISE-ENTREGA-0.12.88-CLAUDE.md",
+      "integrated": true,
+      "mergedSHA256": "ae969a72929c952980fa4a8aa57cae6130ceb4c433c0ab6ac47dd3019bdf65a4"
+    },
+    {
+      "path": "app/docs/DIRETRIZ-CALCULADORA-CONTAS.md",
+      "integrated": true,
+      "mergedSHA256": "5867bd96f197849b6e891e599b455dc288b7a5f20f21cbc72e8e67118e0face0"
+    },
+    {
+      "path": "app/index.html",
+      "integrated": true,
+      "mergedSHA256": "2cf44c06930694a21f053a0ff7979b8ae9990a83afcd7eb475f1c1599fa7f3cd"
+    },
+    {
+      "path": "app/package-lock.json",
+      "integrated": true,
+      "mergedSHA256": "d155095b468167174063c01ebcbde8d976f34af18d7c90eaa44b2b7ad8bd6103"
+    },
+    {
+      "path": "app/package.json",
+      "integrated": true,
+      "mergedSHA256": "814165e70e37420f8dcb6b77c883c45aaf7866caf4c84f418e822da1658d9d59"
+    },
+    {
+      "path": "app/src/data/interface-guidelines.js",
+      "integrated": true,
+      "mergedSHA256": "55a9e73b3f15e720ab64ae4edf6b623bb8bbf7902298d6d08ff678c2b789de1d"
+    },
+    {
+      "path": "app/src/dialog-system.css",
+      "integrated": true,
+      "mergedSHA256": "e06604ac8a13af7aa7fde8f3eeb409ec13f35e32043293718076aab232bb5454"
+    },
+    {
+      "path": "app/src/features/advisor/validity-rules.js",
+      "integrated": true,
+      "mergedSHA256": "8971f51d330a8eebf1df401ce6983d087e3f1881060b1c4b7803e133bb316acb"
+    },
+    {
+      "path": "app/src/features/advisor/weather-rules.js",
+      "integrated": true,
+      "mergedSHA256": "53b0f94d087d6bf1b65ddbff07cd436a7db38993a9fbe67a1c7f2f3bf05dfdb7"
+    },
+    {
+      "path": "app/src/features/auto-collapse.js",
+      "integrated": true,
+      "mergedSHA256": "fcc7aa11c03d30c1a2260c0d8cf450c8b7f698ce96478bb81bb4ad63222d2a1f"
+    },
+    {
+      "path": "app/src/features/client-surfaces.css",
+      "integrated": true,
+      "mergedSHA256": "3b68227453cb3f7d4e5f04738417a34471175dc0595514cefc8a682d468ec1d0"
+    },
+    {
+      "path": "app/src/features/finance/audit.js",
+      "integrated": true,
+      "mergedSHA256": "017e81bcb22063a5c20e6fcb9a396958b6f168ceddfba898699b4746b8698abb"
+    },
+    {
+      "path": "app/src/features/finance/finance.js",
+      "integrated": true,
+      "mergedSHA256": "5c46eef13338148459a8d71a255d04c037faae8a748fe2dec327bbf3a764cda9"
+    },
+    {
+      "path": "app/src/features/finance/producer-calcs.js",
+      "integrated": true,
+      "mergedSHA256": "775d00017ccb5016e7db351e203678f586d7d817e9e9602a3b19d4a6bb33affb"
+    },
+    {
+      "path": "app/src/features/interface.js",
+      "integrated": true,
+      "mergedSHA256": "2af1b2b0d1696a9988c2f06822be7558faf5416fd420bcf57597eaa31c2ff083"
+    },
+    {
+      "path": "app/src/features/motion/index.js",
+      "integrated": true,
+      "mergedSHA256": "b1bce3e577de53317b1c0f4f894521404fc01726c72150ea724ea1a9d54a5598"
+    },
+    {
+      "path": "app/src/features/motion/nav-icons.js",
+      "integrated": true,
+      "mergedSHA256": "5bef1ac2dab31b7ede78e13c7ab1a07e97fc3a01f7cd9ce36ade7deb3d1e2ede"
+    },
+    {
+      "path": "app/src/features/multisell.css",
+      "integrated": true,
+      "mergedSHA256": "e2b9aab237773d684a1c65c986050832213883edaf0cf1ebb0c08f24efa98fd4"
+    },
+    {
+      "path": "app/src/features/multisell.js",
+      "integrated": true,
+      "mergedSHA256": "9caee73bd8ca6eea89afa77182e9020455248a54e345fb8386b1496542104b4f"
+    },
+    {
+      "path": "app/src/features/municipal-calendar/index.js",
+      "integrated": true,
+      "mergedSHA256": "e1576750b596f3405184b515be8f0f106b8fc7790a7bcd5889265de7bf00a953"
+    },
+    {
+      "path": "app/src/features/producer-calcs.css",
+      "integrated": true,
+      "mergedSHA256": "e99ead4a4a446997f4c0e71daf9d518525766c067f8675ff3061ae7d88f28ab4"
+    },
+    {
+      "path": "app/src/features/proper-name.js",
+      "integrated": true,
+      "mergedSHA256": "a885cf6b01959d845a4e1e43b40c02b92c855c8a84f5f279bd63e34c5a28218e"
+    },
+    {
+      "path": "app/src/features/receivables/index.js",
+      "integrated": true,
+      "mergedSHA256": "23cf8423772363d15d60c6af3b1559c8708ab7390625d00657c10d24c2dba205"
+    },
+    {
+      "path": "app/src/features/receivables/receivables.js",
+      "integrated": true,
+      "mergedSHA256": "6bc9ad509c71773b155ca74d0ee2a1a290d4d4c275440b2318b16e4b819df372"
+    },
+    {
+      "path": "app/src/features/resources/index.js",
+      "integrated": true,
+      "mergedSHA256": "d1dc78403bff79572efc0fa5eb7d372985c89458073c033041e7fcb0e3a06f8d"
+    },
+    {
+      "path": "app/src/features/sell-modes/model.js",
+      "integrated": true,
+      "mergedSHA256": "3b3fd6c51a563672190e7cd28b582aa17e0f2abfcf9cb6218d3e2fc3c0fa3e35"
+    },
+    {
+      "path": "app/src/features/sell-modes/sell-modes.css",
+      "integrated": true,
+      "mergedSHA256": "614414391c47ff544b63fe17f95b39704a53b2440d9553673d864d3fcf40ad30"
+    },
+    {
+      "path": "app/src/features/stock-alerts.css",
+      "integrated": true,
+      "mergedSHA256": "1c080ec69147a30ccc37eaaf68a1a5b83bc40e88de57f14a830bea310f9932ba"
+    },
+    {
+      "path": "app/src/features/stock-lots/calendar.js",
+      "integrated": true,
+      "mergedSHA256": "a8fbfc9dc98a40cbf5beb59238d164e3c5ecae0f9697ffc6521e94e9a7de64a4"
+    },
+    {
+      "path": "app/src/features/stock-lots/derived.js",
+      "integrated": true,
+      "mergedSHA256": "739dbc576716540a57e562c39d0cfd058ea974d6e3905ad79dd9b3cf9bf38605"
+    },
+    {
+      "path": "app/src/features/stock-lots/model.js",
+      "integrated": true,
+      "mergedSHA256": "35f2df40d3476585148b6fdb6a5332b06338ff75adc455dccb40484d42b59480"
+    },
+    {
+      "path": "app/src/features/stock-lots/ui.js",
+      "integrated": true,
+      "mergedSHA256": "83c5b8e42e69da9a20ac70379f95a473b33f6dfc167be7f0b969000be4fc12ce"
+    },
+    {
+      "path": "app/src/features/stock-lots/validity.js",
+      "integrated": true,
+      "mergedSHA256": "a0534ef6a6ae92ff76136b93e6a58acda88a10f9253fef0b6aa7556c6429b541"
+    },
+    {
+      "path": "app/src/features/suppliers/index.js",
+      "integrated": true,
+      "mergedSHA256": "79eb00709e0b218f937d3ee3ebf001d87c0a799a5cc294094dc0156500211544"
+    },
+    {
+      "path": "app/src/features/suppliers/model.js",
+      "integrated": true,
+      "mergedSHA256": "9ba7af572a2d7527af8c37f759aa67d347f3673aafa9d31d7ac7273a033d04e9"
+    },
+    {
+      "path": "app/src/features/training/index.js",
+      "integrated": true,
+      "mergedSHA256": "570cde564729060df1701431f959cb998b311428a373973183ecb0520736e0dd"
+    },
+    {
+      "path": "app/src/features/training/seed.js",
+      "integrated": true,
+      "mergedSHA256": "bb27b56e20883eb5195f6361e1aefd153694e8916ef56c15a2cf3a46ac9d4ce4"
+    },
+    {
+      "path": "app/src/features/visual-cohesion.css",
+      "integrated": true,
+      "mergedSHA256": "2dc49e188672e1a4c18b47cce36881b49f6a57b7a8b700884278c6f5d8c1fc56"
+    },
+    {
+      "path": "app/src/features/weather/weather.css",
+      "integrated": true,
+      "mergedSHA256": "ea8e6e84d0402dde399df7fd482a261939b06d7ea5743e70f57c2ab95dfb49e2"
+    },
+    {
+      "path": "app/src/features/workflows/index.js",
+      "integrated": true,
+      "mergedSHA256": "0e0a2e74376d90fac1bc9334b29f3f33ff7e1b95e169988b68b70f4455903617"
+    },
+    {
+      "path": "app/src/legacy/erp-ui.js",
+      "integrated": true,
+      "mergedSHA256": "5e66f7ef76303045f9d1a98af9ebbdb07149982022042e75fa2db179f77d98be"
+    },
+    {
+      "path": "app/src/main.js",
+      "integrated": true,
+      "mergedSHA256": "e6f3f4aa6180e288b097ea402e6dc1dcb2df3dc5dc05031e42fb9bcdc9e877f5"
+    },
+    {
+      "path": "app/src/motion.css",
+      "integrated": true,
+      "mergedSHA256": "2b52a2749273f27d402d66ee14893d602af03f991900185363863c7dba134e7e"
+    },
+    {
+      "path": "app/tests/claude088.test.mjs",
+      "integrated": true,
+      "mergedSHA256": "004b11a190f166b69c820c9d58e607cd84998f733d6322994e215851320d142c"
+    },
+    {
+      "path": "app/tests/coffee-models080.test.mjs",
+      "integrated": true,
+      "mergedSHA256": "bda456af739549df385bf36c2201eeea4ae871f750eff25c0c5da0eaff82064a"
+    },
+    {
+      "path": "app/tests/finance.test.mjs",
+      "integrated": true,
+      "mergedSHA256": "9fb0491dc9eaa32cce986e7afba32bd5cf6b1315a343771dc7e1040b8ea395ca"
+    },
+    {
+      "path": "app/tests/producer-calcs.test.mjs",
+      "integrated": true,
+      "mergedSHA256": "2189c395dc3f1e75e2361eb131dc72f201b22e7d7cad0d0b45db4b03f974093e"
+    },
+    {
+      "path": "app/tests/sell-modes.test.mjs",
+      "integrated": true,
+      "mergedSHA256": "e40fe756afc98be1264fad17244f91b5a8aa9b6bfcbf6231f90cf4e3230f34b5"
+    },
+    {
+      "path": "app/tests/training.test.mjs",
+      "integrated": true,
+      "mergedSHA256": "713dd8567fcfa09486f61e128933d5e0bc47a7bde4859e398114636f719f6be0"
+    },
+    {
+      "path": "app/wx.png",
+      "integrated": true,
+      "mergedSHA256": "4b01ee03b0992b207a321d209781aeca16076e5e371c19ef738dccb911d5e5b2"
+    },
+    {
+      "path": "app/x.png",
+      "integrated": true,
+      "mergedSHA256": "528233b3bf2932e27aa7947c0bfe56d318d509ebe9bc1ffedaa757ecc3c68dc9"
+    }
+  ]
+}

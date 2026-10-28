@@ -64,7 +64,7 @@
 /* ---------------------------------------------------------------- "Mova os cards" */
 .glass-area-row > .move-cards-pill { display: none; }
 html:is(.multi-select, .reorder-edit) .glass-area-row > .glass-area-label { display: none; }
-html:is(.multi-select, .reorder-edit) .glass-area-row > .move-cards-pill {
+html:is(.multi-select, .reorder-edit, .multi-leaving) .glass-area-row > .move-cards-pill {
   position: relative;
   display: inline-flex; align-items: center; gap: 6px;
   height: 36px; padding: 0 14px 0 11px; border: 0; border-radius: 999px;
@@ -83,6 +83,9 @@ html.multi-select .move-cards-pill::after {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--lilac, #a788c2) 60%, transparent);
   animation: move-pill-halo 1.8s ease-out infinite;
 }
+html.multi-leaving:not(.multi-select) .glass-area-row > .move-cards-pill { animation: move-pill-out 0.2s cubic-bezier(0.4, 0, 1, 1) forwards; }
+html.multi-leaving .move-cards-pill::after { display: none; }
+@keyframes move-pill-out { to { opacity: 0; transform: translateY(-6px) scale(0.94); } }
 @keyframes move-pill-in { from { opacity: 0; transform: translateY(-6px) scale(0.94); } }
 @keyframes move-pill-halo { 0% { opacity: 0.9; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(1.12); } }
 

@@ -242,3 +242,9 @@ html.sheet-typing :is(#app, #nav, #nav-glass) { visibility: hidden; }
 #dialog[data-kind=fair-restock] .fair-restock-entry { margin:0; }
 #dialog[data-kind=fair-restock] .fair-restock-entry .numeric-field { margin:0; }
 #dialog[data-kind=fair-restock] .fair-restock-entry .ds-note { margin:12px 0 0; }
+
+/* Calendário: dias com toque firme e marcação imediata; a grade tem sempre 6 semanas. */
+:root[data-theme][data-layout] #date-picker-dialog .calendar-day{transition:transform .14s cubic-bezier(.3,.7,.4,1),background-color .14s}
+:root[data-theme][data-layout] #date-picker-dialog .calendar-day:active{transform:scale(.9)}
+:root[data-theme][data-layout] #date-picker-dialog .calendar-grid{will-change:auto}
+@media (prefers-reduced-motion: reduce){:root[data-theme][data-layout] #date-picker-dialog .calendar-day{transition:none}}

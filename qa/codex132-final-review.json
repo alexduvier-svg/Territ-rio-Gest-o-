@@ -1,0 +1,1017 @@
+{
+  "version": "0.12.132",
+  "checkedAt": "2026-10-28T12:01:44.406Z",
+  "sha256": "d067918ff7afb82d6ab6827942caf71a4bb5f21699423e36a0cc874ca84bb7b0",
+  "sourceCommits": 59,
+  "sourceFiles": 56,
+  "unitTests": 812,
+  "browser": {
+    "version": "0.12.132",
+    "compiled": true,
+    "synthetic": true,
+    "physical": false,
+    "networkBlocked": true,
+    "productionDatabaseRead": false,
+    "startedAt": "2026-10-28T11:55:54.920Z",
+    "cases": [
+      {
+        "theme": "dark",
+        "width": 320,
+        "largeText": true,
+        "performanceMode": "lite",
+        "reducedMotion": true,
+        "result": {
+          "fiveTabs": true,
+          "identity": true,
+          "familySixCards": true,
+          "familyExpansion": true,
+          "ornamentalsSeparate": true,
+          "sectionMap": true,
+          "oneTapSaleAndCancel": true,
+          "stockAreasAndSubgroups": true,
+          "backOneLevel": true,
+          "supplierBackToStock": true,
+          "sevenCalculatorTopics": true,
+          "searchProductPicker": true,
+          "markupCalculation": true,
+          "scientificAngle": true,
+          "basicCalculator": true,
+          "domainUnchanged": true,
+          "viewportFit": true
+        },
+        "passed": true
+      },
+      {
+        "theme": "dark",
+        "width": 360,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "fiveTabs": true,
+          "identity": true,
+          "familySixCards": true,
+          "familyExpansion": true,
+          "ornamentalsSeparate": true,
+          "sectionMap": true,
+          "oneTapSaleAndCancel": true,
+          "stockAreasAndSubgroups": true,
+          "backOneLevel": true,
+          "supplierBackToStock": true,
+          "sevenCalculatorTopics": true,
+          "searchProductPicker": true,
+          "markupCalculation": true,
+          "scientificAngle": true,
+          "basicCalculator": true,
+          "domainUnchanged": true,
+          "viewportFit": true
+        },
+        "passed": true
+      },
+      {
+        "theme": "dark",
+        "width": 393,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "fiveTabs": true,
+          "identity": true,
+          "familySixCards": true,
+          "familyExpansion": true,
+          "ornamentalsSeparate": true,
+          "sectionMap": true,
+          "oneTapSaleAndCancel": true,
+          "stockAreasAndSubgroups": true,
+          "backOneLevel": true,
+          "supplierBackToStock": true,
+          "sevenCalculatorTopics": true,
+          "searchProductPicker": true,
+          "markupCalculation": true,
+          "scientificAngle": true,
+          "basicCalculator": true,
+          "domainUnchanged": true,
+          "viewportFit": true
+        },
+        "passed": true
+      },
+      {
+        "theme": "dark",
+        "width": 412,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "fiveTabs": true,
+          "identity": true,
+          "familySixCards": true,
+          "familyExpansion": true,
+          "ornamentalsSeparate": true,
+          "sectionMap": true,
+          "oneTapSaleAndCancel": true,
+          "stockAreasAndSubgroups": true,
+          "backOneLevel": true,
+          "supplierBackToStock": true,
+          "sevenCalculatorTopics": true,
+          "searchProductPicker": true,
+          "markupCalculation": true,
+          "scientificAngle": true,
+          "basicCalculator": true,
+          "domainUnchanged": true,
+          "viewportFit": true
+        },
+        "passed": true
+      },
+      {
+        "theme": "light",
+        "width": 320,
+        "largeText": true,
+        "performanceMode": "lite",
+        "reducedMotion": true,
+        "result": {
+          "fiveTabs": true,
+          "identity": true,
+          "familySixCards": true,
+          "familyExpansion": true,
+          "ornamentalsSeparate": true,
+          "sectionMap": true,
+          "oneTapSaleAndCancel": true,
+          "stockAreasAndSubgroups": true,
+          "backOneLevel": true,
+          "supplierBackToStock": true,
+          "sevenCalculatorTopics": true,
+          "searchProductPicker": true,
+          "markupCalculation": true,
+          "scientificAngle": true,
+          "basicCalculator": true,
+          "domainUnchanged": true,
+          "viewportFit": true
+        },
+        "passed": true
+      },
+      {
+        "theme": "light",
+        "width": 360,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "fiveTabs": true,
+          "identity": true,
+          "familySixCards": true,
+          "familyExpansion": true,
+          "ornamentalsSeparate": true,
+          "sectionMap": true,
+          "oneTapSaleAndCancel": true,
+          "stockAreasAndSubgroups": true,
+          "backOneLevel": true,
+          "supplierBackToStock": true,
+          "sevenCalculatorTopics": true,
+          "searchProductPicker": true,
+          "markupCalculation": true,
+          "scientificAngle": true,
+          "basicCalculator": true,
+          "domainUnchanged": true,
+          "viewportFit": true
+        },
+        "passed": true
+      },
+      {
+        "theme": "light",
+        "width": 393,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "fiveTabs": true,
+          "identity": true,
+          "familySixCards": true,
+          "familyExpansion": true,
+          "ornamentalsSeparate": true,
+          "sectionMap": true,
+          "oneTapSaleAndCancel": true,
+          "stockAreasAndSubgroups": true,
+          "backOneLevel": true,
+          "supplierBackToStock": true,
+          "sevenCalculatorTopics": true,
+          "searchProductPicker": true,
+          "markupCalculation": true,
+          "scientificAngle": true,
+          "basicCalculator": true,
+          "domainUnchanged": true,
+          "viewportFit": true
+        },
+        "passed": true
+      },
+      {
+        "theme": "light",
+        "width": 412,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "fiveTabs": true,
+          "identity": true,
+          "familySixCards": true,
+          "familyExpansion": true,
+          "ornamentalsSeparate": true,
+          "sectionMap": true,
+          "oneTapSaleAndCancel": true,
+          "stockAreasAndSubgroups": true,
+          "backOneLevel": true,
+          "supplierBackToStock": true,
+          "sevenCalculatorTopics": true,
+          "searchProductPicker": true,
+          "markupCalculation": true,
+          "scientificAngle": true,
+          "basicCalculator": true,
+          "domainUnchanged": true,
+          "viewportFit": true
+        },
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "assetsBefore": {
+      "fingerprint": "c1f9ebcea2db946851414ad8485fcce83748b3f61796ae93770911e9de1045e6",
+      "files": [
+        {
+          "path": "assets/catalog-CdLM8A9A.webp",
+          "bytes": 228830,
+          "sha256": "0b4b7ab3904505b9db13b2729aef564b8d53bd80751ed58b4127e274d3e14d88"
+        },
+        {
+          "path": "assets/definitions-BdWVgBTV.js",
+          "bytes": 186,
+          "sha256": "6f5aaf2a6ca57d8aa7be42176efd4d46747fff6e9e0b4788e98234b9ae45d342"
+        },
+        {
+          "path": "assets/definitions-DlpntO5o.js",
+          "bytes": 352,
+          "sha256": "386d6863bee205584abf6e3c5c7b71353d92150155a3d8093a8a919380bc85a5"
+        },
+        {
+          "path": "assets/derived-loWymzVY.js",
+          "bytes": 37715,
+          "sha256": "fcd0dd8d2d4d8881c4c0ab6b38cf6b3abfc830c1256b17bf769c15e5417d6bca"
+        },
+        {
+          "path": "assets/dist-CPAKd-Fu.js",
+          "bytes": 7772,
+          "sha256": "3424482152b7d6b73cb33951b8858dd622597da520a81390f55a78fa9d6a25c3"
+        },
+        {
+          "path": "assets/domain-BvRk9kiK.js",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "assets/domain-CYLlPQ10.js",
+          "bytes": 1226,
+          "sha256": "141c78d1ece300dd268a738f8e1202dde94a731319cfe945304cf41fe3cc92b8"
+        },
+        {
+          "path": "assets/erp-ui--iY_ch1b.js",
+          "bytes": 688477,
+          "sha256": "8e4b328174dce53385b6a1b9c7da2484539c2827a418a86ea80c907ca5ea6d60"
+        },
+        {
+          "path": "assets/index-CMb9hWvG.css",
+          "bytes": 309059,
+          "sha256": "0b594ee242c6f13a2cfaf8cf11a44133e32f7a9f656abd19cc118c1d37f24bbc"
+        },
+        {
+          "path": "assets/index-YDk2_-Lp.js",
+          "bytes": 1026200,
+          "sha256": "23f00e00a26bac95eab96bac9e48ea2d29983d3e68318e37dca44fcbac20dae8"
+        },
+        {
+          "path": "assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "bytes": 48256,
+          "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+        },
+        {
+          "path": "assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2",
+          "bytes": 44872,
+          "sha256": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618"
+        },
+        {
+          "path": "assets/logo-CxngqR6P.png",
+          "bytes": 22608,
+          "sha256": "3b5bf307a26db5c179bb981e0cc68c08687696cd3b2053128a0648d68cd1a8fb"
+        },
+        {
+          "path": "assets/lots-B5rPcw7J.css",
+          "bytes": 4207,
+          "sha256": "ffd5f20d96275a7d2aadcbec94a53a63a413e9de7797c49fef292365fdea131d"
+        },
+        {
+          "path": "assets/pdf-BJn6lm-l.js",
+          "bytes": 420225,
+          "sha256": "fbe205db971e28a9f1a91d5db1bcbd4ee155577e90972a8bac2b94141c67924f"
+        },
+        {
+          "path": "assets/pdf-worker-C6ubdd4v.js",
+          "bytes": 427282,
+          "sha256": "53f3fe2b780168ef70b5989857fefe56682e3c47755488520f3c4a6d7d83ec2d"
+        },
+        {
+          "path": "assets/product-catalog-data-D_ysmatF.js",
+          "bytes": 410348,
+          "sha256": "2aabc5568f10dc058783f371da6ee17e39ece80242e6524b951c6fce8e13f58c"
+        },
+        {
+          "path": "assets/profile-tj8Hr3D-.webp",
+          "bytes": 9190,
+          "sha256": "20b5042ba45f12623e67659ceeaa6d2da60b7f2ba37844d5b82943a548845294"
+        },
+        {
+          "path": "assets/rolldown-runtime-hePW80VL.js",
+          "bytes": 716,
+          "sha256": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021"
+        },
+        {
+          "path": "assets/ui-C1YXR3zL.js",
+          "bytes": 24485,
+          "sha256": "61b43be2086dcec6e81e03fedbdaf8aaa4fca3ce609db32f99fe2f0da63d0996"
+        },
+        {
+          "path": "assets/visual-cohesion-CmJjRrDg.css",
+          "bytes": 7578,
+          "sha256": "4f4d867495011d9e73d2a3ac1f516644eb73fbd66a6fa5f7301e2e02b7a52408"
+        },
+        {
+          "path": "assets/web-aqM8fxsl.js",
+          "bytes": 4437,
+          "sha256": "828bbdb2d8e55ae9de53fc92b3fc1be22bc7b7bdf935b18e425a7a350ed1805c"
+        },
+        {
+          "path": "assets/web-BvY7Eea_.js",
+          "bytes": 122,
+          "sha256": "8b7ec84c9f0f97c2d70cd0cad42ce19ea60f364f710365021d16e872932a9bea"
+        },
+        {
+          "path": "assets/web-CBGQpq9j.js",
+          "bytes": 195,
+          "sha256": "84e6666ada25c206aa57c62b7950c858806f516865046e3073fe29cfab6dfad5"
+        },
+        {
+          "path": "assets/web-CT3cYuIz.js",
+          "bytes": 364,
+          "sha256": "27ffb7f5299971a1fa4146c9504ae080c38131afb4ad51581bbd55a6f878609e"
+        },
+        {
+          "path": "assets/web-DBX4s-QP.js",
+          "bytes": 1152,
+          "sha256": "97b04e935cb319b88dbd56f7987dfc5e26b401cd246fa773da8953036e6fdf85"
+        },
+        {
+          "path": "assets/web-DhDWnTj3.js",
+          "bytes": 843,
+          "sha256": "3b382faa5027993dcca569b50316c8097a431369a23c78382f4543dc858ff863"
+        },
+        {
+          "path": "assets/web-DiHF2kId.js",
+          "bytes": 932,
+          "sha256": "b499c38e28ec5d5523c3f99c414308dc33869691dc2e80b50387b4c4a92fea43"
+        },
+        {
+          "path": "assets/web-Erkw07oJ.js",
+          "bytes": 8471,
+          "sha256": "fa1c3c40bc334aeeaff5296a6deb09f5c9d40d68de95f8401be83684d19a5169"
+        },
+        {
+          "path": "assets/worker-K0hOSrYH.js",
+          "bytes": 54421,
+          "sha256": "4e93b01fa1eb164aaa3363617ba3f7640e66a3278621c7703464a75b854f8f67"
+        },
+        {
+          "path": "index.html",
+          "bytes": 1273,
+          "sha256": "4e32bb65d6fe0227f9e649099bc2389961ae22e432c9256fcdb83af6dedee4bf"
+        },
+        {
+          "path": "knowledge/adaptacao-memoria-acao.md",
+          "bytes": 34379,
+          "sha256": "70152480be8e789ac06ef0032ccc059aed8e8631037f60d083c7a1ebb998b823"
+        },
+        {
+          "path": "knowledge/agente-operacional.md",
+          "bytes": 3222,
+          "sha256": "5f4cc9b63fedd209f62425ee0088c341a417ac83b37ad3adc3409ab789e96a2c"
+        },
+        {
+          "path": "knowledge/calculadora-contas.md",
+          "bytes": 2528,
+          "sha256": "3a578513656822c0673bbd5e3687ffd256055edbf0aae6ed4f030af123433fd5"
+        },
+        {
+          "path": "knowledge/catalogo-agro/ADICOES-DO-APP.md",
+          "bytes": 2609,
+          "sha256": "bf99663d79454e100e406aa186597175e32bd927e9c55463e1ed7ed02a3226e9"
+        },
+        {
+          "path": "knowledge/catalogo-agro/INSTRUCOES_PARA_O_CODEX.md",
+          "bytes": 12930,
+          "sha256": "1390cceeb7fd55e0d8c699e43a5ada922631957f6fccc131b7ed74f5823cda9a"
+        },
+        {
+          "path": "knowledge/catalogo-agro/LEIA_PRIMEIRO.md",
+          "bytes": 1765,
+          "sha256": "d357e6f942764a518cab4a45853109d61577793e16e268bb435352de30358e4b"
+        },
+        {
+          "path": "knowledge/catalogo-agro/LISTA_COMPLETA.md",
+          "bytes": 239672,
+          "sha256": "61df61b561e3038edbeae4a7cd8480c4723958ed4d39f3df0b93589eea675134"
+        },
+        {
+          "path": "knowledge/catalogo-agro/resumo_categorias.json",
+          "bytes": 1537,
+          "sha256": "2f451a4d1e2545d9237b8ee4a28fd9b6827881ac473f901cb45a0637c8f630f3"
+        },
+        {
+          "path": "knowledge/catalogo-agro/unidades_e_plurais.json",
+          "bytes": 5265,
+          "sha256": "633ebadf62498f85fb0685f933e0b385984ded6f71961aadf5ce41550fe93384"
+        },
+        {
+          "path": "knowledge/crm-pdv-profissional.md",
+          "bytes": 53105,
+          "sha256": "31a5b729966824a6dfa1e675361d7d8b881c59c1103d5c4d3d10c112725a7753"
+        },
+        {
+          "path": "knowledge/estoque-validade-contexto.md",
+          "bytes": 3554,
+          "sha256": "5f5f556fcdefe03340a51e0d84d2b2ca89848064210848aee791e9f3c7c82c09"
+        },
+        {
+          "path": "knowledge/experiencia-cafes-diretriz.md",
+          "bytes": 5816,
+          "sha256": "78b9368da878f6dfc44083c5137f57ed11934077757e76e5ef7f4373d94158d6"
+        },
+        {
+          "path": "knowledge/fornecedores-diretriz.md",
+          "bytes": 31558,
+          "sha256": "d36b01b11b7d77394e8690d0d65bd0611496c464a4759703699ce3c0c5e32859"
+        },
+        {
+          "path": "knowledge/general-education.json",
+          "bytes": 4674,
+          "sha256": "c1199e08a7bdea4eb221ee3d187ca8c0ff905adfe92ed168266b72c53f1cfb31"
+        },
+        {
+          "path": "knowledge/hierarquia-inteligencia.md",
+          "bytes": 4888,
+          "sha256": "0d530a2b2ffd7bdad088b265d4a8e09d16543850343bd85e670ea9cd6f17b333"
+        },
+        {
+          "path": "knowledge/inteligencia-adaptativa-connect-action-audit.md",
+          "bytes": 25587,
+          "sha256": "e1228d9037f6d997301c6ef6b0dc53662a85f9937f6e1c90c96fadf8af833509"
+        },
+        {
+          "path": "knowledge/motor-decisoes.md",
+          "bytes": 5912,
+          "sha256": "befda96fa85079354e67dc312458991ba1c5cb621240f1755bc34d0e905d5084"
+        },
+        {
+          "path": "knowledge/perguntas-negocio.json",
+          "bytes": 11867,
+          "sha256": "21729c4e92a3ddd8a173af5dde974d0d604cf6fb1a5b69e327f5bf19c242fcbe"
+        },
+        {
+          "path": "knowledge/perguntas-negocio.md",
+          "bytes": 31821,
+          "sha256": "9ad4f379d2eb83b9381e53eb1f1418f0ce98d3c0e26eb054e9b7432fdaaf4dbd"
+        },
+        {
+          "path": "knowledge/premissas-engajamento.md",
+          "bytes": 1710,
+          "sha256": "51a8ac106fdc4d189d0d1810edebebbe2e88c1de8abe4129197fa45a0b63a1c7"
+        },
+        {
+          "path": "knowledge/premissas-estoque.md",
+          "bytes": 2848,
+          "sha256": "990bf679b3911b1ab9c4c6c2573be56f1fc8d4f40ba6dee5a1bf6cd94cecf3e4"
+        },
+        {
+          "path": "knowledge/premissas-interface.md",
+          "bytes": 30057,
+          "sha256": "6155919be7614b8e868f0d0e0a60e9b223f204cdb19550ab9df36fe9ab388699"
+        },
+        {
+          "path": "knowledge/receitas-artesanato-parcerias.md",
+          "bytes": 51347,
+          "sha256": "b2c243817f92aae0bf0098147edc1dc7b81dc81e00bf9b62e1502e75c0774a76"
+        },
+        {
+          "path": "knowledge/receitas-artesanato.json",
+          "bytes": 86131,
+          "sha256": "7140fff3b93d62c2500fbe534d1f76bb81e8cb4469ca7fb4a481ce4fbf240717"
+        },
+        {
+          "path": "knowledge/voice-licenses/Apache-2.0.txt",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "path": "knowledge/voice-licenses/NOTICE.txt",
+          "bytes": 622,
+          "sha256": "888cbc624eadcd6fab14e09e2a9260c319dad65e6345b3186df6910a562dc07b"
+        },
+        {
+          "path": "knowledge/voz-e-linguagem.md",
+          "bytes": 2172,
+          "sha256": "a8142ce55c7f485253227d42c8a253d0a0fcc36b49aff45a031f56f76d975da9"
+        }
+      ]
+    },
+    "apk": {
+      "name": "AGRO-Gestao-Codex-0.12.132.apk",
+      "sha256": "d067918ff7afb82d6ab6827942caf71a4bb5f21699423e36a0cc874ca84bb7b0"
+    },
+    "contextConcurrency": 2,
+    "finishedAt": "2026-10-28T11:58:08.317Z",
+    "assetsAfter": {
+      "fingerprint": "c1f9ebcea2db946851414ad8485fcce83748b3f61796ae93770911e9de1045e6",
+      "files": [
+        {
+          "path": "assets/catalog-CdLM8A9A.webp",
+          "bytes": 228830,
+          "sha256": "0b4b7ab3904505b9db13b2729aef564b8d53bd80751ed58b4127e274d3e14d88"
+        },
+        {
+          "path": "assets/definitions-BdWVgBTV.js",
+          "bytes": 186,
+          "sha256": "6f5aaf2a6ca57d8aa7be42176efd4d46747fff6e9e0b4788e98234b9ae45d342"
+        },
+        {
+          "path": "assets/definitions-DlpntO5o.js",
+          "bytes": 352,
+          "sha256": "386d6863bee205584abf6e3c5c7b71353d92150155a3d8093a8a919380bc85a5"
+        },
+        {
+          "path": "assets/derived-loWymzVY.js",
+          "bytes": 37715,
+          "sha256": "fcd0dd8d2d4d8881c4c0ab6b38cf6b3abfc830c1256b17bf769c15e5417d6bca"
+        },
+        {
+          "path": "assets/dist-CPAKd-Fu.js",
+          "bytes": 7772,
+          "sha256": "3424482152b7d6b73cb33951b8858dd622597da520a81390f55a78fa9d6a25c3"
+        },
+        {
+          "path": "assets/domain-BvRk9kiK.js",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "assets/domain-CYLlPQ10.js",
+          "bytes": 1226,
+          "sha256": "141c78d1ece300dd268a738f8e1202dde94a731319cfe945304cf41fe3cc92b8"
+        },
+        {
+          "path": "assets/erp-ui--iY_ch1b.js",
+          "bytes": 688477,
+          "sha256": "8e4b328174dce53385b6a1b9c7da2484539c2827a418a86ea80c907ca5ea6d60"
+        },
+        {
+          "path": "assets/index-CMb9hWvG.css",
+          "bytes": 309059,
+          "sha256": "0b594ee242c6f13a2cfaf8cf11a44133e32f7a9f656abd19cc118c1d37f24bbc"
+        },
+        {
+          "path": "assets/index-YDk2_-Lp.js",
+          "bytes": 1026200,
+          "sha256": "23f00e00a26bac95eab96bac9e48ea2d29983d3e68318e37dca44fcbac20dae8"
+        },
+        {
+          "path": "assets/inter-latin-wght-normal-Dx4kXJAl.woff2",
+          "bytes": 48256,
+          "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+        },
+        {
+          "path": "assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2",
+          "bytes": 44872,
+          "sha256": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618"
+        },
+        {
+          "path": "assets/logo-CxngqR6P.png",
+          "bytes": 22608,
+          "sha256": "3b5bf307a26db5c179bb981e0cc68c08687696cd3b2053128a0648d68cd1a8fb"
+        },
+        {
+          "path": "assets/lots-B5rPcw7J.css",
+          "bytes": 4207,
+          "sha256": "ffd5f20d96275a7d2aadcbec94a53a63a413e9de7797c49fef292365fdea131d"
+        },
+        {
+          "path": "assets/pdf-BJn6lm-l.js",
+          "bytes": 420225,
+          "sha256": "fbe205db971e28a9f1a91d5db1bcbd4ee155577e90972a8bac2b94141c67924f"
+        },
+        {
+          "path": "assets/pdf-worker-C6ubdd4v.js",
+          "bytes": 427282,
+          "sha256": "53f3fe2b780168ef70b5989857fefe56682e3c47755488520f3c4a6d7d83ec2d"
+        },
+        {
+          "path": "assets/product-catalog-data-D_ysmatF.js",
+          "bytes": 410348,
+          "sha256": "2aabc5568f10dc058783f371da6ee17e39ece80242e6524b951c6fce8e13f58c"
+        },
+        {
+          "path": "assets/profile-tj8Hr3D-.webp",
+          "bytes": 9190,
+          "sha256": "20b5042ba45f12623e67659ceeaa6d2da60b7f2ba37844d5b82943a548845294"
+        },
+        {
+          "path": "assets/rolldown-runtime-hePW80VL.js",
+          "bytes": 716,
+          "sha256": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021"
+        },
+        {
+          "path": "assets/ui-C1YXR3zL.js",
+          "bytes": 24485,
+          "sha256": "61b43be2086dcec6e81e03fedbdaf8aaa4fca3ce609db32f99fe2f0da63d0996"
+        },
+        {
+          "path": "assets/visual-cohesion-CmJjRrDg.css",
+          "bytes": 7578,
+          "sha256": "4f4d867495011d9e73d2a3ac1f516644eb73fbd66a6fa5f7301e2e02b7a52408"
+        },
+        {
+          "path": "assets/web-aqM8fxsl.js",
+          "bytes": 4437,
+          "sha256": "828bbdb2d8e55ae9de53fc92b3fc1be22bc7b7bdf935b18e425a7a350ed1805c"
+        },
+        {
+          "path": "assets/web-BvY7Eea_.js",
+          "bytes": 122,
+          "sha256": "8b7ec84c9f0f97c2d70cd0cad42ce19ea60f364f710365021d16e872932a9bea"
+        },
+        {
+          "path": "assets/web-CBGQpq9j.js",
+          "bytes": 195,
+          "sha256": "84e6666ada25c206aa57c62b7950c858806f516865046e3073fe29cfab6dfad5"
+        },
+        {
+          "path": "assets/web-CT3cYuIz.js",
+          "bytes": 364,
+          "sha256": "27ffb7f5299971a1fa4146c9504ae080c38131afb4ad51581bbd55a6f878609e"
+        },
+        {
+          "path": "assets/web-DBX4s-QP.js",
+          "bytes": 1152,
+          "sha256": "97b04e935cb319b88dbd56f7987dfc5e26b401cd246fa773da8953036e6fdf85"
+        },
+        {
+          "path": "assets/web-DhDWnTj3.js",
+          "bytes": 843,
+          "sha256": "3b382faa5027993dcca569b50316c8097a431369a23c78382f4543dc858ff863"
+        },
+        {
+          "path": "assets/web-DiHF2kId.js",
+          "bytes": 932,
+          "sha256": "b499c38e28ec5d5523c3f99c414308dc33869691dc2e80b50387b4c4a92fea43"
+        },
+        {
+          "path": "assets/web-Erkw07oJ.js",
+          "bytes": 8471,
+          "sha256": "fa1c3c40bc334aeeaff5296a6deb09f5c9d40d68de95f8401be83684d19a5169"
+        },
+        {
+          "path": "assets/worker-K0hOSrYH.js",
+          "bytes": 54421,
+          "sha256": "4e93b01fa1eb164aaa3363617ba3f7640e66a3278621c7703464a75b854f8f67"
+        },
+        {
+          "path": "index.html",
+          "bytes": 1273,
+          "sha256": "4e32bb65d6fe0227f9e649099bc2389961ae22e432c9256fcdb83af6dedee4bf"
+        },
+        {
+          "path": "knowledge/adaptacao-memoria-acao.md",
+          "bytes": 34379,
+          "sha256": "70152480be8e789ac06ef0032ccc059aed8e8631037f60d083c7a1ebb998b823"
+        },
+        {
+          "path": "knowledge/agente-operacional.md",
+          "bytes": 3222,
+          "sha256": "5f4cc9b63fedd209f62425ee0088c341a417ac83b37ad3adc3409ab789e96a2c"
+        },
+        {
+          "path": "knowledge/calculadora-contas.md",
+          "bytes": 2528,
+          "sha256": "3a578513656822c0673bbd5e3687ffd256055edbf0aae6ed4f030af123433fd5"
+        },
+        {
+          "path": "knowledge/catalogo-agro/ADICOES-DO-APP.md",
+          "bytes": 2609,
+          "sha256": "bf99663d79454e100e406aa186597175e32bd927e9c55463e1ed7ed02a3226e9"
+        },
+        {
+          "path": "knowledge/catalogo-agro/INSTRUCOES_PARA_O_CODEX.md",
+          "bytes": 12930,
+          "sha256": "1390cceeb7fd55e0d8c699e43a5ada922631957f6fccc131b7ed74f5823cda9a"
+        },
+        {
+          "path": "knowledge/catalogo-agro/LEIA_PRIMEIRO.md",
+          "bytes": 1765,
+          "sha256": "d357e6f942764a518cab4a45853109d61577793e16e268bb435352de30358e4b"
+        },
+        {
+          "path": "knowledge/catalogo-agro/LISTA_COMPLETA.md",
+          "bytes": 239672,
+          "sha256": "61df61b561e3038edbeae4a7cd8480c4723958ed4d39f3df0b93589eea675134"
+        },
+        {
+          "path": "knowledge/catalogo-agro/resumo_categorias.json",
+          "bytes": 1537,
+          "sha256": "2f451a4d1e2545d9237b8ee4a28fd9b6827881ac473f901cb45a0637c8f630f3"
+        },
+        {
+          "path": "knowledge/catalogo-agro/unidades_e_plurais.json",
+          "bytes": 5265,
+          "sha256": "633ebadf62498f85fb0685f933e0b385984ded6f71961aadf5ce41550fe93384"
+        },
+        {
+          "path": "knowledge/crm-pdv-profissional.md",
+          "bytes": 53105,
+          "sha256": "31a5b729966824a6dfa1e675361d7d8b881c59c1103d5c4d3d10c112725a7753"
+        },
+        {
+          "path": "knowledge/estoque-validade-contexto.md",
+          "bytes": 3554,
+          "sha256": "5f5f556fcdefe03340a51e0d84d2b2ca89848064210848aee791e9f3c7c82c09"
+        },
+        {
+          "path": "knowledge/experiencia-cafes-diretriz.md",
+          "bytes": 5816,
+          "sha256": "78b9368da878f6dfc44083c5137f57ed11934077757e76e5ef7f4373d94158d6"
+        },
+        {
+          "path": "knowledge/fornecedores-diretriz.md",
+          "bytes": 31558,
+          "sha256": "d36b01b11b7d77394e8690d0d65bd0611496c464a4759703699ce3c0c5e32859"
+        },
+        {
+          "path": "knowledge/general-education.json",
+          "bytes": 4674,
+          "sha256": "c1199e08a7bdea4eb221ee3d187ca8c0ff905adfe92ed168266b72c53f1cfb31"
+        },
+        {
+          "path": "knowledge/hierarquia-inteligencia.md",
+          "bytes": 4888,
+          "sha256": "0d530a2b2ffd7bdad088b265d4a8e09d16543850343bd85e670ea9cd6f17b333"
+        },
+        {
+          "path": "knowledge/inteligencia-adaptativa-connect-action-audit.md",
+          "bytes": 25587,
+          "sha256": "e1228d9037f6d997301c6ef6b0dc53662a85f9937f6e1c90c96fadf8af833509"
+        },
+        {
+          "path": "knowledge/motor-decisoes.md",
+          "bytes": 5912,
+          "sha256": "befda96fa85079354e67dc312458991ba1c5cb621240f1755bc34d0e905d5084"
+        },
+        {
+          "path": "knowledge/perguntas-negocio.json",
+          "bytes": 11867,
+          "sha256": "21729c4e92a3ddd8a173af5dde974d0d604cf6fb1a5b69e327f5bf19c242fcbe"
+        },
+        {
+          "path": "knowledge/perguntas-negocio.md",
+          "bytes": 31821,
+          "sha256": "9ad4f379d2eb83b9381e53eb1f1418f0ce98d3c0e26eb054e9b7432fdaaf4dbd"
+        },
+        {
+          "path": "knowledge/premissas-engajamento.md",
+          "bytes": 1710,
+          "sha256": "51a8ac106fdc4d189d0d1810edebebbe2e88c1de8abe4129197fa45a0b63a1c7"
+        },
+        {
+          "path": "knowledge/premissas-estoque.md",
+          "bytes": 2848,
+          "sha256": "990bf679b3911b1ab9c4c6c2573be56f1fc8d4f40ba6dee5a1bf6cd94cecf3e4"
+        },
+        {
+          "path": "knowledge/premissas-interface.md",
+          "bytes": 30057,
+          "sha256": "6155919be7614b8e868f0d0e0a60e9b223f204cdb19550ab9df36fe9ab388699"
+        },
+        {
+          "path": "knowledge/receitas-artesanato-parcerias.md",
+          "bytes": 51347,
+          "sha256": "b2c243817f92aae0bf0098147edc1dc7b81dc81e00bf9b62e1502e75c0774a76"
+        },
+        {
+          "path": "knowledge/receitas-artesanato.json",
+          "bytes": 86131,
+          "sha256": "7140fff3b93d62c2500fbe534d1f76bb81e8cb4469ca7fb4a481ce4fbf240717"
+        },
+        {
+          "path": "knowledge/voice-licenses/Apache-2.0.txt",
+          "bytes": 11358,
+          "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+        },
+        {
+          "path": "knowledge/voice-licenses/NOTICE.txt",
+          "bytes": 622,
+          "sha256": "888cbc624eadcd6fab14e09e2a9260c319dad65e6345b3186df6910a562dc07b"
+        },
+        {
+          "path": "knowledge/voz-e-linguagem.md",
+          "bytes": 2172,
+          "sha256": "a8142ce55c7f485253227d42c8a253d0a0fcc36b49aff45a031f56f76d975da9"
+        }
+      ]
+    },
+    "assetsUnchanged": true,
+    "passed": true
+  },
+  "native": [
+    {
+      "version": "0.12.132",
+      "device": "reno",
+      "theme": "light",
+      "physical": true,
+      "synthetic": true,
+      "fixturePackage": "br.com.territorio.gestao2.integration132",
+      "fixtureSha256": "e936ffb8b84bbf8e07fa1365cbe89d109cd2cf6a63d2af2241547293919463d4",
+      "networkBlocked": true,
+      "productionDatabaseRead": false,
+      "startedAt": "2026-10-28T11:52:25.650Z",
+      "errors": [],
+      "result": {
+        "fiveTabs": true,
+        "identity": true,
+        "familySixCards": true,
+        "familyExpansion": true,
+        "ornamentalsSeparate": true,
+        "sectionMap": true,
+        "oneTapSaleAndCancel": true,
+        "stockAreasAndSubgroups": true,
+        "backOneLevel": true,
+        "supplierBackToStock": true,
+        "sevenCalculatorTopics": true,
+        "searchProductPicker": true,
+        "markupCalculation": true,
+        "scientificAngle": true,
+        "basicCalculator": true,
+        "domainUnchanged": true,
+        "viewportFit": true
+      },
+      "passed": true,
+      "finishedAt": "2026-10-28T11:53:47.127Z"
+    },
+    {
+      "version": "0.12.132",
+      "device": "reno",
+      "theme": "dark",
+      "physical": true,
+      "synthetic": true,
+      "fixturePackage": "br.com.territorio.gestao2.integration132",
+      "fixtureSha256": "e936ffb8b84bbf8e07fa1365cbe89d109cd2cf6a63d2af2241547293919463d4",
+      "networkBlocked": true,
+      "productionDatabaseRead": false,
+      "startedAt": "2026-10-28T11:53:47.692Z",
+      "errors": [],
+      "result": {
+        "fiveTabs": true,
+        "identity": true,
+        "familySixCards": true,
+        "familyExpansion": true,
+        "ornamentalsSeparate": true,
+        "sectionMap": true,
+        "oneTapSaleAndCancel": true,
+        "stockAreasAndSubgroups": true,
+        "backOneLevel": true,
+        "supplierBackToStock": true,
+        "sevenCalculatorTopics": true,
+        "searchProductPicker": true,
+        "markupCalculation": true,
+        "scientificAngle": true,
+        "basicCalculator": true,
+        "domainUnchanged": true,
+        "viewportFit": true
+      },
+      "passed": true,
+      "finishedAt": "2026-10-28T11:55:12.963Z"
+    },
+    {
+      "version": "0.12.132",
+      "device": "pkj",
+      "theme": "light",
+      "physical": true,
+      "synthetic": true,
+      "fixturePackage": "br.com.territorio.gestao2.integration132",
+      "fixtureSha256": "e936ffb8b84bbf8e07fa1365cbe89d109cd2cf6a63d2af2241547293919463d4",
+      "networkBlocked": true,
+      "productionDatabaseRead": false,
+      "startedAt": "2026-10-28T11:52:31.000Z",
+      "errors": [],
+      "result": {
+        "fiveTabs": true,
+        "identity": true,
+        "familySixCards": true,
+        "familyExpansion": true,
+        "ornamentalsSeparate": true,
+        "sectionMap": true,
+        "oneTapSaleAndCancel": true,
+        "stockAreasAndSubgroups": true,
+        "backOneLevel": true,
+        "supplierBackToStock": true,
+        "sevenCalculatorTopics": true,
+        "searchProductPicker": true,
+        "markupCalculation": true,
+        "scientificAngle": true,
+        "basicCalculator": true,
+        "domainUnchanged": true,
+        "viewportFit": true
+      },
+      "passed": true,
+      "finishedAt": "2026-10-28T11:53:32.004Z"
+    },
+    {
+      "version": "0.12.132",
+      "device": "pkj",
+      "theme": "dark",
+      "physical": true,
+      "synthetic": true,
+      "fixturePackage": "br.com.territorio.gestao2.integration132",
+      "fixtureSha256": "e936ffb8b84bbf8e07fa1365cbe89d109cd2cf6a63d2af2241547293919463d4",
+      "networkBlocked": true,
+      "productionDatabaseRead": false,
+      "startedAt": "2026-10-28T11:53:32.491Z",
+      "errors": [],
+      "result": {
+        "fiveTabs": true,
+        "identity": true,
+        "familySixCards": true,
+        "familyExpansion": true,
+        "ornamentalsSeparate": true,
+        "sectionMap": true,
+        "oneTapSaleAndCancel": true,
+        "stockAreasAndSubgroups": true,
+        "backOneLevel": true,
+        "supplierBackToStock": true,
+        "sevenCalculatorTopics": true,
+        "searchProductPicker": true,
+        "markupCalculation": true,
+        "scientificAngle": true,
+        "basicCalculator": true,
+        "domainUnchanged": true,
+        "viewportFit": true
+      },
+      "passed": true,
+      "finishedAt": "2026-10-28T11:54:35.522Z"
+    }
+  ],
+  "delivery": {
+    "createdAt": "2026-10-28T12:00:01.9414720Z",
+    "version": "0.12.132",
+    "versionCode": 172,
+    "package": "br.com.territorio.gestao2",
+    "sha256": "d067918ff7afb82d6ab6827942caf71a4bb5f21699423e36a0cc874ca84bb7b0",
+    "unitTests": 812,
+    "browserCases": 8,
+    "nativeCases": 4,
+    "installed": [
+      {
+        "model": "PKJ110",
+        "previousVersion": null,
+        "newInstallation": true,
+        "version": "0.12.132",
+        "versionCode": 172,
+        "firstInstallTime": "2026-10-28 08:59:26",
+        "previousFirstInstallTime": null,
+        "lastUpdateTime": "2026-10-28 08:59:26",
+        "sha256": "d067918ff7afb82d6ab6827942caf71a4bb5f21699423e36a0cc874ca84bb7b0",
+        "processAlive": true,
+        "productionDatabaseRead": false
+      },
+      {
+        "model": "CPH2737",
+        "previousVersion": "0.12.92",
+        "newInstallation": false,
+        "version": "0.12.132",
+        "versionCode": 172,
+        "firstInstallTime": "2026-10-21 18:58:01",
+        "previousFirstInstallTime": "2026-10-21 18:58:01",
+        "lastUpdateTime": "2026-10-28 08:59:53",
+        "sha256": "d067918ff7afb82d6ab6827942caf71a4bb5f21699423e36a0cc874ca84bb7b0",
+        "processAlive": true,
+        "productionDatabaseRead": false
+      }
+    ],
+    "copies": [
+      "C:\\Users\\alexd\\OneDrive\\Documentos\\ChatGPT\\New project\\AGRO-Gestao-Codex-0.12.132.apk",
+      "C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-Codex-0.12.132.apk"
+    ],
+    "productionDatabaseRead": false,
+    "status": "installed-and-validated"
+  },
+  "passed": true
+}

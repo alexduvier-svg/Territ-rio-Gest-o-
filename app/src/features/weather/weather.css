@@ -54,3 +54,7 @@
 
 .weather-location-controls{display:block;padding:12px 14px}.weather-location-controls>summary{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;list-style:none;cursor:pointer}
 .weather-location-controls>summary::-webkit-details-marker{display:none}.weather-location-controls>summary strong{min-width:0;font-size:14px;line-height:1.4}.weather-location-controls>summary>.icon{width:18px;height:18px;flex:none}.weather-location-controls[open]>summary>.icon{transform:rotate(180deg)}.weather-location-body{display:grid;gap:12px;padding-top:12px}.weather-location-body>small{font-size:12px;line-height:1.5;color:var(--muted)}
+
+/* 0.12.123: na página o ícone do tempo fica cinza (sol, lua, chuva e raio também); as cores ficam só dentro da janela. */
+.weather-pill .icon,.weather-pill .icon :is(path,circle,line,polyline,g){stroke:var(--material-muted,var(--muted))!important}
+.weather-pill .icon :is(.weather-cloud-shape,.weather-lightning){fill:none!important}

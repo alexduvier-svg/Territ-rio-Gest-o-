@@ -4,7 +4,7 @@ import {civilDay} from './validity.js';
 const caches=new WeakMap();
 export function currentLots(data,today=civilDay()){
  if(data.stockLotsVersion!==1)return[];
- const flags=(data.products||[]).map(p=>[p.id,p.active!==false,p.archived===true]);let cache=caches.get(data);if(cache&&cache.revision===data.stockLotsRevision&&cache.products===data.products&&cache.movements===data.movements&&cache.length===data.movements?.length&&cache.day===today&&cache.flags===JSON.stringify(flags))return cache.rows;
+ const flags=[(data.products||[]).map(p=>[p.id,p.active!==false,p.archived===true]),data.settings?.validityLeadDays||null];let cache=caches.get(data);if(cache&&cache.revision===data.stockLotsRevision&&cache.products===data.products&&cache.movements===data.movements&&cache.length===data.movements?.length&&cache.day===today&&cache.flags===JSON.stringify(flags))return cache.rows;
  const rows=[];for(const p of data.products||[]){const snapshot=lotSnapshot(data,p.id,today);if(snapshot.issues.length)continue;for(const l of snapshot.lots)rows.push({...l,archived:p.active===false||p.archived===true});}
  caches.set(data,{revision:data.stockLotsRevision,products:data.products,movements:data.movements,length:data.movements?.length,day:today,flags:JSON.stringify(flags),rows});return rows;
 }

@@ -178,3 +178,21 @@ test('devolução em outro mês: setembro mantém a venda, outubro recebe o esto
   assert.equal(productMargins([], [sale])[0].qty, -2);
   assert.equal(productMargins([sale], [sale]).length, 0);
 });
+
+test('retirada: a lançada substitui a planejada só no mês em que foi lançada', () => {
+  const months = Array.from({ length: 3 }, (_, i) => ({ month: `2026-0${i + 1}`, share: 1 }));
+  const s = statement({ sales: [], expenses: [{ amount: 50000, kind: 'retirada', date: '2026-02-10T12:00:00-03:00' }], settings: { drawOn: true, drawMonthly: 150000 }, shares: months });
+  assert.equal(s.drawLogged, 50000);
+  assert.equal(s.draw, 50000 + 2 * 150000); // janeiro e março seguem planejados
+  assert.equal(s.drawForecast, 300000);
+  assert.equal(s.cashForecast, 300000);
+  assert.ok(s.checks);
+});
+
+test('taxa do cartão: padrão não salvo fica marcado como estimativa', () => {
+  const card = sale({ payments: [{ method: 'Crédito', amount: 10000 }] });
+  assert.equal(financeSettings({}).feesConfirmed.Crédito, false);
+  assert.equal(statement({ sales: [card], expenses: [], settings: {}, shares: [] }).feesDefault, true);
+  assert.equal(statement({ sales: [card], expenses: [], settings: { cardFees: { Crédito: 3 } }, shares: [] }).feesDefault, false);
+  assert.equal(statement({ sales: [sale({ payments: [{ method: 'Pix', amount: 10000 }] })], expenses: [], settings: {}, shares: [] }).feesDefault, false);
+});

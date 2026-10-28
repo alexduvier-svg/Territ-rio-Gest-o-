@@ -16,7 +16,7 @@ export function calculatorInputs(data,productId,{now=Date.now(),dayKey}={}){
  if(typeof dayKey!=='function')throw Error('Calendário local indisponível.');
  const today=dayKey(now),month=today.slice(0,7),date=new Date(month+'-01T12:00:00Z');date.setUTCMonth(date.getUTCMonth()-1);
  const previousMonth=date.toISOString().slice(0,7),daysPrevious=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth()+1,0)).getUTCDate(),previousUntil=previousMonth+'-'+String(Math.min(Number(today.slice(8)),daysPrevious)).padStart(2,'0');
- const current=period(data,month+'-01',today,dayKey,now),previous=period(data,previousMonth+'-01',previousUntil,dayKey,now),since=dayKey(now-29*86400000),recent=period(data,since,today,dayKey,now);
+ const current=period(data,month+'-01',today,dayKey,now),previous=period(data,previousMonth+'-01',previousUntil,dayKey,now),previousFull=period(data,previousMonth+'-01',previousMonth+'-'+String(daysPrevious).padStart(2,'0'),dayKey,now),since=dayKey(now-29*86400000),recent=period(data,since,today,dayKey,now);
  const products=orderStockProducts((data.products||[]).filter(p=>p.active!==false&&!p.archived)),p=products.find(p=>p.id===productId),raw=data.settings?.finance||{},settings=financeSettings(raw),fields={markup:{},balance:{},period:{},discount:{},card:{}},origins={};
  const put=(calc,key,value)=>{if(value!==null&&Number.isFinite(value)){fields[calc][key]=value;origins[calc+'.'+key]=true;}};
  const configuredFee=Object.hasOwn(raw.cardFees||{},'Crédito')&&Number.isFinite(raw.cardFees.Crédito)&&raw.cardFees.Crédito>=0&&raw.cardFees.Crédito<100?raw.cardFees.Crédito:null;
@@ -33,5 +33,5 @@ export function calculatorInputs(data,productId,{now=Date.now(),dayKey}={}){
  const costOptions=settings.fixedCosts.filter(f=>(!f.since||f.since<=month)&&Number.isSafeInteger(f.amount)).map((f,i)=>({id:'fixed-'+i,name:f.title,kind:'fixed',amount:f.amount/100,source:true}));
  if(settings.drawOn&&settings.drawMonthly>0)costOptions.push({id:'monthly-draw',name:'Retirada Mensal de Finanças',kind:'fixed',amount:settings.drawMonthly/100,source:true});
  if(p&&knownCost(p))costOptions.push({id:'product-cost',name:'Custo do Cadastro · Confira se Já Inclui Rateios',kind:'variable',amount:p.cost/100,source:true});
- return{actor:actorOf(data),product:p||null,productStamp:productStamp(p),products,fields,origins,costOptions,period:{from:month+'-01',until:today,previousFrom:previousMonth+'-01',previousUntil,equalLength:Number(today.slice(8))<=daysPrevious},quantityPeriod:{from:since,until:today},context:data.dataContext};
+ return{actor:actorOf(data),product:p||null,productStamp:productStamp(p),products,fields,origins,costOptions,previousMonthCost:previousFull.st.cmv>0?previousFull.st.cmv/100:undefined,period:{from:month+'-01',until:today,previousFrom:previousMonth+'-01',previousUntil,equalLength:Number(today.slice(8))<=daysPrevious},quantityPeriod:{from:since,until:today},context:data.dataContext};
 }

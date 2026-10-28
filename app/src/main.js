@@ -1,6 +1,7 @@
 import * as Coffee from './features/coffee.js';
 import {installDailyGuidance} from './native/daily-guidance.js';
 import {initTrainingWorkspace,installTrainingUI} from './features/training/index.js';
+import {DEMO_FISH} from './features/training/seed.js';
 import * as EventReminders from './features/event-reminders.js';
 import {installAutoCollapse} from './features/auto-collapse.js';
 import {installFinancialSession} from './features/financial-session.js';
@@ -76,6 +77,10 @@ import * as ProducerCalcs from './features/finance/producer-calcs.js';
 import {installProducerCalculator} from './features/producer-calculator/index.js';
 import {installEventLoadLimits} from './features/event-load-limits.js';
 import { runAudit } from './features/finance/audit.js';
+import './features/producer-calcs.css';
+import * as SellModes from './features/sell-modes/model.js';
+import { springCurve as motionSpringCurve, SPRINGS as MOTION_SPRINGS } from './features/motion/engine.js';
+import './features/sell-modes/sell-modes.css';
 import { API } from './features/server.js';
 import * as FairReport from './features/fair-report.js';
 import * as FairSurplus from './features/fair-surplus.js';
@@ -144,7 +149,10 @@ try {
   window.TerritorioDecisionGuidelines = DECISION_GUIDELINES;
   window.TerritorioAdaptationGuidelines = ADAPTATION_GUIDELINES;
   window.TerritorioRecoveryInspect = inspectRecovery;
-  window.TerritorioFinance = { ...Finance, runAudit, simulations:ProducerCalcs };
+  window.TerritorioFinance = { ...Finance, ...ProducerCalcs, simulations:ProducerCalcs, runAudit };
+  window.TerritorioSellModes = SellModes;
+  window.TerritorioTrainingFish = DEMO_FISH;
+  window.TerritorioSpring = Object.freeze({ curve: motionSpringCurve, SPRINGS: MOTION_SPRINGS });
   window.TerritorioReceivables = Receivables;
   window.TerritorioSaleRound = SaleRound;
   window.TerritorioRestockSymbol = restockSymbol;
@@ -168,6 +176,7 @@ try {
   window.TerritorioStockLots=await import('./features/stock-lots/domain.js');
   window.TerritorioStockLotsUI=await import('./features/stock-lots/ui.js');
   await import('./features/stock-lots/lots.css');
+  await import('./features/visual-cohesion.css');
   startupStage='legacy-ui';
   await import('./legacy/erp-ui.js');
   window.TerritorioStockLotsUI.installStockLotsUI(window.TerritorioWorkflowBridge);
@@ -243,6 +252,6 @@ try {
   console.error(error);
   SplashScreen.hide().catch(() => {});
   document.getElementById('app').innerHTML =
-    '<section class="panel" style="margin-top:40px"><h2>Não foi possível abrir o AGRO Gestão</h2>' +
+    '<section class="panel" style="margin-top:40px"><h2>Não foi possível abrir o AGRO Gestão Codex</h2>' +
     '<p class="muted">Seus dados continuam guardados no aparelho. Feche e abra o app novamente.</p></section>';
 }

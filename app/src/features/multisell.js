@@ -16,6 +16,8 @@ let swallow = null; // { id, until }: clique de soltar o dedo a ignorar
 let bar = null;
 let toastTimer;
 let lastToggle=null;
+let leaveTimer;
+const quiet = () => document.documentElement.dataset.reduceEffects === 'true' || document.documentElement.classList.contains('lite') || matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const shell = () => window.TerritorioShell;
 const onVender = () => shell()?.page?.() === 'Vender';
@@ -46,10 +48,21 @@ function paint() {
     card.setAttribute('aria-pressed', active ? String(on) : 'false');
   });
   if (!active) {
-    bar?.remove();
+    // Saída suave: bolinhas, barra e pill saem em ~0,2 s antes de sumir; o tempo volta esmaecendo.
+    const root = document.documentElement, old = bar;
     bar = null;
+    if (!old) return;
+    if (quiet()) { old.remove(); return; }
+    root.classList.add('multi-leaving');
+    old.classList.add('is-leaving');
+    clearTimeout(leaveTimer);
+    leaveTimer = setTimeout(() => {
+      old.remove();
+      if (!selected.length) { root.classList.remove('multi-leaving'); root.classList.add('multi-returned'); setTimeout(() => root.classList.remove('multi-returned'), 320); }
+    }, 220);
     return;
   }
+  document.documentElement.classList.remove('multi-leaving');
   if (!bar) {
     bar = document.createElement('div');
     bar.className = 'multi-bar';

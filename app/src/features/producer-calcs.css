@@ -1,0 +1,125 @@
+/* Calculadora: botão $ ao lado do científico transforma a janela nas Contas do produtor, em seções com seta. */
+.calculator-mode .calc-mode-tools{display:flex;align-items:center;gap:8px}
+dialog[data-kind=calculator] .calculator-mode .round{width:44px;height:44px}
+.calculator-mode .calc-contas-toggle{font-size:19px;font-weight:700;color:var(--action-green,#7fa653)}
+dialog[data-kind=calculator] .calculator-mode .round.is-on{background:var(--action-green,#7fa653);color:var(--green-text,#14210d);box-shadow:none}
+.cm-intro{margin:0 2px 10px;font-size:14px;color:var(--muted);line-height:1.4}
+:root[data-theme][data-layout] dialog[data-kind=calculator] .cm-pick{display:grid;gap:4px;margin:0 0 12px;font-size:14px;font-weight:600;color:var(--text)}
+.cm-pick select{min-height:48px;width:100%;border-radius:12px;font-size:15px;padding-left:12px;padding-right:34px;text-overflow:ellipsis}
+:root[data-theme][data-layout] dialog[data-kind=calculator][open] .checkout-footer{flex:none;min-height:min-content}
+dialog[data-kind=calculator] .cm-row{display:flex;align-items:center;gap:12px;width:100%;min-height:62px;padding:10px 14px;border:0;border-radius:16px;background:var(--field);box-shadow:none;color:var(--text);text-align:left;margin:0 0 6px;font:inherit;justify-content:flex-start}
+.cm-row .ic{flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:color-mix(in srgb,var(--action-green,#7fa653) 18%,transparent);color:var(--action-green,#7fa653);font-size:15px;font-weight:700}
+.cm-row .tx{display:grid;gap:2px;min-width:0;flex:1}
+.cm-row strong{font-size:16px;font-weight:650}
+.cm-row small{font-size:13px;color:var(--muted);line-height:1.3;font-weight:400}
+.cm-row .chev{flex:none;width:22px;height:22px;color:var(--muted)}
+dialog[data-kind=calculator] .cm-row.open{border-radius:16px 16px 0 0;margin-bottom:0}
+.cm-row.open .chev{transform:rotate(180deg)}
+.cm-row.is-soon{opacity:.62}
+.cm-soon{flex:none;font-size:12px;font-weight:600;color:var(--muted);padding:3px 8px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--line)}
+.cm-body{display:grid;gap:10px;background:var(--field);border-radius:0 0 16px 16px;padding:2px 10px 10px;margin-bottom:6px}
+.cm-card{background:var(--panel);border-radius:14px;padding:12px;box-shadow:inset 0 0 0 1px var(--line);min-width:0}
+.cm-card h3{margin:0 0 4px;font-size:16px;font-weight:650;line-height:1.3}
+.cm-prod{margin:0 0 6px;font-size:13px;color:var(--muted)}
+.cm-fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px;align-items:end;margin-top:6px}
+.cm-f{display:grid;gap:4px;min-width:0}
+:root[data-theme][data-layout] dialog[data-kind=calculator] .cm-f label{display:block;font-size:14px;line-height:1.25;margin:0;padding:0;letter-spacing:0;color:var(--text);font-weight:500}
+.cm-tag{display:inline-block;margin-left:4px;font-size:11px;color:var(--action-green,#7fa653);font-weight:650;white-space:nowrap}
+.cm-in{display:flex;align-items:center;gap:6px;min-height:46px;padding:0 10px;border-radius:12px;background:var(--field);box-shadow:inset 0 0 0 1px var(--line)}
+.cm-in:focus-within{box-shadow:inset 0 0 0 2px var(--action-green,#7fa653)}
+.cm-in input{flex:1;min-width:0;width:100%;border:0;background:transparent;box-shadow:none;padding:0;min-height:44px;font-size:16px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;outline:none}
+.cm-in em{flex:none;font-style:normal;font-size:13px;color:var(--muted);font-weight:500}
+.cm-fhint{font-size:12px;color:var(--muted);line-height:1.3}
+.cm-out:empty{display:none}
+.cm-wait{margin:12px 0 0;padding:10px 12px;border-radius:12px;background:var(--field);font-size:14px;color:var(--muted);line-height:1.4}
+.cm-res{margin-top:12px;padding:12px;border-radius:14px;background:color-mix(in srgb,var(--action-green,#7fa653) 12%,var(--panel));display:grid;gap:6px;min-width:0}
+.cm-res .lab{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:650}
+.cm-res .big{font-size:30px;font-weight:700;line-height:1.1;overflow-wrap:anywhere}
+.cm-res dl{margin:2px 0 0;display:grid}
+.cm-res dl div{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:6px 0;border-top:1px solid var(--line);font-size:14px}
+.cm-res dt{color:var(--muted);min-width:0}
+.cm-res dd{margin:0;font-weight:650;text-align:right;white-space:nowrap}
+.cm-note{margin:10px 0 0;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--red,#ff453a) 12%,transparent);font-size:14px;line-height:1.4;color:var(--text)}
+.cm-note.good{background:color-mix(in srgb,var(--action-green,#7fa653) 10%,transparent)}
+.cm-acts{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12px}
+dialog[data-kind=calculator] .cm-use{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 20px;border:0;border-radius:999px;background:var(--action-green,#7fa653);color:var(--green-text,#14210d);font-size:15px;font-weight:650;box-shadow:none}
+.cm-hint{font-size:13px;color:var(--muted)}
+.cm-formula{font-size:13px;color:var(--muted)}
+.cm-formula summary{min-height:44px;display:flex;align-items:center;cursor:pointer;list-style:none}
+.cm-formula summary::-webkit-details-marker{display:none}
+.cm-formula summary::after{content:'⌄';margin-left:4px}
+.cm-formula[open] summary::after{content:'⌃'}
+.cm-formula p{margin:0 0 4px;line-height:1.45}
+.cm-acts .cm-formula[open]{flex-basis:100%}
+.cm-card>.cm-formula{margin-top:4px}
+.cm-foot{margin:10px 2px 0;font-size:12px;line-height:1.5}
+
+.cm-note.info{background:var(--field)}
+.fin-row .fin-estimate{display:block;font-size:12px;font-weight:500;color:var(--muted)}
+dialog[data-kind=calculator] .cm-select{width:100%;min-height:46px;padding:0 34px 0 10px;border-radius:12px;background:var(--field);box-shadow:inset 0 0 0 1px var(--line);border:0;color:var(--text);font-size:15px;font-weight:600}
+.cm-fields.cm-grid3{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cm-grid3 .cm-in{padding:0 8px}
+.cm-rowlabel{grid-column:1/-1;margin:6px 0 -2px;font-size:14px;font-weight:650;color:var(--text)}
+.cm-f label{overflow-wrap:normal;word-break:normal;hyphens:none}
+
+/* Uma linha por campo: rótulo e dica à esquerda, caixa à direita (mesma largura em todas as contas). */
+.cm-why{margin:2px 0 12px;font-size:14px;line-height:1.4;color:var(--muted)}
+.cm-fields:not(.cm-grid3){display:flex;flex-direction:column;gap:0;margin-top:4px}
+.cm-fields:not(.cm-grid3) .cm-f{display:grid;grid-template-columns:minmax(0,1fr) minmax(112px,42%);grid-template-areas:'lab box' 'hint box';column-gap:12px;row-gap:2px;align-items:center;padding:10px 0;border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.cm-fields:not(.cm-grid3) .cm-f:first-child{border-top:0}
+.cm-fields:not(.cm-grid3) .cm-f>label{grid-area:lab;align-self:end}
+.cm-fields:not(.cm-grid3) .cm-f>.cm-in,.cm-fields:not(.cm-grid3) .cm-f>select{grid-area:box;align-self:center}
+.cm-fields:not(.cm-grid3) .cm-f>.cm-fhint{grid-area:hint;align-self:start}
+.cm-fields:not(.cm-grid3) .cm-f:not(:has(.cm-fhint))>label{grid-row:1/3;align-self:center}
+.cm-fields:not(.cm-grid3) .cm-in input{text-align:right}
+.cm-fields:not(.cm-grid3) .cm-f>select{min-height:46px}
+.cm-fields:not(.cm-grid3) .cm-f{grid-template-areas:'lab box' 'hint hint'}
+.cm-fields:not(.cm-grid3) .cm-f>label{align-self:center}
+.cm-fields:not(.cm-grid3) .cm-f>.cm-fhint{margin-top:4px;font-size:13px}
+.cm-fields:not(.cm-grid3) .cm-f:not(:has(.cm-fhint))>label{grid-row:auto}
+
+/* Escolha do produto: botão com nome e apresentação; folha organizada por seção. */
+.cm-pick{display:grid;gap:6px;margin:0 0 12px}
+.cm-pick>span{font-size:14px;font-weight:600;color:var(--text)}
+.cm-pick-btn{display:flex;align-items:center;gap:10px;width:100%;min-height:56px;margin:0;padding:8px 14px;border:1px solid var(--material-line,var(--line));border-radius:16px;background:var(--field);color:var(--text);text-align:left;font:inherit;cursor:pointer}
+.cm-pick-btn>span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+.cm-pick-btn strong{font:650 16px/1.25 'Inter Variable',sans-serif}
+.cm-pick-btn small{font-size:13px;color:var(--muted)}
+.cm-pick-btn .icon{flex:none;width:18px;height:18px;color:var(--muted)}
+dialog.cm-psheet h2{margin:0 0 4px}
+dialog.cm-psheet .cm-ps-hint{margin:0 0 12px;font-size:14px;line-height:1.35;color:var(--muted)}
+dialog.cm-psheet .cm-ps-search{display:flex;align-items:center;gap:8px;min-height:48px;margin:0 0 10px;padding:0 12px;border-radius:14px;background:var(--field);border:1px solid var(--material-line,var(--line))}
+dialog.cm-psheet .cm-ps-search .icon{width:18px;height:18px;color:var(--muted);flex:none}
+dialog.cm-psheet .cm-ps-search input{flex:1;min-width:0;min-height:44px;border:0;background:transparent;box-shadow:none;padding:0;font-size:16px;color:var(--text);outline:none}
+dialog.cm-psheet .cm-ps-list{flex:0 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;margin:0 -2px;padding:0 2px 6px}
+dialog.cm-psheet .cm-ps-group h3{display:flex;align-items:baseline;gap:8px;margin:14px 4px 6px;font:700 15px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.01em;color:var(--text)}
+dialog.cm-psheet .cm-ps-group h3 small{font:600 13px 'Inter Variable',sans-serif;color:var(--muted)}
+dialog.cm-psheet .cm-ps-row{display:flex;align-items:center;gap:10px;width:100%;min-height:56px;margin:0 0 6px;padding:8px 14px;border:1px solid var(--material-line,var(--line));border-radius:14px;background:var(--material-face,var(--panel));box-shadow:none;color:var(--text);text-align:left;font:inherit;cursor:pointer}
+dialog.cm-psheet .cm-ps-row>span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0}
+dialog.cm-psheet .cm-ps-row strong{font:600 15px/1.25 'Inter Variable',sans-serif;letter-spacing:0;overflow-wrap:anywhere}
+dialog.cm-psheet .cm-ps-row small{font:500 13px/1.25 'Inter Variable',sans-serif;color:var(--muted)}
+dialog.cm-psheet .cm-ps-row.is-on{border-color:var(--accent-ink,#4f7a2a);background:color-mix(in srgb,var(--action-green,#7fa653) 12%,var(--material-face,var(--panel)))}
+dialog.cm-psheet .cm-ps-row b{color:var(--accent-ink,#4f7a2a);font-size:16px}
+dialog.cm-psheet .cm-ps-none{margin-bottom:4px}
+dialog.cm-psheet .sheet-back{flex:none;margin-top:10px}
+/* Valores acrescentados pela pessoa. */
+.cm-extras{display:flex;flex-direction:column;gap:6px;margin:2px 0 8px}
+.cm-fields:not(.cm-grid3)~.cm-extras .cm-extra,.cm-extras .cm-extra{display:grid;grid-template-columns:minmax(0,1fr) minmax(104px,36%) 40px;gap:8px;align-items:center;padding:6px 0;border-top:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+.cm-extra-name{min-height:44px;padding:0 12px;border-radius:12px;border:0;background:var(--field);box-shadow:inset 0 0 0 1px var(--line);font-size:15px;color:var(--text);min-width:0}
+.cm-extra .cm-in input{text-align:right}
+.cm-extra-del{display:grid;place-items:center;width:40px;height:44px;margin:0;padding:0;border:0;border-radius:12px;background:transparent;box-shadow:none;color:var(--muted);cursor:pointer}
+.cm-extra-del .icon{width:18px;height:18px}
+.cm-extra-add{display:flex;align-items:center;gap:6px;align-self:flex-start;min-height:44px;margin:0;padding:0 12px 0 6px;border:0;border-radius:22px;background:transparent;box-shadow:none;color:var(--accent-ink,#4f7a2a);font:650 14px/1 'Inter Variable',sans-serif;cursor:pointer}
+.cm-extra-add .icon{width:18px;height:18px}
+dialog.cm-psheet .cm-ps-row{border-color:color-mix(in srgb,var(--text) 12%,transparent)}
+.cm-fields:not(.cm-grid3) > .cm-extras{margin:0 0 4px;padding-bottom:6px}
+.cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra{grid-template-areas:none;grid-template-columns:minmax(0,1fr) minmax(96px,34%) 40px;column-gap:8px;padding:6px 0;border-top:0}
+.cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra>*{grid-area:auto;grid-row:auto}
+.cm-extra-add{white-space:nowrap}
+@media (max-width: 379px){
+ .cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra{grid-template-columns:minmax(0,1fr) 40px;row-gap:6px}
+ .cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra>.cm-extra-name{grid-column:1;grid-row:1}
+ .cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra>.cm-extra-del{grid-column:2;grid-row:1}
+ .cm-fields:not(.cm-grid3) .cm-extras .cm-f.cm-extra>.cm-in{grid-column:1;grid-row:2}
+}
+.cm-fields:not(.cm-grid3){align-items:stretch}

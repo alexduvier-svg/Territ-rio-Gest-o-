@@ -179,3 +179,21 @@ html[data-large-text='true'] :is(.client-picker-trigger, .sale-client-choice, .c
 html[data-large-text='true'] .client-form-surface :is(input:not([type='checkbox']):not([type='hidden']), select) { font-size: 18px; }
 html[data-large-text='true'] .client-form-surface .sale-state-list { grid-template-columns: minmax(0, 1fr); }
 html[data-large-text='true'] .client-form-surface .sale-state-list .state-button small { font-size: 15px; }
+
+/* Janela de cliente no padrão do app (0.12.111). */
+#dialog .client-editor-look{display:flex;flex-direction:column;gap:14px;padding-top:14px}
+#dialog .client-editor-look > .client-form-surface{padding:16px 16px 18px;border:1px solid var(--material-line,var(--line));border-radius:24px;background:var(--material-plane,var(--panel));box-shadow:var(--material-depth,inset 0 1px 0 var(--glass-glint))}
+#dialog .client-editor-look > .client-form-surface + .client-form-surface{margin-top:0}
+#dialog .cfs-head{display:flex;align-items:center;gap:12px;margin:0 0 16px}
+#dialog .cfs-icon{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:14px;background:color-mix(in srgb,var(--action-green,#7fa653) 14%,var(--material-face,var(--field)));color:var(--accent-ink,#4f7a2a)}
+#dialog .cfs-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#dialog .cfs-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+#dialog .cfs-text h3{margin:0;font:700 18px/1.2 'Inter Tight Variable','Inter Variable',sans-serif;letter-spacing:-.015em}
+#dialog .cfs-text small{font:500 14px/1.3 'Inter Variable',sans-serif;color:var(--material-muted,var(--muted))}
+#dialog .client-type-seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px;border-radius:16px;background:var(--field);border:1px solid var(--material-line,var(--line))}
+#dialog .client-type-seg button{min-height:44px;margin:0;padding:0 8px;border:0;border-radius:12px;background:transparent;box-shadow:none;color:var(--material-muted,var(--muted));font:600 15px/1.2 'Inter Variable',sans-serif;cursor:pointer;transition:background .2s,color .2s}
+#dialog .client-type-seg button.is-on{background:var(--material-face,var(--panel));color:var(--material-text,var(--text));box-shadow:var(--material-depth,0 1px 3px rgba(0,0,0,.12))}
+#dialog .client-editor-look .consent-row{padding:12px;border-radius:14px;background:var(--field)}
+#dialog .client-editor-look .consent-row + .consent-row{margin-top:8px}
+#dialog .client-editor-look select#client-type[hidden]{display:none!important}
+#dialog .client-editor-look .cfs-icon{background:color-mix(in srgb,var(--action-green,#7fa653) 16%,transparent)!important;border:1px solid color-mix(in srgb,var(--action-green,#7fa653) 28%,transparent)}

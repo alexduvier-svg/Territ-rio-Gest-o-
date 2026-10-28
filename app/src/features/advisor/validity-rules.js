@@ -2,9 +2,14 @@
 // release flow; they do not buy, discount, discard or alter a label.
 const qty=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:3});
 const date=s=>s.split('-').reverse().join('/');
+// Unidade por extenso no plural quando a quantidade não é 1 (10 pacotes, 12 dúzias); siglas (kg, g, L) ficam.
+const unitText=(amount,unit)=>{const u=String(unit||'');if(!/^[A-ZÀ-Úa-zà-ú][a-zà-ú]+$/.test(u))return u;const low=u.toLocaleLowerCase('pt-BR');return Number(amount)===1||/s$/.test(low)?low:low+'s';};
+// Nome como no Estoque (sigla da torra), para que os cafés não pareçam repetidos; lista curta, o detalhe fica nos números.
+const SHOWN=5;
 function advice(input,id,level,title,rows,todo,why,extra={}){
- const names=new Map((input.products||[]).map(p=>[p.id,p.name]));
- return{id,level,title,happened:rows.map(r=>(names.get(r.productId)||'Produto')+': '+qty(r.amount)+' '+r.unit+(r.date?' · '+date(r.date):'')).join('; ')+'.',todo,why,impact:rows.length,steps:[],topics:[],numbers:rows.map(r=>({label:names.get(r.productId)||'Produto',value:qty(r.amount)+' '+r.unit,detail:r.date?'Data Registrada: '+date(r.date):'Quantidade Restante do Estoque Atual'})),cta:{label:'Conferir Lotes',action:'lots-agenda'},decision:{module:'estoque',confidence:'fato-registrado',rule_version:1,source:'lotes-canonicos'},...extra};
+ const coffee=globalThis.TerritorioCoffee,names=new Map((input.products||[]).map(p=>[p.id,coffee?.coffeeName?coffee.coffeeName(p):p.name]));
+ const line=r=>(names.get(r.productId)||'Produto')+': '+qty(r.amount)+' '+unitText(r.amount,r.unit)+(r.date?' · '+date(r.date):'');
+ return{id,level,title,happened:rows.slice(0,SHOWN).map(line).join('; ')+(rows.length>SHOWN?'; e mais '+(rows.length-SHOWN)+(rows.length-SHOWN===1?' produto':' produtos'):'')+'.',todo,why,impact:rows.length,steps:[],topics:[],numbers:rows.map(r=>({label:names.get(r.productId)||'Produto',value:qty(r.amount)+' '+unitText(r.amount,r.unit),detail:r.date?'Data Registrada: '+date(r.date):'Quantidade Restante do Estoque Atual'})),cta:{label:'Conferir Lotes',action:'lots-agenda'},decision:{module:'estoque',confidence:'fato-registrado',rule_version:1,source:'lotes-canonicos'},...extra};
 }
 export function stockValidityRules(input){
  const v=input.stockValidity;if(!v||v.integrityIssues)return[];const rows=v.products||[],result=[];

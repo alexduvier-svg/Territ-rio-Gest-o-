@@ -1,5 +1,5 @@
 // Lot quantities are allocations of canonical stock movements, never a second writable balance.
-import {normalizeValidity,validityState,civilDay,validCivil} from './validity.js';
+import {normalizeValidity,validityState,civilDay,validCivil,leadDays} from './validity.js';
 const indexes=new WeakMap(),round=n=>Math.round(n*1000)/1000,validQty=n=>Number.isFinite(n)&&n>=0&&Number.isSafeInteger(Math.round(n*1000))&&Math.abs(n-round(n))<1e-8;
 const owner=d=>d.dataContext?.id||d.productMemory?.scopeId||'';
 const fail=(rule,message='Confira os lotes antes de movimentar o estoque.')=>{const e=Error(message);e.code='LOT_AUDIT';e.ruleId='lots.'+rule;throw e;};
@@ -47,8 +47,9 @@ function physicalLots(data,productId){
  const lots=[...rows.values()],computed=round(lots.reduce((n,l)=>n+l.remaining,0));if(!validQty(p.stock)||computed!==p.stock)error('physical-total');
  const result={stock:p.stock,origin:p.lotOrigin,lots,refs,computed,errors:[...new Set(errors)]};ix.cache.set(productId,result);return result;
 }
+export const productLead=(data,productId)=>leadDays(data?.settings?.validityLeadDays?.[productId]);
 export function lotSnapshot(data,productId,onDay=civilDay()){
- const r=physicalLots(data,productId),lots=r.lots.map(l=>({...l,validity:{...l.validity},status:validityState(l.validity,onDay)}));
+ const r=physicalLots(data,productId),lead=productLead(data,productId),lots=r.lots.map(l=>({...l,lead,validity:{...l.validity},status:validityState(l.validity,onDay,lead)}));
  return{productId,onDay,physical:r.stock,computed:r.computed,issues:r.errors.slice(),lots,available:r.errors.length?0:round(lots.filter(l=>!l.quarantined&&!l.status.blocking&&(!l.receivedOn||l.receivedOn<=onDay)).reduce((n,l)=>n+l.remaining,0))};
 }
 export function allocateLots(snapshot,quantity,{commercial=true,selections}={}){

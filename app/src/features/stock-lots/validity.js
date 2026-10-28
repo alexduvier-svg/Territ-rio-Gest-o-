@@ -1,13 +1,18 @@
 // Civil dates only. No network, inferred shelf life, stock writes or food-safety diagnosis.
 export const VALIDITY_VERSION=1;
-export const localZone=()=>Intl.DateTimeFormat().resolvedOptions().timeZone||'America/Sao_Paulo';
+// Leveza: criar um Intl.DateTimeFormat custa caro em celular fraco e estas funções rodam para cada lote em
+// cada tela (0,2 s na abertura com CPU 6× mais lenta). O fuso é relido a cada 60 s (viagem, troca de fuso
+// no aparelho) e o formatador fica guardado por fuso; o resultado é o mesmo de antes.
+let zoneCache={zone:'',at:-Infinity};const dayFormats=new Map();
+export const localZone=()=>{const now=Date.now();if(now-zoneCache.at>60000)zoneCache={zone:Intl.DateTimeFormat().resolvedOptions().timeZone||'America/Sao_Paulo',at:now};return zoneCache.zone;};
+const dayFormat=zone=>{let f=dayFormats.get(zone);if(!f){f=new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'});dayFormats.set(zone,f);}return f;};
 export function validCivil(value){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(value||''))return false;
  const year=Number(value.slice(0,4)),d=new Date(value+'T12:00:00Z');
  return year>=1900&&year<=2199&&Number.isFinite(+d)&&d.toISOString().slice(0,10)===value;
 }
 export function civilDay(at=Date.now(),zone=localZone()){
- const parts=new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(at));
+ const parts=dayFormat(zone).formatToParts(new Date(at));
  const part=key=>parts.find(p=>p.type===key)?.value;return part('year')+'-'+part('month')+'-'+part('day');
 }
 export function addCivil(value,count,unit='days'){
@@ -49,7 +54,10 @@ export function normalizeValidity(raw={}){
  }
  out.confirmed=true;out.confirmedExpiresOn=out.expiresOn;return out;
 }
-export function validityState(record,today=civilDay()){
+// lead: quantos dias antes do vencimento o lote passa a "vencer em breve" (escolha do produtor por produto).
+export const DEFAULT_LEAD=5;
+export const leadDays=value=>{const n=Math.round(Number(value));return Number.isInteger(n)&&n>=1&&n<=90?n:DEFAULT_LEAD;};
+export function validityState(record,today=civilDay(),lead=DEFAULT_LEAD){lead=leadDays(lead);
  if(!validCivil(today))throw Error('Data de consulta inválida.');
  const r=record||{},base={blocking:false,expiresOn:'',daysLeft:null,estimated:r.source==='estimate'};
  if(r.state==='not_applicable')return{...base,code:'not_applicable',label:'Não Se Aplica'};
@@ -59,7 +67,7 @@ export function validityState(record,today=civilDay()){
   if(r.precision==='month'&&/^\d{4}-\d{2}$/.test(r.expiryMonth||'')&&r.expiryMonth<today.slice(0,7))return{...base,code:'expired_month',blocking:true,label:'Validade Mensal Ultrapassada'};
   return{...base,code:'confirm_date',label:'Confirmar a Data da Validade'};
  }
- const daysLeft=civilDistance(today,r.expiresOn);return{...base,expiresOn:r.expiresOn,daysLeft,blocking:daysLeft<0,code:daysLeft<0?'expired':daysLeft===0?'today':daysLeft<=5?'expiring':'valid',label:daysLeft<0?'Vencido':daysLeft===0?'Vence Hoje':daysLeft<=5?'Vence em '+daysLeft+(daysLeft===1?' Dia':' Dias'):'Validade Informada'};
+ const daysLeft=civilDistance(today,r.expiresOn);return{...base,expiresOn:r.expiresOn,daysLeft,blocking:daysLeft<0,code:daysLeft<0?'expired':daysLeft===0?'today':daysLeft<=lead?'expiring':'valid',label:daysLeft<0?'Vencido':daysLeft===0?'Vence Hoje':daysLeft<=lead?'Vence em '+daysLeft+(daysLeft===1?' Dia':' Dias'):'Validade Informada'};
 }
 // Returns null for a nonexistent local time (DST), rather than inventing another civil day.
 export function civilTimeEpoch(day,time='08:00',zone=localZone()){
