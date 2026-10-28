@@ -120,3 +120,6 @@ dialog .mg-sup-row small{font-size:13px;color:var(--material-muted,var(--muted))
 
 /* Ícone de perfil no topo (0.12.122): mesmo botão redondo e mesmo traço dos outros ícones do topo; a foto real
    fica só na janela do Perfil. */
+
+/* Calculadora científica: "Graus/Rad" cabe na tecla em todas as larguras. */
+dialog[data-kind=calculator] .calculator-science [data-token="angle"]{font-size:13px;line-height:1.1;letter-spacing:-.02em;white-space:normal;padding-inline:2px}

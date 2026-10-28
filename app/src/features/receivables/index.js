@@ -3,7 +3,7 @@ import * as R from './receivables.js';
 export function installReceivables() {
   const b = window.TerritorioWorkflowBridge, a = b.actions, e = b.escape, money = b.money;
   const button = (action,text,cls='choice',data) => b.button(action,text,cls,data);
-  const receiveLabel = '<span class="receivable-title-part"><span class="receivable-currency" aria-hidden="true">$</span> Receber</span>';
+  const receiveLabel = '<span class="receivable-title-part">Receber <span class="receivable-currency" aria-hidden="true">$</span></span>';
   let terms = null, receiving = null, busy = false;
   const footer = (action='credit-back',label='Voltar') => button(action,b.icon('back')+'<span>'+label+'</span>','sheet-back');
   function open(title,body,foot,kind) { b.open(title,body,foot,kind); document.getElementById('dialog').setAttribute('data-no-close','');document.querySelector('#dialog .dialog-close')?.remove();if(kind==='receivables')document.getElementById('dialog-title').innerHTML='Clientes a '+receiveLabel; }
