@@ -1,0 +1,78 @@
+{
+  "createdAt": "2026-10-28T16:53:04.5716589Z",
+  "version": "0.12.133",
+  "versionCode": 174,
+  "package": "br.com.territorio.gestao2",
+  "sha256": "7235d1e83d25fcadc4ac1fc1c8d303d7bf3ec8e1d91f66b08af49958ce2788ce",
+  "unitTests": 770,
+  "browserCases": 8,
+  "nativeCases": 4,
+  "installed": [
+    {
+      "model": "PKJ110",
+      "previousVersion": "0.12.132",
+      "newInstallation": false,
+      "version": "0.12.133",
+      "versionCode": 174,
+      "firstInstallTime": "2026-10-28 08:59:26",
+      "previousFirstInstallTime": "2026-10-28 08:59:26",
+      "lastUpdateTime": "2026-10-28 13:52:51",
+      "sha256": "7235d1e83d25fcadc4ac1fc1c8d303d7bf3ec8e1d91f66b08af49958ce2788ce",
+      "launched": true,
+      "productionDatabaseRead": true
+    },
+    {
+      "model": "CPH2737",
+      "previousVersion": "0.12.132",
+      "newInstallation": false,
+      "version": "0.12.133",
+      "versionCode": 174,
+      "firstInstallTime": "2026-10-21 18:58:01",
+      "previousFirstInstallTime": "2026-10-21 18:58:01",
+      "lastUpdateTime": "2026-10-28 13:53:03",
+      "sha256": "7235d1e83d25fcadc4ac1fc1c8d303d7bf3ec8e1d91f66b08af49958ce2788ce",
+      "launched": true,
+      "productionDatabaseRead": true
+    }
+  ],
+  "copies": [
+    "C:\\Users\\alexd\\OneDrive\\Documentos\\ChatGPT\\New project\\AGRO-Gestao-Codex-0.12.133.apk",
+    "C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-Codex-0.12.133.apk"
+  ],
+  "productionDatabaseRead": true,
+  "status": "installed-data-cloned-and-validated",
+  "authorizedPersistentDataCopy": true,
+  "dataClone": [
+    {
+      "device": "pkj",
+      "sourceVersion": "0.12.133",
+      "filesCopied": 9,
+      "manifestSHA256": "9ed8e4b12bde0dc6f5c7554456995a03f00dde56e3e941089d762d5da24c63ac",
+      "backupSHA256": "2dc47210c05f92e1787f7154be72bcd1b822c37c89e43472769b32caf15e4ce1",
+      "receiptSHA256": "8371236655e912a127417ee33a4f0ccf60ad1e2051118f64a629c4d93c371f5e",
+      "firstInstallTimePreserved": true,
+      "processAlive": true,
+      "foregroundVerified": true,
+      "privateScreenshotStored": true,
+      "backupExcludedFromGit": true,
+      "finalScreenContentObserved": false,
+      "finalScreenshotLimitation": "Black capture; display was off at subsequent verification. Process and foreground confirmed; no final visual confirmation claimed."
+    },
+    {
+      "device": "reno",
+      "sourceVersion": "0.12.133",
+      "filesCopied": 9,
+      "manifestSHA256": "47ebff9ce99eb3f4769d33e632a23f84aaf1841d03cbf50eff6b8def65ef52eb",
+      "backupSHA256": "c076240011c47d3be94f6297131b4ecbee15d507c938ab91e4ca39fb005b8faa",
+      "receiptSHA256": "9bc6c09013e84307f06c0e14af69eb55e15b1cff718a018ffbe2ffdfe5cc2454",
+      "firstInstallTimePreserved": true,
+      "processAlive": true,
+      "foregroundVerified": true,
+      "privateScreenshotStored": true,
+      "backupExcludedFromGit": true,
+      "finalScreenContentObserved": true
+    }
+  ],
+  "temporaryHelpersRemoved": true,
+  "finishedAtUTC": "2026-10-28T16:55:52.0516715Z"
+}

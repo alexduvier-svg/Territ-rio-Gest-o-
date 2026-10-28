@@ -282,16 +282,5 @@
     "versao": "1",
     "estado": "Entregue na 0.12.87, no motor de Orientação existente",
     "nota": "Mesmo RULES/release existente; fatos e limitações, sem novo motor."
-  },
-  "simulacoes_contas_produtor": {
-    "arquivo": "app/src/features/finance/producer-calcs.js",
-    "funcao": "markupPrice/breakEvenUnits/periodIndicators/discountImpact/cardNet/unitCost/selectedCharges",
-    "versao": "1",
-    "estado": "Entregue na 0.12.88; simulação local da calculadora existente",
-    "nota": "Somente simulações locais em reais. Registros canônicos continuam em finance.js; nenhuma escrita ou regra fiscal presumida.",
-    "testes": [
-      "producer-calcs088.test.mjs",
-      "event-load-limits088.test.mjs"
-    ]
   }
 }

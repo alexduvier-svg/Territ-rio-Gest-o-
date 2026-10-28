@@ -1,6 +1,6 @@
 # AGRO Gestão Codex
 
-Versão atual: **0.12.132**, pacote `br.com.territorio.gestao2`. Integra os 59 commits do Claude desde a base 0.12.87, preservando identidade, assinatura e melhorias próprias do Codex. A [conferência da integração](app/docs/INTEGRACAO-CLAUDE-CODEX-0.12.132.md) descreve mudanças, testes e entrega.
+Versão atual: **0.12.133**, pacote `br.com.territorio.gestao2`. Reproduz os estilos e o funcionamento do Claude133 por pedido explícito, mantendo nome e assinatura Codex. A [conferência da correção](app/docs/CLONE-CLAUDE-CODEX-0.12.133.md) descreve a origem, os testes e a transferência de dados. A [integração132](app/docs/INTEGRACAO-CLAUDE-CODEX-0.12.132.md) permanece como histórico.
 
 Código do app em [app](app/), servidor em [portfolio-server](portfolio-server/). As referências, o mockup original e os materiais anteriores foram preservados. A fonte atual do aplicativo é app/src; não gerar novamente a partir do mockup.
 

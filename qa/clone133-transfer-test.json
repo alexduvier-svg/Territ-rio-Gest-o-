@@ -1,0 +1,53 @@
+{
+  "version": "0.12.133",
+  "scope": "synthetic-transfer-helper-only",
+  "productionDataAccessed": false,
+  "runs": [
+    {
+      "version": "0.12.133",
+      "scope": "synthetic-transfer-helper-only",
+      "synthetic": true,
+      "productionDataAccessed": false,
+      "targetPackage": "br.com.territorio.gestao2.integration133",
+      "helperPackage": "br.com.territorio.gestao2.integration133.clone132transfer",
+      "deviceSerialSHA256": "dcf3c8bdfd61ae919ef89a3b06a6b572ec9ddcf050e4e8355d046b353f4b2615",
+      "transferId": "synthetic133-1793206195886-54bf1a68dd",
+      "startedAt": "2026-10-28T16:49:55.887Z",
+      "checks": {},
+      "passed": false,
+      "failedStage": "preflight",
+      "error": "Synthetic helper test failed; inspect its VIZ log.",
+      "finishedAt": "2026-10-28T16:49:56.040Z"
+    },
+    {
+      "version": "0.12.133",
+      "scope": "synthetic-transfer-helper-only",
+      "synthetic": true,
+      "productionDataAccessed": false,
+      "targetPackage": "br.com.territorio.gestao2.integration133",
+      "helperPackage": "br.com.territorio.gestao2.integration133.clone132transfer",
+      "deviceSerialSHA256": "dcf3c8bdfd61ae919ef89a3b06a6b572ec9ddcf050e4e8355d046b353f4b2615",
+      "transferId": "synthetic133-1793206245418-7a9065f4b5",
+      "startedAt": "2026-10-28T16:50:45.419Z",
+      "checks": {
+        "syntheticIdentityGuard": true,
+        "signedHelperHash": true,
+        "backupHashAndInventory": true,
+        "wrongManifestRejectedWithoutMutation": true,
+        "appliedReceiptAndEverySlotByte": true,
+        "idempotentReceiptAndAllFileHashes": true
+      },
+      "helperSHA256": "a1e9fbc88e67dc402fceed2171ad66c8205dd6c00c2bb3f668cc362c93226791",
+      "sourceManifestSHA256": "7f807e791fc5ffebd67acba8c71f0c02356ffa046591b98e966b5749815cd296",
+      "backupSHA256": "1a8a483360e72fc897cb85eff8e7c223cca014c55e471d9c5907e5a802c5d185",
+      "filesCopied": 2,
+      "receiptSHA256": "a79c7279f006c1ff58b0fefb80c41c40a5aa3d9d3beb13646ee807abcd7f57b1",
+      "fixtureLeftStopped": true,
+      "passed": true,
+      "finishedAt": "2026-10-28T16:52:17.913Z"
+    }
+  ],
+  "passed": true,
+  "devices": 1,
+  "updatedAt": "2026-10-28T16:52:17.918Z"
+}

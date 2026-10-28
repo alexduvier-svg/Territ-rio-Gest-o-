@@ -1,0 +1,1244 @@
+{
+  "version": "0.12.133",
+  "sourceCommit": "4a15376e31589d01dc1aa645a243513e82dd3a06",
+  "checked": 307,
+  "css": 48,
+  "brandingOnly": [
+    "app/src/legacy/erp-ui.js",
+    "app/src/main.js"
+  ],
+  "different": [],
+  "extras": [],
+  "entries": [
+    {
+      "path": "app/docs/motor/RELATORIO_DUPLICIDADE.md",
+      "sha256": "9b9730eee18a93ffbc6def0e10c133d829b7fc09942b2293cfc511dc7a38a823"
+    },
+    {
+      "path": "app/docs/motor/registry.json",
+      "sha256": "bc94e2b22ef3d55ade4d6f8f2e0d808e0201c5ee5c37711e3776d01eed4c5c2f"
+    },
+    {
+      "path": "app/public/knowledge/adaptacao-memoria-acao.md",
+      "sha256": "70152480be8e789ac06ef0032ccc059aed8e8631037f60d083c7a1ebb998b823"
+    },
+    {
+      "path": "app/public/knowledge/agente-operacional.md",
+      "sha256": "5f4cc9b63fedd209f62425ee0088c341a417ac83b37ad3adc3409ab789e96a2c"
+    },
+    {
+      "path": "app/public/knowledge/catalogo-agro/ADICOES-DO-APP.md",
+      "sha256": "bf99663d79454e100e406aa186597175e32bd927e9c55463e1ed7ed02a3226e9"
+    },
+    {
+      "path": "app/public/knowledge/catalogo-agro/INSTRUCOES_PARA_O_CODEX.md",
+      "sha256": "1390cceeb7fd55e0d8c699e43a5ada922631957f6fccc131b7ed74f5823cda9a"
+    },
+    {
+      "path": "app/public/knowledge/catalogo-agro/LEIA_PRIMEIRO.md",
+      "sha256": "d357e6f942764a518cab4a45853109d61577793e16e268bb435352de30358e4b"
+    },
+    {
+      "path": "app/public/knowledge/catalogo-agro/LISTA_COMPLETA.md",
+      "sha256": "61df61b561e3038edbeae4a7cd8480c4723958ed4d39f3df0b93589eea675134"
+    },
+    {
+      "path": "app/public/knowledge/catalogo-agro/resumo_categorias.json",
+      "sha256": "2f451a4d1e2545d9237b8ee4a28fd9b6827881ac473f901cb45a0637c8f630f3"
+    },
+    {
+      "path": "app/public/knowledge/catalogo-agro/unidades_e_plurais.json",
+      "sha256": "633ebadf62498f85fb0685f933e0b385984ded6f71961aadf5ce41550fe93384"
+    },
+    {
+      "path": "app/public/knowledge/crm-pdv-profissional.md",
+      "sha256": "31a5b729966824a6dfa1e675361d7d8b881c59c1103d5c4d3d10c112725a7753"
+    },
+    {
+      "path": "app/public/knowledge/estoque-validade-contexto.md",
+      "sha256": "5f5f556fcdefe03340a51e0d84d2b2ca89848064210848aee791e9f3c7c82c09"
+    },
+    {
+      "path": "app/public/knowledge/experiencia-cafes-diretriz.md",
+      "sha256": "78b9368da878f6dfc44083c5137f57ed11934077757e76e5ef7f4373d94158d6"
+    },
+    {
+      "path": "app/public/knowledge/fornecedores-diretriz.md",
+      "sha256": "d36b01b11b7d77394e8690d0d65bd0611496c464a4759703699ce3c0c5e32859"
+    },
+    {
+      "path": "app/public/knowledge/general-education.json",
+      "sha256": "c1199e08a7bdea4eb221ee3d187ca8c0ff905adfe92ed168266b72c53f1cfb31"
+    },
+    {
+      "path": "app/public/knowledge/hierarquia-inteligencia.md",
+      "sha256": "0d530a2b2ffd7bdad088b265d4a8e09d16543850343bd85e670ea9cd6f17b333"
+    },
+    {
+      "path": "app/public/knowledge/inteligencia-adaptativa-connect-action-audit.md",
+      "sha256": "e1228d9037f6d997301c6ef6b0dc53662a85f9937f6e1c90c96fadf8af833509"
+    },
+    {
+      "path": "app/public/knowledge/motor-decisoes.md",
+      "sha256": "befda96fa85079354e67dc312458991ba1c5cb621240f1755bc34d0e905d5084"
+    },
+    {
+      "path": "app/public/knowledge/perguntas-negocio.json",
+      "sha256": "21729c4e92a3ddd8a173af5dde974d0d604cf6fb1a5b69e327f5bf19c242fcbe"
+    },
+    {
+      "path": "app/public/knowledge/perguntas-negocio.md",
+      "sha256": "9ad4f379d2eb83b9381e53eb1f1418f0ce98d3c0e26eb054e9b7432fdaaf4dbd"
+    },
+    {
+      "path": "app/public/knowledge/premissas-engajamento.md",
+      "sha256": "51a8ac106fdc4d189d0d1810edebebbe2e88c1de8abe4129197fa45a0b63a1c7"
+    },
+    {
+      "path": "app/public/knowledge/premissas-estoque.md",
+      "sha256": "990bf679b3911b1ab9c4c6c2573be56f1fc8d4f40ba6dee5a1bf6cd94cecf3e4"
+    },
+    {
+      "path": "app/public/knowledge/premissas-interface.md",
+      "sha256": "6155919be7614b8e868f0d0e0a60e9b223f204cdb19550ab9df36fe9ab388699"
+    },
+    {
+      "path": "app/public/knowledge/receitas-artesanato-parcerias.md",
+      "sha256": "b2c243817f92aae0bf0098147edc1dc7b81dc81e00bf9b62e1502e75c0774a76"
+    },
+    {
+      "path": "app/public/knowledge/receitas-artesanato.json",
+      "sha256": "7140fff3b93d62c2500fbe534d1f76bb81e8cb4469ca7fb4a481ce4fbf240717"
+    },
+    {
+      "path": "app/public/knowledge/voice-licenses/Apache-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "app/public/knowledge/voice-licenses/NOTICE.txt",
+      "sha256": "888cbc624eadcd6fab14e09e2a9260c319dad65e6345b3186df6910a562dc07b"
+    },
+    {
+      "path": "app/public/knowledge/voz-e-linguagem.md",
+      "sha256": "a8142ce55c7f485253227d42c8a253d0a0fcc36b49aff45a031f56f76d975da9"
+    },
+    {
+      "path": "app/resources/icon.svg",
+      "sha256": "89f58b562d3a61e54c236a1f86980c8b0775010f59a923ee7d1db92474479219"
+    },
+    {
+      "path": "app/resources/store/icon-preview-1024.png",
+      "sha256": "241b1e0e9083f49fe1876ee915b05e53fed4d3bdd1dfdbeac03493943690e333"
+    },
+    {
+      "path": "app/resources/store/play-store-icon-512.png",
+      "sha256": "3b5bf307a26db5c179bb981e0cc68c08687696cd3b2053128a0648d68cd1a8fb"
+    },
+    {
+      "path": "app/src/assets/catalog.webp",
+      "sha256": "0b4b7ab3904505b9db13b2729aef564b8d53bd80751ed58b4127e274d3e14d88"
+    },
+    {
+      "path": "app/src/assets/logo.png",
+      "sha256": "3b5bf307a26db5c179bb981e0cc68c08687696cd3b2053128a0648d68cd1a8fb"
+    },
+    {
+      "path": "app/src/assets/profile.webp",
+      "sha256": "20b5042ba45f12623e67659ceeaa6d2da60b7f2ba37844d5b82943a548845294"
+    },
+    {
+      "path": "app/src/data/adaptation-guidelines.js",
+      "sha256": "3ae2b4e2f09dfbdb65e6fc568c393ec9770a7d1897aad9b7cde42d8cc84b66e9"
+    },
+    {
+      "path": "app/src/data/agent-guidelines.js",
+      "sha256": "b4e46f2469d2b818c3999fc039e1140126bc16d56bac4c6144338e91308447d0"
+    },
+    {
+      "path": "app/src/data/catalog-knowledge.js",
+      "sha256": "79c60edb380efa03166809d77ce09ba2ea464059ba63091b162cfa4627441efd"
+    },
+    {
+      "path": "app/src/data/decision-guidelines.js",
+      "sha256": "a8aea233e7fbe6fd82ed718c4b8e0501b2b27333201ffe3e683ffd1e1b17d5bd"
+    },
+    {
+      "path": "app/src/data/engagement-guidelines.js",
+      "sha256": "8027bbbd08f821842fdd939caa16b5f5932aac1d3fac0c15e40c4ff9553c7bb5"
+    },
+    {
+      "path": "app/src/data/intelligence-hierarchy.js",
+      "sha256": "5030e87c7d871829bc4ba581b7122f76b333b509067aadffbd3ad3f2a32db926"
+    },
+    {
+      "path": "app/src/data/interface-guidelines.js",
+      "sha256": "7e6d091c0c99053e8ac2dd839b42c10532b455d9588f0d0817c12290c35e0cb9"
+    },
+    {
+      "path": "app/src/data/market-catalog.js",
+      "sha256": "03f3096832cd9a88eca0d35670e91d886d2b829aa0c57c45370d869c6d67f478"
+    },
+    {
+      "path": "app/src/data/product-catalog-additions.js",
+      "sha256": "b2f98c63cd1d56088f5f22277a77b2a9af68c4d5585e4f80340ebf759cf430dd"
+    },
+    {
+      "path": "app/src/data/product-catalog-compact.json",
+      "sha256": "47d3a12d9cd6c76262811be754329f6ee1ceab1b2c78515158bff3d517b2f710"
+    },
+    {
+      "path": "app/src/data/product-catalog-data.js",
+      "sha256": "f5131f21a49ef083c69bf19fdf2198d698aa421c04f23ce1b5f562aa0c563b48"
+    },
+    {
+      "path": "app/src/data/product-catalog-policy.json",
+      "sha256": "7a14e2c21baf17de4cb3fbf04cb9ce95c7877dd3dbdb3aff808f3ccd9204e82f"
+    },
+    {
+      "path": "app/src/data/stock-catalog-guidelines.js",
+      "sha256": "94b1038d94e209b42213ec468a276a526b02bb4f86c5a4785c87e274daaedca0"
+    },
+    {
+      "path": "app/src/data/voice-guidelines.js",
+      "sha256": "bde4eff110ce39aaa55e68f78775c60f8037808d2023af14eaf70a98f6bc4919"
+    },
+    {
+      "path": "app/src/dialog-system.css",
+      "sha256": "e06604ac8a13af7aa7fde8f3eeb409ec13f35e32043293718076aab232bb5454"
+    },
+    {
+      "path": "app/src/features/advisor/advisor.css",
+      "sha256": "ddd432d22541afa29fa0c93147388aef3d3d2af964c72ed8519146465171cdbb"
+    },
+    {
+      "path": "app/src/features/advisor/agent.js",
+      "sha256": "51071d7eb474ad1bed304ba61805ea8899d82f65358f18c1cebada1a50fe6e2c"
+    },
+    {
+      "path": "app/src/features/advisor/catalog-vocabulary.js",
+      "sha256": "c3b1ab8c0fe0b962945a20f75bdeaca40791999344fa47f81c1bb5b0fcecf47e"
+    },
+    {
+      "path": "app/src/features/advisor/engine.js",
+      "sha256": "3f20acf6f767aef76fe3b64875cfe7403cd83edc52b05b48440e17804475a721"
+    },
+    {
+      "path": "app/src/features/advisor/finance-rules.js",
+      "sha256": "d1b9e261b10f830972d75c45116dc5bccf4ca5d528f2846c5c35d4da69bf4151"
+    },
+    {
+      "path": "app/src/features/advisor/forecast.js",
+      "sha256": "e15f90dff56cc156568e0e1538a3a6cbb0b86fbc5fa2e776cb3884e5aed9059c"
+    },
+    {
+      "path": "app/src/features/advisor/index.js",
+      "sha256": "5eb0aa6054ebb02e914978201708430d37121f502c372b0dcf48882e2df1261e"
+    },
+    {
+      "path": "app/src/features/advisor/knowledge.js",
+      "sha256": "8b467987bcfed6422bfcdd0d8bad3efaf9d97e54fc232312b6395d861079a6b1"
+    },
+    {
+      "path": "app/src/features/advisor/method.js",
+      "sha256": "e404040a2857ad21e8dc7d3e075e2959c3b224c342015de1367db3e21e59b2c8"
+    },
+    {
+      "path": "app/src/features/advisor/quality.js",
+      "sha256": "3833aa248341cb858a7734e504f7815dda3444d1faaf800e565a0c5de48379ef"
+    },
+    {
+      "path": "app/src/features/advisor/release.js",
+      "sha256": "4c90069c215b3c6762f82614680d76f1a77418d46f96fb27c88d1e827897c5bd"
+    },
+    {
+      "path": "app/src/features/advisor/validity-rules.js",
+      "sha256": "8971f51d330a8eebf1df401ce6983d087e3f1881060b1c4b7803e133bb316acb"
+    },
+    {
+      "path": "app/src/features/advisor/weather-rules.js",
+      "sha256": "53b0f94d087d6bf1b65ddbff07cd436a7db38993a9fbe67a1c7f2f3bf05dfdb7"
+    },
+    {
+      "path": "app/src/features/agent/agent.css",
+      "sha256": "d087c84d1f1f385f65607dd42272304b90ed1ea8e56abf1be77c32136bfeaceb"
+    },
+    {
+      "path": "app/src/features/agent/connect.js",
+      "sha256": "1ada63e7bd39d7dbde01342671a6e4cba83184833c11513952f521c31d14983d"
+    },
+    {
+      "path": "app/src/features/agent/continuity-ui.js",
+      "sha256": "7e54cccae17388e730f085143ca6ee5bde1300bcee51399ea862aea065937e43"
+    },
+    {
+      "path": "app/src/features/agent/continuity.js",
+      "sha256": "854015590f352673c38533fe1e5242acceb7dc3872eabf94443e966e7758fd39"
+    },
+    {
+      "path": "app/src/features/agent/core.js",
+      "sha256": "62127620d6f46bf232d71ec347d3db67993caf6f2caaa324b395d61b8775a2ec"
+    },
+    {
+      "path": "app/src/features/agent/index.js",
+      "sha256": "9e35d6b876ee2fe3ea322fb9ad0d956f592dda0a5315631df9fd63b9f1e8a671"
+    },
+    {
+      "path": "app/src/features/agent/worker.js",
+      "sha256": "4255e365a12573d79268c43dad99e4a22f314fc5425204dfc68a792c1692a493"
+    },
+    {
+      "path": "app/src/features/auto-collapse.js",
+      "sha256": "fcc7aa11c03d30c1a2260c0d8cf450c8b7f698ce96478bb81bb4ad63222d2a1f"
+    },
+    {
+      "path": "app/src/features/backup-crypto.js",
+      "sha256": "ac86fb5fb83ddaff0a563c91691a34435d71bc319c1f801fd761b11b58c29cf8"
+    },
+    {
+      "path": "app/src/features/backup.css",
+      "sha256": "e92d1dcd70b0e4002038e88bf0d09f0addb982893b09a729ab663fe0e7f1e138"
+    },
+    {
+      "path": "app/src/features/backup.js",
+      "sha256": "50a056d8f89fcc8fc2d7613917b49434a9a12f29c8bbbe5160d2978a40f3be37"
+    },
+    {
+      "path": "app/src/features/business-query.js",
+      "sha256": "36b1be3c728c0a07325a30a9ea88b36be260e53cfc861b1ac0ffe20249369316"
+    },
+    {
+      "path": "app/src/features/client-surfaces.css",
+      "sha256": "3b68227453cb3f7d4e5f04738417a34471175dc0595514cefc8a682d468ec1d0"
+    },
+    {
+      "path": "app/src/features/coffee.js",
+      "sha256": "f4a99b00fbac5b19df6c92d2563ced41f24a37cfeaa10558d2627b276a288081"
+    },
+    {
+      "path": "app/src/features/daily-guidance.js",
+      "sha256": "7b7de88c658b93f2314744d2ff9509f6353baaeb374fdd489d3fdfc805909122"
+    },
+    {
+      "path": "app/src/features/data-export.js",
+      "sha256": "76616f397c74551d02538226a99aa575c46c0c9c33de86d2b19cf312ea8641e0"
+    },
+    {
+      "path": "app/src/features/day-summary.css",
+      "sha256": "a6139bd8162ed434eededacd1e841c71c07dc01e3e6621438013930ce07b7bb0"
+    },
+    {
+      "path": "app/src/features/day-summary.js",
+      "sha256": "410613c5a6368c10c56dff0ade60cc478742c5e383ba5a73f18323d2455fec99"
+    },
+    {
+      "path": "app/src/features/decision/math.js",
+      "sha256": "2f4a49dc46aa1bd6b1438feed9006714f5ab6ae6d56df2443e31b68bb43a1d5a"
+    },
+    {
+      "path": "app/src/features/event-experience/events.css",
+      "sha256": "cfa46e66edeacd25870cd656918ca0a94d839d166e1d3adf066fdb523474b90a"
+    },
+    {
+      "path": "app/src/features/event-experience/form.js",
+      "sha256": "ebeafd380da9e7aff1827de628d5cbeaa4e50ee09e1547871ee9595ba1b8804b"
+    },
+    {
+      "path": "app/src/features/event-experience/index.js",
+      "sha256": "9aea7394f2e639bd7b4b5115db5d10d9c3e935e3c29a39f36fc3eaa4d759dbcb"
+    },
+    {
+      "path": "app/src/features/event-experience/model.js",
+      "sha256": "a3994a341ac32829cf29d1c77cfaa494d3a562328c12c0e3d7c4cefb5c51158e"
+    },
+    {
+      "path": "app/src/features/event-experience/surfaces.js",
+      "sha256": "1296a4a08de5cc62a44b3d2f6749f042288632fd7d0ac7d322a481f8d8c1b045"
+    },
+    {
+      "path": "app/src/features/event-learning.js",
+      "sha256": "9a69b600c61fa3e097747d25e4d6f7496faf3cda86b97aadde19e841ff370a90"
+    },
+    {
+      "path": "app/src/features/event-preparation.css",
+      "sha256": "cf8cddf9382faf99ab4ab7aa6e08f1a77346b0f6da344f8d38b38fa12b70363b"
+    },
+    {
+      "path": "app/src/features/event-preparation.js",
+      "sha256": "0d2110064edd6432b9083e21520bcb30af7604792b79c4ebf83c0e575422249a"
+    },
+    {
+      "path": "app/src/features/event-reminders.js",
+      "sha256": "6d3c341cbb5dbb543ce9664da44a1942d2a059b48245b7012b1456708d9b117e"
+    },
+    {
+      "path": "app/src/features/fair-activity.js",
+      "sha256": "4c0fc02adc0dd8b9277d02f0fb60287dcd7f561b78351491292a67e784ea0c84"
+    },
+    {
+      "path": "app/src/features/fair-report.js",
+      "sha256": "05f815daa1b52cb9f33fc5e7790c15e16ea2e15b28df28d979c1dc600ec85201"
+    },
+    {
+      "path": "app/src/features/fair-surplus-ui.js",
+      "sha256": "84aff941075c9fcf2b810b93c5f90ef645e3f266328d0c9aac00f984202e5e7a"
+    },
+    {
+      "path": "app/src/features/fair-surplus.css",
+      "sha256": "6af7999572eeea03a576cffafc158cef2db6a75037c56afe2194f0aa54464440"
+    },
+    {
+      "path": "app/src/features/fair-surplus.js",
+      "sha256": "78dd300894075a2e6bbfc6f712174fa420d64fc0d1563f3e67cce5a36ba457ba"
+    },
+    {
+      "path": "app/src/features/finance/audit.js",
+      "sha256": "017e81bcb22063a5c20e6fcb9a396958b6f168ceddfba898699b4746b8698abb"
+    },
+    {
+      "path": "app/src/features/finance/finance.js",
+      "sha256": "5cdc0873def52b26dcf32f974a80282cf4b76a152a167f647ae4346da1e40beb"
+    },
+    {
+      "path": "app/src/features/finance/producer-calcs.js",
+      "sha256": "9a27fd7a5ced184306e5372ca9f6cde4a62ceb97d27d072672d6a471510405db"
+    },
+    {
+      "path": "app/src/features/financial-session.js",
+      "sha256": "09f4c32a20401bdb756f6f9dbf3c02a2f743c79e6dd72ec6f7fddd7c69637be4"
+    },
+    {
+      "path": "app/src/features/followups.js",
+      "sha256": "1b3f914c9c8a109f875f104a336ae5c58ccc628a9b5afd3cc4183e98036a9ee0"
+    },
+    {
+      "path": "app/src/features/general-education/index.js",
+      "sha256": "05ee013e5fb6e5fc2066258473638a8ab1fa74c8857ad9e05c19f29f33fd1fee"
+    },
+    {
+      "path": "app/src/features/general-education/service.js",
+      "sha256": "fb34cfb7233858bf2c6c5fb0a1a3139766bd2e581bcf9a40c5a60667bf75622a"
+    },
+    {
+      "path": "app/src/features/glass-touch.js",
+      "sha256": "bcdc7d32902953898457c02f073d00ac87cbf85c751e95f44fc2963c8250c71d"
+    },
+    {
+      "path": "app/src/features/interface.js",
+      "sha256": "2af1b2b0d1696a9988c2f06822be7558faf5416fd420bcf57597eaa31c2ff083"
+    },
+    {
+      "path": "app/src/features/local-catalog/catalog.css",
+      "sha256": "918eef03ac781c002dcc90449ee0836cc4c1ec8116f1d547deceed4a3825bfe9"
+    },
+    {
+      "path": "app/src/features/local-catalog/index.js",
+      "sha256": "80bfd17324c37fdaa6d71f31f7ce9c97b198fff9cad2b75122af2c60f41f859a"
+    },
+    {
+      "path": "app/src/features/local-catalog/model.js",
+      "sha256": "d07f673e46f6df4bcdf9b9a64c3c5c3041f52ccca37896ee099e09da0007ce05"
+    },
+    {
+      "path": "app/src/features/local-catalog/pdf-task.js",
+      "sha256": "31cacd894d22dacdf3f85ce71d257e552636dc42ad8b4a95a2bece3ebfb7a450"
+    },
+    {
+      "path": "app/src/features/local-catalog/pdf-worker.js",
+      "sha256": "ebf7140e3730fd8dcc4df41d117ea81e2ca3be105be34a0c035424356f442ac3"
+    },
+    {
+      "path": "app/src/features/local-catalog/pdf.js",
+      "sha256": "8b5ec08b389cba1bab62e4bd9681095acaf61b1bbb7217d4929c766ad7ad547f"
+    },
+    {
+      "path": "app/src/features/management-reporting.css",
+      "sha256": "b77786d1c6fa27e63aafaa7ccecb7e81a6e1001df5119584af4e50888130c747"
+    },
+    {
+      "path": "app/src/features/management-reporting.js",
+      "sha256": "67bebf4f4c15082a393409b29ab381c7fc38f53ea8530bcb0753e8e798c18426"
+    },
+    {
+      "path": "app/src/features/metric-interpretation.js",
+      "sha256": "cb91727ea9e89277b62b4b16ed8242e9a7abc0e10745acf4b0a8e9eaae96b2ca"
+    },
+    {
+      "path": "app/src/features/motion/compositor.js",
+      "sha256": "0eb7aa059b21dc7244012d99b7b0fc714a7c39227dbc588c184039a011b25ac9"
+    },
+    {
+      "path": "app/src/features/motion/engine.js",
+      "sha256": "5b5b246583b80a18abae45496a5ad56f3f738ac18986eb4d67ea415b857bd4d9"
+    },
+    {
+      "path": "app/src/features/motion/geometry.js",
+      "sha256": "7e206d73e484e0471a446e8c2f7f3daf50beabf0bddca24a25c0dfa136417f23"
+    },
+    {
+      "path": "app/src/features/motion/index.js",
+      "sha256": "b1bce3e577de53317b1c0f4f894521404fc01726c72150ea724ea1a9d54a5598"
+    },
+    {
+      "path": "app/src/features/motion/nav-icons.js",
+      "sha256": "5bef1ac2dab31b7ede78e13c7ab1a07e97fc3a01f7cd9ce36ade7deb3d1e2ede"
+    },
+    {
+      "path": "app/src/features/motion/nav-selection.js",
+      "sha256": "50f259b716f1e75982da783133a3cd7feaeae33b9ac4a54ca340520d4450b7b5"
+    },
+    {
+      "path": "app/src/features/motion/sections.css",
+      "sha256": "36587450fd6c9579a663d40d0877cfa4319ab83e28617fb7cced4b605cf597c1"
+    },
+    {
+      "path": "app/src/features/motion/sections.js",
+      "sha256": "ad0a3fe1cf0e752ea934aa86a36068e8a024f7fafd12fd22743047e13a6f20e9"
+    },
+    {
+      "path": "app/src/features/motion/spring.js",
+      "sha256": "bf9e5ff5bed6c293c4e97412f7039b3c46ecadc2b50f96a9af18f412acfed2de"
+    },
+    {
+      "path": "app/src/features/multisell.css",
+      "sha256": "e2b9aab237773d684a1c65c986050832213883edaf0cf1ebb0c08f24efa98fd4"
+    },
+    {
+      "path": "app/src/features/multisell.js",
+      "sha256": "9caee73bd8ca6eea89afa77182e9020455248a54e345fb8386b1496542104b4f"
+    },
+    {
+      "path": "app/src/features/municipal-calendar/index.js",
+      "sha256": "e1576750b596f3405184b515be8f0f106b8fc7790a7bcd5889265de7bf00a953"
+    },
+    {
+      "path": "app/src/features/municipal-calendar/model.js",
+      "sha256": "b72a630f9313af659c6f6bda4453e060ac50e1ec65e9a699b1b8007c3cddd705"
+    },
+    {
+      "path": "app/src/features/municipal-calendar/municipal.css",
+      "sha256": "1932e752c0c75d9b478ac860ca0ae6e04b21a839681f7a31c4a68b73d54fca5f"
+    },
+    {
+      "path": "app/src/features/municipal-calendar/national.js",
+      "sha256": "025b8aa61f56b9fc9ce3f466f1b998d659fc4789969cd10e31950d98412a3a63"
+    },
+    {
+      "path": "app/src/features/opportunity-knowledge.js",
+      "sha256": "4ee6fbeadb9ffbde5964daf3f0bbbe25798fcc85918e31dbdddef8add38d1bc2"
+    },
+    {
+      "path": "app/src/features/portfolio.css",
+      "sha256": "2938287e1375a856977c26891a42f9070b0a723a3275408bd72fec7b907ef3ee"
+    },
+    {
+      "path": "app/src/features/portfolio.js",
+      "sha256": "a834a6eb6ccf021f2020ea09fe6546320c6e33b17c1f389ecc651e4b75365525"
+    },
+    {
+      "path": "app/src/features/print-list/index.js",
+      "sha256": "6c83ff21244e614f1ac2b5def45a4c76ef698a9125eb04fbd4ca7afe9651290b"
+    },
+    {
+      "path": "app/src/features/print-list/model.js",
+      "sha256": "ec46cd051a2123e6880a44e8aa4bfb231c612cf836aa336f616095b7a7af1d45"
+    },
+    {
+      "path": "app/src/features/print-list/print.css",
+      "sha256": "ec17c722b13b13b71202f2f53aa9403eadb85a686944f9f503a44b8261a57b98"
+    },
+    {
+      "path": "app/src/features/print-list/text.js",
+      "sha256": "130f46e4c5f8a8d851a7bb636cca8da97abaeb364ec7894b4d55fbc76949a514"
+    },
+    {
+      "path": "app/src/features/privacy.css",
+      "sha256": "a7999f12a7fca0ad68eb9e69a25391b3b219015edb6fc07d8cdcef9920f2d166"
+    },
+    {
+      "path": "app/src/features/producer-calcs.css",
+      "sha256": "e99ead4a4a446997f4c0e71daf9d518525766c067f8675ff3061ae7d88f28ab4"
+    },
+    {
+      "path": "app/src/features/product-catalog.js",
+      "sha256": "cfd302efb4a4e68532c1e48b51019484a8be21de094ad9bd637618f1a03e8300"
+    },
+    {
+      "path": "app/src/features/product-outline.js",
+      "sha256": "00186c8f9222f272311b24b5be3f65371be962bae1f5709e18e0d742c73e9a73"
+    },
+    {
+      "path": "app/src/features/product-pareto.js",
+      "sha256": "035cc3ca4e25c23082115f8e593dae4c91d90aba6431d77deef7051f06d82406"
+    },
+    {
+      "path": "app/src/features/product-period-reports.css",
+      "sha256": "4dc70be3419e5f8eb74e8e940a8bedf61769944badff104faaa6f7ce585f9ae7"
+    },
+    {
+      "path": "app/src/features/product-period-reports.js",
+      "sha256": "60699fbdaec808b3be6b3f057f93182c434d1979b9c4a16e9e845dcb52c76e9e"
+    },
+    {
+      "path": "app/src/features/product-stock.css",
+      "sha256": "4c8bbc241493040c0bfd5e67ae04d83f6818d265cec95fc123b312f1e208879e"
+    },
+    {
+      "path": "app/src/features/profile-sheet.css",
+      "sha256": "e62d66bab6a351cc8bb3859a5cc4b90eb5fe798ddf5e12b676dd4ccdc64f3b28"
+    },
+    {
+      "path": "app/src/features/proper-name.js",
+      "sha256": "a885cf6b01959d845a4e1e43b40c02b92c855c8a84f5f279bd63e34c5a28218e"
+    },
+    {
+      "path": "app/src/features/receivables/checkout.css",
+      "sha256": "3d49661d1f293ed7ae0ee6ec0f84985b9da5094bb97b988f2e5d78c254d2fcfb"
+    },
+    {
+      "path": "app/src/features/receivables/index.js",
+      "sha256": "23cf8423772363d15d60c6af3b1559c8708ab7390625d00657c10d24c2dba205"
+    },
+    {
+      "path": "app/src/features/receivables/receivables.js",
+      "sha256": "6bc9ad509c71773b155ca74d0ee2a1a290d4d4c275440b2318b16e4b819df372"
+    },
+    {
+      "path": "app/src/features/reorder.css",
+      "sha256": "5fc73730662f9d6c926510a3046d238013bbd147933b91795cbb7f2b20735905"
+    },
+    {
+      "path": "app/src/features/reorder.js",
+      "sha256": "b6653e7b10d03c03afcd20236484c8e22a4f378781a3b776c9f1b5b877a57aa9"
+    },
+    {
+      "path": "app/src/features/resources/index.js",
+      "sha256": "d1dc78403bff79572efc0fa5eb7d372985c89458073c033041e7fcb0e3a06f8d"
+    },
+    {
+      "path": "app/src/features/resources/policy.js",
+      "sha256": "dfc1947df1fffe85f941aadbc659d202f5d84bf62dd8937a797c93d748f3f981"
+    },
+    {
+      "path": "app/src/features/resources/recovery.js",
+      "sha256": "a704c07dc8e0e838973c90cdd9341c399a78f9318c05045f27daf63123ca1d18"
+    },
+    {
+      "path": "app/src/features/resources/resources.css",
+      "sha256": "b714718484506d0b1a3d1ab713437ca6e762362768724f3ad079cc920e4c89ed"
+    },
+    {
+      "path": "app/src/features/restock-symbol.css",
+      "sha256": "84191d0ec3dad2892a02aaaacb728eb1d3bffef187ead6a5ca04922366853e47"
+    },
+    {
+      "path": "app/src/features/restock-symbol.js",
+      "sha256": "8855dc532203345d66135ae0acdbf02a0ced73edb7257723ea42075b71c47ed0"
+    },
+    {
+      "path": "app/src/features/sale-round.js",
+      "sha256": "f775dad1a46911525110c236f41ebfdca944883fd9e3661dfa8ff0277b6af58c"
+    },
+    {
+      "path": "app/src/features/sales-order.css",
+      "sha256": "399ee6059f119298cf0e545ef71725fe08c15a6aab4a6bd6ef89508b0865f914"
+    },
+    {
+      "path": "app/src/features/sales-order.js",
+      "sha256": "557fee59f667596773dacdd883daa5b7b5f30af513aa68e0084d17d284226a9e"
+    },
+    {
+      "path": "app/src/features/sales-presentation.js",
+      "sha256": "32f888ea45e3647071cb5e7ba6765faf22b9abe4150a81a7e22c52769891d630"
+    },
+    {
+      "path": "app/src/features/sell-modes/model.js",
+      "sha256": "3b3fd6c51a563672190e7cd28b582aa17e0f2abfcf9cb6218d3e2fc3c0fa3e35"
+    },
+    {
+      "path": "app/src/features/sell-modes/sell-modes.css",
+      "sha256": "d76ef2fe8be5b53779d6516b1184f914c671f3dad26491781f28c3472c5a9117"
+    },
+    {
+      "path": "app/src/features/server.js",
+      "sha256": "4f7cf32ab6d0a1b60b030ee94e898aca6c9b59e9c6d53e48750c6b0a7a6389a4"
+    },
+    {
+      "path": "app/src/features/stock-alerts.css",
+      "sha256": "1c080ec69147a30ccc37eaaf68a1a5b83bc40e88de57f14a830bea310f9932ba"
+    },
+    {
+      "path": "app/src/features/stock-lots/calendar.js",
+      "sha256": "a8fbfc9dc98a40cbf5beb59238d164e3c5ecae0f9697ffc6521e94e9a7de64a4"
+    },
+    {
+      "path": "app/src/features/stock-lots/derived.js",
+      "sha256": "739dbc576716540a57e562c39d0cfd058ea974d6e3905ad79dd9b3cf9bf38605"
+    },
+    {
+      "path": "app/src/features/stock-lots/domain.js",
+      "sha256": "69c4c5353b2924a97554f9cef2928be8c0839f35d005ad00b19f509cf7621d2c"
+    },
+    {
+      "path": "app/src/features/stock-lots/form.js",
+      "sha256": "6c62bdab7015da0b85821627f1fcea70538ff1aef92bcd4f0f6d7ad38158fcfa"
+    },
+    {
+      "path": "app/src/features/stock-lots/historical.js",
+      "sha256": "3deb536f5dc65f249e89c42c7ce85be17ccea9e9500c3efdbb2ef980d2b0bf98"
+    },
+    {
+      "path": "app/src/features/stock-lots/lots.css",
+      "sha256": "5020bc1eece98136e32601415fda1fc4bb28c3586411aeb080a34a6d551fb21d"
+    },
+    {
+      "path": "app/src/features/stock-lots/model.js",
+      "sha256": "35f2df40d3476585148b6fdb6a5332b06338ff75adc455dccb40484d42b59480"
+    },
+    {
+      "path": "app/src/features/stock-lots/projection.js",
+      "sha256": "f6c532d12f52dda53c2a5b9031feeb712e490cb6167063ce6cba4f0b4eb82af6"
+    },
+    {
+      "path": "app/src/features/stock-lots/reservations.js",
+      "sha256": "ab952fce70e2cbbb5fa68723b5b1629340dce4c05ddb3c5a6fbca43571927e06"
+    },
+    {
+      "path": "app/src/features/stock-lots/ui.js",
+      "sha256": "1a5ce17c87fb3753f983d5e5b465195fba8a7c55c893f3c04550abfecfd14e63"
+    },
+    {
+      "path": "app/src/features/stock-lots/validity.js",
+      "sha256": "a0534ef6a6ae92ff76136b93e6a58acda88a10f9253fef0b6aa7556c6429b541"
+    },
+    {
+      "path": "app/src/features/stock-order.js",
+      "sha256": "c0e2a8df648ccec1e3eb540514832b3c26e8c0bcd02210a96bdb6920ccb21eea"
+    },
+    {
+      "path": "app/src/features/store/availability.js",
+      "sha256": "bcbbbdffafbe4df7a94f4d65b1d963a74b23c0be83a173e956c565e15a1773eb"
+    },
+    {
+      "path": "app/src/features/store/index.js",
+      "sha256": "d88378df9645ab93aa9b9b3a20ec89ca81675db08204b7101759580f39198526"
+    },
+    {
+      "path": "app/src/features/store/store.css",
+      "sha256": "777a09115d8fd020d21d0202bfaa74ed73f73b88000ad820a8c06402ec0e8350"
+    },
+    {
+      "path": "app/src/features/suppliers/index.js",
+      "sha256": "d198d8122177f90ed0c1889b65ee5ffa3130479f374deefbfe36c9bd371db133"
+    },
+    {
+      "path": "app/src/features/suppliers/model.js",
+      "sha256": "9ba7af572a2d7527af8c37f759aa67d347f3673aafa9d31d7ac7273a033d04e9"
+    },
+    {
+      "path": "app/src/features/suppliers/suppliers.css",
+      "sha256": "4549a3baff43c191054b2afb3d962930295d9fda669b1dd5922527de81a11318"
+    },
+    {
+      "path": "app/src/features/training/index.js",
+      "sha256": "570cde564729060df1701431f959cb998b311428a373973183ecb0520736e0dd"
+    },
+    {
+      "path": "app/src/features/training/seed.js",
+      "sha256": "bb27b56e20883eb5195f6361e1aefd153694e8916ef56c15a2cf3a46ac9d4ce4"
+    },
+    {
+      "path": "app/src/features/training/store.js",
+      "sha256": "45d43aad40e54941b2f3dab2b7cd722f5959b5b3e7eff04369854e6e82a225ec"
+    },
+    {
+      "path": "app/src/features/training/training.css",
+      "sha256": "058789a6218fc58242655c270ffcbaa227285d0b5f44a1a1a4953907faf40895"
+    },
+    {
+      "path": "app/src/features/visual-cohesion.css",
+      "sha256": "2dc49e188672e1a4c18b47cce36881b49f6a57b7a8b700884278c6f5d8c1fc56"
+    },
+    {
+      "path": "app/src/features/voice/controller.js",
+      "sha256": "b70e5513861f40448a8d5eaca0f40f19a4f154319c38fba08c32592583fe0f1f"
+    },
+    {
+      "path": "app/src/features/voice/index.js",
+      "sha256": "709dcb5589f40330c40b27c8fcb3ea975b831e2ce090cab5a1180a1f96189d42"
+    },
+    {
+      "path": "app/src/features/voice/interpret.js",
+      "sha256": "ffa3f9122fbdd9c859d4701d5c87b240e578c51d449b7a682c76e605f3e4bb9d"
+    },
+    {
+      "path": "app/src/features/voice/lexicon.json",
+      "sha256": "73c5fc34139e3707cf9ea34e8370de0b9ca53c8b5b39ff2baf71ece72fa6c484"
+    },
+    {
+      "path": "app/src/features/voice/voice.css",
+      "sha256": "0fc15d9de37715974eb31928a0cd5bca70f4d8d8595550cd4b0c02b6b477fdbd"
+    },
+    {
+      "path": "app/src/features/weather/forecast.js",
+      "sha256": "f797886b2bd34b64e2439daa3cf1dec73077284e5c05b779c17fe29bd81f63b2"
+    },
+    {
+      "path": "app/src/features/weather/icon.js",
+      "sha256": "3e1775d2b301dae5dc3113ac0c07c73cb19adb15a0106e2e4a90390ddb1c48d3"
+    },
+    {
+      "path": "app/src/features/weather/index.js",
+      "sha256": "b15a3bd50954d46cb1eebab56b7b9d79379d12d9bad0c88801499ecdf9aff11c"
+    },
+    {
+      "path": "app/src/features/weather/location.js",
+      "sha256": "8ff41cf01ffc76fcb6b4e3358023a06cdc6b657f73cc0357adbf81fa200e0e9a"
+    },
+    {
+      "path": "app/src/features/weather/native.js",
+      "sha256": "920510e76f13e5b624e96fe45a24886da6aac00c3b195f51d5e93a48e2eb3ece"
+    },
+    {
+      "path": "app/src/features/weather/presentation.js",
+      "sha256": "660939124cc21160196514cbb74e90e82538779f96df8cc10e24703c6dd5077e"
+    },
+    {
+      "path": "app/src/features/weather/query.js",
+      "sha256": "a58b8e867ed584e41f352357e21349a3f129852baa814155168409df52d37b58"
+    },
+    {
+      "path": "app/src/features/weather/refresh.js",
+      "sha256": "91be649637aeb40a444d01b4b398623b36fae2acb9f752a10a34993c75d305da"
+    },
+    {
+      "path": "app/src/features/weather/weather.css",
+      "sha256": "ea8e6e84d0402dde399df7fd482a261939b06d7ea5743e70f57c2ab95dfb49e2"
+    },
+    {
+      "path": "app/src/features/workflows/index.js",
+      "sha256": "0e0a2e74376d90fac1bc9334b29f3f33ff7e1b95e169988b68b70f4455903617"
+    },
+    {
+      "path": "app/src/features/workflows/product-gesture.js",
+      "sha256": "f936c9d501ace722d66b2b8ac878d696d9d23c6b1de7bce2a4fd2077b7927062"
+    },
+    {
+      "path": "app/src/features/workflows/workflows.css",
+      "sha256": "b516addaec69742ebd26fe53a12b6742b6f5ee585adea62283f25b55c04a0332"
+    },
+    {
+      "path": "app/src/fit.css",
+      "sha256": "79ac2b3445f417a511ca8c51de0e173b989c7923c3de2aaf09a9e51326ab70b6"
+    },
+    {
+      "path": "app/src/fonts.css",
+      "sha256": "e65028c9313125dc9d01fed20990acaa2e2ce0e255f76329a3cced0b00c5f193"
+    },
+    {
+      "path": "app/src/glass-system.css",
+      "sha256": "1792bcfae146afd82b182ea5df4a6e87188ee0b4147e8aac63525de73fb849e4"
+    },
+    {
+      "path": "app/src/glass.css",
+      "sha256": "d494146ec411c8b10dde5ac1ee96bb9fe7bf28532ac45adce92c52c731d02969"
+    },
+    {
+      "path": "app/src/interface-refinements.css",
+      "sha256": "78db8ec3a2d2acf71b4ff00e3722e3cabe3755ca4061e97144b7f7a46d49af48"
+    },
+    {
+      "path": "app/src/layout-feira.css",
+      "sha256": "44cf0cd511d97c4a3767a092fdb2ada6adaaef24f13338a29838254be20e939e"
+    },
+    {
+      "path": "app/src/legacy/app.css",
+      "sha256": "a3023009257961249a2789e022c457fb447b14cbdc08c6538c98ec9ad92ea25d"
+    },
+    {
+      "path": "app/src/legacy/erp-core.js",
+      "sha256": "07253892c9cf302ce8d15ea7b968d237dd200483cd3f3ce6b3977a03e998436d"
+    },
+    {
+      "path": "app/src/legacy/erp-ui.js",
+      "sha256": "d7339531b0c884771d6936c9c4c67e1642ea942e7d29a66fbe59253baafdc051"
+    },
+    {
+      "path": "app/src/main.js",
+      "sha256": "58da7f6d779dae531c97f00e09aed531fd434be2c9bd5a638ab3b0a767d78145"
+    },
+    {
+      "path": "app/src/motion.css",
+      "sha256": "2b52a2749273f27d402d66ee14893d602af03f991900185363863c7dba134e7e"
+    },
+    {
+      "path": "app/src/native/daily-guidance.js",
+      "sha256": "551b1e100538f84526e8fe52c3990b4622517d9c2eeb50f72052bbd1809e7935"
+    },
+    {
+      "path": "app/src/native/followups.js",
+      "sha256": "517869e9a5251c6528fb0b4b0bdcb1dc5a17ff960d0c2dac062149e55ed9d2f7"
+    },
+    {
+      "path": "app/src/native/order-arrivals.js",
+      "sha256": "69a0888c40ca0dbe42300bcccb6c5b7c1262e69c92a29ea0f8185bd6e2a9323d"
+    },
+    {
+      "path": "app/src/native/save-queue.js",
+      "sha256": "1463e02809e36bcdae153d3cbb3c65499c907a576724a42f9e35d78f35fe720f"
+    },
+    {
+      "path": "app/src/native/shell.js",
+      "sha256": "7cdc11f4dec891dc1f5d1ec04666ce7b04da74574a5fcff7f91ee6e029c69531"
+    },
+    {
+      "path": "app/src/native/storage.js",
+      "sha256": "67daf20e2ffe8355d24fe59c349a9710bea1283847d028209e6c2e535ca8e1b9"
+    },
+    {
+      "path": "app/src/polish.css",
+      "sha256": "43279f562c3f30bbbabc405ceae33c7ec0b28d678b04c0d593ad928efcdecc9b"
+    },
+    {
+      "path": "app/src/selling-grid.css",
+      "sha256": "0df4ff7f22af463c0f503b5b7658d46ee1358b63339a6f325d23c35f91ffad0b"
+    },
+    {
+      "path": "app/src/shell.css",
+      "sha256": "1d68e3acac47fc79f7f37789bac12530b92728fb5003fc7c7fa42909aa0ddbd8"
+    },
+    {
+      "path": "app/src/toast.css",
+      "sha256": "0b79bf6368e15b020205a546c37bebd0e2f66fd859cb4d76ec1f6d3da9253886"
+    },
+    {
+      "path": "app/tests/adaptive-audit.test.mjs",
+      "sha256": "0aa689b842031531cea43579772eaba0a039a1d86aa434ca745a401c9c32bf47"
+    },
+    {
+      "path": "app/tests/advisor-evidence.test.mjs",
+      "sha256": "7c328cfe83fd9f2271e4f58722e248ccfe6b53958f928a6a21b41573a115eb5a"
+    },
+    {
+      "path": "app/tests/advisor-quality.test.mjs",
+      "sha256": "7e276b600dec00d7adde854425ab8f156a9ebbeb643da91e6336a15adc606814"
+    },
+    {
+      "path": "app/tests/advisor.test.mjs",
+      "sha256": "1eabd984d9c81d240666fb4a563194102387fa0f794a2e65b0f5e810b255c075"
+    },
+    {
+      "path": "app/tests/agent.test.mjs",
+      "sha256": "82950cecc3fb5f03144514eeda1e9a361eefdcf8dd90a95eeaba5ddb33a47ef3"
+    },
+    {
+      "path": "app/tests/app-crawl.js",
+      "sha256": "a6099f92189751f1cffd9005bfbe1cf4ebfe727604aa018970d298986aa428df"
+    },
+    {
+      "path": "app/tests/backup-memory.test.mjs",
+      "sha256": "d2f0d6c7bdafc7c316ded4066808e1f62cdc3732922aa34000b614612bd95e56"
+    },
+    {
+      "path": "app/tests/best-first.test.mjs",
+      "sha256": "aac5ed568feabab299737c4b81b3c54a877abf96cb9426f4f81511635af80385"
+    },
+    {
+      "path": "app/tests/catalog-stock083.test.mjs",
+      "sha256": "399e20216568aa34925e8e44f2bad0cd042e7ab8c7b1fd475b8ab2a946bd3ab7"
+    },
+    {
+      "path": "app/tests/catalog-vocabulary.test.mjs",
+      "sha256": "15b3f55e6c81490619a99374f2aefaa3282fa6438001f58a1a4a3462f5e22784"
+    },
+    {
+      "path": "app/tests/claude088.test.mjs",
+      "sha256": "004b11a190f166b69c820c9d58e607cd84998f733d6322994e215851320d142c"
+    },
+    {
+      "path": "app/tests/coffee-models080.test.mjs",
+      "sha256": "bda456af739549df385bf36c2201eeea4ae871f750eff25c0c5da0eaff82064a"
+    },
+    {
+      "path": "app/tests/continuity086.test.mjs",
+      "sha256": "daf9bcf0d525270da6e4b1c4f48ecd5cd3a2ff1e4bb816e8b11cd29175ab005a"
+    },
+    {
+      "path": "app/tests/day-summary-sections.test.mjs",
+      "sha256": "3dbdda41f528798d8151a5779f5eae2ccd0ea43b3c50deee6afd83fdb33ac4b6"
+    },
+    {
+      "path": "app/tests/day-summary.test.mjs",
+      "sha256": "0974c5317b815252b2118d554f54a2b4028fbdb1e4d2eec4b7e5f11e9409c10a"
+    },
+    {
+      "path": "app/tests/decision-math.test.mjs",
+      "sha256": "325f1a88980daa84445cb4dec2b3ecdbfadefa04c3936b5a42b16c70e8a7568e"
+    },
+    {
+      "path": "app/tests/event-experience.test.mjs",
+      "sha256": "6fd8abb7d899d036953a2d044f7b8415ef7b5a795db447ca87a16158d3795bb1"
+    },
+    {
+      "path": "app/tests/event-form.test.mjs",
+      "sha256": "1116ce0531ab42d60a89e1f21f91321d29604112a4c6e2adf48647d325f3a7ca"
+    },
+    {
+      "path": "app/tests/event-learning.test.mjs",
+      "sha256": "628e6c414193ab6dd4b43f3b512e606c404c1b0a071e4fea6f21187d03df461d"
+    },
+    {
+      "path": "app/tests/event-lifecycle.test.mjs",
+      "sha256": "84aefe7097bcf03813a1fdb3bdf8a6f00e9209d8fcd8a3ce42c822bbca918bb8"
+    },
+    {
+      "path": "app/tests/event-preparation.test.mjs",
+      "sha256": "42c7297fdd27bb0b60d512353ed2ed4a19aa442dc617a8f9fd7683995c71206a"
+    },
+    {
+      "path": "app/tests/event-reminders.test.mjs",
+      "sha256": "35277ef4e668553e14cf45bf95d0460d29fa42e9f08e1a0e6d6890fa41cfdf3e"
+    },
+    {
+      "path": "app/tests/experience077.test.mjs",
+      "sha256": "8bd240d724cf31e488b6daafadd6ea731118fe3eb1217b943cb0aa44fc88cfbf"
+    },
+    {
+      "path": "app/tests/fair-activity.test.mjs",
+      "sha256": "7ae7a9ef56f7f662c55ef673a2f037bb484388a000b2bae93412eae932e3e4bd"
+    },
+    {
+      "path": "app/tests/fair-report.test.mjs",
+      "sha256": "621d8171787110cfb818fa8b9507c06f8f6de68d8914ae2c793c2a823248242b"
+    },
+    {
+      "path": "app/tests/fair-restock-count.test.mjs",
+      "sha256": "d77346de9262234214bde725060766e68e0fcc908502a834e5d7448847ad7354"
+    },
+    {
+      "path": "app/tests/fair-surplus.test.mjs",
+      "sha256": "2f8aaa42f4013d6a52e8e45130382f74cf62c331496c38aadee9a015055510c8"
+    },
+    {
+      "path": "app/tests/finance.test.mjs",
+      "sha256": "9fb0491dc9eaa32cce986e7afba32bd5cf6b1315a343771dc7e1040b8ea395ca"
+    },
+    {
+      "path": "app/tests/financial-session.test.mjs",
+      "sha256": "3dc8a236965a7b271cc33547e6c64189ee880daa1ed92d7740af657ff7377bfd"
+    },
+    {
+      "path": "app/tests/followup-native.test.mjs",
+      "sha256": "6ed7a7f59ef415ab85cdc7b5b503d66bcc41c121297a2ea4125f5f6298ab1468"
+    },
+    {
+      "path": "app/tests/followups.test.mjs",
+      "sha256": "494129136fcd8c7a121dcd121f919081aa4dae06fc5f81db66ac3c25e88f5574"
+    },
+    {
+      "path": "app/tests/forecast.test.mjs",
+      "sha256": "b4469c0ebb2be767dfc274b11d747719dce8f94f7d7014d6daa467fd14edc0a6"
+    },
+    {
+      "path": "app/tests/helpers/continuity-ui-runner.mjs",
+      "sha256": "94534fa744893ab7b3e6b120c8ab8bee7b0cf67e5cd5ab816fa3af1082fb2175"
+    },
+    {
+      "path": "app/tests/local-catalog.test.mjs",
+      "sha256": "fd468d5714b72bfe5b72f202e1c4177d3f3b445c1a1f9070888043a76ee758a6"
+    },
+    {
+      "path": "app/tests/lot-reservations087.test.mjs",
+      "sha256": "0208330a7729f382de29270b15dcc3d5d50c9b471ed30bdadce821b7fba3c59d"
+    },
+    {
+      "path": "app/tests/lot-ui087.test.mjs",
+      "sha256": "1f12ca692b5fb733e43e799c039256ded5eb8ab70ab6b0c49a6244fec9442d23"
+    },
+    {
+      "path": "app/tests/management-reporting.test.mjs",
+      "sha256": "be9b31077ac86705e95cbe9549f9472b7b72879b4084ebf4095028b726a225ba"
+    },
+    {
+      "path": "app/tests/management066-followup.test.mjs",
+      "sha256": "d220ef2897a990d477143ef0113be644bedb4875da7b3e45ec5708d57e79a5c5"
+    },
+    {
+      "path": "app/tests/management066.test.mjs",
+      "sha256": "1ec27396b4249ec88462dd1d1f88fdfa398f5cbae043cbe5a326133a04ebb1e2"
+    },
+    {
+      "path": "app/tests/migration.test.mjs",
+      "sha256": "cb57051bd476deb506e6e40dd9bdf660935afb38cbda0628b7330b92469db21c"
+    },
+    {
+      "path": "app/tests/motion-compositor.test.mjs",
+      "sha256": "ad6ea881f8c243cb78dce0cd330c8ba022ba5ccbc56c4d0d3ee6baba00315686"
+    },
+    {
+      "path": "app/tests/motion-engine.test.mjs",
+      "sha256": "b8b555a05a0bad7f43bc007febf01b5bfbac3bc93214d35f9fdd62afacc817e7"
+    },
+    {
+      "path": "app/tests/motion-geometry.test.mjs",
+      "sha256": "9be6ed933daba588ebe86c3f32436109435d6c16eb47d62310b2cc9a0253421a"
+    },
+    {
+      "path": "app/tests/motion-spring.test.mjs",
+      "sha256": "25b4db02288695313bc47a21ae872877986d1e7a16c1ac2e947a7e2026fcdffb"
+    },
+    {
+      "path": "app/tests/municipal-calendar.test.mjs",
+      "sha256": "7899283521dd75c5e97e933570d207b332394836f5cf3687d78b74e8d8cef193"
+    },
+    {
+      "path": "app/tests/native-stock-notices.test.mjs",
+      "sha256": "fd005d3e41296acdbc9d3d73d744c8af0ca60be5b59f32bf6585dad1d29f3581"
+    },
+    {
+      "path": "app/tests/order-arrivals.test.mjs",
+      "sha256": "530e870b108f38b40fcef66421673ebc59cdb89640be07606d2a907dfb595461"
+    },
+    {
+      "path": "app/tests/overflow-audit.js",
+      "sha256": "9eb268694272efe4bf1eb47d0af0b9c4d0b68ed1b017a60a01a93a18212e9468"
+    },
+    {
+      "path": "app/tests/print-list.test.mjs",
+      "sha256": "6c5fb7e0e470448b3bd50b5ed604dbd9cefe3eeb7be811cbb7cd80d19bfab6ed"
+    },
+    {
+      "path": "app/tests/producer-calcs.test.mjs",
+      "sha256": "2189c395dc3f1e75e2361eb131dc72f201b22e7d7cad0d0b45db4b03f974093e"
+    },
+    {
+      "path": "app/tests/product-catalog.test.mjs",
+      "sha256": "a3c322541e46edf7f4f561c8f11588189b0a11bc068a2c72128caa7f3fde51f6"
+    },
+    {
+      "path": "app/tests/product-list-text.test.mjs",
+      "sha256": "de0471fc170e52a955107952650833211702be9585a1a5493617be33ee828f90"
+    },
+    {
+      "path": "app/tests/product-memory.test.mjs",
+      "sha256": "4f7895dadc5ff7e280380d13c5aeb4e04143d2636501eb07a2d209a643148b8f"
+    },
+    {
+      "path": "app/tests/product-period-reports.test.mjs",
+      "sha256": "ae5d47b9bea023993870509677df221844e29e46f56e68a8183b6471b0e9e84a"
+    },
+    {
+      "path": "app/tests/proper-name.test.mjs",
+      "sha256": "50d88cad18516a18ab19f20187a79ce7c47320dd56522b96fe06ee9070b9e69d"
+    },
+    {
+      "path": "app/tests/receivables.test.mjs",
+      "sha256": "9bce0a880c11a24cdc8e7608cb2f9ba5a1cec397519858eb8fd1482bd882ace5"
+    },
+    {
+      "path": "app/tests/recovery.test.mjs",
+      "sha256": "ffcdec357d7da572f63f5185bf2850adec431f736748e6fce270c8b5e6dba968"
+    },
+    {
+      "path": "app/tests/registration082.test.mjs",
+      "sha256": "739976c10ed7fa348600bd0bb06bbd3fc7615bcb32d17795bfdb61f90bb7e2c1"
+    },
+    {
+      "path": "app/tests/resource-policy.test.mjs",
+      "sha256": "a1767954b339156933e41415da5c5ee65b92f1fcec42191da45b723a18fb0b65"
+    },
+    {
+      "path": "app/tests/sale-round.test.mjs",
+      "sha256": "5a74c77dac9cafd5ea125c38c9e9d99cc879acb4016d562c0cf1222125969c08"
+    },
+    {
+      "path": "app/tests/sales-order.test.mjs",
+      "sha256": "a139d5623b6d07c78539311b5ad2ab2b220a99b4f80244d164ad609803200963"
+    },
+    {
+      "path": "app/tests/save-queue.test.mjs",
+      "sha256": "27c8b0cb8c6d267662f6bbc26b9374d65b1580ebc2bb3d43a34832e93ce37c15"
+    },
+    {
+      "path": "app/tests/sell-modes.test.mjs",
+      "sha256": "e40fe756afc98be1264fad17244f91b5a8aa9b6bfcbf6231f90cf4e3230f34b5"
+    },
+    {
+      "path": "app/tests/shop-availability.test.mjs",
+      "sha256": "6fba3a68182b885f1ed456e630a6a3b66db8d095088522352db66380c7555263"
+    },
+    {
+      "path": "app/tests/stock-catalog-reset.test.mjs",
+      "sha256": "33f94791c6864a866c62c0d9e21469d60c156cbb59f30996831bf00ab1704809"
+    },
+    {
+      "path": "app/tests/stock-family-label.test.mjs",
+      "sha256": "2b2e8cbf23352c9da0926ffceafa8095fdfb12b243a4d2a24382c26de85f22f5"
+    },
+    {
+      "path": "app/tests/stock-lots087-integration.test.mjs",
+      "sha256": "377c2ccaa93b82062a3b6d8b854dfb8a92dad5cfb64287deb40fa75a8757588e"
+    },
+    {
+      "path": "app/tests/stock-lots087.test.mjs",
+      "sha256": "beeb0e3254d68801a5b018d23c42b2496783872e86f5956d7213d7e47a2d22df"
+    },
+    {
+      "path": "app/tests/stock-manual-order.test.mjs",
+      "sha256": "424b75151be0a770949d6f83595db6ae73e90faaaf13ce3c1bb8d9efec268e5c"
+    },
+    {
+      "path": "app/tests/stock-order.test.mjs",
+      "sha256": "f3399dce0a1dc2a9b252dcbfc66c719334fdc694165cc361387bea8edde6ddc2"
+    },
+    {
+      "path": "app/tests/storage.test.mjs",
+      "sha256": "2b5c521cf31a8e19f0eb79522ff7665c0887c318bea9fd88ac397a086f2b53d2"
+    },
+    {
+      "path": "app/tests/store-manager-motion.test.mjs",
+      "sha256": "ded20088ccde0bd516f9a6f366a917af3e9d2e0453afaa5177ca4b6d7897759f"
+    },
+    {
+      "path": "app/tests/suppliers-pareto.test.mjs",
+      "sha256": "387d644322e6691fbee3d2df20de7811fbc112918aa4525f106da0df0b7cc608"
+    },
+    {
+      "path": "app/tests/training.test.mjs",
+      "sha256": "713dd8567fcfa09486f61e128933d5e0bc47a7bde4859e398114636f719f6be0"
+    },
+    {
+      "path": "app/tests/validity087.test.mjs",
+      "sha256": "a2a9b326a9d696f0c5ffe304995c1e91e95c3bec6a59824582cabac43c0fe37e"
+    },
+    {
+      "path": "app/tests/voice.test.mjs",
+      "sha256": "b98dd86a6269041a21afb5c2c7379dc2b0d7af24694311f28a373e48eb6afd34"
+    },
+    {
+      "path": "app/tests/weather-icon.test.mjs",
+      "sha256": "d376b1110a04d7a556410fc2ec81455744da2a82dbfcf2fcdb8b2f0538cd3b57"
+    },
+    {
+      "path": "app/tests/weather-location085.test.mjs",
+      "sha256": "d1b90fb68d0e11d71be2067611b8efcfd3793c6b80c0452264e667362694cd4e"
+    },
+    {
+      "path": "app/tests/weather-presentation.test.mjs",
+      "sha256": "c221887508e4609ccb24c21a04dac449770a738c11bc535511d80b7044ae5f33"
+    },
+    {
+      "path": "app/tests/weather-refresh.test.mjs",
+      "sha256": "ddd772c5ebd1c1b09d535b6054c96fd8c5e6a5bddbd0572afca00be81a2fc2e3"
+    },
+    {
+      "path": "app/tests/weather-rules.test.mjs",
+      "sha256": "6487e9421ca2a30cc6f8a33d7e9c182449f2dfbb850478a8ece3b6116c9395d9"
+    },
+    {
+      "path": "app/tests/weather.test.mjs",
+      "sha256": "e2a423aaf8d86779e5d3a42e30e3acb067aad4bf8f78f95d0f250dc2f2f1f5cd"
+    }
+  ],
+  "passed": true,
+  "deviceDataRead": false
+}

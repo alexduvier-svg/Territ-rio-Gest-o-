@@ -142,23 +142,20 @@ export function statement({ sales, returns = [], expenses, receipts = collection
   // retain the legacy all-costs indicator and expose its unspecified month.
   const monthlyFixedReference = shares.map(s => s.month).filter(m => /^\d{4}-\d{2}$/.test(m || '')).sort().at(-1) || null;
   const monthlyFixed = fixedMonthly(settings, monthlyFixedReference) + (settings.drawOn ? settings.drawMonthly : 0);
-  // Caixa do período: pagamentos registrados, devoluções, taxas/impostos estimados e saídas lançadas.
-  // Fixos rateados e retirada apenas planejada pertencem à projeção, nunca a um pagamento realizado.
+  // Caixa do período (o dinheiro que entrou e saiu, diferente do resultado): recebimentos por forma de
+  // pagamento, menos devoluções pagas, taxas, custos, contas fixas, retirada e investimentos.
   const received = {};
   for (const s of sales) for (const p of s.payments || []) if(p.method!=='Fiado') received[p.method] = (received[p.method] || 0) + p.amount;
   for (const r of receipts) received[r.method]=(received[r.method]||0)+r.amount;
   const creditSold=sales.reduce((n,s)=>n+principal(s),0),collected=receipts.reduce((n,r)=>n+r.amount,0),cashRefunded=returns.reduce((n,s)=>n+refundedCash(s),0);
   const cashIn = grossSales - creditSold + collected - cashRefunded - fees;
-  const cashOut = operating + kinds.retirada + kinds.investimento + taxes;
-  const cashForecast = fixed + drawForecast;
-  const cashProjectedOut = cashOut + cashForecast;
-  const cash = cashIn - cashOut;
+  const cashOut = operating + fixed + draw + kinds.investimento + taxes;
   return {
     grossSales, returned, revenue, discounts, cmv, fees, feesDefault, taxes, contribution, contributionRate,
     costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, drawLogged: kinds.retirada, drawForecast, result, salesCount: sales.length,
     // Parte do caixa que é previsão (fixos rateados e retirada planejada), não pagamento lançado no app.
-    cashForecast, cashProjectedOut, cashProjected: cash - cashForecast,
-    creditSold, collected, cashRefunded, investments: kinds.investimento, received, cashIn, cashOut, cash,
+    cashForecast: fixed + drawForecast,
+    creditSold, collected, cashRefunded, investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
     monthlyFixed, monthlyFixedReference,
     chargeEstimates: {
       fees: { basis: 'configured-rate-per-recorded-payment', rounding: 'integer-cent-per-payment' },

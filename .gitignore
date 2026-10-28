@@ -20,6 +20,7 @@ privado/
 
 # Ambiente e dados particulares
 .signing/
+.local-migrations/
 password.txt
 credentials.json
 *.idsig

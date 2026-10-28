@@ -1,70 +1,66 @@
-// Read-only simulations in reais. Adapted from Claude 22e3813; canonical recorded finances stay in finance.js.
-const finite=(...v)=>v.every(Number.isFinite), nonnegative=(...v)=>finite(...v)&&v.every(n=>n>=0&&n<=1e12);
-const optional=v=>v==null||Number.isNaN(v), rate=v=>optional(v)||finite(v)&&v>=0&&v<=100;
-const tolerance=n=>Number.EPSILON*Math.max(1,Math.abs(n))*8;
-const ceil=n=>Math.max(0,Math.ceil(n-tolerance(n)));
-export function parseBR(value){
- if(typeof value==='number')return Number.isFinite(value)?value:NaN;
- let s=String(value??'').trim().replace(/^R\$\s*/i,'').replace(/\s*%$/,'').trim();
- if(!s||/\s/.test(s))return NaN;
- if(s.includes(',')){if(!/^[+-]?(?:\d*|\d{1,3}(?:\.\d{3})+),\d+$/.test(s))return NaN;s=s.replace(/\./g,'').replace(',','.');}
- else if(/^[+-]?\d{1,3}(?:\.\d{3})+$/.test(s))s=s.replace(/\./g,'');
- else if(!/^[+-]?\d+(?:\.\d+)?$/.test(s))return NaN;
- const n=Number(s);return finite(n)&&Math.abs(n)<=1e12?n:NaN;
-}
-export function markupPrice({cost,margin,card,fair,tax}){
- if(!nonnegative(cost,margin)||margin>100||![card,fair,tax].every(rate))return null;
- const expenseRate=[card,fair,tax].reduce((n,v)=>n+(optional(v)?0:v),0)/100,m=margin/100;
- if(expenseRate+m>=1)return{status:'impossible',expenseRate,marginRate:m};
- if(cost===0)return{status:'zero-cost',expenseRate,marginRate:m};
- const markup=1/(1-expenseRate-m),price=cost*markup,naive=cost*(1+expenseRate+m);
- if(!finite(markup,price)||price>1e12)return{status:'limit'};
- return{status:'ok',markup,price,profit:price*m,expenses:price*expenseRate,expenseRate,marginRate:m,overCost:(price-cost)/cost,naive,naiveMargin:(naive*(1-expenseRate)-cost)/naive};
-}
-export function breakEvenUnits({fixed,price,variable,profit}){
- if(!nonnegative(fixed,price,variable)||price<=0||!optional(profit)&&!nonnegative(profit))return null;
- const contribution=price-variable;if(contribution<=0)return{status:'no-margin',contribution};
- const units=ceil(fixed/contribution),goal=ceil((fixed+(optional(profit)?0:profit))/contribution);
- if(!Number.isSafeInteger(units)||!Number.isSafeInteger(goal)||Math.max(units*price,goal*price)>1e12)return{status:'limit'};
- const ratio=fixed/contribution;
- return{status:'ok',contribution,contributionRate:contribution/price,units,exact:Math.abs(ratio-Math.round(ratio))<=tolerance(ratio),revenue:units*price,firstSurplusUnit:Math.floor(ratio+tolerance(ratio))+1,goalUnits:goal,goalRevenue:goal*price,hasGoal:!optional(profit)&&profit>0};
-}
-export function periodIndicators({revenue,count,previous,taken,lost,returned}){
- if(!nonnegative(revenue,count)||!Number.isInteger(count)||count<=0||!optional(previous)&&!nonnegative(previous))return null;
- for(const v of[taken,lost,returned])if(!optional(v)&&!nonnegative(v))return null;
- if(!optional(taken)&&(lost>taken||returned>taken||finite(lost,returned)&&lost+returned>taken))return{status:'invalid-quantities'};
- const lossRate=finite(taken,lost)&&taken>0?lost/taken:null,returnRate=finite(taken,returned)&&taken>0?returned/taken:null;
- return{status:'ok',ticket:revenue/count,change:finite(previous)&&previous>0?(revenue-previous)/previous:null,lossRate,returnRate,used:lossRate==null?null:1-lossRate};
-}
-export function discountImpact({price,variable,discount,qty}){
- if(!nonnegative(price,variable,discount)||price<=0||discount>100||!optional(qty)&&!nonnegative(qty))return null;
- const before=price-variable,maxDiscount=Math.max(0,before/price);
- if(before<=0)return{status:'no-margin',before,maxDiscount:0};
- const newPrice=price*(1-discount/100),after=newPrice-variable;
- if(after<=Math.max(price,variable)*Number.EPSILON*8)return{status:'loss',newPrice,before,after:Math.min(0,after),maxDiscount};
- const extra=before/after-1,newQty=finite(qty)&&qty>0?ceil(qty*(1+extra)):null;
- if(!finite(extra)||newQty!==null&&!Number.isSafeInteger(newQty))return{status:'limit'};
- return{status:'ok',newPrice,before,after,extra,marginCut:1-after/before,maxDiscount,newQty,profitSame:finite(qty)&&qty>0?after*qty:null,profitBefore:finite(qty)&&qty>0?before*qty:null};
-}
-export function cardNet({value,rate:fee,wanted}){
- if(!finite(fee)||fee<0||fee>=100||!optional(value)&&!nonnegative(value)||!optional(wanted)&&!nonnegative(wanted))return null;
- const hasValue=finite(value)&&value>0,hasWanted=finite(wanted)&&wanted>0;if(!hasValue&&!hasWanted)return null;
- const keep=1-fee/100,out={status:'ok',net:hasValue?value*keep:null,fee:hasValue?value*fee/100:null,grossFor:hasWanted?wanted/keep:null,increase:hasWanted?1/keep-1:null};
- return Object.values(out).filter(v=>typeof v==='number').every(v=>Number.isFinite(v)&&v<=1e12)?out:{status:'limit'};
-}
-export function unitCost({fixed,units,variable}){
- if(!nonnegative(fixed,variable)||!finite(units)||units<=0||units>1e12)return null;
- const allocated=fixed/units,total=allocated+variable;
- return finite(total)&&total<=1e12?{fixed,units,variable,allocated,total}:null;
-}
-export function selectedCharges(rows,{kind}={}){
- const selected=rows.filter(r=>r.selected&&(!kind||r.kind===kind));let total=0;const names=new Set();
- for(const r of selected){const name=String(r.name||'').trim().toLocaleLowerCase('pt-BR');if(!name||names.has(name)||!nonnegative(r.amount))return null;names.add(name);total+=r.amount;}
- return finite(total)&&total<=1e12?{total,count:selected.length}:null;
+// Contas do produtor (modo "Contas" da calculadora): preço pelo markup, ponto de equilíbrio,
+// indicadores do período, impacto do desconto, taxa da maquininha e fornecedor à vista ou a prazo. Funções puras em reais (não em
+// centavos, porque são contas de consulta e não gravam nada); arredondamento só na exibição.
+// Entrada vazia ou inválida devolve null; o resultado nunca inventa um número que o produtor não deu.
+// Percentuais chegam como número de 0 a 100 (20 = 20%). Teste-ouro em tests/producer-calcs.test.mjs e
+// entrada no docs/motor/registry.json. O ponto de equilíbrio do mês com as vendas registradas continua
+// em finance.js (statement.breakEven); este aqui é a simulação por unidade.
+
+const ok = (...values) => values.every(Number.isFinite);
+const opt = v => Number.isFinite(v) ? v : 0;
+
+// Preço que cobre as despesas da venda e deixa a margem desejada. As despesas incidem sobre o preço,
+// por isso é divisão: preço = custo ÷ (1 − despesas − margem). "naive" é o erro comum de somar as
+// porcentagens ao custo, e naiveMargin é a margem que sobraria de verdade com aquele preço.
+export function markupPrice({ cost, margin, card, fair, tax }) {
+  if (!ok(cost, margin) || cost <= 0 || margin < 0) return null;
+  const rates = [card, fair, tax].map(opt);
+  if (rates.some(r => r < 0)) return null;
+  const expenseRate = rates.reduce((n, r) => n + r, 0) / 100, m = margin / 100;
+  if (expenseRate + m >= 1) return { status: 'impossible', expenseRate, marginRate: m };
+  const markup = 1 / (1 - expenseRate - m), price = cost * markup;
+  const naive = cost * (1 + expenseRate + m), naiveMargin = (naive * (1 - expenseRate) - cost) / naive;
+  return { status: 'ok', price, markup, profit: price * m, expenses: price * expenseRate, expenseRate, marginRate: m, overCost: (price - cost) / cost, naive, naiveMargin };
 }
 
-// Additional read-only simulations from Claude 0.12.132.
-const ok = finite, opt = value => Number.isFinite(value) ? value : 0;
+// Unidades para pagar os custos fixos do mês e para chegar ao lucro desejado.
+export function breakEvenUnits({ fixed, price, variable, profit }) {
+  if (!ok(fixed, price, variable) || fixed < 0 || price <= 0 || variable < 0) return null;
+  const contribution = price - variable;
+  if (contribution <= 0) return { status: 'no-margin', contribution };
+  const units = Math.ceil(fixed / contribution - 1e-9), goal = Math.ceil((fixed + Math.max(0, opt(profit))) / contribution - 1e-9);
+  // exact: a divisão fecha certinho; nessa unidade os custos ficam pagos e a sobra só começa na seguinte.
+  const exact = Math.abs(fixed / contribution - Math.round(fixed / contribution)) < 1e-9;
+  return { status: 'ok', contribution, contributionRate: contribution / price, units, exact, revenue: units * price, goalUnits: goal, goalRevenue: goal * price, hasGoal: ok(profit) && profit > 0 };
+}
+
+// Ticket médio, variação contra o período anterior e perdas/sobras do que foi levado.
+export function periodIndicators({ revenue, count, previous, taken, lost }) {
+  if (!ok(revenue, count) || count <= 0 || revenue < 0) return null;
+  const change = ok(previous) && previous > 0 ? (revenue - previous) / previous : null;
+  const lossRate = ok(taken, lost) && taken > 0 && lost >= 0 && lost <= taken ? lost / taken : null;
+  return { ticket: revenue / count, change, lossRate, used: lossRate == null ? null : 1 - lossRate };
+}
+
+// Quanto a mais vender para manter o mesmo lucro depois do desconto, e o desconto máximo sem prejuízo.
+export function discountImpact({ price, variable, discount, qty }) {
+  if (!ok(price, variable, discount) || price <= 0 || variable < 0 || discount < 0 || discount >= 100) return null;
+  const before = price - variable, maxDiscount = before / price;
+  if (before <= 0) return { status: 'no-margin', before, maxDiscount: 0 };
+  const newPrice = price * (1 - discount / 100), after = newPrice - variable;
+  if (after <= 0) return { status: 'loss', newPrice, before, after, maxDiscount };
+  const extra = before / after - 1, hasQty = ok(qty) && qty > 0;
+  return { status: 'ok', newPrice, before, after, extra, marginCut: 1 - after / before, maxDiscount,
+    newQty: hasQty ? Math.ceil(qty * (1 + extra) - 1e-9) : null, profitSame: hasQty ? after * qty : null, profitBefore: hasQty ? before * qty : null };
+}
+
+// Quanto fica depois da taxa e quanto cobrar para receber um valor líquido exato.
+export function cardNet({ value, rate, wanted }) {
+  if (!ok(rate) || rate < 0 || rate >= 100) return null;
+  const keep = 1 - rate / 100, hasValue = ok(value) && value > 0, hasWanted = ok(wanted) && wanted > 0;
+  if (!hasValue && !hasWanted) return null;
+  return { net: hasValue ? value * keep : null, fee: hasValue ? value * rate / 100 : null, grossFor: hasWanted ? wanted / keep : null, increase: hasWanted ? 1 / keep - 1 : null };
+}
 
 // Fornecedor: pagar à vista ou a prazo. "implicit" é o juro ao mês que o preço a prazo embute; com a
 // taxa que o dinheiro rende (ou o crédito custa) ao mês, o preço a prazo é trazido para hoje e comparado.
@@ -82,15 +78,12 @@ export function cashOrTerm({ cash, term, days, rate }) {
 // Fornecedores, comparação rápida: até 3 ofertas com preço, quantidade e frete; vence o menor custo por
 // unidade. Só compara o que foi informado; qualidade, prazo e pagamento ficam para a comparação completa.
 export function quickCompare(offers) {
-  const rows = (Array.isArray(offers) ? offers : []).slice(0, 3).map((o, i) => ({ ...o, i }))
-    .filter(o => nonnegative(o.price, o.qty) && o.price > 0 && o.qty > 0 && (optional(o.freight) || nonnegative(o.freight)))
-    .map(o => { const total = o.price + opt(o.freight); return { i: o.i, total, unit: total / o.qty, freightKnown: ok(o.freight) }; })
-    .filter(o => nonnegative(o.total, o.unit));
+  const rows = (offers || []).map((o, i) => ({ i, ...o })).filter(o => ok(o.price, o.qty) && o.price > 0 && o.qty > 0 && (!ok(o.freight) || o.freight >= 0))
+    .map(o => { const total = o.price + opt(o.freight); return { i: o.i, total, unit: total / o.qty, freightKnown: ok(o.freight) }; });
   if (rows.length < 2) return null;
   const sorted = [...rows].sort((a, b) => a.unit - b.unit || a.i - b.i), best = sorted[0], next = sorted[1];
   const tie = Math.abs(next.unit - best.unit) < 1e-9;
-  const missingFreight = rows.some(r => !r.freightKnown);
-  return { rows, best: missingFreight || tie ? null : best.i, tie, saving: missingFreight ? null : tie ? 0 : (next.unit - best.unit) / next.unit, missingFreight };
+  return { rows, best: tie ? null : best.i, tie, saving: tie ? 0 : (next.unit - best.unit) / next.unit, missingFreight: rows.some(r => !r.freightKnown) };
 }
 
 // Estoque: quando pedir e quanto comprar. Ponto de pedido = venda por dia × (dias até chegar + folga);
@@ -144,4 +137,22 @@ export function investmentReturn({ cost, monthlyGain, lifeMonths }) {
   if (monthlyGain <= 0) return { status: 'no-return' };
   const payback = cost / monthlyGain, hasLife = ok(lifeMonths) && lifeMonths > 0;
   return { status: 'ok', payback, gainLife: hasLife ? monthlyGain * lifeMonths : null, roi: hasLife ? (monthlyGain * lifeMonths - cost) / cost : null, paysBeforeEnd: hasLife ? payback <= lifeMonths : null };
+}
+
+// Número digitado em pt-BR: "1.234,56", "12,5", "R$ 9", "1.200" ou "9.5". Vazio é desconhecido (NaN),
+// não zero, e agrupamento errado ("1.23.4", "12.34,5", "1,2,3") também não vira número.
+export function parseBR(text) {
+  let s = String(text ?? '').trim().replace(/\s/g, '').replace(/^R\$/i, '').replace(/%$/, '');
+  if (s === '') return NaN;
+  const negative = s.startsWith('-');
+  if (negative) s = s.slice(1);
+  let n;
+  if (s.includes(',')) {
+    const [whole, cents, ...rest] = s.split(',');
+    if (rest.length || !/^\d+$/.test(cents) || whole !== '' && !/^\d+$/.test(whole) && !/^\d{1,3}(\.\d{3})+$/.test(whole)) return NaN;
+    n = Number((whole.replace(/\./g, '') || '0') + '.' + cents);
+  } else if (/^\d{1,3}(\.\d{3})+$/.test(s)) n = Number(s.replace(/\./g, ''));
+  else if (/^\d+(\.\d+)?$/.test(s)) n = Number(s);
+  else return NaN;
+  return Number.isFinite(n) ? (negative ? -n : n) : NaN;
 }

@@ -1,6 +1,6 @@
 {
   "name": "territorio-app",
-  "version": "0.12.132",
+  "version": "0.12.133",
   "description": "Território — vendas, estoque e eventos para produtores rurais (Android).",
   "private": true,
   "type": "module",
