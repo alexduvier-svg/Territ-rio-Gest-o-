@@ -1,6 +1,8 @@
 # AGRO Gestão Codex
 
-Versão atual: **0.12.134**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. A [correção de fluidez](app/docs/FLUIDEZ-ABAS-0.12.134.md) elimina recuos das animações, corrige cancelamentos e reduz trabalho ao abrir telas, preservando aparência, funções, assinatura e dados do Codex133. Validação: 789 testes unitários, oito jornadas de navegador, 48 comparações visuais e quatro jornadas físicas nos dois temas.
+Versão atual: **0.12.135**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. [Seu lugar](app/docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md) permite confirmar uma posição, usar um Plus Code completo ou ERD informado e compartilhar referências, Maps, Waze e Street View opcional. Inclui validação de GPS, gravação com recuperação de falhas e orientação correta para baixar mapas offline. Validação: 813 testes unitários, oito jornadas de navegador e quatro jornadas físicas com dados e GPS fictícios, nos dois temas.
+
+A [correção de fluidez134](app/docs/FLUIDEZ-ABAS-0.12.134.md) foi preservada, assim como identidade, assinatura e dados do Codex.
 
 A [cópia autorizada do Claude133](app/docs/CLONE-CLAUDE-CODEX-0.12.133.md) e a [integração132](app/docs/INTEGRACAO-CLAUDE-CODEX-0.12.132.md) permanecem como histórico. A correção134 não repete a transferência de dados.
 

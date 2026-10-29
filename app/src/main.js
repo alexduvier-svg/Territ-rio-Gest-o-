@@ -34,6 +34,8 @@ import { installMultiSell } from './features/multisell.js';
 import { installReorder } from './features/reorder.js';
 import { installWeather, eventWeather, localWeatherAnswer } from './features/weather/index.js';
 import './features/weather/weather.css';
+import './features/place/index.js';
+import './features/place/place.css';
 import './features/reorder.css';
 import './features/multisell.css';
 import './features/stock-alerts.css';

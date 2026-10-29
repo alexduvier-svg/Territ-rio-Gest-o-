@@ -1,6 +1,6 @@
 # AGRO Gestão Codex — app Android
 
-Versão **0.12.134/code175**, com [correção de fluidez de navegação](docs/FLUIDEZ-ABAS-0.12.134.md), instalada no Reno e no PKJ após validação nos dois temas. Mantém a aparência e as funções da base133, a identidade Codex, os dados, o pacote `br.com.territorio.gestao2` e a assinatura original. Veja também o [histórico da cópia autorizada133](docs/CLONE-CLAUDE-CODEX-0.12.133.md).
+Versão **0.12.135/code176**, com [Seu lugar e localização corrigida](docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md), instalada no Reno e no PKJ após validação nos dois temas. Preserva a [fluidez de navegação134](docs/FLUIDEZ-ABAS-0.12.134.md), a identidade Codex, os dados, o pacote `br.com.territorio.gestao2` e a assinatura original. Validação135: 813 testes unitários, oito jornadas de navegador e quatro físicas, com GPS e dados fictícios. Veja também o [histórico da cópia autorizada133](docs/CLONE-CLAUDE-CODEX-0.12.133.md).
 
 App Android (Capacitor 8) com vendas, estoque, clientes, eventos e gestão local. A fonte atual está em `src/`; o mockup original é referência histórica. Não reexecutar a migração sobre o código atual.
 

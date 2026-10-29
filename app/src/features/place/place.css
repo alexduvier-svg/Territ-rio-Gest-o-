@@ -1,0 +1,28 @@
+/* Localização no "Perfil e negócio": o código no mesmo material dos campos do perfil; as ações no
+   mesmo botão de "Trocar foto". A confirmação não carrega um mapa dentro da janela. */
+#dialog[data-kind='business'] .place-hint { margin: 0 2px; font-size: 14px; line-height: 1.4; color: var(--muted); }
+#dialog[data-kind='business'] .place-hint strong { color: var(--text); font-weight: 650; }
+#dialog[data-kind='business'] .place-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+#dialog[data-kind='business'] .place-actions .profile-photo-btn { flex: 1 1 130px; justify-content: center; min-width: 0; min-height: 44px; height: auto; padding: 10px 12px; white-space: normal; line-height: 1.3; }
+#dialog[data-kind='business'] .place-actions .profile-photo-btn:disabled { opacity: .6; }
+
+#dialog[data-kind='business'] .place-code {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; padding: 12px 14px;
+  border: 1px solid var(--line); border-radius: 13px; background: var(--field); color: var(--text);
+  text-align: left; font: inherit;
+  box-shadow: rgba(255, 255, 255, 0.07) 0 1px 2px inset, rgba(0, 0, 0, 0.063) 0 3px 0;
+}
+#dialog[data-kind='business'] .place-code > .icon { flex: none; width: 24px; height: 24px; color: var(--accent, #7fa653); }
+#dialog[data-kind='business'] .place-code span { display: grid; gap: 3px; min-width: 0; }
+#dialog[data-kind='business'] .place-code strong { font-size: 18px; font-weight: 700; letter-spacing: .01em; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+#dialog[data-kind='business'] .place-code small { font-size: 13px; line-height: 1.35; color: var(--muted); }
+
+/* Referências do caminho: uma linha cada, em ordem. */
+#dialog[data-kind='business'] .place-refs { display: grid; gap: 8px; }
+#dialog[data-kind='business'] .place-refs label { margin-bottom: 0; }
+#dialog[data-kind='business'] .place-preview { display: grid; gap: 10px; border: 1px solid var(--line); background: var(--field); padding: 12px; border-radius: 13px; }
+#dialog[data-kind='business'] .place-preview > strong { font-size: 16px; }
+#dialog[data-kind='business'] .place-import { display: grid; gap: 10px; }
+#dialog[data-kind='business'] .place-import summary { cursor: pointer; padding: 10px 0; color: var(--text); }
+#dialog[data-kind='business'] .place-feedback { margin: 0; color: var(--text); font-size: 14px; line-height: 1.45; overflow-wrap: anywhere; }
+#dialog[data-kind='business'] .place-feedback:empty { display: none; }

@@ -1,3 +1,18 @@
+# Preferência permanente — trabalhar no Codex — 29/10/2026
+
+Humano: “trabalhe sempre com o codex”. Consultas/revisões do Claude servem de referência; implementar as correções solicitadas neste projeto Codex, preservando sua identidade, dados, assinatura, fluidez e Git próprio. Não voltar a perguntar o destino por uma simples referência ao Claude. Não alterar/publicar o checkout Claude.
+
+# Codex 0.12.135 entregue — Seu lugar — 29/10/2026
+
+Localização trazida para o Codex com ajustes1–5 solicitados, texto “seu lugar” e sem placas. BaseCodex134/3d922f4; fonteClaude136/725acde +137/87039bf revisada e incorporada seletivamente: comunidade, mensagem em blocos, referências1), coordenadas e Waze com destino/zoom. Todos módulos de fluidez/interface134 preservados. Sem merge integral, alterações noClaude, nova cópia de dados133 ou backend publicado.
+
+GPS>30m recusado sem substituir lugar; proposta antes de confirmação explícita, cancelamento ao fechar/mudar contexto, persistência+durable/rollback, código completo/importaçãoPlusCode ou ERD-MG informado sem certificação oficial. ParserStreetView seguro/ângulo corrigido; falha de link curto mantém anterior e reabilita controles. Compartilhamento orienta baixar toda região noMaps, não promete download automático ou envio de mapa. Sem mapaoffline próprio/diretório/placas/descobertaStreetView/consultaERD automática.
+
+APK135/code176 AGRO-Gestao-Codex-0.12.135.apk,9288409bytes,SHA8c4650ebe967a1625a5327d0520fb82dce1acfe6eb36fc4283be4a1f585ce0af. Pacote br.com.territorio.gestao2/certificado original, assinatura v2/v3,57assets+2pontes/CRC/ZIP-ELF16KB estrutural conferidos. MesmoAPKworkspace/Newproject/TerritórioGestão/DOIS. Install-r PKJ29/10 14:41:59 e Reno14:47:34; firstInstallTime28/10 08:59:26PKJ e21/10 18:58:01Reno preservados; hashes/processos/foreground confirmados, sem nova confirmação visual humana principal. Metadata/qa/place135-delivery.json installed-and-validated, installed=true. NÃO repetir build/verificador/instalação para documentação.
+
+813unit,8browsercompilados320/360/393/412 dois temas (320ampliado/lite/reduced) e4nativeDOIS2temas PASS. PKJ14:36:23/14:38:39, Reno14:42:59/14:45:09. GPS/HTTP/Share/navegação externa simulados SOMENTE no harness sintético; nenhuma leituraGPSreal/BDreal. Não alegar precisão real, transitabilidade, certificaçãoERD, FPS ou runtime16KB. Fixture SHA ddb2613f657e88370f82ae1984f5bb94d596166a36ac411525a1b0bcb4ddf8b0 removidaDOIS; capturaSD/forwards9395-9396 próprios removidos, KeepAwake liberado. HistóricoReno.motionfixture intocado.
+
+Relatório app/docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md; provas qa/place135-final-review.json, package-review.json, delivery.json e unit.txt. Fontes/QA/documentos no ramo próprio codex/atualizacao-agro-gestao2. Backupsprivados133 continuam ignorados; nunca publicar chaves/APKs/BD/printsprivados. VIZ2026/10/28/01a1835c-018b-7352-95a2-037da69102a6/place135-*. Nenhuma pendência de implementação/QA/instalação135; sem subagentes, metas ou novas automações.
 # Codex 0.12.134 entregue — fluidez de abas e aberturas — 29/10/2026
 
 Correção solicitada de engasgos nas abas/aberturas, principalmente Reno, concluída. Base133/8ce5661; fonte ativa app/. Mantidos identidade AGRO Gestão Codex, pacote br.com.territorio.gestao2, certificado e dados. Não houve nova cópia Claude, acesso de QA ao BDreal nem backend publicado. Fonte134 remove watchdog que recuava currentTime, mantém propriedade da entrada+saída inteira, usa trajetórias físicas WAAPI nos ícones, cancela transições Estoque antigas e evita renderização/medições descartadas; aparência/funções133 preservadas.
