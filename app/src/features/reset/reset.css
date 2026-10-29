@@ -1,0 +1,6 @@
+/* Zerar dados: as duas ações do rodapé (backup em arquivo e zerar), uma embaixo da outra, nunca
+   encolhem; quem rola é o conteúdo. Mesmo peso de seletor do sistema de janelas. */
+:root[data-theme][data-layout] dialog[data-kind='reset-data'] > .checkout-footer { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; flex-shrink: 0; height: auto; max-height: none; overflow: visible; }
+:root[data-theme][data-layout] dialog[data-kind='reset-data'] > .checkout-footer > * { width: 100%; margin: 0; min-width: 0; }
+:root[data-theme][data-layout] dialog[data-kind='reset-data'] > .dialog-content { flex: 1 1 auto; min-height: 0; }
+:root[data-theme][data-layout] dialog[data-kind='reset-data'] .ds-card .choice { width: 100%; margin-top: 8px; }

@@ -1,0 +1,140 @@
+{
+  "version": "0.12.136",
+  "versionCode": 177,
+  "package": "br.com.territorio.gestao2",
+  "label": "AGRO Gestão Codex",
+  "scope": "package-structure-only",
+  "status": "package-structure-verified",
+  "checkedAtUTC": "2026-10-29T19:43:39.100715+00:00",
+  "apk": "C:\\Users\\alexd\\OneDrive\\Documentos\\ChatGPT\\AGRO GESTÃO APP\\AGRO-Gestao-Codex-0.12.136.apk",
+  "buildEvidence": "C:\\Users\\alexd\\.codex\\visualizations\\2026\\10\\28\\01a1835c-018b-7352-95a2-037da69102a6\\manage136-native\\20261029-164222-5e3cf37d",
+  "size": 9296601,
+  "sha256": "7c5a9212cf982980e804d4bb9dc746ea2ed82f135bf35710604c8a1982480ab4",
+  "zipCRC": true,
+  "duplicateZipEntries": false,
+  "compiledAssetsMatch": true,
+  "assetCount": 57,
+  "assetSHA256": {
+    "assets/catalog-CdLM8A9A.webp": "0b4b7ab3904505b9db13b2729aef564b8d53bd80751ed58b4127e274d3e14d88",
+    "assets/definitions-BdWVgBTV.js": "6f5aaf2a6ca57d8aa7be42176efd4d46747fff6e9e0b4788e98234b9ae45d342",
+    "assets/definitions-DlpntO5o.js": "386d6863bee205584abf6e3c5c7b71353d92150155a3d8093a8a919380bc85a5",
+    "assets/derived-B84z-RtN.js": "f9dbf907386f09b01d578e2afe7108e1ebba580382de964822c807c7e21d6e5b",
+    "assets/dist-BCOal5-m.js": "8fdafb1b42221c77577275cd63a2b0c6dc999a0b646adf3a56c1a03b5c6f5874",
+    "assets/domain-BvRk9kiK.js": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "assets/domain-CzlaktFS.js": "11d46570a4941aaaaefe74bceb0910302b1248cab3081aed51368db3fea1b50e",
+    "assets/erp-ui-Di8yeZVB.js": "a2ed2304d32aea579dd236a6bb178e1e607afc03c3975985368d926271877009",
+    "assets/index-BUM9i6yp.js": "f41504ba5b813f6370f283e45ad78ea888c765014ceead7823c051ab702d3a75",
+    "assets/index-DdljraR5.css": "5bb6f2c57952e7704a87972a577762d62e9df1f80b73047bb6657926cfe900d3",
+    "assets/inter-latin-wght-normal-Dx4kXJAl.woff2": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+    "assets/inter-tight-latin-wght-normal-DX-nOvPD.woff2": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618",
+    "assets/logo-CxngqR6P.png": "3b5bf307a26db5c179bb981e0cc68c08687696cd3b2053128a0648d68cd1a8fb",
+    "assets/lots-B5rPcw7J.css": "ffd5f20d96275a7d2aadcbec94a53a63a413e9de7797c49fef292365fdea131d",
+    "assets/pdf-BJn6lm-l.js": "fbe205db971e28a9f1a91d5db1bcbd4ee155577e90972a8bac2b94141c67924f",
+    "assets/pdf-worker-C6ubdd4v.js": "53f3fe2b780168ef70b5989857fefe56682e3c47755488520f3c4a6d7d83ec2d",
+    "assets/product-catalog-data-D_ysmatF.js": "2aabc5568f10dc058783f371da6ee17e39ece80242e6524b951c6fce8e13f58c",
+    "assets/profile-tj8Hr3D-.webp": "20b5042ba45f12623e67659ceeaa6d2da60b7f2ba37844d5b82943a548845294",
+    "assets/rolldown-runtime-hePW80VL.js": "580ad8c58061a4dde99bde0a56905e382f0568516ee2f5b84dbfb52085709021",
+    "assets/ui-GVmFtI3e.js": "34e368cd927c754d283dd09515ed132bc1b8d889bbe23f947d3fb3163585d2a4",
+    "assets/visual-cohesion-CmJjRrDg.css": "4f4d867495011d9e73d2a3ac1f516644eb73fbd66a6fa5f7301e2e02b7a52408",
+    "assets/web-1xuYKMxY.js": "0ffbfec4a2c20fd4ddb4954acde3b91acc7b134bae16008c5a1ccd31c0f610ac",
+    "assets/web-B1GoE90j.js": "50b94e0bf7b5a85c9e847804ff30dc53df3e14e33c6f193efed512bb90cab7b3",
+    "assets/web-BocSuE9u.js": "c68bd35d41e68704db65f4b733aee5daca4b63f66751f6813f57952a3e87396e",
+    "assets/web-CHJHPGKe.js": "ef6f7eec81bc462a35a87436d5c753acbd8ad8ce2f8e12eb5acea6dd8ec3c0d4",
+    "assets/web-CMhhdKKc.js": "65aed1e2b12f254a40eb4af02803dd1554d6d90fb5a65be7c16d510713c2bcea",
+    "assets/web-CZVXSH2o.js": "b6a3dbc0568f25a7f63ba444f7bbe99648f70d3470fd88aae3e5bec05d346f60",
+    "assets/web-D3zGtK5p.js": "fe74c46e97e9d80226f18ca3171d6bc480ddf84ae2a52923933ee20f4f9e04c8",
+    "assets/web-DuWjwM--.js": "8aec2e1c07f7ada2a53827b6e7ab77849be455231c813b62916e31c2b6c1b3b9",
+    "assets/worker-K0hOSrYH.js": "4e93b01fa1eb164aaa3363617ba3f7640e66a3278621c7703464a75b854f8f67",
+    "index.html": "89fb3d978e1d6ae935879b781b18c536eed1933aba461fea9d955994be62d291",
+    "knowledge/adaptacao-memoria-acao.md": "70152480be8e789ac06ef0032ccc059aed8e8631037f60d083c7a1ebb998b823",
+    "knowledge/agente-operacional.md": "5f4cc9b63fedd209f62425ee0088c341a417ac83b37ad3adc3409ab789e96a2c",
+    "knowledge/catalogo-agro/ADICOES-DO-APP.md": "bf99663d79454e100e406aa186597175e32bd927e9c55463e1ed7ed02a3226e9",
+    "knowledge/catalogo-agro/INSTRUCOES_PARA_O_CODEX.md": "1390cceeb7fd55e0d8c699e43a5ada922631957f6fccc131b7ed74f5823cda9a",
+    "knowledge/catalogo-agro/LEIA_PRIMEIRO.md": "d357e6f942764a518cab4a45853109d61577793e16e268bb435352de30358e4b",
+    "knowledge/catalogo-agro/LISTA_COMPLETA.md": "61df61b561e3038edbeae4a7cd8480c4723958ed4d39f3df0b93589eea675134",
+    "knowledge/catalogo-agro/resumo_categorias.json": "2f451a4d1e2545d9237b8ee4a28fd9b6827881ac473f901cb45a0637c8f630f3",
+    "knowledge/catalogo-agro/unidades_e_plurais.json": "633ebadf62498f85fb0685f933e0b385984ded6f71961aadf5ce41550fe93384",
+    "knowledge/crm-pdv-profissional.md": "31a5b729966824a6dfa1e675361d7d8b881c59c1103d5c4d3d10c112725a7753",
+    "knowledge/estoque-validade-contexto.md": "5f5f556fcdefe03340a51e0d84d2b2ca89848064210848aee791e9f3c7c82c09",
+    "knowledge/experiencia-cafes-diretriz.md": "78b9368da878f6dfc44083c5137f57ed11934077757e76e5ef7f4373d94158d6",
+    "knowledge/fornecedores-diretriz.md": "d36b01b11b7d77394e8690d0d65bd0611496c464a4759703699ce3c0c5e32859",
+    "knowledge/general-education.json": "c1199e08a7bdea4eb221ee3d187ca8c0ff905adfe92ed168266b72c53f1cfb31",
+    "knowledge/hierarquia-inteligencia.md": "0d530a2b2ffd7bdad088b265d4a8e09d16543850343bd85e670ea9cd6f17b333",
+    "knowledge/inteligencia-adaptativa-connect-action-audit.md": "e1228d9037f6d997301c6ef6b0dc53662a85f9937f6e1c90c96fadf8af833509",
+    "knowledge/motor-decisoes.md": "befda96fa85079354e67dc312458991ba1c5cb621240f1755bc34d0e905d5084",
+    "knowledge/perguntas-negocio.json": "21729c4e92a3ddd8a173af5dde974d0d604cf6fb1a5b69e327f5bf19c242fcbe",
+    "knowledge/perguntas-negocio.md": "9ad4f379d2eb83b9381e53eb1f1418f0ce98d3c0e26eb054e9b7432fdaaf4dbd",
+    "knowledge/premissas-engajamento.md": "51a8ac106fdc4d189d0d1810edebebbe2e88c1de8abe4129197fa45a0b63a1c7",
+    "knowledge/premissas-estoque.md": "990bf679b3911b1ab9c4c6c2573be56f1fc8d4f40ba6dee5a1bf6cd94cecf3e4",
+    "knowledge/premissas-interface.md": "6155919be7614b8e868f0d0e0a60e9b223f204cdb19550ab9df36fe9ab388699",
+    "knowledge/receitas-artesanato-parcerias.md": "b2c243817f92aae0bf0098147edc1dc7b81dc81e00bf9b62e1502e75c0774a76",
+    "knowledge/receitas-artesanato.json": "7140fff3b93d62c2500fbe534d1f76bb81e8cb4469ca7fb4a481ce4fbf240717",
+    "knowledge/voice-licenses/Apache-2.0.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "knowledge/voice-licenses/NOTICE.txt": "888cbc624eadcd6fab14e09e2a9260c319dad65e6345b3186df6910a562dc07b",
+    "knowledge/voz-e-linguagem.md": "a8142ce55c7f485253227d42c8a253d0a0fcc36b49aff45a031f56f76d975da9"
+  },
+  "nativeBridgeAssets": [
+    "cordova.js",
+    "cordova_plugins.js"
+  ],
+  "unexpectedPublicAssets": [],
+  "capacitorIdentityMatches": true,
+  "debuggable": false,
+  "certificateSHA256": "f5dac71cf092b67a80541c5353268ce18ef5f2ab3d4b850248a5934ae7d86b68",
+  "baselineVersion": "0.12.134",
+  "baselineSHA256": "8c4650ebe967a1625a5327d0520fb82dce1acfe6eb36fc4283be4a1f585ce0af",
+  "sameCertificateAsBaseline": true,
+  "signatureV2": true,
+  "signatureV3": true,
+  "zipalign16KB": true,
+  "ELF16KBStructural": true,
+  "nativeLibraries": [
+    {
+      "path": "lib/arm64-v8a/libdatastore_shared_counter.so",
+      "bits": 64,
+      "loadSegments": [
+        {
+          "fileOffset": 0,
+          "virtualAddress": 0,
+          "alignment": 16384
+        },
+        {
+          "fileOffset": 4544,
+          "virtualAddress": 20928,
+          "alignment": 16384
+        },
+        {
+          "fileOffset": 5160,
+          "virtualAddress": 37928,
+          "alignment": 16384
+        }
+      ],
+      "storedUncompressed": true,
+      "zipDataOffset": 6356992
+    },
+    {
+      "path": "lib/armeabi-v7a/libdatastore_shared_counter.so",
+      "bits": 32,
+      "loadSegments": [
+        {
+          "fileOffset": 0,
+          "virtualAddress": 0,
+          "alignment": 16384
+        },
+        {
+          "fileOffset": 2704,
+          "virtualAddress": 19088,
+          "alignment": 16384
+        }
+      ],
+      "storedUncompressed": true,
+      "zipDataOffset": 6373376
+    }
+  ],
+  "runtime16KBMeasured": false,
+  "nativeFPSMeasured": false,
+  "basicPhoneMeasured": false,
+  "hardwareValidationIncluded": false,
+  "validatedForInstallation": false,
+  "installed": false
+}

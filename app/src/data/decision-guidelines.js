@@ -3,7 +3,7 @@
 // Agro_Gestao_Diretrizes_Matematicas_Probabilisticas (Codex, v1.0), de 20/10/2026. Conhecimento de
 // referência: não é instrução executável e não autoriza vendas, baixas, envios ou compras.
 export const DECISION_GUIDELINES = Object.freeze({
-  version: 5,
+  version: 6,
   id: 'decision-engine',
   authority: 'reference_only',
   sources: ['docs/motor/MOTOR_INTELIGENCIA_AGRO_GESTAOclaude.pdf v1.0', 'docs/motor/Agro_Gestao_Diretrizes_Matematicas_Probabilisticas_Codex.docx v1.0', 'docs/DIRETRIZ-RECEBIDA-DECISOES-VALIDADE-2026-10-24.md', 'docs/DIRETRIZ-RECEBIDA-ESTOQUE-CONTEXTO-2026-10-25.md'],
@@ -20,6 +20,8 @@ export const DECISION_GUIDELINES = Object.freeze({
     'Reprodutibilidade: mesma entrada e versão de regra produzem a mesma saída; simulações com semente registrada.',
     'Linguagem do produtor: frases curtas e uma ação concreta; a matemática fica no motor e em área expansível.',
     'O ERP é a fonte dos fatos; o motor só propõe ações pelos comandos existentes e nunca efetiva venda, baixa ou compra.',
+    'Caixa registrado exclui fixos e retirada apenas previstos; reservas de planejamento são apresentadas à parte. Saldo calculado não é extrato bancário e não inclui saldo inicial ausente.',
+    'Relatórios de clientes distinguem compras de pessoas únicas; compras de fornecedores sem local são globais. Exportações declaram período, origem, unidades e dados ausentes; simulações não viram fatos do ERP.',
   ],
   numeric: {
     money: 'centavos inteiros; nunca ponto flutuante para saldo ou caixa',

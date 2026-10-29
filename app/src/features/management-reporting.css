@@ -41,3 +41,24 @@ html[data-large-text=true] .mg-report-guide dd,html[data-large-text=true] .mg-re
 #app .mg-explore-content{padding:0 16px 4px;border-top:1px solid var(--line)}
 .mg-explore-content .mg-row{min-height:64px;padding:12px 0;gap:10px}.mg-explore-content .mg-ico{flex:0 0 26px;width:26px;height:28px}.mg-explore-content .mg-text strong{font-size:15px}.mg-explore-content .mg-text small{font-size:12px}
 html[data-large-text=true] .mg-explore-label>strong{font-size:20px}html[data-large-text=true] .mg-explore-label>small{font-size:15px}
+
+/* Each report explains the privacy state and stays usable at large text sizes. */
+.mg-privacy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px;padding:12px 14px;border:1px solid var(--line);border-radius:18px;background:var(--field)}
+.mg-privacy p{margin:0;font-size:13px;line-height:1.5;flex:1;min-width:0}
+.mg-privacy button{min-height:44px;flex-shrink:0;display:flex;align-items:center;gap:7px}
+dialog[data-kind='mg-detail'] .ds-card>.event-material-card{margin:14px 0 0}
+dialog[data-kind='mg-detail'] .fin-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(90px,max-content);gap:12px;align-items:start}
+dialog[data-kind='mg-detail'] .fin-row>span{min-width:0;overflow-wrap:break-word}
+dialog[data-kind='mg-detail'] .fin-row>strong{max-width:100%;overflow-wrap:anywhere}
+dialog[data-kind='mg-detail'] .mg-empty{padding:20px 16px;border:1px solid var(--line);border-radius:20px;background:var(--field);margin:16px 0}
+.mg-empty h3{font-size:17px;line-height:1.4;margin:0 0 8px}.mg-empty p{margin:0;font-size:14px;line-height:1.6;color:var(--muted)}
+.mg-file-actions{display:grid;gap:12px;margin:16px 0}.mg-file-actions .choice{text-align:left;white-space:normal;min-height:50px}
+.mg-report-guide>summary{font-size:14px;font-weight:650;line-height:1.5;min-height:28px;cursor:pointer}.mg-report-guide[open]>summary{margin-bottom:14px}
+.cm-export-actions{display:grid;gap:10px;margin:16px 0}.cm-export-actions button{min-height:46px}
+@media(max-width:359px){dialog[data-kind='mg-detail'] .fin-row{grid-template-columns:minmax(0,1fr);gap:5px}dialog[data-kind='mg-detail'] .fin-row>strong{text-align:left}.mg-privacy{flex-wrap:wrap}}
+html[data-large-text=true] dialog[data-kind='mg-detail'] .fin-row{grid-template-columns:minmax(0,1fr);gap:5px}
+html[data-large-text=true] dialog[data-kind='mg-detail'] .fin-row>strong{text-align:left}
+
+/* Indicadores incorporados do Claude139; valores canônicos do Codex. */
+.ds-card:is(.mg-abc,.mg-coverage,.mg-change) h4{margin:14px 2px 2px;font-size:13px;line-height:1.5;color:var(--muted)}
+.ds-card:is(.mg-abc,.mg-coverage,.mg-change)>details{margin-top:14px}

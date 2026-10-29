@@ -276,6 +276,14 @@
       "lot-ui087.test.mjs"
     ]
   },
+  "indicadores_gestao_136": {
+    "arquivo": "app/src/features/kpi/kpi-engine.js",
+    "funcao": "contributionAbc/stockCoverage/periodChange",
+    "versao": "1-Codex",
+    "fonte": "Claude139/e99ca3f, revisado na integração Codex136",
+    "nota": "Usa productMargins e saldo canônicos; cobertura histórica não prevê demanda. Unidades incompatíveis não produzem efeito quantidade/preço. Não é um segundo motor de decisão.",
+    "testes": ["kpi-engine.test.mjs", "qa/manage136-flow.cjs"]
+  },
   "orientacao_validade": {
     "arquivo": "app/src/features/advisor/validity-rules.js",
     "funcao": "stockValidityRules",

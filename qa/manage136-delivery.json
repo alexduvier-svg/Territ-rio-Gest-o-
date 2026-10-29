@@ -1,0 +1,58 @@
+{
+  "createdAt": "2026-10-29T20:07:23.6645670Z",
+  "version": "0.12.136",
+  "versionCode": 177,
+  "package": "br.com.territorio.gestao2",
+  "sha256": "7c5a9212cf982980e804d4bb9dc746ea2ed82f135bf35710604c8a1982480ab4",
+  "unitTests": 832,
+  "browserCases": 8,
+  "nativeCases": 4,
+  "installed": [
+    {
+      "model": "PKJ110",
+      "previousVersion": "0.12.135",
+      "newInstallation": false,
+      "version": "0.12.136",
+      "versionCode": 177,
+      "firstInstallTime": "2026-10-28 08:59:26",
+      "previousFirstInstallTime": "2026-10-28 08:59:26",
+      "lastUpdateTime": "2026-10-29 17:06:27",
+      "sha256": "7c5a9212cf982980e804d4bb9dc746ea2ed82f135bf35710604c8a1982480ab4",
+      "launched": true,
+      "productionDatabaseRead": false,
+      "processAlive": true,
+      "foreground": true,
+      "humanVisualConfirmation": false,
+      "syntheticFixturesRemoved": [
+        "br.com.territorio.gestao2.manage136"
+      ],
+      "keepAwakeReleased": true
+    },
+    {
+      "model": "CPH2737",
+      "previousVersion": "0.12.135",
+      "newInstallation": false,
+      "version": "0.12.136",
+      "versionCode": 177,
+      "firstInstallTime": "2026-10-21 18:58:01",
+      "previousFirstInstallTime": "2026-10-21 18:58:01",
+      "lastUpdateTime": "2026-10-29 17:07:16",
+      "sha256": "7c5a9212cf982980e804d4bb9dc746ea2ed82f135bf35710604c8a1982480ab4",
+      "launched": true,
+      "productionDatabaseRead": false,
+      "processAlive": true,
+      "foreground": true,
+      "humanVisualConfirmation": false,
+      "syntheticFixturesRemoved": [
+        "br.com.territorio.gestao2.manage136"
+      ],
+      "keepAwakeReleased": true
+    }
+  ],
+  "copies": [
+    "C:\\Users\\alexd\\OneDrive\\Documentos\\ChatGPT\\New project\\AGRO-Gestao-Codex-0.12.136.apk",
+    "C:/Users/alexd/PROJETOS/Território Gestão/AGRO-Gestao-Codex-0.12.136.apk"
+  ],
+  "productionDatabaseRead": false,
+  "status": "installed-and-validated"
+}

@@ -169,6 +169,8 @@ export function financeLines(f) {
   const costs = f.costs.feira + f.costs.producao + f.costs.marketing;
   lines.push(`Custos lançados: ${brl(costs)}${f.general ? ` · fixos ${brl(f.fixed)}` : ''}${f.draw ? ` · retirada ${brl(f.draw)}` : ''}.`);
   lines.push(`Resultado: ${brl(f.result)}.`);
+  if (Number.isFinite(f.cash)) lines.push(`Caixa pelos registros: ${brl(f.cash)}. Não inclui saldo inicial nem comprova o extrato bancário.`);
+  if (f.cashForecast > 0 && Number.isFinite(f.cashAfterForecast)) lines.push(`Previsões separadas: ${brl(f.cashForecast)}; após reservar essas previsões: ${brl(f.cashAfterForecast)}. Reserva não comprova pagamento.`);
   if (f.breakEven) lines.push(`Para empatar o mês é preciso vender ${brl(f.breakEven)}.`);
   const best = f.places.slice().sort((a, b) => b.profit - a.profit);
   if (best.length > 1) lines.push(`Maior resultado registrado por local: ${best[0].name} (${brl(best[0].profit)}). Menor: ${best[best.length - 1].name} (${brl(best[best.length - 1].profit)}). Duração, custos ausentes e dias diferentes limitam a comparação.`);

@@ -109,7 +109,7 @@ function captureMotionSource(event) {
 // first quarter of the spring, becomes opaque while it grows. Its content is the real content,
 // only smaller, as in ColorOS and iOS; nothing is clipped, so nothing has to be repainted.
 function launchPose(rect, source) {
-  const scale = clamp(Math.max(source.width / rect.width, source.height / rect.height), 0.3, 0.92);
+  const scale = clamp(Math.max(source.width / rect.width, source.height / rect.height), 0.12, 0.92);
   return { x: source.cx - (rect.left + rect.width / 2), y: source.cy - (rect.top + rect.height / 2), scale, opacity: 0 };
 }
 // Returning to a card: the whole surface fits inside the card and dissolves into it at the end.
@@ -535,8 +535,9 @@ function installDialogs() {
     const rect = dialog.getBoundingClientRect();
     if (!rect.width || !rect.height) return;
     state.morph = fresh ? usable(source) : state.morph;
-    // Every sheet, including Perfil, grows from the control that opened it and returns to it.
-    state.compact = false;
+    // A long profile should not fly hundreds of pixels out of a tiny toolbar glyph.
+    // Keep the source direction, whole surface and interruptible compositor spring.
+    state.compact = dialog.dataset.kind === 'business';
     let from;
     if (fresh && state.compact) from = { ...insightSheetGeometry(rect,source,limited()),opacity:0 };
     else if (fresh && usable(source)) from = launchPose(rect, source);
@@ -630,7 +631,7 @@ function installDialogs() {
       token.restore();
       const end = () => { if (state.ghost === layer) discardGhost(state); };
       animate(dim, { from: { opacity: shade }, to: { opacity: 0 }, spring: curve });
-      animate(copy, { from: pose, to, spring: curve, velocity: speed, shape: usable(target) ? dissolve(0.5, 1, pose.opacity ?? 1) : dissolve(0, 0.7, pose.opacity ?? 1), onFinish: end });
+      animate(copy, { from: pose, to, spring: curve, velocity: speed, shape: state.compact ? dissolve(0, 0.8, pose.opacity ?? 1) : usable(target) ? dissolve(0.5, 1, pose.opacity ?? 1) : dissolve(0, 0.7, pose.opacity ?? 1), onFinish: end });
       return true;
     };
     return token;

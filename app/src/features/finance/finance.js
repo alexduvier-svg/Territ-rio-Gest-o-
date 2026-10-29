@@ -149,12 +149,14 @@ export function statement({ sales, returns = [], expenses, receipts = collection
   for (const r of receipts) received[r.method]=(received[r.method]||0)+r.amount;
   const creditSold=sales.reduce((n,s)=>n+principal(s),0),collected=receipts.reduce((n,r)=>n+r.amount,0),cashRefunded=returns.reduce((n,s)=>n+refundedCash(s),0);
   const cashIn = grossSales - creditSold + collected - cashRefunded - fees;
-  const cashOut = operating + fixed + draw + kinds.investimento + taxes;
+  // Planned fixed costs/draw are provisions, not recorded money leaving the business.
+  const cashOut = operating + kinds.retirada + kinds.investimento + taxes;
   return {
     grossSales, returned, revenue, discounts, cmv, fees, feesDefault, taxes, contribution, contributionRate,
     costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, drawLogged: kinds.retirada, drawForecast, result, salesCount: sales.length,
     // Parte do caixa que é previsão (fixos rateados e retirada planejada), não pagamento lançado no app.
     cashForecast: fixed + drawForecast,
+    cashAfterForecast: cashIn - cashOut - fixed - drawForecast,
     creditSold, collected, cashRefunded, investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
     monthlyFixed, monthlyFixedReference,
     chargeEstimates: {

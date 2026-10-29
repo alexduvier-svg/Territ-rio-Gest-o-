@@ -1,6 +1,8 @@
 # AGRO Gestão Codex
 
-Versão atual: **0.12.135**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. [Seu lugar](app/docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md) permite confirmar uma posição, usar um Plus Code completo ou ERD informado e compartilhar referências, Maps, Waze e Street View opcional. Inclui validação de GPS, gravação com recuperação de falhas e orientação correta para baixar mapas offline. Validação: 813 testes unitários, oito jornadas de navegador e quatro jornadas físicas com dados e GPS fictícios, nos dois temas.
+Versão atual: **0.12.136**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. A [revisão de Gestão, Contas e Perfil](app/docs/GESTAO-CONTAS-CLAUDE-0.12.136.md) incorpora as novidades Claude138–140, com indicadores, cópias locais antes de zerar dados, CSVs, controle de privacidade, caixa separado de previsões e movimento curto do Perfil. Validação: 832 testes unitários, oito jornadas de navegador e quatro jornadas físicas nos dois temas, usando dados e GPS fictícios. Zerar/restaurar foi testado somente no auxiliar isolado.
+
+[Seu lugar135](app/docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md) continua disponível, com código completo, confirmação, Maps/Waze e Street View opcional.
 
 A [correção de fluidez134](app/docs/FLUIDEZ-ABAS-0.12.134.md) foi preservada, assim como identidade, assinatura e dados do Codex.
 

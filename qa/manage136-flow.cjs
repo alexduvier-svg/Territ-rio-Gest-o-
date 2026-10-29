@@ -1,0 +1,44 @@
+const assert=require('node:assert/strict');
+async function exerciseManagement(page,capture){
+ const checks={},act=(name,data={})=>page.evaluate(async([name,data])=>ERPPreview.actions[name](data),[name,data]);
+ const settle=async()=>{await page.waitForTimeout(100);await page.waitForFunction(()=>!document.getAnimations().some(a=>a.playState==='running'&&a.effect?.getComputedTiming().iterations!==Infinity));};
+ const fit=async()=>{const r=await page.locator('#dialog').evaluate(d=>({scroll:d.scrollWidth,width:d.clientWidth,body:d.querySelector('.dialog-content')?.scrollWidth,client:d.querySelector('.dialog-content')?.clientWidth}));assert(r.scroll<=r.width+2&&r.body<=r.client+2,JSON.stringify(r));};
+ await page.waitForFunction(()=>window.ERPPreview&&window.__AGRO_UI_BOOT_READY__);
+ if(await page.locator('#dialog').evaluate(d=>d.open)){await act('close-modal');await settle();}
+ await act('nav',{page:'Gestão'});await act('management-scope',{scope:'all'});await act('mg-period-mode',{mode:'mes'});await settle();
+ assert.deepEqual(await page.locator('[data-explore-group]').evaluateAll(es=>es.map(e=>e.dataset.exploreGroup)),['finance','market','files']);checks.separateFilesSection=true;
+ await act('mg-detail',{key:'financas'});await settle();assert.match(await page.locator('.mg-privacy').innerText(),/Valores ocultos/);
+ assert.match(await page.locator('.fin-row').first().innerText(),/••/);
+ await act('mg-report-privacy',{key:'financas'});await settle();assert.match(await page.locator('.fin-row').first().innerText(),/R\$/);assert(!/••/.test(await page.locator('.fin-row').first().innerText()));await fit();await capture('finance-empty-visible');checks.privacyExplainedAndToggle=true;
+ await act('close-modal');await settle();await act('mg-detail',{key:'horarios'});await settle();assert.equal(await page.locator('.mg-empty').count(),1);await fit();await capture('dates-empty');checks.emptyDatesFit=true;await act('close-modal');await settle();
+ const before=await page.evaluate(()=>JSON.stringify(ERPPreview.model().data));
+ // Add a real-model sale only within the disposable synthetic dataset, then remove it again.
+ await page.evaluate(()=>{const m=ERPPreview.model();if(m.data.dataContext.id!=='place135-synthetic')throw Error('Synthetic fixture required');m.complete({operationId:'manage136-sale',scope:'loja',items:[{productId:'qa-banana-prata',rawQty:'2'},{productId:'qa-queijo',rawQty:'1'}],discountMode:'R$',discountValue:'0',payment:'Pix',clientName:'Cliente Fictício QA',uf:'MG'});m.data.settings.finance={fixedCosts:[{title:'Energia fictícia',amount:2000}],drawOn:true,drawMonthly:1000};ERPPreview.render();});
+ await act('mg-detail',{key:'financas'});await settle();assert.match(await page.locator('.dialog-content').innerText(),/Previsões separadas/);await fit();await capture('finance-populated');
+ const summary=await page.evaluate(()=>ERPPreview.managementSummaryRows());assert(summary.length>30);const row=field=>summary.find(r=>r[8]===field);assert.equal(row('Caixa pelos registros')[9],48);assert.equal(row('Previsões separadas')[9],30);assert.equal(row('Caixa após reservar previsões')[9],18);assert.equal(row('Resultado')[9],-8);checks.canonicalCashAndForecast=true;checks.managementSummaryCSV=true;
+ await act('close-modal');await settle();await act('mg-detail',{key:'produtos'});await settle();assert.equal(await page.locator('.mg-pareto-curve').count(),2);assert.equal(await page.locator('.mg-abc').count(),1);const gap=await page.locator('.mg-pareto-curve').evaluateAll(es=>es[1].getBoundingClientRect().top-es[0].getBoundingClientRect().bottom);assert(gap>=12,'Pareto gap '+gap);await fit();await capture('product-margins');checks.paretoSpacing=true;checks.claudeAbc=true;
+ for(const key of ['estoque','clientes','custos','fornecedores','horarios','arquivos']){await act('close-modal');await settle();await act('mg-detail',{key});await settle();await fit();if(key==='fornecedores')assert.match(await page.locator('.dialog-content').innerText(),/todos os locais/i);if(key==='arquivos'){assert.equal(await page.locator('[data-action="mg-export-summary"]').count(),1);assert.equal(await page.locator('[data-action="export-everything"]').count(),1);}await capture('report-'+key);}
+ checks.managementSections=true;await act('close-modal');await settle();await act('mg-detail',{key:'estoque'});await settle();assert.equal(await page.locator('.mg-coverage').count(),1);assert.match(await page.locator('.mg-coverage').innerText(),/não previsão de demanda/);checks.claudeStockCoverage=true;await act('close-modal');await settle();await act('mg-detail',{key:'financas'});await settle();assert.equal(await page.locator('.mg-change').count(),1);checks.claudePeriodComparison=true;await act('close-modal');await settle();
+ await act('nav',{page:'Estoque'});await act('calculator');await act('calculator-contas');await settle();assert.equal(await page.locator('[data-action="contas-export"]').count(),1);
+ await act('contas-open',{id:'rural'});await settle();await page.locator('#cm-safra-other').fill('123,45');await act('contas-open',{id:'credito'});await settle();
+ const sim=await page.evaluate(()=>ERPPreview.contasExportRows());assert.equal(new Set(sim.slice(1).map(r=>r[6])).size,7);assert(sim.some(r=>r[8]==='Situação'&&r[9].includes('insuficientes')));assert(sim.some(r=>r[9]===123.45));assert(sim.every(r=>r.length===13));await fit();await capture('simulation-export');checks.allSevenSimulationCSV=true;
+ // Observe the exact file bytes while using the normal export action. No personal app opens.
+ await page.evaluate(()=>{const original=URL.createObjectURL;window.__manage136files=[];URL.createObjectURL=function(blob){window.__manage136files.push(blob);return original.call(this,blob);};});
+ await act('contas-export');const text=await page.evaluate(()=>window.__manage136files.at(-1).text());assert.match(text,/Contas do produtor/);assert.match(text,/Produção Rural/);assert.match(text,/Crédito e Investimento/);checks.csvAction=true;
+ await act('close-modal');await settle();await page.evaluate(before=>{ERPPreview.model().data=JSON.parse(before);ERPPreview.render();},before);
+ await act('nav',{page:'Vender'});await settle();
+ // Real toolbar pointer: a long profile uses short expansion, not tiny-glyph flight.
+ for(let i=0;i<3;i++){await page.locator('#app [data-action="profile"]').first().click();await page.waitForTimeout(35);
+  const pose=await page.locator('#dialog').evaluate(d=>({scale:parseFloat(getComputedStyle(d).scale),translate:getComputedStyle(d).translate,anim:document.getAnimations().filter(a=>a.effect?.target===d).map(a=>a.effect.getKeyframes())}));
+  if(pose.anim.length){const first=pose.anim.flat().find(f=>f.scale);assert(Number(first.scale)>=.93,'Profile opening scale '+first?.scale);}
+  await act('close-modal');await page.waitForTimeout(35);
+ }
+ await settle();assert.equal(await page.locator('.fluid-exit-layer,.fluid-sheet-ghost-layer').count(),0);assert.equal(await page.locator('#dialog').evaluate(d=>d.open),false);await page.locator('#app [data-action="profile"]').first().click();await settle();await fit();await capture('profile-settled');await act('close-modal');await settle();checks.profileMotionAndInterruptions=true;
+ const original=await page.evaluate(()=>JSON.stringify(ERPPreview.model().data));
+ await act('reset-data');await settle();await fit();await capture('reset-confirm');await act('reset-data-confirm');assert.equal(await page.evaluate(()=>JSON.stringify(ERPPreview.model().data)),original,'Reset requires explicit typed confirmation');
+ await page.locator('#reset-confirm-word').fill('ZERAR');await page.evaluate(()=>{window.__copySave=TerritorioSafetyCopy.save;TerritorioSafetyCopy={...TerritorioSafetyCopy,save:async()=> 'failed'};});await act('reset-data-confirm');assert.equal(await page.evaluate(()=>JSON.stringify(ERPPreview.model().data)),original,'Failed copy cannot wipe model');
+ await page.evaluate(()=>{TerritorioSafetyCopy={...TerritorioSafetyCopy,save:window.__copySave};});await act('reset-data-confirm');await page.waitForTimeout(500);assert.equal(await page.evaluate(()=>ERPPreview.model().data.settings.onboarding),'pending');
+ await act('reset-data');await settle();await act('reset-data-restore',{kind:'original'});await settle();await act('reset-data-restore-confirm',{kind:'original'});assert.equal(await page.evaluate(()=>ERPPreview.model().data.settings.onboarding),'pending','Restore also requires typed confirmation');await page.locator('#reset-restore-word').fill('RESTAURAR');await act('reset-data-restore-confirm',{kind:'original'});await settle();assert.equal(await page.evaluate(()=>ERPPreview.model().data.dataContext.id),'place135-synthetic');assert.equal(await page.evaluate(()=>ERPPreview.model().data.products.length),JSON.parse(original).products.length);checks.claudeResetCopyAndRestore=true;checks.failedCopyNeverResets=true;
+ return checks;
+}
+module.exports={exerciseManagement};
