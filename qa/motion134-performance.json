@@ -1,0 +1,405 @@
+{
+  "version": "0.12.134",
+  "generatedAt": "2026-10-29T11:30:31.210Z",
+  "synthetic": true,
+  "productionDatabaseRead": false,
+  "measure": "main-thread task duration and timeline writes; not GPU FPS",
+  "browser": {
+    "baseline": [
+      {
+        "theme": "light",
+        "cpuRate": 1,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 1462.46,
+        "layoutMs": 130.51,
+        "styleMs": 286.43,
+        "timelineRewinds": 0,
+        "longTasks": 0,
+        "maxLongTaskMs": 0,
+        "injected100msStallRewinds": 5,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "dark",
+        "cpuRate": 1,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 1387.33,
+        "layoutMs": 120.92,
+        "styleMs": 276.65,
+        "timelineRewinds": 12,
+        "longTasks": 0,
+        "maxLongTaskMs": 0,
+        "injected100msStallRewinds": 5,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "light",
+        "cpuRate": 4,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 3851.16,
+        "layoutMs": 403.61,
+        "styleMs": 815.44,
+        "timelineRewinds": 0,
+        "longTasks": 9,
+        "maxLongTaskMs": 195,
+        "injected100msStallRewinds": 5,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "dark",
+        "cpuRate": 4,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 3540.98,
+        "layoutMs": 355.99,
+        "styleMs": 762.6,
+        "timelineRewinds": 0,
+        "longTasks": 9,
+        "maxLongTaskMs": 158,
+        "injected100msStallRewinds": 5,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "light",
+        "cpuRate": 6,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 5249.09,
+        "layoutMs": 569.38,
+        "styleMs": 1002.21,
+        "timelineRewinds": 7,
+        "longTasks": 11,
+        "maxLongTaskMs": 265,
+        "injected100msStallRewinds": 5,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "dark",
+        "cpuRate": 6,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 5820.89,
+        "layoutMs": 655.7,
+        "styleMs": 1128.79,
+        "timelineRewinds": 12,
+        "longTasks": 11,
+        "maxLongTaskMs": 328,
+        "injected100msStallRewinds": 5,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      }
+    ],
+    "candidate": [
+      {
+        "theme": "light",
+        "cpuRate": 1,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 1249.84,
+        "layoutMs": 124.29,
+        "styleMs": 247.75,
+        "timelineRewinds": 0,
+        "longTasks": 0,
+        "maxLongTaskMs": 0,
+        "injected100msStallRewinds": 0,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "dark",
+        "cpuRate": 1,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 1202.79,
+        "layoutMs": 117.96,
+        "styleMs": 237.03,
+        "timelineRewinds": 0,
+        "longTasks": 0,
+        "maxLongTaskMs": 0,
+        "injected100msStallRewinds": 0,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "light",
+        "cpuRate": 4,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 3090.88,
+        "layoutMs": 352.95,
+        "styleMs": 669.24,
+        "timelineRewinds": 0,
+        "longTasks": 8,
+        "maxLongTaskMs": 150,
+        "injected100msStallRewinds": 0,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "dark",
+        "cpuRate": 4,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 3079.73,
+        "layoutMs": 364.11,
+        "styleMs": 668.61,
+        "timelineRewinds": 0,
+        "longTasks": 7,
+        "maxLongTaskMs": 153,
+        "injected100msStallRewinds": 0,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "light",
+        "cpuRate": 6,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 4509.1,
+        "layoutMs": 542.33,
+        "styleMs": 894.46,
+        "timelineRewinds": 0,
+        "longTasks": 11,
+        "maxLongTaskMs": 325,
+        "injected100msStallRewinds": 0,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      },
+      {
+        "theme": "dark",
+        "cpuRate": 6,
+        "physical": false,
+        "foregroundGuarded": false,
+        "naturalNavigations": 10,
+        "taskMs": 4564.26,
+        "layoutMs": 553.01,
+        "styleMs": 924.08,
+        "timelineRewinds": 0,
+        "longTasks": 11,
+        "maxLongTaskMs": 248,
+        "injected100msStallRewinds": 0,
+        "rapidFinalPage": "Vender",
+        "rapidGhosts": 0
+      }
+    ],
+    "comparisons": [
+      {
+        "cpuRate": 1,
+        "theme": "light",
+        "taskReductionPercent": 14.54
+      },
+      {
+        "cpuRate": 1,
+        "theme": "dark",
+        "taskReductionPercent": 13.3
+      },
+      {
+        "cpuRate": 4,
+        "theme": "light",
+        "taskReductionPercent": 19.74
+      },
+      {
+        "cpuRate": 4,
+        "theme": "dark",
+        "taskReductionPercent": 13.03
+      },
+      {
+        "cpuRate": 6,
+        "theme": "light",
+        "taskReductionPercent": 14.1
+      },
+      {
+        "cpuRate": 6,
+        "theme": "dark",
+        "taskReductionPercent": 21.59
+      }
+    ]
+  },
+  "physical": [
+    {
+      "device": "reno",
+      "phase": "baseline",
+      "startedAt": "2026-10-29T11:23:01.072Z",
+      "finishedAt": "2026-10-29T11:24:37.276Z",
+      "cases": [
+        {
+          "theme": "light",
+          "cpuRate": 1,
+          "physical": true,
+          "foregroundGuarded": true,
+          "naturalNavigations": 10,
+          "taskMs": 5384.69,
+          "layoutMs": 295.3,
+          "styleMs": 695.73,
+          "timelineRewinds": 61,
+          "longTasks": 13,
+          "maxLongTaskMs": 114,
+          "injected100msStallRewinds": 10,
+          "rapidFinalPage": "Vender",
+          "rapidGhosts": 0
+        },
+        {
+          "theme": "dark",
+          "cpuRate": 1,
+          "physical": true,
+          "foregroundGuarded": true,
+          "naturalNavigations": 10,
+          "taskMs": 5527.09,
+          "layoutMs": 294.82,
+          "styleMs": 692.03,
+          "timelineRewinds": 62,
+          "longTasks": 17,
+          "maxLongTaskMs": 145,
+          "injected100msStallRewinds": 10,
+          "rapidFinalPage": "Vender",
+          "rapidGhosts": 0
+        }
+      ]
+    },
+    {
+      "device": "reno",
+      "phase": "candidate",
+      "startedAt": "2026-10-29T11:24:42.851Z",
+      "finishedAt": "2026-10-29T11:26:14.053Z",
+      "cases": [
+        {
+          "theme": "light",
+          "cpuRate": 1,
+          "physical": true,
+          "foregroundGuarded": true,
+          "naturalNavigations": 10,
+          "taskMs": 4999.67,
+          "layoutMs": 277.12,
+          "styleMs": 618.86,
+          "timelineRewinds": 0,
+          "longTasks": 10,
+          "maxLongTaskMs": 145,
+          "injected100msStallRewinds": 0,
+          "rapidFinalPage": "Vender",
+          "rapidGhosts": 0
+        },
+        {
+          "theme": "dark",
+          "cpuRate": 1,
+          "physical": true,
+          "foregroundGuarded": true,
+          "naturalNavigations": 10,
+          "taskMs": 5303.98,
+          "layoutMs": 316.21,
+          "styleMs": 677.22,
+          "timelineRewinds": 0,
+          "longTasks": 14,
+          "maxLongTaskMs": 144,
+          "injected100msStallRewinds": 0,
+          "rapidFinalPage": "Vender",
+          "rapidGhosts": 0
+        }
+      ]
+    },
+    {
+      "device": "pkj",
+      "phase": "baseline",
+      "startedAt": "2026-10-29T11:14:19.829Z",
+      "finishedAt": "2026-10-29T11:15:25.565Z",
+      "cases": [
+        {
+          "theme": "light",
+          "cpuRate": 1,
+          "physical": true,
+          "foregroundGuarded": true,
+          "naturalNavigations": 10,
+          "taskMs": 2857.4,
+          "layoutMs": 214.74,
+          "styleMs": 479.28,
+          "timelineRewinds": 24,
+          "longTasks": 4,
+          "maxLongTaskMs": 123,
+          "injected100msStallRewinds": 5,
+          "rapidFinalPage": "Vender",
+          "rapidGhosts": 0
+        },
+        {
+          "theme": "dark",
+          "cpuRate": 1,
+          "physical": true,
+          "foregroundGuarded": true,
+          "naturalNavigations": 10,
+          "taskMs": 2768.11,
+          "layoutMs": 211.49,
+          "styleMs": 497.78,
+          "timelineRewinds": 0,
+          "longTasks": 5,
+          "maxLongTaskMs": 81,
+          "injected100msStallRewinds": 5,
+          "rapidFinalPage": "Vender",
+          "rapidGhosts": 0
+        }
+      ]
+    },
+    {
+      "device": "pkj",
+      "phase": "candidate",
+      "startedAt": "2026-10-29T11:15:28.075Z",
+      "finishedAt": "2026-10-29T11:16:31.625Z",
+      "cases": [
+        {
+          "theme": "light",
+          "cpuRate": 1,
+          "physical": true,
+          "foregroundGuarded": true,
+          "naturalNavigations": 10,
+          "taskMs": 2788.13,
+          "layoutMs": 232.75,
+          "styleMs": 481.08,
+          "timelineRewinds": 0,
+          "longTasks": 7,
+          "maxLongTaskMs": 89,
+          "injected100msStallRewinds": 0,
+          "rapidFinalPage": "Vender",
+          "rapidGhosts": 0
+        },
+        {
+          "theme": "dark",
+          "cpuRate": 1,
+          "physical": true,
+          "foregroundGuarded": true,
+          "naturalNavigations": 10,
+          "taskMs": 2642.88,
+          "layoutMs": 225.85,
+          "styleMs": 475.82,
+          "timelineRewinds": 0,
+          "longTasks": 5,
+          "maxLongTaskMs": 78,
+          "injected100msStallRewinds": 0,
+          "rapidFinalPage": "Vender",
+          "rapidGhosts": 0
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Desktop CPU throttling is not a physical low-cost phone.",
+    "Long tasks remain under CPU pressure; smoothness on every low-cost device is not established.",
+    "The artificial 100ms stall is excluded from natural-navigation task totals.",
+    "Preliminary unguarded device runs are excluded from final physical evidence."
+  ]
+}

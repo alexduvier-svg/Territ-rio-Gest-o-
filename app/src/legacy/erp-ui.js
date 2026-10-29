@@ -3762,25 +3762,35 @@ const stockHead=(back,backLabel,title,items)=>'<div class="stock-area-head"><but
 const stockFoot='<div class="stock-area-foot"><button type="button" class="stock-area-back" data-action="stock-area-home" aria-label="Voltar para todas as áreas">'+icon('back')+'<span>Áreas</span></button></div>';
 const feiraStockListBeforeAreas=feiraStockList;
 const stockLotsEntry=()=>window.TerritorioStockLotsUI&&!window.TerritorioSuppliers?.active()?window.TerritorioStockLotsUI.entry():'';
-feiraStockList=function(){const html=feiraStockListBeforeAreas();if(String(query||'').trim()||page!=='Estoque')return html;
- if(!stockArea){const home=stockAreasHome();return home?home+stockLotsEntry():html;}
- const area=stockAreas().find(a=>a.key===stockArea);if(!area){stockArea=stockSub=null;return stockAreasHome()||html;}
+feiraStockList=function(){const rows=()=>feiraStockListBeforeAreas();if(String(query||'').trim()||page!=='Estoque')return rows();
+ if(!stockArea){const home=stockAreasHome();return home?home+stockLotsEntry():rows();}
+ const area=stockAreas().find(a=>a.key===stockArea);if(!area){stockArea=stockSub=null;return stockAreasHome()||rows();}
  const subs=stockSubgroups(area),groups=subs.filter(g=>g.items.length>1);
- if(stockSub){const sub=subs.find(g=>g.key===stockSub);if(sub)return stockHead('stock-sub-back',area.label,sub.label,sub.items)+stockRowsFor(html,sub.items,sub.label)+stockLotsEntry()+stockFoot;stockSub=null;}
+ if(stockSub){const sub=subs.find(g=>g.key===stockSub);if(sub)return stockHead('stock-sub-back',area.label,sub.label,sub.items)+stockRowsFor(rows(),sub.items,sub.label)+stockLotsEntry()+stockFoot;stockSub=null;}
  // Subgrupos só ajudam quando separam alguma coisa: pelo menos dois, ou um grupo e produtos soltos.
  if(groups.length&&subs.length>1){const loose=subs.filter(g=>g.items.length===1).flatMap(g=>g.items);
-  return stockHead('stock-area-home','Áreas',area.label,area.items)+'<div class="stock-area-grid">'+groups.map(g=>stockCard('stock-sub',g.key,g.label,g.items)).join('')+'</div>'+(loose.length?'<h3 class="stock-loose-title">Outros produtos</h3>'+stockRowsFor(html,loose,'Outros produtos'):'')+stockLotsEntry()+stockFoot;}
- return stockHead('stock-area-home','Áreas',area.label,area.items)+stockRowsFor(html,area.items,area.label)+stockLotsEntry()+stockFoot;};
+  return stockHead('stock-area-home','Áreas',area.label,area.items)+'<div class="stock-area-grid">'+groups.map(g=>stockCard('stock-sub',g.key,g.label,g.items)).join('')+'</div>'+(loose.length?'<h3 class="stock-loose-title">Outros produtos</h3>'+stockRowsFor(rows(),loose,'Outros produtos'):'')+stockLotsEntry()+stockFoot;}
+ return stockHead('stock-area-home','Áreas',area.label,area.items)+stockRowsFor(rows(),area.items,area.label)+stockLotsEntry()+stockFoot;};
 // Entrar e voltar: a lista troca no lugar e entra deslizando com a mola do app (sem refazer a tela).
 // Rolagem de cada nível (Áreas, área, subgrupo), para voltar exatamente onde estava.
+let stockMotion=null,stockMotionSerial=0;
+function clearStockMotion(){const previous=stockMotion;stockMotion=null;stockMotionSerial++;if(!previous)return;
+ for(const animation of previous.animations)animation.cancel();previous.old?.remove();previous.list.style.transformOrigin=previous.origin;}
+function completeStockMotion(token){if(stockMotion?.token===token)clearStockMotion();}
+document.addEventListener('territorio:before-page',clearStockMotion,true);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)clearStockMotion();});
+document.addEventListener('territorio:resource-policy',event=>{if(event.detail?.effectsMode==='none')clearStockMotion();});
+const stockMotionPreference=typeof matchMedia==='function'?matchMedia('(prefers-reduced-motion: reduce)'):null;
+stockMotionPreference?.addEventListener?.('change',event=>{if(event.matches)clearStockMotion();});
+new MutationObserver(()=>{if(document.documentElement.dataset.reduceEffects==='true')clearStockMotion();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-reduce-effects']});
 const stockScroll=new Map(),stockLevel=()=>(stockArea||'')+'|'+(stockSub||'');
 const stockCardOf=(action,key)=>key==null?null:[...document.querySelectorAll('#feira-list [data-action="'+action+'"]')].find(x=>x.dataset.area===key)||null;
-function stockAreaGo(area,sub,dir,from){const list=document.getElementById('feira-list');if(!list){stockArea=area;stockSub=sub;render();return;}
- const S=window.TerritorioSpring,quiet=!S||!list.animate||document.documentElement.dataset.reduceEffects==='true'||matchMedia('(prefers-reduced-motion: reduce)').matches;
+function stockAreaGo(area,sub,dir,from){clearStockMotion();const list=document.getElementById('feira-list');if(!list){stockArea=area;stockSub=sub;render();return;}
+ const S=window.TerritorioSpring,quiet=!S||!list.animate||document.documentElement.dataset.reduceEffects==='true'||stockMotionPreference?.matches;
  const prevArea=stockArea,prevSub=stockSub,origin=dir>0?from?.getBoundingClientRect():null,O=list.getBoundingClientRect(),listTop=O.top+window.scrollY;
  stockScroll.set(stockLevel(),window.scrollY);
  // A página que sai fica numa cópia parada por cima, sem ids repetidos e sem receber toques.
- let old=null;if(!quiet){old=list.cloneNode(true);old.removeAttribute('id');old.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));old.setAttribute('aria-hidden','true');old.className+=' stock-leaving';old.style.cssText='position:fixed;left:'+O.left+'px;top:'+O.top+'px;width:'+O.width+'px;margin:0;pointer-events:none;z-index:4';list.parentElement.append(old);}
+ let old=null;if(!quiet){old=list.cloneNode(true);old.removeAttribute('id');old.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));old.setAttribute('aria-hidden','true');old.inert=true;old.className+=' stock-leaving';old.style.cssText='position:fixed;left:'+O.left+'px;top:'+O.top+'px;width:'+O.width+'px;margin:0;pointer-events:none;z-index:4';list.parentElement.append(old);}
  stockArea=area;stockSub=sub;list.innerHTML=feiraStockList();
  const want=dir<0?stockScroll.get(stockLevel()):null,y=want!=null?want:Math.min(window.scrollY,Math.max(0,listTop-90));if(Math.abs(y-window.scrollY)>1)window.scrollTo({top:y});
  window.TerritorioHaptics?.tick?.();
@@ -3791,12 +3801,13 @@ function stockAreaGo(area,sub,dir,from){const list=document.getElementById('feir
  const fromIn=grow?.8:1.04,toOut=grow?.96:.84,fade=grow?.25:.3,inF=[],outF=[];
  for(let k=0;k<n;k+=2){const v=c.values[k],p=k/(n-1);inF.push({transform:'scale('+(fromIn+(1-fromIn)*v).toFixed(4)+')',opacity:Math.min(1,p/.3).toFixed(3)});outF.push({transform:'scale('+(1+(toOut-1)*Math.min(1,v)).toFixed(4)+')',opacity:Math.max(0,1-p/fade).toFixed(3)});}
  inF.push({transform:'none',opacity:1});outF.push({transform:'scale('+toOut+')',opacity:0});
+ const previousOrigin=list.style.transformOrigin,token=stockMotionSerial;
  list.style.transformOrigin=(cx-L.left).toFixed(1)+'px '+(cy-L.top).toFixed(1)+'px';
  old.style.transformOrigin=(cx-O.left).toFixed(1)+'px '+(cy-O.top).toFixed(1)+'px';
  const dur=c.duration,inA=list.animate(inF,{duration:dur,easing:'linear'}),outA=old.animate(outF,{duration:dur,easing:'linear',fill:'forwards'});
- inA.finished.then(()=>{list.style.transformOrigin='';}).catch(()=>{});outA.finished.finally(()=>old.remove()).catch(()=>{});
- // No celular o GPU pode travar pintando a lista nova: a mola devolve o tempo perdido e não pula o começo.
- window.TerritorioKeepSpringWhole?.([inA,outA]);}
+ stockMotion={token,list,old,origin:previousOrigin,animations:[inA,outA]};
+ Promise.allSettled([inA.finished,outA.finished]).then(()=>completeStockMotion(token));
+}
 actions['stock-area']=(d,el)=>stockAreaGo(d.area,null,1,el||stockCardOf('stock-area',d.area));
 actions['stock-sub']=(d,el)=>stockAreaGo(stockArea,d.area,1,el||stockCardOf('stock-sub',d.area));
 actions['stock-sub-back']=()=>stockAreaGo(stockArea,null,-1);

@@ -56,7 +56,7 @@ export function createPhysicalFrameMotion(owner, { advance, draw, onRest }) {
 
 export const fluidMotionAllowed = () => enabled();
 export const fluidMotionLite = () => limited();
-export const getMotionDiagnostics = () => ({ active: running.size + liveCount(), compositor: liveCount(), pendingFrame: !!frame, renderedFrames, lite: limited() });
+export const getMotionDiagnostics = () => ({ active: running.size + liveCount(), compositor: liveCount(), pendingFrame: !!frame, renderedFrames, lite: limited(), pageTransition: !!pageTransition, pageHandles: pageTransition?.handles.filter(handle => handle?.running).length || 0 });
 
 export function getMotionSource(maxAge = 5000) {
   return latestSource && performance.now() - latestSource.time < maxAge ? { ...latestSource } : null;
@@ -141,6 +141,18 @@ function endPageTransition() {
   t.layer?.remove();
 }
 
+// The leaving surface can disappear before the arriving page has settled. Keep ownership of
+// the whole group until every handle finishes, so another tab cancels all of the old motion.
+function trackPageTransition(transition) {
+  const handles = transition.handles.filter(Boolean);
+  const finish = () => {
+    transition.layer?.remove();
+    if (pageTransition === transition) pageTransition = null;
+  };
+  if (!handles.length) { finish(); return; }
+  Promise.all(handles.map(handle => handle.finished)).then(finish, finish);
+}
+
 // Rules that depend on html[data-page="…"], read once from the stylesheets: for each page, the
 // selector of the elements they style, without the page part.
 const pageRules = new Map();
@@ -168,7 +180,7 @@ function pageSelectors(page) {
 // are left behind for the renderer to discard, so the layer stays small to style and draw. The
 // few elements whose look depends on the page attribute (which changes right after this event)
 // keep their current look.
-function liftPage(app, onTop, page) {
+function liftPage(app, onTop, page, { preserveChrome = true } = {}) {
   const children = [...app.children];
   if (!children.length) return null;
   const rect = app.getBoundingClientRect(), computed = getComputedStyle(app);
@@ -184,8 +196,8 @@ function liftPage(app, onTop, page) {
   const selector = pageSelectors(page);
   const visible = selector ? [...app.querySelectorAll(selector)].filter(node => !below.some(b => b.contains(node))).slice(0, 120) : [];
   const pinned = visible.map(node => { const style = getComputedStyle(node); return pageFreeze.map(p => style.getPropertyValue(p)); });
-  const chrome = ['nav-glass', 'nav'].map(id => document.getElementById(id)).filter(el => el && el.getClientRects().length && !onTop)
-    .map(el => { const copy = el.cloneNode(true); copy.removeAttribute('id'); copy.classList.add('fluid-chrome-copy'); copy.querySelectorAll('[id],[data-action]').forEach(n => { n.removeAttribute('id'); n.removeAttribute('data-action'); }); const s = getComputedStyle(el); copy.style.cssText += `;position:fixed;left:${s.left};right:${s.right};bottom:${s.bottom};top:${s.top};width:${s.width};height:${s.height}`; return copy; });
+  const chrome = preserveChrome ? ['nav-glass', 'nav'].map(id => document.getElementById(id)).filter(el => el && el.getClientRects().length && !onTop)
+    .map(el => { const copy = el.cloneNode(true); copy.removeAttribute('id'); copy.classList.add('fluid-chrome-copy'); copy.querySelectorAll('[id],[data-action]').forEach(n => { n.removeAttribute('id'); n.removeAttribute('data-action'); }); const s = getComputedStyle(el); copy.style.cssText += `;position:fixed;left:${s.left};right:${s.right};bottom:${s.bottom};top:${s.top};width:${s.width};height:${s.height}`; return copy; }) : [];
   const layer = document.createElement('div');
   layer.className = 'fluid-page-morph-layer' + (onTop ? ' is-front' : ' is-behind');
   layer.inert = true;
@@ -223,30 +235,6 @@ function arrivePage(app, entry, pivot, springName, fixedFrom = { y: 28, opacity:
       origin: `${(pivot[0] - bounds.left).toFixed(1)}px ${(pivot[1] - bounds.top).toFixed(1)}px` }));
 }
 
-// Keep a group of movements whole through stalled frames. On slower phones the GPU may stall a frame or two
-// while it paints the page that just arrived (Produtos most of all); a spring that keeps running would land
-// half-way and lose its settle. After a long frame every movement of the group is set back by the time lost
-// beyond one frame, so the next frame continues from the pose last seen. Only a clock read per frame.
-const STALL_MS = 34, WATCH_MS = 1400;
-function keepSpringWhole(handles) {
-  const list = handles.filter(h => h?.animation);
-  if (!list.length) return;
-  const begin = performance.now();
-  let last = begin;
-  const tick = now => {
-    const gap = now - last; last = now;
-    if (gap > STALL_MS) {
-      const lost = gap - 16.7;
-      for (const h of list) if (h.running) { try { h.animation.currentTime = Math.max(0, (Number(h.animation.currentTime) || 0) - lost); } catch {} }
-    }
-    if (list.some(h => h.running) && now - begin < WATCH_MS) requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
-}
-
-// The same protection for loose WAAPI animations started elsewhere (Estoque areas and subgroups).
-window.TerritorioKeepSpringWhole = animations => keepSpringWhole(animations.filter(Boolean).map(animation => ({ animation, get running() { return animation.playState === 'running'; } })));
-
 function installPageTransitions(listen) {
   const app = document.getElementById('app');
   // Read the page rules while the app is idle, so the first page change does not pay for the scan.
@@ -270,14 +258,16 @@ function installPageTransitions(listen) {
     if (history.length > 20) history.shift();
     if (!enabled() || !app) return;
     // A checkout closes its own sheet into the sale; a copy of the sale page would flash stale content.
-    const lift = source?.insideDialog ? null : liftPage(app, goingBack, previousPage);
+    // Both main tabs keep the real navigation visible; a copied bar would be discarded below.
+    const betweenTabs = NAV_ORDER.includes(previousPage) && NAV_ORDER.includes(nextPage);
+    const lift = source?.insideDialog ? null : liftPage(app, goingBack, previousPage, { preserveChrome: !betweenTabs });
     const t = pageTransition = { layer: lift?.layer, handles: [] };
     pageHandled = true;
     // The renderer finishes the new page synchronously after this event: aim once it is there.
     queueMicrotask(() => {
       pageHandled = false;
       if (pageTransition !== t) return;
-      const done = () => { if (pageTransition === t) { pageTransition = null; t.layer?.remove(); } };
+      const done = () => { if (pageTransition === t) t.layer?.remove(); };
       const view = { left: 0, top: 0, width: innerWidth, height: innerHeight };
       const center = [innerWidth / 2, innerHeight / 2];
       // The copied tab bar only stands in for a bar that the new page hides.
@@ -287,8 +277,7 @@ function installPageTransitions(listen) {
         const shift = (limited() ? 26 : 44) * step;
         if (lift) t.handles.push(animate(lift.surface, { from: { x: 0, scale: 1, opacity: 1 }, to: { x: -shift, scale: 0.985, opacity: 0 }, spring: spring('tab'), shape: dissolve(0, 0.42), onFinish: done }));
         t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.965 : 0.93, opacity: 0 }, center, 'tabEnter', { y: 0, opacity: 0 }));
-        if (!lift) t.handles.at(-1)?.finished.then(done);
-        keepSpringWhole(t.handles);
+        trackPageTransition(t);
         return;
       }
       if (goingBack) {
@@ -299,7 +288,7 @@ function installPageTransitions(listen) {
         }
         const pivot = usable(target) ? [target.cx, target.cy] : center;
         t.handles.push(...arrivePage(app, { x: 0, y: 0, scale: limited() ? 1.015 : 1.04, opacity: 0 }, pivot, 'back', { y: 18, opacity: 0 }));
-        if (!lift) t.handles.at(-1)?.finished.then(done);
+        trackPageTransition(t);
         return;
       }
       if (usable(source) && !source.insideDialog) {
@@ -316,13 +305,13 @@ function installPageTransitions(listen) {
           t.handles.push(animate(lift.surface, { from: REST, to: { x: 0, y: 0, scale: limited() ? 0.995 : 0.975, opacity: 1 }, spring: spring('open'), onFinish: done }));
         }
         t.handles.push(...arrivePage(app, entry, center, 'open'));
-        if (!lift) t.handles.at(-1)?.finished.then(done);
+        trackPageTransition(t);
         return;
       }
       // Without a tap (after a sale, from the assistant): a short, quiet cross-fade.
       if (lift) t.handles.push(animate(lift.surface, { from: { y: 0, opacity: 1 }, to: { y: -8, opacity: 0 }, spring: spring('tab'), shape: dissolve(0, 0.45), onFinish: done }));
       t.handles.push(...arrivePage(app, { x: 0, y: 14, scale: 0.99, opacity: 0 }, center, 'tab', { y: 18, opacity: 0 }));
-      if (!lift) t.handles.at(-1)?.finished.then(done);
+      trackPageTransition(t);
     });
   };
   listen(app, 'territorio:before-page', before);
@@ -345,12 +334,12 @@ export function transitionSubview(render,direction=1,{subtle=false}={}){
  app.removeEventListener('territorio:before-page',commit);if(!t)return;
  lift?.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node=>node.remove());
  if(subtle)lift?.surface.querySelectorAll('.fluid-page-morph-context > .topbar').forEach(node=>node.style.visibility='hidden');
- const done=()=>{if(pageTransition===t){pageTransition=null;t.layer?.remove();}},shift=(subtle?(limited()?2:6):(limited()?5:18))*direction;
+ const done=()=>{if(pageTransition===t)t.layer?.remove();},shift=(subtle?(limited()?2:6):(limited()?5:18))*direction;
  if(lift)t.handles.push(animate(lift.surface,{from:REST,to:{x:-shift,opacity:0},spring:spring('tab'),shape:dissolve(0,.4),onFinish:done}));
  const fixedTop=subtle?app.querySelector(':scope > .topbar'):null;if(fixedTop)fixedTop.dataset.motionStill='1';
  t.handles.push(...arrivePage(app,{x:shift,opacity:0,scale:1},[innerWidth/2,innerHeight/2],'tab',{y:0,opacity:0}));
  if(fixedTop)delete fixedTop.dataset.motionStill;
- if(!lift)t.handles.at(-1)?.finished.then(done);
+ trackPageTransition(t);
 }
 
 // interface.js calls this after each route change. Route changes that went through the renderer

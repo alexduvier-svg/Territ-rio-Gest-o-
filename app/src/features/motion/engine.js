@@ -86,6 +86,13 @@ export function finishAll() { for (const handle of [...live]) handle.finish(); }
 export const liveCount = () => live.size;
 export const motionOf = element => handles.get(element) || null;
 
+// Precomputed icon groups share page interruption and visibility cleanup, without a frame loop.
+export function registerMotion(handle) {
+  live.add(handle);
+  globalThis.document?.dispatchEvent(new Event('territorio:motion-start'));
+  return () => live.delete(handle);
+}
+
 // Run one movement. `paint(pose, p)` may add other properties per keyframe (a reveal clip).
 // `from`/`to` are poses ({x, y, scale, opacity}); `shape(pose, p)` may bend a
 // pose along the way (opacity windows, for instance). Returns a handle that can report the

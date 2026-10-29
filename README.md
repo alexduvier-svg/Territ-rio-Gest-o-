@@ -1,6 +1,8 @@
 # AGRO Gestão Codex
 
-Versão atual: **0.12.133**, pacote `br.com.territorio.gestao2`. Reproduz os estilos e o funcionamento do Claude133 por pedido explícito, mantendo nome e assinatura Codex. A [conferência da correção](app/docs/CLONE-CLAUDE-CODEX-0.12.133.md) descreve a origem, os testes e a transferência de dados. A [integração132](app/docs/INTEGRACAO-CLAUDE-CODEX-0.12.132.md) permanece como histórico.
+Versão atual: **0.12.134**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. A [correção de fluidez](app/docs/FLUIDEZ-ABAS-0.12.134.md) elimina recuos das animações, corrige cancelamentos e reduz trabalho ao abrir telas, preservando aparência, funções, assinatura e dados do Codex133. Validação: 789 testes unitários, oito jornadas de navegador, 48 comparações visuais e quatro jornadas físicas nos dois temas.
+
+A [cópia autorizada do Claude133](app/docs/CLONE-CLAUDE-CODEX-0.12.133.md) e a [integração132](app/docs/INTEGRACAO-CLAUDE-CODEX-0.12.132.md) permanecem como histórico. A correção134 não repete a transferência de dados.
 
 Código do app em [app](app/), servidor em [portfolio-server](portfolio-server/). As referências, o mockup original e os materiais anteriores foram preservados. A fonte atual do aplicativo é app/src; não gerar novamente a partir do mockup.
 

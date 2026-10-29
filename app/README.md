@@ -1,6 +1,6 @@
 # AGRO Gestão Codex — app Android
 
-Versão **0.12.133/code174**, fiel à fonte Claude `4a15376`, mantendo identificação Codex. Veja [correção, validação e dados](docs/CLONE-CLAUDE-CODEX-0.12.133.md). O pacote continua `br.com.territorio.gestao2`; a atualização usa a assinatura original.
+Versão **0.12.134/code175**, com [correção de fluidez de navegação](docs/FLUIDEZ-ABAS-0.12.134.md), instalada no Reno e no PKJ após validação nos dois temas. Mantém a aparência e as funções da base133, a identidade Codex, os dados, o pacote `br.com.territorio.gestao2` e a assinatura original. Veja também o [histórico da cópia autorizada133](docs/CLONE-CLAUDE-CODEX-0.12.133.md).
 
 App Android (Capacitor 8) com vendas, estoque, clientes, eventos e gestão local. A fonte atual está em `src/`; o mockup original é referência histórica. Não reexecutar a migração sobre o código atual.
 

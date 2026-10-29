@@ -7,6 +7,11 @@ import { animatePageChange, animateToast } from './motion/index.js';
 const app = () => document.getElementById('app');
 const isFeira = () => document.documentElement.dataset.layout === 'feira';
 const shell = () => window.TerritorioShell;
+// Visual copies and touch decoration never need form binding, title conversion or layout fitting.
+const TRANSIENT_UI = '.fluid-page-morph-layer,.fluid-exit-layer,.fluid-sheet-ghost-layer,.fluid-section-ghost,.stock-leaving,.fam-ghost,.glass-touch-light,.glass-touch-spot';
+const transientUI = node => !!(node?.nodeType === 1 ? node : node?.parentElement)?.closest?.(TRANSIENT_UI);
+const changedElements = records => records.flatMap(record => [...record.addedNodes, ...record.removedNodes]).filter(node => node.nodeType === 1 && !transientUI(node));
+const includesUI = (node, selector) => !!(node?.matches?.(selector) || node?.querySelector?.(selector));
 
 // ---------------------------------------------------------------- troca de tela
 let lastPage = null;
@@ -195,9 +200,9 @@ function installPicker() {
   // The native picker is stopped on each select itself. A blocking touchstart on the whole document made
   // every touch and scroll start wait for the page (the sheet 'grabbed' while opening, typing or scrolling).
   const stop = e => e.preventDefault();
-  const bind = () => { for (const select of document.querySelectorAll('select:not([data-picker-bound])')) { select.dataset.pickerBound = ''; select.addEventListener('touchstart', stop, { passive: false }); } };
-  new MutationObserver(bind).observe(document.body, { childList: true, subtree: true });
-  bind();
+  const bind = scope => { const selects = [...(scope.querySelectorAll?.('select:not([data-picker-bound])') || [])]; if (scope.matches?.('select:not([data-picker-bound])')) selects.unshift(scope); for (const select of selects) if (!transientUI(select)) { select.dataset.pickerBound = ''; select.addEventListener('touchstart', stop, { passive: false }); } };
+  new MutationObserver(records => { for (const record of records) for (const node of record.addedNodes) if (node.nodeType === 1 && !transientUI(node)) bind(node); }).observe(document.body, { childList: true, subtree: true });
+  bind(document);
   document.addEventListener('touchend', e => { const s = e.target.closest?.('select'); if (s && !s.disabled) { e.preventDefault(); openPicker(s); } }, { capture: true, passive: false });
   document.addEventListener('keydown', e => { if (e.target.matches?.('select') && (e.key === 'Enter' || e.key === ' ')) intercept(e); }, true);
 }
@@ -217,45 +222,59 @@ document.addEventListener('pointerdown', () => { const root = document.documentE
 // ---------------------------------------------------------------- título do Estoque
 // Título e botões dividem a linha enquanto cabem; quando não cabem (tela estreita, texto ampliado),
 // os botões sobem para o alto à direita e o título fica inteiro logo abaixo.
+let fitFontEpoch = 0;
+const fitVersion = () => [innerWidth, devicePixelRatio, document.documentElement.dataset.largeText, document.documentElement.dataset.layout, document.documentElement.dataset.theme, document.documentElement.dataset.shortWindow, fitFontEpoch].join('|');
+const headingFits = new WeakMap();
 function fitStockHeading() {
   const heading = app()?.querySelector('.stock-heading');
   if (!heading) return;
   const title = heading.querySelector('.stock-title h1') || heading.querySelector('.stock-title');
   const tools = heading.querySelector('.stock-top-tools');
   if (!title || !tools) return;
+  const key = fitVersion() + '|' + title.textContent + '|' + tools.textContent + '|' + tools.children.length, saved = headingFits.get(heading);
+  if (saved?.key === key && heading.classList.contains('is-stacked') === saved.stacked) return;
   heading.classList.remove('is-stacked');
   const gap = parseFloat(getComputedStyle(heading).columnGap) || 0;
-  if (title.scrollWidth + tools.offsetWidth + gap + 4 > heading.clientWidth) heading.classList.add('is-stacked');
+  const stacked = title.scrollWidth + tools.offsetWidth + gap + 4 > heading.clientWidth;
+  if (stacked) heading.classList.add('is-stacked');
+  headingFits.set(heading, { key, stacked });
 }
 
 // ---------------------------------------------------------------- cards de venda (salesCardAnatomy)
 // Os detalhes do card ficam numa linha com " · " enquanto cabem; se não cabem, cada parte vai para
 // a sua linha. Todas as leituras antes de todas as escritas: uma medição para a grade inteira.
-// The answer only depends on the screen width and the text, so it is kept: going back to a page with the
-// same cards reapplies it without measuring (measuring made the browser lay the page out twice). A
-// "settled" pass (after the page is drawn) is trusted; an early pass right after a render is not.
+// A DOM node is fitted once for its text, viewport and loaded fonts. Repeated observer delivery and
+// the section's follow-up call reuse that result before paint instead of clearing/measuring twice.
 const fitCache = new Map();
-function fitCardDetails({ settle = false } = {}) {
-  const details = [...(app()?.querySelectorAll('.feira-card .card-detail') || [])];
+const detailFits = new WeakMap();
+function fitCardDetails() {
+  const details = [...(app()?.querySelectorAll('.feira-card .card-detail') || [])].filter(el => !transientUI(el));
   if (!details.length) return;
-  const key = innerWidth + '|' + devicePixelRatio, known = fitCache.get(key);
-  if (known?.settled && details.every(el => known.text.has(el.textContent))) {
-    details.forEach(el => { const want = known.text.get(el.textContent) || (known.anyMulti && el.children.length > 1); if (el.classList.contains('is-stacked') !== want) el.classList.toggle('is-stacked', want); });
-    return;
+  const key = fitVersion();
+  const shown = el => !el.closest('[hidden],details:not([open])') && (!el.closest('.fam-extra') || !!el.closest('.fam.is-open'));
+  const rows = details.map(el => ({ el, text: el.textContent, parts: el.children.length, shown: shown(el) }));
+  if (rows.every(row => { const old = detailFits.get(row.el); return old?.key === key && old.text === row.text && old.parts === row.parts && old.shown === row.shown && row.el.classList.contains('is-stacked') === old.stacked; })) return;
+  const visible = rows.filter(row => row.shown), text = fitCache.get(key) || new Map();
+  // Equal strings can appear in differently sized cards. Cross-render reuse also keys their actual
+  // content width and font; only the repeated call on the very same fitted nodes skips these reads.
+  visible.forEach(row => { const style = getComputedStyle(row.el); row.measureKey = [row.text, row.parts, row.el.clientWidth, style.font, style.letterSpacing].join('|'); });
+  if (!visible.every(row => text.has(row.measureKey))) {
+    visible.forEach(({ el }) => { if (el.classList.contains('is-stacked')) el.classList.remove('is-stacked'); });
+    const measured = visible.map(({ el }) => {
+      const parts = el.children;
+      return parts.length > 1 && parts[parts.length - 1].offsetTop > parts[0].offsetTop + 2 || el.scrollWidth > el.clientWidth + 1;
+    });
+    visible.forEach((row, i) => text.set(row.measureKey, measured[i]));
+    fitCache.set(key, text);
+    if (fitCache.size > 12) fitCache.delete(fitCache.keys().next().value);
   }
-  details.forEach(el => el.classList.remove('is-stacked'));
-  const stack = details.map(el => {
-    const parts = el.children;
-    const wrapped = parts.length > 1 && parts[parts.length - 1].offsetTop > parts[0].offsetTop + 2;
-    return wrapped || el.scrollWidth > el.clientWidth + 1;
+  // Hidden extras are not measured at zero width. Opening a family fits them before its first paint.
+  const anyMulti = visible.some(row => text.get(row.measureKey) && row.parts > 1);
+  rows.forEach(row => {
+    const stacked = !!text.get(row.measureKey) || anyMulti && row.parts > 1;
+    if (row.el.classList.contains('is-stacked') !== stacked) row.el.classList.toggle('is-stacked', stacked);
+    detailFits.set(row.el, { key, text: row.text, parts: row.parts, shown: row.shown, stacked });
   });
-  // One drawing for the whole grid: if any card needs its parts on separate lines, every card with
-  // several parts uses separate lines too (single-part details only wrap when they must).
-  const anyMulti = details.some((el, i) => stack[i] && el.children.length > 1);
-  details.forEach((el, i) => { if (stack[i] || (anyMulti && el.children.length > 1)) el.classList.add('is-stacked'); });
-  const text = settle || !known ? new Map() : known.text;
-  details.forEach((el, i) => text.set(el.textContent, stack[i]));
-  fitCache.set(key, { settled: settle || !!known?.settled, anyMulti: anyMulti || (!settle && !!known?.anyMulti), text });
 }
 
 // ---------------------------------------------------------------- observadores
@@ -281,20 +300,37 @@ function installSheetTyping() {
 // "Repor Estoque"). Siglas e medidas ficam como são. Só títulos e rótulos de aba; textos corridos e
 // campos de formulário não mudam.
 const TITLES = 'h1, h2, h3, h4, #dialog-title, .subheader .title, .sa-head, .glass-area-label, .toast-title, .mc-go, .mc-done, #nav button > span, .chip, .stock-tab, .segmented button, .tab, [role="tab"]';
+const titleTexts = new WeakMap();
 function titleCaseAll(scope) {
   const proper = window.TerritorioProperName?.properName;
   if (!proper || !scope) return;
-  for (const el of scope.querySelectorAll(TITLES)) {
+  const titles = [...scope.querySelectorAll(TITLES)];
+  if (scope.matches?.(TITLES)) titles.unshift(scope);
+  for (const el of titles) {
+    if (transientUI(el)) continue;
     if (el.children.length) continue; // só títulos de texto puro (sem ícones ou partes internas)
-    const text = el.textContent, next = proper(text);
+    const text = el.textContent;
+    if (titleTexts.get(el) === text) continue;
+    const next = proper(text);
     if (next && next !== text.trim() && next.length === text.trim().length) el.textContent = next;
+    titleTexts.set(el, el.textContent);
   }
 }
 function installTitleCase() {
   const run = () => { titleCaseAll(app()); for (const d of document.querySelectorAll('dialog[open]')) titleCaseAll(d); titleCaseAll(document.getElementById('nav')); };
-  let queued = false;
-  const queue = () => { if (queued) return; queued = true; queueMicrotask(() => { queued = false; run(); }); };
-  new MutationObserver(queue).observe(document.body, { childList: true, subtree: true });
+  // Only new/changed live subtrees need conversion; an animated SVG or a ghost is not a new page.
+  new MutationObserver(records => {
+    const scopes = new Set();
+    for (const record of records) if (!transientUI(record.target)) for (const node of record.addedNodes) {
+      const scope = node.nodeType === 1 ? node : node.parentElement;
+      if (scope?.isConnected && !transientUI(scope)) scopes.add(scope);
+    }
+    for (const scope of scopes) {
+      let covered = false;
+      for (let parent = scope.parentElement; parent; parent = parent.parentElement) if (scopes.has(parent)) { covered = true; break; }
+      if (!covered) titleCaseAll(scope);
+    }
+  }).observe(document.body, { childList: true, subtree: true });
   run();
 }
 
@@ -306,18 +342,23 @@ export function installInterface() {
   installPicker();
   // The touch light added inside a pressed button is decoration: refitting every card for it made
   // the whole grid re-measure on each tap (a faint flash behind a double tap).
-  const decoration = node => node.nodeType === 1 && (node.classList.contains('glass-touch-light') || node.classList.contains('glass-touch-spot'));
   new MutationObserver(records => {
-    if (records.every(r => [...r.addedNodes, ...r.removedNodes].every(decoration))) return;
+    const live = records.filter(record => !transientUI(record.target));
+    if (!live.length) return;
+    const nodes = changedElements(live);
+    if (!nodes.length && live.every(record => ![...record.addedNodes].some(node => node.nodeType === 3))) return;
+    const touches = selector => live.some(record => record.target.nodeType === 1 && record.target.closest(selector)) || nodes.some(node => includesUI(node, selector));
     markPageChange();
-    decorateDimensions();
-    decorateSaleGroups();
-    fitStockHeading();
-    fitCardDetails();
+    if (touches('.registration-dimensions')) decorateDimensions();
+    if (touches('.sale-product-group')) decorateSaleGroups();
+    if (touches('.stock-heading')) fitStockHeading();
+    if (touches('.feira-card .card-detail')) fitCardDetails();
   }).observe(root, { childList: true, subtree: true });
   window.addEventListener('resize', () => { fitStockHeading(); fitCardDetails({ settle: true }); }, { passive: true });
   window.TerritorioFitCards = () => fitCardDetails({ settle: true }); // depois que a tela assenta (seções que abrem)
-  document.fonts?.ready.then(() => { fitCache.clear(); fitStockHeading(); fitCardDetails({ settle: true }); });
+  const fontsChanged = () => { fitFontEpoch++; fitCache.clear(); fitStockHeading(); fitCardDetails(); };
+  document.fonts?.ready.then(fontsChanged);
+  document.fonts?.addEventListener?.('loadingdone', fontsChanged);
   new MutationObserver(() => decorateDimensions()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-layout'] });
   const toast = document.getElementById('toast');
   if (toast) new MutationObserver(() => classifyToast(toast)).observe(toast, { attributes: true, attributeFilter: ['hidden'], childList: true, characterData: true, subtree: true });
