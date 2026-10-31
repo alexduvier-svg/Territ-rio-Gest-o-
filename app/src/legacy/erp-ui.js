@@ -2832,7 +2832,7 @@ window.TerritorioAgentBridge={
  managementGuidance:ctx=>window.TerritorioAdvisor.evaluate(financialInsightsInput({...ctx.selection,scope:ctx.scopeId})),
  privateHTML:hideMoney,
  queryContext:(text,ctx)=>{const n=E.normalize(text),today=E.dayKey(Date.now()),day=/\bontem\b/.test(n)?shiftDay(today,-1):/\bhoje\b/.test(n)?today:null;if(!day&&!/este mes|neste mes|mes atual/.test(n))return ctx;const target=day||today,sel={...(ctx.selection||selection()),...periodSelection(day?'dia':'mes',target),scope:ctx.scopeId,noDays:false};return {...ctx,selection:sel,label:reportScopeName(sel.scope)+' · '+periodText(sel),period:{start:Date.parse((day||sel.month+'-01')+'T00:00:00-03:00'),end:day?Date.parse(day+'T23:59:59.999-03:00'):new Date(Number(target.slice(0,4)),Number(target.slice(5,7)),1).getTime()-1}};},
- managementAnswer:async(text,ctx)=>{const gate=window.TerritorioBusinessQuery.businessQueryGate(text);if(gate.status!=='supported')return gate.message;if(/chuva|chover|clima|tempo.*(?:hoje|amanh)/i.test(text)&&!/produ[çc]|montagem|preparo|prazo/i.test(text))return window.TerritorioWeather.localWeatherAnswer(text,model.data.events.find(e=>e.id===ctx.scopeId));if(window.TerritorioBusinessQuery.isFinancialQuestion(text))return window.TerritorioAgentBridge.financialAnswer(text,ctx);if(/receitas?|artesan|parceria|embalagem|cesta|kit\b|banana madura/i.test(text))return window.TerritorioOpportunityKnowledge.answer(text,model);return window.TerritorioAdvisor.answer(text,financialInsightsInput({...ctx.selection,scope:ctx.scopeId}));},
+ managementAnswer:async(text,ctx)=>{const gate=window.TerritorioBusinessQuery.businessQueryGate(text);if(gate.status!=='supported')return gate.message;if(window.TerritorioBusinessQuery.productRankingRequest(text))return window.TerritorioAgentBridge.productRankingAnswer(text,ctx);if(/chuva|chover|clima|tempo.*(?:hoje|amanh)/i.test(text)&&!/produ[çc]|montagem|preparo|prazo/i.test(text))return window.TerritorioWeather.localWeatherAnswer(text,model.data.events.find(e=>e.id===ctx.scopeId));if(window.TerritorioBusinessQuery.isFinancialQuestion(text))return window.TerritorioAgentBridge.financialAnswer(text,ctx);if(/receitas?|artesan|parceria|embalagem|cesta|kit\b|banana madura/i.test(text))return window.TerritorioOpportunityKnowledge.answer(text,model);return window.TerritorioAdvisor.answer(text,financialInsightsInput({...ctx.selection,scope:ctx.scopeId}));},
  actions,escape,numericField,data:()=>model.data,persist:()=>persist(),context:agentContext,saleScope:()=>scope,scopeLabel:reportScopeName,description:E.description,money:E.money,toast,whatsappNumber,
  open:(title,body,footer,kind)=>openModal(title,body,kind,null,footer),close:()=>closeModal(),
  prepare:(items,proposal)=>{
@@ -2841,6 +2841,11 @@ window.TerritorioAgentBridge={
   const products=items.map(i=>model.product(i.productId));if(products.some((p,n)=>!p||!canSelectProduct(p.id)||items[n].quantity>sellingAvailableStock(p.id)))throw Error('Confira o estoque antes de continuar.');
   closeModal();draft=null;createDraft(items[0].productId);draft.operationId=proposal.proposalId;draft.agentProposalRevision=proposal.dataRevision;draft.agentProposalActor=proposal.actorId;
   draft.items=items.map(i=>({productId:i.productId,rawQty:String(i.quantity).replace('.',','),discountMode:'R$',discountValue:''}));draft.active=0;draft.startedAt=new Date().toISOString();loadActiveDiscount();splitUpdate();page='Venda';render();window.scrollTo(0,0);
+ },
+ productRankingAnswer:(text,ctx)=>{
+  const sel={...(ctx.selection||selection()),scope:ctx.scopeId},f=finStatement(sel),now=Date.now();
+  if(f.st.checks!==true)throw Error('A conferência do demonstrativo falhou. Confira os registros na Gestão.');
+  return window.TerritorioProductRankingAnswer(model.data,{sales:f.sales,returns:f.returns,text,label:periodText(sel)+' · '+reportScopeName(sel.scope),now,end:Math.min(Number.isFinite(ctx.period?.end)?ctx.period.end+1:now+1,now+1),describe:E.description,money:E.money,expectedRevenue:f.st.revenue}).text;
  },
  financialAnswer:(text,ctx)=>{
   const sel={...(ctx.selection||selection()),scope:ctx.scopeId},rows=window.TerritorioAgent.validSales('all');

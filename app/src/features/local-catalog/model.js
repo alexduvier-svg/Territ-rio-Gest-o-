@@ -1,5 +1,5 @@
 // Local order channel. The central ERP remains the only inventory/sale ledger.
-const norm=s=>String(s||'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().replace(/\s+/g,' ').trim();
+import { normalizePortuguese as norm } from '../portuguese.js';
 export const stages={review:'A conferir',confirmed:'Confirmado',preparing:'Em preparo',ready:'Pronto',out_for_delivery:'Em rota',pickup_ready:'Disponível para retirada',delivered:'Concluído',cancelled:'Cancelado'};
 const active=o=>!['review','cancelled'].includes(o.status);
 export const actorOf=d=>d.dataContext?.id||d.productMemory?.scopeId;

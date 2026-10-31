@@ -1,0 +1,36 @@
+import {JSDOM} from 'jsdom';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+const root=process.env.AGRO_TEST_ROOT||new URL('../app/src/',import.meta.url).pathname;
+const Core=await import(pathToFileURL(root+'features/agent/core.js'));
+const Business=await import(pathToFileURL(root+'features/business-query.js'));
+const Finance=await import(pathToFileURL(root+'features/finance/finance.js'));
+const {answerProductRanking}=await import(pathToFileURL(root+'features/product-ranking-query.js'));
+const dom=new JSDOM('<div id="app"></div><dialog id="dialog"><div class="dialog-content"><textarea id="agent-question"></textarea></div></dialog>',{url:'https://localhost',pretendToBeVisual:true});
+for(const key of ['document','window','MutationObserver','Event'])globalThis[key]=dom.window[key];
+const date=new Date(Date.now()-1000).toISOString(),month=date.slice(0,7),data={dataContext:{id:'actor-a',type:'demo'},products:[],sales:[],events:[],eventLoads:[],movements:[],clients:[],expenses:[],settings:{onboarding:'demo',fairReports:{}}};
+for(let n=0;n<7;n++){const id='p'+n;data.products.push({id,name:'Café '+n,format:'Moído',weight:250,unit:'Pacote',price:1000,cost:400,stock:50,active:true});if(n<6)data.sales.push({id:'s'+n,date,status:'completed',scope:'loja',total:(9-n)*1000,subtotal:(9-n)*1000,cost:(9-n)*400,items:[{productId:id,name:'Café '+n,unit:'Pacote',qty:9-n,total:(9-n)*1000,costTotal:(9-n)*400,costKnown:true}],payments:[]});}
+data.sales.push({...data.sales[0],id:'other-scope',scope:'fair',total:20000,subtotal:20000,items:[{...data.sales[0].items[0],qty:20,total:20000}]});
+let scope='loja',workerCalls=0,notes=[];
+globalThis.Worker=class {constructor(){workerCalls++;throw Error('Worker intentionally unavailable');}};
+window.TerritorioResourcePolicy={snapshot:()=>({optionalBackground:false,intelligenceProfile:'balanced'}),run:task=>task(),observe:()=>{}};
+window.TerritorioWorkspace={active:true};window.TerritorioWorkflowBridge={icon:()=>''};window.TerritorioBusinessQuery=Business;window.TerritorioProductRankingAnswer=answerProductRanking;
+const selected=sel=>{const sales=data.sales.filter(s=>s.scope===sel.scope&&s.date.slice(0,7)===sel.month),returns=[];return{sales,returns,expenses:[],st:Finance.statement({sales,returns,expenses:[],receipts:[],settings:{},shares:[],general:false})};};
+const ui=fs.readFileSync(root+'legacy/erp-ui.js','utf8');
+const arrow=(name,next)=>{const start=ui.indexOf(' '+name+':')+name.length+2,marker=next==='actions'?'\n actions,':'\n '+next+':',end=ui.indexOf(marker,start);assert(end>start,name);return ui.slice(start,end).trim().replace(/,$/,'');};
+const sandbox={window,model:{data},Date,Math,Number,selection:()=>({month}),finStatement:selected,E:{description:p=>'Moído '+p.weight+' g',money:n=>'R$ '+(n/100).toFixed(2).replace('.',',')},periodText:()=> 'Recorte selecionado',reportScopeName:s=>s};
+const rank=vm.runInNewContext('('+arrow('productRankingAnswer','financialAnswer')+')',sandbox),management=vm.runInNewContext('('+arrow('managementAnswer','actions')+')',sandbox);
+const b={actions:{},data:()=>data,persist:()=>true,context:()=>({actorId:'actor-a',scopeId:scope,label:scope+' · '+month,selection:{month,scope}}),saleScope:()=>scope,escape:s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;'),privateHTML:s=>s,toast:s=>notes.push(s),description:sandbox.E.description,managementAnswer:management,productRankingAnswer:rank,managementGuidance:()=>({periodLabel:month}),scopeLabel:s=>s,open:(title,body,footer,kind)=>{document.getElementById('dialog').dataset.kind=kind;document.querySelector('.dialog-content').innerHTML=body;}};
+window.TerritorioAgentBridge=b;
+let source=fs.readFileSync(root+'features/agent/index.js','utf8').replace(/^import .*\n/gm,'');
+const names=['ensureAgent','contextOf','revisionOf','parseRequest','proposeSale','validateProposal','audit','analyze','answerQuery','productIndex','eligible','scopeSales'];globalThis.__core=Core;
+source='const {'+names.join(',')+'}=globalThis.__core;const Capacitor={isNativePlatform:()=>false};const registerPlugin=()=>({});const installGeneralEducation=()=>{};const releaseInsights=()=>({changed:false,items:[],blocked:false});const installContinuity=()=>({refresh(){},entry:()=>""});\n'+source;
+const {installAgent}=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));installAgent();
+const question='Quais são meus 3 produtos que vendem mais e os 3 que vendem menos?';
+async function ask(){document.querySelector('.dialog-content').innerHTML='<textarea id="agent-question"></textarea>';document.getElementById('agent-question').value=question;await b.actions['agent-ask']();return document.querySelector('.dialog-content').textContent;}
+let output=await ask();assert.match(output,/Mais: 3 produtos/);assert.match(output,/Menos: 3 produtos/);assert.match(output,/Café 0 · Moído 250 g: 9 Pacote/);assert.match(output,/Café 6 · Moído 250 g: 0 Pacote/);assert.match(output,/Demonstração/);assert.match(output,/Produtos da Gestão/);assert(!output.includes('Posso preparar vendas'));assert.equal(workerCalls,0);
+Object.assign(data.sales[0],{total:1000,subtotal:1000});Object.assign(data.sales[0].items[0],{qty:1,total:1000,costTotal:400});output=await ask();assert.match(output,/Café 1 · Moído 250 g: 8 Pacote/);assert.match(output,/Café 0 · Moído 250 g: 1 Pacote/);assert(!output.includes('Café 0 · Moído 250 g: 9 Pacote'));
+scope='fair';await b.actions['agent-event']({id:'fair'});const before=workerCalls;output=await ask();assert.match(output,/Café 0 · Moído 250 g: 20 Pacote/);assert(!output.includes('Café 1 · Moído 250 g: 8 Pacote'));assert.equal(workerCalls,before);assert.equal(notes.length,0);
+console.log('PASS: Consultar uses actual management/ranking bridges, top/bottom, current ledger and scope; no Qwen/Worker dependency.');dom.window.close();process.exit(0);

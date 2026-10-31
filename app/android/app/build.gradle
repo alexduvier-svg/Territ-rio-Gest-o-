@@ -13,8 +13,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 180
-        versionName "0.12.139"
+        versionCode 181
+        versionName "0.12.140"
         resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
         resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
         resValue 'string', 'agro_education_project_id', educationConfig.projectId ?: ''
@@ -41,7 +41,7 @@ android {
         codexTeste {
             dimension "edition"
             applicationIdSuffix ".codexteste"
-            versionNameSuffix "-teste.3"
+            versionNameSuffix "-teste.4"
             ndk { abiFilters.clear(); abiFilters 'arm64-v8a' }
         }
     }

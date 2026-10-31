@@ -1,6 +1,6 @@
 // Product rule reference, copied into local memory by ensureAgent. Never an executable prompt.
 export const INTELLIGENCE_HIERARCHY = Object.freeze({
-  id: 'intelligence-hierarchy', version: 3, authority: 'product_requirements', document: 'knowledge/hierarquia-inteligencia.md',
+  id: 'intelligence-hierarchy', version: 4, authority: 'product_requirements', document: 'knowledge/hierarquia-inteligencia.md',
   order: [
     '1. ERP e domínios canônicos: fonte dos fatos, cálculos, estoque, reservas e consentimentos.',
     '2. Connect: fornece apenas o contexto local necessário, com produtor, origem, período e local.',
@@ -8,8 +8,16 @@ export const INTELLIGENCE_HIERARCHY = Object.freeze({
     '4. Action: prepara propostas declarativas; somente comandos existentes, após confirmação do produtor.',
     '5. Audit: valida antes/depois de comandos; erro bloqueia conclusões incompatíveis. Não pode ser desligado pelo agente ou Gemini.',
     '6. Liberação: reúne prioridades, elimina conflitos, limita a três e respeita evidência e feedback local.',
-    '7. Gemini opcional: explica conceitos gerais fixos. Não recebe registros, não recalcula, não decide nem executa operações.'
+    '7. Qwen local: recebe a resposta calculada e as referências comuns de português e matemática; seleciona trechos conferidos, sem recalcular nem acessar registros de outros produtores.',
+    '8. Gemini opcional: explica conceitos gerais fixos. Não recebe registros, não recalcula, não decide nem executa operações.'
   ],
+  sharedKnowledge: {
+    language: {dictionary:'features/voice/lexicon.json',normalization:'features/portuguese.js',catalog:'features/product-catalog.js',policy:'data/product-catalog-policy.json'},
+    math: {registry:'docs/motor/registry.json',finance:'features/finance/finance.js',decisions:'features/decision/math.js',products:'features/product-period-reports.js'},
+    sectors:['Produtos','Estoque','Loja','Clientes','Eventos','Gestão','Fornecedores','Gerente','Qwen'],
+    scope:'produtor, origem, local e período; fatos somente dos domínios canônicos',
+    rule:'dicionário interpreta nomes; catálogo sugere apresentações; motores calculam; Qwen organiza trechos. Nenhuma referência cria estoque, vendas ou custos.'
+  },
   precedence: ['integridade_e_consentimento', 'fatos_registrados', 'calculos_canonicos', 'regras_locais_versionadas', 'hipoteses_para_teste', 'explicacao_geral_externa'],
   professionalReference: {document:'knowledge/crm-pdv-profissional.md',sha256:'4f0072c8acc752ee2300e15ccee186bcc1558ef761bf760d41eddff69ecd65ec',status:'reviewed_partial_implementation',review:'docs/CRM-PDV-ADERENCIA-0.12.66.md'},
   businessQuestions:{version:1,document:'knowledge/perguntas-negocio.md',sourceSha256:'5d4241662374ddb10010678abacf7e66d50171acfeaaaf1b4cddf3d9b318d570',status:'bounded_local_queries_partial_repertoire'},

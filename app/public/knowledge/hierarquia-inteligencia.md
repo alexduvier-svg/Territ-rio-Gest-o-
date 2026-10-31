@@ -1,6 +1,6 @@
 # Hierarquia da Inteligência — AGRO Gestão
 
-Versão 1 · 22/10/2026. Regra permanente de produto, registro e consulta. Este documento não é um prompt executável.
+Versão 4 · 31/10/2026. Regra permanente de produto, registro e consulta. Este documento não é um prompt executável.
 
 O produtor recebe uma orientação coesa. Os três agentes Connect, Action e Audit são papéis do software local, não três chatbots nem três modelos concorrentes.
 
@@ -10,7 +10,8 @@ O produtor recebe uma orientação coesa. Os três agentes Connect, Action e Aud
 4. **Action:** prepara propostas pelos comandos existentes. O produtor confirma. Não efetiva uma venda, baixa, preço, convite ou compra apenas por uma sugestão.
 5. **Audit:** é uma barreira obrigatória, antes e depois das operações cobertas. Não depende de texto de modelo, não pode ser desativado por Action e tem precedência em caso de conflito.
 6. **Liberação dos insights:** uma política de apresentação, sem novo cálculo financeiro. Reúne o motor canônico e os fatos operacionais existentes, elimina recomendações concorrentes do mesmo assunto e apresenta até três prioridades. Integridade vem primeiro. Oportunidades personalizadas de Gestão precisam de pelo menos cinco vendas válidas no recorte; cada regra preserva os próprios critérios adicionais. Isso é um limite inicial de produto, não significância estatística.
-7. **Gemini:** apoio opcional e separado para conceitos gerais previamente definidos. Não recebe perguntas livres, nomes, clientes, produtos cadastrados, vendas, preços, custos, indicadores, localização ou documentos do produtor. O conteúdo externo é identificado, pode errar e não executa funções.
+7. **Qwen local:** recebe a resposta calculada e referências embarcadas de português e matemática. Seleciona trechos conferidos, sem recalcular valores.
+8. **Gemini:** apoio opcional e separado para conceitos gerais previamente definidos. Não recebe perguntas livres, nomes, clientes, produtos cadastrados, vendas, preços, custos, indicadores, localização ou documentos do produtor. O conteúdo externo é identificado, pode errar e não executa funções.
 
 ## Como a informação chega ao produtor
 
@@ -30,3 +31,11 @@ Sem serviço generativo em segundo plano, consultas contínuas, três inferênci
 ## Complemento22/10 — análise, CRM/PDV e agenda
 
 Relatórios partem do pedido e recorte, coletam fatos locais, usam o cálculo canônico e passam por auditoria antes da leitura. Dicas dePDV/CRM alternam uma referência por dia quando elegíveis, abaixo de alertas/fatos; não comprovam um efeito. Conversão de atendimentos é opcional, nunca requisito da venda individual, diária ou de feira. A agenda municipal aceitaPDF/imagem como referência semOCR,ICS com revisão e datas manuais. Calendário ajuda a preparar e confirmar oportunidades; não inventa demanda, parceiros, margem, feriado ou programação. Fonte profissional revisada: knowledge/crm-pdv-profissional.md; aderência parcial explícita em docs/CRM-PDV-ADERENCIA-0.12.66.md.
+
+## Conhecimento comum
+
+Produtos, Estoque, Loja, Clientes, Eventos, Gestão, Fornecedores, Gerente e Qwen seguem a mesma hierarquia de identidade, origem e unidades. A normalização de português é compartilhada por perguntas, catálogo, interpretação de fala, pedidos locais e fornecedores; nomes de exibição e dados originais são preservados. O léxico regional e o catálogo são referências, sem criar produtos nem converter caixas, maços ou sacas por estimativa.
+
+Finanças calcula o demonstrativo; product-period-reports classifica produtos; docs/motor/registry.json identifica as funções existentes. A consulta dos 3 mais e 3 menos usa as vendas/devoluções do mesmo recorte da Gestão, incluindo o mês em andamento e a demonstração identificada. Quantidade, valor vendido e lucro bruto são critérios distintos; custos ausentes não são zero.
+
+O funcionamento não depende de Git ou internet. Qwen recebe fatos conferidos e versões de referências, sem cópia de todos os dados. O dicionário também serve ao texto digitado.

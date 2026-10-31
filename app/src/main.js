@@ -98,6 +98,7 @@ import * as DaySummary from './features/day-summary.js';
 import * as ProductPeriodReports from './features/product-period-reports.js';
 import * as ManagementReporting from './features/management-reporting.js';
 import * as BusinessQuery from './features/business-query.js';
+import { answerProductRanking } from './features/product-ranking-query.js';
 import * as DataExport from './features/data-export.js';
 import { analysisRows } from './features/analysis-export.js';
 import {answerOpportunity} from './features/opportunity-knowledge.js';
@@ -174,6 +175,7 @@ try {
   window.TerritorioDataExport = DataExport;
   window.TerritorioAnalysisRows = analysisRows;
   window.TerritorioBusinessQuery = BusinessQuery;
+  window.TerritorioProductRankingAnswer = answerProductRanking;
   window.TerritorioOpportunityKnowledge = {answer:answerOpportunity};
   window.TERRITORIO_VERSION = version;
   window.TERRITORIO_API = API;

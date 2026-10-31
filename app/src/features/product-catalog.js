@@ -1,3 +1,4 @@
+import { normalizePortuguese } from './portuguese.js';
 import {stockProductComparator} from './stock-order.js';
 import policy from '../data/product-catalog-policy.json' with { type: 'json' };
 import { STOCK_CATALOG_GUIDELINES } from '../data/stock-catalog-guidelines.js';
@@ -8,7 +9,7 @@ export { STOCK_CATALOG_GUIDELINES };
 let ready = false, pending = null;
 let records = [], families = [], byId = new Map(), byFamily = new Map(), index = [];
 const own = (value, key) => Object.prototype.hasOwnProperty.call(value || {}, key);
-export const normalize = value => String(value ?? '').normalize('NFD').replace(/\p{M}/gu, '').toLocaleLowerCase('pt-BR').replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
+export const normalize = value => normalizePortuguese(value).replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
 export const normalizeProductName = value => policy.baseAliases[normalize(value)] || normalize(value);
 export function categoryFor(category, record = null) {
   if (category === 'Doces e conservas' && record?.subcategoria === 'Conservas e antepastos') return 'Conservas e temperos';

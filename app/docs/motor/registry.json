@@ -290,5 +290,12 @@
     "versao": "1",
     "estado": "Entregue na 0.12.87, no motor de Orientação existente",
     "nota": "Mesmo RULES/release existente; fatos e limitações, sem novo motor."
+  },
+  "consulta_produtos_recorte_atual": {
+    "arquivo": "app/src/features/product-ranking-query.js",
+    "funcao": "answerProductRanking",
+    "classe": "D1 - adaptador de consulta; sem formula financeira paralela",
+    "fontes_canonicas": ["legacy/erp-ui.js:finStatement", "features/product-period-reports.js:buildSelectedProductReport", "features/product-period-reports.js:rankProductRows"],
+    "testes": ["product-ranking-query.test.mjs", "product-period-reports.test.mjs", "qa/codex-teste-ia4-ranking-ui.mjs"]
   }
 }

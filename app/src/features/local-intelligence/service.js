@@ -1,3 +1,4 @@
+import { MODEL_KNOWLEDGE } from './knowledge.js';
 // The model explains an already calculated answer. It has no tools or business write access.
 export const LOCAL_MODEL = Object.freeze({
   id: 'Qwen3-1.7B',
@@ -8,7 +9,7 @@ export const LOCAL_MODEL = Object.freeze({
 });
 export function explanationRequest(text) {
   if (typeof text !== 'string' || !text.trim() || text.length > 4000) throw Error('Use uma consulta menor para a explicação local.');
-  return Object.freeze({ facts: text });
+  return Object.freeze({ facts: text, knowledge: MODEL_KNOWLEDGE });
 }
 // The model selects existing passages. Amounts, labels and missing-data notices
 // always come from the canonical app answer, never from model-written prose.
@@ -23,7 +24,7 @@ export function validateExplanation(text, facts) {
   if (!Array.isArray(selection) || !selection.length || selection.length > 6 || selection.some(i => !Number.isInteger(i) || i < 0 || i >= passages.length) || new Set(selection).size !== selection.length) throw Error('O resumo não passou na conferência. A resposta calculada pelo app permanece acima.');
   // Retain context, every monetary statement and all caveats. Selection can
   // shorten other observations, but cannot hide costs/limits or rename values.
-  const required = passages.flatMap((line, i) => i === 0 || /R\$|custo|parcial|incomplet|insuficient|não |nao |ausen|limita|hipótes|antes de|sem /i.test(line) ? [i] : []);
+  const required = passages.flatMap((line, i) => i === 0 || /^(?:Critério:|Quantidade ·|Mais:|Menos:|Vendas no recorte:)/.test(line) || /R\$|custo|parcial|incomplet|insuficient|não |nao |ausen|limita|hipótes|antes de|sem /i.test(line) ? [i] : []);
   return [...new Set([...selection, ...required])].sort((a,b) => a-b).map(i => passages[i]).join('\n\n');
 }
 export function createLocalIntelligence(provider) {

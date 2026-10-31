@@ -1,4 +1,11 @@
-const norm=s=>String(s||'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase();
+import { normalizePortuguese as norm } from './portuguese.js';
+// Read-only comparisons are recognized before the sale parser sees quantities.
+export function productRankingRequest(question){const q=norm(question);
+ if(/^(?:(?:eu )?vendi|(?:quero|vou) vender|vender|adicion|coloc|registre|anote|apague|exclua|zere)\b/.test(q))return null;
+ if(!/produt|itens|mercador|o que/.test(q)||!/vend|giro|fatur|receita|lucro|rentavel/.test(q)||!/mais|menos|maior|menor|melhor|pior|top|ranking|classific/.test(q))return null;
+ const quantity=/vend|giro/.test(q),profit=/lucro|rentavel/.test(q),revenue=/fatur|receita|valor vendido/.test(q);
+ return {criteria:[...(quantity&&!revenue?['quantity']:[]),...(revenue?['revenue']:[]),...(profit?['profit']:[])].filter((v,i,a)=>a.indexOf(v)===i),top:/mais|maior|melhor|top|ranking|classific/.test(q),bottom:/menos|menor|pior|ranking|classific/.test(q)};
+}
 // Financial questions use the same statement as Gestão. Keep recipes and
 // product rankings with their existing specialists.
 export function isFinancialQuestion(question){const q=norm(question);
@@ -12,4 +19,4 @@ export function businessQueryGate(question){const q=norm(question);
  if(/(?:250|500|1000)\s*(?:g|gramas?).*(?:melhor|que|versus|vs)|esse produto|este produto/.test(q))return {status:'needs_clarification',message:'Confirme o nome e a apresentação de cada produto. Não escolho uma variação automaticamente nem comparo por kg sem a composição confirmada. O relatório Produtos e Margens mostra as apresentações separadas no recorte atual.'};
  return {status:'supported',message:''};
 }
-export const BUSINESS_QUERY_CONTRACT=Object.freeze({version:1,readOnly:true,reference:'knowledge/perguntas-negocio.md',sourceSha256:'5d4241662374ddb10010678abacf7e66d50171acfeaaaf1b4cddf3d9b318d570',supported:['revenue_selected_period','recorded_receipts','outstanding_credit','known_gross_product_result','stock','cached_weather','local_reference'],partial:['natural_language_patterns','product_identity','comparable_periods','complete_variable_contribution'],unavailable:['unrestricted_conversation','production_without_validated_sheet','unmeasured_time_profit','freeform_cloud_context']});
+export const BUSINESS_QUERY_CONTRACT=Object.freeze({version:1,readOnly:true,reference:'knowledge/perguntas-negocio.md',sourceSha256:'5d4241662374ddb10010678abacf7e66d50171acfeaaaf1b4cddf3d9b318d570',supported:['revenue_selected_period','recorded_receipts','outstanding_credit','known_gross_product_result','current_product_top_bottom_by_unit_revenue_profit','stock','cached_weather','local_reference'],partial:['natural_language_patterns','product_identity','comparable_periods','complete_variable_contribution'],unavailable:['unrestricted_conversation','production_without_validated_sheet','unmeasured_time_profit','freeform_cloud_context']});

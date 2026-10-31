@@ -1,3 +1,5 @@
+> A correção de ranking está no código140; o APK140 ainda não foi entregue. Consulte CODEX-TESTE-IA-0.12.140.md.
+
 # Codex Teste 0.12.139 — valores, rastreio e Qwen integrado
 
 O Gerente usa o mesmo `finStatement` da Gestão, incluindo custos rateados de eventos e perdas de estoque. Perguntas sobre valores ou receita financeira consultam o demonstrativo. A seleção de hoje/ontem/mês atual usa os períodos canônicos, inclusive para rateios. Receita, lucro bruto, resultado, caixa, fiado e previsões conservam os rótulos e limites da origem. Custo histórico incompleto não gera afirmação de lucro apurado.

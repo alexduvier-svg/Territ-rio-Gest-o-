@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { MODEL_KNOWLEDGE } from '../src/features/local-intelligence/knowledge.js';
 import {isFinancialQuestion} from '../src/features/business-query.js';
 import assert from 'node:assert/strict';
 import { explanationRequest, validateExplanation, createLocalIntelligence, LOCAL_MODEL } from '../src/features/local-intelligence/service.js';
@@ -20,7 +21,8 @@ test('only the calculated text crosses the model boundary, without business obje
   let received;
   const service=createLocalIntelligence({explain:async request=>{received=request;return {text:'{"trechos":[0]}'};}});
   await service.explain('Custos incompletos.');
-  assert.deepEqual(received,{facts:'Custos incompletos.'});
+  assert.deepEqual(received,{facts:'Custos incompletos.',knowledge:MODEL_KNOWLEDGE});
+  const policy=JSON.parse(received.knowledge);assert.equal(policy.idioma,'pt-BR');assert(policy.setores.includes('Loja'));assert(policy.setores.includes('Qwen'));assert.equal(policy.matematica,7);
   assert.ok(Object.isFrozen(received));
   assert.throws(()=>explanationRequest({sales:[]}));
   assert.throws(()=>explanationRequest('x'.repeat(4001)));
@@ -43,4 +45,9 @@ test('the compatible download is immutable, hash pinned and separate from user d
 test('financial questions use Gestão while culinary recipes and product ranking keep their specialists',()=>{
  for(const text of ['Qual minha receita hoje?', 'Quanto faturei hoje?', 'Qual o lucro bruto?', 'Quanto tenho a receber?', 'Quanto recebi hoje?', 'Mostre o total de taxas'])assert.equal(isFinancialQuestion(text),true,text);
  for(const text of ['Receita de bolo de banana', 'Uma receita culinária', 'Qual produto vendeu mais e qual deixou mais lucro bruto?', 'Como preparar geleia'])assert.equal(isFinancialQuestion(text),false,text);
+});
+
+test('Qwen summary keeps ranking headings attached to the unchanged monetary rows',()=>{
+ const facts='Loja · Hoje\nVendas no recorte: 6; devoluções no recorte: 0.\nCritério: quantidade líquida.\nQuantidade · Pacote\nMais: 3 produtos (até 3)\n1. Café A: 9 Pacote; R$ 90,00.\nMenos: 3 produtos (até 3)\n1. Café B: 0 Pacote; R$ 0,00.';
+ assert.equal(validateExplanation('{"trechos":[0]}',facts),facts.split('\n').join('\n\n'));
 });

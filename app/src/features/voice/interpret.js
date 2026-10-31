@@ -1,9 +1,10 @@
+import { normalizePortuguese } from '../portuguese.js';
 // Conservative adapter for the user's language seed. No transaction, price inference or storage.
 import lexicon from './lexicon.json' with { type: 'json' };
 
 export const cleanSpeech = value => String(value ?? '').normalize('NFKC')
   .replace(/[\u200b-\u200f\u2060\ufeff]/g, '').replace(/[，。！？；：]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 500);
-const norm = value => cleanSpeech(value).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const norm = value => normalizePortuguese(cleanSpeech(value));
 const lemma = word => Object.hasOwn(lexicon.numerals,word) ? word : ({cafes:'cafe',especiais:'especial',graos:'grao',moi:'maco',mois:'maco',duzias:'duzia',quilos:'quilo',gramas:'grama'}[word] || (word.length > 3 && word.endsWith('s') ? word.slice(0, -1) : word));
 const tokens = s => norm(s).replace(/(\d)([a-z])/g, '$1 $2').match(/\d+(?:[.,]\d+)?|[a-z]+/g) || [];
 const aliases = lexicon.products.flatMap(p => [p.plural, ...p.aliases].map(a => [norm(a), norm(p.name)]))

@@ -1,10 +1,12 @@
+import { normalizePortuguese as norm } from '../portuguese.js';
+import { productRankingRequest } from '../business-query.js';
 // Deterministic offline tools. No network, executable document instructions or business writes.
 import { interpretSpeech, cleanSpeech } from '../voice/interpret.js';
 import { productNetItems } from '../product-period-reports.js';
 import { INTELLIGENCE_HIERARCHY } from '../../data/intelligence-hierarchy.js';
 import { AGENT_GUIDELINES } from '../../data/agent-guidelines.js';
 export const AGENT_VERSION=2;
-const DAY=86400000, norm=s=>String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();
+const DAY=86400000;
 const date=s=>Date.parse(s), day=t=>new Date(t).toLocaleDateString('sv-SE',{timeZone:'America/Sao_Paulo'});
 const qty=n=>new Intl.NumberFormat('pt-BR',{maximumFractionDigits:3}).format(n),money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n/100);
 const milli=n=>Math.round(n*1000), median=values=>{const a=[...values].sort((a,b)=>a-b),m=Math.floor(a.length/2);return a.length%2?a[m]:(a[m-1]+a[m])/2;};
@@ -30,7 +32,8 @@ function activeProducts(data){const c=contextOf(data);return(data.products||[]).
 export function productIndex(data){const rows=activeProducts(data).map(p=>({id:p.id,name:p.name,type:p.type||'',format:p.format||'',unit:p.unit,weight:p.weight||0,volume:p.volume||0})),fingerprint=JSON.stringify(rows);let hash=0;for(let i=0;i<fingerprint.length;i++)hash=Math.imul(hash^fingerprint.charCodeAt(i),31);return {version:1,actorId:contextOf(data).actorId,hash:(hash>>>0).toString(16),rows};}
 export function parseRequest(text,data,{scopeId='all',source='text',requestId='',now=Date.now()}={}){
  const cleaned=cleanSpeech(text),key=norm(cleaned);let intent='unsupported';
- if(/^(?:quero (?:saber|entender)|vendi (?:mais|menos))|(?:quanto.*(?:receb|entrou)|quanto.*(?:para|pra) receber)/.test(key))intent='management';
+ if(productRankingRequest(cleaned))intent='management';
+ else if(/^(?:quero (?:saber|entender)|vendi (?:mais|menos))|(?:quanto.*(?:receb|entrou)|quanto.*(?:para|pra) receber)/.test(key))intent='management';
  else if(!/^(?:(?:eu )?vendi|vende|vender|adicion|quero|coloc|\d|um\b|uma\b|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|meio)/.test(key)&&/chuva|chover|clima|tempo.*(?:hoje|amanha)|receita culinaria|receitas?|artesan|parceria|embalagem|fatur|receita|lucro|margem|produto.*(?:caro|barato|vendeu)|qual.*(?:deixou|vendeu)|banana madura/.test(key))intent='management';
  else if(/estoque|quanto.*tenho|quantos.*tenho|repor|acabou|sem moviment/.test(key))intent='stock';
  else if(/como.*feira|resultado.*feira|sobr|como.*evento|anal.*feira/.test(key))intent='fair';

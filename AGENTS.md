@@ -1,3 +1,11 @@
+# Codex Teste 0.12.140 — ranking corrigido; APK bloqueado — 31/10/2026
+
+Pedidos: ranking dos3mais/3menos usando dados atuais do sistema; dicionário Português ligado às lojas/Qwen e matemática/sectores. Código recuperado da139/4e7fb28 após renovação do ambiente e corrigido. Classificação usa as vendas/devoluções selecionadas em finStatement e o agregador/classificador existente de product-period-reports; período atual real/demo, unidades separadas, descontos/devoluções históricos, custo ausente sem lucro inventado, origem/fechamento inválidos bloqueados. Não depende de Qwen/Worker. Português comum em perguntas/catálogo/fala/pedidos locais/fornecedores; hierarquia4 e matemática7 ligam referências. Qwen recebe fatos e referências embarcadas e mantém títulos/valores, sem recalcular.
+
+861 testes, compilação web e fluxoDOM real do Consultar passaram novamente. Não houve acesso aos dados reais, instalação ou inferência no celular. APK140 NÃO ENTREGUE. O SDK e a chave privada de teste do ambiente anterior não estão disponíveis após a renovação. O certificado que a atualização deve preservar é SHA256 2fb95cc1aa0aaf55ae607941e666099b81be35196f4dbbda6d99d45fd1346ef0. Não gerar assinatura diferente e alegar que atualiza a139; não desinstalar/zerar apps do usuário. Último APK instalável continua139, já salvo. Fonte140/código181 pronta para compilação com a chave anterior; pesos/Play completo continuam pendentes.
+
+Relatório app/docs/CODEX-TESTE-IA-0.12.140.md e qa/codex-teste-ia4-validation.json. Preservar original/Claude, identidade, dados, chaves/pesos fora doGit. Persistir código no ramo de teste; não repetir históricos. Não prometer novo APK ou usar o link139 como se contivesse esta correção.
+
 # Codex Teste 0.12.139 — valores e rastreio — 31/10/2026
 
 Pedido: respostas com valores do app, mesma estrutura e motor de rastreio/verificação; Qwen integrado e automático, sem Git em execução. Internet opcional para recursos existentes, sem substituir os registros. Gerente usa finStatement da Gestão (rateios/perdas incluídos); períodos relativos usam seleção canônica. Qwen seleciona trechos existentes em JSON, sem escrever valores: contexto, linhas monetárias e limites são preservados. Rastreio indica módulo, contexto e hora. Origem/conferência inválida bloqueiam; custo ausente impede afirmar lucro apurado.

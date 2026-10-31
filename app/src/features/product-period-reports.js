@@ -83,15 +83,15 @@ function finalizeRow(row) {
   return out;
 }
 
-export function rankProductRows(rows, criterion = 'revenue') {
+export function rankProductRows(rows, criterion = 'revenue', { disjoint = true } = {}) {
   const metric = criterion === 'quantity' ? 'quantity' : criterion === 'profit' ? 'grossProfit' : criterion === 'frequency' ? 'frequency' : 'revenue';
   const eligible = rows.filter(r => Number.isFinite(r[metric]));
   const tie = (a, b) => b.revenue - a.revenue || collator.compare(a.name, b.name) || collator.compare(a.description || '', b.description || '') || collator.compare(a.id, b.id);
   const ordered = [...eligible].sort((a, b) => b[metric] - a[metric] || tie(a, b));
   // A product cannot be both a winner and a laggard in a small sample.
-  const topCount = Math.min(3, Math.ceil(ordered.length / 2));
+  const topCount = Math.min(3, disjoint ? Math.ceil(ordered.length / 2) : ordered.length);
   const top = ordered.slice(0, topCount), topIds = new Set(top.map(r => r.id));
-  const bottom = ordered.filter(r => !topIds.has(r.id)).sort((a, b) => a[metric] - b[metric] || tie(a, b)).slice(0, 3);
+  const bottom = ordered.filter(r => !disjoint || !topIds.has(r.id)).sort((a, b) => a[metric] - b[metric] || tie(a, b)).slice(0, 3);
   return { criterion, top, bottom, eligible: ordered.length, excluded: rows.length - ordered.length };
 }
 
@@ -101,6 +101,17 @@ export function buildProductPeriodReport(data, period, now = Date.now()) {
 
 function buildReportFromSales(data, period, now, sales) {
   if (!period || reportContext(data).type !== 'real' || period.end > now) return null;
+  const selectedSales = sales.filter(s => timestamp(s.date) >= period.start && timestamp(s.date) < period.end);
+  const selectedReturns = sales.filter(s => s.status === 'returned' && timestamp(s.returnedAt || s.date) >= period.start && timestamp(s.returnedAt || s.date) < period.end && timestamp(s.returnedAt || s.date) <= now);
+  return aggregateProductRecords(data, period, now, selectedSales, selectedReturns, false);
+}
+
+// Live queries reuse the canonical aggregator and the records selected by Gestão.
+export function buildSelectedProductReport(data, { sales = [], returns = [], end = Date.now() + 1, now = Date.now() } = {}) {
+  return aggregateProductRecords(data, { kind:'selected', end }, now, sales, returns, true);
+}
+
+function aggregateProductRecords(data, period, now, selectedSales, selectedReturns, live) {
   const all = new Map(), quantities = new Map();
   const ensure = (product, id, unit) => {
     if (!all.has(id)) all.set(id, rowOf(product, id));
@@ -108,25 +119,21 @@ function buildReportFromSales(data, period, now, sales) {
     if (!quantities.has(key)) quantities.set(key, rowOf(product, id, unit));
     return [all.get(id), quantities.get(key)];
   };
-  const products = new Map((data.products || []).filter(realRecord).map(p => [p.id, p]));
+  const products = new Map((data.products || []).filter(p => live || realRecord(p)).map(p => [p.id, p]));
   const registered = new Map();
   for (const m of data.movements || []) if (m.kind === 'initial' && realRecord(m) && Number.isFinite(timestamp(m.date))) {
     registered.set(m.productId, Math.min(registered.get(m.productId) ?? Infinity, timestamp(m.date)));
   }
   for (const p of products.values()) {
+    if (live && (p.active === false || p.archived)) continue;
     const created = p.createdAt ? timestamp(p.createdAt) : registered.get(p.id);
     if (!Number.isFinite(created) || created < period.end) ensure(p, p.id, String(p.unit || 'Unidade'));
   }
-  let salesCount = 0, returnsCount = 0;
-  for (const sale of sales) {
-    // Legacy full returns without a timestamp use the original date, matching
-    // the financial statement; they must never be ranked as an active sale.
-    const at = timestamp(sale.date), returnAt = sale.status === 'returned' ? timestamp(sale.returnedAt || sale.date) : NaN;
-    const inSales = at >= period.start && at < period.end;
-    const inReturns = Number.isFinite(returnAt) && returnAt >= period.start && returnAt < period.end && returnAt <= now;
-    if (!inSales && !inReturns) continue;
-    if (inSales) salesCount++;
-    if (inReturns) returnsCount++;
+  const selected = new Map();
+  for (const sale of selectedSales) selected.set(sale.id, { sale, inSales:true, inReturns:false });
+  for (const sale of selectedReturns) { const prior=selected.get(sale.id); selected.set(sale.id, { sale:prior?.sale || sale, inSales:!!prior?.inSales, inReturns:true }); }
+  const salesCount=selectedSales.length, returnsCount=selectedReturns.length;
+  for (const {sale, inSales, inReturns} of selected.values()) {
     for (const item of productNetItems(sale)) {
       if (!item.productId || !(Number(item.qty) > 0)) continue;
       const unit = String(item.unit || products.get(item.productId)?.unit || 'Unidade');
@@ -140,7 +147,7 @@ function buildReportFromSales(data, period, now, sales) {
         if (item.historicalCost === null && sign !== 0) { row.costKnown = false; row.missingCostLines++; }
         else row.cost += sign * item.historicalCost;
         // Full returns within this window remove that sale from frequency.
-        if (inSales && !(Number.isFinite(returnAt) && returnAt < period.end)) row.saleIds.add(sale.id);
+        if (inSales && !inReturns) row.saleIds.add(sale.id);
       }
     }
   }

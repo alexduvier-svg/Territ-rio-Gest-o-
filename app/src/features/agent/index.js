@@ -63,10 +63,11 @@ export function installAgent(){
   if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')request.intent='management';
   if(request.intent==='sale'){request.scopeId=b.saleScope();const p=proposeSale(b.data(),request,{proposalId:uid()});persist();return paintProposal(p,ctx);}
   b.open('Consulta local','<p class="agent-note">Consultando os registros deste local…</p>',back(),'agent-answer');
-  try{let r=await rpc('query',{...ctx,source,requestId,now:Date.now()},text);if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
+  try{let r=window.TerritorioBusinessQuery?.productRankingRequest(text)?{intent:'management',generatedAt:Date.now(),specialists:[],confidence:''}:await rpc('query',{...ctx,source,requestId,now:Date.now()},text);if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
    if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')r.intent='management';
    if(r.intent==='finance')r.text=b.financialAnswer(text,ctx);
    if(r.intent==='management'){r.text=await b.managementAnswer(text,ctx);r.confidence='Recorte atual da Gestão; cobertura de custos e limites constam da resposta.';r.specialists=[{name:'Gestão, PDV e CRM',source:'Motor de Orientação canônico · diretrizes e registros locais'}];}
+   if(r.intent==='management'&&window.TerritorioBusinessQuery?.productRankingRequest(text)&&window.TerritorioBusinessQuery.businessQueryGate(text).status==='supported'){r.specialists=[{name:'Produtos da Gestão',source:'Mesmo recorte do demonstrativo · quantidade, valor vendido e custo histórico'},{name:'Classificação de produtos',source:'product-period-reports · grupos por unidade · até 3 mais e 3 menos'}];r.confidence='Classificação calculada com os registros do local e período selecionados; descontos e devoluções incluídos.';}
    if(['finance','overview'].includes(r.intent)||(r.intent==='management'&&window.TerritorioBusinessQuery?.isFinancialQuestion(text)&&window.TerritorioBusinessQuery.businessQueryGate(text).status==='supported'))r.specialists=[{name:'Gestão e Finanças',source:'Demonstrativo do app · finance.statement · vendas, devoluções e taxas'},{name:'Clientes a Receber',source:'receivables.collections e outstanding · fiado e recebimentos registrados'}];
    if(r.intent==='overview')r.text=b.financialAnswer(text,ctx);
    if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
