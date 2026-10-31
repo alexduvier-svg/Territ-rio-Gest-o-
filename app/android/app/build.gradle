@@ -4,6 +4,8 @@ apply plugin: 'com.android.application'
 def educationFile = file('firebase-local/general-education.json')
 def educationConfig = educationFile.exists() ? new groovy.json.JsonSlurper().parse(educationFile) : [:]
 
+def iaSigningPath = project.findProperty('codexIaSigningFile')
+if (iaSigningPath && gradle.startParameter.taskNames.any { !it.toLowerCase().contains('codextesteia') }) throw new GradleException('Chave IA só pode assinar CodexTesteIa.')
 android {
     if (project.findProject(':qwenmodel') != null) assetPacks = [':qwenmodel']
     namespace = "br.com.territorio.gestao"
@@ -13,8 +15,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 181
-        versionName "0.12.140"
+        versionCode 182
+        versionName "0.12.141"
         resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
         resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
         resValue 'string', 'agro_education_project_id', educationConfig.projectId ?: ''
@@ -28,7 +30,9 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:voice'
         }
     }
+    androidResources { noCompress += 'litertlm' }
     sourceSets { main { java.exclude '**/AgroVoicePlugin.java'; assets.exclude 'voice/**' }; androidTest { java.exclude '**/VoiceOfflineInstrumentedTest.java' } }
+    if (iaSigningPath) { signingConfigs.debug.storeFile = file(iaSigningPath); signingConfigs.debug.storePassword = 'android'; signingConfigs.debug.keyAlias = 'androiddebugkey'; signingConfigs.debug.keyPassword = 'android' }
     buildTypes {
         release {
             minifyEnabled false
@@ -38,6 +42,7 @@ android {
     flavorDimensions "edition"
     productFlavors {
         original { dimension "edition" }
+        codexTesteIa { dimension "edition"; applicationIdSuffix ".codextesteia"; versionNameSuffix "-teste.5"; ndk { abiFilters.clear(); abiFilters 'arm64-v8a' } }
         codexTeste {
             dimension "edition"
             applicationIdSuffix ".codexteste"

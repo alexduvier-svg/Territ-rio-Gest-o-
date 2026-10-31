@@ -1,11 +1,14 @@
 import { Capacitor, registerPlugin } from '@capacitor/core';
 import { createLocalIntelligence, LOCAL_MODEL } from './service.js';
 import './local-intelligence.css';
+import { validateReadPlan } from '../business-assistant.js';
+import { MODEL_KNOWLEDGE } from './knowledge.js';
 const native = registerPlugin('AgroLocalIntelligence');
+const speaker=registerPlugin('AgroAnswerVoice');
 export function installLocalIntelligence(b) {
   if(!b)return;
   const esc = b.escape, service = createLocalIntelligence(native);
-  let current = null, epoch = 0, busy = false;
+  let current = null, epoch = 0, busy = false, speaking=false,speechEpoch=0;
   const dialog = document.getElementById('dialog');
   const button = (action, label, style='choice') => '<button type="button" class="'+style+' local-ai-button" data-action="'+action+'">'+label+'</button>';
   const back = button('local-ai-back','Voltar','sheet-back');
@@ -15,7 +18,16 @@ export function installLocalIntelligence(b) {
   const previousIntelligence = b.actions['settings-intelligence'];
   let voiceBusy=false;
   function currentKey() { return window.TerritorioAgent?.context?.()?.actorId+'|'+window.TerritorioAgent?.revision?.(); }
-  function cancel() { epoch++; busy=false; service.cancel(); }
+  function stopReading(){speechEpoch++;speaking=false;speaker.stop({}).catch(()=>{});const c=document.querySelector('[data-action="local-ai-read"]');if(c)c.textContent='Ouvir resposta';}
+  function cancel(){epoch++;busy=false;service.cancel();stopReading();}
+  async function readAnswer(){
+    if(speaking){stopReading();return;}
+    const item=current;if(!item||item.key!==currentKey())throw Error('Os registros mudaram. Faça uma nova consulta antes de ouvir.');
+    if(!Capacitor.isNativePlatform()||!Capacitor.isPluginAvailable('AgroAnswerVoice'))throw Error('Leitura disponível no APK Android.');
+    const escaped=esc(item.facts);if(b.privateHTML(escaped)!==escaped)throw Error('Mostre os valores na Gestão antes de ouvir a resposta.');
+    const token=++speechEpoch;speaking=true;const c=document.querySelector('[data-action="local-ai-read"]');if(c)c.textContent='Parar leitura';
+    try{await speaker.speak({text:[item.originLabel,item.contextLabel,item.facts].filter(Boolean).join('\n')});}finally{if(token===speechEpoch){speaking=false;if(c?.isConnected)c.textContent='Ouvir resposta';}}
+  }
   async function settings() {
     cancel(); const token=epoch;
     b.open('Inteligência no aparelho','<p role="status">Conferindo disponibilidade…</p>',back,'agent-local-settings');
@@ -35,6 +47,7 @@ export function installLocalIntelligence(b) {
     const item=current;
     if(current.key!==currentKey())throw Error('Os registros mudaram. Faça uma nova consulta.');
     const escaped=esc(current.facts);if(b.privateHTML(escaped)!==escaped)throw Error('Mostre os valores na Gestão antes de pedir esta explicação.');
+    if(item.facts.length>4000){const area=document.getElementById('local-ai-result');if(area)area.innerHTML='<p class="agent-note">A resposta completa do motor está acima e pode ser ouvida. Informe um produto para obter um resumo menor.</p>';return;}
     let s=await status();if(item!==current||item.key!==currentKey()||document.hidden)return;
     const area=document.getElementById('local-ai-result');if(!area)return;
     if(s.supported&&!s.imported&&s.packaged&&s.enabled){area.innerHTML='<p role="status">Preparando o Qwen incluído no app…</p>';await service.installModel();if(item!==current||item.key!==currentKey()||document.hidden)return;s=await status();}
@@ -48,6 +61,7 @@ export function installLocalIntelligence(b) {
     } catch(e) { if(token===epoch&&area.isConnected)area.innerHTML='<p role="status">'+esc(e.message || 'A explicação não ficou disponível.')+'</p><p class="agent-note">A resposta original do Gerente permanece acima.</p>'; } finally { if(token===epoch)busy=false; }
   }
   const actions={
+    'local-ai-read':readAnswer,
     'local-ai-settings':settings,'settings-intelligence':settings,
     'local-ai-guidelines':()=>{cancel();previousIntelligence?.();},
     'local-ai-manager':()=>{cancel();b.actions['agent-open']();},
@@ -55,7 +69,7 @@ export function installLocalIntelligence(b) {
     'local-ai-install':installModel,
     'local-ai-cancel-install':async()=>{cancel();await service.cancel();await settings();},
     'local-ai-speech':async()=>{
-      if(voiceBusy)return;if(!available())throw Error('Voz disponível somente no Android compatível.');
+      if(voiceBusy)return;stopReading();if(!available())throw Error('Voz disponível somente no Android compatível.');
       const input=document.getElementById('agent-question');if(!input)return;
       const key=currentKey();voiceBusy=true;
       try{const r=await native.speech({});if(key!==currentKey()||!input.isConnected)return;input.value=r.text;input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();b.toast('Confira o texto e toque em Consultar.');}finally{voiceBusy=false;}
@@ -66,10 +80,14 @@ export function installLocalIntelligence(b) {
     'local-ai-cancel':()=>{cancel();const area=document.getElementById('local-ai-result');if(area)area.innerHTML='<p role="status">Explicação cancelada. A consulta original continua disponível.</p>';},
   };
   for(const [name,fn] of Object.entries(actions))b.actions[name]=(...args)=>Promise.resolve().then(()=>fn(...args)).catch(e=>b.toast(e.message));
-  window.TerritorioLocalIntelligence={attach(result) {
+  window.TerritorioLocalIntelligence={cancel,async interpret(question){
+    if(!available())return null;const s=await status();if(!s.enabled||!s.supported)return null;
+    if(!s.imported&&s.packaged)await service.installModel();else if(!s.imported)return null;
+    let timeout;try{const r=await Promise.race([native.interpret({question,knowledge:MODEL_KNOWLEDGE}),new Promise((_,reject)=>{timeout=setTimeout(()=>{service.cancel();reject(Error('Interpretação adiada.'));},30000);})]);return validateReadPlan(r.text);}catch{return null;}finally{clearTimeout(timeout);}
+  },attach(result) {
     cancel();current={facts:result.text,key:currentKey(),eligible:['stock','finance','management','overview','fair','rebuy'].includes(result.intent),started:false,sources:result.specialists||[],contextLabel:result.contextLabel,originLabel:result.originLabel,generatedAt:result.generatedAt};
     if(!current.eligible)return '';
-    return '<section class="local-ai-card" id="local-ai-result"><p role="status">Conferindo o assistente local…</p></section>';
+    return '<section class="local-ai-card" id="local-ai-audio">'+button('local-ai-read','Ouvir resposta')+'<p class="agent-note">Leitura da resposta verificada, com a voz offline disponível no Android.</p></section><section class="local-ai-card" id="local-ai-result"><p role="status">Conferindo o assistente local…</p></section>';
   },start() {
     if(!current||current.started||!current.eligible)return;
     const item=current;current.started=true;
@@ -77,9 +95,9 @@ export function installLocalIntelligence(b) {
   }};
   document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel();});
   dialog?.addEventListener('close',cancel);
-  if(dialog)new MutationObserver(()=>{if(busy&&!['agent-answer','agent-local-install'].includes(dialog.dataset.kind))cancel();}).observe(dialog,{attributes:true,attributeFilter:['data-kind']});
-  function decorate(){const panel=document.getElementById('agent-panel');if(!panel||panel.querySelector('.local-ai-manager-access'))return;const query=panel.querySelector('.agent-query');if(!query)return;query.insertAdjacentHTML('afterbegin','<div class="local-ai-manager-access"><span>Assistente do negócio</span>'+button('local-ai-settings','Configurar')+'</div>');const submit=query.querySelector('[data-action="agent-ask"]');submit?.insertAdjacentHTML('beforebegin',button('local-ai-speech','Falar pergunta')+'<p class="agent-note">Voz offline do Android, quando disponível. Confira o texto antes de consultar.</p>');}
-  new MutationObserver(decorate).observe(document.getElementById('app'),{childList:true,subtree:true});
+  if(dialog)new MutationObserver(()=>{if((busy||speaking)&&!['agent-answer','agent-local-install'].includes(dialog.dataset.kind))cancel();}).observe(dialog,{attributes:true,attributeFilter:['data-kind']});
+  function decorate(){const panel=document.getElementById('agent-panel'),query=panel?.querySelector('.agent-query')||(dialog?.dataset.kind==='agent-answer'?dialog.querySelector('.agent-query'):null);if(!query||query.querySelector('.local-ai-manager-access'))return;query.insertAdjacentHTML('afterbegin','<div class="local-ai-manager-access"><span>Assistente do negócio</span>'+button('local-ai-settings','Configurar')+'</div>');const submit=query.querySelector('[data-action="agent-ask"]');submit?.insertAdjacentHTML('beforebegin',button('local-ai-speech','Falar pergunta')+'<p class="agent-note">Voz offline do Android, quando disponível. Confira o texto antes de consultar.</p>');}
+  new MutationObserver(()=>{decorate();if(speaking&&current&&(current.key!==currentKey()||b.privateHTML(esc(current.facts))!==esc(current.facts)))stopReading();}).observe(document.getElementById('app'),{childList:true,subtree:true});
   if(dialog)new MutationObserver(decorate).observe(dialog,{childList:true,subtree:true});
   decorate();
 }

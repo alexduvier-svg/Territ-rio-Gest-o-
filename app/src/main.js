@@ -99,6 +99,7 @@ import * as ProductPeriodReports from './features/product-period-reports.js';
 import * as ManagementReporting from './features/management-reporting.js';
 import * as BusinessQuery from './features/business-query.js';
 import { answerProductRanking } from './features/product-ranking-query.js';
+import * as BusinessAssistant from './features/business-assistant.js';
 import * as DataExport from './features/data-export.js';
 import { analysisRows } from './features/analysis-export.js';
 import {answerOpportunity} from './features/opportunity-knowledge.js';
@@ -176,6 +177,7 @@ try {
   window.TerritorioAnalysisRows = analysisRows;
   window.TerritorioBusinessQuery = BusinessQuery;
   window.TerritorioProductRankingAnswer = answerProductRanking;
+  window.TerritorioBusinessAssistant = BusinessAssistant;
   window.TerritorioOpportunityKnowledge = {answer:answerOpportunity};
   window.TERRITORIO_VERSION = version;
   window.TERRITORIO_API = API;
@@ -263,6 +265,6 @@ try {
   console.error(error);
   SplashScreen.hide().catch(() => {});
   document.getElementById('app').innerHTML =
-    '<section class="panel" style="margin-top:40px"><h2>Não foi possível abrir o Codex Teste</h2>' +
+    '<section class="panel" style="margin-top:40px"><h2>Não foi possível abrir o Codex Teste IA</h2>' +
     '<p class="muted">Seus dados continuam guardados no aparelho. Feche e abra o app novamente.</p></section>';
 }

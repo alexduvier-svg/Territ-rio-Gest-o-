@@ -15,6 +15,7 @@ public class MainActivity extends BridgeActivity {
         registerPlugin(AgroCalendarPlugin.class);
         registerPlugin(AgroGeneralEducationPlugin.class);
         registerPlugin(AgroLocalIntelligencePlugin.class);
+        registerPlugin(AgroAnswerVoicePlugin.class);
         super.onCreate(savedInstanceState);
     }
 }
