@@ -13,27 +13,57 @@ import com.getcapacitor.annotation.CapacitorPlugin;
 import com.google.ai.edge.litertlm.*;
 import java.io.*;
 import java.security.MessageDigest;
+import java.net.URL;
+import java.net.HttpURLConnection;
 import java.util.Collections;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
 
-/** Optional local explanation only. No networking, ERP files, tools or business writes. */
+/** Fixed model download and optional local explanation. No ERP files, tools or business writes. */
 @CapacitorPlugin(name="AgroLocalIntelligence")
 public class AgroLocalIntelligencePlugin extends Plugin {
     private static final long MODEL_BYTES=977184032L;
     private static final String MODEL_SHA="2a72330b504a6596d53a2c00923c57173b10f1b83e6a541213ffec08d1fc5de8";
+    private static final String MODEL_URL="https://huggingface.co/litert-community/Qwen3-1.7B/resolve/d6678881da6181864bbc893c80e10aa1ee0d3731/Qwen3-1.7B_dynamic_wi4b32_afp32.litertlm?download=true";
     private final ExecutorService io=Executors.newSingleThreadExecutor();
     private final ScheduledExecutorService timer=Executors.newSingleThreadScheduledExecutor();
     private final AtomicBoolean busy=new AtomicBoolean(false);
     private final AtomicLong generation=new AtomicLong();
     private volatile Conversation activeConversation;
     private volatile boolean foreground=true;
+    private volatile HttpURLConnection downloadConnection;
+    private volatile boolean downloading=false;
+    private volatile boolean downloadScreenHeld=false;
+    private void holdDownloadScreen(){if(getActivity()!=null)getActivity().runOnUiThread(()->{int flag=android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;if((getActivity().getWindow().getAttributes().flags&flag)==0){getActivity().getWindow().addFlags(flag);downloadScreenHeld=true;}});}
+    private void releaseDownloadScreen(){if(getActivity()!=null)getActivity().runOnUiThread(()->{if(downloadScreenHeld){getActivity().getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);downloadScreenHeld=false;}});}
     private File modelFile(){return new File(getContext().getNoBackupFilesDir(),"qwen-agro-1.litertlm");}
+    private File partialFile(){return new File(getContext().getNoBackupFilesDir(),"qwen-download.part");}
     private android.content.SharedPreferences preferences(){return getContext().getSharedPreferences("local-intelligence",0);}
     private boolean supported(){for(String abi:Build.SUPPORTED_ABIS)if("arm64-v8a".equals(abi))return true;return false;}
     private boolean imported(){return modelFile().isFile()&&modelFile().length()==MODEL_BYTES&&MODEL_SHA.equals(preferences().getString("verifiedSha",""));}
-    @PluginMethod public void status(PluginCall call){JSObject r=new JSObject();r.put("supported",supported());r.put("imported",imported());r.put("enabled",preferences().getBoolean("enabled",false));r.put("busy",busy.get());call.resolve(r);}
+    @PluginMethod public void status(PluginCall call){JSObject r=new JSObject();r.put("supported",supported());r.put("imported",imported());r.put("enabled",preferences().getBoolean("enabled",false));r.put("busy",busy.get());r.put("downloading",downloading);r.put("downloaded",Math.min(partialFile().length(),MODEL_BYTES));r.put("total",MODEL_BYTES);call.resolve(r);}
+    private void downloadProgress(String phase,long bytes){JSObject r=new JSObject();r.put("phase",phase);r.put("downloaded",bytes);r.put("total",MODEL_BYTES);notifyListeners("modelDownloadProgress",r);}
+    @PluginMethod public void downloadModel(PluginCall call){
+        if(call.getData().length()!=0||!supported()){call.reject("Este download requer Android de 64 bits.");return;}
+        if(!busy.compareAndSet(false,true)){call.reject("Aguarde a operação atual.");return;}
+        final long token=generation.incrementAndGet();downloading=true;holdDownloadScreen();
+        io.execute(()->{try{
+            if(!foreground)throw new IOException("Volte ao aplicativo para baixar o assistente.");
+            java.util.function.BooleanSupplier cancelled=()->token!=generation.get()||!foreground;
+            if(!ModelDownload.matches(modelFile(),MODEL_BYTES,MODEL_SHA,cancelled)){
+                long remaining=Math.max(0,MODEL_BYTES-partialFile().length());
+                if(modelFile().getParentFile().getUsableSpace()<remaining+256L*1024*1024)throw new IOException("Espaço insuficiente. Libere cerca de 1,3 GB para instalar o assistente.");
+                ModelDownload.fetch(partialFile(),new URL(MODEL_URL),MODEL_BYTES,MODEL_SHA,url->{HttpURLConnection c=(HttpURLConnection)url.openConnection();downloadConnection=c;return c;},cancelled,this::downloadProgress);
+                if(cancelled.getAsBoolean())throw new IOException("Download pausado. Toque em retomar para continuar.");
+                if(!partialFile().renameTo(modelFile()))throw new IOException("Não foi possível instalar o modelo verificado.");
+            }
+            if(cancelled.getAsBoolean())throw new IOException("Ativação pausada. Volte ao aplicativo e tente novamente.");
+            if(!preferences().edit().putString("verifiedSha",MODEL_SHA).putBoolean("enabled",true).commit())throw new IOException("O modelo foi salvo, mas não foi possível confirmar a ativação. Tente novamente.");
+            downloadProgress("ready",MODEL_BYTES);call.resolve();
+        }catch(Exception e){downloadProgress("paused",Math.min(partialFile().length(),MODEL_BYTES));call.reject(e.getMessage()==null?"Download interrompido. Você pode retomar depois.":e.getMessage());}
+        finally{downloadConnection=null;downloading=false;busy.set(false);releaseDownloadScreen();}});
+    }
     @PluginMethod public void speech(PluginCall call){
         try{Intent intent=new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -77,7 +107,7 @@ public class AgroLocalIntelligencePlugin extends Plugin {
             preferences().edit().putString("verifiedSha",MODEL_SHA).putBoolean("enabled",false).apply();call.resolve();
         }catch(Exception e){temporary.delete();call.reject(e.getMessage()==null?"Não foi possível importar.":e.getMessage());}finally{busy.set(false);}});
     }
-    @PluginMethod public void removeModel(PluginCall call){if(!busy.compareAndSet(false,true)){call.reject("Cancele a operação e aguarde antes de remover.");return;}try{if(modelFile().exists()&&!modelFile().delete()){call.reject("Não foi possível remover o modelo.");return;}preferences().edit().clear().apply();call.resolve();}finally{busy.set(false);}}
+    @PluginMethod public void removeModel(PluginCall call){if(!busy.compareAndSet(false,true)){call.reject("Cancele a operação e aguarde antes de remover.");return;}try{if(modelFile().exists()&&!modelFile().delete()){call.reject("Não foi possível remover o modelo.");return;}if(partialFile().exists()&&!partialFile().delete()){call.reject("Não foi possível remover o download parcial.");return;}preferences().edit().clear().apply();call.resolve();}finally{busy.set(false);}}
     private void checkConditions(){
         if(!foreground||!supported()||!imported()||!preferences().getBoolean("enabled",false))throw new IllegalStateException("Importe e ative o modelo em Inteligência no aparelho.");
         ActivityManager.MemoryInfo info=new ActivityManager.MemoryInfo();((ActivityManager)getContext().getSystemService(android.content.Context.ACTIVITY_SERVICE)).getMemoryInfo(info);
@@ -104,9 +134,9 @@ public class AgroLocalIntelligencePlugin extends Plugin {
             finally{if(timeout!=null)timeout.cancel(false);activeConversation=null;try{if(conversation!=null)conversation.close();}catch(Throwable ignored){}try{if(engine!=null)engine.close();}catch(Throwable ignored){}busy.set(false);}
         });
     }
-    private void stop(){generation.incrementAndGet();Conversation c=activeConversation;if(c!=null)try{c.cancelProcess();}catch(Throwable ignored){}}
+    private void stop(){generation.incrementAndGet();HttpURLConnection connection=downloadConnection;if(connection!=null)connection.disconnect();Conversation c=activeConversation;if(c!=null)try{c.cancelProcess();}catch(Throwable ignored){}}
     @PluginMethod public void cancel(PluginCall call){stop();call.resolve();}
-    @Override protected void handleOnPause(){foreground=false;stop();}
+    @Override protected void handleOnPause(){foreground=false;stop();releaseDownloadScreen();}
     @Override protected void handleOnResume(){foreground=true;}
     @Override protected void handleOnDestroy(){stop();io.shutdownNow();timer.shutdownNow();}
 }

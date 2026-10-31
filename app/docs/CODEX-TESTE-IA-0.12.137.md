@@ -1,3 +1,5 @@
+> Histórico da primeira versão. O fluxo manual foi substituído pela ativação automática na versão0.12.138; consulte CODEX-TESTE-IA-0.12.138.md.
+
 # Codex Teste — assistência local opcional
 
 Base: ramo Codex `78edfb5e2a44fc0819e5cf904420d4cb5f85c535` (0.12.136).

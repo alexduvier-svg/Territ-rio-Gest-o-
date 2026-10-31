@@ -1,3 +1,9 @@
+# Codex Teste 0.12.138 — ativação automática — 30/10/2026
+
+Pedido: usuário não deve baixar/importar o modelo manualmente. Botão único Baixar e ativar assistente, download HTTPS do Qwen3 1.7B para área privada, progresso, hash e ativação automáticos. Retomada por Range;200 reinicia sem duplicar; arquivo incorreto não é ativado. Mantenha em primeiro plano; tela ligada durante download, pausa ao sair. Sem download silencioso ao instalar o app, sem API para dados do produtor. Modelo977MB, espaço livre1,3GB.
+
+APK0.12.138-teste.2/code179, pacote br.com.territorio.gestao2.codexteste e MESMO certificado da137 (atualiza o Codex Teste, não o original). 37035726bytes/SHA7c3e7c6f8b7291919cfa79ee1913552fce827ed4c944c4c3a8fc49cf33ebe479. 837testes de domínio,9cenários Java de download,DOM da ativação,buildAndroid e assinatura v2/ZIP16KB/64assets passaram. Bibliotecas nativas idênticas às137 comELF16KB. HEAD da origem fixa200. Sem teste de download completo, inferência ou voz em Android físico. Relatório app/docs/CODEX-TESTE-IA-0.12.138.md; prova qa/codex-teste-ia2-validation.json. Não publicar APK/chave/pesos/SDK/dados noGit. Não instalar nem zerar apps originais.
+
 # Codex Teste — experiência local de IA — 30/10/2026
 
 Pedido atual: gerar app separado chamado Codex Teste, a partir da versão Codex, com mudanças do Gerente e assistência local. Base 78edfb5/0.12.136. Trabalho isolado no ramo codex/gerente-local-preview. Variante assembleCodexTesteDebug, pacote br.com.territorio.gestao2.codexteste, assinatura nova de teste: NÃO instalar sobre gestao2, não alterar identidade/assinatura/dados do app original nem copiar suas bases. Fonte e relatório app/docs/CODEX-TESTE-IA-0.12.137.md.

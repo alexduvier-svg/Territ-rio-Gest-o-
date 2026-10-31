@@ -1,0 +1,23 @@
+{
+  "app": "Codex Teste",
+  "version": "0.12.138-teste.2",
+  "versionCode": 179,
+  "package": "br.com.territorio.gestao2.codexteste",
+  "apkBytes": 37035726,
+  "apkSha256": "7c3e7c6f8b7291919cfa79ee1913552fce827ed4c944c4c3a8fc49cf33ebe479",
+  "sameSignerAs137": true,
+  "signatureV2Verified": true,
+  "zip16kAlignmentVerified": true,
+  "nativeLibrariesUnchangedFrom137": true,
+  "publicAssetFilesVerified": 64,
+  "domainTestsPassed": 837,
+  "nativeDownloaderScenariosPassed": 9,
+  "domDownloadFlowPassed": true,
+  "fixedDownloadEndpointHeadStatus": 200,
+  "model": "Qwen3 1.7B INT4",
+  "modelDownloadBytes": 977184032,
+  "modelBundled": false,
+  "physicalDeviceTest": false,
+  "realFullModelDownloadOnAndroidTest": false,
+  "foregroundScreenHoldImplemented": true
+}

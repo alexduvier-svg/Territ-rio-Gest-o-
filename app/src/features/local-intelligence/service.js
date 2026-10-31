@@ -21,6 +21,7 @@ export function createLocalIntelligence(provider) {
   let epoch = 0;
   return {
     status: () => provider.status({}),
+    downloadModel: () => provider.downloadModel({}),
     importModel: () => provider.importModel({}),
     removeModel: () => provider.removeModel({}),
     setEnabled: enabled => provider.setEnabled({ enabled }),
