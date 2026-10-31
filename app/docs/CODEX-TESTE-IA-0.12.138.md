@@ -1,3 +1,5 @@
+> Histórico: o download externo foi retirado na139. Consulte CODEX-TESTE-IA-0.12.139.md.
+
 # Codex Teste 0.12.138 — baixar e ativar com um toque
 
 O produtor abre Ajustes > Inteligência e toca em **Baixar e ativar assistente**. O app baixa o Qwen3 compatível, mostra o progresso, confere tamanho e SHA-256 e ativa o modelo. Não abre navegador nem pede escolha de arquivo.

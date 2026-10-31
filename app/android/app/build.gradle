@@ -5,6 +5,7 @@ def educationFile = file('firebase-local/general-education.json')
 def educationConfig = educationFile.exists() ? new groovy.json.JsonSlurper().parse(educationFile) : [:]
 
 android {
+    if (project.findProject(':qwenmodel') != null) assetPacks = [':qwenmodel']
     namespace = "br.com.territorio.gestao"
     testBuildType "release"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -12,8 +13,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 179
-        versionName "0.12.138"
+        versionCode 180
+        versionName "0.12.139"
         resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
         resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
         resValue 'string', 'agro_education_project_id', educationConfig.projectId ?: ''
@@ -40,7 +41,7 @@ android {
         codexTeste {
             dimension "edition"
             applicationIdSuffix ".codexteste"
-            versionNameSuffix "-teste.2"
+            versionNameSuffix "-teste.3"
             ndk { abiFilters.clear(); abiFilters 'arm64-v8a' }
         }
     }
@@ -81,4 +82,8 @@ try {
     }
 } catch(Exception e) {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}
+
+if (project.findProject(':qwenmodel') != null) {
+    tasks.named('preBuild').configure { dependsOn ':qwenmodel:verifyQwenModel' }
 }

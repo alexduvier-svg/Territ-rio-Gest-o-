@@ -1,3 +1,11 @@
+# Codex Teste 0.12.139 — valores e rastreio — 31/10/2026
+
+Pedido: respostas com valores do app, mesma estrutura e motor de rastreio/verificação; Qwen integrado e automático, sem Git em execução. Internet opcional para recursos existentes, sem substituir os registros. Gerente usa finStatement da Gestão (rateios/perdas incluídos); períodos relativos usam seleção canônica. Qwen seleciona trechos existentes em JSON, sem escrever valores: contexto, linhas monetárias e limites são preservados. Rastreio indica módulo, contexto e hora. Origem/conferência inválida bloqueiam; custo ausente impede afirmar lucro apurado.
+
+Download externo e importação manual removidos. Modelo privado já verificado na138 reutilizado; mesmo pacote/certificado. Entrega completa prevista por asset pack install-time qwenmodel, com pesos locais ignorados peloGit e build guardado por tamanho/SHA. APK de teste139 NÃO contém pesos; instalação nova informa ausência sem baixar fora. AAB completo/pesos/publicaçãoPlay/inferência/voz física NÃO testados. Voz somente on-deviceAndroid12+, com permissão de microfone ao toque. Recursos opcionais de conexão do app permanecem; Qwen não navega nem consulta Git.
+
+846 testes de domínio,6 cenários Java de instalação local, fluxoDOM e buildAndroid passaram. Mesmo certificado138,ZIP16KB/assets/bibliotecas conferidos. APKsha eb415a62c75514f0af6c39f10a759719af7f6055d50ed2ee0968d50fe9ed05f7. Consulte app/docs/CODEX-TESTE-IA-0.12.139.md e qa/codex-teste-ia3-validation.json. Não publicar APK/chaves/pesos/dados noGit, não alterar identidade do original/Claude nem repetir testes históricos. Nenhuma instalação de aparelho foi executada nesta sessão.
+
 # Codex Teste 0.12.138 — ativação automática — 30/10/2026
 
 Pedido: usuário não deve baixar/importar o modelo manualmente. Botão único Baixar e ativar assistente, download HTTPS do Qwen3 1.7B para área privada, progresso, hash e ativação automáticos. Retomada por Range;200 reinicia sem duplicar; arquivo incorreto não é ativado. Mantenha em primeiro plano; tela ligada durante download, pausa ao sair. Sem download silencioso ao instalar o app, sem API para dados do produtor. Modelo977MB, espaço livre1,3GB.

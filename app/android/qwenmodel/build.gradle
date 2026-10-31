@@ -1,0 +1,14 @@
+apply plugin: 'com.android.asset-pack'
+assetPack {
+    packName = 'qwenmodel'
+    dynamicDelivery { deliveryType = 'install-time' }
+}
+tasks.register('verifyQwenModel') {
+    doLast {
+        def weights = file('src/main/assets/qwen/model.litertlm')
+        if (!weights.isFile() || weights.length() != 977184032L) throw new GradleException('Modelo Qwen ausente ou incompleto: forneça o arquivo de pesos verificado em qwenmodel/src/main/assets/qwen/model.litertlm. Não é baixado pelo app nem enviado ao Git.')
+        def digest = java.security.MessageDigest.getInstance('SHA-256')
+        weights.withInputStream { stream -> byte[] buffer = new byte[1024 * 1024]; int count; while ((count = stream.read(buffer)) != -1) digest.update(buffer, 0, count) }
+        if (digest.digest().encodeHex().toString() != '2a72330b504a6596d53a2c00923c57173b10f1b83e6a541213ffec08d1fc5de8') throw new GradleException('O modelo não passou na verificação SHA-256.')
+    }
+}

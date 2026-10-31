@@ -30,3 +30,6 @@ credentials.json
 **/local.properties
 **/native-apk-validation*.json
 **/RETOMADA-*.md
+
+# Local model weights are distributed in the Play asset pack, never in source Git.
+*.litertlm

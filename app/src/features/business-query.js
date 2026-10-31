@@ -1,4 +1,10 @@
 const norm=s=>String(s||'').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase();
+// Financial questions use the same statement as Gestão. Keep recipes and
+// product rankings with their existing specialists.
+export function isFinancialQuestion(question){const q=norm(question);
+ if(/culin|receita.*(?:bolo|geleia|doce|pao|banana|ingrediente)|como.*(?:cozinhar|preparar)|qual.*produto|produto.*(?:mais|menos|melhor|pior)/.test(q))return false;
+ return /fatur|receita|receb|a receber|para receber|pra receber|quanto.*(?:vend|ganh)|dinheiro.*entrou|entrou.*dinheiro|(?:qual|quanto|mostr|valor|total|resum).*\b(?:lucro|margem|resultado|taxas|fiado)\b/.test(q);
+}
 // Read contracts over existing modules. Unsupported calculations remain explicit, never guessed.
 export function businessQueryGate(question){const q=norm(question);
  if(/semana passada|mes passado|aumentou|caiu|cairam|essa dica.*funcionou|mais que/.test(q))return {status:'needs_clarification',message:'Para comparar, selecione os períodos e a origem na Gestão. Esta consulta ainda não apura automaticamente períodos equivalentes nem comprova causas da mudança. Posso mostrar o recorte atual; não vou inventar a comparação.'};

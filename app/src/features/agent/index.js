@@ -64,14 +64,17 @@ export function installAgent(){
   if(request.intent==='sale'){request.scopeId=b.saleScope();const p=proposeSale(b.data(),request,{proposalId:uid()});persist();return paintProposal(p,ctx);}
   b.open('Consulta local','<p class="agent-note">Consultando os registros deste local…</p>',back(),'agent-answer');
   try{let r=await rpc('query',{...ctx,source,requestId,now:Date.now()},text);if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
+   if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')r.intent='management';
    if(r.intent==='finance')r.text=b.financialAnswer(text,ctx);
    if(r.intent==='management'){r.text=await b.managementAnswer(text,ctx);r.confidence='Recorte atual da Gestão; cobertura de custos e limites constam da resposta.';r.specialists=[{name:'Gestão, PDV e CRM',source:'Motor de Orientação canônico · diretrizes e registros locais'}];}
-   if(r.intent==='overview')r.text=b.financialAnswer(text,ctx)+'\n\n'+(r.priorities.length?'Pontos para conferir:\n'+r.priorities.map(i=>i.observation+' '+i.nextAction).join('\n\n'):'Ainda não há registros suficientes para apontar prioridades.');
+   if(['finance','overview'].includes(r.intent)||(r.intent==='management'&&window.TerritorioBusinessQuery?.isFinancialQuestion(text)&&window.TerritorioBusinessQuery.businessQueryGate(text).status==='supported'))r.specialists=[{name:'Gestão e Finanças',source:'Demonstrativo do app · finance.statement · vendas, devoluções e taxas'},{name:'Clientes a Receber',source:'receivables.collections e outstanding · fiado e recebimentos registrados'}];
+   if(r.intent==='overview')r.text=b.financialAnswer(text,ctx);
    if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
    const trace='<details class="manager-consultation"><summary>Especialistas consultados</summary>'+r.specialists.map(s=>'<p><strong>'+esc(s.name)+'</strong><br><small>'+esc(s.source)+'</small></p>').join('')+'<p>'+esc(originLabel(b.data()))+' · '+esc(ctx.label||ctx.scopeId)+'</p><p>'+esc(r.confidence)+'</p><p>Atualizado '+esc(new Date(r.generatedAt).toLocaleString('pt-BR'))+'. A análise não usa serviço de IA online.</p></details>';
    audit(state(),requestId,'queried',{scopeId:ctx.scopeId,intent:r.intent,period:ctx.period,dataRevision:revisionOf(b.data()),queryContractVersion:1});persist();view={kind:'answer',ctx,result:r};
    const links=r.intent==='rebuy'?r.rebuys.slice(0,6).map(x=>button('agent-message','Preparar convite · '+esc(b.data().clients.find(c=>c.id===x.clientId)?.name||'Cliente'),'data-client="'+esc(x.clientId)+'" data-product="'+esc(x.productId)+'"')).join(''):'';
-   b.open('Gerente do negócio','<p class="agent-origin">'+esc(originLabel(b.data()))+'</p><p class="agent-note">'+esc(ctx.label||ctx.scopeId)+'</p><p class="agent-answer">'+b.privateHTML(esc(r.text))+'</p>'+links+trace+'<p class="agent-note">Hipóteses não são causas comprovadas. Nenhuma operação foi executada.</p>'+(window.TerritorioLocalIntelligence?.attach(r)||''),back(),'agent-answer');
+   b.open('Gerente do negócio','<p class="agent-origin">'+esc(originLabel(b.data()))+'</p><p class="agent-note">'+esc(ctx.label||ctx.scopeId)+'</p><p class="agent-answer">'+b.privateHTML(esc(r.text))+'</p>'+links+trace+'<p class="agent-note">Hipóteses não são causas comprovadas. Nenhuma operação foi executada.</p>'+(window.TerritorioLocalIntelligence?.attach({...r,contextLabel:ctx.label||ctx.scopeId,originLabel:originLabel(b.data())})||''),back(),'agent-answer');
+   window.TerritorioLocalIntelligence?.start();
   }catch(e){if(e.name==='AbortError')return;if(token===epoch)b.open('Consulta local','<p role="alert">'+esc(e.message)+'</p>',back(),'agent-answer');}
  }
  function paintProposal(p,ctx=view?.ctx||context()){

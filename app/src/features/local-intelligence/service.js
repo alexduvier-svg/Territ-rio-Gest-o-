@@ -3,26 +3,34 @@ export const LOCAL_MODEL = Object.freeze({
   id: 'Qwen3-1.7B',
   bytes: 977184032,
   sha256: '2a72330b504a6596d53a2c00923c57173b10f1b83e6a541213ffec08d1fc5de8',
-  url: 'https://huggingface.co/litert-community/Qwen3-1.7B/resolve/d6678881da6181864bbc893c80e10aa1ee0d3731/Qwen3-1.7B_dynamic_wi4b32_afp32.litertlm?download=true',
+  delivery: 'play-install-time',
+  assetPath: 'qwen/model.litertlm',
 });
 export function explanationRequest(text) {
   if (typeof text !== 'string' || !text.trim() || text.length > 4000) throw Error('Use uma consulta menor para a explicação local.');
   return Object.freeze({ facts: text });
 }
-const numbers = text => [...text.matchAll(/\d+(?:[.,]\d+)*/g)].map(m => m[0]);
+// The model selects existing passages. Amounts, labels and missing-data notices
+// always come from the canonical app answer, never from model-written prose.
+export function factPassages(facts) {
+  explanationRequest(facts);
+  return facts.split(/\n+/).map(s => s.trim()).filter(Boolean);
+}
 export function validateExplanation(text, facts) {
-  if (typeof text !== 'string' || text.trim().length < 8 || text.length > 4000) throw Error('A explicação não ficou disponível. Consulte os registros abaixo.');
-  const allowed = new Set(numbers(facts));
-  if (numbers(text).some(n => !allowed.has(n))) throw Error('A explicação trouxe números diferentes dos registros e foi descartada.');
-  if (/https?:|<\/?[a-z]|<\|/i.test(text)) throw Error('A explicação não passou na conferência. Consulte o cálculo original.');
-  return text.trim();
+  const passages = factPassages(facts);
+  let selection;
+  try { selection = typeof text === 'string' && text.length <= 1000 ? JSON.parse(text).trechos : null; } catch {}
+  if (!Array.isArray(selection) || !selection.length || selection.length > 6 || selection.some(i => !Number.isInteger(i) || i < 0 || i >= passages.length) || new Set(selection).size !== selection.length) throw Error('O resumo não passou na conferência. A resposta calculada pelo app permanece acima.');
+  // Retain context, every monetary statement and all caveats. Selection can
+  // shorten other observations, but cannot hide costs/limits or rename values.
+  const required = passages.flatMap((line, i) => i === 0 || /R\$|custo|parcial|incomplet|insuficient|não |nao |ausen|limita|hipótes|antes de|sem /i.test(line) ? [i] : []);
+  return [...new Set([...selection, ...required])].sort((a,b) => a-b).map(i => passages[i]).join('\n\n');
 }
 export function createLocalIntelligence(provider) {
   let epoch = 0;
   return {
     status: () => provider.status({}),
-    downloadModel: () => provider.downloadModel({}),
-    importModel: () => provider.importModel({}),
+    installModel: () => provider.installModel({}),
     removeModel: () => provider.removeModel({}),
     setEnabled: enabled => provider.setEnabled({ enabled }),
     cancel: () => { epoch++; return provider.cancel({}).catch(() => {}); },

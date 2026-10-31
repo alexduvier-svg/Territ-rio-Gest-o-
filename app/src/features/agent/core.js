@@ -38,7 +38,7 @@ export function parseRequest(text,data,{scopeId='all',source='text',requestId=''
  else if(/^(?:quero (?:saber|entender)|vendi (?:mais|menos))|(?:quanto.*(?:receb|entrou)|quanto.*(?:para|pra) receber)/.test(key))intent='management';
  else if(!/^(?:(?:eu )?vendi|vende|vender|adicion|quero|coloc|\d|um\b|uma\b|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|meio)/.test(key)&&/\b(kpis?|indicador(?:es)?|conversao|estatistica|pdv|banca|crm|ticket|desconto|giro)\b|exposi|fidel|como.*marca|produto.*contrib/.test(key))intent='management';
  else if(/lucro|margem|resultado|financ|quanto.*vend|resumo/.test(key))intent='finance';
- else if(/gerente|visao geral|como esta (?:meu|o) negocio|o que.*(?:fazer|preciso)|situacao (?:do|da|minha)|analise geral/.test(key))intent='overview';
+ else if(/gerente|visao geral|como esta (?:meu|o) negocio|o que.*(?:fazer|preciso)|situacao (?:do|da|minha)|analise geral|\bvalores\b|\bdados (?:do|no|que estao no) (?:app|aplicativo|negocio)\b|quanto (?:ganhei|ganhamos)/.test(key)&&!/^(?:(?:eu )?vendi|vender|adicion|coloc|apague|exclua|zere)/.test(key))intent='overview';
  else if(/^(?:(?:eu )?vendi|vende|vender|adicion|quero|coloc|\d|um\b|uma\b|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|meio)/.test(key))intent='sale';
  const request={requestId,actorId:contextOf(data).actorId,scopeId,source,text:cleaned,createdAt:now};
  if(intent!=='sale')return {...request,intent,items:[],unresolvedFields:[],parserVersion:1};
