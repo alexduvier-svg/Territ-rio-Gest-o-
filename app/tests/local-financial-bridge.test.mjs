@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import * as Finance from '../src/features/finance/finance.js';
+import * as BusinessAssistant from '../src/features/business-assistant.js';
 const ui=fs.readFileSync(new URL('../src/legacy/erp-ui.js',import.meta.url),'utf8');
 const arrow=(name,next)=>ui.slice(ui.indexOf(' '+name+':')+name.length+2,ui.indexOf('\n '+next+':')).trim().replace(/,$/,'');
 function bridge({known=true,eligible=true,checks=true}={}){
@@ -24,7 +25,7 @@ test('unknown costs prevent a gross or final profit claim; invalid origin or acc
  assert.throws(()=>bridge({eligible:false}).run(),/conferência/);assert.throws(()=>bridge({checks:false}).run(),/conferência/);
 });
 test('today overrides an old annual selection with the canonical daily period for the expense allocation',()=>{
- const fn=vm.runInNewContext('('+arrow('queryContext','managementAnswer')+')',{Date,E:{normalize:s=>s.toLowerCase(),dayKey:()=> '2026-10-31'},periodSelection:(mode,anchor)=>({periodMode:mode,periodAnchor:anchor,year:'',month:anchor.slice(0,7),days:[anchor]}),reportScopeName:s=>s,periodText:()=> 'Hoje'});
+ const fn=vm.runInNewContext('('+arrow('queryContext','managementAnswer')+')',{Date,window:{TerritorioBusinessAssistant:BusinessAssistant},model:{data:{dataContext:{id:'a',type:'real'},events:[]}},E:{normalize:s=>s.toLowerCase(),dayKey:()=> '2026-10-31'},periodSelection:(mode,anchor)=>({periodMode:mode,periodAnchor:anchor,year:'',month:anchor.slice(0,7),days:[anchor]}),reportScopeName:s=>s,periodText:()=> 'Hoje'});
  const out=fn('Quanto faturei hoje?',{scopeId:'loja',selection:{year:'2025',periodMode:'ano'}});
  assert.equal(out.selection.periodMode,'dia');assert.equal(out.selection.year,'');assert.equal(out.selection.periodAnchor,'2026-10-31');assert.equal(out.selection.scope,'loja');
 });

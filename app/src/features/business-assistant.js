@@ -46,7 +46,7 @@ export function readBusinessRequest(question,data,describe){
  if(/^(?:(?:eu )?vendi|(?:quero|vou) vender|vender|adicion(?:e|ar)?|coloc(?:a|ar|ue)|registr(?:e|ar)|anot(?:e|ar)|apagu(?:e|ar)|exclu(?:a|ir)|zer(?:e|ar))\b/.test(q))return null;
  if(/chuva|chover|clima|temperatura|previsao do tempo|tempo.*(?:hoje|amanha)/.test(q))return {area:'clima'};
  if(/receita.*(?:bolo|geleia|doce|pao)/.test(q))return null;
- if(/como.*(?:feira|evento)|sobr|carga/.test(q))return {area:'eventos'};
+ if(/como.*(?:feira|evento)|\bsobra(?:s|ram|ndo|ou)?\b|\bcarga\b/.test(q))return {area:'eventos'};
  if(/fornece|fornecedor|cotac|orcamento.*compra/.test(q))return {area:'fornecedores'};
  if(/cliente|pedido|entrega|retirada|quem.*(?:deve|compr|gast|fiado)|devedor|quanto.*deve|divida d[oa]/.test(q)||namedClients(question,data).length)return {area:'clientes'};
  if(/estoque|repor|reposic|acab(?:ou|ando)|disponiv|quanto.*tenho/.test(q))return {area:'estoque'};
