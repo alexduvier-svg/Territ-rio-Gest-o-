@@ -1,0 +1,42 @@
+{
+  "app": "Codex Teste",
+  "package": "br.com.territorio.gestao2.codexteste",
+  "sourceBase": "78edfb5e2a44fc0819e5cf904420d4cb5f85c535",
+  "codeTree": "a4983bca98f76828555ea3d6a9af7bbd4b0ce947",
+  "apkBytes": 36568417,
+  "apkSha256": "13da17a754b26d7ea2a58dd37ef0617c2dba1f00bd6312b727614a6df7538472",
+  "bundledPublicFilesVerified": 62,
+  "nativeLibraries": [
+    "lib/arm64-v8a/libdatastore_shared_counter.so",
+    "lib/arm64-v8a/liblitertlm_jni.so",
+    "lib/armeabi-v7a/libdatastore_shared_counter.so"
+  ],
+  "domainTests": 837,
+  "domainFailures": 0,
+  "modelBundled": false,
+  "model": "Qwen3 1.7B INT4",
+  "voice": "Android recognizer activity; availability and connectivity depend on installed service",
+  "physicalDeviceTest": false,
+  "modelInferenceOnAndroidTest": false,
+  "browserVisualTest": false,
+  "domBoundaryTest": true,
+  "elfLoadAlignment": {
+    "lib/arm64-v8a/libdatastore_shared_counter.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/arm64-v8a/liblitertlm_jni.so": [
+      16384,
+      16384,
+      16384
+    ],
+    "lib/armeabi-v7a/libdatastore_shared_counter.so": [
+      16384,
+      16384
+    ]
+  },
+  "zip16kAlignmentVerified": true,
+  "signatureV2Verified": true,
+  "signerCertificateSha256": "2fb95cc1aa0aaf55ae607941e666099b81be35196f4dbbda6d99d45fd1346ef0"
+}

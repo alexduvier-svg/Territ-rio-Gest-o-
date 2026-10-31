@@ -40,7 +40,10 @@ async function writeCopy(json) {
   let data; try { data = JSON.parse(json); } catch { return 'failed'; }
   if (isEmptyData(data)) return 'skipped';
   try {
-    const all = await names(), name = (all.some(n => n.startsWith(ORIGINAL)) ? RECENT : ORIGINAL) + 'agro-gestao-' + stamp(new Date()) + '-' + crypto.randomUUID() + '.json';
+    // The queue serializes saves; timestamps must also be strictly ordered. UUIDs alone
+    // made same-millisecond backups sort randomly when loading or pruning the latest copy.
+    const all = await names(), nextTime = all.reduce((time, n) => Math.max(time, (whenOf(n)?.getTime() || 0) + 1), Date.now());
+    const name = (all.some(n => n.startsWith(ORIGINAL)) ? RECENT : ORIGINAL) + 'agro-gestao-' + stamp(new Date(nextTime)) + '-' + crypto.randomUUID() + '.json';
     if (!native()) {
       const list = webList().concat({ name, json });
       const original = list.filter(c => c.name.startsWith(ORIGINAL)), recent = list.filter(c => c.name.startsWith(RECENT)).slice(-KEEP);

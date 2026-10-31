@@ -1,3 +1,11 @@
+# Codex Teste — experiência local de IA — 30/10/2026
+
+Pedido atual: gerar app separado chamado Codex Teste, a partir da versão Codex, com mudanças do Gerente e assistência local. Base 78edfb5/0.12.136. Trabalho isolado no ramo codex/gerente-local-preview. Variante assembleCodexTesteDebug, pacote br.com.territorio.gestao2.codexteste, assinatura nova de teste: NÃO instalar sobre gestao2, não alterar identidade/assinatura/dados do app original nem copiar suas bases. Fonte e relatório app/docs/CODEX-TESTE-IA-0.12.137.md.
+
+Qwen3 1.7B INT4 opcional (977MB, arquivo externo com SHA fixo), LiteRT-LM0.18.1. Explica somente resposta canônica por ação explícita; sem ferramentas ou transações. Voz é atividade do reconhecedor Android, pode usar rede e faltar em algumas ROMs; texto deve ser conferido antes da consulta. Não confundir com voz do Qwen, Gemma ou conversa irrestrita. Os testes de código não validam inferência ou voz física em celular6GB.
+
+837 testes de domínio e checagem DOM da fronteira passaram; corrigida ordenação preexistente de cópias no mesmo milissegundo. Compilação assembleCodexTesteDebug concluída; APK36568417bytes/SHA13da17a754b26d7ea2a58dd37ef0617c2dba1f00bd6312b727614a6df7538472. Assinatura v2, identidade Codex Teste,62assets públicos,CRC e alinhamentos ZIP/ELF16KB conferidos. Nenhuma instalação, voz ou inferência em aparelho físico foi executada. Não reutilizar certificados, instalações e QA136 como prova desta experiência. SDK, pesos, APK, chaves e bases não vão ao Git. Sem subagentes, automações ou alterações no Claude.
+
 # Preferência permanente — trabalhar no Codex — 29/10/2026
 
 Humano: “trabalhe sempre com o codex”. Consultas/revisões do Claude servem de referência; implementar as correções solicitadas neste projeto Codex, preservando sua identidade, dados, assinatura, fluidez e Git próprio. Não voltar a perguntar o destino por uma simples referência ao Claude. Não alterar/publicar o checkout Claude.

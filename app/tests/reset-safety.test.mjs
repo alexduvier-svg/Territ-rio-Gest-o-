@@ -14,6 +14,13 @@ test('empty data does not displace copies; supplier-only, order-only and profile
  storage();assert.equal(await Copies.save('{}'),'skipped');
  for(const d of [{supplierBook:{suppliers:[{id:'qa'}]}},{localCommerce:{actors:{qa:{orders:[{}]}}}},{settings:{location:{code:'qa'}}}])assert.equal(Copies.isEmptyData(d),false);
 });
+test('latest backup remains the last save when every write has the same clock millisecond',async t=>{
+ storage();t.mock.method(Date,'now',()=>Date.parse('2026-10-30T12:00:00Z'));
+ for(let i=0;i<7;i++)assert.equal(await Copies.save(json(i)),'saved');
+ assert.equal((await Copies.load('original')).json,json(0));
+ assert.equal((await Copies.load('latest')).json,json(6));
+ const dates=await Copies.dates();assert.equal(+dates.latest-+dates.original,6);
+});
 test('copy refusal leaves the index and the original intact',async()=>{
  const values=storage();await Copies.save(json(0));const before=values.get(KEY);localStorage.setItem=()=>{throw Error('quota')};assert.equal(await Copies.save(json(1)),'failed');assert.equal(values.get(KEY),before);assert.equal((await Copies.load('original')).json,json(0));
 });
