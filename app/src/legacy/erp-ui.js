@@ -470,7 +470,7 @@ function receiptOrigin(s){const c=model.data.clients.find(c=>c.id===s.customerId
 function saleDetail(id){const s=model.data.sales.find(s=>s.id===id);if(!s)return;openModal(s.status==='completed'?'Venda Concluída':'Venda Devolvida','<p class="muted">'+new Date(s.date).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'})+' · '+escape(saleSourceName(s))+'</p><div class="receipt-number">'+E.money(s.total)+'</div>'+s.items.map(i=>'<div class="list-row"><span><strong>'+escape(titleName(i.name))+'</strong><small>'+E.quantity(i.qty)+' '+E.unitLabel(i.unit,i.qty)+' · '+escape(i.description)+'</small></span><strong>'+E.money(i.total)+'</strong></div>').join('')+'<div class="list-row"><span>Desconto</span><span>'+E.money(s.discount)+'</span></div><p class="small muted" style="margin:14px 0">'+s.payments.map(p=>p.method+': '+E.money(p.amount)).join(' · ')+'</p>'+receiptOrigin(s)+(s.credit?'<section class="ds-card"><h3>Fiado</h3><p>Pagamento previsto: '+dateBR(s.credit.dueDate)+'</p><p>'+((window.TerritorioReceivables.balance(s)>0)?'A receber: '+E.money(window.TerritorioReceivables.balance(s)):s.status==='returned'?'Venda devolvida':'Pagamento recebido')+'</p>'+(s.credit.receipts||[]).map(r=>'<p>'+dateBR(r.date.slice(0,10))+' · '+escape(r.method)+' · '+E.money(r.amount)+'</p>').join('')+'</section>':'')+btn('sale-story','Conheça Nossa História','primary',{id:s.id})+(s.qrReadAt?'<p class="small muted">QR code lido · '+new Date(s.qrReadAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'})+'</p>':'')+btn('close-modal','Entendi','success modal-action')+(s.status==='completed'?btn('refund-confirm','Devolver venda','soft-danger modal-action',{id:s.id}):''),'receipt',{id});}
 
 function checkoutSummary(d){const q=model.quote(d);return{...q,id:pendingCheckout&&pendingCheckout.id||E.uid(),scope:d.scope,customerId:d.clientId,customerName:d.clientName||'',customerCity:d.city||'',customerNeighborhood:d.neighborhood||'',customerUF:d.uf||'',payments:d.split?d.parts.map(v=>({method:v.method,amount:E.cents(v.value)})):[{method:d.payment,amount:q.total}]};}
-function receiptPayload(s){return[model.data.settings.businessName,'RESUMO DA COMPRA '+s.id.slice(0,8),...s.items.map(i=>E.quantity(i.qty)+' x '+saleDisplayName(model.product(i.productId)||i)+' | '+i.description+' | '+E.money(i.total)),s.discount?'Desconto '+E.money(s.discount):'', 'Total '+E.money(s.total),s.payments.map(p=>p.method+' '+E.money(p.amount)).join(' + '),s.customerName?'Cliente: '+s.customerName:'', [s.customerCity,s.customerNeighborhood,s.customerUF].filter(Boolean).join(' / '),'Aguardando confirmacao do produtor'].filter(Boolean).join('\n');}
+function receiptPayload(s){return[model.data.settings.businessName,'RESUMO DA COMPRA '+s.id.slice(0,8),...s.items.map(i=>E.quantity(i.qty)+' x '+saleDisplayName(model.product(i.productId)||i)+' | '+i.description+' | '+E.money(i.total)),s.discount?'Desconto '+E.money(s.discount):'', 'Total '+E.money(s.total),s.payments.map(p=>p.method+' '+E.money(p.amount)).join(' + '),s.customerName?'Cliente: '+s.customerName:'', [s.customerCity,s.customerNeighborhood,s.customerUF].filter(Boolean).join(' / '),'Aguardando confirmação do produtor'].filter(Boolean).join('\n');}
 function paintCheckout(){
  if(!draft||!pendingCheckout)return;splitUpdate();const s=checkoutSummary(draft),error=saleError(),sameReview=modal&&['cart','checkout'].includes(modal.kind)&&modal.data&&modal.data.checkoutId===pendingCheckout.id,focused=sameReview&&document.activeElement&&/^pay-(value|method)-[0-9]+$/.test(document.activeElement.id)?{id:document.activeElement.id,start:document.activeElement.selectionStart,end:document.activeElement.selectionEnd}:null,scroll=sameReview?(document.getElementById('checkout-scroll')||{}).scrollTop||0:0;
  pendingCheckout.summary=s;pendingCheckout.payload=receiptPayload(s);
@@ -2948,7 +2948,7 @@ window.TerritorioSurplusUI.install({
 // último a pill diz "Concluir": o teclado fecha e o Carrinho fica liberado. Tocar numa linha volta a ela.
 const multiPick=()=>!!draft&&!!draft.multiPick&&draft.items.length>1&&page==='Venda';
 const r30SellMultiple=actions['sell-multiple'];actions['sell-multiple']=d=>{r30SellMultiple(d);if(draft&&draft.items.length>1){draft.multiPick=true;render();}};
-const r30Review=multiReviewPending;multiReviewPending=function(){return draft?.multiPick?!draft.quantityReviewCollapsed:r30Review();};
+const r30Review=multiReviewPending;multiReviewPending=function(){return draft?.multiPick&&draft.items.length>1?!draft.quantityReviewCollapsed:r30Review();};
 function multiPickCard(){
  const shown=draft.mpShown||(draft.mpShown=[]),collapsed=!!draft.quantityReviewCollapsed;
  const rows=draft.items.map((line,i)=>{const p=model.product(line.productId);if(!p)return'';const q=E.number(line.rawQty),on=!collapsed&&i===draft.active;if(!on&&!(q>0))return'';
@@ -3989,3 +3989,39 @@ Object.assign(window.ERPPreview,{managementSummaryRows,contasExportRows});
 render();
 })();
 
+
+// Read the canonical movements; searching never creates a stock entry or a lot.
+const historyBeforeEntrySearch=history;
+history=function(id){historyBeforeEntrySearch(id);dialog.querySelector('.dialog-content')?.insertAdjacentHTML('afterbegin',btn('stock-entry-search','Pesquisar entradas de estoque','choice modal-action',{id:id||''}));};
+function stockEntrySearch(id='',text=''){
+ const svc=window.TerritorioStockEntries;if(!svc)return;
+ let answer;try{answer=svc.entryAnswer(model.data,text,{productId:id});}catch(error){answer=error.message;}
+ openModal('Pesquisar entradas de estoque',field('stock-entry-question','Produto ou pergunta',text,'placeholder="Ex.: Quando entraram minhas tilápias?"')+btn('stock-entry-consult','Consultar entradas','choice',{id})+'<p class="agent-answer" role="status">'+escape(answer)+'</p>','stock-entry-search',{id},btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back'));
+}
+actions['stock-entry-search']=d=>stockEntrySearch(d.id||'');
+actions['stock-entry-consult']=d=>stockEntrySearch(d.id||'',document.getElementById('stock-entry-question')?.value||'');
+
+// One staged ERP snapshot owns stock and supplier receipt; no parallel writable balance.
+window.TerritorioWorkflowBridge.stockTransaction=async change=>{
+ const prior=model,next=new E.ERPModel(JSON.parse(JSON.stringify(model.data))),result=change(next);
+ model=next;if(!persist()){model=prior;throw Error('Não foi possível salvar o recebimento. Libere espaço e tente novamente.');}
+ if(window.TerritorioNative?.isNative&&!await window.TerritorioNative.durable())throw Error('Gravação pendente. Confirme novamente; o recebimento mantém sua identificação.');
+ return result;
+};
+
+// Preserve the current Gestão structure and put its single query entry after the daily chart.
+const managementBeforeIntegratedEntry=managementPage;
+managementPage=function(){
+ const html=managementBeforeIntegratedEntry(),marker='<section class="feira-chart"',a=html.indexOf(marker),end=a<0?-1:sectionEnd(html,a);
+ if(end<0)return html;
+ const query='<section class="panel management-intelligence"><h2>Inteligência do negócio</h2><label for="management-question">Pergunte sobre seu negócio</label><textarea id="management-question" maxlength="500" rows="2" placeholder="Ex.: Quantos peixes tenho e quantos vendi neste mês?"></textarea>'+btn('management-ask','Consultar','success modal-action')+btn('brain','Orientações e preferências','link-row',{source:'management'})+'</section>';
+ return html.slice(0,end)+query+html.slice(end);
+};
+actions['management-ask']=()=>{const text=document.getElementById('management-question')?.value?.trim();if(!text)return toast('Digite sua pergunta.');window.TerritorioAgent?.open(agentContext());return window.TerritorioAgent?.ask(text);};
+
+window.TerritorioAgentBridge.monthComparison=ctx=>{
+ const current={...periodSelection('mes',E.dayKey(Date.now())),scope:ctx.scopeId},previous=previousSelection(current),a=finStatement(current),b=finStatement(previous);
+ if(a.st.checks!==true||b.st.checks!==true||[...a.sales,...a.returns,...b.sales,...b.returns].some(r=>!window.TerritorioAgent.matchesRecord(r)))throw Error('Confira os demonstrativos antes de comparar.');
+ const delta=window.TerritorioKpi.periodChange([{id:'receita',name:'Receita',revenue:a.st.revenue,cost:0,costKnown:false}],[{id:'receita',name:'Receita',revenue:b.st.revenue,cost:0,costKnown:false}]);
+ return 'Receita após devoluções · '+reportScopeName(ctx.scopeId)+'\n'+periodText(current)+': '+E.money(a.st.revenue)+'\n'+periodText(previous)+': '+E.money(b.st.revenue)+'\nVariação registrada: '+E.money(delta.revenueDiff)+'.\nO mês atual pode estar incompleto; o anterior inclui todo o mês. A diferença descreve os registros e não comprova mudança de procura ou lucro.';
+};

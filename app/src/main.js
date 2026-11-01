@@ -1,3 +1,4 @@
+import * as StockEntries from './features/stock-entries.js';
 import * as Coffee from './features/coffee.js';
 import {installDailyGuidance} from './native/daily-guidance.js';
 import {initTrainingWorkspace,installTrainingUI} from './features/training/index.js';
@@ -169,6 +170,7 @@ try {
   window.TerritorioEventReminders = EventReminders;
   window.TerritorioDaySummary = DaySummary;
   window.TerritorioProductPeriodReports = ProductPeriodReports;
+  window.TerritorioStockEntries = StockEntries;
   window.TerritorioManagementReporting = ManagementReporting;
   window.TerritorioMetricInterpretation = MetricInterpretation;
   window.TerritorioDataExport = DataExport;

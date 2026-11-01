@@ -1,4 +1,5 @@
 import { lastFairSummary, soldOutProducts, saveDemandObservation, demandSignals } from '../event-learning.js';
+import { installProductGesture } from './product-gesture.js';
 
 const bridge=()=>window.TerritorioWorkflowBridge;
 const esc=v=>bridge().escape(v);
@@ -68,28 +69,13 @@ export function installWorkflows(){
  });
  const weekly=b.actions['weekly-back'];b.actions['weekly-back']=d=>{b.updateScopeReturnPrivacy();weekly(d);};
  const ready=b.actions['event-history'];b.actions['event-history']=d=>{ready(d);scheduleExpansions();};
- // Product cards count taps (1 sells, 2 peek the stock) within TAP_GAP; holding starts the selection (reorder.js).
- // The second tap only has to touch down within TAP_GAP of the first one lifting: from then on the
- // first is held until its click arrives (or TAP_HOLD passes), so a single tap waits less.
- let tap=null,serial=0;const TAP_GAP=200,TAP_HOLD=350;
- const resolveTaps=t=>{if(b.page()==='Vender'&&t.count===1)b.actions['sell-product']({id:t.id});};
- window.TerritorioProductGestures={suspend:()=>clearTimeout(tap?.timer),cancelPending:()=>{clearTimeout(tap?.timer);tap=null;serial++;}};
- document.addEventListener('pointercancel',()=>window.TerritorioProductGestures.cancelPending(),{passive:true});
- document.addEventListener('pointerdown',event=>{
-  const card=event.target.closest?.('#app [data-action="sell-product"]');
-  if(!tap||tap.armed||!card||card.dataset.id!==tap.id||Date.now()-tap.at>=TAP_GAP)return;
-  clearTimeout(tap.timer);tap.armed=true;const current=++serial,pending=tap;
-  pending.timer=setTimeout(()=>{if(current!==serial||tap!==pending)return;tap=null;resolveTaps(pending);},TAP_HOLD);
- },{capture:true,passive:true});
+ // Resolve tap/hold before navigation; the active gesture module owns arbitration.
+ installProductGesture(b);
  document.addEventListener('click',event=>{
-  const card=event.target.closest?.('#app [data-action="sell-product"]');if(!card||card.disabled||b.page()!=='Vender'||window.TerritorioSelection?.active())return;
-  // Um toque no cartão abre a venda na hora (é o gesto mais usado; o produtor pediu que abra como a folha
-  // do histórico, sem espera). Segurar continua abrindo a seleção de vários. O toque duplo não espia mais
-  // o estoque: a tela de venda já mostra o disponível.
-  event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['sell-product']({id:card.dataset.id});
+  const card=event.target.closest?.('#app [data-action="sell-product"]');
+  if(card)b&&window.TerritorioProductGestures.handleClick(event,card);
  },true);
  let zeroTap=null;document.addEventListener('pointerup',event=>{const card=event.target.closest?.('#app [data-action="sell-product"][disabled]');if(!card||b.page()!=='Vender')return;const id=card.dataset.id;if(zeroTap?.id===id&&Date.now()-zeroTap.at<320){zeroTap=null;b.actions['stock-peek']({id});}else zeroTap={id,at:Date.now()};},true);
- document.addEventListener('keydown',event=>{const card=event.target.closest?.('body > #app [data-action="sell-product"]');if(card&&(event.key==='ContextMenu'||event.shiftKey&&event.key==='Enter')){event.preventDefault();event.stopImmediatePropagation();clearTimeout(tap?.timer);tap=null;serial++;b.actions['stock-peek']({id:card.dataset.id});}},true);
  document.addEventListener('change',event=>{if(event.target.id==='workflow-broadcast-all')dialog().querySelectorAll('[data-workflow-recipient]').forEach(el=>{el.checked=event.target.checked;});});
  document.addEventListener('toggle',scheduleExpansions,true);document.addEventListener('click',()=>queueMicrotask(scheduleExpansions));
  new MutationObserver(decorate).observe(document.getElementById('app'),{childList:true});

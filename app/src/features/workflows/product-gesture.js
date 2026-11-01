@@ -17,7 +17,7 @@ export function installProductGesture(bridge, {
   };
   const suspend = (event, card) => {
     if (!pending) return;
-    if (!card || card.dataset.id !== pending.id || clock.now() - pending.at > PRODUCT_TAP_MS || !near(event, pending)) return clear();
+    if (!event || !card || card.dataset.id !== pending.id || clock.now() - pending.at > PRODUCT_TAP_MS || !near(event, pending)) return clear();
     // A second finger-down within the window must not let the sale open while
     // that finger is still down. A hold/scroll can then cancel the whole tap.
     clock.clear(pending.timer); pending.pressed = true;
@@ -57,10 +57,12 @@ export function installProductGesture(bridge, {
   };
   window.TerritorioProductGestures = { suspend, cancelPending: clear, handleClick };
   document.addEventListener('pointerdown', event => {
-    if (!event.target.closest?.('[data-action="sell-product"],.selling-card,.product-card,.feira-card')) clear();
+    const card=event.target.closest?.('[data-action="sell-product"]');
+    if(card)suspend(event,card);else clear();
   }, { capture: true, passive: true });
   document.addEventListener('pointermove', event => { if (pending?.pressed && Math.hypot(event.clientX - pending.x, event.clientY - pending.y) > 10) clear(); }, { passive: true });
   document.addEventListener('pointerup', () => { if (pending?.pressed) expire(pending, 400); }, { passive: true });
+  document.addEventListener('scroll', clear, { capture: true, passive: true });
   document.addEventListener('pointercancel', clear, { passive: true });
   document.addEventListener('visibilitychange', clear);
   document.addEventListener('keydown', event => {

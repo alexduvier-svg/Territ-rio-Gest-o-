@@ -132,7 +132,7 @@ export function installMultiSell() {
     const card = cardFrom(event.target);
     // Segurar o cartão o marca e o levanta (reorder.js): arrastar desfaz a seleção e muda de lugar.
     if (window.TerritorioReorder || !card || card.disabled || card.getAttribute('aria-disabled')==='true' || !onVender() || selected.length) return;
-    window.TerritorioProductGestures?.suspend();
+    window.TerritorioProductGestures?.suspend(event, card);
     pressed = card;
     start = { x: event.clientX, y: event.clientY };
     card.classList.add('multi-pressing');
@@ -168,6 +168,7 @@ export function installMultiSell() {
     }
     swallow = null;
     if (!card || !selected.length) return;
+    if (window.TerritorioProductGestures?.handleClick(event, card)) return;
     event.preventDefault();
     event.stopImmediatePropagation();
     if (!card.disabled && card.getAttribute('aria-disabled')!=='true') {const now=Date.now();if(lastToggle?.id===card.dataset.id&&now-lastToggle.at<320)return;lastToggle={id:card.dataset.id,at:now};toggle(card.dataset.id);}
@@ -187,5 +188,5 @@ export function installMultiSell() {
     tick();
     paint();
   };
-  window.TerritorioSelection = { cancel, start: startSelection, active: () => selected.length > 0 };
+  window.TerritorioSelection = { cancel, start: startSelection, active: () => selected.length > 0, snapshot: () => selected.slice(), restore: ids => { selected = ids.slice(0, MAX); paint(); } };
 }
