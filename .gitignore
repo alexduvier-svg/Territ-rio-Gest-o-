@@ -33,3 +33,6 @@ credentials.json
 
 # Local model weights are distributed in the Play asset pack, never in source Git.
 *.litertlm
+
+# Temporary model copies remain outside source history.
+*.litertlm.*

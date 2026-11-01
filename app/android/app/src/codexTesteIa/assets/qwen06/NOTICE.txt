@@ -1,0 +1,7 @@
+Qwen3-0.6B by the Qwen Team (Alibaba Cloud), Apache-2.0.
+Upstream: https://huggingface.co/Qwen/Qwen3-0.6B
+LiteRT-LM mixed INT4 export: litert-community/Qwen3-0.6B,
+revision 2670e142a0d16a1b685be6604e5b4f2b31a826d7.
+SHA-256: 7900eb4e7362d88c58782c6f9999bb7a129e03544aa98b8f338ea0cc5d8c22c1
+Weights remain unchanged. Runtime chat-template compatibility is configured
+separately by this application. Inclusion does not certify interpretation quality.

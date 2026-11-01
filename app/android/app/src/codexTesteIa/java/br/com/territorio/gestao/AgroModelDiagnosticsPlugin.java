@@ -40,6 +40,7 @@ public class AgroModelDiagnosticsPlugin extends Plugin {
     private File file(){return new File(getContext().getNoBackupFilesDir(),"qwen3-06-int4-7900eb4e.litertlm");}
     private android.content.SharedPreferences prefs(){return getContext().getSharedPreferences("model-diagnostics",0);}
     private boolean ready(){return file().isFile()&&file().length()==BYTES&&SHA.equals(prefs().getString("sha",""));}
+    private boolean packaged(){try(InputStream in=getContext().getAssets().open("qwen06/model.litertlm")){return true;}catch(IOException e){return false;}}
     private boolean arm64(){for(String abi:Build.SUPPORTED_ABIS)if("arm64-v8a".equals(abi))return true;return false;}
     private GenerativeModelFutures nano(){return GenerativeModelFutures.from(Generation.INSTANCE.getClient());}
     private boolean acquire(PluginCall call){if(!LocalInferenceLease.BUSY.compareAndSet(false,true)){call.reject("Aguarde o encerramento da operação de IA atual.");return false;}return true;}
@@ -57,7 +58,7 @@ public class AgroModelDiagnosticsPlugin extends Plugin {
         r.put("availableBytes",m.availMem);r.put("totalBytes",m.totalMem);r.put("lowMemory",m.lowMemory);r.put("appPssKb",Debug.getPss());r.put("powerSave",p.isPowerSaveMode());r.put("thermalStatus",Build.VERSION.SDK_INT>=29?p.getCurrentThermalStatus():-1);return r;
     }
     @PluginMethod public void status(PluginCall call){io.execute(()->{
-        JSObject r=new JSObject();r.put("qwenReady",ready());r.put("qwenBytes",BYTES);r.put("qwenSupported",arm64());r.put("busy",LocalInferenceLease.BUSY.get());r.put("resources",resources());
+        JSObject r=new JSObject();r.put("qwenReady",ready());r.put("qwenContextualQualified",false);r.put("qwenPackaged",packaged());r.put("qwenBytes",BYTES);r.put("qwenSupported",arm64());r.put("busy",LocalInferenceLease.BUSY.get());r.put("resources",resources());
         if(call.getBoolean("fast",false)&&(ready()||SystemClock.elapsedRealtime()-nanoStatusAt<120000&&nanoStatusAt>0)){r.put("nanoStatus",lastNanoStatus);if(!lastNanoModel.isEmpty())r.put("nanoModel",lastNanoModel);call.resolve(r);return;}
         try{GenerativeModelFutures n=nano();int s=n.checkStatus().get(12,TimeUnit.SECONDS);String name=s==FeatureStatus.AVAILABLE?"available":s==FeatureStatus.DOWNLOADABLE?"downloadable":s==FeatureStatus.DOWNLOADING?"downloading":"unavailable";lastNanoStatus=name;nanoStatusAt=SystemClock.elapsedRealtime();r.put("nanoStatus",name);if(s==FeatureStatus.AVAILABLE){lastNanoModel=n.getBaseModelName().get(5,TimeUnit.SECONDS);r.put("nanoModel",lastNanoModel);}}
         catch(Throwable e){lastNanoStatus="unavailable";nanoStatusAt=SystemClock.elapsedRealtime();r.put("nanoStatus",nanoDownloading?"downloading":"unavailable");r.put("nanoNote","AICore não confirmou disponibilidade neste aparelho.");}
@@ -82,14 +83,14 @@ public class AgroModelDiagnosticsPlugin extends Plugin {
             try{if(!foreground)throw new IOException("Volte ao aplicativo para baixar.");
                 if(!ready()){
                     if(file().getParentFile().getUsableSpace()<BYTES+256L*1024*1024)throw new IOException("Libere pelo menos 755 MB para preparar o modelo de teste.");
-                    c=connect();progress("downloading",0);
-                    try(InputStream raw=c.getInputStream();InputStream source=new FilterInputStream(raw){long count=0,last=0;@Override public int read(byte[] b,int off,int len)throws IOException{int n=super.read(b,off,len);if(n>0){count+=n;long t=SystemClock.elapsedRealtime();if(t-last>250){last=t;progress("downloading",count);}}return n;}}){
+                    boolean included=packaged();if(!included)c=connect();progress(included?"preparing":"downloading",0);
+                    try(InputStream raw=included?getContext().getAssets().open("qwen06/model.litertlm"):c.getInputStream();InputStream source=new FilterInputStream(raw){long count=0,last=0;@Override public int read(byte[] b,int off,int len)throws IOException{int n=super.read(b,off,len);if(n>0){count+=n;long t=SystemClock.elapsedRealtime();if(t-last>250){last=t;progress(included?"preparing":"downloading",count);}}return n;}}){
                         LocalModelFile.install(source,new File(getContext().getNoBackupFilesDir(),"qwen3-06-download.part"),file(),BYTES,SHA,()->token!=generation.get()||!foreground);
                     }
                     if(token!=generation.get()||!foreground)throw new IOException("Preparação cancelada.");
                     if(!prefs().edit().putString("sha",SHA).commit())throw new IOException("Não foi possível confirmar a instalação.");
                 }progress("ready",BYTES);call.resolve();
-            }catch(Throwable e){call.reject("Download não concluído. Confira rede, espaço e primeiro plano; tente novamente. A cópia incompleta não é ativada.");}
+            }catch(Throwable e){call.reject("Preparação não concluída. Confira espaço livre e mantenha o app aberto; se o modelo não estiver incluído, confira também a rede. A cópia incompleta não é ativada.");}
             finally{if(c!=null)c.disconnect();LocalInferenceLease.BUSY.set(false);}
         });
     }
@@ -121,30 +122,38 @@ public class AgroModelDiagnosticsPlugin extends Plugin {
         if(call.getData().length()!=2||!("qwen06".equals(model)||"nano".equals(model))||request.isEmpty()||request.length()>10000){call.reject("Interpretação inválida.");return;}
         generate(call,model,"business-interpretation",request,false);
     }
+    @PluginMethod public void benchmarkCase(PluginCall call){
+        try{
+            if(call.getData().length()!=1)throw new IllegalArgumentException();
+            String id=call.getString("id","");
+            String request=InterpreterBenchmarkCases.get(getContext(),id).getString("request");
+            generate(call,"qwen06","benchmark:"+id,request,true);
+        }catch(Exception e){call.reject("Pergunta de teste não cadastrada.");}
+    }
     private void generate(PluginCall call,String model,String scenario,String promptText,boolean synthetic){
         if(!acquire(call))return;final long token=generation.incrementAndGet();final boolean qwen="qwen06".equals(model);
-        io.execute(()->{Engine engine=null;Conversation conversation=null;ScheduledFuture<?> deadline=null,watch=null;long started=SystemClock.elapsedRealtime();
+        io.execute(()->{Engine engine=null;Conversation conversation=null;ScheduledFuture<?> deadline=null,watch=null;long started=SystemClock.elapsedRealtime();String stage="recursos do aparelho";
             try{conditions(qwen);if(qwen&&(!arm64()||!ready()))throw new IllegalStateException("Prepare o Qwen 0.6B primeiro.");
                 JSObject before=resources();deadline=timer.schedule(()->{if(token==generation.get())stop();},60,TimeUnit.SECONDS);
                 watch=timer.scheduleWithFixedDelay(()->{if(token==generation.get())try{conditions(qwen);}catch(Throwable e){stop();}},1,1,TimeUnit.SECONDS);
                 String text,modelName;long initialized;
                 if(qwen){
-                    engine=new Engine(new EngineConfig(file().getAbsolutePath(),new Backend.CPU(2,null),null,null,2048,null,getContext().getCacheDir().getAbsolutePath()));engine.initialize();
+                    stage="carregamento do modelo";engine=new Engine(new EngineConfig(file().getAbsolutePath(),new Backend.CPU(2,null),null,null,2048,null,getContext().getCacheDir().getAbsolutePath()));engine.initialize();
                     if(token!=generation.get())throw new IllegalStateException();conditions(true);initialized=SystemClock.elapsedRealtime();
-                    conversation=engine.createConversation(new ConversationConfig());activeConversation=conversation;
+                    conversation=engine.createConversation(QwenConversationConfig.create(getContext(),scenario.startsWith("benchmark:")));activeConversation=conversation;
                     if(token!=generation.get())throw new IllegalStateException();
-                    text=conversation.sendMessage(promptText,Collections.emptyMap(),null,null,null,synthetic?192:512,new ThinkingConfig(false,0)).toString();modelName="Qwen3-0.6B INT4 · CPU";
+                    stage="interpretação da pergunta";text=conversation.sendMessage(promptText,Collections.emptyMap(),null,null,null,synthetic&&!scenario.startsWith("benchmark:")?192:512,new ThinkingConfig(false,0),scenario.startsWith("benchmark:")?ResponseFormat.json(InterpreterBenchmarkCases.asset(getContext(),"public/ai/business-query.schema.json",20000)):null).toString();modelName="Qwen3-0.6B INT4 · CPU";
                 }else{
                     GenerativeModelFutures n=nano();if(n.checkStatus().get(12,TimeUnit.SECONDS)!=FeatureStatus.AVAILABLE)throw new IllegalStateException("Gemini Nano indisponível no AICore.");
                     modelName=n.getBaseModelName().get(5,TimeUnit.SECONDS);initialized=SystemClock.elapsedRealtime();if(token!=generation.get()||!foreground)throw new IllegalStateException();
-                    GenerateContentRequest.Builder request=new GenerateContentRequest.Builder(new TextPart(promptText));request.setTemperature(0.0f);request.setCandidateCount(1);request.setMaxOutputTokens(synthetic?192:512);request.setEnableThinking(false);
+                    GenerateContentRequest.Builder request=new GenerateContentRequest.Builder(new TextPart(promptText));request.setTemperature(0.0f);request.setCandidateCount(1);request.setMaxOutputTokens(synthetic&&!scenario.startsWith("benchmark:")?192:512);request.setEnableThinking(false);
                     com.google.common.util.concurrent.ListenableFuture<com.google.mlkit.genai.prompt.GenerateContentResponse> response=n.generateContent(request.build());nanoRequest=response;
                     text=response.get(Math.max(1,60000-(SystemClock.elapsedRealtime()-started)),TimeUnit.MILLISECONDS).getCandidates().get(0).getText();
                 }
                 if(token!=generation.get()||!foreground)throw new IllegalStateException("Teste cancelado.");conditions(qwen);
-                if(text==null||text.length()>4000)throw new IllegalStateException("Saída inválida.");
+                stage="conferência da saída";if(text==null||text.length()>4000)throw new IllegalStateException("Saída inválida.");
                 JSObject r=new JSObject();r.put("raw",text);r.put("model",model);r.put("modelName",modelName);r.put("scenario",scenario);r.put("elapsedMs",SystemClock.elapsedRealtime()-started);r.put("setupMs",initialized-started);r.put("before",before);r.put("after",resources());r.put("synthetic",synthetic);call.resolve(r);
-            }catch(Throwable e){call.reject("Teste não concluído: modelo indisponível, cancelamento, limite de tempo ou recursos. Os motores do aplicativo continuam disponíveis.");}
+            }catch(Throwable e){call.reject((qwen?"Qwen 0.6B":"Gemini Nano")+" não concluiu a etapa de "+stage+". O modelo não foi aprovado por esta tentativa. Confira os testes dos modelos; os registros foram preservados.","MODEL_EXECUTION_FAILED");}
             finally{if(deadline!=null)deadline.cancel(false);if(watch!=null)watch.cancel(false);activeConversation=null;Future<?> pending=nanoRequest;if(pending!=null&&!pending.isDone())pending.cancel(true);nanoRequest=null;try{if(conversation!=null)conversation.close();}catch(Throwable ignored){}try{if(engine!=null)engine.close();}catch(Throwable ignored){}LocalInferenceLease.BUSY.set(false);}
         });
     }

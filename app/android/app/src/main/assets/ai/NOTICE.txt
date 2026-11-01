@@ -1,0 +1,6 @@
+qwen3-chat-template.jinja is from Google AI Edge LiteRT-LM 0.18.1,
+commit bda624851d74be34d4e1f7fac1fc4155939539c7, models/qwen3/chat_template.jinja.
+Copyright 2026 Google LLC. Licensed under the Apache License, Version 2.0.
+https://github.com/google-ai-edge/LiteRT-LM/blob/v0.18.1/LICENSE
+The template is preserved unchanged. It handles the content-part representation
+used by this runtime; model weights and their metadata are not rewritten.

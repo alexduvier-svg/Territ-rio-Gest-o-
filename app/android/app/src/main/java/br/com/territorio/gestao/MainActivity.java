@@ -19,6 +19,8 @@ public class MainActivity extends BridgeActivity {
         try {
             Class<?> diagnostics=Class.forName("br.com.territorio.gestao.AgroModelDiagnosticsPlugin");
             registerPlugin(diagnostics.asSubclass(com.getcapacitor.Plugin.class));
+            Class<?> comparison=Class.forName("br.com.territorio.gestao.AgroGeminiComparisonPlugin");
+            registerPlugin(comparison.asSubclass(com.getcapacitor.Plugin.class));
         } catch (ClassNotFoundException ignored) { /* Essential editions have no model lab. */ }
         super.onCreate(savedInstanceState);
     }

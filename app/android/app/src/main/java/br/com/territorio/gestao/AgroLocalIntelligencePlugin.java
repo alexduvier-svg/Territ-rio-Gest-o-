@@ -102,7 +102,7 @@ public class AgroLocalIntelligencePlugin extends Plugin {
                 engine=new Engine(new EngineConfig(modelFile().getAbsolutePath(),new Backend.CPU(2,null),null,null,2048,null,getContext().getCacheDir().getAbsolutePath()));engine.initialize();
                 if(token!=generation.get())throw new IllegalStateException("Consulta cancelada.");
                 checkConditions();
-                conversation=engine.createConversation(new ConversationConfig());activeConversation=conversation;
+                conversation=engine.createConversation(QwenConversationConfig.create(getContext()));activeConversation=conversation;
                 if(token!=generation.get())throw new IllegalStateException("Consulta cancelada.");
                 StringBuilder passages=new StringBuilder();int index=0;
                 for(String line:facts.split("\\n+")){line=line.trim();if(!line.isEmpty())passages.append(index++).append(": ").append(line).append("\n");}
