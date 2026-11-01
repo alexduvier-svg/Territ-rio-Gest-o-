@@ -9,6 +9,8 @@
     "Contas da banca: simulação de preço 10 / (1 - 20%) = 12,50 sem alterar cadastros, estoque, vendas ou configurações",
     "campo da Gestão chama o Gerente real e seu adaptador de leitura, sem gravar venda",
     "pergunta exata da captura abre pedidos pendentes no Gerente: 40 faltam receber, sem exigir fornecedor",
+    "intérprete simulado ligado ao Gerente: referência anterior, hipótese de desconto e cálculo canônico sem alterar preço",
+    "quando o intérprete está indisponível, referência não resolvida pede esclarecimento e não mostra resumo genérico",
     "zerar pela ação real em fixture: cópia solicitada, base pendente vazia, caches limpos, boas-vindas e consulta real sem dados fictícios",
     "a mesma pergunta após zerar informa ausência de pedidos, sem reaproveitar a resposta anterior"
   ],

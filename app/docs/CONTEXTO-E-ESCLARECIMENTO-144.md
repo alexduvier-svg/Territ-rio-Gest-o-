@@ -25,10 +25,14 @@ Diretriz do produtor em01/11/2026: o mais importante é compreender suposições
 
 ## Estado real da implementação
 
-O143 mantém Qwen0.6B e GeminiNano em um painel de diagnóstico. Eles ainda não interpretam, de maneira ampla, as perguntas do negócio. Não declarar que o aplicativo entende qualquer formulação apenas porque o modelo está instalado.
+A144 conecta, de forma experimental, Qwen0.6B ou GeminiNano à interpretação de perguntas do Gerente. Quando um modelo está preparado, o perfil de recursos permite e a interpretação está habilitada, o modelo propõe um plano JSON. O aplicativo valida entidades, filtros, referência anterior, natureza hipotética e revisão dos registros antes de consultar motores.
 
-O trabalho144 corrige a rota demonstrada na captura e aplica a regra de esclarecimento nas respostas desconhecidas do Gerente e do Orientador. Isso é uma correção de comportamento; não equivale à implementação completa de interpretação semântica contextual.
+O caminho rápido determinístico permanece para perguntas já reconhecidas. Referências, hipóteses e consultas não identificadas podem usar o intérprete local. Há memória curta em RAM, vinculada a produtor, origem e revisão; não é memória de treinamento. Zerar, trocar o produtor ou modificar a base invalida o contexto antigo.
 
-A conexão dos modelos ao Gerente exige um contrato de planos tipados, memória curta por produtor/origem, descarte após mudança de base e avaliação de referências, hipóteses e filtros. Os resultados precisam ser testados antes de habilitar execução automática. Ampliar expressões reconhecidas não substitui essa etapa.
+Os contratos abrangem saldo físico, entradas, quantidades vendidas, classificações, demonstrativo financeiro, pendências e histórico de compras, contagens de clientes/CNPJs, histórico de cliente, eventos, clima pelo módulo existente e simulação de desconto. Não é conversação irrestrita nem cobertura de qualquer cálculo possível. Períodos e combinações sem contrato são recusados ou esclarecidos. No máximo três tarefas por plano e contexto limitado para proteger o aparelho.
 
-Esta diretriz é a prioridade da evolução da inteligência. Não usar a regra “perguntar se não souber” como justificativa para ignorar um contexto que o aplicativo já possui.
+O contexto enviado ao modelo contém pergunta, seleção e rótulos/IDs mínimos de cadastros. Preços, saldos, documentos e telefones dos cadastros não entram no pedido de interpretação. O modelo não gera respostas financeiras nem tem ferramenta de gravação. O desconto hipotético é calculado pelo simulador existente e explicitamente não altera preço.
+
+Uma interpretação utilizada pode ser conferida em “Como entendi sua pergunta” e corrigida por “Ajustar pergunta”. Se o modelo propôs a consulta, não é carregado outro modelo para resumir a mesma resposta. GeminiNano depende de disponibilidade oficial do AICore; Qwen0.6 usa o mesmo arquivo privado preparado na143. Sem modelo, consultas diretas continuam funcionando; referências não resolvidas pedem esclarecimento, preservando uma referência única já identificada quando possível.
+
+A ligação de código não comprova qualidade geral de linguagem. Os testes remotos usam planos e provedores simulados para conferir limites e execução. A qualidade, latência e memória de inferência real no celular continuam pendentes de avaliação física. Não afirmar compreensão universal ou ausência absoluta de erros.

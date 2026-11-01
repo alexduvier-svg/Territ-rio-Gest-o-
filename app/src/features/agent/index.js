@@ -1,3 +1,6 @@
+import {interpretationRequest,validateInterpretation,executeInterpretation,semanticSnapshot} from './semantic-query.js';
+import {normalize,productMatches} from '../stock-entries.js';
+import {clarificationResult} from './clarification.js';
 import {readQuery} from './read-queries.js';
 import { Capacitor, registerPlugin } from '@capacitor/core';
 import { ensureAgent, contextOf, revisionOf, parseRequest, proposeSale, validateProposal, audit, analyze, answerQuery, productIndex, eligible, scopeSales } from './core.js';
@@ -12,7 +15,7 @@ import {installContinuity} from './continuity-ui.js';
 const scheduler=registerPlugin('AgroAgentScheduler');
 export function installAgent(){
  const b=window.TerritorioAgentBridge;if(!b)return;const esc=b.escape,uid=()=>(crypto.randomUUID?.()||Array.from(crypto.getRandomValues(new Uint8Array(16)),n=>n.toString(16).padStart(2,'0')).join(''));let worker=null,sequence=0,pending=new Map(),cache=new Map(),inflight=new Map(),view=null,epoch=0,lastRevision='',reviewTimer=null,indexBusy=false;
- let journeys=null,released=null;const guidanceCache=new Map();
+ let journeys=null,released=null,semanticHistory=null;const guidanceCache=new Map();
  installGeneralEducation(b);
  const originLabel=data=>({demo:'Demonstração — dados fictícios',real:'Registros da operação real',simulation:'Simulação — não usar como operação real',unconfirmed:'Origem dos dados não confirmada'}[contextOf(data).dataOrigin]||'Origem não confirmada');
  const state=()=>ensureAgent(b.data());
@@ -60,13 +63,28 @@ export function installAgent(){
  async function ask(text,source='text',requestId=uid()){
   const base=view?.ctx||context(),ctx=b.queryContext?.(text,base)||base,actor=contextOf(b.data()).actorId,token=++epoch;if(!current(ctx))return b.toast('O produtor mudou. Abra a análise novamente.');
   if(window.TerritorioStockLotsUI?.handleQuestion(text)){audit(state(),requestId,'query-stock-validity',{intent:'stock-validity',scopeId:'all'});persist();return;}
-  let integrated;try{integrated=readQuery(b.data(),text,{scopeId:ctx.scopeId,period:ctx.period,financialComparison:b.monthComparison?()=>b.monthComparison(ctx):null});}catch(error){b.toast(error.message);return;}
   const readRevision=revisionOf(b.data()),request=parseRequest(text,b.data(),{scopeId:ctx.scopeId,source,requestId});
+  const followup=!!semanticHistory?.pending&&!/^(?:eu\s+vendi|vendi|registre|registrar|adicione|vender|vende)\b/.test(normalize(text));
+  const contextual=followup||/^e\s+se\b|\b(?:supondo|hipotese|acho que|se eu|ele|ela|eles|elas|isso|aquilo|esses|estes|essas|estas|aquele|aquela|aqueles|aquelas)\b|^e\s+(?:no|na|em|quanto|o|a)\b/.test(normalize(text));
+  let integrated=null,readError=null;
+  if(!contextual)try{integrated=readQuery(b.data(),text,{scopeId:ctx.scopeId,period:ctx.period,financialComparison:b.monthComparison?()=>b.monthComparison(ctx):null});}catch(error){readError=error;}
+  const contextualClarification=()=>{const snapshot=semanticSnapshot(b.data()),valid=semanticHistory&&semanticHistory.snapshot.actorId===snapshot.actorId&&semanticHistory.snapshot.dataOrigin===snapshot.dataOrigin&&semanticHistory.snapshot.revision===snapshot.revision,ids=valid?[...new Set(semanticHistory.plan?.tasks.flatMap(t=>t.ids)||semanticHistory.entityIds||[])]:[],references=ids.map(id=>b.data().products.find(p=>p.id===id)).filter(Boolean).map(p=>p.name+(p.weight?' · '+p.weight+' g':''));return clarificationResult(text,{references});};
+  if((request.intent!=='sale'||followup)&&(contextual||!integrated||integrated.needsClarification)){
+   try{
+    const envelope=interpretationRequest(b.data(),text,{previous:semanticHistory,context:ctx});
+    b.open('Entendendo sua pergunta','<p role="status">Conferindo o contexto e as referências da consulta…</p>',back(),'agent-answer');
+    const interpreted=await window.TerritorioLocalIntelligence?.interpret?.(envelope.request);
+    if(token!==epoch||readRevision!==revisionOf(b.data())||actor!==contextOf(b.data()).actorId)return;
+    if(interpreted){if(interpreted.synthetic!==false||interpreted.scenario!=='business-interpretation')throw Error('Origem da interpretação não conferida.');const plan=validateInterpretation(interpreted.raw,envelope);integrated=await executeInterpretation(b.data(),plan,envelope,{context:ctx,financialAnswer:b.financialAnswer,queryContext:b.queryContext,weatherAnswer:b.managementAnswer});integrated.specialists.unshift({name:'Interpretação local · '+(interpreted.modelName||interpreted.model),source:'Modelo propõe intenção e referências; plano validado antes de consultar os motores. O modelo não calcula valores.'});}
+    else if(contextual)integrated=contextualClarification();
+   }catch(error){if(token!==epoch)return;integrated=contextualClarification();integrated.text='A interpretação desta consulta ainda precisa ser conferida.\n'+integrated.text;}
+  }
+  if(readError&&!integrated){integrated=clarificationResult(text);integrated.text=readError.message+'\n'+integrated.text;}
   if(integrated)request.intent='integrated-read';else if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')request.intent='management';
   if(request.intent==='sale'){request.scopeId=b.saleScope();const p=proposeSale(b.data(),request,{proposalId:uid()});persist();return paintProposal(p,ctx);}
   b.open('Consulta local','<p class="agent-note">Consultando os registros deste local…</p>',back(),'agent-answer');
   try{let r=integrated||await rpc('query',{...ctx,source,requestId,now:Date.now()},text);if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
-   if(integrated&&/chuva|chover|clima/i.test(text)){r.text+='\n\n'+await b.managementAnswer(text,ctx);r.specialists.push({name:'Clima',source:'Módulo existente e limites da previsão armazenada'});}
+   if(integrated&&!r.semanticUsed&&/chuva|chover|clima/i.test(text)){r.text+='\n\n'+await b.managementAnswer(text,ctx);r.specialists.push({name:'Clima',source:'Módulo existente e limites da previsão armazenada'});}
    if(integrated&&readRevision!==revisionOf(b.data()))throw Error('Os registros mudaram. Consulte novamente.');
    if(!integrated&&window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')r.intent='management';
    if(r.intent==='finance')r.text=b.financialAnswer(text,ctx);
@@ -76,10 +94,11 @@ export function installAgent(){
    if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
    if(readRevision!==revisionOf(b.data()))throw Error('Os registros ou as preferências mudaram. Consulte novamente.');
    const trace=r.needsClarification?'':'<details class="manager-consultation"><summary>Especialistas consultados</summary>'+r.specialists.map(s=>'<p><strong>'+esc(s.name)+'</strong><br><small>'+esc(s.source)+'</small></p>').join('')+'<p>'+esc(originLabel(b.data()))+' · '+esc(r.contextLabel||ctx.label||ctx.scopeId)+'</p><p>'+esc(r.confidence)+'</p><p>Atualizado '+esc(new Date(r.generatedAt).toLocaleString('pt-BR'))+'. A análise não usa serviço de IA online.</p></details>';
+   if(r.semanticMemory)semanticHistory=r.semanticMemory;else if(r.needsClarification){semanticHistory=semanticHistory?{...semanticHistory,pending:text}:{snapshot:semanticSnapshot(b.data()),question:text,entityIds:[],plan:null,pending:text};}else semanticHistory={snapshot:semanticSnapshot(b.data()),question:text,entityIds:productMatches(b.data(),text).map(p=>p.id),plan:null};
    audit(state(),requestId,'queried',{scopeId:ctx.scopeId,intent:r.intent,period:ctx.period,dataRevision:revisionOf(b.data()),queryContractVersion:1});persist();view={kind:'answer',ctx,result:r};
    const links=r.intent==='rebuy'?r.rebuys.slice(0,6).map(x=>button('agent-message','Preparar convite · '+esc(b.data().clients.find(c=>c.id===x.clientId)?.name||'Cliente'),'data-client="'+esc(x.clientId)+'" data-product="'+esc(x.productId)+'"')).join(''):'';
-   b.open('Gerente do negócio','<p class="agent-origin">'+esc(originLabel(b.data()))+'</p><p class="agent-note">'+esc(r.contextLabel||ctx.label||ctx.scopeId)+'</p><p class="agent-answer">'+b.privateHTML(esc(r.text))+'</p>'+links+trace+(r.needsClarification?'':'<p class="agent-note">Hipóteses não são causas comprovadas. Nenhuma operação foi executada.</p>')+(window.TerritorioLocalIntelligence?.attach({...r,contextLabel:r.contextLabel||ctx.label||ctx.scopeId,originLabel:originLabel(b.data())})||''),back(),'agent-answer');
-   window.TerritorioLocalIntelligence?.start();
+   b.open('Gerente do negócio','<p class="agent-origin">'+esc(originLabel(b.data()))+'</p><p class="agent-note">'+esc(r.contextLabel||ctx.label||ctx.scopeId)+'</p>'+(r.semanticUsed?'<details class="manager-consultation"><summary>Como entendi sua pergunta</summary><p>'+esc(r.interpretationLabel||'Consulta interpretada localmente')+'</p></details>':'')+'<p class="agent-answer">'+b.privateHTML(esc(r.text))+'</p>'+(r.semanticUsed?button('agent-refine-question','Ajustar pergunta'):'')+links+trace+(r.needsClarification?'':'<p class="agent-note">Hipóteses não são causas comprovadas. Nenhuma operação foi executada.</p>')+(!r.semanticUsed&&window.TerritorioLocalIntelligence?.attach({...r,contextLabel:r.contextLabel||ctx.label||ctx.scopeId,originLabel:originLabel(b.data())})||''),back(),'agent-answer');
+   if(r.semanticUsed)window.TerritorioLocalIntelligence?.invalidate?.();else window.TerritorioLocalIntelligence?.start();
   }catch(e){if(e.name==='AbortError')return;if(token===epoch)b.open('Consulta local','<p role="alert">'+esc(e.message)+'</p>',back(),'agent-answer');}
  }
  function paintProposal(p,ctx=view?.ctx||context()){
@@ -102,6 +121,7 @@ export function installAgent(){
   'settings-intelligence':hierarchy,'brain-configuration':()=>b.actions['agent-education-open'](),
   'agent-reference':d=>referenceDocument(d.id),'agent-hierarchy':hierarchy,'agent-release-detail':d=>releaseDetail(d.key),
   'agent-release-feedback':d=>{if(!view?.releaseInsight||!current(view.ctx))return;const updated=recordInsightFeedback(state().insightRelease,view.releaseInsight,d.status);state().insightRelease=updated;persist();open(view.ctx);},
+  'agent-refine-question':()=>{const q=view?.result?.semanticMemory?.question||semanticHistory?.question||'';open(view?.ctx);queueMicrotask(()=>{const input=document.getElementById('agent-question');if(input){input.value=q;input.focus();}});},
   'agent-open':()=>open(),'agent-ask':()=>ask(document.getElementById('dialog').querySelector('#agent-question')?.value||''),'agent-example':d=>ask(d.text),
   'agent-detail':d=>detail(d.id),'agent-evidence':d=>{if(view?.insight?.evidenceRefs.some(r=>r.type===d.type&&r.id===d.id))b.evidence(d);},
   'agent-feedback':d=>{if(!view?.insight)return;const i=view.insight;state().feedback[i.id]={fingerprint:i.fingerprint,status:d.status,until:d.status==='snoozed'?Date.now()+86400000:0,at:Date.now()};audit(state(),uid(),'insight-feedback',{scopeId:view.ctx.scopeId,status:d.status});persist();cache.clear();open(view.ctx);},
@@ -112,7 +132,7 @@ export function installAgent(){
   'agent-new-product':()=>{b.close();b.actions['new-product']();},'agent-message':d=>message(d.client,d.product),'agent-share-message':share,
   'agent-rebuy-open':()=>{view={ctx:context()};ask('Quais clientes posso avisar?');},'agent-event':d=>open({scopeId:d.id,label:b.scopeLabel(d.id)}),
   'agent-settings':preferences,'agent-settings-save':()=>{const days=Number(document.getElementById('dialog').querySelector('#agent-stagnant-setting').value);if(!Number.isInteger(days)||days<7||days>365)return b.toast('Use de 7 a 365 dias.');const count=Number(document.getElementById('dialog').querySelector('#agent-fair-count').value),ratio=Number(document.getElementById('dialog').querySelector('#agent-fair-ratio').value);if(!Number.isInteger(count)||count<3||count>30||!Number.isFinite(ratio)||ratio<10||ratio>100)return b.toast('Use 3 a 30 feiras e sobra de 10% a 100%.');state().settings.fairMinimumEvents=count;state().settings.fairSurplusRatio=ratio/100;state().settings.rebuy=document.getElementById('dialog').querySelector('#agent-rebuy-setting').checked;state().settings.stagnantDays=days;state().settings.excludedProducts=[...document.getElementById('dialog').querySelectorAll('[data-agent-exclude]:checked')].map(el=>el.dataset.agentExclude);persist();cache.clear();open(view.ctx);},
-  'agent-alias-remove':d=>{state().aliases.splice(Number(d.index),1);persist();preferences();},'agent-back':()=>{epoch++;if(view?.kind==='home'){b.close();view=null;}else open(view?.ctx);}
+  'agent-alias-remove':d=>{state().aliases.splice(Number(d.index),1);persist();preferences();},'agent-back':()=>{epoch++;window.TerritorioLocalIntelligence?.cancelInterpretation?.();if(view?.kind==='home'){b.close();view=null;}else open(view?.ctx);}
  });
  async function refresh(){if(document.hidden||!['Gestão','Clientes'].includes(window.TerritorioShell?.page?.())&&!document.getElementById('dialog').querySelector('#agent-panel'))return;if(window.TerritorioResourcePolicy&&!window.TerritorioResourcePolicy.snapshot().optionalBackground)return;const d=b.data(),agent=ensureAgent(d),rev=revisionOf(d);if(rev===lastRevision&&Date.now()-agent.lastReviewAt<86400000)return;cache.clear();try{if(window.TerritorioResourcePolicy?.snapshot().optionalBackground&&!indexBusy){indexBusy=true;const index=await rpc('index',{});if(index.actorId===contextOf(b.data()).actorId&&index.hash!==state().index?.hash)state().index=index;indexBusy=false;}const ctx=context();await report(ctx);if(rev!==revisionOf(b.data())||ctx.actorId!==contextOf(b.data()).actorId)return;lastRevision=rev;state().lastReviewAt=Date.now();persist();if(!window.TerritorioWorkspace?.active&&Capacitor.isNativePlatform())scheduler.acknowledge({}).catch(()=>{});if(document.getElementById('dialog').querySelector('#agent-panel'))fillPanel(view?.ctx||ctx);}catch{indexBusy=false;lastRevision='';}}
  document.addEventListener('territorio:resource-policy',e=>{if(!e.detail.optionalBackground){epoch++;cache.clear();stopWorker('Análise adiada pelas condições do aparelho.',true);}});
@@ -122,5 +142,5 @@ export function installAgent(){
  new MutationObserver(()=>{if(['Gestão','Clientes'].includes(window.TerritorioShell?.page?.()))queue();}).observe(document.getElementById('app'),{childList:true});
  ensureAgent(b.data());persist();window.addEventListener('territorio:product-source-saved',queue);window.addEventListener('territorio:resume',queue);document.addEventListener('visibilitychange',()=>{if(document.hidden){epoch++;stopWorker('Consulta interrompida ao sair do app.',true);}else queue();});
  if(!window.TerritorioWorkspace?.active&&Capacitor.isNativePlatform())scheduler.schedule({}).catch(()=>{});
- window.TerritorioAgent={invalidate:()=>{epoch++;view=null;cache.clear();guidanceCache.clear();inflight.clear();clearTimeout(reviewTimer);stopWorker('A base de dados mudou.',true);},compareSuppliers:command=>rpc('suppliers',command),validSales:scope=>scopeSales(b.data(),scope),matchesRecord:r=>eligible(r,contextOf(b.data())),context:()=>contextOf(b.data()),revision:()=>revisionOf(b.data()),resolveSingle:text=>{const r=parseRequest(text,b.data(),{scopeId:b.saleScope()});if(r.intent!=='sale'||r.items.length!==1)return null;const i=r.items[0];return {original:text,productId:i.productId,quantity:i.quantity,candidates:i.candidates.map(c=>b.data().products.find(p=>p.id===c.productId)).filter(Boolean),status:i.ready?'ready':'review',message:i.message};},panel,clientEntry,open,ask,report,state:()=>state(),diagnostics:()=>({cacheSize:cache.size,pending:pending.size,workerActive:!!worker})};queue();
+ window.TerritorioAgent={invalidate:()=>{epoch++;view=null;semanticHistory=null;cache.clear();guidanceCache.clear();inflight.clear();clearTimeout(reviewTimer);stopWorker('A base de dados mudou.',true);},compareSuppliers:command=>rpc('suppliers',command),validSales:scope=>scopeSales(b.data(),scope),matchesRecord:r=>eligible(r,contextOf(b.data())),context:()=>contextOf(b.data()),revision:()=>revisionOf(b.data()),resolveSingle:text=>{const r=parseRequest(text,b.data(),{scopeId:b.saleScope()});if(r.intent!=='sale'||r.items.length!==1)return null;const i=r.items[0];return {original:text,productId:i.productId,quantity:i.quantity,candidates:i.candidates.map(c=>b.data().products.find(p=>p.id===c.productId)).filter(Boolean),status:i.ready?'ready':'review',message:i.message};},panel,clientEntry,open,ask,report,state:()=>state(),diagnostics:()=>({cacheSize:cache.size,pending:pending.size,workerActive:!!worker})};queue();
 }

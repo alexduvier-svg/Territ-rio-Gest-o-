@@ -4,10 +4,11 @@ import { LOCAL_AI_GUIDANCE } from './policy.js';
 import { installModelDiagnostics } from './diagnostics.js';
 import './local-intelligence.css';
 const native = registerPlugin('AgroLocalIntelligence');
+const languageNative=registerPlugin('AgroModelDiagnostics');
 export function installLocalIntelligence(b) {
   if(!b)return;
   const esc = b.escape, service = createLocalIntelligence(native);
-  let current = null, epoch = 0, busy = false, modelTests=null;
+  let current = null, epoch = 0, busy = false, modelTests=null, languageStatus=null, languageCheckedAt=0;
   const dialog = document.getElementById('dialog');
   const button = (action, label, style='choice') => '<button type="button" class="'+style+' local-ai-button" data-action="'+action+'">'+label+'</button>';
   const back = button('local-ai-back','Voltar','sheet-back');
@@ -21,9 +22,10 @@ export function installLocalIntelligence(b) {
   async function settings() {
     cancel(); const token=epoch;
     b.open('Inteligência no aparelho','<p role="status">Conferindo disponibilidade…</p>',back,'agent-local-settings');
-    const s=await status(); if(token!==epoch)return;
+    const s=await status();let language=null;if(Capacitor.isNativePlatform()&&Capacitor.isPluginAvailable('AgroModelDiagnostics'))try{language=await languageNative.status({});}catch{} if(token!==epoch)return;
+    const languageLabel=language?.qwenReady?'Qwen 0.6B preparado para interpretação experimental.':language?.nanoStatus==='available'?'Gemini Nano disponível no AICore para interpretação experimental.':'Nenhum intérprete local pronto. Prepare um modelo em Testar Qwen e Gemini Nano. As consultas diretas continuam disponíveis.';
     const condition=!s.supported?'Este aparelho não oferece suporte a esta experiência.':s.imported?(s.enabled?'Ativado. O app carrega o Qwen automaticamente nas consultas.':'Modelo instalado. Assistente desativado.'):s.packaged?'O modelo está incluído na instalação e será preparado no próprio aparelho.':'O modelo não está incluído neste APK de teste. A instalação completa deverá incluir o assistente pela Play Store.';
-    b.open('Inteligência no aparelho','<section class="local-ai-card"><p class="local-ai-eyebrow">Codex Teste · experimental</p><h3>Assistente local</h3><p>'+esc(condition)+'</p><p class="agent-note">O Gerente usa os cálculos dos registros. O Qwen confere a seleção de trechos; a apresentação preserva a resposta completa.</p>'+(s.supported?(s.imported?button('local-ai-toggle',s.enabled?'Desativar assistente':'Ativar assistente','success')+button('local-ai-remove','Remover a cópia local do modelo'):s.packaged?button('local-ai-install','Preparar assistente local','success'):''):'')+'</section><section class="local-ai-card"><h3>Como usar</h3><p>Abra o Gerente e faça uma consulta. Quando disponível e em condições adequadas, o complemento local é usado. A resposta calculada fica visível.</p><p class="agent-note">O assistente usa os registros deste aparelho. Não consulta GitHub, sites nem serviços externos de IA. Modelo Qwen3 1.7B · Apache 2.0 · 977 MB; a preparação da cópia privada exige cerca de 1,3 GB livres.</p></section>'+button('local-ai-manager','Abrir Gerente','primary')+button('local-ai-model-tests','Testar Qwen e Gemini Nano')+button('local-ai-professional','Diretrizes profissionais')+button('local-ai-guidelines','Diretrizes e hierarquia'),back,'agent-local-settings');
+    b.open('Inteligência no aparelho','<section class="local-ai-card"><p class="local-ai-eyebrow">Codex Teste · experimental</p><h3>Interpretação contextual</h3><p>'+esc(languageLabel)+'</p><p class="agent-note">Usa a pergunta, referências anteriores válidas e rótulos mínimos dos cadastros. Não recebe documentos, telefones ou valores financeiros do cadastro. Hipóteses não executam operações.</p><h3>Qwen 1.7B · complemento anterior</h3><p>'+esc(condition)+'</p><p class="agent-note">O Gerente usa os cálculos dos registros. O Qwen confere a seleção de trechos; a apresentação preserva a resposta completa.</p>'+(s.supported?(s.imported?button('local-ai-toggle',s.enabled?'Desativar assistente':'Ativar assistente','success')+button('local-ai-remove','Remover a cópia local do modelo'):s.packaged?button('local-ai-install','Preparar assistente local','success'):''):'')+'</section><section class="local-ai-card"><h3>Como usar</h3><p>Abra o Gerente e faça uma consulta. Quando disponível e em condições adequadas, o complemento local é usado. A resposta calculada fica visível.</p><p class="agent-note">A interpretação usa Qwen 0.6B ou Gemini Nano local quando disponível e habilitada. O complemento anterior usa Qwen3 1.7B · Apache 2.0 · 977 MB; a preparação da cópia privada exige cerca de 1,3 GB livres.</p></section>'+button('local-ai-manager','Abrir Gerente','primary')+button('local-ai-model-tests','Testar Qwen e Gemini Nano')+button('local-ai-language-toggle',b.data?.().settings?.contextualInterpretation===false?'Ativar interpretação contextual':'Desativar interpretação contextual experimental')+button('local-ai-professional','Diretrizes profissionais')+button('local-ai-guidelines','Diretrizes e hierarquia'),back,'agent-local-settings');
   }
   async function installModel(){
     if(busy)return;busy=true;const token=++epoch;
@@ -58,6 +60,7 @@ export function installLocalIntelligence(b) {
   }
   const actions={
     'local-ai-settings':settings,'settings-intelligence':settings,
+    'local-ai-language-toggle':async()=>{const d=b.data?.();if(!d)return;d.settings.contextualInterpretation=d.settings.contextualInterpretation===false;await b.persist?.();languageStatus=null;await settings();},
     'local-ai-professional':()=>{cancel();b.open('Diretrizes profissionais','<p class="agent-note">Regras locais · versão 1 · disponíveis sem internet</p>'+LOCAL_AI_GUIDANCE.map(text=>'<p>'+esc(text)+'</p>').join('')+'<p class="agent-note">Nenhum modelo novo é baixado automaticamente. O Gemini de educação geral, se configurado, é um serviço separado e não recebe os registros do negócio.</p>',button('local-ai-settings','Voltar'),'agent-local-guidelines');},
     'local-ai-guidelines':()=>{cancel();previousIntelligence?.();},
     'local-ai-manager':()=>{cancel();b.actions['agent-open']();},
@@ -76,8 +79,14 @@ export function installLocalIntelligence(b) {
     'local-ai-cancel':()=>{cancel();const area=document.getElementById('local-ai-result');if(area)area.innerHTML='<p role="status">Explicação cancelada. A consulta original continua disponível.</p>';},
   };
   for(const [name,fn] of Object.entries(actions))b.actions[name]=(...args)=>Promise.resolve().then(()=>fn(...args)).catch(e=>b.toast(e.message));
-  modelTests=installModelDiagnostics(b,registerPlugin('AgroModelDiagnostics'),cancel);
-  window.TerritorioLocalIntelligence={invalidate(){cancel();current=null;},attach(result) {
+  modelTests=installModelDiagnostics(b,languageNative,cancel);
+  window.TerritorioLocalIntelligence={cancelInterpretation:()=>languageNative.cancel({}).catch(()=>{}),async interpret(request){
+    if(b.data?.().settings?.contextualInterpretation===false||!Capacitor.isNativePlatform()||!Capacitor.isPluginAvailable('AgroModelDiagnostics')||document.hidden||window.TerritorioResourcePolicy?.snapshot()?.intelligenceProfile==='essential')return null;
+    if(!languageStatus||Date.now()-languageCheckedAt>5000){languageStatus=await languageNative.status({fast:true});languageCheckedAt=Date.now();}
+    const model=languageStatus.qwenReady&&languageStatus.resources?.availableBytes>=3*1024**3?'qwen06':languageStatus.nanoStatus==='available'?'nano':null;if(!model)return null;
+    const token=epoch,work=async signal=>{if(signal?.aborted||token!==epoch||document.hidden)throw Error('Interpretação cancelada.');const abort=()=>languageNative.cancel({});signal?.addEventListener('abort',abort,{once:true});try{return await languageNative.interpretQuestion({model,request});}finally{signal?.removeEventListener('abort',abort);}};
+    return window.TerritorioResourcePolicy?.run?window.TerritorioResourcePolicy.run(work,{priority:2}):work();
+  },invalidate(){cancel();current=null;},attach(result) {
     cancel();current={facts:result.text,key:currentKey(),eligible:['stock','finance','management','overview','fair','rebuy','integrated-read'].includes(result.intent),started:false,sources:result.specialists||[],contextLabel:result.contextLabel,originLabel:result.originLabel,generatedAt:result.generatedAt};
     if(!current.eligible)return '';
     return '<section class="local-ai-card" id="local-ai-result"><p role="status">Conferindo o assistente local…</p></section>';

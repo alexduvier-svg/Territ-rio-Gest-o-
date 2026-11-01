@@ -11,7 +11,7 @@ export function isIncomingQuestion(text){
  return arrival||/\b(?:compras?|pedidos?|mercadorias?|produtos?|encomendas?)\b.*\b(?:pendentes?|atrasad[oa]s?)\b/.test(q);
 }
 // Reads the canonical purchase/receipt ledger; commitments never become stock.
-export function incomingPurchases(data,text,{now=Date.now()}={}){
+export function incomingPurchases(data,text,{now=Date.now(),selectedProducts=null,selectedSuppliers=null}={}){
  if(!isIncomingQuestion(text))return null;
  const q=normalize(text),ctx=contextOf(data);
  if(!['real','demo','simulation'].includes(ctx.dataOrigin))throw Error('Confirme a origem dos registros antes de consultar.');
@@ -19,7 +19,7 @@ export function incomingPurchases(data,text,{now=Date.now()}={}){
  if(rows.length>10000)throw Error('Histórico de compras grande demais. Consulte os pedidos em Fornecedores.');
  const today=day(now),target=/\bamanha\b/.test(q)?day(now+86400000):/\bhoje\b/.test(q)?today:null,late=/atrasad|prazo.*passou/.test(q);
  if(/\b(?:semana|mes|ano|janeiro|fevereiro|marco|abril|maio|junho|julho|agosto|setembro|outubro|novembro|dezembro)\b|\b\d{1,2}[/-]\d/.test(q))throw Error('Para entregas, pergunte por hoje, amanhã, atrasados ou todas as pendências. Outros períodos ainda precisam ser consultados em Fornecedores.');
- const products=productMatches(data,q),productIds=new Set(products.map(p=>p.id)),suppliers=directory.suppliers.filter(s=>eligible(s,ctx)&&q.includes(normalize(identity(data,s).name))),supplierIds=new Set(suppliers.map(s=>s.id));
+ const products=selectedProducts?(data.products||[]).filter(p=>selectedProducts.includes(p.id)&&eligible(p,ctx)):productMatches(data,q),productIds=new Set(products.map(p=>p.id)),suppliers=directory.suppliers.filter(s=>eligible(s,ctx)&&(selectedSuppliers?selectedSuppliers.includes(s.id):q.includes(normalize(identity(data,s).name)))),supplierIds=new Set(suppliers.map(s=>s.id));
  if(/\b(?:do|da) fornecedor\b/.test(q)&&!suppliers.length)return answer('Não identifiquei esse fornecedor com segurança. Informe o nome cadastrado em Fornecedores.');
  const subject=q.match(/(?:tem|tenho|ha|existe|existem)\s+(.+?)\s+(?:(?:pra|para|a)\s+chegar|pendente)/)?.[1];
  if(subject&&!productIds.size&&!supplierIds.size&&!/^(?:(?:algum|alguma|alguns|algumas|mais|um|uma|meu|minha|meus|minhas)\s+)*(?:produtos?|mercadorias?|compras?|pedidos?|entregas?|encomendas?|algo)$/.test(subject))return answer('Não identifiquei o produto com segurança. Informe seu nome cadastrado para conferir as compras pendentes.');
@@ -47,5 +47,5 @@ export function incomingPurchases(data,text,{now=Date.now()}={}){
  if(missingDate)textResult+='\n\n'+missingDate+' compras sem previsão registrada ficaram fora do filtro de data.';
  textResult+='\n\nA previsão não confirma a chegada. Somente os recebimentos registrados reduzem a pendência; a quantidade pendente não faz parte do estoque físico.';
  return answer(textResult);
- function answer(text){return {intent:'integrated-read',text,contextLabel:'Compras do produtor · '+(target?'entregas previstas para '+date(target):late?'atrasos registrados':'pendências atuais, sem filtro pelo mês da compra'),generatedAt:now,specialists:[{name:'Fornecedores e recebimentos',source:'supplierBook.purchases e purchaseReceiptState · pedidos e recebimentos originais'}],confidence:'Somente registros desta base. Previsão não comprova entrega; saldo desconhecido exige conferência.',insights:[],rebuys:[]};}
+ function answer(text){return {intent:'integrated-read',needsClarification:/^Não identifiquei/.test(text),text,contextLabel:'Compras do produtor · '+(target?'entregas previstas para '+date(target):late?'atrasos registrados':'pendências atuais, sem filtro pelo mês da compra'),generatedAt:now,specialists:[{name:'Fornecedores e recebimentos',source:'supplierBook.purchases e purchaseReceiptState · pedidos e recebimentos originais'}],confidence:'Somente registros desta base. Previsão não comprova entrega; saldo desconhecido exige conferência.',insights:[],rebuys:[]};}
 }

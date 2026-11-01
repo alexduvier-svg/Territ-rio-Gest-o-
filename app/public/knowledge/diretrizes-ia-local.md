@@ -1,6 +1,10 @@
 # AGRO Gestão — diretrizes profissionais de inteligência local
 
-Versão 1 · Codex Teste 143 · 01/11/2026
+Versão 2 · Codex Teste 144 · 01/11/2026
+
+### Atualização144 — contexto antes do esclarecimento
+
+Perguntas desconhecidas não recebem mais um resumo genérico. A interpretação contextual experimental agora pode usar Qwen0.6B ou GeminiNano local para propor planos de leitura validados. O modelo recebe contexto mínimo, referências anteriores válidas e IDs de cadastros; não calcula valores nem altera registros. O Gerente diferencia hipóteses de fatos e oferece “Como entendi sua pergunta” e “Ajustar pergunta”. Sem modelo disponível, as consultas diretas permanecem ativas e uma referência não resolvida exige esclarecimento. A compreensão não é universal; combinações sem contrato, ambiguidades reais e dados insuficientes são explicitados. Os testes de integração não substituem avaliação de inferência física. As seções sobre diagnóstico143 abaixo são históricas e passam a ter essa evolução na144.
 
 ### Atualização 143-teste.2 — modelos no APK de diagnóstico
 
