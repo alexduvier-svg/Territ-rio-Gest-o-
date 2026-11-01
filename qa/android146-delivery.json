@@ -1,0 +1,72 @@
+{
+  "filename": "Codex_Teste_146_Gemini_Gerente.apk",
+  "bytes": 36166137,
+  "sha256": "3c4abf8423a88be2bc96b8c7deff78b9112f11d8e20373b4aeb076d0c6da5011",
+  "package": "br.com.territorio.gestao2.codextesteia",
+  "versionName": "0.12.146-teste.1",
+  "versionCode": 188,
+  "minSdk": 26,
+  "certificateSha256": "b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86",
+  "zip16Kb": true,
+  "signatureVerification": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): true\nVerified using v3 scheme (APK Signature Scheme v3): false\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1\nSigner #1 certificate DN: CN=Codex Teste IA, O=AGRO Gestao, C=BR\nSigner #1 certificate SHA-256 digest: b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86\nSigner #1 certificate SHA-1 digest: 91fd77415cc1966fd36d870989a9f548a2c77e1b\nSigner #1 certificate MD5 digest: a1f38ae805710f7cefd3b665f461e70e\nSigner #1 key algorithm: RSA\nSigner #1 key size (bits): 2048\nSigner #1 public key SHA-256 digest: 33d344df7dcc6dd5adb9a1ddea11119769bb2b373b1af3535e54ed7d1989583a\nSigner #1 public key SHA-1 digest: c85153335b1c1456c7dd8d6975d442142e48868b\nSigner #1 public key MD5 digest: d45768acd65fea330e0a0c939fa8f8d9\n",
+  "bundledQwen": false,
+  "crcPassed": true,
+  "publicAssetsMatched": 64,
+  "nativeElfAlignment": [
+    {
+      "file": "lib/arm64-v8a/libdatastore_shared_counter.so",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "file": "lib/arm64-v8a/liblitertlm_jni.so",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "file": "lib/armeabi-v7a/libdatastore_shared_counter.so",
+      "loadAlignments": [
+        16384,
+        16384
+      ]
+    }
+  ],
+  "arm64Elf16Kb": true,
+  "newNativeClassesPresent": true,
+  "builtAtDateUtc": "2026-11-01",
+  "repository": "alexduvier-svg/Territ-rio-Gest-o-",
+  "branch": "codex/agro-gestao-146-gemini-gerente",
+  "baseCommit": "cbeea5c22f058c857459964e231dc320e02091c2",
+  "sourceCommit": "f0b150dc5ef780608c7e0a5d7327a392f2834fbe",
+  "localBuildCommit": "c98d448ebf2d3aacb612765e55e8a9b9160207ce",
+  "sourceTree": "44e0d7834fdf17ecb9836d9c1e04647642e94bbc",
+  "libraryFileId": "libfile_f0436d21208c8191b101b83775bdc85b",
+  "downloadUrl": "https://chatgpt.com/library?file_id=libfile_f0436d21208c8191b101b83775bdc85b&account_id=personal",
+  "unit": {
+    "pass": 911,
+    "fail": 0
+  },
+  "dom": {
+    "pass": 20,
+    "providerSimulated": true
+  },
+  "javaRestAdapter": {
+    "pass": 22,
+    "fixtureResponses": true
+  },
+  "physicalInstallExecuted": false,
+  "liveGoogleExecuted": false,
+  "physicalMemoryBatteryMeasured": false,
+  "newSigningKeyCreated": false,
+  "historicalProjectsWritten": false,
+  "destructiveMigrationExecuted": false,
+  "credentialsInGit": false,
+  "preserved136Commit": "78edfb5e2a44fc0819e5cf904420d4cb5f85c535",
+  "businessDiagnosticAvailable": true
+}

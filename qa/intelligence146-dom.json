@@ -1,0 +1,26 @@
+{
+  "kind": "DOM simulado, sem navegador ou Android",
+  "checks": [
+    "inicialização real do ERP UI, com todas as integrações dentro do escopo do aplicativo",
+    "carrinho de 3 para 1 produto, edição, continuar e retomar: botões habilitados; nenhuma venda lançada",
+    "Receita por dia → card exclusivo da pergunta → card de inteligência; sem cérebro no cabeçalho nem segundo campo, com recursos e comparativos preservados",
+    "pesquisa de entradas disponível no histórico existente",
+    "formulário real de recebimento parcial: 60 no estoque, 40 pendentes",
+    "Contas da banca: simulação de preço 10 / (1 - 20%) = 12,50 sem alterar cadastros, estoque, vendas ou configurações",
+    "campo da Gestão chama o Gerente real e seu adaptador de leitura, sem gravar venda",
+    "pergunta exata da captura abre pedidos pendentes no Gerente: 40 faltam receber, sem exigir fornecedor",
+    "intérprete simulado ligado ao Gerente: referência anterior, hipótese de desconto e cálculo canônico sem alterar preço",
+    "quando o intérprete está indisponível, referência não resolvida pede esclarecimento e não mostra resumo genérico",
+    "falha simulada de execução é informada como falha do intérprete, com acesso ao diagnóstico da conexão, sem atribuir ambiguidade à pergunta",
+    "pergunta exata da captura consulta compradores empresariais diretamente, sem depender do modelo",
+    "pergunta exata Qual Café acabou lista só o café zerado na tela, sem exigir internet nem chamada Gemini",
+    "Gerente real → consentimento adicional → adaptador Gemini interpretQuestion → plano → estoque canônico → tela, sem alterar registros",
+    "pergunta contextual seguinte usa referência e período pelo caminho online do Gerente",
+    "erro de quota do provedor online aparece no Gerente, com diagnóstico, sem repetir a chamada ou acusar Nano ausente",
+    "zerar pela ação real em fixture: cópia solicitada, base pendente vazia, caches limpos, boas-vindas e consulta real sem dados fictícios",
+    "a mesma pergunta após zerar informa ausência de pedidos, sem reaproveitar a resposta anterior",
+    "após zerar, o contexto online é vazio, sem nomes ou referências antigas, e a resposta vem da base atual sem registros",
+    "toques repetidos disparam uma única chamada; perfil Essencial não bloqueia Gemini online, e o botão volta a ficar disponível"
+  ],
+  "passed": true
+}
