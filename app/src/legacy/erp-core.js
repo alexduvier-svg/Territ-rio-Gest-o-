@@ -177,7 +177,7 @@ class ERPModel{
   if(after<0)throw Error('A perda é maior que o estoque disponível.');
   if(kind==='loss'&&!String(note||'').trim())throw Error('Informe o motivo da perda.');
   if(after===before)throw Error('Não há alteração no estoque.');
-  const m={id:uid(),productId:p.id,name:p.name,date:new Date().toISOString(),kind,qty:Math.abs(roundStock(after)-before),before,after:roundStock(after),note:note||'',unit:p.unit,cost:p.cost||0,...(options.lotInput?{lotInput:options.lotInput}:{}),...(options.lotSelections?{lotSelections:options.lotSelections}:{}),...(options.eventId?{eventId:options.eventId}:{}),...(options.occurrenceDay?{lotEffectiveDay:options.occurrenceDay,lotOccurrenceConfirmed:options.occurrenceConfirmed===true}:{})};
+  const m={id:uid(),productId:p.id,name:p.name,date:new Date().toISOString(),kind,qty:Math.abs(roundStock(after)-before),before,after:roundStock(after),note:note||'',unit:p.unit,cost:p.cost||0,...(options.lotInput?{lotInput:options.lotInput}:{}),...(options.lotSelections?{lotSelections:options.lotSelections}:{}),...(options.eventId?{eventId:options.eventId}:{}),...(options.purchaseId?{purchaseId:String(options.purchaseId),supplierId:String(options.supplierId||'')}:{}),...(options.occurrenceDay?{lotEffectiveDay:options.occurrenceDay,lotOccurrenceConfirmed:options.occurrenceConfirmed===true}:{})};
   auditRequire(auditQuantity(qty),'stock.input_precision');
   auditCommit(this.data,[m],{id:m.id,type:'stock',apply:()=>{p.stock=m.after;this.data.movements.unshift(m);},rollback:()=>{p.stock=before;if(this.data.movements[0]===m)this.data.movements.shift();},verify:()=>auditRequire(this.data.movements[0]===m,'stock.receipt')});
   if(kind==='add')this.rememberProduct(p,{stockEntry:true,at:m.date});return m;
