@@ -13,14 +13,16 @@
         "query",
         "hypothesis",
         "clarify"
-      ]
+      ],
+      "type": "string"
     },
     "reference": {
       "enum": [
         "explicit",
         "previous",
         "ambiguous"
-      ]
+      ],
+      "type": "string"
     },
     "clarify": {
       "enum": [
@@ -34,7 +36,8 @@
         "metric",
         "missing_cost",
         "unsupported"
-      ]
+      ],
+      "type": "string"
     },
     "tasks": {
       "type": "array",
@@ -52,6 +55,7 @@
           "kind": {
             "enum": [
               "stock",
+              "stock_empty",
               "entries",
               "sold",
               "ranking_qty",
@@ -65,7 +69,8 @@
               "events",
               "weather",
               "discount"
-            ]
+            ],
+            "type": "string"
           },
           "filter": {
             "enum": [
@@ -74,7 +79,8 @@
               "supplier",
               "client",
               "event"
-            ]
+            ],
+            "type": "string"
           },
           "ids": {
             "type": "array",
@@ -93,7 +99,8 @@
               "month",
               "previous_month",
               "all"
-            ]
+            ],
+            "type": "string"
           },
           "discountCents": {
             "type": "integer",

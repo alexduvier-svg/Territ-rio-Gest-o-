@@ -1,5 +1,6 @@
 import {contextOf,eligible,scopeSales,analyze} from './core.js';
 import {incomingPurchases} from './incoming-purchases.js';
+import {isUnavailableStockQuestion,stockAvailability} from './stock-availability.js';
 import {normalize,productMatches,queryPeriod,entryAnswer,isEntryQuestion} from '../stock-entries.js';
 import {productMargins} from '../finance/finance.js';
 import {rankProductRows} from '../product-period-reports.js';
@@ -15,9 +16,10 @@ export function readQuery(data,text,{scopeId='all',period=null,now=Date.now(),fi
  const incoming=incomingPurchases(data,text,{now});if(incoming)return incoming;
  if(/(?:receita|faturamento).*(?:aument|caiu|compar|mes passado)/.test(q)&&financialComparison)return {intent:'integrated-read',text:financialComparison(text),generatedAt:now,specialists:[{name:'Gestão e Finanças',source:'finance.statement e kpi.periodChange'}],confidence:'Mesmos demonstrativos e limites da Gestão.',rebuys:[]};
  if(/produto.*(?:parado|sem venda)/.test(q)){const facts=analyze(data,{scopeId,now}).insights.filter(i=>i.ruleId==='no-sale');return {intent:'integrated-read',text:facts.map(i=>i.observation+' '+i.nextAction).join('\n')||'Nenhum produto atende aos critérios atuais de estoque sem venda. Confira as preferências da Inteligência.',generatedAt:now,specialists:[{name:'Estoque',source:'Motor proativo existente; critério configurado pelo produtor'}],confidence:'Observações dos registros, sem comprovação de causa.',rebuys:[]};}
+ const unavailable=isUnavailableStockQuestion(q);
  const corporate=/\b(?:cnpjs?|empresas?|pessoas? juridicas?)\b/.test(q);
- const stock=/estoque|quant[oa]s?.*tenho|quantos.*tenho/.test(q),sold=/\bvendi\b|\bvendidos\b|venderam|vendeu|mais vendido|menos vendido/.test(q),buyers=(corporate&&/quant|compr|vend|atend/.test(q))||/clientes?.*compr/.test(q),ranking=/mais|menos|lucrativ/.test(q)&&/produto|vendi|vendeu/.test(q),supplier=/comprei|compras?|recebimentos?|pendente/.test(q)&&/fornecedor/.test(q);
- if(!stock&&!sold&&!buyers&&!ranking&&!supplier&&!isEntryQuestion(q))return null;
+ const stock=!unavailable&&/estoque|quant[oa]s?.*tenho|quantos.*tenho/.test(q),sold=/\bvendi\b|\bvendidos\b|venderam|vendeu|mais vendido|menos vendido/.test(q),buyers=(corporate&&/quant|compr|vend|atend/.test(q))||/clientes?.*compr/.test(q),ranking=/mais|menos|lucrativ/.test(q)&&/produto|vendi|vendeu/.test(q),supplier=/comprei|compras?|recebimentos?|pendente/.test(q)&&/fornecedor/.test(q);
+ if(!stock&&!sold&&!buyers&&!ranking&&!supplier&&!isEntryQuestion(q)&&!unavailable)return null;
  // Assertions and sales commands stay in the existing confirmed proposal flow.
  if(/^(?:eu )?vendi \d|^(?:adicione|registre|apague|exclua|zere|vender)\b/.test(q))return null;
  // An empty current base is a valid state. Never fill it from demo/history caches.
@@ -25,8 +27,10 @@ export function readQuery(data,text,{scopeId='all',period=null,now=Date.now(),fi
  if(!hasRecords)return {intent:'integrated-read',text:'Ainda não há registros nesta base. Não há histórico suficiente para informar vendas, estoque, entradas ou compras.\nCadastre seus produtos e registre a primeira entrada ou venda para começar. Os dados fictícios e as bases anteriores não são usados para preencher esta consulta.',generatedAt:now,specialists:[{name:'Registros locais',source:'Base atual do produtor; nenhuma recuperação automática de dados anteriores'}],confidence:'Ausência de registros; não representa uma medição do negócio.',insights:[],rebuys:[]};
  if(!['real','demo','simulation'].includes(ctx.dataOrigin))throw Error('Confirme a origem dos registros antes de consultar.');
  if(['products','sales','movements'].reduce((n,k)=>n+(data[k]?.length||0),0)>60000)throw Error('Histórico grande para esta consulta conjunta. Use os relatórios por período.');
+ let referenceProductIds=null;
  const sections=[],products=(data.products||[]).filter(p=>eligible(p,ctx)),matched=productIds?products.filter(p=>productIds.includes(p.id)):productMatches(data,q),ids=new Set(matched.map(p=>p.id)),p=queryPeriod(q,now,period),allProducts=(buyers||/\bprodutos?\b|o que vendi|vendi (?:mais|menos)/.test(q))&&!matched.length;
  const relevant=id=>allProducts||ids.has(id),name=id=>products.find(p=>p.id===id)?.name||'Produto removido',sources=[];
+ if(unavailable){const r=stockAvailability(data,{productIds:matched.length?matched.map(p=>p.id):null,all:allProducts});referenceProductIds=r.referenceProductIds||[];sections.push(r.text);sources.push('Cadastro original de produtos · saldo físico atual, sem presumir a causa da falta');}
  if(isEntryQuestion(q)){sections.push(entryAnswer(data,text,{now}));sources.push('Movimentações e cadastro de produtos');}
  if(stock){const rows=matched.length?matched:allProducts?products:[];sections.push(rows.length?'Estoque físico atual · geral do produtor\n'+rows.map(r=>r.name+(r.weight?' · '+r.weight+' g':'')+': '+qty(r.stock)+' '+r.unit).join('\n')+'\nTotal por unidade: '+totalUnits(rows.map(r=>({quantity:r.stock,unit:r.unit}))):'Não identifiquei o produto com segurança. Informe seu nome cadastrado.');sources.push('Saldo físico canônico de produtos; não representa sobra de um evento');}
  if(sold||buyers||ranking){
@@ -52,5 +56,5 @@ export function readQuery(data,text,{scopeId='all',period=null,now=Date.now(),fi
   else{const rows=(directory.purchases||[]).filter(r=>r.supplierId===suppliers[0].id&&!r.voidedAt&&within(r.occurredOn+'T12:00:00-03:00',p));sections.push('Compras de '+identity(data,suppliers[0]).name+' · '+p.label+'\n'+(rows.length?rows.map(r=>{const state=purchaseReceiptState(r);return r.occurredOn+' · '+r.item.name+' · '+r.quantity+' '+r.item.unit+' · '+money(r.total)+' · '+state.status+(state.known?' · Recebido '+qty(state.received)+' · Pendente '+qty(state.pending):'');}).join('\n'):'Nenhuma compra registrada no período.'));}sources.push('supplierBook.purchases; recebimentos vinculados');
  }
  if(/agenda|calendario|eventos?|feiras?/.test(q))sections.push('A parte sobre agenda/eventos exige consultar o calendário ou selecionar a feira. Esta resposta não presume esses registros.');
- return {intent:'integrated-read',needsClarification:sections.some(s=>/^Não identifiquei|^Informe o nome/.test(s)),text:sections.join('\n\n'),generatedAt:now,specialists:sources.map(source=>({name:'Consulta local validada',source})),confidence:'Somente registros deste produtor e do local selecionado. Informações ausentes permanecem explícitas.',insights:[],rebuys:[]};
+ return {intent:'integrated-read',referenceProductIds,needsClarification:sections.some(s=>/^Não identifiquei|^Informe o nome/.test(s)),text:sections.join('\n\n'),generatedAt:now,specialists:sources.map(source=>({name:'Consulta local validada',source})),confidence:'Somente registros deste produtor e do local selecionado. Informações ausentes permanecem explícitas.',insights:[],rebuys:[]};
 }
