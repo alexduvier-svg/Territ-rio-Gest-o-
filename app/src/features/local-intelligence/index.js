@@ -75,7 +75,7 @@ export function installLocalIntelligence(b) {
     'local-ai-cancel':()=>{cancel();const area=document.getElementById('local-ai-result');if(area)area.innerHTML='<p role="status">Explicação cancelada. A consulta original continua disponível.</p>';},
   };
   for(const [name,fn] of Object.entries(actions))b.actions[name]=(...args)=>Promise.resolve().then(()=>fn(...args)).catch(e=>b.toast(e.message));
-  window.TerritorioLocalIntelligence={attach(result) {
+  window.TerritorioLocalIntelligence={invalidate(){cancel();current=null;},attach(result) {
     cancel();current={facts:result.text,key:currentKey(),eligible:['stock','finance','management','overview','fair','rebuy','integrated-read'].includes(result.intent),started:false,sources:result.specialists||[],contextLabel:result.contextLabel,originLabel:result.originLabel,generatedAt:result.generatedAt};
     if(!current.eligible)return '';
     return '<section class="local-ai-card" id="local-ai-result"><p role="status">Conferindo o assistente local…</p></section>';

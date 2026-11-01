@@ -1,0 +1,46 @@
+import {registerHooks} from 'node:module';
+registerHooks({load(url,context,next){if(url.endsWith('.css'))return {format:'module',source:'export default {};',shortCircuit:true};const result=next(url,context);if(url.endsWith('.js')&&result.source){const source=String(result.source);if(source.includes('import.meta.env'))return {...result,source:source.replaceAll('import.meta.env','({})')};}return result;}});
+import fs from 'node:fs';import {pathToFileURL} from 'node:url';import {createRequire} from 'node:module';import assert from 'node:assert/strict';
+const require=createRequire((process.env.AGRO_QA_NODE_MODULES||process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES)+'/runtime.cjs'),{JSDOM}=require('jsdom');
+const root=new URL('../app/',import.meta.url).pathname,dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'http://localhost',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;
+for(const key of ['window','document','navigator','MutationObserver','Event','CustomEvent','HTMLElement','HTMLDialogElement','localStorage'])Object.defineProperty(globalThis,key,{value:w[key],configurable:true});
+w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){},addListener(){}});w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.URL.createObjectURL=()=>'';w.URL.revokeObjectURL=()=>{};
+w.TERRITORIO_ASSETS={profilePhoto:'',appLogo:'',catalogPhotos:''};w.TERRITORIO_VERSION='0.12.143-teste.1';w.TerritorioWorkspace={active:false};
+const main=fs.readFileSync(root+'src/main.js','utf8');
+for(const m of main.matchAll(/import \* as (\w+) from '([^']+\.js)'/g))try{w[m[1]]=await import(pathToFileURL(root+'src/'+m[2]));}catch{}
+for(const m of main.matchAll(/import \{([^}]+)\} from '([^']+\.js)'/g))try{const lib=await import(pathToFileURL(root+'src/'+m[2]));for(const name of m[1].split(',').map(s=>s.trim()))if(/^\w+$/.test(name))w[name]=lib[name];}catch{}
+for(const m of main.matchAll(/import '([^']+\.js)'/g))try{await import(pathToFileURL(root+'src/'+m[1]));}catch{}
+for(const m of main.matchAll(/window\.(\w+) = ([^;\n]+);/g))try{w.eval(m[0]);}catch{}
+w.eval(fs.readFileSync(root+'src/legacy/erp-core.js','utf8'));const seed=new w.ERP.ERPModel().data;seed.settings.onboarding='demo';seed.dataContext={id:'dom-qa',type:'demo'};seed.products=seed.products.slice(0,3);seed.events=[];seed.sales=[];seed.movements=[];w.localStorage.setItem('territorio-gestao-prototipo-v1',JSON.stringify(seed));
+const report={kind:'DOM simulado, sem navegador ou Android',checks:[],passed:false};
+try{
+ w.eval(fs.readFileSync(root+'src/legacy/erp-ui.js','utf8'));assert(w.ERPPreview);report.checks.push('inicialização real do ERP UI, com todas as integrações dentro do escopo do aplicativo');
+ const P=w.ERPPreview,A=P.actions,ids=P.model().data.products.slice(0,3).map(p=>p.id);assert.equal(ids.length,3);
+ for(const p of P.model().data.products)p.stock=100;
+ A['sell-multiple']({ids:ids.join(',')});for(const i of P.state().draft.items)i.rawQty='1';P.state().draft.quantityReviewCollapsed=true;A['open-cart']();A['remove-cart-item']({index:'2'});A['remove-cart-item']({index:'1'});A['edit-cart-item']({index:'0'});
+ assert.equal(w.document.querySelector('#app [data-action="open-cart"]').disabled,false);A['open-cart']();assert.equal(w.document.querySelector('#dialog [data-action="finalize-purchase"]').disabled,false);
+ A['continue-shopping']();A['resume-sale']();assert.equal(w.document.querySelector('#dialog [data-action="finalize-purchase"]').disabled,false);A['reject-sale']();assert.equal(P.model().data.sales.length,0);report.checks.push('carrinho de 3 para 1 produto, edição, continuar e retomar: botões habilitados; nenhuma venda lançada');
+ A.nav({page:'Gestão'});assert.equal(w.document.querySelectorAll('#management-question').length,1);assert(w.document.querySelector('.feira-chart').nextElementSibling.classList.contains('management-intelligence'));report.checks.push('uma entrada de pergunta, imediatamente após Receita por dia');
+ A.history();assert(w.document.querySelector('[data-action="stock-entry-search"]'));A['stock-entry-search']({id:ids[0]});assert(w.document.querySelector('#stock-entry-question'));A['close-modal']();report.checks.push('pesquisa de entradas disponível no histórico existente');
+ w.installSuppliers();const S=await import(pathToFileURL(root+'src/features/suppliers/model.js')),data=P.model().data,product=P.model().product(ids[0]);S.saveSupplier(data,{name:'Fornecedor de teste'},{id:'sup-qa',uid:()=>crypto.randomUUID()});S.recordPurchase(data,{supplierId:'sup-qa',productId:product.id,specification:'Apresentação de teste',quantity:'100',occurredOn:S.day(),goods:'100',freight:'0',discount:'0',charges:'0',confirmed:true},{id:'pur-qa',uid:()=>crypto.randomUUID()});A['sup-purchase-open']({id:'pur-qa'});assert(w.document.querySelector('[data-action="sup-receive"]'));A['sup-receive']({id:'pur-qa'});
+ for(const [key,value]of Object.entries({quantity:'60',occurredOn:S.day(),confirmed:true,addToStock:true})){const el=w.document.querySelector('[data-sup-field="'+key+'"]');assert(el,key);if(el.type==='checkbox')el.checked=value;else el.value=value;el.dispatchEvent(new w.Event('input',{bubbles:true}));}
+ const oldStock=product.stock;await A['sup-save']();assert.equal(P.model().product(product.id).stock,oldStock+60);const received=S.purchaseReceiptState(P.model().data.supplierBook.purchases.find(p=>p.id==='pur-qa'));assert.equal(received.pending,40);assert.equal(w.document.querySelector('[data-action="sup-receive"]').textContent,'Registrar recebimento');report.checks.push('formulário real de recebimento parcial: 60 no estoque, 40 pendentes');
+ const canonicalBefore=JSON.stringify(P.model().data);A['calculator-contas']();A['contas-open']({id:'preco'});
+ for(const [key,value] of Object.entries({cost:'10',margin:'20',card:'0',fair:'0',tax:'0'})){const field=w.document.getElementById('cm-markup-'+key);assert(field);field.value=value;field.dispatchEvent(new w.Event('input',{bubbles:true}));}
+ assert.match(w.document.getElementById('cm-out-markup').textContent,/12,50/);assert.equal(JSON.stringify(P.model().data),canonicalBefore);assert.match(w.document.getElementById('dialog').textContent,/Gestão acompanha os resultados registrados/);
+ report.checks.push('Contas da banca: simulação de preço 10 / (1 - 20%) = 12,50 sem alterar cadastros, estoque, vendas ou configurações');
+ w.installAgent();A['close-modal']();A.nav({page:'Gestão'});w.document.getElementById('management-question').value='Quantos produtos tenho em estoque?';await A['management-ask']();assert.match(w.document.getElementById('dialog').textContent,/Estoque físico atual/);assert.equal(P.model().data.sales.length,0);report.checks.push('campo da Gestão chama o Gerente real e seu adaptador de leitura, sem gravar venda');
+
+ w.TerritorioReplaceData=(await import(pathToFileURL(root+'src/features/reset/transaction.js'))).replaceData;
+ let copies=0;w.TerritorioSafetyCopy={dates:async()=>({}),save:async json=>{assert(JSON.parse(json).products.length>0);copies++;return 'saved';}};
+ P.model().data.ai.last={question:'Consulta antiga',answer:'Resultado fictício antigo',source:'Demonstração'};
+ await A['reset-data']();w.document.getElementById('reset-confirm-word').value='ZERAR';await A['reset-data-confirm']();
+ assert.equal(copies,1);assert.equal(P.model().data.products.length,0);assert.equal(P.model().data.sales.length,0);assert.equal(P.state().aiResult,'');assert.equal(P.model().data.ai.last,undefined);assert.equal(w.TerritorioAgent.diagnostics().cacheSize,0);
+ await new Promise(resolve=>setTimeout(resolve,400));w.document.getElementById('wl-name').value='Produtor QA';A['welcome-clean']();
+ assert.equal(P.model().data.dataContext.type,'real');assert.equal(P.model().data.products.length,0);
+ A.nav({page:'Gestão'});w.document.getElementById('management-question').value='Quantos produtos tenho em estoque?';await A['management-ask']();
+ assert.match(w.document.getElementById('dialog').textContent,/Ainda não há registros/);assert.doesNotMatch(w.document.getElementById('dialog').textContent,/Resultado fictício antigo/);
+ report.checks.push('zerar pela ação real em fixture: cópia solicitada, base pendente vazia, caches limpos, boas-vindas e consulta real sem dados fictícios');
+ report.passed=true;
+}catch(error){report.error=String(error);process.exitCode=1;}
+finally{w.close();fs.writeFileSync(new URL('./intelligence143-dom.json',import.meta.url),JSON.stringify(report,null,2));console.log(JSON.stringify(report));process.exit(report.passed?0:1);}

@@ -558,19 +558,21 @@ function localAnalysis(){
  lines.push('Próximo passo: '+(low.length||out.length?'conferir o saldo e registrar a reposição nos cards de estoque.':'acompanhar as vendas e o estoque mínimo de cada apresentação.'));
  return lines.join('\n\n');
 }
+let aiSessionController=null;
+function invalidateIntelligenceSession(){aiSessionController?.abort();aiSessionController=null;aiBusy=false;aiResult='';aiResultSource='';aiResultStamp='';aiQuestion='Quais produtos mais venderam, qual foi o resultado e o que preciso repor?';window.TerritorioAgent?.invalidate?.();window.TerritorioLocalIntelligence?.invalidate?.();}
 async function runAIAnalysis(){
  if(aiBusy)return;
  const question=document.getElementById('ai-question').value.trim(),p=aiProvider(),config=p&&model.data.ai.providers[p.id];
  if(!config){aiResult=localAnalysis();aiResultStamp=JSON.stringify(analysisContext());aiResultSource='Análise local · dados do app';render();return;}
- const context=analysisContext();aiResultStamp=JSON.stringify(context);aiBusy=true;aiResult='';render();
- const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);
+ const owner=model,context=analysisContext();aiResultStamp=JSON.stringify(context);aiBusy=true;aiResult='';render();
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),25000);aiSessionController=controller;
  try{
   const response=await fetch(config.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'omit',signal:controller.signal,body:JSON.stringify({provider:p.id,model:config.model,question:question||'Analise os resultados, vendas e estoque.',context})});
   if(!response.ok)throw Error('O serviço de IA respondeu com erro '+response.status+'.');
   const data=await response.json();if(typeof data.analysis!=='string'||!data.analysis.trim())throw Error('O serviço deve retornar o campo analysis com o texto da análise.');
-  aiResult=data.analysis;aiResultSource='Análise · '+p.name;
- }catch(e){aiResult=e.name==='AbortError'?'O serviço demorou para responder. Tente novamente.':'Não foi possível obter a análise. Confira a URL e a permissão de acesso do seu serviço.';aiResultSource='Conexão com IA';}
- finally{clearTimeout(timer);aiBusy=false;render();}
+  if(owner!==model)return;aiResult=data.analysis;aiResultSource='Análise · '+p.name;
+ }catch(e){if(owner!==model)return;aiResult=e.name==='AbortError'?'O serviço demorou para responder. Tente novamente.':'Não foi possível obter a análise. Confira a URL e a permissão de acesso do seu serviço.';aiResultSource='Conexão com IA';}
+ finally{clearTimeout(timer);if(aiSessionController===controller)aiSessionController=null;if(owner===model){aiBusy=false;render();}}
 }
 
 
@@ -2045,7 +2047,7 @@ const eventDetailBeforeDate=eventDetail;
 eventDetail=function(id){eventDetailBeforeDate(id);const e=model.data.events.find(v=>v.id===id),p=document.querySelector('dialog[open] .dialog-text');if(e&&p&&e.start===e.end)p.innerHTML=p.innerHTML.replace(' a '+dateBR(e.end),'');};
 // Agente persistente: a última pergunta e a resposta ficam guardadas no aparelho (voltam ao reabrir o app).
 const runAIAnalysisBase=runAIAnalysis;
-runAIAnalysis=async function(){const field=document.getElementById('ai-question');if(field)aiQuestion=field.value;await runAIAnalysisBase();if(aiResult){model.data.ai=model.data.ai||{};model.data.ai.last={question:aiQuestion,answer:aiResult,source:aiResultSource,stamp:aiResultStamp,at:new Date().toISOString()};persist();}};
+runAIAnalysis=async function(){const owner=model,field=document.getElementById('ai-question');if(field)aiQuestion=field.value;await runAIAnalysisBase();if(owner===model&&aiResult){model.data.ai=model.data.ai||{};model.data.ai.last={question:aiQuestion,answer:aiResult,source:aiResultSource,stamp:aiResultStamp,at:new Date().toISOString()};persist();}};
 (function restoreLastAnalysis(){const last=model.data.ai&&model.data.ai.last;if(!last||aiResult)return;aiQuestion=last.question||aiQuestion;aiResult=last.answer||'';aiResultSource=last.source||aiResultSource;aiResultStamp=last.stamp||aiResultStamp;})();
 // --- Primeira abertura: o app começa zerado. Boas-vindas com nome, negócio, cidade e UF; "Começar do
 // zero" é o caminho principal e "Ver com dados de exemplo" é opcional (apaga-se depois em Ajustes).
@@ -2073,8 +2075,8 @@ dialog.close=function(...args){if(dialog.dataset.kind==='welcome'&&!welcomeLeavi
 Object.assign(actions,{
  'welcome-clean':()=>{const v=id=>(document.getElementById(id)?.value||'').trim(),name=v('wl-name'),uf=v('wl-uf').toUpperCase();if(!name)return toast('Informe seu nome.');if(uf&&!E.STATES.some(s=>s[0]===uf))return toast('Use a sigla do estado, como MG ou SP.');
   model=new E.ERPModel(cleanData({name,business:v('wl-business'),city:v('wl-city'),uf}));scope='loja';managementScope='all';filter='Todos';query='';draft=null;page='Vender';
-  if(!persist())return toast('Não foi possível salvar. Libere espaço no aparelho.');welcomeLeaving=true;closeModal();render();toast('Tudo pronto. Cadastre seu primeiro produto.');},
- 'welcome-demo':()=>{model=new E.ERPModel();model.data.settings.onboarding='demo';model.data.dataContext={id:E.uid(),type:'demo'};persist();welcomeLeaving=true;closeModal();render();toast('Dados de exemplo carregados.');},
+  if(!persist())return toast('Não foi possível salvar. Libere espaço no aparelho.');invalidateIntelligenceSession();welcomeLeaving=true;closeModal();render();toast('Tudo pronto. Cadastre seu primeiro produto.');},
+ 'welcome-demo':()=>{model=new E.ERPModel();model.data.settings.onboarding='demo';model.data.dataContext={id:E.uid(),type:'demo'};persist();invalidateIntelligenceSession();welcomeLeaving=true;closeModal();render();toast('Dados de exemplo carregados.');},
  'start-clean':()=>openWelcome(true)
 });
 // Vender sem nenhum produto: um convite claro para o primeiro cadastro.
@@ -3395,7 +3397,7 @@ function calcModeRow(label){const mode=calculatorState.mode||'basic';return '<di
 function paintContas(){const s=calculatorState.contas,chev='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
  const rows=CONTAS_SUBJECTS.map(x=>{const open=s.open===x.id,head='<span class="ic" aria-hidden="true">'+x.ic+'</span><span class="tx"><strong>'+escape(x.title)+'</strong><small>'+escape(x.sub)+'</small></span>'+(x.soon?'<span class="cm-soon">em breve</span>':chev);
   return (x.soon?'<div class="cm-row is-soon">'+head+'</div>':btn('contas-open',head,'cm-row'+(open?' open':''),{id:x.id}))+(open?'<div class="cm-body">'+x.calcs.map(contasCard).join('')+'</div>':'');}).join('');
- openModal('Calculadora',calcModeRow('Contas')+'<p class="cm-intro">Contas da banca com os seus números. Toque num assunto para abrir.</p>'+contasProductPicker()+'<div class="cm-list">'+rows+'</div><p class="small muted cm-foot">Simulação: nada aqui é gravado nem entra nos números do app. “Seus dados” vem do que está registrado ou salvo nos ajustes. Impostos como Funrural e Simples, confirme com o seu contador.</p>','calculator',null,btn('close-modal','Voltar','choice'));}
+ openModal('Calculadora',calcModeRow('Contas')+'<p class="cm-intro">Simule decisões da banca com os seus números. A aba Gestão acompanha os resultados registrados. Toque num assunto para abrir.</p>'+contasProductPicker()+'<div class="cm-list">'+rows+'</div><p class="small muted cm-foot">Simulação: nada aqui é gravado nem entra nos números do app. “Seus dados” vem do que está registrado ou salvo nos ajustes. Impostos como Funrural e Simples, confirme com o seu contador.</p>','calculator',null,btn('close-modal','Voltar','choice'));}
 const calcPaintBeforeContas=paintCalculator;
 paintCalculator=function(){if(calculatorState.mode==='contas')return paintContas();const out=calcPaintBeforeContas.apply(this,arguments);const row=document.querySelector('dialog[open][data-kind=calculator] .calculator-mode');if(row){const label=row.querySelector('span')?.textContent||'';row.outerHTML=calcModeRow(label);}return out;};
 Object.assign(actions,{
@@ -3926,11 +3928,11 @@ async function applyResetData(next){
  if(model!==owner||JSON.stringify(model.data)!==json)throw Error('Os registros mudaram. Confira e tente novamente.');
  const saved=await window.TerritorioReplaceData({get:()=>model,set:value=>{model=value;},save:()=>persist(),durable:resetDurable},owner,next);
  if(!saved)throw Error('Gravação não confirmada. Os dados anteriores foram mantidos; sua cópia também está disponível.');
- draft=null;pendingCheckout=null;recipientPending=null;scope='loja';managementScope='all';filter='Todos';query='';page='Vender';welcomeLeaving=true;closeModal();render();
+ invalidateIntelligenceSession();draft=null;pendingCheckout=null;recipientPending=null;scope='loja';managementScope='all';filter='Todos';query='';page='Vender';welcomeLeaving=true;closeModal();render();
 }
 Object.assign(actions,{
  'reset-data':()=>resetDataModal(),
- 'reset-data-confirm':async()=>{if(resetBusy||!resetAllowed())return;if(document.getElementById('reset-confirm-word')?.value.trim().toUpperCase()!=='ZERAR')return toast('Digite ZERAR para confirmar.');resetBusy=true;try{const next=new E.ERPModel();next.data.settings.onboarding='pending';next.data.dataContext={id:E.uid(),type:'unconfirmed'};await applyResetData(next);setTimeout(()=>openWelcome(false),350);toast('Cópia conferida. Dados zerados.');}catch(e){toast(e.message);}finally{resetBusy=false;}},
+ 'reset-data-confirm':async()=>{if(resetBusy||!resetAllowed())return;if(document.getElementById('reset-confirm-word')?.value.trim().toUpperCase()!=='ZERAR')return toast('Digite ZERAR para confirmar.');resetBusy=true;try{const next=new E.ERPModel(freshInstallationData());next.data.settings.onboarding='pending';next.data.dataContext={id:E.uid(),type:'unconfirmed'};await applyResetData(next);setTimeout(()=>openWelcome(false),350);toast('Cópia conferida. Dados zerados.');}catch(e){toast(e.message);}finally{resetBusy=false;}},
  'reset-data-restore':async({kind})=>{if(resetBusy||!resetAllowed()||!['original','latest'].includes(kind))return;const copy=await window.TerritorioSafetyCopy.load(kind);if(!copy)return toast('Não foi possível ler a cópia.');resetOwner=model;openModal('Restaurar cópia local','<p class="dialog-text">Substitui os registros atuais pela cópia de '+escape(resetWhen(copy.when))+'. Uma cópia dos registros atuais será conferida antes da troca.</p>'+field('reset-restore-word','Digite RESTAURAR para confirmar','','autocomplete="off" autocapitalize="characters"'),'reset-data',null,btn('reset-data-restore-confirm','Guardar atuais e restaurar','danger modal-action',{kind}));},
  'reset-data-restore-confirm':async({kind})=>{if(resetBusy||!resetAllowed()||!['original','latest'].includes(kind))return;if(document.getElementById('reset-restore-word')?.value.trim().toUpperCase()!=='RESTAURAR')return toast('Digite RESTAURAR para confirmar.');resetBusy=true;try{const copy=await window.TerritorioSafetyCopy.load(kind),data=copy&&JSON.parse(copy.json);if(!data||!data.settings||!['products','sales','clients','events','expenses'].every(k=>Array.isArray(data[k])))throw Error('Cópia inválida. Nada foi substituído.');await applyResetData(new E.ERPModel(data));toast('Cópia restaurada e gravação conferida.');}catch(e){toast(e.message||'Não foi possível restaurar.');}finally{resetBusy=false;}}
 });
