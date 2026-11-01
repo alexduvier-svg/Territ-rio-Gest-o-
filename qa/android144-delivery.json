@@ -1,0 +1,23 @@
+{
+  "version": "0.12.144-teste.1",
+  "versionCode": 186,
+  "package": "br.com.territorio.gestao2.codextesteia",
+  "sourceCommit": "ce89ad940533df183dbd52799a76f92e12e111a2",
+  "localBuildCommit": "555af1b38b8c91fdae68a254cd793fab3e447b0f",
+  "sourceTree": "ed3c26d9b91df8835cdab13d71b953b9fb3a5352",
+  "branch": "codex/agro-gestao-144-consultas-entregas",
+  "bytes": 36533030,
+  "sha256": "fc28fd8535ad07658ed16eb75c44db0df590c11cd37f4f92925d25ce30d9ee20",
+  "signatureVerified": true,
+  "crcVerified": true,
+  "zip16kVerified": true,
+  "elf16kVerified": true,
+  "webAssetsCompared": 60,
+  "domainTestsPassed": 889,
+  "domChecksPassed": 12,
+  "semanticProvidersInTests": "mocked",
+  "physicalDeviceTest": false,
+  "realModelInferenceTest": false,
+  "modelWeightsBundled": false,
+  "libraryFileId": "libfile_9c7ef24e5eb88191904a323809f972fb"
+}
