@@ -4,6 +4,11 @@ apply plugin: 'com.android.application'
 def educationFile = file('firebase-local/general-education.json')
 def educationConfig = educationFile.exists() ? new groovy.json.JsonSlurper().parse(educationFile) : [:]
 
+// The test identity may only be signed with the preserved, externally supplied key.
+def codexSigningPath = project.findProperty('codexSigningFile')
+def buildingCodexTest = gradle.startParameter.taskNames.any { it.toLowerCase().contains('codexteste') }
+if (buildingCodexTest && !codexSigningPath) throw new GradleException('Assinatura original do Codex Teste ausente; nenhuma chave nova será gerada.')
+if (codexSigningPath && !buildingCodexTest) throw new GradleException('A chave do teste só pode assinar a variante CodexTeste.')
 android {
     if (project.findProject(':qwenmodel') != null) assetPacks = [':qwenmodel']
     namespace = "br.com.territorio.gestao"
@@ -13,8 +18,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 180
-        versionName "0.12.139"
+        versionCode 183
+        versionName "0.12.142"
         resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
         resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
         resValue 'string', 'agro_education_project_id', educationConfig.projectId ?: ''
@@ -29,6 +34,12 @@ android {
         }
     }
     sourceSets { main { java.exclude '**/AgroVoicePlugin.java'; assets.exclude 'voice/**' }; androidTest { java.exclude '**/VoiceOfflineInstrumentedTest.java' } }
+    if (codexSigningPath) {
+        signingConfigs.debug.storeFile = file(codexSigningPath)
+        signingConfigs.debug.storePassword = System.getenv('AGRO_SIGNING_STORE_PASSWORD')
+        signingConfigs.debug.keyAlias = System.getenv('AGRO_SIGNING_KEY_ALIAS')
+        signingConfigs.debug.keyPassword = System.getenv('AGRO_SIGNING_KEY_PASSWORD')
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -41,7 +52,7 @@ android {
         codexTeste {
             dimension "edition"
             applicationIdSuffix ".codexteste"
-            versionNameSuffix "-teste.3"
+            versionNameSuffix "-teste.6"
             ndk { abiFilters.clear(); abiFilters 'arm64-v8a' }
         }
     }

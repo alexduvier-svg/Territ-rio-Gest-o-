@@ -1,0 +1,12 @@
+{
+  "kind": "DOM simulado, sem navegador ou Android",
+  "checks": [
+    "inicialização real do ERP UI, com todas as integrações dentro do escopo do aplicativo",
+    "carrinho de 3 para 1 produto, edição, continuar e retomar: botões habilitados; nenhuma venda lançada",
+    "uma entrada de pergunta, imediatamente após Receita por dia",
+    "pesquisa de entradas disponível no histórico existente",
+    "formulário real de recebimento parcial: 60 no estoque, 40 pendentes",
+    "campo da Gestão chama o Gerente real e seu adaptador de leitura, sem gravar venda"
+  ],
+  "passed": true
+}

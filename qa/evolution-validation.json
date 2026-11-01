@@ -1,0 +1,37 @@
+{
+  "status": "incomplete-apk-blocked",
+  "candidateVersion": "0.12.142-teste.6",
+  "candidateVersionCode": 183,
+  "package": "br.com.territorio.gestao2.codexteste",
+  "originCommit": "4e7fb28e451f98cc0b73b0a52a05be6778098968",
+  "branch": "codex/agro-gestao-teste-evolucao",
+  "preservedBranch": "codex/preservado-apk-139-4e7fb28",
+  "sourceCommits": [
+    "ead4309723ee8b6aeeca95108e94fb4834f51930",
+    "76cdda9ea09986f1c13d678cef579659b79f6e0c",
+    "63f04f831dd580cd3916ab86c6c20b031899c8bb"
+  ],
+  "domainTestsPassed": 860,
+  "newDomainTests": 14,
+  "domChecksPassed": 6,
+  "webBuildPassed": true,
+  "visualBrowserTestExecuted": false,
+  "physicalAndroidTestExecuted": false,
+  "realQwenInferenceTestExecuted": false,
+  "androidBuildExecuted": false,
+  "newApkProduced": false,
+  "newPrivateKeyGenerated": false,
+  "historicalBranchesUnchanged": true,
+  "requiredCertificateSha256": "2fb95cc1aa0aaf55ae607941e666099b81be35196f4dbbda6d99d45fd1346ef0",
+  "availableKeystoreCertificateSha256": "b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86",
+  "blockers": [
+    "Original 139 private signing key unavailable; saved IA key differs.",
+    "Visual/browser and Android acceptance tests pending."
+  ],
+  "remainingReview": [
+    "Complete Portuguese audit",
+    "Complete indicator duplication audit",
+    "Broader language/calendar/event coverage",
+    "Qwen resource measurements on Android"
+  ]
+}

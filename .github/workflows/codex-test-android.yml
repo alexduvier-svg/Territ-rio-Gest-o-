@@ -1,0 +1,80 @@
+name: Codex Teste Android verificado
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  apk:
+    if: github.ref == 'refs/heads/codex/agro-gestao-teste-evolucao'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      AGRO_CODEX_TEST_KEYSTORE_B64: ${{ secrets.AGRO_CODEX_TEST_KEYSTORE_B64 }}
+      AGRO_SIGNING_STORE_PASSWORD: ${{ secrets.AGRO_SIGNING_STORE_PASSWORD }}
+      AGRO_SIGNING_KEY_ALIAS: ${{ secrets.AGRO_SIGNING_KEY_ALIAS }}
+      AGRO_SIGNING_KEY_PASSWORD: ${{ secrets.AGRO_SIGNING_KEY_PASSWORD }}
+      EXPECTED_CERT: 2fb95cc1aa0aaf55ae607941e666099b81be35196f4dbbda6d99d45fd1346ef0
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exigir assinatura original antes de compilar
+        shell: bash
+        run: |
+          set -euo pipefail
+          for required in AGRO_CODEX_TEST_KEYSTORE_B64 AGRO_SIGNING_STORE_PASSWORD AGRO_SIGNING_KEY_ALIAS AGRO_SIGNING_KEY_PASSWORD; do
+            if [ -z "${!required}" ]; then
+              echo 'Assinatura original indisponível; compilação interrompida sem gerar chave.'
+              exit 1
+            fi
+          done
+          umask 077
+          printf '%s' "$AGRO_CODEX_TEST_KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/codex-test-original.jks"
+          actual=$(keytool -exportcert -keystore "$RUNNER_TEMP/codex-test-original.jks" -storepass:env AGRO_SIGNING_STORE_PASSWORD -alias "$AGRO_SIGNING_KEY_ALIAS" | openssl dgst -sha256 | awk '{print $NF}')
+          test "$actual" = "$EXPECTED_CERT"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+      - name: Testes e assets
+        working-directory: app
+        run: |
+          npm ci
+          node --test tests/*.test.mjs
+          npm run build
+          npx cap sync android
+      - name: Compilar somente Codex Teste
+        working-directory: app/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleCodexTesteDebug --no-daemon -PcodexSigningFile="$RUNNER_TEMP/codex-test-original.jks"
+      - name: Conferir certificado e integridade
+        shell: bash
+        run: |
+          set -euo pipefail
+          apk=app/android/app/build/outputs/apk/codexTeste/debug/app-codexTeste-debug.apk
+          signer=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
+          "$signer" verify --verbose --print-certs "$apk" > "$RUNNER_TEMP/apk-verification.txt"
+          actual=$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' "$RUNNER_TEMP/apk-verification.txt")
+          test "$actual" = "$EXPECTED_CERT"
+          aapt=$(find "$ANDROID_HOME/build-tools" -name aapt | sort -V | tail -1)
+          "$aapt" dump badging "$apk" > "$RUNNER_TEMP/apk-metadata.txt"
+          grep -F "package: name='br.com.territorio.gestao2.codexteste' versionCode='183' versionName='0.12.142-teste.6'" "$RUNNER_TEMP/apk-metadata.txt"
+          unzip -t "$apk"
+          sha256sum "$apk" > "$apk.sha256"
+          printf '%s\n' "$GITHUB_SHA" > "$apk.commit.txt"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Codex_Teste_0.12.142
+          path: |
+            app/android/app/build/outputs/apk/codexTeste/debug/*.apk
+            app/android/app/build/outputs/apk/codexTeste/debug/*.sha256
+            app/android/app/build/outputs/apk/codexTeste/debug/*.commit.txt
+          retention-days: 30
+      - name: Remover somente chave temporária do runner
+        if: always()
+        run: rm -f "$RUNNER_TEMP/codex-test-original.jks"

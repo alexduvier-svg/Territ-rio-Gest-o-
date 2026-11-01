@@ -3986,10 +3986,6 @@ actions['contas-export']=()=>exportCSV('codex-contas-simulacao-'+E.dayKey(Date.n
 const paintContasBeforeExport136=paintContas;
 paintContas=function(){paintContasBeforeExport136();document.querySelector('dialog[open][data-kind="calculator"] .cm-list')?.insertAdjacentHTML('afterend','<div class="cm-export-actions">'+btn('contas-export','Compartilhar todas as Contas em CSV','choice')+'</div>');};
 Object.assign(window.ERPPreview,{managementSummaryRows,contasExportRows});
-render();
-})();
-
-
 // Read the canonical movements; searching never creates a stock entry or a lot.
 const historyBeforeEntrySearch=history;
 history=function(id){historyBeforeEntrySearch(id);dialog.querySelector('.dialog-content')?.insertAdjacentHTML('afterbegin',btn('stock-entry-search','Pesquisar entradas de estoque','choice modal-action',{id:id||''}));};
@@ -4025,3 +4021,6 @@ window.TerritorioAgentBridge.monthComparison=ctx=>{
  const delta=window.TerritorioKpi.periodChange([{id:'receita',name:'Receita',revenue:a.st.revenue,cost:0,costKnown:false}],[{id:'receita',name:'Receita',revenue:b.st.revenue,cost:0,costKnown:false}]);
  return 'Receita após devoluções · '+reportScopeName(ctx.scopeId)+'\n'+periodText(current)+': '+E.money(a.st.revenue)+'\n'+periodText(previous)+': '+E.money(b.st.revenue)+'\nVariação registrada: '+E.money(delta.revenueDiff)+'.\nO mês atual pode estar incompleto; o anterior inclui todo o mês. A diferença descreve os registros e não comprova mudança de procura ou lucro.';
 };
+
+render();
+})();
