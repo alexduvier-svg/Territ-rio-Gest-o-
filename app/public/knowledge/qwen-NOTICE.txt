@@ -3,3 +3,11 @@ https://huggingface.co/litert-community/Qwen3-1.7B
 Revisão d6678881da6181864bbc893c80e10aa1ee0d3731
 SHA256 2a72330b504a6596d53a2c00923c57173b10f1b83e6a541213ffec08d1fc5de8
 Pesos sem ajuste adicional. Integração AGRO Gestão: leitura estruturada local. LiteRT-LM 0.18.1 — Google, Apache 2.0.
+
+Qwen3-0.6B INT4 — Qwen Team / Alibaba Cloud; conversão LiteRT Community. Apache 2.0.
+https://huggingface.co/litert-community/Qwen3-0.6B
+Revisão 2670e142a0d16a1b685be6604e5b4f2b31a826d7
+Arquivo qwen3_0_6b_mixed_int4.litertlm — 497516544 bytes
+SHA256 7900eb4e7362d88c58782c6f9999bb7a129e03544aa98b8f338ea0cc5d8c22c1
+Download opcional somente para testes locais explícitos; nenhum ajuste adicional nos pesos.
+Gemini Nano e ML Kit têm termos próprios do Google; não são distribuídos sob a licença Qwen.

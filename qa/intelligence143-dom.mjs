@@ -5,7 +5,7 @@ const require=createRequire((process.env.AGRO_QA_NODE_MODULES||process.env.CODEX
 const root=new URL('../app/',import.meta.url).pathname,dom=new JSDOM(fs.readFileSync(root+'index.html','utf8'),{url:'http://localhost',runScripts:'outside-only',pretendToBeVisual:true}),w=dom.window;
 for(const key of ['window','document','navigator','MutationObserver','Event','CustomEvent','HTMLElement','HTMLDialogElement','localStorage'])Object.defineProperty(globalThis,key,{value:w[key],configurable:true});
 w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){},addListener(){}});w.scrollTo=()=>{};w.HTMLElement.prototype.scrollIntoView=()=>{};w.HTMLDialogElement.prototype.showModal=function(){this.open=true;};w.HTMLDialogElement.prototype.close=function(){this.open=false;this.dispatchEvent(new w.Event('close'));};w.URL.createObjectURL=()=>'';w.URL.revokeObjectURL=()=>{};
-w.TERRITORIO_ASSETS={profilePhoto:'',appLogo:'',catalogPhotos:''};w.TERRITORIO_VERSION='0.12.143-teste.1';w.TerritorioWorkspace={active:false};
+w.TERRITORIO_ASSETS={profilePhoto:'',appLogo:'',catalogPhotos:''};w.TERRITORIO_VERSION=JSON.parse(fs.readFileSync(root+'package.json','utf8')).version;w.TerritorioWorkspace={active:false};
 const main=fs.readFileSync(root+'src/main.js','utf8');
 for(const m of main.matchAll(/import \* as (\w+) from '([^']+\.js)'/g))try{w[m[1]]=await import(pathToFileURL(root+'src/'+m[2]));}catch{}
 for(const m of main.matchAll(/import \{([^}]+)\} from '([^']+\.js)'/g))try{const lib=await import(pathToFileURL(root+'src/'+m[2]));for(const name of m[1].split(',').map(s=>s.trim()))if(/^\w+$/.test(name))w[name]=lib[name];}catch{}

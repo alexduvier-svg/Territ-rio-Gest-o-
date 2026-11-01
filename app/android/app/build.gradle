@@ -27,7 +27,7 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 184
+        versionCode 185
         versionName "0.12.143"
         resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
         resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
@@ -60,14 +60,15 @@ android {
         original { dimension "edition" }
         codexTesteIa {
             dimension "edition"
+            minSdkVersion 26 // Official ML Kit Prompt API floor; essential 143 APK is preserved.
             applicationIdSuffix ".codextesteia"
-            versionNameSuffix "-teste.1"
+            versionNameSuffix "-teste.2"
             ndk { abiFilters.clear(); abiFilters 'arm64-v8a' }
         }
         codexTeste {
             dimension "edition"
             applicationIdSuffix ".codexteste"
-            versionNameSuffix "-teste.1"
+            versionNameSuffix "-teste.2"
             ndk { abiFilters.clear(); abiFilters 'arm64-v8a' }
         }
     }
@@ -80,6 +81,7 @@ repositories {
 }
 
 dependencies {
+    codexTesteIaImplementation 'com.google.mlkit:genai-prompt:1.0.0-beta4'
     implementation 'com.google.ai.edge.litertlm:litertlm-android:0.18.1'
     implementation platform('com.google.firebase:firebase-bom:35.0.2')
     implementation 'com.google.firebase:firebase-ai'

@@ -2,6 +2,16 @@
 
 Versão 1 · Codex Teste 143 · 01/11/2026
 
+### Atualização 143-teste.2 — modelos no APK de diagnóstico
+
+A edição de testes agora inclui um painel para preparar e testar Qwen3-0.6B INT4 e Gemini Nano. São provedores de diagnóstico com cenários fictícios fixos; ainda não substituem o provedor Qwen1.7B das consultas do negócio. A disponibilidade Nano é consultada no AICore oficial. O download Qwen0.6 é explícito, com revisão `2670e142a0d16a1b685be6604e5b4f2b31a826d7`, 497.516.544 bytes e SHA-256 `7900eb4e7362d88c58782c6f9999bb7a129e03544aa98b8f338ea0cc5d8c22c1`.
+
+O pacote de modelos `0.12.143-teste.2`, código185, exige Android8/API26 por causa da API oficial GeminiNano. A edição essencial `0.12.143-teste.1`, código184, foi preservada com API24. Ambos mantêm o pacote e o certificado IA do142. Não instalar a edição essencial sobre a de modelos: seu código é menor.
+
+O teste executa inferência real quando o modelo está disponível no próprio celular. Mostra aprovação apenas do cenário, latência total e PSS antes/depois do processo do app. PSS não é pico de memória e não inclui o processo AICore. O Android administra a memória do Nano e pode manter caches; o aplicativo garante uma operação de modelo iniciada por ele por vez, não o descarregamento físico de modelos do serviço do sistema. Nenhuma inferência física foi validada no ambiente de compilação.
+
+As referências a GeminiNano como integração futura abaixo dizem respeito ao provedor das respostas de negócio. A integração experimental de diagnóstico passa a existir nesta edição. Os cenários não leem nem modificam dados reais; o funcionamento com demonstração e base zerada foi verificado separadamente nos motores canônicos.
+
 ## Objetivo e alcance
 
 Entregar respostas claras, verificáveis e úteis em cada aparelho compatível com o aplicativo. O funcionamento essencial não depende de um modelo de linguagem. A adaptação reduz trabalho opcional quando os recursos são limitados; não garante que um modelo funcione em todos os celulares.

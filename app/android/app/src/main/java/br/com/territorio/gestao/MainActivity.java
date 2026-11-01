@@ -15,6 +15,11 @@ public class MainActivity extends BridgeActivity {
         registerPlugin(AgroCalendarPlugin.class);
         registerPlugin(AgroGeneralEducationPlugin.class);
         registerPlugin(AgroLocalIntelligencePlugin.class);
+        // Optional test flavor only: keep Nano dependencies out of the original edition.
+        try {
+            Class<?> diagnostics=Class.forName("br.com.territorio.gestao.AgroModelDiagnosticsPlugin");
+            registerPlugin(diagnostics.asSubclass(com.getcapacitor.Plugin.class));
+        } catch (ClassNotFoundException ignored) { /* Essential editions have no model lab. */ }
         super.onCreate(savedInstanceState);
     }
 }

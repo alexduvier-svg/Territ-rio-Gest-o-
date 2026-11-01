@@ -28,7 +28,7 @@ public class AgroLocalIntelligencePlugin extends Plugin {
     private static final String MODEL_ASSET="qwen/model.litertlm";
     private final ExecutorService io=Executors.newSingleThreadExecutor();
     private final ScheduledExecutorService timer=Executors.newSingleThreadScheduledExecutor();
-    private final AtomicBoolean busy=new AtomicBoolean(false);
+    private final AtomicBoolean busy=LocalInferenceLease.BUSY;
     private final AtomicLong generation=new AtomicLong();
     private volatile Conversation activeConversation;
     private volatile boolean foreground=true;
