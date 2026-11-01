@@ -3,11 +3,13 @@ import { createLocalIntelligence, LOCAL_MODEL } from './service.js';
 import { LOCAL_AI_GUIDANCE } from './policy.js';
 import { installModelDiagnostics } from './diagnostics.js';
 import {installInterpreterComparison} from './comparison.js';
+import {createBusinessInterpreter,BUSINESS_CONSENT_TEXT} from './business-online.js';
+import {verifyBusinessConnection} from './business-diagnostic.js';
 import './local-intelligence.css';
 const native = registerPlugin('AgroLocalIntelligence');
 const languageNative=registerPlugin('AgroModelDiagnostics');
 const onlineComparison=registerPlugin('AgroGeminiComparison');
-export function installLocalIntelligence(b) {
+export function installLocalIntelligence(b,{businessProvider=onlineComparison,isOnlineAvailable=null}={}) {
   if(!b)return;
   const esc = b.escape, service = createLocalIntelligence(native);
   let current = null, epoch = 0, busy = false, modelTests=null, languageStatus=null, languageCheckedAt=0;
@@ -17,17 +19,31 @@ export function installLocalIntelligence(b) {
   const available = () => Capacitor.isNativePlatform() && Capacitor.isPluginAvailable('AgroLocalIntelligence');
   function trace(item){return '<details class="manager-consultation"><summary>Rastreio e verificação</summary><p>'+esc(item.originLabel||'Registros da consulta atual')+'</p><p>'+esc(item.contextLabel||'Local e período da resposta acima')+'</p>'+item.sources.map(s=>'<p><strong>'+esc(s.name)+'</strong><br><small>'+esc(s.source)+'</small></p>').join('')+'<p>Consulta: '+esc(item.generatedAt?new Date(item.generatedAt).toLocaleString('pt-BR'):'horário não informado')+'.</p><p>Conferência: cada trecho exibido corresponde à resposta calculada pelo app. Valores, rótulos e avisos de dados incompletos são mantidos. Alterações nos registros cancelam o resumo.</p><p class="agent-note">Esta conferência não comprova a exatidão dos lançamentos nem a liquidação bancária.</p></details>';}
   async function status() { if (!available()) return { supported:false, imported:false, enabled:false }; return service.status(); }
+  const business=createBusinessInterpreter(businessProvider,{contextKey:currentKey,foreground:()=>!document.hidden});
+  const onlineAvailable=()=>isOnlineAvailable?isOnlineAvailable():Capacitor.isNativePlatform()&&Capacitor.isPluginAvailable('AgroGeminiComparison');
+  let businessAfterEnable='settings';
   const previousIntelligence = b.actions['settings-intelligence'];
   let voiceBusy=false;
   function currentKey() { const ctx=window.TerritorioAgent?.context?.();return ctx?.actorId+'|'+ctx?.dataOrigin+'|'+window.TerritorioAgent?.revision?.(); }
-  function cancel() { epoch++; busy=false; service.cancel();modelTests?.invalidate(); }
+  function cancel({online=true}={}) { epoch++; busy=false; service.cancel();modelTests?.invalidate();if(online)void business.cancel(); }
   async function settings() {
     cancel(); const token=epoch;
     b.open('Inteligência no aparelho','<p role="status">Conferindo disponibilidade…</p>',back,'agent-local-settings');
-    const s=await status();let language=null;if(Capacitor.isNativePlatform()&&Capacitor.isPluginAvailable('AgroModelDiagnostics'))try{language=await languageNative.status({});}catch{} if(token!==epoch)return;
+    const s=await status();const online=onlineAvailable()?await business.status():null;let language=null;if(Capacitor.isNativePlatform()&&Capacitor.isPluginAvailable('AgroModelDiagnostics'))try{language=await languageNative.status({fast:true});}catch{} if(token!==epoch)return;
     const languageLabel=language?.qwenReady?'Arquivo do Qwen 0.6B presente e verificado. Nesta versão, ele fica restrito aos testes de comparação; o uso automático no Gerente aguarda aprovação.':language?.nanoStatus==='available'?'Gemini Nano disponível no AICore para interpretação experimental.':'Nenhum intérprete local pronto. Prepare um modelo em Testar Qwen e Gemini Nano. As consultas diretas continuam disponíveis.';
     const condition=!s.supported?'Este aparelho não oferece suporte a esta experiência.':s.imported?(s.enabled?'Ativado. O app carrega o Qwen automaticamente nas consultas.':'Modelo instalado. Assistente desativado.'):s.packaged?'O modelo está incluído na instalação e será preparado no próprio aparelho.':'O modelo não está incluído neste APK de teste. A instalação completa deverá incluir o assistente pela Play Store.';
-    b.open('Inteligência no aparelho','<section class="local-ai-card"><p class="local-ai-eyebrow">Codex Teste · experimental</p><h3>Interpretação contextual</h3><p>'+esc(languageLabel)+'</p><p class="agent-note">Usa a pergunta, referências anteriores válidas e rótulos mínimos dos cadastros. Não recebe documentos, telefones ou valores financeiros do cadastro. Hipóteses não executam operações.</p><details><summary>Qwen 1.7B · complemento anterior</summary><p>'+esc(condition)+'</p><p class="agent-note">O Gerente usa os cálculos dos registros. O Qwen confere a seleção de trechos; a apresentação preserva a resposta completa.</p>'+(s.supported?(s.imported?button('local-ai-toggle',s.enabled?'Desativar assistente':'Ativar assistente','success')+button('local-ai-remove','Remover a cópia local do modelo'):s.packaged?button('local-ai-install','Preparar assistente local','success'):''):'')+'</details></section><section class="local-ai-card"><h3>Como usar</h3><p>Abra o Gerente e faça uma consulta. Quando disponível e em condições adequadas, o complemento local é usado. A resposta calculada fica visível.</p><p class="agent-note">A interpretação usa Qwen 0.6B ou Gemini Nano local quando disponível e habilitada. O complemento anterior usa Qwen3 1.7B · Apache 2.0 · 977 MB; a preparação da cópia privada exige cerca de 1,3 GB livres.</p></section>'+button('local-ai-manager','Abrir Gerente','primary')+button('local-ai-model-tests','Testar Qwen e Gemini Nano')+button('local-ai-comparison','Comparar Qwen e Gemini online')+button('local-ai-language-toggle',b.data?.().settings?.contextualInterpretation===false?'Ativar interpretação contextual':'Desativar interpretação contextual experimental')+button('local-ai-professional','Diretrizes profissionais')+button('local-ai-guidelines','Diretrizes e hierarquia'),back,'agent-local-settings');
+    b.open('Inteligência do negócio','<section class="local-ai-card"><h3>Gemini online · Gerente</h3><p>'+esc(!online?.configured?'Chave ainda não configurada.':online.businessEnabled?'Autorizado para interpretar as perguntas do Gerente. Os cálculos continuam locais.':'Chave guardada. Falta autorizar seu uso nas perguntas do Gerente.')+'</p><p class="agent-note">'+esc(online?.lastBusinessAt?'Última tentativa do Gerente: '+new Date(online.lastBusinessAt).toLocaleString('pt-BR')+' · '+(online.lastBusinessHttpStatus?'HTTP '+online.lastBusinessHttpStatus:'sem resposta HTTP')+'. O diagnóstico abaixo verifica também a interpretação e a consulta.':'Ainda não há chamada registrada do Gerente ao Gemini online.')+'</p>'+(online?.configured?(online.businessEnabled?button('local-ai-business-disable','Desativar Gemini no Gerente'):button('local-ai-business-enable','Autorizar Gemini no Gerente'))+button('local-ai-business-probe','Verificar conexão do Gerente'):button('local-ai-comparison','Configurar Gemini online'))+'</section><section class="local-ai-card"><p class="local-ai-eyebrow">Codex Teste · experimental</p><h3>Interpretação contextual</h3><p>'+esc(languageLabel)+'</p><p class="agent-note">Usa a pergunta, referências anteriores válidas e rótulos mínimos dos cadastros. Não recebe documentos, telefones ou valores financeiros do cadastro. Hipóteses não executam operações.</p><details><summary>Qwen 1.7B · complemento anterior</summary><p>'+esc(condition)+'</p><p class="agent-note">O Gerente usa os cálculos dos registros. O Qwen confere a seleção de trechos; a apresentação preserva a resposta completa.</p>'+(s.supported?(s.imported?button('local-ai-toggle',s.enabled?'Desativar assistente':'Ativar assistente','success')+button('local-ai-remove','Remover a cópia local do modelo'):s.packaged?button('local-ai-install','Preparar assistente local','success'):''):'')+'</details></section><section class="local-ai-card"><h3>Como usar</h3><p>Use o campo de perguntas abaixo de Receita por dia. Consultas diretas usam os registros locais; perguntas que precisam de interpretação podem usar o Gemini online após sua autorização. Os cálculos são feitos no aparelho.</p><p class="agent-note">A interpretação usa Qwen 0.6B ou Gemini Nano local quando disponível e habilitada. O complemento anterior usa Qwen3 1.7B · Apache 2.0 · 977 MB; a preparação da cópia privada exige cerca de 1,3 GB livres.</p></section>'+button('local-ai-manager','Abrir Gerente','primary')+button('local-ai-model-tests','Testar Qwen e Gemini Nano')+button('local-ai-comparison','Comparar Qwen e Gemini online')+button('local-ai-language-toggle',b.data?.().settings?.contextualInterpretation===false?'Ativar interpretação local experimental':'Desativar interpretação local experimental')+button('local-ai-professional','Diretrizes profissionais')+button('local-ai-guidelines','Diretrizes e hierarquia'),back,'agent-local-settings');
+  }
+  function businessConsent(after='settings'){
+    cancel();businessAfterEnable=after;
+    b.open('Autorizar Gemini no Gerente',BUSINESS_CONSENT_TEXT.map(t=>'<p>'+esc(t)+'</p>').join(''),button('local-ai-business-confirm','Autorizar interpretação no Gerente')+button('local-ai-settings','Voltar'),'agent-business-consent');
+  }
+  async function probeBusiness(){
+    const s=await business.status();if(!s.configured){await settings();return;}if(!s.businessEnabled)return businessConsent('probe');
+    cancel();const token=epoch;b.open('Verificar conexão do Gerente','<p role="status">Enviando uma pergunta com dados fictícios pelo mesmo caminho usado pelo Gerente…</p><p>Nenhum registro do produtor é enviado neste diagnóstico.</p>',button('local-ai-settings','Cancelar'),'agent-business-probe');
+    try{const r=await verifyBusinessConnection(business);if(token!==epoch||document.hidden)return;
+      b.open('Conexão do Gerente conferida','<p>'+esc(r.model)+'</p><p>O Gemini respondeu, o plano foi validado e os motores locais consultaram a base fictícia.</p><p class="agent-answer">'+esc(r.text)+'</p><p class="agent-note">Este teste comprova o fluxo desta pergunta neste momento; não garante compreensão de toda pergunta. O resultado acima é fictício.</p>',button('local-ai-settings','Voltar'),'agent-business-probe');
+    }catch(e){if(token===epoch&&e.name!=='AbortError')b.open('Diagnóstico do Gerente','<p role="alert">'+esc(e.message)+'</p><p>Nenhum resultado do negócio foi presumido.</p>',button('local-ai-settings','Voltar'),'agent-business-probe');}
   }
   async function installModel(){
     if(busy)return;busy=true;const token=++epoch;
@@ -62,6 +78,10 @@ export function installLocalIntelligence(b) {
   }
   const actions={
     'local-ai-settings':settings,'settings-intelligence':settings,
+    'local-ai-business-enable':()=>businessConsent(),
+    'local-ai-business-disable':async()=>{await business.disable();await settings();},
+    'local-ai-business-probe':probeBusiness,
+    'local-ai-business-confirm':async()=>{await business.enable();if(businessAfterEnable==='probe')await probeBusiness();else await settings();},
     'local-ai-language-toggle':async()=>{const d=b.data?.();if(!d)return;d.settings.contextualInterpretation=d.settings.contextualInterpretation===false;await b.persist?.();languageStatus=null;await settings();},
     'local-ai-professional':()=>{cancel();b.open('Diretrizes profissionais','<p class="agent-note">Regras locais · versão 1 · disponíveis sem internet</p>'+LOCAL_AI_GUIDANCE.map(text=>'<p>'+esc(text)+'</p>').join('')+'<p class="agent-note">Nenhum modelo novo é baixado automaticamente. O Gemini de educação geral, se configurado, é um serviço separado e não recebe os registros do negócio.</p>',button('local-ai-settings','Voltar'),'agent-local-guidelines');},
     'local-ai-guidelines':()=>{cancel();previousIntelligence?.();},
@@ -82,8 +102,9 @@ export function installLocalIntelligence(b) {
   };
   for(const [name,fn] of Object.entries(actions))b.actions[name]=(...args)=>Promise.resolve().then(()=>fn(...args)).catch(e=>b.toast(e.message));
   modelTests=installModelDiagnostics(b,languageNative,cancel);
-  installInterpreterComparison(b,onlineComparison,languageNative,cancel);
-  window.TerritorioLocalIntelligence={cancelInterpretation:()=>languageNative.cancel({}).catch(()=>{}),async interpret(request){
+  installInterpreterComparison(b,businessProvider,languageNative,cancel);
+  window.TerritorioLocalIntelligence={enableBusiness:()=>business.enable(),businessStatus:()=>business.status(),cancelInterpretation:()=>Promise.allSettled([languageNative.cancel({}),business.cancel()]),async interpret(request){
+    if(onlineAvailable()){const response=await business.interpret(request);if(response)return response;}
     if(b.data?.().settings?.contextualInterpretation===false||!Capacitor.isNativePlatform()||!Capacitor.isPluginAvailable('AgroModelDiagnostics')||document.hidden||window.TerritorioResourcePolicy?.snapshot()?.intelligenceProfile==='essential')return null;
     if(!languageStatus||Date.now()-languageCheckedAt>5000){languageStatus=await languageNative.status({fast:true});languageCheckedAt=Date.now();}
     const model=languageStatus.qwenContextualQualified===true&&languageStatus.qwenReady&&languageStatus.resources?.availableBytes>=3*1024**3?'qwen06':languageStatus.nanoStatus==='available'?'nano':null;if(!model)throw Error('Nenhum intérprete contextual aprovado está disponível agora. O Qwen 0.6B está restrito aos testes; compare os modelos antes de habilitar seu uso no Gerente.');
@@ -99,7 +120,7 @@ export function installLocalIntelligence(b) {
     return explain(true).catch(e=>{const area=document.getElementById('local-ai-result');if(item===current&&area)area.innerHTML='<p role="status">'+esc(e.message||'Resumo indisponível.')+'</p><p class="agent-note">A resposta calculada pelo app permanece acima.</p>';});
   }};
   document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel();});
-  document.addEventListener('territorio:resource-policy',event=>{if(event.detail?.intelligenceProfile==='essential'){cancel();const area=document.getElementById('local-ai-result');if(area)area.innerHTML='<p role="status">Perfil Essencial ativo. A resposta calculada permanece disponível.</p>';}});
+  document.addEventListener('territorio:resource-policy',event=>{if(event.detail?.intelligenceProfile==='essential'){cancel({online:false});const area=document.getElementById('local-ai-result');if(area)area.innerHTML='<p role="status">Perfil Essencial ativo. A resposta calculada permanece disponível.</p>';}});
   dialog?.addEventListener('close',cancel);
   if(dialog)new MutationObserver(()=>{if(busy&&!['agent-answer','agent-local-install'].includes(dialog.dataset.kind))cancel();}).observe(dialog,{attributes:true,attributeFilter:['data-kind']});
   function decorate(){const panel=document.getElementById('agent-panel');if(!panel||panel.querySelector('.local-ai-manager-access'))return;const query=panel.querySelector('.agent-query');if(!query)return;query.insertAdjacentHTML('afterbegin','<div class="local-ai-manager-access"><span>Assistente do negócio</span>'+button('local-ai-settings','Configurar')+'</div>');const submit=query.querySelector('[data-action="agent-ask"]');submit?.insertAdjacentHTML('beforebegin',button('local-ai-speech','Falar pergunta')+'<p class="agent-note">Voz offline do Android, quando disponível. Confira o texto antes de consultar.</p>');}

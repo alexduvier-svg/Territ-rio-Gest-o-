@@ -27,3 +27,6 @@ html[data-large-text=true] .agent-journey-tabs>.choice{font-size:15px}html[data-
 
 #dialog[data-kind=agent-journeys] .agent-journey-tabs>.choice{min-width:0;width:100%;max-width:100%;box-sizing:border-box}
 @media(max-width:359px){#dialog[data-kind=agent-journeys] .agent-journey-tabs{grid-template-columns:minmax(0,1fr);gap:8px}#dialog[data-kind=agent-journeys] .agent-journey-tabs>.choice{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:46px;padding:10px 12px;text-align:left}#dialog[data-kind=agent-journeys] .agent-journey-tabs strong{margin:0;flex:none}}
+
+/* A single question card, followed by guidance and the existing brain resources. */
+.management-question-card{min-width:0}.management-question-card textarea{display:block;width:100%;max-width:100%;min-height:96px;box-sizing:border-box;resize:vertical}.management-question-card .modal-action{width:100%;min-height:48px}.management-intelligence #management-agent-content,.management-intelligence .agent-panel{min-width:0;max-width:100%}.management-intelligence .agent-surface,.management-intelligence .manager-consultation{overflow-wrap:anywhere}.management-intelligence .mg-advisor{margin:0}
