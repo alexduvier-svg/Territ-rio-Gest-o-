@@ -1,0 +1,53 @@
+{
+  "name": "Codex_Teste_142.apk",
+  "version": "0.12.142-teste.6",
+  "versionCode": 183,
+  "package": "br.com.territorio.gestao2.codextesteia",
+  "label": "Codex Teste 142",
+  "bytes": 35547434,
+  "sha256": "76bbd77a7aba0a0e02656b812fefabd2a2300097fa1d5957d77bb2bc99bf3695",
+  "signerSha256": "b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86",
+  "signatureVerified": true,
+  "zip16kAlignmentVerified": true,
+  "elf16kAlignmentVerified": true,
+  "crcVerified": true,
+  "webAssetFilesCompared": 59,
+  "qwenWeightsBundled": false,
+  "minSdk": "24",
+  "native": [
+    {
+      "path": "lib/arm64-v8a/libdatastore_shared_counter.so",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "elf16k": true
+    },
+    {
+      "path": "lib/arm64-v8a/liblitertlm_jni.so",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ],
+      "elf16k": true
+    },
+    {
+      "path": "lib/armeabi-v7a/libdatastore_shared_counter.so",
+      "loadAlignments": [
+        16384,
+        16384
+      ],
+      "elf16k": true
+    }
+  ],
+  "sourceCommit": "2c4bb0ae25cfe78573dbd054ddeb6ff6ed16eab6",
+  "branch": "codex/agro-gestao-teste-evolucao",
+  "physicalDeviceTest": false,
+  "realQwenInferenceTest": false,
+  "generatedAt": "2026-11-01T01:56:48.618444+00:00",
+  "domainTestsPassed": 860,
+  "domChecksPassed": 6,
+  "delivery": "APK independente, disponibilizado diretamente na conversa"
+}

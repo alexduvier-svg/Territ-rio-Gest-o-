@@ -1,3 +1,5 @@
+> Atualização posterior: o usuário pediu uma versão própria e foi entregue o APK independente **Codex Teste 142**. Consulte [ENTREGA-CODEX-TESTE-142.md](ENTREGA-CODEX-TESTE-142.md). O texto abaixo registra o checkpoint anterior, quando a entrega compatível com139 estava bloqueada.
+
 # AGRO Gestão — evolução do Codex Teste
 
 **Estado: implementação parcial verificada em código; entrega Android não concluída.**
