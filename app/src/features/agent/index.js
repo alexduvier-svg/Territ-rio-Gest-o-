@@ -1,3 +1,4 @@
+import {readQuery} from './read-queries.js';
 import { Capacitor, registerPlugin } from '@capacitor/core';
 import { ensureAgent, contextOf, revisionOf, parseRequest, proposeSale, validateProposal, audit, analyze, answerQuery, productIndex, eligible, scopeSales } from './core.js';
 import './agent.css';
@@ -59,12 +60,15 @@ export function installAgent(){
  async function ask(text,source='text',requestId=uid()){
   const base=view?.ctx||context(),ctx=b.queryContext?.(text,base)||base,actor=contextOf(b.data()).actorId,token=++epoch;if(!current(ctx))return b.toast('O produtor mudou. Abra a análise novamente.');
   if(window.TerritorioStockLotsUI?.handleQuestion(text)){audit(state(),requestId,'query-stock-validity',{intent:'stock-validity',scopeId:'all'});persist();return;}
-  const request=parseRequest(text,b.data(),{scopeId:ctx.scopeId,source,requestId});
-  if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')request.intent='management';
+  let integrated;try{integrated=readQuery(b.data(),text,{scopeId:ctx.scopeId,period:ctx.period,financialComparison:b.monthComparison?()=>b.monthComparison(ctx):null});}catch(error){b.toast(error.message);return;}
+  const readRevision=revisionOf(b.data()),request=parseRequest(text,b.data(),{scopeId:ctx.scopeId,source,requestId});
+  if(integrated)request.intent='integrated-read';else if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')request.intent='management';
   if(request.intent==='sale'){request.scopeId=b.saleScope();const p=proposeSale(b.data(),request,{proposalId:uid()});persist();return paintProposal(p,ctx);}
   b.open('Consulta local','<p class="agent-note">Consultando os registros deste local…</p>',back(),'agent-answer');
-  try{let r=await rpc('query',{...ctx,source,requestId,now:Date.now()},text);if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
-   if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')r.intent='management';
+  try{let r=integrated||await rpc('query',{...ctx,source,requestId,now:Date.now()},text);if(token!==epoch||actor!==contextOf(b.data()).actorId)return;
+   if(integrated&&/chuva|chover|clima/i.test(text)){r.text+='\n\n'+await b.managementAnswer(text,ctx);r.specialists.push({name:'Clima',source:'Módulo existente e limites da previsão armazenada'});}
+   if(integrated&&readRevision!==revisionOf(b.data()))throw Error('Os registros mudaram. Consulte novamente.');
+   if(!integrated&&window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')r.intent='management';
    if(r.intent==='finance')r.text=b.financialAnswer(text,ctx);
    if(r.intent==='management'){r.text=await b.managementAnswer(text,ctx);r.confidence='Recorte atual da Gestão; cobertura de custos e limites constam da resposta.';r.specialists=[{name:'Gestão, PDV e CRM',source:'Motor de Orientação canônico · diretrizes e registros locais'}];}
    if(['finance','overview'].includes(r.intent)||(r.intent==='management'&&window.TerritorioBusinessQuery?.isFinancialQuestion(text)&&window.TerritorioBusinessQuery.businessQueryGate(text).status==='supported'))r.specialists=[{name:'Gestão e Finanças',source:'Demonstrativo do app · finance.statement · vendas, devoluções e taxas'},{name:'Clientes a Receber',source:'receivables.collections e outstanding · fiado e recebimentos registrados'}];

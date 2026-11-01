@@ -22,6 +22,7 @@ export function readAgentContext(data,{type='analyze',intent='',profile='essenti
  out.eventLoads=(data.eventLoads||[]).map(l=>({...record(l,['eventId']),items:(l.items||[]).map(i=>pick(i,['productId','name','qty','unit']))}));
  out.movements=(data.movements||[]).map(m=>record(m,['eventId','productId','kind','qty','date']));
  for(const e of out.events){const counts=data.settings?.fairReports?.[e.id]?.counts;if(counts)out.settings.fairReports[e.id]={counts:Object.fromEntries(Object.entries(counts).filter(([,v])=>Number.isFinite(v)))};}
+ if(data.supplierBook?.actorId===ctx.actorId){const purchases=data.supplierBook.purchases||[];if(purchases.length>limit)throw Error('Muitas compras para esta revisão. Consulte Fornecedores.');out.supplierBook={actorId:ctx.actorId,purchases:purchases.map(p=>({...pick(p,['id','quantity','expectedOn','voidedAt','receivedKnown','receivedBaseline']),item:pick(p.item,['name','unit']),receipts:(p.receipts||[]).map(r=>pick(r,['id','quantity','occurredOn']))}))};}
  out.agent={actorId:ctx.actorId,settings:pick(data.agent?.settings,['rebuy','fairMinimumEvents','fairSurplusRatio','stagnantDays']),feedback:{}};
  out.agent.settings.excludedProducts=(data.agent?.settings?.excludedProducts||[]).filter(x=>typeof x==='string').slice(0,limit);
  for(const [id,f] of Object.entries(data.agent?.feedback||{}).slice(-200))out.agent.feedback[id]=pick(f,['fingerprint','status','until']);

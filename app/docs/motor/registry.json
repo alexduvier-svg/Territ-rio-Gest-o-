@@ -1,5 +1,5 @@
 {
-  "_": "Registro canÃ´nico do motor de decisÃµes. Consultar antes de escrever qualquer funÃ§Ã£o de cÃ¡lculo (docs/motor, seÃ§Ã£o 0.4).",
+  "_": "Registro canônico do motor de decisões. Consultar antes de escrever qualquer função de cálculo (docs/motor, seção 0.4).",
   "motor_orientacao": {
     "arquivo": "app/src/features/advisor/engine.js",
     "funcao": "buildGuidance",
@@ -282,7 +282,10 @@
     "versao": "1-Codex",
     "fonte": "Claude139/e99ca3f, revisado na integração Codex136",
     "nota": "Usa productMargins e saldo canônicos; cobertura histórica não prevê demanda. Unidades incompatíveis não produzem efeito quantidade/preço. Não é um segundo motor de decisão.",
-    "testes": ["kpi-engine.test.mjs", "qa/manage136-flow.cjs"]
+    "testes": [
+      "kpi-engine.test.mjs",
+      "qa/manage136-flow.cjs"
+    ]
   },
   "orientacao_validade": {
     "arquivo": "app/src/features/advisor/validity-rules.js",
@@ -290,5 +293,32 @@
     "versao": "1",
     "estado": "Entregue na 0.12.87, no motor de Orientação existente",
     "nota": "Mesmo RULES/release existente; fatos e limitações, sem novo motor."
+  },
+  "consulta_integrada_leitura": {
+    "arquivo": "app/src/features/agent/read-queries.js",
+    "funcao": "readQuery",
+    "versao": "1.0",
+    "natureza": "Adaptador de leitura; reutiliza finance.productMargins, rankProductRows e analyze. Sem novas fórmulas financeiras.",
+    "testes": [
+      "evolution.test.mjs"
+    ]
+  },
+  "historico_entradas": {
+    "arquivo": "app/src/features/stock-entries.js",
+    "funcao": "stockEntries/entryAnswer",
+    "versao": "1.0",
+    "natureza": "Consulta dos movimentos canônicos, sem novo saldo.",
+    "testes": [
+      "evolution.test.mjs"
+    ]
+  },
+  "recebimento_compra": {
+    "arquivo": "app/src/features/suppliers/model.js",
+    "funcao": "receivePurchase/purchaseReceiptState",
+    "versao": "1.0",
+    "natureza": "Recebimento idempotente, com confirmação separada para ERPModel.move.",
+    "testes": [
+      "evolution.test.mjs"
+    ]
   }
 }
