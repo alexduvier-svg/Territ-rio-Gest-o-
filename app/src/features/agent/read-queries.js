@@ -1,4 +1,5 @@
 import {contextOf,eligible,scopeSales,analyze} from './core.js';
+import {incomingPurchases} from './incoming-purchases.js';
 import {normalize,productMatches,queryPeriod,entryAnswer,isEntryQuestion} from '../stock-entries.js';
 import {productMargins} from '../finance/finance.js';
 import {rankProductRows} from '../product-period-reports.js';
@@ -11,6 +12,7 @@ const totalUnits=rows=>{const totals=new Map();for(const r of rows){if(!r.unit||
 export function readQuery(data,text,{scopeId='all',period=null,now=Date.now(),financialComparison=null}={}){
  const q=normalize(text),ctx=contextOf(data);
  if(!['real','demo','simulation'].includes(ctx.dataOrigin))throw Error('Confirme a origem dos registros antes de consultar.');
+ const incoming=incomingPurchases(data,text,{now});if(incoming)return incoming;
  if(/(?:receita|faturamento).*(?:aument|caiu|compar|mes passado)/.test(q)&&financialComparison)return {intent:'integrated-read',text:financialComparison(text),generatedAt:now,specialists:[{name:'Gestão e Finanças',source:'finance.statement e kpi.periodChange'}],confidence:'Mesmos demonstrativos e limites da Gestão.',rebuys:[]};
  if(/produto.*(?:parado|sem venda)/.test(q)){const facts=analyze(data,{scopeId,now}).insights.filter(i=>i.ruleId==='no-sale');return {intent:'integrated-read',text:facts.map(i=>i.observation+' '+i.nextAction).join('\n')||'Nenhum produto atende aos critérios atuais de estoque sem venda. Confira as preferências da Inteligência.',generatedAt:now,specialists:[{name:'Estoque',source:'Motor proativo existente; critério configurado pelo produtor'}],confidence:'Observações dos registros, sem comprovação de causa.',rebuys:[]};}
  const stock=/estoque|quant[oa]s?.*tenho|quantos.*tenho/.test(q),sold=/\bvendi\b|\bvendidos\b|venderam|vendeu|mais vendido|menos vendido/.test(q),buyers=/clientes?.*compr|cnpjs?/.test(q),ranking=/mais|menos|lucrativ/.test(q)&&/produto|vendi|vendeu/.test(q),supplier=/comprei|compras?|recebimentos?|pendente/.test(q)&&/fornecedor/.test(q);

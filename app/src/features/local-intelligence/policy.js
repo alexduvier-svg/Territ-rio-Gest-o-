@@ -6,6 +6,8 @@ export const LOCAL_AI_POLICY = Object.freeze({
   providers: Object.freeze({qwen: 'integrated_optional', qwen06:'diagnostic_only', geminiNano: 'diagnostic_only'}),
 });
 export const LOCAL_AI_GUIDANCE = Object.freeze([
+  'Primeiro, considerar o contexto e as referências válidas. Hipótese, previsão e fato registrado são diferentes. Perguntar somente quando restar ambiguidade; uma simulação nunca altera cadastros por si só.',
+  'Respostas genéricas são proibidas. Se a intenção, o registro ou o período não estiverem claros, o Gerente deve perguntar antes de concluir. Se faltarem dados, deve informar o que falta.',
   'Os motores do aplicativo consultam os registros e fazem os cálculos. A IA organiza a apresentação, sem criar valores ou executar operações.',
   'Um modelo por consulta. Memória disponível, aquecimento, economia de energia e disponibilidade determinam se o complemento pode funcionar.',
   'As consultas essenciais continuam disponíveis sem modelo, sem internet ou quando o aparelho precisa de menos carga.',

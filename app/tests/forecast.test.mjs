@@ -73,5 +73,6 @@ test('agente responde ao assunto da pergunta', () => {
   assert.match(answer('O que levar para a feira?', base), /Previsão\nPara a Feira de Sábado/);
   assert.match(answer('quando acaba o estoque?', base), /Estoque\n/);
   assert.match(answer('qual meu melhor horário?', base), /das 9h às 10h/);
-  assert.match(answer('', base), /Faça agora|Previsão:/);
+  assert.match(answer('', base), /Qual informação.*consultar/);
+  assert.doesNotMatch(answer('Quero entender essa situação desconhecida',base), /Faça agora:|Previsão:/);
 });

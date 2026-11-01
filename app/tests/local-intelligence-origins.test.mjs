@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {AGENT_GUIDELINES} from '../src/data/agent-guidelines.js';
 import {readQuery} from '../src/features/agent/read-queries.js';
 import {ensureAgent,revisionOf} from '../src/features/agent/core.js';
 import {createLocalIntelligence} from '../src/features/local-intelligence/service.js';
@@ -29,5 +30,5 @@ test('origin, preferences and confirmed aliases invalidate revisions; audit alon
 });
 test('existing agent knowledge is upgraded without discarding producer preferences or aliases',()=>{
  const data=demo();ensureAgent(data);data.agent.knowledge.version=1;data.agent.settings.rebuy=false;data.agent.aliases.push({from:'peixe',to:'demo-tilapia'});
- ensureAgent(data);assert.equal(data.agent.knowledge.version,2);assert.equal(data.agent.settings.rebuy,false);assert.equal(data.agent.aliases.length,1);
+ ensureAgent(data);assert.equal(data.agent.knowledge.version,AGENT_GUIDELINES.version);assert.equal(data.agent.settings.rebuy,false);assert.equal(data.agent.aliases.length,1);
 });

@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test,{mock} from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import fs from 'node:fs';
@@ -9,6 +9,7 @@ import {stockEntries,entryAnswer,queryPeriod} from '../src/features/stock-entrie
 import {readQuery} from '../src/features/agent/read-queries.js';
 import {installProductGesture,PRODUCT_TAP_MS} from '../src/features/workflows/product-gesture.js';
 const now=Date.parse('2026-10-31T18:00:00-03:00');
+mock.timers.enable({apis:['Date'],now});
 const source=fs.readFileSync(new URL('../src/legacy/erp-core.js',import.meta.url),'utf8');
 function fixture(){const ctx={console,Date,Math,crypto:globalThis.crypto,TerritorioStockLots:Lots,TerritorioReceivables:R};ctx.window=ctx;vm.createContext(ctx);vm.runInContext(source,ctx);const m=new ctx.ERP.ERPModel({schema:1,inventoryRevision:20,dataContext:{id:'qa',type:'real'},products:[],sales:[],movements:[],clients:[],events:[],expenses:[],profiles:{},settings:{onboarding:'clean'}});const p=m.saveProducts({name:'Tilápia',category:'Piscicultura'},[{unit:'kg',priceInput:'20',costInput:'10',stockInput:'10',minInput:'0'}])[0];S.saveSupplier(m.data,{name:'José Silva'},{id:'supplier',uid:()=>crypto.randomUUID()});const purchase=S.recordPurchase(m.data,{supplierId:'supplier',productId:p.id,specification:'Peixe fresco',quantity:'100',occurredOn:'2026-10-20',goods:'200',freight:'0',discount:'0',charges:'0',confirmed:true},{id:'purchase',uid:()=>crypto.randomUUID(),now:new Date(now).toISOString()});return{m,p,purchase};}
 const command=(extra={})=>({purchaseId:'purchase',quantity:'60',occurredOn:'2026-10-31',addToStock:true,confirmed:true,...extra});

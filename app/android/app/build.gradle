@@ -27,8 +27,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 185
-        versionName "0.12.143"
+        versionCode 186
+        versionName "0.12.144"
         resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
         resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
         resValue 'string', 'agro_education_project_id', educationConfig.projectId ?: ''
@@ -62,13 +62,13 @@ android {
             dimension "edition"
             minSdkVersion 26 // Official ML Kit Prompt API floor; essential 143 APK is preserved.
             applicationIdSuffix ".codextesteia"
-            versionNameSuffix "-teste.2"
+            versionNameSuffix "-teste.1"
             ndk { abiFilters.clear(); abiFilters 'arm64-v8a' }
         }
         codexTeste {
             dimension "edition"
             applicationIdSuffix ".codexteste"
-            versionNameSuffix "-teste.2"
+            versionNameSuffix "-teste.1"
             ndk { abiFilters.clear(); abiFilters 'arm64-v8a' }
         }
     }

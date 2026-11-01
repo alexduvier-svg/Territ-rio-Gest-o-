@@ -1,3 +1,4 @@
+import {clarificationResult} from '../agent/clarification.js';
 // Inteligência local como um agente: entende o assunto da pergunta e responde primeiro sobre ele,
 // em frases curtas, com o "porquê" e os números depois. Sem internet; só os dados reais do app.
 import { buildGuidance, brl, productRoles } from './engine.js';
@@ -68,6 +69,9 @@ function guidanceSection(g, ids) {
 export function answer(question, input) {
   const vocabulary=catalogVocabularyAnswer(question);
   if(vocabulary)return vocabulary;
+  const recognized = INTENTS.some(([, re])=>re.test(question||''));
+  const overviewRequested=/vis[aã]o geral|an[aá]lise geral|resumo geral|como est[aá].*neg[oó]cio|situa[cç][aã]o.*neg[oó]cio/i.test(question||'');
+  if(!recognized&&!overviewRequested)return clarificationResult(question).text;
   const g = buildGuidance(input);
   if (g.quality.context === 'unconfirmed') return g.situation + '\n\n' + g.actions[0].todo;
   const intents = INTENTS.filter(([, re]) => re.test(question || '')).map(([name]) => name);

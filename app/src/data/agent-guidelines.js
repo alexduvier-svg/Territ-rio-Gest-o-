@@ -1,8 +1,10 @@
 // Versioned knowledge derived from the reviewed attachment; never executable authorization.
 export const AGENT_GUIDELINES=Object.freeze({
- version:2,id:'operational-agent',source:'Agro_Gestao_Agente_Inteligente_Instrucoes_Codex.md v1.1 + Diretrizes profissionais locais v1',authority:'reference_only',
+ version:3,id:'operational-agent',source:'Agro_Gestao_Agente_Inteligente_Instrucoes_Codex.md v1.1 + Diretrizes profissionais locais v1 + esclarecimento obrigatório',authority:'reference_only',
  parameters:{stagnantDays:30,minimumComparableFairs:3,surplusRatio:0.5,minimumBuyingDays:4,rebuyElapsedMultiplier:1.25},
  entries:[
+  {id:'context-first',version:1,applicability:'all',priority:100,rule:'Antes de esclarecer, considerar pergunta atual, histórico válido da conversa, produtor, origem, entidades, período e referências. Distinguir hipótese, suposição, previsão e fato registrado. Perguntar somente quando permanecer ambiguidade real; não transformar hipótese em lançamento nem causa comprovada.'},
+  {id:'no-generic-answer',version:1,applicability:'all',priority:100,rule:'Proibido substituir uma pergunta não compreendida por resposta genérica, resumo automático ou assunto diferente. Intenção, entidade, período ou dados insuficientes exigem uma pergunta de esclarecimento específica. Ausência de registros deve ser declarada; não inventar resultados nem afirmar compreensão universal.'},
   {id:'local-models',version:1,applicability:'all',priority:100,rule:'Um provedor por consulta; IA opcional, motores canônicos calculam. Sem modelo ou com pressão de recursos, manter a resposta determinística. Não omitir trechos da resposta validada.'},
   {id:'empty-base',version:1,applicability:'all',priority:100,rule:'Demonstração usa somente dados fictícios identificados. Base zerada não recupera exemplos, aprendizado nem respostas anteriores; informar ausência e orientar cadastros.'},
   {id:'identity',version:1,applicability:'all',priority:100,rule:'Origem e produtor explícitos; não transformar catálogo, simulação ou exemplo em registro real.'},
