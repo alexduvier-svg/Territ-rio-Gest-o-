@@ -1,0 +1,5 @@
+import fs from 'node:fs';import crypto from 'node:crypto';import {evaluateBenchmark} from '../../app/src/features/local-intelligence/comparison.js';
+const [input,output]=process.argv.slice(2);if(!input||!output)throw Error('Informe os caminhos de execução e avaliação.');
+const fixture=fs.readFileSync(new URL('../../app/public/ai/interpreter-benchmark.json',import.meta.url)),cases=JSON.parse(fixture).cases,report=JSON.parse(fs.readFileSync(input));
+if(report.fixtureSha256!==crypto.createHash('sha256').update(fixture).digest('hex'))throw Error('As perguntas foram alteradas depois da execução.');
+report.cases=report.cases.map(r=>r.error?{...r,passed:false}:({...evaluateBenchmark(r,r.model,cases.find(c=>c.id===r.id)),id:r.id,question:r.question}));report.passed=report.cases.filter(r=>r.passed).length;report.total=report.cases.length;report.completed=report.total===cases.length;fs.writeFileSync(output,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({provider:report.provider,passed:report.passed,total:report.total,completed:report.completed,physicalAndroid:report.physicalAndroid}));

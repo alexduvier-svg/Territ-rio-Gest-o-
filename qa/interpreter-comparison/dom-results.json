@@ -1,0 +1,12 @@
+{
+  "kind": "DOM simulado; nenhuma consulta real ao Gemini",
+  "checks": [
+    "abrir a comparação não envia consultas",
+    "autorização explícita guarda a preferência sem iniciar consultas nem revelar a credencial",
+    "falha de transporte ou quota interrompe o lote; não repete as outras 16 chamadas",
+    "a pergunta pública é conferida antes de qualquer envio e exige autorização adicional",
+    "pesquisa recebe somente a pergunta revisada e mostra fonte e data da consulta",
+    "revogação remove a autorização e oferece ativação novamente"
+  ],
+  "passed": true
+}

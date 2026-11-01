@@ -1,0 +1,130 @@
+{
+  "builtAtUtc": "2026-11-01T09:19:01.647295+00:00",
+  "origin": {
+    "repository": "alexduvier-svg/Territ-rio-Gest-o-",
+    "branch": "codex/agro-gestao-144-consultas-entregas",
+    "commit": "cf71aaeae1bcf730cf3a0381a2bc3778791c1f68",
+    "previousCodex136": "78edfb5e2a44fc0819e5cf904420d4cb5f85c535"
+  },
+  "developmentBranch": "codex/agro-gestao-145-interpretacao-real",
+  "sourceCommit": "d7e7fff3f85a70ce697feea0c93d6f300e692b4f",
+  "compiledLocalCommit": "5ba3302e9dc7c05bbe638edbea19f3ad2eebcf87",
+  "sourceTree": "08bf7ddff2c771a9f839bf6bef9bf8d25991c40e",
+  "codeTreeIdentical": true,
+  "commits": [
+    "a617c2fdb20ace0190475bfea7426f3e6df4c25b",
+    "d7e7fff3f85a70ce697feea0c93d6f300e692b4f"
+  ],
+  "preservation": {
+    "claudeWritten": false,
+    "historicalBranchesWritten": false,
+    "historicalApksReplaced": false,
+    "forcePush": false,
+    "destructiveMigration": false,
+    "newSigningKey": false
+  },
+  "tests": {
+    "nodePassed": 897,
+    "nodeFailed": 0,
+    "erpSimulatedDomChecks": 14,
+    "comparisonSimulatedDomChecks": 6,
+    "physicalAndroid": false,
+    "geminiActualInference": false,
+    "geminiBlockedBy": "Não há projeto ou credencial do usuário configurado neste ambiente; ativação pessoal ocorre no APK.",
+    "qwenRealLinuxCases": 18,
+    "qwenApprovedPlans": 0,
+    "qwenAutomaticContextInterpreterQualified": false
+  },
+  "apks": [
+    {
+      "filename": "Codex_Teste_145_Comparacao_Leve.apk",
+      "bytes": 36160781,
+      "sha256": "c30b6db358206a1de10fc4f11b9eb00c0be45ec4b52315b0a4768bd0f47e8b19",
+      "package": "br.com.territorio.gestao2.codextesteia",
+      "versionName": "0.12.145-teste.1",
+      "versionCode": 187,
+      "minSdk": 26,
+      "certificateSha256": "b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86",
+      "zip16Kb": true,
+      "signatureVerification": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): true\nVerified using v3 scheme (APK Signature Scheme v3): false\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1\nSigner #1 certificate DN: CN=Codex Teste IA, O=AGRO Gestao, C=BR\nSigner #1 certificate SHA-256 digest: b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86\nSigner #1 certificate SHA-1 digest: 91fd77415cc1966fd36d870989a9f548a2c77e1b\nSigner #1 certificate MD5 digest: a1f38ae805710f7cefd3b665f461e70e\nSigner #1 key algorithm: RSA\nSigner #1 key size (bits): 2048\nSigner #1 public key SHA-256 digest: 33d344df7dcc6dd5adb9a1ddea11119769bb2b373b1af3535e54ed7d1989583a\nSigner #1 public key SHA-1 digest: c85153335b1c1456c7dd8d6975d442142e48868b\nSigner #1 public key MD5 digest: d45768acd65fea330e0a0c939fa8f8d9\n",
+      "bundledQwen": false,
+      "crcPassed": true,
+      "publicAssetsMatched": 64,
+      "nativeElfAlignment": [
+        {
+          "file": "lib/arm64-v8a/libdatastore_shared_counter.so",
+          "loadAlignments": [
+            16384,
+            16384,
+            16384
+          ]
+        },
+        {
+          "file": "lib/arm64-v8a/liblitertlm_jni.so",
+          "loadAlignments": [
+            16384,
+            16384,
+            16384
+          ]
+        },
+        {
+          "file": "lib/armeabi-v7a/libdatastore_shared_counter.so",
+          "loadAlignments": [
+            16384,
+            16384
+          ]
+        }
+      ],
+      "arm64Elf16Kb": true,
+      "newNativeClassesPresent": true,
+      "libraryFileId": "libfile_fa31881a5e608191b5194afd222711bc",
+      "download": "https://chatgpt.com/library?file_id=libfile_fa31881a5e608191b5194afd222711bc&account_id=personal"
+    },
+    {
+      "filename": "Codex_Teste_145_Com_Qwen.apk",
+      "bytes": 481447327,
+      "sha256": "66fd518b6e5dd2f5d4ea8fe8f78fcc5d9f60bc6dc913f2d2256401d4277a8a86",
+      "package": "br.com.territorio.gestao2.codextesteia",
+      "versionName": "0.12.145-teste.1",
+      "versionCode": 187,
+      "minSdk": 26,
+      "certificateSha256": "b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86",
+      "zip16Kb": true,
+      "signatureVerification": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): true\nVerified using v3 scheme (APK Signature Scheme v3): false\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1\nSigner #1 certificate DN: CN=Codex Teste IA, O=AGRO Gestao, C=BR\nSigner #1 certificate SHA-256 digest: b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86\nSigner #1 certificate SHA-1 digest: 91fd77415cc1966fd36d870989a9f548a2c77e1b\nSigner #1 certificate MD5 digest: a1f38ae805710f7cefd3b665f461e70e\nSigner #1 key algorithm: RSA\nSigner #1 key size (bits): 2048\nSigner #1 public key SHA-256 digest: 33d344df7dcc6dd5adb9a1ddea11119769bb2b373b1af3535e54ed7d1989583a\nSigner #1 public key SHA-1 digest: c85153335b1c1456c7dd8d6975d442142e48868b\nSigner #1 public key MD5 digest: d45768acd65fea330e0a0c939fa8f8d9\n",
+      "bundledQwen": true,
+      "crcPassed": true,
+      "publicAssetsMatched": 64,
+      "modelSha256": "7900eb4e7362d88c58782c6f9999bb7a129e03544aa98b8f338ea0cc5d8c22c1",
+      "modelBytes": 497516544,
+      "nativeElfAlignment": [
+        {
+          "file": "lib/arm64-v8a/libdatastore_shared_counter.so",
+          "loadAlignments": [
+            16384,
+            16384,
+            16384
+          ]
+        },
+        {
+          "file": "lib/arm64-v8a/liblitertlm_jni.so",
+          "loadAlignments": [
+            16384,
+            16384,
+            16384
+          ]
+        },
+        {
+          "file": "lib/armeabi-v7a/libdatastore_shared_counter.so",
+          "loadAlignments": [
+            16384,
+            16384
+          ]
+        }
+      ],
+      "arm64Elf16Kb": true,
+      "newNativeClassesPresent": true,
+      "libraryFileId": "libfile_65d44712791c8191994b560af8801bf9",
+      "download": "https://chatgpt.com/library?file_id=libfile_65d44712791c8191994b560af8801bf9&account_id=personal"
+    }
+  ]
+}

@@ -1,3 +1,11 @@
+# Codex Teste 145 — comparação real de intérpretes — 01/11/2026
+
+Base144 cf71aae preservada, trabalho exclusivo em codex/agro-gestao-145-interpretacao-real. Fonte publicada d7e7fff, árvore08bf7dd. APKs0.12.145-teste.1/code187, mesmo pacote/certificadoIA143/144, completo comQwen0.6B e leve que reutiliza o arquivo privado. Não alterar Claude/136/139/142/143/144, não apagar históricos nem criar chave de assinatura.
+
+Pergunta “Quantas empresas compraram de mim?” corrigida; pergunta clara nova supera esclarecimento antigo. TemplateQwen antigo descartava partes da mensagem: usar template do runtime0.18.1. TesteREAL Linux do0.6B com18casos completos:0planos aprovados; não tratar arquivo/memória como qualidade. Preservado e restrito ao laboratório. Geminionline3.1FlashLite somente em comparação fictícia autorizada; não usaERP nem está automaticamente ligado aoGerente. Usuário ainda não tem projeto: inferênciaGemini NÃO realizada aqui. Chave pessoal somente noAndroid, cifradaKeystore, nuncaGit/conversa. Pesquisa pública separada, autorização/revisão do texto/fontes; semautopreencherdadosprivados.
+
+897unit,14DOMERP e6DOMlaboratório PASS; DOM usa provedores simulados. APKs assinatura/CRC/64assets/ZIP16KB/ELFARM64/modelSHA conferidos. Não houve instalação/inferênciaAndroid/Nano/Gemini/pesquisaautenticada/picoRAM medidos. Não declarar compreensão geral resolvida nem Gemini superior. Relatório app/docs/ENTREGA-CODEX-TESTE-145.md e qa/android145-delivery.json.
+
 # Regra obrigatória — esclarecimento antes de responder — 01/11/2026
 
 Usuário: “proibido respostas genéricas. Melhor perguntar se não souber”. Prioridade: entender contexto, referências e suposições; esclarecer apenas após considerar o contexto válido. Hipóteses não são fatos nem comandos. Pergunta não compreendida, entidade/período ambíguos ou dados insuficientes exigem esclarecimento específico. Não substituir por resumo do negócio, dicas prontas ou outro assunto. Isso não autoriza inventar fatos nem afirmar compreensão universal. Preservar os motores canônicos e manter explícita a diferença entre interpretação experimental e execução validada.
