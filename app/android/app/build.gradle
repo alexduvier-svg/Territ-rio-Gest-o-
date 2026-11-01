@@ -5,10 +5,19 @@ def educationFile = file('firebase-local/general-education.json')
 def educationConfig = educationFile.exists() ? new groovy.json.JsonSlurper().parse(educationFile) : [:]
 
 // The test identity may only be signed with the preserved, externally supplied key.
-def codexSigningPath = project.findProperty('codexSigningFile')
+def buildingCodexIa = gradle.startParameter.taskNames.any { it.toLowerCase().contains('codextesteia') }
+def codexSigningPath = project.findProperty(buildingCodexIa ? 'codexIaSigningFile' : 'codexSigningFile')
 def buildingCodexTest = gradle.startParameter.taskNames.any { it.toLowerCase().contains('codexteste') }
 if (buildingCodexTest && !codexSigningPath) throw new GradleException('Assinatura original do Codex Teste ausente; nenhuma chave nova será gerada.')
 if (codexSigningPath && !buildingCodexTest) throw new GradleException('A chave do teste só pode assinar a variante CodexTeste.')
+if (buildingCodexTest && codexSigningPath) {
+    def store = java.security.KeyStore.getInstance('PKCS12')
+    file(codexSigningPath).withInputStream { store.load(it, System.getenv('AGRO_SIGNING_STORE_PASSWORD').toCharArray()) }
+    def certificate = store.getCertificate(System.getenv('AGRO_SIGNING_KEY_ALIAS'))
+    def digest = java.security.MessageDigest.getInstance('SHA-256').digest(certificate.encoded).encodeHex().toString()
+    def expected = buildingCodexIa ? 'b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86' : '2fb95cc1aa0aaf55ae607941e666099b81be35196f4dbbda6d99d45fd1346ef0'
+    if (digest != expected) throw new GradleException('O certificado não corresponde à variante selecionada.')
+}
 android {
     if (project.findProject(':qwenmodel') != null) assetPacks = [':qwenmodel']
     namespace = "br.com.territorio.gestao"
@@ -49,6 +58,12 @@ android {
     flavorDimensions "edition"
     productFlavors {
         original { dimension "edition" }
+        codexTesteIa {
+            dimension "edition"
+            applicationIdSuffix ".codextesteia"
+            versionNameSuffix "-teste.6"
+            ndk { abiFilters.clear(); abiFilters 'arm64-v8a' }
+        }
         codexTeste {
             dimension "edition"
             applicationIdSuffix ".codexteste"
