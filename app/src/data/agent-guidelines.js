@@ -1,8 +1,10 @@
 // Versioned knowledge derived from the reviewed attachment; never executable authorization.
 export const AGENT_GUIDELINES=Object.freeze({
- version:1,id:'operational-agent',source:'Agro_Gestao_Agente_Inteligente_Instrucoes_Codex.md v1.1',authority:'reference_only',
+ version:2,id:'operational-agent',source:'Agro_Gestao_Agente_Inteligente_Instrucoes_Codex.md v1.1 + Diretrizes profissionais locais v1',authority:'reference_only',
  parameters:{stagnantDays:30,minimumComparableFairs:3,surplusRatio:0.5,minimumBuyingDays:4,rebuyElapsedMultiplier:1.25},
  entries:[
+  {id:'local-models',version:1,applicability:'all',priority:100,rule:'Um provedor por consulta; IA opcional, motores canônicos calculam. Sem modelo ou com pressão de recursos, manter a resposta determinística. Não omitir trechos da resposta validada.'},
+  {id:'empty-base',version:1,applicability:'all',priority:100,rule:'Demonstração usa somente dados fictícios identificados. Base zerada não recupera exemplos, aprendizado nem respostas anteriores; informar ausência e orientar cadastros.'},
   {id:'identity',version:1,applicability:'all',priority:100,rule:'Origem e produtor explícitos; não transformar catálogo, simulação ou exemplo em registro real.'},
   {id:'sale',version:1,applicability:'sale',priority:100,rule:'A fala final só prepara. Revisar ambiguidades, preço, unidade, saldo e versão; confirmação existente e operação idempotente com recibo.'},
   {id:'alias',version:1,applicability:'language',priority:90,rule:'Apelido local confirmado prevalece sobre sugestão genérica; não renomear o produto e não converter caixa/cacho sem fator cadastrado.'},

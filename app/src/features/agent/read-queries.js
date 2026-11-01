@@ -17,6 +17,9 @@ export function readQuery(data,text,{scopeId='all',period=null,now=Date.now(),fi
  if(!stock&&!sold&&!buyers&&!ranking&&!supplier&&!isEntryQuestion(q))return null;
  // Assertions and sales commands stay in the existing confirmed proposal flow.
  if(/^(?:eu )?vendi \d|^(?:adicione|registre|apague|exclua|zere|vender)\b/.test(q))return null;
+ // An empty current base is a valid state. Never fill it from demo/history caches.
+ const hasRecords=['products','sales','movements','clients','events','expenses'].some(key=>(data[key]||[]).some(row=>eligible(row,ctx)))||(data.supplierBook?.purchases||[]).some(row=>eligible(row,ctx));
+ if(!hasRecords)return {intent:'integrated-read',text:'Ainda não há registros nesta base. Não há histórico suficiente para informar vendas, estoque, entradas ou compras.\nCadastre seus produtos e registre a primeira entrada ou venda para começar. Os dados fictícios e as bases anteriores não são usados para preencher esta consulta.',generatedAt:now,specialists:[{name:'Registros locais',source:'Base atual do produtor; nenhuma recuperação automática de dados anteriores'}],confidence:'Ausência de registros; não representa uma medição do negócio.',insights:[],rebuys:[]};
  if(!['real','demo','simulation'].includes(ctx.dataOrigin))throw Error('Confirme a origem dos registros antes de consultar.');
  if(['products','sales','movements'].reduce((n,k)=>n+(data[k]?.length||0),0)>60000)throw Error('Histórico grande para esta consulta conjunta. Use os relatórios por período.');
  const sections=[],products=(data.products||[]).filter(p=>eligible(p,ctx)),matched=productMatches(data,q),ids=new Set(matched.map(p=>p.id)),p=queryPeriod(q,now,period),allProducts=/\bprodutos?\b|o que vendi|vendi (?:mais|menos)|\bcnpjs?\b/.test(q)&&!matched.length;

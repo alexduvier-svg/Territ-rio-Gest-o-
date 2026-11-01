@@ -1,5 +1,6 @@
 import { Capacitor, registerPlugin } from '@capacitor/core';
 import { createLocalIntelligence, LOCAL_MODEL } from './service.js';
+import { LOCAL_AI_GUIDANCE } from './policy.js';
 import './local-intelligence.css';
 const native = registerPlugin('AgroLocalIntelligence');
 export function installLocalIntelligence(b) {
@@ -14,14 +15,14 @@ export function installLocalIntelligence(b) {
   async function status() { if (!available()) return { supported:false, imported:false, enabled:false }; return service.status(); }
   const previousIntelligence = b.actions['settings-intelligence'];
   let voiceBusy=false;
-  function currentKey() { return window.TerritorioAgent?.context?.()?.actorId+'|'+window.TerritorioAgent?.revision?.(); }
+  function currentKey() { const ctx=window.TerritorioAgent?.context?.();return ctx?.actorId+'|'+ctx?.dataOrigin+'|'+window.TerritorioAgent?.revision?.(); }
   function cancel() { epoch++; busy=false; service.cancel(); }
   async function settings() {
     cancel(); const token=epoch;
     b.open('Inteligência no aparelho','<p role="status">Conferindo disponibilidade…</p>',back,'agent-local-settings');
     const s=await status(); if(token!==epoch)return;
     const condition=!s.supported?'Este aparelho não oferece suporte a esta experiência.':s.imported?(s.enabled?'Ativado. O app carrega o Qwen automaticamente nas consultas.':'Modelo instalado. Assistente desativado.'):s.packaged?'O modelo está incluído na instalação e será preparado no próprio aparelho.':'O modelo não está incluído neste APK de teste. A instalação completa deverá incluir o assistente pela Play Store.';
-    b.open('Inteligência no aparelho','<section class="local-ai-card"><p class="local-ai-eyebrow">Codex Teste · experimental</p><h3>Assistente local</h3><p>'+esc(condition)+'</p><p class="agent-note">O Gerente usa os cálculos dos registros. O Qwen organiza trechos dessa resposta; valores e avisos são preservados.</p>'+(s.supported?(s.imported?button('local-ai-toggle',s.enabled?'Desativar assistente':'Ativar assistente','success')+button('local-ai-remove','Remover a cópia local do modelo'):s.packaged?button('local-ai-install','Preparar assistente local','success'):''):'')+'</section><section class="local-ai-card"><h3>Como usar</h3><p>Abra o Gerente e faça uma consulta. Com o assistente ativado, o app carrega o Qwen e prepara o resumo automaticamente. A resposta calculada fica visível.</p><p class="agent-note">O assistente usa os registros deste aparelho. Não consulta GitHub, sites nem serviços externos de IA. Modelo Qwen3 1.7B · Apache 2.0 · 977 MB; a preparação da cópia privada exige cerca de 1,3 GB livres.</p></section>'+button('local-ai-manager','Abrir Gerente','primary')+button('local-ai-guidelines','Diretrizes e hierarquia'),back,'agent-local-settings');
+    b.open('Inteligência no aparelho','<section class="local-ai-card"><p class="local-ai-eyebrow">Codex Teste · experimental</p><h3>Assistente local</h3><p>'+esc(condition)+'</p><p class="agent-note">O Gerente usa os cálculos dos registros. O Qwen confere a seleção de trechos; a apresentação preserva a resposta completa.</p>'+(s.supported?(s.imported?button('local-ai-toggle',s.enabled?'Desativar assistente':'Ativar assistente','success')+button('local-ai-remove','Remover a cópia local do modelo'):s.packaged?button('local-ai-install','Preparar assistente local','success'):''):'')+'</section><section class="local-ai-card"><h3>Como usar</h3><p>Abra o Gerente e faça uma consulta. Quando disponível e em condições adequadas, o complemento local é usado. A resposta calculada fica visível.</p><p class="agent-note">O assistente usa os registros deste aparelho. Não consulta GitHub, sites nem serviços externos de IA. Modelo Qwen3 1.7B · Apache 2.0 · 977 MB; a preparação da cópia privada exige cerca de 1,3 GB livres.</p></section>'+button('local-ai-manager','Abrir Gerente','primary')+button('local-ai-professional','Diretrizes profissionais')+button('local-ai-guidelines','Diretrizes e hierarquia'),back,'agent-local-settings');
   }
   async function installModel(){
     if(busy)return;busy=true;const token=++epoch;
@@ -43,12 +44,20 @@ export function installLocalIntelligence(b) {
     const p=window.TerritorioResourcePolicy?.snapshot();if(p?.intelligenceProfile==='essential')throw Error('O aparelho está no perfil Essencial. A consulta original continua disponível; tente depois ou confira as condições do aparelho.');
     const token=++epoch;busy=true;
     area.innerHTML='<p role="status">Carregando o Qwen e conferindo o resumo…</p>'+button('local-ai-cancel','Cancelar explicação');
-    try { const text=await service.explain(item.facts);if(token!==epoch||document.hidden||item.key!==currentKey()||!area.isConnected)return;
-      area.innerHTML='<p class="local-ai-eyebrow">Resumo dos registros · Qwen local</p><p class="agent-answer">'+b.privateHTML(esc(text))+'</p><p class="agent-note">Trechos da resposta calculada pelo app. Valores, contexto e avisos foram preservados.</p>'+trace(item);
+    try {
+      const work=async signal=>{
+        if(signal?.aborted||token!==epoch||item.key!==currentKey())throw Error('Consulta cancelada.');
+        const abort=()=>service.cancel();signal?.addEventListener('abort',abort,{once:true});
+        try{return await service.explain(item.facts,{foreground:!document.hidden,profile:window.TerritorioResourcePolicy?.snapshot()?.intelligenceProfile});}
+        finally{signal?.removeEventListener('abort',abort);}
+      };
+      const text=await (window.TerritorioResourcePolicy?.run?window.TerritorioResourcePolicy.run(work,{priority:automatic?3:2}):work());if(token!==epoch||document.hidden||item.key!==currentKey()||!area.isConnected)return;
+      area.innerHTML='<p class="local-ai-eyebrow">Leitura conferida · Qwen local</p><p class="agent-answer">'+b.privateHTML(esc(text))+'</p><p class="agent-note">Resposta completa dos motores locais. Nenhum trecho, valor ou limitação foi omitido.</p>'+trace(item);
     } catch(e) { if(token===epoch&&area.isConnected)area.innerHTML='<p role="status">'+esc(e.message || 'A explicação não ficou disponível.')+'</p><p class="agent-note">A resposta original do Gerente permanece acima.</p>'; } finally { if(token===epoch)busy=false; }
   }
   const actions={
     'local-ai-settings':settings,'settings-intelligence':settings,
+    'local-ai-professional':()=>{cancel();b.open('Diretrizes profissionais','<p class="agent-note">Regras locais · versão 1 · disponíveis sem internet</p>'+LOCAL_AI_GUIDANCE.map(text=>'<p>'+esc(text)+'</p>').join('')+'<p class="agent-note">Nenhum modelo novo é baixado automaticamente. O Gemini de educação geral, se configurado, é um serviço separado e não recebe os registros do negócio.</p>',button('local-ai-settings','Voltar'),'agent-local-guidelines');},
     'local-ai-guidelines':()=>{cancel();previousIntelligence?.();},
     'local-ai-manager':()=>{cancel();b.actions['agent-open']();},
     'local-ai-back':()=>{cancel();b.close();},
@@ -67,7 +76,7 @@ export function installLocalIntelligence(b) {
   };
   for(const [name,fn] of Object.entries(actions))b.actions[name]=(...args)=>Promise.resolve().then(()=>fn(...args)).catch(e=>b.toast(e.message));
   window.TerritorioLocalIntelligence={attach(result) {
-    cancel();current={facts:result.text,key:currentKey(),eligible:['stock','finance','management','overview','fair','rebuy'].includes(result.intent),started:false,sources:result.specialists||[],contextLabel:result.contextLabel,originLabel:result.originLabel,generatedAt:result.generatedAt};
+    cancel();current={facts:result.text,key:currentKey(),eligible:['stock','finance','management','overview','fair','rebuy','integrated-read'].includes(result.intent),started:false,sources:result.specialists||[],contextLabel:result.contextLabel,originLabel:result.originLabel,generatedAt:result.generatedAt};
     if(!current.eligible)return '';
     return '<section class="local-ai-card" id="local-ai-result"><p role="status">Conferindo o assistente local…</p></section>';
   },start() {
@@ -76,6 +85,7 @@ export function installLocalIntelligence(b) {
     return explain(true).catch(e=>{const area=document.getElementById('local-ai-result');if(item===current&&area)area.innerHTML='<p role="status">'+esc(e.message||'Resumo indisponível.')+'</p><p class="agent-note">A resposta calculada pelo app permanece acima.</p>';});
   }};
   document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel();});
+  document.addEventListener('territorio:resource-policy',event=>{if(event.detail?.intelligenceProfile==='essential'){cancel();const area=document.getElementById('local-ai-result');if(area)area.innerHTML='<p role="status">Perfil Essencial ativo. A resposta calculada permanece disponível.</p>';}});
   dialog?.addEventListener('close',cancel);
   if(dialog)new MutationObserver(()=>{if(busy&&!['agent-answer','agent-local-install'].includes(dialog.dataset.kind))cancel();}).observe(dialog,{attributes:true,attributeFilter:['data-kind']});
   function decorate(){const panel=document.getElementById('agent-panel');if(!panel||panel.querySelector('.local-ai-manager-access'))return;const query=panel.querySelector('.agent-query');if(!query)return;query.insertAdjacentHTML('afterbegin','<div class="local-ai-manager-access"><span>Assistente do negócio</span>'+button('local-ai-settings','Configurar')+'</div>');const submit=query.querySelector('[data-action="agent-ask"]');submit?.insertAdjacentHTML('beforebegin',button('local-ai-speech','Falar pergunta')+'<p class="agent-note">Voz offline do Android, quando disponível. Confira o texto antes de consultar.</p>');}

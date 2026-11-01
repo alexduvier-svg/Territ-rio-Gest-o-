@@ -16,6 +16,31 @@ test('selection preserves unavailable profit and never inserts a proposed amount
   assert.ok(result.includes('lucro bruto indisponível'));
   assert.ok(!result.includes('900'));
 });
+test('a model selection cannot omit quantities, dates, units or a part of a compound answer',()=>{
+  const facts='Demonstração · Outubro\nEstoque: 12 kg de tilápia.\nVendas: 8 kg.\nÚltima entrada: 20/10/2026.\nCNPJs distintos: 2.\nQuantidade pendente: 4 embalagens.';
+  assert.equal(validateExplanation('{"trechos":[1]}',facts),facts.split('\n').join('\n\n'));
+});
+test('a cancelled operation retains its lease until the provider actually finishes',async()=>{
+  let complete,calls=0;
+  const s=createLocalIntelligence({explain:()=>{calls++;return new Promise(r=>complete=r);},cancel:async()=>{},installModel:async()=>{},removeModel:async()=>{}});
+  const first=s.explain('Estoque: 2 kg.');await s.cancel();
+  await assert.rejects(s.explain('Estoque: 3 kg.'),/encerramento/);
+  await assert.rejects(s.installModel(),/encerramento/);
+  await assert.rejects(s.removeModel(),/encerramento/);
+  assert.equal(calls,1);complete({text:'{"trechos":[0]}'});await assert.rejects(first,/cancelada/);
+  const next=s.explain('Estoque: 3 kg.');complete({text:'{"trechos":[0]}'});assert.equal(await next,'Estoque: 3 kg.');
+});
+test('failure cooldown is bounded, does not retry silently and keeps the deterministic answer available',async()=>{
+ let at=1000,calls=0;const s=createLocalIntelligence({explain:async()=>{calls++;return {text:calls===1?'inventado':'{"trechos":[0]}'};}},{now:()=>at});
+ await assert.rejects(s.explain('Estoque: 2 kg.'),/conferência/);
+ await assert.rejects(s.explain('Estoque: 2 kg.'),/pausa/);assert.equal(calls,1);
+ at+=120001;assert.equal(await s.explain('Estoque: 2 kg.'),'Estoque: 2 kg.');assert.equal(calls,2);
+});
+test('foreground and essential profile are checked before crossing the provider boundary',async()=>{
+ let calls=0;const s=createLocalIntelligence({explain:async()=>{calls++;return{text:'{"trechos":[0]}'};}});
+ await assert.rejects(s.explain('Estoque.',{foreground:false}),/Volte/);
+ await assert.rejects(s.explain('Estoque.',{profile:'essential'}),/Essencial/);assert.equal(calls,0);
+});
 test('only the calculated text crosses the model boundary, without business object or model tools', async () => {
   let received;
   const service=createLocalIntelligence({explain:async request=>{received=request;return {text:'{"trechos":[0]}'};}});
