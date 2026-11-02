@@ -21,3 +21,8 @@ Doze referências adicionais: 10 g, 250 g, 500 g e 1 kg, cada peso em torra Clar
 ## Cafés Verdes Commodity — 0.12.83
 
 Nove sugestões específicas: Arábica nas variedades Catuaí, Mundo Novo, Bourbon, Acaiá, Icatu, Catucaí, Topázio e Arara; Canéfora Robusta. As duas referências genéricas originais de Arábica Verde e Conilon Verde mantêm IDs, com espécie e formato Verde explícitos no adaptador; Conilon usa sua variedade declarada, Arábica genérica continua sem cultivar presumida. Nenhuma sugestão verde informa torra ou peso fixo. São agora 40 adições e 2.519 referências; a fonte original continua com 2.479 registros. Esta mudança é só nas Sugestões para Cadastrar.
+
+
+## Complemento147 — plantas e café verde
+
+Quatro sugestões novas, sem saldo, preço ou cadastro ativo: Assa-peixe (alias Assa peixe), Capuchinha, Vinagreira e Jambu. Categoria Hortifruti-Granjeiro editável, identificação a confirmar, sem recomendação alimentar/medicinal. Assa-peixe como planta é distinto de Mel de assa-peixe. Catálogo total2523:2479 originais e44 adições. Sugestões de café verde usam Saca, sem peso fixo;60kg é opção explícita de conteúdo, nunca conversão automática. Cadastros do produtor não são reclassificados.

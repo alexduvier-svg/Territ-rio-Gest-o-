@@ -75,3 +75,12 @@ export function recordInsightFeedback(memory, insight, status, now = Date.now())
   if (!entry) return memory;
   return { ...memory, entries: memory.entries.map(e => e === entry ? { ...e, status, at: now, until: status === 'snoozed' ? now + DAY : 0 } : e) };
 }
+
+// One destination per guidance; state and evidence stay in the shared release ledger.
+export function guidanceDestination(item){
+ if(item.urgentIntegrity)return 'Gestão';
+ const id=String(item.ruleId||item.id||'');
+ if(/^(guia-crm:|rebuy|retorno|fieis|identificar|clientes?)/.test(id))return 'Clientes';
+ if(/^(guia-pdv:|stock-|no-sale|repor|acaba-logo|esgotou|encalhe|papel-produto|mix-)/.test(id))return 'Vender';
+ return 'Gestão';
+}

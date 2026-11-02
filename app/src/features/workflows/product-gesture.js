@@ -6,7 +6,7 @@ export function installProductGesture(bridge, {
   source, restoreSource,
   clock = { now: () => performance.now(), set: (fn, ms) => setTimeout(fn, ms), clear: id => clearTimeout(id) },
 } = {}) {
-  let pending = null;
+  let pending = null, pointerClick = null;
   const clear = () => { if (pending) clock.clear(pending.timer); pending = null; };
   const consume = event => { event.preventDefault(); event.stopImmediatePropagation(); return true; };
   const near = (event, old) => Math.hypot(event.clientX - old.x, event.clientY - old.y) < 24;
@@ -24,7 +24,8 @@ export function installProductGesture(bridge, {
   };
   const handleClick = (event, card) => {
     if (organizing()) { clear(); return false; }
-    const physical = event.isTrusted && event.detail > 0;
+    const physical = event.isTrusted && (event.detail > 0 || event.pointerType==='touch' || event.pointerType==='pen' || pointerClick?.id===card?.dataset.id && clock.now()-pointerClick.at<700);
+    pointerClick=null;
     const old = pending; clear();
     const again = old && physical && card?.dataset.id === old.id && near(event, old) && (old.pressed || clock.now() - old.at <= PRODUCT_TAP_MS);
     if (again && bridge.page() === 'Vender') {
@@ -58,7 +59,7 @@ export function installProductGesture(bridge, {
   window.TerritorioProductGestures = { suspend, cancelPending: clear, handleClick };
   document.addEventListener('pointerdown', event => {
     const card=event.target.closest?.('[data-action="sell-product"]');
-    if(card)suspend(event,card);else clear();
+    if(card){pointerClick={id:card.dataset.id,at:clock.now()};suspend(event,card);}else{pointerClick=null;clear();}
   }, { capture: true, passive: true });
   document.addEventListener('pointermove', event => { if (pending?.pressed && Math.hypot(event.clientX - pending.x, event.clientY - pending.y) > 10) clear(); }, { passive: true });
   document.addEventListener('pointerup', () => { if (pending?.pressed) expire(pending, 400); }, { passive: true });
