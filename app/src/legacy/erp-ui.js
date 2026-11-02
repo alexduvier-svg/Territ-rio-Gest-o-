@@ -228,7 +228,9 @@ function productCards(stockMode){
 }
 function draftResumeBanner(){
  // Só há venda em andamento com pelo menos um produto com quantidade; carrinho aberto e deixado em zero não avisa.
- if(!draft||!(draft.items||[]).some(i=>E.number(i.rawQty)>0))return '';const amount=E.money(Math.max(0,model.quote(draft).total)).replace(/^R\$\s*/,'');
+ const roundFilled=!!draft&&(draft.items||[]).some(i=>E.number(i.rawQty)>0),baseFilled=!!draft?.additionBase&&(draft.additionBase.items||[]).some(i=>E.number(i.rawQty)>0);
+  // 148: depois de Continuar comprando, os itens já confirmados ficam em additionBase; o aviso não pode sumir.
+  if(!draft||(!roundFilled&&!baseFilled))return '';let quoted=0;try{quoted=(roundFilled?model.quote(draft).total:0)+(baseFilled?model.quote(draft.additionBase).total:0);}catch{quoted=baseFilled?model.quote(draft.additionBase).total:0;}const amount=E.money(Math.max(0,quoted)).replace(/^R\$\s*/,'');
  return btn('resume-sale','<span class="draft-resume-message">'+icon('cart')+'<span>Finalize suas vendas</span></span><span class="draft-resume-total"><span class="draft-resume-travel" aria-hidden="true">'+icon('chevron')+'</span><span class="draft-resume-amount"><span>R$</span> <span class="draft-resume-digits tabular">'+escape(amount)+'</span></span><span class="draft-resume-end" aria-hidden="true">'+icon('chevron')+'</span></span>','draft-resume');
 }
 function sellPage(){
@@ -956,7 +958,10 @@ const actions={
  history:()=>history(),
  'product-history':d=>history(d.id),
  'sell-product':d=>{if(!allowProductSelection(d.id))return;createDraft(d.id);},
- 'resume-sale':()=>{if(!draft)return;if(saleError(false)){page='Venda';render();window.scrollTo(0,0);}else openCart();},
+ 'resume-sale':()=>{if(!draft)return;
+   // 148: uma rodada aberta e deixada sem quantidade é descartada; o carrinho anterior volta inteiro.
+   if(draft.additionBase&&!(draft.items||[]).some(i=>E.number(i.rawQty)>0)){draft=JSON.parse(JSON.stringify(draft.additionBase));delete draft.additionRequested;delete draft.additionBase;loadActiveDiscount();}
+   if(saleError(false)){page='Venda';render();window.scrollTo(0,0);}else openCart();},
 
  'change-sale-presentation':d=>{const current=draft.items[draft.active],p=model.product(d.id);if(!p)return;const other=draft.items.findIndex((i,index)=>index!==draft.active&&i.productId===d.id);if(other>=0){selectDiscountItem(other);render();return toast('Essa apresentação já está na venda.');}if(model.product(current.productId).unit!==p.unit)current.rawQty='0';current.productId=d.id;current.discountMode='R$';current.discountValue='';loadActiveDiscount();const tooMuch=E.number(current.rawQty)>p.stock;if(tooMuch)current.rawQty='0';render();if(tooMuch)stockWarning(p);},
  'active-item':d=>{selectDiscountItem(+d.index);render();},
