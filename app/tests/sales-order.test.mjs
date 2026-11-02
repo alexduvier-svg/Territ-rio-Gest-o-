@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { arrangeSalesProducts, moveSalesProduct } from '../src/features/sales-order.js';
-import { installProductGesture } from '../src/features/workflows/product-gesture.js';
+import { installProductGesture, PRODUCT_TAP_MS } from '../src/features/workflows/product-gesture.js';
 
 test('saved sales order tolerates deleted, duplicate and new products without mutating stock order', () => {
   const products = ['a','b','c'].map(id => ({id,stock:3}));
@@ -33,7 +33,7 @@ function setup() {
 }
 
 test('single tap waits only for disambiguation then opens quantity, never checkout',()=>{
-  const f=setup();f.tap();assert.deepEqual(f.calls,[]);f.advance(279);assert.deepEqual(f.calls,[]);f.advance(1);assert.deepEqual(f.calls,['origin','quantity:coffee']);f.advance(1000);assert.equal(f.jobs.size,0);
+  const f=setup();f.tap();assert.deepEqual(f.calls,[]);f.advance(PRODUCT_TAP_MS-1);assert.deepEqual(f.calls,[]);f.advance(1);assert.deepEqual(f.calls,['origin','quantity:coffee']);f.advance(1000);assert.equal(f.jobs.size,0);
 });
 test('double tap opens only stock, with no intermediate sale action',()=>{
   const f=setup();f.tap();f.advance(90);f.down();f.tap();assert.deepEqual(f.calls,['origin','stock:coffee']);f.advance(1000);assert.deepEqual(f.calls,['origin','stock:coffee']);assert.deepEqual(f.selected(),[]);
@@ -57,7 +57,7 @@ test('pointer cancellation or scrolling on the second press cancels the pending 
   for(const type of ['pointercancel','pointermove']){const f=setup();f.tap();f.down();f.listeners[type](f.event({clientY:80}));f.advance(1000);assert.deepEqual(f.calls,[]);}
 });
 test('different products do not form a double; only the latest pending tap can open quantity',()=>{
-  const f=setup();f.tap();f.advance(80);f.tap({card:{dataset:{id:'banana'},disabled:false}});f.advance(280);assert.deepEqual(f.calls,['origin','quantity:banana']);
+  const f=setup();f.tap();f.advance(80);f.tap({card:{dataset:{id:'banana'},disabled:false}});f.advance(PRODUCT_TAP_MS);assert.deepEqual(f.calls,['origin','quantity:banana']);
 });
 test('navigation and another modal fence the pending single',()=>{
   for(const change of [f=>f.page('Estoque'),f=>f.modal({kind:'settings'})]){const f=setup();f.tap();change(f);f.advance(1000);assert.deepEqual(f.calls,[]);}

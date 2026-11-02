@@ -1,6 +1,7 @@
 // Resolve the gesture before opening a surface. A double tap never renders a
 // sale/checkout preview; the card's existing press feedback stays immediate.
-export const PRODUCT_TAP_MS = 280;
+// 148: 350 ms — Android usa 300 ms para toque duplo; produtores costumam tocar mais devagar.
+export const PRODUCT_TAP_MS = 350;
 
 export function installProductGesture(bridge, {
   source, restoreSource,
