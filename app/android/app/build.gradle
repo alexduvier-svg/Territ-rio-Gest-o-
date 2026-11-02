@@ -19,7 +19,6 @@ if (buildingCodexTest && codexSigningPath) {
     if (digest != expected) throw new GradleException('O certificado não corresponde à variante selecionada.')
 }
 android {
-    if (project.findProject(':qwenmodel') != null) assetPacks = [':qwenmodel']
     namespace = "br.com.territorio.gestao"
     testBuildType "release"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -27,8 +26,8 @@ android {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 189
-        versionName "0.12.147"
+        versionCode 190
+        versionName "0.12.148"
         resValue 'string', 'agro_education_api_key', educationConfig.apiKey ?: ''
         resValue 'string', 'agro_education_app_id', educationConfig.applicationId ?: ''
         resValue 'string', 'agro_education_project_id', educationConfig.projectId ?: ''
@@ -82,7 +81,6 @@ repositories {
 
 dependencies {
     codexTesteIaImplementation 'com.google.mlkit:genai-prompt:1.0.0-beta4'
-    implementation 'com.google.ai.edge.litertlm:litertlm-android:0.18.1'
     implementation platform('com.google.firebase:firebase-bom:35.0.2')
     implementation 'com.google.firebase:firebase-ai'
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'
@@ -112,22 +110,4 @@ try {
     logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
 }
 
-if (project.findProject(':qwenmodel') != null) {
-    tasks.named('preBuild').configure { dependsOn ':qwenmodel:verifyQwenModel' }
-}
 
-// Optional personal comparison APK: include the already pinned 0.6B weights,
-// never Git-track them, and refuse a different or incomplete artifact.
-tasks.register('verifyComparisonModel') {
-    doLast {
-        def model = file('src/codexTesteIa/assets/qwen06/model.litertlm')
-        if (project.hasProperty('bundledInterpreterRequired') && !model.exists()) throw new GradleException('Modelo do APK completo ausente.')
-        if (model.exists()) {
-            if (model.length() != 497516544L) throw new GradleException('Tamanho do modelo incluído inválido.')
-            def digest = java.security.MessageDigest.getInstance('SHA-256')
-            model.withInputStream { stream -> byte[] buffer = new byte[1048576]; int n; while ((n = stream.read(buffer)) != -1) digest.update(buffer, 0, n) }
-            if (digest.digest().encodeHex().toString() != '7900eb4e7362d88c58782c6f9999bb7a129e03544aa98b8f338ea0cc5d8c22c1') throw new GradleException('Integridade do modelo incluído inválida.')
-        }
-    }
-}
-if (buildingCodexIa) tasks.named('preBuild').configure { dependsOn 'verifyComparisonModel' }

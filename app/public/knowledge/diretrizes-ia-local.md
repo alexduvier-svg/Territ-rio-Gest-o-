@@ -1,6 +1,18 @@
 # AGRO Gestão — diretrizes profissionais de inteligência local
 
-Versão 2 · Codex Teste 144 · 01/11/2026
+Versão 3 · AGRO Gestão Teste 148 · 02/11/2026
+
+### Atualização 148 — Qwen retirado; ordem oficial de interpretação
+
+O Qwen (0.6B e 1.7B) foi retirado do aplicativo, do fluxo do Gerente e do APK, inclusive a biblioteca LiteRT-LM. Motivos: o modelo não vinha embutido no APK, ocupava de 0,5 a 1 GB quando baixado, exigia 3 GB de memória livre e, mesmo ativo, apenas escolhia trechos de uma resposta já calculada. Na primeira abertura da 148, as cópias privadas deixadas pelas versões de teste são apagadas para liberar espaço.
+
+Ordem de interpretação das perguntas:
+
+1. Gemini online — interpretador principal, com chave e autorização do produtor e acesso à internet.
+2. Gemini Nano — interpretação sem internet, somente nos aparelhos em que o Android (AICore) oferece o modelo. Não é instalado pelo app.
+3. Motores do aplicativo — sempre disponíveis, sem modelo: respondem diretamente às consultas de vendas, estoque, compras, clientes, custos, lotes e agenda.
+
+Em todos os casos, a IA apenas entende a pergunta e propõe um plano. O app valida o plano e calcula os valores a partir dos registros. As seções abaixo sobre Qwen são históricas.
 
 ### Atualização144 — contexto antes do esclarecimento
 

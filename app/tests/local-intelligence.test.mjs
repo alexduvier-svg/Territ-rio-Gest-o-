@@ -1,68 +1,26 @@
 import test from 'node:test';
 import {isFinancialQuestion} from '../src/features/business-query.js';
 import assert from 'node:assert/strict';
-import { explanationRequest, validateExplanation, createLocalIntelligence, LOCAL_MODEL } from '../src/features/local-intelligence/service.js';
+import fs from 'node:fs';
+import { interpreterOrder, LOCAL_AI_POLICY, LOCAL_AI_GUIDANCE } from '../src/features/local-intelligence/policy.js';
 
-test('Qwen selects canonical passages; amounts, labels, scope and caveats cannot be rewritten or omitted', () => {
-  const facts='Outubro de 2026 · Loja\nReceita R$ 805,00.\nLucro bruto R$ 305,00; antes de despesas.\nCustos incompletos.\nEstoque de café disponível.';
-  const result=validateExplanation('{"trechos":[4]}',facts);
-  assert.equal(result, facts.split('\n').join('\n\n'));
-  for(const text of ['Não há informações sobre receitas.', '{"trechos":[99]}', '{"trechos":[-1]}', '{"trechos":[1.5]}', '{"trechos":[1,1]}', '{"trechos":[]}', '<script>execute()</script>', '{"trechos":["1"]}'])assert.throws(()=>validateExplanation(text,facts));
+// 0.12.148: Qwen removed. Gemini online → Gemini Nano → local engines.
+test('interpretation order is Gemini online first, Nano offline second, and engines when nothing is available',()=>{
+ assert.deepEqual(interpreterOrder({online:true,offline:true}),['gemini-online','gemini-nano']);
+ assert.deepEqual(interpreterOrder({online:false,offline:true}),['gemini-nano']);
+ assert.deepEqual(interpreterOrder({online:true,offline:false}),['gemini-online']);
+ assert.deepEqual(interpreterOrder({}),[]);
+ assert.deepEqual(Object.keys(LOCAL_AI_POLICY.providers),['geminiOnline','geminiNano','localEngines']);
 });
-test('selection preserves unavailable profit and never inserts a proposed amount',()=>{
-  const facts='Loja · Hoje\nVendas R$ 805,00.\nCusto histórico incompleto: lucro bruto indisponível.\nConferir o estoque.';
-  const result=validateExplanation('{"trechos":[3],"resposta":"Lucro R$ 900,00"}',facts);
-  assert.ok(result.includes('Vendas R$ 805,00.'));
-  assert.ok(result.includes('lucro bruto indisponível'));
-  assert.ok(!result.includes('900'));
-});
-test('a model selection cannot omit quantities, dates, units or a part of a compound answer',()=>{
-  const facts='Demonstração · Outubro\nEstoque: 12 kg de tilápia.\nVendas: 8 kg.\nÚltima entrada: 20/10/2026.\nCNPJs distintos: 2.\nQuantidade pendente: 4 embalagens.';
-  assert.equal(validateExplanation('{"trechos":[1]}',facts),facts.split('\n').join('\n\n'));
-});
-test('a cancelled operation retains its lease until the provider actually finishes',async()=>{
-  let complete,calls=0;
-  const s=createLocalIntelligence({explain:()=>{calls++;return new Promise(r=>complete=r);},cancel:async()=>{},installModel:async()=>{},removeModel:async()=>{}});
-  const first=s.explain('Estoque: 2 kg.');await s.cancel();
-  await assert.rejects(s.explain('Estoque: 3 kg.'),/encerramento/);
-  await assert.rejects(s.installModel(),/encerramento/);
-  await assert.rejects(s.removeModel(),/encerramento/);
-  assert.equal(calls,1);complete({text:'{"trechos":[0]}'});await assert.rejects(first,/cancelada/);
-  const next=s.explain('Estoque: 3 kg.');complete({text:'{"trechos":[0]}'});assert.equal(await next,'Estoque: 3 kg.');
-});
-test('failure cooldown is bounded, does not retry silently and keeps the deterministic answer available',async()=>{
- let at=1000,calls=0;const s=createLocalIntelligence({explain:async()=>{calls++;return {text:calls===1?'inventado':'{"trechos":[0]}'};}},{now:()=>at});
- await assert.rejects(s.explain('Estoque: 2 kg.'),/conferência/);
- await assert.rejects(s.explain('Estoque: 2 kg.'),/pausa/);assert.equal(calls,1);
- at+=120001;assert.equal(await s.explain('Estoque: 2 kg.'),'Estoque: 2 kg.');assert.equal(calls,2);
-});
-test('foreground and essential profile are checked before crossing the provider boundary',async()=>{
- let calls=0;const s=createLocalIntelligence({explain:async()=>{calls++;return{text:'{"trechos":[0]}'};}});
- await assert.rejects(s.explain('Estoque.',{foreground:false}),/Volte/);
- await assert.rejects(s.explain('Estoque.',{profile:'essential'}),/Essencial/);assert.equal(calls,0);
-});
-test('only the calculated text crosses the model boundary, without business object or model tools', async () => {
-  let received;
-  const service=createLocalIntelligence({explain:async request=>{received=request;return {text:'{"trechos":[0]}'};}});
-  await service.explain('Custos incompletos.');
-  assert.deepEqual(received,{facts:'Custos incompletos.'});
-  assert.ok(Object.isFrozen(received));
-  assert.throws(()=>explanationRequest({sales:[]}));
-  assert.throws(()=>explanationRequest('x'.repeat(4001)));
-});
-test('cancellation suppresses late explanations after leaving the result screen', async () => {
-  let complete;
-  const service=createLocalIntelligence({explain:()=>new Promise(resolve=>{complete=resolve;}),cancel:async()=>{}});
-  const pending=service.explain('Estoque disponível.');
-  await service.cancel();complete({text:'{"trechos":[0]}'});
-  await assert.rejects(pending,/cancelada/);
-});
-test('the compatible download is immutable, hash pinned and separate from user data',()=>{
-  assert.equal(LOCAL_MODEL.delivery,'play-install-time');
-  assert.equal(LOCAL_MODEL.assetPath,'qwen/model.litertlm');
-  assert.equal(LOCAL_MODEL.url,undefined);
-  assert.match(LOCAL_MODEL.sha256,/^[a-f0-9]{64}$/);
-  assert.equal(LOCAL_MODEL.bytes,977184032);
+test('no Qwen model, runtime or download remains in the app or the Android build',()=>{
+ const root=new URL('../',import.meta.url);
+ const read=p=>fs.readFileSync(new URL(p,root),'utf8');
+ assert.doesNotMatch(read('android/app/build.gradle'),/litertlm|qwen/i);
+ assert.doesNotMatch(read('android/settings.gradle'),/qwen/i);
+ for(const f of ['android/app/src/main/java/br/com/territorio/gestao/QwenConversationConfig.java','android/app/src/main/java/br/com/territorio/gestao/ModelDownloadPolicy.java','android/app/src/main/java/br/com/territorio/gestao/LocalModelFile.java','android/qwenmodel','src/features/local-intelligence/service.js','public/knowledge/qwen-APACHE-2.0.txt'])assert.equal(fs.existsSync(new URL(f,root)),false,f);
+ for(const f of ['android/app/src/codexTesteIa/java/br/com/territorio/gestao/AgroModelDiagnosticsPlugin.java','src/features/local-intelligence/index.js','src/features/local-intelligence/diagnostics.js','src/features/local-intelligence/comparison.js'])assert.doesNotMatch(read(f).replace(/\/\/.*|\/\*[\s\S]*?\*\//g,''),/qwen06|litertlm|Engine\(|huggingface/i,f);
+ assert.match(read('android/app/src/main/java/br/com/territorio/gestao/AgroLocalIntelligencePlugin.java'),/qwen-agro-1\.litertlm/,'legacy private copies are cleaned on load');
+ assert.ok(LOCAL_AI_GUIDANCE.some(t=>/Gemini online.*Gemini Nano.*motores/.test(t)));
 });
 
 test('financial questions use Gestão while culinary recipes and product ranking keep their specialists',()=>{
