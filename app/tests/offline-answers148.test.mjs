@@ -38,3 +38,10 @@ test('148: "a receber", fiado, custos e ticket vão para Finanças, não para o 
  for(const q of ['Quem está devendo?','Quais fiados estão em aberto?','Quais são meus custos do mês?','Qual o ticket médio?','Quanto gastei com custos fixos?']){assert.equal(isFinancialQuestion(q),true,q);assert.equal(parseRequest(q,data()).intent,'management',q);}
 });
 test('148: execução de plano (productIds) não é desviada pelas respostas rápidas',()=>{const r=readQuery(data(),'quantos produtos tenho em estoque',{now,productIds:['a']});assert.match(r.text,/Café Especial: 10 Pacote/);});
+import {productMatches} from '../src/features/stock-entries.js';
+test('148: pesquisa de entrada reconhece 1 kg e meio quilo; a granel “2 kg” é quantidade',()=>{
+ const d=data();d.products.push({id:'k1',name:'Café Especial',unit:'Pacote',weight:1000,price:1,stock:1},{id:'k2',name:'Café Especial',unit:'Pacote',weight:500,price:1,stock:1},{id:'t',name:'Tilápia',unit:'kg',weight:0,price:1,stock:5});
+ assert.deepEqual(productMatches(d,'café especial de 1 kg').map(p=>p.id),['k1']);
+ assert.deepEqual(productMatches(d,'café especial meio quilo').map(p=>p.id),['k2']);
+ assert.deepEqual(productMatches(d,'2 kg de tilápia').map(p=>p.id),['t']);
+});

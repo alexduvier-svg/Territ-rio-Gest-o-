@@ -31,8 +31,12 @@ export function productMatches(data,text){
   const words=wordsOf(p),alias=aliases.some(a=>a.confirmed&&a.productId===p.id&&q.includes(normalize(a.alias)));
   return alias||(!fish||normalize(p.category)==='piscicultura')&&(named.length?named.every(w=>words.includes(w)):fish);
  });
- const weight=q.match(/\b(\d+)\s*(?:g|gramas?)\b/);
- return weight?matches.filter(p=>Number(p.weight)===Number(weight[1])):matches;
+ // 148: aceita gramas e quilos (1 kg, 1,5 kg, meio quilo, 60 kg) para achar a apresentação certa.
+ const grams=q.match(/\b(\d+(?:[.,]\d+)?)\s*(?:g|gr|gramas?)\b/),kilos=q.match(/\b(\d+(?:[.,]\d+)?)\s*(?:kg|kgs|kilos?|quilos?)\b/),half=/\bmeio (?:kg|kilo|quilo)\b/.test(q);
+ const target=grams?Math.round(Number(grams[1].replace(',','.'))):kilos?Math.round(Number(kilos[1].replace(',','.'))*1000):half?500:null;
+ if(!target)return matches;const filtered=matches.filter(p=>Number(p.weight)===target);
+ // Em produtos a granel (sem peso de embalagem) “2 kg” é quantidade, não apresentação.
+ return grams||filtered.length?filtered:matches;
 }
 export function stockEntries(data,{productIds=null,start=0,end=Date.now(),now=Date.now()}={}){
  const ctx=contextOf(data);if(!['real','demo','simulation'].includes(ctx.dataOrigin))throw Error('Confirme a origem dos registros antes de consultar.');
