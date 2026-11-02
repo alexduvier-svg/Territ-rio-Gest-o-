@@ -1,3 +1,11 @@
+# Compilação Codex da148 fornecida peloClaude — 02/11/2026
+
+Autorização expressa atual do usuário: compilar claude/agro-gestao-148-teste,90b50c2ac1c961b35b1c4a03be5e0a32cc74df38, a partir da1475338fea. Esta autorização substitui a restrição histórica de não usarClaude como base e permite a retiradaQwen já implementada nessa148. Preservar o ramoClaude e todasas versões antigas, sem merge automático ou nova assinatura. Ramo de compilação independente codex/compilacao-148-claude. Entregar148/code190/pacote.codextesteia, certificadoIAigual147; corrigir só bloqueios e inconsistências de empacotamento antes doAPK. RótuloAndroid ainda147 corrigido para148. Nenhuma chaveGemini acessada, enviada ou modificada.
+
+923testes de código aprovados nesta sessão; roteiroDOM147 aprovado sobre148. Bateria readQueryisolada não cobre todosos caminhosfinanceiros/lotes; não confundir contagem de rotas com acurácia. Teste doGerentecompleto emDOM e redebloqueada registrado separadamente emqa/gerente148-offline-results.json. Não anunciar50respostas corretas apenas por haver texto. Sem aparelhoAndroid, Nano ouGemini autenticado nesteambiente.
+
+RemoçãoQwen: limpar somenteos4nomeslegadosnoNoBackupFilesDir e preferênciaslocal-intelligence; preservar cadastros, bases, chaveGemini e históricos. Ganho deespaço depende dos arquivos realmente presentes; não garantir1,5GBem todosos aparelhos. Sem novomodelo instalado automaticamente. DocumentoClaude emapp/docs/ENTREGA-TESTE-148.md permanece referência original; resultados da compilação em documentoCodexpróprio.
+
 # Codex Teste147 — auditoria dos20 pedidos e cérebro restaurado — 02/11/2026
 
 Base confirmada146:8b8332a45b986466c657929ff31eb1a29c3b382d; fonteAPK146f0b150d. Branch independente codex/agro-gestao-147-auditoria. Snapshot remoto codex/preservado-apk-146-8b8332a criado na base. Claude22e38139 eCodex13678edfb5 intocados. Adendo expresso do usuário RESTAURAR CÉREBRO E CONTEÚDO substitui a retirada do botão descrita na146; manter pergunta única abaixo de Receita por dia, cérebro com comparativos, clima, análises e acesso ao Gerente. Não confundir painel de informações com novo campo de pergunta.
