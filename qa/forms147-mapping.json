@@ -1,0 +1,160 @@
+{
+  "source": "https://docs.google.com/spreadsheets/d/1-w4JKjgVXE6RJDFzZCmLhFgL8koKoTOETEMTSvqQH3M/edit",
+  "tab": "Respostas ao formulário 1",
+  "range": "A1:AE1",
+  "readScope": "headers only; no participant responses",
+  "filledHeaders": 25,
+  "recommendation": "Usar consultas e relatórios existentes; não criar uma segunda seção com o questionário inteiro. Opiniões exigem coleta explícita se futuramente solicitada.",
+  "mapping": [
+    {
+      "column": "A",
+      "question": "Carimbo de data/hora",
+      "status": "metadata",
+      "assessment": "Carimbo do registro; não é indicador de venda."
+    },
+    {
+      "column": "B",
+      "question": "NOME",
+      "status": "profile",
+      "assessment": "Nome do produtor; cadastro existente, não comprador."
+    },
+    {
+      "column": "C",
+      "question": "COMUNIDADE",
+      "status": "profile",
+      "assessment": "Comunidade do produtor não equivale à origem dos clientes."
+    },
+    {
+      "column": "D",
+      "question": "QUAIS OS TIPOS DE PRODUTOS QUE VOCÊ LEVOU PARA A FEIRA? DESCREVA-OS. (EX: BANANA, MEL, CAFÉS, BOLO, BOMBONS ETC)",
+      "status": "existing",
+      "assessment": "Produtos e preparação da feira; distinguir levado de estoque geral."
+    },
+    {
+      "column": "E",
+      "question": "QUAL A QUANTIDADE TOTAL DE PRODUTOS (EM NÚMEROS ) QUE VOCÊ LEVOU PARA A FEIRA? (EX: 27 PRODUTOS: 10 CAFÉS TRADICIONAIS, 17 CAFÉS ESPECIAIS, ETC). \n(35 PRODUTOS: 5 DÚZIAS DE BANANA, 30 LIMÕES, ETC).",
+      "status": "partial",
+      "assessment": "Carga inicial por apresentação/unidade; sem carga registrada não inferir levado."
+    },
+    {
+      "column": "F",
+      "question": "QUAL A QUANTIDADE TOTAL DE PRODUTOS VENDIDOS? (EX: TOTAL 27. SÃO  17 CAFÉS ESPECIAIS, 10 CAFÉS TRADICIONAIS).(TOTAL 45. SÃO 20 LIMÕES, 20 ABACATES, 5 MOLHOS DE TAIOBA, ETC).",
+      "status": "existing",
+      "assessment": "Vendas líquidas por apresentação; não somar dimensões diferentes."
+    },
+    {
+      "column": "G",
+      "question": "QUAL A QUANTIDADE TOTAL DE PRODUTOS QUE RESTARAM? DESCREVA OS PRODUTOS (EX: 2 DÚZIAS DE BANANA, 10 LIMÕES, ETC).",
+      "status": "partial",
+      "assessment": "Saldo do evento só com carga/reposição/retorno/perdas registrados."
+    },
+    {
+      "column": "H",
+      "question": "QUAL É O SEU PRODUTO QUE MAIS VENDEU?   ",
+      "status": "existing",
+      "assessment": "Ranking por quantidade e unidade; receita é outro critério."
+    },
+    {
+      "column": "I",
+      "question": "QUAL É O SEU PRODUTO QUE MENOS VENDEU?  ",
+      "status": "existing",
+      "assessment": "Ranking dos vendidos; ausência de venda separada."
+    },
+    {
+      "column": "J",
+      "question": "O SEU PRODUTO MAIS CARO OBTEVE:",
+      "status": "partial",
+      "assessment": "Faixa de preço exige definição de comparador e preço histórico."
+    },
+    {
+      "column": "K",
+      "question": "O SEU PRODUTO DE VALOR MÉDIO OBTEVE:",
+      "status": "partial",
+      "assessment": "Preço médio exige critério explícito, não inferir opções do Forms."
+    },
+    {
+      "column": "L",
+      "question": "O SEU PRODUTO MAIS BARATO OBTEVE:",
+      "status": "partial",
+      "assessment": "Faixa barata exige definição e preço histórico comparável."
+    },
+    {
+      "column": "M",
+      "question": "EM QUANTO TEMPO SEU ESTOQUE SE ESGOTOU? (A PARTIR DA ABERTURA 9HS DA MANHÃ)",
+      "status": "partial",
+      "assessment": "Horário de esgotamento exige trajetória/carga registrada; saldo atual não prova horário."
+    },
+    {
+      "column": "N",
+      "question": "SE ESGOTOU, CONSEGUIU REPOR O ESTOQUE? ",
+      "status": "existing",
+      "assessment": "Reposições vinculadas à feira, quando registradas."
+    },
+    {
+      "column": "O",
+      "question": "SE REPÔS O ESTOQUE, QUAIS FORAM OS PRODUTOS? NOMES, E QUANTIDADE DE CADA PRODUTO. (SE NAO REPÔS, BASTA DIZER \"NÃO REPUS\").",
+      "status": "existing",
+      "assessment": "Histórico de movimentos/carga, apresentação e quantidade."
+    },
+    {
+      "column": "P",
+      "question": "QUAIS PRODUTOS RESTARAM DESSE ESTOQUE? (EX: 10 LIMÕES, 2 DÚZIAS DE BANANAS, ETC) OU (NÃO REPUS)",
+      "status": "partial",
+      "assessment": "Sobra da reposição depende da reconciliação do evento."
+    },
+    {
+      "column": "Q",
+      "question": "QUAL DOS SEUS PRODUTOS ESGOTOU MAIS RÁPIDO?   (NÃO ESGOTOU NENHUM)",
+      "status": "partial",
+      "assessment": "Exige vínculo entre estoque da feira e cronologia; não deduzir só da última venda."
+    },
+    {
+      "column": "R",
+      "question": "QUAL (QUAIS) DOS SEUS PRODUTOS NÃO VENDEU (VENDERAM) NENHUMA UNIDADE?   ",
+      "status": "existing",
+      "assessment": "Produtos levados sem venda; exige universo da carga da feira."
+    },
+    {
+      "column": "S",
+      "question": "CONSEGUIU REPOR O ESTOQUE, OU FICOU SEM REPOSIÇÃO?  ",
+      "status": "duplicate",
+      "assessment": "Mesma função de reposição já perguntada nas colunas N/O."
+    },
+    {
+      "column": "T",
+      "question": "O SEU MAIOR LUCRO PARTIU DE:",
+      "status": "partial",
+      "assessment": "Lucro bruto por produto exige custos históricos; não presumir lucro líquido por produto."
+    },
+    {
+      "column": "U",
+      "question": "EM QUAL MÉTODO DE PAGAMENTO VOCÊ MAIS VENDEU?",
+      "status": "existing",
+      "assessment": "Pagamentos do período/evento; critério valor versus número de vendas explícito."
+    },
+    {
+      "column": "V",
+      "question": "PARA QUAL TIPO DE CLIENTE VOCÊ MAIS VENDEU?",
+      "status": "existing",
+      "assessment": "Canal PF/CNPJ/evento versus clientes distintos; são métricas diferentes."
+    },
+    {
+      "column": "W",
+      "question": "\nGOSTOU DA FEIRA?",
+      "status": "new-data",
+      "assessment": "Opinião declarada; impossível deduzir de faturamento."
+    },
+    {
+      "column": "X",
+      "question": "PRETENDE PARTICIPAR DAS PRÓXIMAS EDIÇÕES?",
+      "status": "new-data",
+      "assessment": "Intenção de participar precisa ser informada pelo produtor."
+    },
+    {
+      "column": "Y",
+      "question": "DEIXE SUAS OBSERVAÇÕES:",
+      "status": "new-data",
+      "assessment": "Observações livres são novos registros; não inventar nem importar respostas automaticamente."
+    }
+  ]
+}
