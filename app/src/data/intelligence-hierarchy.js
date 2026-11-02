@@ -7,7 +7,7 @@ export const INTELLIGENCE_HIERARCHY = Object.freeze({
     '3. Motor de Orientação: interpreta os fatos pelas diretrizes versionadas de Gestão, KPIs, PDV e CRM.',
     '4. Action: prepara propostas declarativas; somente comandos existentes, após confirmação do produtor.',
     '5. Audit: valida antes/depois de comandos; erro bloqueia conclusões incompatíveis. Não pode ser desligado pelo agente ou Gemini.',
-    '6. Liberação: reúne prioridades, elimina conflitos, limita a três e respeita evidência e feedback local.',
+    '6. Liberação: reúne prioridades, elimina conflitos, limita a três e respeita evidência e retorno do produtor local.',
     '7. Gemini opcional: explica conceitos gerais fixos. Não recebe registros, não recalcula, não decide nem executa operações.'
   ],
   precedence: ['integridade_e_consentimento', 'fatos_registrados', 'calculos_canonicos', 'regras_locais_versionadas', 'hipoteses_para_teste', 'explicacao_geral_externa'],

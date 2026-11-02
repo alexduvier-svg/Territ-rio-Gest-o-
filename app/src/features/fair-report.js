@@ -236,7 +236,7 @@ export function fairNoticeTimes(endAt, days = 7) {
 }
 
 // ------------------------------------------------------------------ dados no formato da skill de relatórios
-// (contrato: produtores, estoque com reposições, vendas uma a uma, fechamento e feedback). Valores em reais.
+// (contrato: produtores, estoque com reposições, vendas uma a uma, fechamento e avaliação). Valores em reais.
 const PAY = { Pix: 'PIX', Dinheiro: 'DINHEIRO', 'Débito': 'CARTAO_DEBITO', 'Crédito': 'CARTAO_CREDITO' };
 const reais = c => Math.round(Number(c) || 0) / 100;
 const isoBR = ms => new Date(ms - 3 * 3600e3).toISOString().slice(0, 19) + '-03:00';
