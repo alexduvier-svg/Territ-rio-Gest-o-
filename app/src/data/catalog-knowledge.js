@@ -1,6 +1,6 @@
 // Local reference knowledge. This is vocabulary and registration policy, never business activity.
 export const CATALOG_KNOWLEDGE = Object.freeze({
-  version: '1.0.6', catalogVersion: '1.0.0', type: 'suggestions_only', total: 2523,
+  version: '1.0.6', catalogVersion: '1.0.0', type: 'suggestions_only', total: 2539,
   sourceTotal: 2479, appAdditions: 44,
   sourceSHA256: 'd21cc68486f8cc478b5c31ccd4d565f7f8034b1927075bf27b5a3e327b1cc116',
   rules: [

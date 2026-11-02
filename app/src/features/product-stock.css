@@ -120,3 +120,7 @@ html[data-large-text=true] .stock-entry-header > .title { font-size:27px; }
 
 /* Required validation is textual and accessible, never color alone. */
 .field-invalid{border:2px solid #b3261e!important;outline-offset:3px}.field-error{display:block;color:#b3261e;margin:8px 0;font-size:14px}.stock-category-control>.choice{display:flex;gap:12px;align-items:center;width:100%;min-height:48px;text-align:left}.stock-category-options{display:grid;gap:12px}.stock-category-options .chip{min-height:48px;width:100%;white-space:normal}.dimension-add{min-width:44px;min-height:44px}html[data-theme=dark] .field-error{color:#ffb4ab}.fin-fixed{margin-top:20px}[data-action=fin-cost-new]{margin-block:16px!important}
+
+/* 148: em Preço/Custo a mensagem de erro fica abaixo do campo, sem espremer a digitação. */
+.numeric-input-row:has(> .field-error){flex-wrap:wrap;}
+.numeric-input-row > .field-error{order:3;flex:0 0 100%;margin:6px 0 12px;line-height:1.3;}

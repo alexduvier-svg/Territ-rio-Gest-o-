@@ -20,6 +20,8 @@ const dayKey=date=>{const parts=dayFormatter.formatToParts(new Date(date));retur
 const monthKey=date=>{const d=new Date(date);const parts=monthFormatter.formatToParts(d);return parts.find(p=>p.type==='year').value+'-'+parts.find(p=>p.type==='month').value;};
 function classify(name){
  const n=normalize(name);
+ // 148: café verde/cru/em coco/beneficiado é vendido em saca, não em pacote; peso e preço não são presumidos.
+ if(/\bcafe\b.*\b(?:verde|cru|em coco|coco|beneficiado|commodity|arabica cru|conilon|robusta)\b|\bcafe em saca\b/.test(n)&&!/torrad|moido|capsula|drip|soluvel|pacote/.test(n))return{category:'Cafés',unit:'Saca',type:'Commodity',format:'Verde',weight:0,price:0,cost:0,min:0};
  if(/cafe|coffee|cappuccino/.test(n))return{category:'Cafés',unit:'Pacote',type:'Especial',format:'Moído',weight:250,price:2500,cost:1500,min:5};
  if(/^ovos?\b/.test(n))return{category:'Hortifruti-Granjeiro',unit:'Dúzia',type:/codorna/.test(n)?'Codorna':/pato/.test(n)?'Pato':/granja/.test(n)?'Granja':'Caipira',price:0,cost:0,min:3,weight:0};
  if(/bolo|brownie|cupcake|muffin|rocambole|torta doce/.test(n))return{category:'Bolos',unit:'Unidade',format:'Inteiro',flavor:'Natural',weight:1000,price:0,cost:0,min:3};

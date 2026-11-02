@@ -112,7 +112,7 @@ test('revisão de janelas e estoque migra só premissas e permanece no backup se
   assert.equal(m.data.stockCatalogGuidelines.version,5);
   assert.equal(m.data.catalogKnowledge.sourceTotal,2479);
   assert.equal(m.data.catalogKnowledge.appAdditions,44);
-  assert.equal(m.data.catalogKnowledge.total,2523);
+  assert.equal(m.data.catalogKnowledge.total,2539);
   const restored=new E.ERPModel(clone(m.data));
   assert.notEqual(restored.interfaceGuidelinesInstalled,true);
   assert.notEqual(restored.stockCatalogGuidelinesInstalled,true);

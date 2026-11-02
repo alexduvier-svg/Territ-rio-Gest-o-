@@ -26,3 +26,7 @@ Nove sugestões específicas: Arábica nas variedades Catuaí, Mundo Novo, Bourb
 ## Complemento147 — plantas e café verde
 
 Quatro sugestões novas, sem saldo, preço ou cadastro ativo: Assa-peixe (alias Assa peixe), Capuchinha, Vinagreira e Jambu. Categoria Hortifruti-Granjeiro editável, identificação a confirmar, sem recomendação alimentar/medicinal. Assa-peixe como planta é distinto de Mel de assa-peixe. Catálogo total2523:2479 originais e44 adições. Sugestões de café verde usam Saca, sem peso fixo;60kg é opção explícita de conteúdo, nunca conversão automática. Cadastros do produtor não são reclassificados.
+
+## Adições 148 — plantas, verduras e ervas regionais
+
+Mangarito, Major-gomes, Bredo, Língua-de-vaca, Tanchagem, Boldo, Poejo, Mastruz, Dente-de-leão, Picão, Arruda, Guaco, Melissa, Carqueja, Folha de bananeira e Urucum, em Hortifruti › Plantas e folhas (maço, unidade ou kg). Somente nomes de referência: sem preço, custo, saldo ou orientação de consumo/uso medicinal; a identificação deve ser confirmada pelo produtor.
