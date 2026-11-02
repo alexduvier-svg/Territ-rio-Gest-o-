@@ -1,0 +1,75 @@
+{
+  "filename": "Codex_Teste_148_Claude.apk",
+  "bytes": 12433566,
+  "sha256": "7382a5d7b44197fb9ba77b0b3de524a518b5bc5ba7cfeed690c58d152dbdf5e4",
+  "package": "br.com.territorio.gestao2.codextesteia",
+  "versionName": "0.12.148-teste.1",
+  "versionCode": 190,
+  "minSdk": 26,
+  "certificateSha256": "b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86",
+  "zip16Kb": true,
+  "signatureVerification": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): true\nVerified using v3 scheme (APK Signature Scheme v3): false\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1\nSigner #1 certificate DN: CN=Codex Teste IA, O=AGRO Gestao, C=BR\nSigner #1 certificate SHA-256 digest: b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86\nSigner #1 certificate SHA-1 digest: 91fd77415cc1966fd36d870989a9f548a2c77e1b\nSigner #1 certificate MD5 digest: a1f38ae805710f7cefd3b665f461e70e\nSigner #1 key algorithm: RSA\nSigner #1 key size (bits): 2048\nSigner #1 public key SHA-256 digest: 33d344df7dcc6dd5adb9a1ddea11119769bb2b373b1af3535e54ed7d1989583a\nSigner #1 public key SHA-1 digest: c85153335b1c1456c7dd8d6975d442142e48868b\nSigner #1 public key MD5 digest: d45768acd65fea330e0a0c939fa8f8d9\n",
+  "bundledQwen": false,
+  "crcPassed": true,
+  "publicAssetsMatched": 62,
+  "nativeElfAlignment": [
+    {
+      "file": "lib/arm64-v8a/libdatastore_shared_counter.so",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "file": "lib/armeabi-v7a/libdatastore_shared_counter.so",
+      "loadAlignments": [
+        16384,
+        16384
+      ]
+    }
+  ],
+  "arm64Elf16Kb": true,
+  "newNativeClassesPresent": true,
+  "qwenWeightsAndRuntimeAbsent": true,
+  "dateBrasilia": "2026-11-02",
+  "repository": "alexduvier-svg/Territ-rio-Gest-o-",
+  "originBranch": "claude/agro-gestao-148-teste",
+  "originCommit": "90b50c2ac1c961b35b1c4a03be5e0a32cc74df38",
+  "buildBranch": "codex/compilacao-148-claude",
+  "sourceCommit": "4a899da71cbd07ced1fd0d384abb9485b80c1652",
+  "localBuildCommit": "07be340f57d23e0af36e976d3b13bd9c3eea5575",
+  "sourceTree": "a3a7063b2e3ba5aef31c9f61e5437ebb04b980f6",
+  "libraryFileId": "libfile_c99cf43be0808191b3f3cae63593bdda",
+  "downloadUrl": "https://chatgpt.com/library?file_id=libfile_c99cf43be0808191b3f3cae63593bdda&account_id=personal",
+  "unitTests": {
+    "passed": 923,
+    "failed": 0
+  },
+  "domRegression": {
+    "passed": 25,
+    "providerSimulated": true
+  },
+  "offlineGerente": {
+    "questions": 50,
+    "networkAvailable": false,
+    "llmProvider": null,
+    "realWorkerModuleInSameProcess": true,
+    "kind": "integration routes, not universal correctness certificate"
+  },
+  "gradle": {
+    "result": "BUILD SUCCESSFUL",
+    "tasks": 227,
+    "duration": "5m24s",
+    "variant": "assembleCodexTesteIaDebug"
+  },
+  "javaFilesCompiled": true,
+  "physicalAndroidTested": false,
+  "liveGeminiTested": false,
+  "nanoPhysicallyTested": false,
+  "deviceQwenCleanupVerified": false,
+  "newSigningKeyCreated": false,
+  "businessDataResetExecuted": false,
+  "preserved147Commit": "5338feaa891da0817de71eb77c09fed0c7b9d329",
+  "preserved136Commit": "78edfb5e2a44fc0819e5cf904420d4cb5f85c535"
+}

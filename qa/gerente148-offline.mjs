@@ -14,11 +14,16 @@ for(const m of main.matchAll(/window\.(\w+) = ([^;\n]+);/g))try{w.eval(m[0]);}ca
 w.eval(fs.readFileSync(root+'src/legacy/erp-core.js','utf8'));const seed=new w.ERP.ERPModel().data;seed.settings.onboarding='demo';seed.dataContext={id:'dom-qa',type:'demo'};w.localStorage.setItem('territorio-gestao-prototipo-v1',JSON.stringify(seed));
 
 w.TerritorioKpi=await import(pathToFileURL(root+'src/features/kpi/kpi-engine.js'));
-w.eval(fs.readFileSync(root+'src/legacy/erp-ui.js','utf8'));w.installAgent();
+const workerScope={};globalThis.self=workerScope;await import(pathToFileURL(root+'src/features/agent/worker.js'));
+class DomWorker{postMessage(data){queueMicrotask(()=>{workerScope.postMessage=payload=>this.onmessage?.({data:payload});workerScope.onmessage({data:structuredClone(data)});});}terminate(){}}
+globalThis.Worker=DomWorker;w.Worker=DomWorker;
+w.TerritorioStockLots=await import(pathToFileURL(root+'src/features/stock-lots/domain.js'));
+w.TerritorioStockLotsUI=await import(pathToFileURL(root+'src/features/stock-lots/ui.js'));
+w.eval(fs.readFileSync(root+'src/legacy/erp-ui.js','utf8'));w.TerritorioStockLotsUI.installStockLotsUI(w.TerritorioWorkflowBridge);w.installAgent();
 Object.defineProperty(w.navigator,'onLine',{value:false,configurable:true});
 globalThis.fetch=async()=>{throw Error('Rede bloqueada no teste offline');};w.fetch=globalThis.fetch;
 const A=w.ERPPreview.actions;A.nav({page:'Gestão'});
 const questions=JSON.parse(fs.readFileSync(new URL('./questions148.json',import.meta.url),'utf8')).questions,rows=[];
 for(const question of questions){A['close-modal']();await w.TerritorioAgent.ask(question,'management');const text=w.document.getElementById('dialog').textContent.replace(/\s+/g,' ').trim();rows.push({question,text});}
-fs.writeFileSync(new URL('./gerente148-offline-results.json',import.meta.url),JSON.stringify({kind:'Gerente real em DOM; rede bloqueada, sem provedor de IA; fixtures demonstrativas',count:rows.length,rows},null,2));
-console.log(JSON.stringify({questions:rows.length,unresolved:rows.filter(r=>/Nenhum intérprete contextual|Não foi possível concluir a interpretação|Não consegui identificar|ainda precisa ser conferida|Sem rota/.test(r.text)).map(r=>r.question)}));process.exit(0);
+fs.writeFileSync(new URL('./gerente148-offline-results.json',import.meta.url),JSON.stringify({kind:'Gerente real em DOM; módulo worker real executado em fila, sem thread; rede bloqueada, sem provedor de IA; fixtures demonstrativas',count:rows.length,rows},null,2));
+console.log(JSON.stringify({questions:rows.length,unresolved:rows.filter(r=>/Análise local indisponível|Nenhum intérprete contextual|Não foi possível concluir a interpretação|Não consegui identificar|ainda precisa ser conferida|Sem rota/.test(r.text)).map(r=>r.question)}));process.exit(0);
