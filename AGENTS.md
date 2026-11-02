@@ -6,7 +6,7 @@ Diretriz Mestra aplicada aos20 requisitos, red team sem subagentes. Gestos compa
 
 Planilha indicada pelo usuário:1-w4JKjgVXE6RJDFzZCmLhFgL8koKoTOETEMTSvqQH3M, Respostas ao formulário1, somente cabeçalhosA1:AE1 lidos,25preenchidos. Mapeamento qa/forms147-mapping.json; não copiar respostas/dadospessoais paraGit oufixtures. Forms direto403nãoautoriza alegar leitura do editor. Opiniões/intenção/observaçõesnão são deduzidas de vendas; comparações/esgotamento dependem de dados vinculados. Não criar seção redundante inteira.
 
-917unit PASS,24DOM PASS com fronteiraGoogle simulada. Sem teste físicoAndroid ouGemini autenticado, sem picoRAM/bateria medidos; não anunciar entendimento universal. Auditoria e relatório devem distinguir alterações, funções reaproveitadas e limites. Nenhum resetreal, instalação ou inferência no celular do usuário foi executado. ChaveGemini existente preservada; chaveassinaturaexterna só assina varianteIA, nuncaGit. Não criar novaassinatura, não alterarhistórico/Claude/136/146, não publicar pesos/credenciais/APKsnoGit. RegistrarAPKverificado e limites antes de entregar linkAndroid.
+917unit PASS,25DOM PASS com fronteiraGoogle simulada. Sem teste físicoAndroid ouGemini autenticado, sem picoRAM/bateria medidos; não anunciar entendimento universal. Auditoria e relatório devem distinguir alterações, funções reaproveitadas e limites. Nenhum resetreal, instalação ou inferência no celular do usuário foi executado. ChaveGemini existente preservada; chaveassinaturaexterna só assina varianteIA, nuncaGit. Não criar novaassinatura, não alterarhistórico/Claude/136/146, não publicar pesos/credenciais/APKsnoGit. RegistrarAPKverificado e limites antes de entregar linkAndroid.
 
 # Codex Teste 146 — Gemini no Gerente e campo único — 01/11/2026
 

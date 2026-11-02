@@ -1,0 +1,74 @@
+{
+  "filename": "Codex_Teste_147_Cerebro_Auditoria.apk",
+  "bytes": 36168065,
+  "sha256": "d36c1068580cac9fb833a907c17a3b4f6dfdb9698f13b954136c6082f8e10e50",
+  "package": "br.com.territorio.gestao2.codextesteia",
+  "versionName": "0.12.147-teste.1",
+  "versionCode": 189,
+  "minSdk": 26,
+  "certificateSha256": "b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86",
+  "zip16Kb": true,
+  "signatureVerification": "Verifies\nVerified using v1 scheme (JAR signing): false\nVerified using v2 scheme (APK Signature Scheme v2): true\nVerified using v3 scheme (APK Signature Scheme v3): false\nVerified using v3.1 scheme (APK Signature Scheme v3.1): false\nVerified using v4 scheme (APK Signature Scheme v4): false\nVerified for SourceStamp: false\nNumber of signers: 1\nSigner #1 certificate DN: CN=Codex Teste IA, O=AGRO Gestao, C=BR\nSigner #1 certificate SHA-256 digest: b1b8f2c74ebbb75adb5de6abfca5f740bfbf9c3d2b02a0ce8479338e45670c86\nSigner #1 certificate SHA-1 digest: 91fd77415cc1966fd36d870989a9f548a2c77e1b\nSigner #1 certificate MD5 digest: a1f38ae805710f7cefd3b665f461e70e\nSigner #1 key algorithm: RSA\nSigner #1 key size (bits): 2048\nSigner #1 public key SHA-256 digest: 33d344df7dcc6dd5adb9a1ddea11119769bb2b373b1af3535e54ed7d1989583a\nSigner #1 public key SHA-1 digest: c85153335b1c1456c7dd8d6975d442142e48868b\nSigner #1 public key MD5 digest: d45768acd65fea330e0a0c939fa8f8d9\n",
+  "bundledQwen": false,
+  "crcPassed": true,
+  "publicAssetsMatched": 64,
+  "nativeElfAlignment": [
+    {
+      "file": "lib/arm64-v8a/libdatastore_shared_counter.so",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "file": "lib/arm64-v8a/liblitertlm_jni.so",
+      "loadAlignments": [
+        16384,
+        16384,
+        16384
+      ]
+    },
+    {
+      "file": "lib/armeabi-v7a/libdatastore_shared_counter.so",
+      "loadAlignments": [
+        16384,
+        16384
+      ]
+    }
+  ],
+  "arm64Elf16Kb": true,
+  "newNativeClassesPresent": true,
+  "dateBrasilia": "2026-11-02",
+  "repository": "alexduvier-svg/Territ-rio-Gest-o-",
+  "branch": "codex/agro-gestao-147-auditoria",
+  "baseCommit": "8b8332a45b986466c657929ff31eb1a29c3b382d",
+  "sourceCommit": "23f62a74b3d756fdc95d45c2aa9c822dc41ba2d9",
+  "localBuildCommit": "5ba54f406e5fe250616c9d7ed751991167a77250",
+  "sourceTree": "7b3245b8d3b9c94d5411f2deed3d3e5096302ebe",
+  "libraryFileId": "libfile_42a23ad08870819199738bc55b0f4b32",
+  "downloadUrl": "https://chatgpt.com/library?file_id=libfile_42a23ad08870819199738bc55b0f4b32&account_id=personal",
+  "unitTests": {
+    "passed": 917,
+    "failed": 0
+  },
+  "domChecks": {
+    "passed": 25,
+    "providerSimulated": true
+  },
+  "gradle": {
+    "result": "BUILD SUCCESSFUL",
+    "tasks": 228,
+    "duration": "5m13s",
+    "variant": "assembleCodexTesteIaDebug"
+  },
+  "physicalAndroidTested": false,
+  "liveGoogleTested": false,
+  "physicalMemoryBatteryMeasured": false,
+  "newSigningKeyCreated": false,
+  "destructiveDataOperationExecuted": false,
+  "spreadsheetRowsImported": 0,
+  "brainRestored": true,
+  "bundledNewLLM": false,
+  "previousSnapshotsWritten": false
+}
