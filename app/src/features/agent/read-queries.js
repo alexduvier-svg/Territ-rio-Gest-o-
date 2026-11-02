@@ -5,20 +5,22 @@ import {normalize,productMatches,queryPeriod,entryAnswer,isEntryQuestion} from '
 import {productMargins} from '../finance/finance.js';
 import {rankProductRows} from '../product-period-reports.js';
 import {book,identity,purchaseReceiptState} from '../suppliers/model.js';
+import {offlineAnswer,expandAbbreviations} from './offline-answers.js';
 const qty=n=>new Intl.NumberFormat('pt-BR',{maximumFractionDigits:3}).format(n);
 const money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n/100);
 const within=(date,p)=>Number.isFinite(Date.parse(date))&&Date.parse(date)>=p.start&&Date.parse(date)<=p.end;
 const totalUnits=rows=>{const totals=new Map();for(const r of rows){if(!r.unit||!Number.isFinite(r.quantity))throw Error('Unidade ou quantidade não registrada; confira a origem.');totals.set(r.unit,(totals.get(r.unit)||0)+Math.round(r.quantity*1000));}return [...totals].map(([u,n])=>qty(n/1000)+' '+u).join('; ')||'0 unidades registradas';};
 // Read plans over original tables and existing finance engines. No tool/model writes.
 export function readQuery(data,text,{scopeId='all',period=null,now=Date.now(),financialComparison=null,productIds=null}={}){
- const q=normalize(text),ctx=contextOf(data);
+ const q=expandAbbreviations(text),ctx=contextOf(data);
  if(!['real','demo','simulation'].includes(ctx.dataOrigin))throw Error('Confirme a origem dos registros antes de consultar.');
  const incoming=incomingPurchases(data,text,{now});if(incoming)return incoming;
+ const offline=productIds?null:offlineAnswer(data,text,{scopeId,period,now,financialComparison});if(offline)return offline;
  if(/(?:receita|faturamento).*(?:aument|caiu|compar|mes passado)/.test(q)&&financialComparison)return {intent:'integrated-read',text:financialComparison(text),generatedAt:now,specialists:[{name:'Gestão e Finanças',source:'finance.statement e kpi.periodChange'}],confidence:'Mesmos demonstrativos e limites da Gestão.',rebuys:[]};
  if(/produto.*(?:parado|sem venda)/.test(q)){const facts=analyze(data,{scopeId,now}).insights.filter(i=>i.ruleId==='no-sale');return {intent:'integrated-read',text:facts.map(i=>i.observation+' '+i.nextAction).join('\n')||'Nenhum produto atende aos critérios atuais de estoque sem venda. Confira as preferências da Inteligência.',generatedAt:now,specialists:[{name:'Estoque',source:'Motor proativo existente; critério configurado pelo produtor'}],confidence:'Observações dos registros, sem comprovação de causa.',rebuys:[]};}
  const unavailable=isUnavailableStockQuestion(q);
  const corporate=/\b(?:cnpjs?|empresas?|pessoas? juridicas?)\b/.test(q);
- const stock=!unavailable&&/estoque|quant[oa]s?.*tenho|quantos.*tenho/.test(q),sold=/\bvendi\b|\bvendidos\b|venderam|vendeu|mais vendido|menos vendido/.test(q),buyers=(corporate&&/quant|compr|vend|atend/.test(q))||/clientes?.*compr/.test(q),ranking=/mais|menos|lucrativ/.test(q)&&/produto|vendi|vendeu/.test(q),supplier=/comprei|compras?|recebimentos?|pendente/.test(q)&&/fornecedor/.test(q);
+ const stock=!unavailable&&!/receber|recebi|devend|fiado/.test(q)&&/estoque|quant[oa]s?.*tenho|quantos.*tenho/.test(q),sold=/\bvendi\b|\bvendidos\b|venderam|vendeu|mais vendido|menos vendido/.test(q),buyers=(corporate&&/quant|compr|vend|atend/.test(q))||/clientes?.*compr/.test(q),ranking=/mais|menos|lucrativ/.test(q)&&/produto|vendi|vendeu/.test(q),supplier=/comprei|compras?|recebimentos?|pendente/.test(q)&&/fornecedor/.test(q);
  if(!stock&&!sold&&!buyers&&!ranking&&!supplier&&!isEntryQuestion(q)&&!unavailable)return null;
  // Assertions and sales commands stay in the existing confirmed proposal flow.
  if(/^(?:eu )?vendi \d|^(?:adicione|registre|apague|exclua|zere|vender)\b/.test(q))return null;

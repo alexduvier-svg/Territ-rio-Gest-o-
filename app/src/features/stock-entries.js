@@ -15,8 +15,11 @@ export function queryPeriod(text,now=Date.now(),fallback=null){
   const prefix=y+'-'+String(m).padStart(2,'0'),next=m===12?(y+1)+'-01':y+'-'+String(m+1).padStart(2,'0');
   return{start:Date.parse(prefix+'-01T00:00:00-03:00'),end:Math.min(now,Date.parse(next+'-01T00:00:00-03:00')-1),label:prefix};
  }
+ // 148: semana atual (segunda até agora) e semana passada (segunda a domingo), horário de Brasília.
+ if(!/\bdesde\b|\bentre\b/.test(q)&&/\b(?:est[ae]|ness[ae]|dest[ae]|nest[ae]|na) semana\b|semana atual/.test(q)&&!/passada|anterior/.test(q)){const dow=(new Date(Date.parse(today+'T12:00:00-03:00')).getUTCDay()+6)%7,monday=day(Date.parse(today+'T12:00:00-03:00')-dow*86400000);return {start:Date.parse(monday+'T00:00:00-03:00'),end:now,label:'semana de '+monday.split('-').reverse().join('/')+' até hoje'};}
+ if(!/\bdesde\b|\bentre\b/.test(q)&&/semana (?:passada|anterior)/.test(q)){const dow=(new Date(Date.parse(today+'T12:00:00-03:00')).getUTCDay()+6)%7,monday=day(Date.parse(today+'T12:00:00-03:00')-(dow+7)*86400000),sunday=day(Date.parse(monday+'T12:00:00-03:00')+6*86400000);return {start:Date.parse(monday+'T00:00:00-03:00'),end:Date.parse(sunday+'T23:59:59.999-03:00'),label:'semana passada ('+monday.split('-').reverse().join('/')+' a '+sunday.split('-').reverse().join('/')+')'};}
  if(/semana|ano passado|anteontem|\bentre\b|\bdesde\b|\b\d{1,2}[/-]\d/.test(q))throw Error('Selecione as datas na Gestão para este período; não consegui interpretá-lo com segurança.');
- return fallback||{start:0,end:now,label:'histórico disponível'};
+ return fallback?{...fallback,label:fallback.label||'período selecionado na Gestão'}:{start:0,end:now,label:'histórico disponível'};
 }
 export function productMatches(data,text){
  const q=normalize(text),ctx=contextOf(data),products=(data.products||[]).filter(p=>eligible(p,ctx)),aliases=data.agent?.actorId===ctx.actorId?data.agent.aliases||[]:[];

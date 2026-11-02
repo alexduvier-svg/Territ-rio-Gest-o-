@@ -34,7 +34,7 @@ export function productIndex(data){const rows=activeProducts(data).map(p=>({id:p
 export function parseRequest(text,data,{scopeId='all',source='text',requestId='',now=Date.now()}={}){
  const cleaned=cleanSpeech(text),key=norm(cleaned);let intent='unsupported';
  if(/^(?:quero (?:saber|entender)|vendi (?:mais|menos))|(?:quanto.*(?:receb|entrou)|quanto.*(?:para|pra) receber)/.test(key))intent='management';
- else if(!/^(?:(?:eu )?vendi|vende|vender|adicion|quero|coloc|\d|um\b|uma\b|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|meio)/.test(key)&&/chuva|chover|clima|tempo.*(?:hoje|amanha)|receita culinaria|receitas?|artesan|parceria|embalagem|fatur|receita|lucro|margem|produto.*(?:caro|barato|vendeu)|qual.*(?:deixou|vendeu)|banana madura/.test(key))intent='management';
+ else if(!/^(?:(?:eu )?vendi|vende|vender|adicion|quero|coloc|\d|um\b|uma\b|dois|duas|tres|quatro|cinco|seis|sete|oito|nove|dez|vinte|meio)/.test(key)&&/chuva|chover|clima|tempo.*(?:hoje|amanha)|receita culinaria|receitas?|artesan|parceria|embalagem|fatur|receita|lucro|margem|devend|fiados?\b|em aberto|\bcustos?\b|\bgast(?:ei|o|os)\b|despesas?|\bticket\b|compra media|produto.*(?:caro|barato|vendeu)|qual.*(?:deixou|vendeu)|banana madura/.test(key))intent='management';
  else if(/estoque|quanto.*tenho|quantos.*tenho|repor|acabou|sem moviment/.test(key))intent='stock';
  else if(/como.*feira|resultado.*feira|sobr|como.*evento|anal.*feira/.test(key))intent='fair';
  else if(/recompra|clientes?.*(avis|compr|volt)|quem.*avis/.test(key))intent='rebuy';
