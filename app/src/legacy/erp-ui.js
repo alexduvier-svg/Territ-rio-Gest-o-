@@ -4017,6 +4017,8 @@ managementPage=function(){
  let html=managementBeforeIntegratedEntry();
  let completeGuidance='';const guidanceStart=html.indexOf('<div class="mg-advisor">');
  if(guidanceStart>=0){const tags=/<\/?div\b[^>]*>/g;tags.lastIndex=guidanceStart;let depth=0,match;while((match=tags.exec(html))){depth+=match[0].startsWith('</')?-1:1;if(depth===0){completeGuidance=html.slice(guidanceStart,tags.lastIndex);html=html.slice(0,guidanceStart)+html.slice(tags.lastIndex);break;}}}
+ // 148: the inline panel already shows Próximas Ações; do not repeat it inside the complete diagnosis.
+ for(let i=completeGuidance.indexOf('<section class="agent-surface agent-journey-entry"');i>=0;i=completeGuidance.indexOf('<section class="agent-surface agent-journey-entry"')){const e=sectionEnd(completeGuidance,i);if(e<0)break;completeGuidance=completeGuidance.slice(0,i)+completeGuidance.slice(e);}
 
  for(let i=html.indexOf('<section class="panel management-intelligence"');i>=0;i=html.indexOf('<section class="panel management-intelligence"')){const end=sectionEnd(html,i);if(end<0)break;html=html.slice(0,i)+html.slice(end);}
  const start=html.indexOf('<section class="feira-chart"'),end=start<0?-1:sectionEnd(html,start);if(end<0)return html;

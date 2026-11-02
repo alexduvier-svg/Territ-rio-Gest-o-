@@ -79,7 +79,7 @@ export function installAgent(){
   let integrated=null,readError=null;
   if(!implicitContext)try{integrated=readQuery(b.data(),text,{scopeId:ctx.scopeId,period:ctx.period,financialComparison:b.monthComparison?()=>b.monthComparison(ctx):null});}catch(error){readError=error;}
   // A clear new question supersedes a pending clarification from a previous turn.
-  const followup=!!semanticHistory?.pending&&(!integrated||integrated.needsClarification)&&!/^(?:eu\s+vendi|vendi|registre|registrar|adicione|vender|vende)\b/.test(normalize(text));
+  const followup=!!semanticHistory?.pending&&(!integrated||integrated.needsClarification)&&!/^(?:eu\s+vendi|vendi|registre|registrar|adicione|vender|vende)\b/.test(normalize(text))&&(implicitContext||request.intent==='unsupported'); // 148: a new question with its own route never stays stuck in the previous clarification
   const contextual=followup||implicitContext;
   const contextualClarification=()=>{const snapshot=semanticSnapshot(b.data()),valid=semanticHistory&&semanticHistory.snapshot.actorId===snapshot.actorId&&semanticHistory.snapshot.dataOrigin===snapshot.dataOrigin&&semanticHistory.snapshot.revision===snapshot.revision,ids=valid?semanticReferenceIds(semanticHistory):[],references=ids.map(id=>b.data().products.find(p=>p.id===id)).filter(Boolean).map(p=>p.name+(p.weight?' · '+p.weight+' g':''));return clarificationResult(text,{references});};
   if((request.intent!=='sale'||followup)&&(contextual||!integrated||integrated.needsClarification)){
