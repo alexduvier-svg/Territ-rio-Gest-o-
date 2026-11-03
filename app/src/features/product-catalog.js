@@ -22,8 +22,8 @@ for (const [code, unit] of Object.entries(policy.units)) {
 // Additional existing app labels retain their own meaning; notably Cacho != Dúzia.
 for (const [code, aliases] of Object.entries({ vidro:['vidro','vidros'], sacola:['sacola','sacolas'], frasco:['frasco','frascos'], bisnaga:['bisnaga','bisnagas'], lata:['lata','latas'], barra:['barra','barras'], meia_duzia:['meia dúzia','meias dúzias'] })) for (const alias of aliases) unitAliases.set(normalize(alias), code);
 export const normalizeUnit = value => unitAliases.get(normalize(value)) || normalize(value);
-const legacyUnits = { un:'Unidade', kg:'kg', g:'g', l:'Litro', ml:'ml', maco:'Maço', pe:'Pé', duzia:'Dúzia', pacote:'Pacote', pote:'Pote', garrafa:'Garrafa', bandeja:'Bandeja', caixa:'Caixa', saco:'Saco', cacho:'Cacho', penca:'Penca', peca:'Peça', pedaco:'Pedaço', fatia:'Fatia', porcao:'Porção', vaso:'Vaso', muda:'Muda', rolo:'Rolo', kit:'Kit', par:'Par' };
-const packaged = new Set(['pacote','pote','garrafa','bandeja','caixa','saco','peca','pedaco','fatia','porcao','vaso','muda','rolo','kit','par','vidro','frasco','bisnaga','lata','barra']);
+const legacyUnits = { saca:'Saca', un:'Unidade', kg:'kg', g:'g', l:'Litro', ml:'ml', maco:'Maço', pe:'Pé', duzia:'Dúzia', pacote:'Pacote', pote:'Pote', garrafa:'Garrafa', bandeja:'Bandeja', caixa:'Caixa', saco:'Saco', cacho:'Cacho', penca:'Penca', peca:'Peça', pedaco:'Pedaço', fatia:'Fatia', porcao:'Porção', vaso:'Vaso', muda:'Muda', rolo:'Rolo', kit:'Kit', par:'Par' };
+const packaged = new Set(['saca','pacote','pote','garrafa','bandeja','caixa','saco','peca','pedaco','fatia','porcao','vaso','muda','rolo','kit','par','vidro','frasco','bisnaga','lata','barra']);
 function sourceSaleUnit(record) {
   const unit = normalizeUnit(record.unidade_venda), packaging = normalizeUnit(record.embalagem);
   return unit === 'un' && packaged.has(packaging) ? packaging : unit;

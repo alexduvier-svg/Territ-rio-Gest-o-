@@ -11,7 +11,8 @@ import { fluidMotionLite } from './motion/index.js';
 
 const HOLD_MS = 350;
 const SLOP = 10;
-const ITEM = '#app .feira-grid > .feira-card[data-action="sell-product"], #app .feira-rows > .feira-row[data-action="stock-product"]';
+// Vender also draws families of up to 2 products as wide rows (.fam-row): holding them must select too.
+const ITEM = '#app .feira-grid > .feira-card[data-action="sell-product"], #app .fam-rows > .fam-row[data-action="sell-product"], #app .feira-rows > .feira-row[data-action="stock-product"]';
 const bridge = () => window.TerritorioWorkflowBridge;
 const order = () => window.TerritorioStockOrder;
 const tick = () => window.TerritorioHaptics ? window.TerritorioHaptics.tick() : navigator.vibrate?.(10);
@@ -28,7 +29,7 @@ const scopeOf = item => item.closest('.workflow-stock-family') || item.parentEle
 
 function groupOf(item) {
   const key = order()?.stockGroupKey(product(item.dataset.id) || {});
-  return [...scopeOf(item).querySelectorAll(item.matches('.feira-row') ? '.feira-rows > .feira-row[data-action="stock-product"]' : ':scope > .feira-card[data-action="sell-product"]')]
+  return [...scopeOf(item).querySelectorAll(item.matches('.feira-row') ? '.feira-rows > .feira-row[data-action="stock-product"]' : item.matches('.fam-row') ? ':scope > .fam-row[data-action="sell-product"]' : ':scope > .feira-card[data-action="sell-product"]')]
     .filter(el => el.getClientRects().length && order()?.stockGroupKey(product(el.dataset.id) || {}) === key);
 }
 
@@ -151,7 +152,7 @@ function clearHold() {
   hold.item.removeEventListener('touchmove', blockScroll);
   hold = null;
 }
-function blockScroll(event) { if (drag && !drag.ended) event.preventDefault(); }
+function blockScroll(event) { if ((drag && !drag.ended) || hold?.selected) event.preventDefault(); }
 
 export function installReorder() {
   const setEditing = on => { editing = !!on; document.documentElement.classList.toggle('reorder-edit', editing); };
@@ -169,13 +170,17 @@ export function installReorder() {
     item.addEventListener('touchmove', blockScroll, { passive: false });
     if (editing) { hold = { item, x: event.clientX, y: event.clientY, pointer: event.pointerId, timer: 0 }; if (lift(item, event.clientX, event.clientY)) drag.frame = requestAnimationFrame(autoscroll); else clearHold(); return; }
     hold = { item, x: event.clientX, y: event.clientY, pointer: event.pointerId,
-      timer: setTimeout(() => { const h = hold; if (!h) return; const picked = select(h.item); if (!lift(h.item, h.x, h.y)) clearHold(); else { drag.picked = picked; drag.frame = requestAnimationFrame(autoscroll); } }, HOLD_MS) };
+      timer: setTimeout(() => { const h = hold; if (!h) return; const picked = select(h.item); if (lift(h.item, h.x, h.y)) { drag.picked = picked; drag.frame = requestAnimationFrame(autoscroll); return; }
+        // Card sozinho na família (nada a reordenar): a seleção já começou, então a tela continua presa até
+        // o dedo sair, como no card levantado. Solta, o leve movimento do dedo virava rolagem no celular e
+        // cancelava o gesto antes de a venda múltipla valer.
+        if (picked) { h.timer = 0; h.selected = true; } else clearHold(); }, HOLD_MS) };
   }, { capture: true, passive: true });
   document.addEventListener('pointermove', event => {
     if (drag && !drag.ended) { drag.x = event.clientX; drag.y = event.clientY; if (!drag.moved && Math.hypot(drag.x - drag.startX, drag.y + window.scrollY - drag.startY) > SLOP) { drag.moved = true; if (drag.picked) { drag.picked = false; heldSelect = null; window.TerritorioSelection?.cancel?.(); } } follow(); return; }
     if (hold && Math.hypot(event.clientX - hold.x, event.clientY - hold.y) > SLOP) clearHold();
   }, { capture: true, passive: true });
-  const released = () => { if (heldSelect) { swallowUntil = Date.now() + 450; swallowId = heldSelect; heldSelect = null; } };
+  const released = () => { if (heldSelect) { swallowUntil = Date.now() + 700; swallowId = heldSelect; heldSelect = null; } };
   document.addEventListener('pointerup', () => { const lifted = !!drag; clearHold(); released(); if (lifted) finish(false); }, { capture: true, passive: true });
   document.addEventListener('pointercancel', () => { const lifted = !!drag; clearHold(); released(); if (lifted) finish(true); }, { capture: true, passive: true });
   document.addEventListener('scroll', () => { if (hold && !drag) clearHold(); }, { capture: true, passive: true });

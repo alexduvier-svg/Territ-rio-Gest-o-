@@ -275,8 +275,10 @@ function installPageTransitions(listen) {
       if (nav) {
         const step = Math.sign(NAV_ORDER.indexOf(nextPage) - NAV_ORDER.indexOf(previousPage)) || 0;
         const shift = (limited() ? 26 : 44) * step;
-        if (lift) t.handles.push(animate(lift.surface, { from: { x: 0, scale: 1, opacity: 1 }, to: { x: -shift, scale: 0.985, opacity: 0 }, spring: spring('tab'), shape: dissolve(0, 0.42), onFinish: done }));
-        t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.965 : 0.93, opacity: 0 }, center, 'tabEnter', { y: 0, opacity: 0 }));
+        // No dip to the background between tabs (it read as a blink on phones): the new page starts a third
+        // visible and is nearly opaque before the old one begins to fade, so the screen never goes dark.
+        if (lift) t.handles.push(animate(lift.surface, { from: { x: 0, scale: 1, opacity: 1 }, to: { x: -shift, scale: 0.985, opacity: 0 }, spring: spring('tab'), shape: dissolve(0.22, 0.6), onFinish: done }));
+        t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.965 : 0.93, opacity: 0.35 }, center, 'tabEnter', { y: 0, opacity: 0.35 }));
         trackPageTransition(t);
         return;
       }
@@ -335,9 +337,9 @@ export function transitionSubview(render,direction=1,{subtle=false}={}){
  lift?.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node=>node.remove());
  if(subtle)lift?.surface.querySelectorAll('.fluid-page-morph-context > .topbar').forEach(node=>node.style.visibility='hidden');
  const done=()=>{if(pageTransition===t)t.layer?.remove();},shift=(subtle?(limited()?2:6):(limited()?5:18))*direction;
- if(lift)t.handles.push(animate(lift.surface,{from:REST,to:{x:-shift,opacity:0},spring:spring('tab'),shape:dissolve(0,.4),onFinish:done}));
+ if(lift)t.handles.push(animate(lift.surface,{from:REST,to:{x:-shift,opacity:0},spring:spring('tab'),shape:dissolve(.22,.6),onFinish:done}));
  const fixedTop=subtle?app.querySelector(':scope > .topbar'):null;if(fixedTop)fixedTop.dataset.motionStill='1';
- t.handles.push(...arrivePage(app,{x:shift,opacity:0,scale:1},[innerWidth/2,innerHeight/2],'tab',{y:0,opacity:0}));
+ t.handles.push(...arrivePage(app,{x:shift,opacity:.35,scale:1},[innerWidth/2,innerHeight/2],'tab',{y:0,opacity:.35}));
  if(fixedTop)delete fixedTop.dataset.motionStill;
  trackPageTransition(t);
 }

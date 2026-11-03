@@ -1,0 +1,87 @@
+{
+  "baseCodex": "78edfb5e2a44fc0819e5cf904420d4cb5f85c535",
+  "claudeBase": "f03317b",
+  "claudeFinal": "8180b4283b8242844eb5a2c53fc7159f127f7218",
+  "claudeVersion": "0.12.147",
+  "codexVersion": "0.12.137",
+  "commits": [
+    {
+      "sha": "0247092d7a1950056df35abe40246e71152c5a81",
+      "title": "Docs: sequência dos 25 ajustes a partir da 0.12.140"
+    },
+    {
+      "sha": "44bbba3cdb344aaf1486d7ef0ae97375ffe7b76a",
+      "title": "Etapa 1: Carrinho nunca preso e campo obrigatório em vermelho (0.12.141)"
+    },
+    {
+      "sha": "2d0016284bcab1ea0c6ce44f20c03fa955f1d5a8",
+      "title": "Etapa 1: dois toques abrem o estoque; segurar card sozinho seleciona (0.12.142)"
+    },
+    {
+      "sha": "ea365a69f2b98e7f08bfa67c357af442c197978f",
+      "title": "Etapa 2: cadastro de produto — categoria por seta, café verde em saca de 60 kg, embalagem livre e Hortifrúti regional (0.12.143)"
+    },
+    {
+      "sha": "a5912a882bda46ad59720185ba34902280797271",
+      "title": "Estoque: lote e validade à vista, \"−\" para tirar produto da família e segurar as linhas para venda múltipla (0.12.144)"
+    },
+    {
+      "sha": "a141fd37fde619052c0d8ea30b012c1de95a86df",
+      "title": "Etapa 3: estoque por fornecedor, quando entrou cada unidade e olhinho que fecha sozinho (0.12.145)"
+    },
+    {
+      "sha": "89b2878fa722a404cddcf2ca93eb7cc1d5d1f645",
+      "title": "Janela do produto: validade dentro do Disponível, teclado inteiro à vista e Remover mais claro (0.12.146)"
+    },
+    {
+      "sha": "8180b4283b8242844eb5a2c53fc7159f127f7218",
+      "title": "Troca de abas sem piscar (0.12.147)"
+    }
+  ],
+  "incomingFiles": [
+    "app/android/app/build.gradle",
+    "app/docs/SEQUENCIA-AJUSTES-0.12.140.md",
+    "app/package-lock.json",
+    "app/package.json",
+    "app/src/data/catalog-knowledge.js",
+    "app/src/data/product-catalog-additions.js",
+    "app/src/features/motion/index.js",
+    "app/src/features/product-catalog.js",
+    "app/src/features/product-stock.css",
+    "app/src/features/reorder.js",
+    "app/src/features/stock-lots/lots.css",
+    "app/src/features/stock-lots/ui.js",
+    "app/src/features/suppliers/index.js",
+    "app/src/features/suppliers/stock-trace.js",
+    "app/src/features/suppliers/suppliers.css",
+    "app/src/features/workflows/index.js",
+    "app/src/legacy/erp-core.js",
+    "app/src/legacy/erp-ui.js",
+    "app/tests/catalog-stock083.test.mjs",
+    "app/tests/custom-product.test.mjs",
+    "app/tests/product-catalog.test.mjs",
+    "app/tests/product-memory.test.mjs",
+    "app/tests/stock-catalog-reset.test.mjs",
+    "app/tests/supplier-stock.test.mjs"
+  ],
+  "excludedIdentityFiles": [
+    "app/package.json",
+    "app/package-lock.json",
+    "app/android/app/build.gradle"
+  ],
+  "resolution": {
+    "motion": "Incoming opacity overlap; preserve Codex full animation ownership and no spring rewinding.",
+    "erp-ui": "Keep both Codex136 report/privacy/export wrappers and incoming141-146 product/cart wrappers; preserve robust reset protections."
+  },
+  "reviewAdjustments": [
+    "Supplier quantity decimal parser, matching historical units, sale period label and canonical business civil dates.",
+    "Archived last-family products remain accessible from stock home; durable save rollback and draft recheck.",
+    "Financial auto-hide masks existing content without rebuilding an unfinished form.",
+    "Safety-copy filenames maintain strict time order even with a frozen/backwards clock.",
+    "Debounced lot search checks the original view, data owner and open sheet before rendering; closing or navigating cannot revive it."
+  ],
+  "roadmapOnly": "SEQUENCIA-AJUSTES-0.12.140.md is a plan. Its unimplemented future steps are not represented as delivered changes.",
+  "claudeCheckoutModified": false,
+  "backendPublished": false,
+  "motionTest": "Late cancellation sampled inside WebView at 65% of incoming animation duration, with ownership and cancellation assertions retained; historical134 harness unchanged."
+}

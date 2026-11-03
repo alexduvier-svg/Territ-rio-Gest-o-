@@ -6,7 +6,7 @@ import vm from 'node:vm';
 // Exercise the actual legacy route selector with an instrumented detailed renderer. Rendering an
 // invisible product list used to construct all rows/lots even when the result was only area cards.
 const source = fs.readFileSync(new URL('../src/legacy/erp-ui.js', import.meta.url), 'utf8');
-const start = source.lastIndexOf('feiraStockList=function()');
+const start = source.indexOf('feiraStockList=function()', source.indexOf('const feiraStockListBeforeAreas='));
 const route = source.slice(start, source.indexOf('// Entrar e voltar:', start));
 function harness(overrides = {}) {
   const calls = { detailed: 0, filtered: [] }, products = [{ id: 'coffee-a' }, { id: 'coffee-b' }, { id: 'banana' }];

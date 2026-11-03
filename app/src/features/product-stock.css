@@ -117,3 +117,78 @@ html.lite .stock-product-flow .panel.event-material-card{box-shadow:inset 0 1px 
 .stock-entry-header > .title { display:block; width:100%; text-align:left; line-height:1.25; font-size:24px; letter-spacing:-.025em; }
 .stock-entry-header > .spacer { display:none; }
 html[data-large-text=true] .stock-entry-header > .title { font-size:27px; }
+
+/* Cadastro: campo obrigatório que falta, depois de tocar em Salvar (some ao preencher). */
+#app .is-missing:is(input, select, textarea) { border-color: var(--red, #ff453a) !important; box-shadow: 0 0 0 1px var(--red, #ff453a) inset; }
+#app .stock-unit-confirm.is-missing { border-radius: 13px; outline: 1.5px solid var(--red, #ff453a); outline-offset: 3px; }
+#app .has-missing > label, #app .has-missing label:first-child { color: var(--red, #ff453a); font-weight: 750; }
+/* No claro, um vermelho mais fechado para o rótulo continuar legível. */
+:root[data-theme='light'] #app .has-missing > label, :root[data-theme='light'] #app .has-missing label:first-child { color: #c4161c; }
+:root[data-theme='light'] #app .is-missing:is(input, select, textarea) { border-color: #d70015 !important; box-shadow: 0 0 0 1px #d70015 inset; }
+:root[data-theme='light'] #app .stock-unit-confirm.is-missing { outline-color: #d70015; }
+
+/* Categoria por seta (no lugar da fileira de pills). Mesmo material dos campos; a seta é o convite. */
+.stock-cat-wrap { margin: 2px 0 12px; }
+#app .stock-cat-open {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%;
+  min-height: 52px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 13px;
+  background: var(--field); color: var(--text); font: inherit; text-align: left;
+  box-shadow: rgba(255, 255, 255, 0.07) 0 1px 2px inset, rgba(0, 0, 0, 0.063) 0 3px 0;
+}
+#app .stock-cat-open .stock-cat-text { display: grid; gap: 2px; min-width: 0; }
+#app .stock-cat-open .stock-cat-text > span { font-size: 15px; color: var(--muted); }
+#app .stock-cat-open .stock-cat-text small { font-size: 13px; color: var(--muted); }
+#app .stock-cat-open .stock-cat-text strong { font-size: 16px; font-weight: 650; overflow-wrap: anywhere; }
+#app .stock-cat-open .stock-cat-arrow { flex: none; display: grid; place-items: center; width: 32px; height: 32px; color: var(--accent, #7fa653); }
+#app .stock-cat-open .stock-cat-arrow .icon { width: 20px; height: 20px; }
+dialog[data-kind='stock-category'] .stock-cat-list { display: grid; gap: 6px; }
+dialog[data-kind='stock-category'] .stock-cat-row { justify-content: space-between; }
+dialog[data-kind='stock-category'] .stock-cat-row.is-current { font-weight: 700; }
+dialog[data-kind='stock-category'] .stock-cat-row .icon { width: 18px; height: 18px; color: var(--accent, #7fa653); }
+
+/* Janela do produto: a validade dentro do quadro Disponível, numa linha só, tocável; palavras em vermelho
+   quando pede atenção. Fica no quadro para o teclado caber inteiro na janela. */
+dialog .movement-available .lot-line {
+  grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%; min-height: 40px; margin: 8px 0 0; padding: 8px 0 0; border: 0; border-top: 1px solid var(--line);
+  border-radius: 0; background: none; box-shadow: none; color: var(--text); font: inherit; text-align: left;
+}
+dialog .movement-available .lot-line .lot-line-text { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+dialog .movement-available .lot-line .lot-line-text small { flex: none; font-size: 13px; color: var(--muted); }
+dialog .movement-available .lot-line .lot-line-text strong { font-size: 14px; font-weight: 650; overflow-wrap: anywhere; }
+dialog .movement-available .lot-line > .icon { flex: none; width: 18px; height: 18px; color: var(--muted); }
+dialog .movement-available .lot-line.is-alert .lot-line-text strong { color: var(--red, #ff453a); }
+:root[data-theme='light'] dialog .movement-available .lot-line.is-alert .lot-line-text strong { color: #c4161c; }
+dialog .movement-available + .movement-types { margin-top: 10px; }
+
+/* Família no Estoque: "−" vermelho no fim, ao lado do "+" verde; janela de tirar e devolver. */
+#app .glass-family-heading .stock-minus { color: var(--red, #ff453a); }
+#app .glass-family-heading .stock-minus .icon { width: 20px; height: 20px; }
+:root[data-theme='light'] #app .glass-family-heading .stock-minus { color: #d70015; }
+dialog[data-kind='stock-remove'] .stock-rm-list { display: grid; gap: 8px; }
+dialog[data-kind='stock-remove'] .stock-rm-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 13px; background: var(--field); }
+dialog[data-kind='stock-remove'] .stock-rm-row > span { display: grid; gap: 2px; min-width: 0; }
+dialog[data-kind='stock-remove'] .stock-rm-row strong { font-size: 15px; overflow-wrap: anywhere; }
+dialog[data-kind='stock-remove'] .stock-rm-row small { font-size: 13px; color: var(--muted); }
+dialog[data-kind='stock-remove'] .stock-rm-btn { flex: none; min-height: 40px; padding: 0 16px; }
+dialog[data-kind='stock-remove'] .stock-rm-head { margin: 16px 2px 8px; font-size: 13px; font-weight: 650; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+#app .glass-family-heading { gap: 8px; }
+#app .glass-family-heading > .feira-group { margin-right: auto; }
+#app .glass-family-heading { justify-content: flex-start; }
+#app .glass-family-heading > button { flex: none; margin-left: 0; }
+#app .glass-family-heading > h3 + button { margin-left: auto; }
+/* Repor/Corrigir/Perda: o teclado inteiro cabe na janela (celular de 6,3" sem rolar). */
+:root[data-theme][data-layout] dialog[data-kind='movement'] > .dialog-content { padding-top: 12px; }
+:root[data-theme][data-layout] dialog[data-kind='movement'] .movement-available .lot-line { min-height: 34px; margin-top: 6px; padding-top: 6px; }
+:root[data-theme][data-layout] dialog[data-kind='movement'] #move-quantity { height: 44px; min-height: 44px; }
+:root[data-theme][data-layout] dialog[data-kind='movement'] .movement-description { margin-bottom: 2px; }
+:root[data-theme][data-layout] dialog[data-kind='movement'] .movement-available + .movement-types { margin-top: 10px; }
+/* Remover / Devolver: botão em pílula com ícone, contorno discreto; vermelho só no Remover. */
+dialog[data-kind='stock-remove'] .stock-rm-btn { display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding: 0 14px; border-radius: 999px; font: 600 14px/1 'Inter Variable', 'Inter', sans-serif; background: transparent; }
+dialog[data-kind='stock-remove'] .stock-rm-btn .icon { width: 16px; height: 16px; }
+dialog[data-kind='stock-remove'] .stock-rm-btn.is-remove { color: var(--red, #ff453a); border: 1px solid color-mix(in srgb, var(--red, #ff453a) 55%, transparent); }
+dialog[data-kind='stock-remove'] .stock-rm-btn.is-restore { color: var(--text); border: 1px solid var(--line); }
+:root[data-theme='light'] dialog[data-kind='stock-remove'] .stock-rm-btn.is-remove { color: #c4161c; border-color: #e7a3a6; }
+/* Nome e apresentação juntos no cabeçalho da janela do produto. */
+:root[data-theme][data-layout] dialog[data-kind='movement'] > .checkout-header { flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; }
+:root[data-theme][data-layout] dialog[data-kind='movement'] .checkout-header .movement-subtitle { margin: 0; font-size: 14px; font-weight: 500; color: var(--muted); }

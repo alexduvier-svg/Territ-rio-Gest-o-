@@ -106,7 +106,7 @@ const EGG_PRESENTATION={type:['Caipira','Granja','Codorna','Pato','Ganso','Galin
 const PRESENTATION_PROFILES={
  'Bolos':{type:['Caseiro','Recheado','Decorado','Integral','Sem lactose','Sem glúten'],flavor:['Chocolate','Cenoura','Fubá','Milho','Laranja','Limão','Coco','Mandioca','Banana','Maçã','Maracujá','Morango','Abacaxi','Café','Baunilha','Nozes','Amendoim','Castanha','Aveia','Iogurte','Queijo','Leite','Mel'],format:['Inteiro','Pedaço','Fatia','No pote','Mini'],unit:['Unidade','Pedaço','Fatia','kg','Bandeja','Pote','Caixa','Pacote'],weight:[50,100,150,250,500,1000,2000]},
  'Panificação':{type:['Caseiro','Integral','Fermentação natural','Sem lactose','Sem glúten'],flavor:['Natural','Queijo','Coco','Chocolate','Milho','Canela','Frutas','Ervas'],format:['Inteiro','Fatiado','Pedaço','Mini'],unit:['Unidade','Pacote','Bandeja','Caixa','kg'],weight:[50,100,150,250,500,1000]},
- 'Cafés':{...window.TerritorioCoffee.COFFEE_OPTIONS,type:['Especial','Gourmet','Superior','Tradicional','Commodity','Drip coffee','Descafeinado','Orgânico','Microlote','Blend'],format:['Moído','Em grão','Verde','Dose individual','Solúvel','Cápsula'],unit:['Pacote','Caixa','Pote','Vidro','Saco','Lata'],weight:[10,50,100,250,500,1000,2000,5000]},
+ 'Cafés':{...window.TerritorioCoffee.COFFEE_OPTIONS,type:['Especial','Gourmet','Superior','Tradicional','Commodity','Drip coffee','Descafeinado','Orgânico','Microlote','Blend'],format:['Moído','Em grão','Verde','Dose individual','Solúvel','Cápsula'],unit:['Pacote','Saca','Caixa','Pote','Vidro','Saco','Lata'],weight:[10,50,100,250,500,1000,2000,5000,60000]},
  'Hortifruti-Granjeiro':{type:['Fresco','Orgânico','Convencional'],format:['Inteiro','Cortado','Descascado','Picado','Congelado','Desidratado'],unit:['Dúzia','Unidade','kg','Caixa','Maço','Bandeja','Pacote','Saco'],weight:[100,250,500,1000,2000,5000]},
  'Grãos':{type:['Tradicional','Integral','Orgânico'],format:['Em grão','Farinha','Flocos','Farelo','Partido','Cozido','Em conserva','Congelado','Torrado'],unit:['kg','Pacote','Saco','Caixa','Pote','Vidro'],weight:[100,250,500,1000,2000,5000,10000,25000,50000]},
  'Laticínios':{type:['Integral','Desnatado','Semidesnatado','Sem lactose','Grego','Fresco','Curado','Defumado','Artesanal'],flavor:['Natural','Morango','Coco','Maracujá','Ameixa','Banana','Pêssego','Frutas vermelhas','Mel','Baunilha','Manga','Abacaxi','Jabuticaba','Chocolate','Café','Granola'],format:['Cremoso','Barra','Inteiro','Ralado','Líquido','Fatiado','Em cubos','Em pó'],unit:['Pote','Litro','Garrafa','Vidro','Caixa','Pacote','Unidade','kg','Frasco'],weight:[50,100,170,200,250,500,1000,2000],volume:[100,170,200,250,500,750,1000,1500,2000,5000]},
@@ -208,7 +208,7 @@ function closeDatePicker(){const el=document.getElementById('date-picker-dialog'
 function pickDate(day){if(!datePickerState||day.slice(0,7)!==datePickerState.month||datePickerState.min&&day<datePickerState.min||datePickerState.max&&day>datePickerState.max)return;const id=datePickerState.id,input=document.getElementById(id),label=document.getElementById(id+'-label');if(input)input.value=day;if(label)label.textContent=dateBR(day);closeDatePicker();if(input){input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));}}
 
 function productList(stockMode){const n=E.normalize(query),items=model.data.products.filter(p=>(!stockMode||stockViewMatches(p))&&(filter==='Todos'||p.category===filter)&&(!n||E.normalize(p.name+' '+p.category+' '+E.description(p)).includes(n)));return stockMode&&window.TerritorioStockOrder?window.TerritorioStockOrder.orderStockProducts(items):items;}
-function shortUnit(unit){return {Pacote:'pct',Dúzia:'dz','Meia Dúzia':'½ dz',Caixa:'cx',Unidade:'un',Vidro:'vidro',Pote:'pote',kg:'kg',Litro:'L',Sacola:'sacola'}[unit]||unit.toLowerCase();}
+function shortUnit(unit){return {Saca:'sc',Pacote:'pct',Dúzia:'dz','Meia Dúzia':'½ dz',Caixa:'cx',Unidade:'un',Vidro:'vidro',Pote:'pote',kg:'kg',Litro:'L',Sacola:'sacola'}[unit]||unit.toLowerCase();}
 function familyKey(p){return [E.normalize(p.baseName||p.name),p.category,p.type||'',window.TerritorioCoffee.coffeeIdentity(p),stockGroupOf(p)].join('|');}
 function presentations(p){return model.data.products.filter(x=>familyKey(x)===familyKey(p)).sort((a,b)=>(a.weight||0)-(b.weight||0)||a.unit.localeCompare(b.unit));}
 function pillLabel(p){if(p.unit==='Pacote'||p.unit==='Pote'||p.unit==='Vidro'){if(p.weight)return p.weight>=1000?E.quantity(p.weight/1000)+' kg':E.quantity(p.weight)+' g';if(p.volume)return E.quantity(p.volume)+' ml';}return p.unit==='Caixa'&&p.contentCount?'Caixa '+E.quantity(p.contentCount):p.unit;}
@@ -389,7 +389,7 @@ function salePage(){
 
  const taskKeypad=draft.items.length>1?keypad.replace('</section>',btn('workflow-quantity-done',draft.items.some(i=>E.number(i.rawQty)<=0)?'Próximo produto':'Concluir produtos','choice workflow-quantity-done')+'</section>'):keypad;
  const customer=saleOptionalControls();
- const dock='<div class="sale-dock" role="region" aria-label="Carrinho da compra"><div class="sale-dock-inner"><div class="total-pill" aria-live="polite"><span>Total</span><strong class="total-value tabular" id="sale-total">'+E.money(Number.isFinite(q.total)?Math.max(0,q.total):0)+'</strong></div><div class="sale-subtotals'+(draft.discountExpanded||q.discount>0?'':' sr-only')+'"><span id="sale-subtotal">Subtotal '+E.money(q.subtotal)+'</span><span id="sale-discount-summary">'+appliedDiscountLabel(q.discount)+'</span></div><div id="sale-error" class="sale-dock-error'+(error?'':' sr-only')+'" role="status">'+escape(error)+'</div><div class="sale-actions">'+btn('cancel-sale','Cancelar','danger')+btn('open-cart',icon('cart')+' Carrinho','primary cart-open',null,!!error||multiReviewPending())+'</div></div></div>';
+ const dock='<div class="sale-dock" role="region" aria-label="Carrinho da compra"><div class="sale-dock-inner"><div class="total-pill" aria-live="polite"><span>Total</span><strong class="total-value tabular" id="sale-total">'+E.money(Number.isFinite(q.total)?Math.max(0,q.total):0)+'</strong></div><div class="sale-subtotals'+(draft.discountExpanded||q.discount>0?'':' sr-only')+'"><span id="sale-subtotal">Subtotal '+E.money(q.subtotal)+'</span><span id="sale-discount-summary">'+appliedDiscountLabel(q.discount)+'</span></div><div id="sale-error" class="sale-dock-error'+(error?'':' sr-only')+'" role="status">'+escape(error)+'</div><div class="sale-actions">'+btn('cancel-sale','Cancelar','danger')+btn('open-cart',icon('cart')+' Carrinho','primary cart-open',null,!!error)+'</div></div></div>';
  return'<div class="subview sale-compact"><div class="subheader">'+btn('back-sale',icon('back')+' Voltar','back')+'<span class="title">Venda</span>'+btn('sale-add-product',icon('plus'),'add-sale-compact')+'</div>'+products+(draft.quantityReviewCollapsed?'':taskKeypad)+customer+dock+'</div>';
 }
 const metricDescriptions={revenue:['Receita líquida','Soma das vendas concluídas no período, menos devoluções. Os descontos já foram descontados.'],cost:['Custo dos produtos','Soma do custo unitário × quantidade vendida, usando o custo gravado em cada venda. Alterar o cadastro não muda o custo das vendas passadas.'],gross:['Lucro bruto','Receita líquida menos custo dos produtos. A margem é o lucro bruto dividido pela receita líquida.'],expense:['Despesas','Despesas registradas no período. Toque em Adicionar despesa para lançar um valor.'],result:['Resultado','Lucro bruto menos despesas registradas no período.'],ticket:['Ticket médio','Receita líquida dividida pelo número de vendas concluídas no período.'],sales:['Vendas','Quantidade de vendas concluídas no período. Vendas devolvidas não entram nesta contagem.']};
@@ -460,7 +460,7 @@ function info(title,text,extra){openModal(title,'<p class="dialog-text">'+escape
 function stockDialog(id){const p=model.product(id);closeNumberPad();numericTouched.delete('move-quantity');movement={id,kind:'add',raw:'',note:''};paintMovement();}
 function paintMovement(){
  const m=movement,p=model.product(m.id),decimal=['kg','Litro','g','ml'].includes(p.unit),label=m.kind==='correct'?'Quantidade contada agora':m.kind==='loss'?'Quantidade perdida':'Quantidade que chegou';
- const body='<p class="movement-description">'+escape(E.description(p))+'</p><div class="movement-available"><span>Disponível</span><strong>'+E.quantity(p.stock)+' '+E.unitLabel(p.unit,p.stock)+'</strong><small>Mínimo: '+E.quantity(p.min)+' '+E.unitLabel(p.unit,p.min)+'</small></div><div class="choices movement-types">'+[['add','Repor'],['correct','Corrigir'],['loss','Perda']].map(([kind,name])=>btn('movement-kind',name,'choice'+(m.kind===kind?' selected':''),{kind})).join('')+'</div>'+field('move-quantity',label,m.raw,'inputmode="'+(decimal?'decimal':'numeric')+'"')+numberKeypad('move-quantity',decimal?3:0)+(m.kind==='loss'?field('move-reason','Motivo da perda',m.note,'placeholder="Ex.: produto estragado"'):'')+(window.TerritorioStockLotsUI?(window.TerritorioStockLotsUI.summary(model.data,p)+(m.kind==='add'?window.TerritorioStockLotsUI.form('movement-lot',m.lotInput||={}, {escape,dateField}):'')):'')+'<p class="movement-preview" id="move-preview">Novo saldo: —</p><div id="move-error" role="alert"></div>';
+ const body='<p class="movement-description">'+escape(E.description(p))+'</p><div class="movement-available"><span>Disponível</span><strong>'+E.quantity(p.stock)+' '+E.unitLabel(p.unit,p.stock)+'</strong><small>Mínimo: '+E.quantity(p.min)+' '+E.unitLabel(p.unit,p.min)+'</small>'+(window.TerritorioStockLotsUI?.line?window.TerritorioStockLotsUI.line(model.data,p):'')+'</div><div class="choices movement-types">'+[['add','Repor'],['correct','Corrigir'],['loss','Perda']].map(([kind,name])=>btn('movement-kind',name,'choice'+(m.kind===kind?' selected':''),{kind})).join('')+'</div>'+field('move-quantity',label,m.raw,'inputmode="'+(decimal?'decimal':'numeric')+'"')+numberKeypad('move-quantity',decimal?3:0)+(m.kind==='loss'?field('move-reason','Motivo da perda',m.note,'placeholder="Ex.: produto estragado"'):'')+(window.TerritorioStockLotsUI?((window.TerritorioStockLotsUI.line?'':window.TerritorioStockLotsUI.summary(model.data,p))+(m.kind==='add'?window.TerritorioStockLotsUI.form('movement-lot',m.lotInput||={}, {escape,dateField}):'')):'')+'<p class="movement-preview" id="move-preview">Novo saldo: —</p><div id="move-error" role="alert"></div>';
  const footer=btn('save-movement',m.kind==='correct'?'Salvar contagem':m.kind==='loss'?'Registrar perda':'Adicionar ao estoque','success')+'<div class="movement-secondary">'+btn('edit-product','Editar produto','link',{id:p.id})+btn('product-history','Histórico','link',{id:p.id})+'</div>'+(window.TerritorioStockLotsUI?btn('close-modal',icon('back')+'<span>Voltar</span>','movement-back sheet-back'):'');
  dialog.toggleAttribute('data-lot-stock',!!window.TerritorioStockLotsUI);openModal(titleName(p.name),body,'movement',{id:p.id},footer);refreshMovementPreview();closeNumberPad();
 }
@@ -1106,7 +1106,7 @@ document.addEventListener('change',event=>{const t=event.target;if(!draft)return
 const previousCancelSale12=actions['cancel-sale'];actions['cancel-sale']=()=>{if(modal&&saleOptionKinds.has(modal.kind))closeModal(true);previousCancelSale12();};
 
 document.addEventListener('click',event=>{const target=event.target.closest('[data-action]');if(!target||target.disabled)return;const action=actions[target.dataset.action];if(action)try{const result=action(target.dataset);if(result&&typeof result.catch==='function')result.catch(e=>toast(e.message||'Não foi possível concluir essa ação.'));}catch(e){toast(e.message||'Não foi possível concluir essa ação.');}});
-function refreshTotal(){if(!draft)return;const q=model.quote(draft),el=document.getElementById('sale-total'),err=document.getElementById('sale-error');if(el)el.textContent=E.money(Number.isFinite(q.total)?Math.max(0,q.total):0);const subtotal=document.getElementById('sale-subtotal'),discount=document.getElementById('sale-discount-summary');if(subtotal)subtotal.textContent='Subtotal '+E.money(q.subtotal);if(discount)discount.innerHTML=appliedDiscountLabel(q.discount);q.items.forEach((item,i)=>{const amount=document.getElementById('item-quantity-'+i);if(amount)amount.textContent=E.quantity(item.qty)+' '+E.unitLabel(item.unit,item.qty);});if(draft.split&&!draft.partsManual)draft.parts.forEach((part,i)=>{const value=document.getElementById('pay-value-'+i);if(value&&value!==document.activeElement)value.value=part.value;});if(err){const error=saleError(false);err.textContent=error;err.className=error?'sale-dock-error':'sale-dock-error sr-only';const submit=document.querySelector('[data-action="open-cart"]');if(submit)submit.disabled=!!error||multiReviewPending();}}
+function refreshTotal(){if(!draft)return;const q=model.quote(draft),el=document.getElementById('sale-total'),err=document.getElementById('sale-error');if(el)el.textContent=E.money(Number.isFinite(q.total)?Math.max(0,q.total):0);const subtotal=document.getElementById('sale-subtotal'),discount=document.getElementById('sale-discount-summary');if(subtotal)subtotal.textContent='Subtotal '+E.money(q.subtotal);if(discount)discount.innerHTML=appliedDiscountLabel(q.discount);q.items.forEach((item,i)=>{const amount=document.getElementById('item-quantity-'+i);if(amount)amount.textContent=E.quantity(item.qty)+' '+E.unitLabel(item.unit,item.qty);});if(draft.split&&!draft.partsManual)draft.parts.forEach((part,i)=>{const value=document.getElementById('pay-value-'+i);if(value&&value!==document.activeElement)value.value=part.value;});if(err){const error=saleError(false);err.textContent=error;err.className=error?'sale-dock-error':'sale-dock-error sr-only';document.querySelectorAll('[data-action="open-cart"]').forEach(submit=>{submit.disabled=!!error;});}}
 function handleAppInput(event){
  const t=event.target;if(t.dataset?.numeric!==undefined)numericTouched.add(t.id);
  if(t.id==='catalog-title'){if(model.data.catalog){model.data.catalog.title=t.value;persist();}}
@@ -1769,7 +1769,7 @@ managementPage=function(){return feiraManagementPage();};
 Object.assign(actions,{
  'mg-period-mode':d=>{if(!PERIOD_MODES.some(([id])=>id===d.mode))return;periodMode=d.mode;periodAnchor=E.dayKey(Date.now());month=periodAnchor.slice(0,7);render();},
  'mg-period-shift':d=>{const next=shiftPeriod(periodMode,periodAnchor,Number(d.delta)>0?1:-1);if(Number(d.delta)>0&&periodIsFuture(periodMode,periodAnchor))return;periodAnchor=next;month=periodAnchor.slice(0,7);render();},
- 'mg-detail':d=>{const sel=selection(),m=filteredMetrics(sel),r=mgDetail(d.key,sel,m);if(r)openModal(r[0],hideMoney(r[1]),'mg-detail');}
+ 'mg-detail':d=>{const sel=selection(),m=filteredMetrics(sel),r=mgDetail(d.key,sel,m);if(r)openModal(r[0],hideMoney(r[1]),'mg-detail',{key:d.key});}
 });
 // --- Resumo do dia: vendas, famílias e custos. Saldos de estoque ficam na Gestão. ---
 // Abre pelo ícone de papel do Vender (o histórico venda por venda fica dentro, em "Ver cada venda").
@@ -3977,6 +3977,119 @@ actions['contas-export']=()=>exportCSV('codex-contas-simulacao-'+E.dayKey(Date.n
 const paintContasBeforeExport136=paintContas;
 paintContas=function(){paintContasBeforeExport136();document.querySelector('dialog[open][data-kind="calculator"] .cm-list')?.insertAdjacentHTML('afterend','<div class="cm-export-actions">'+btn('contas-export','Compartilhar todas as Contas em CSV','choice')+'</div>');};
 Object.assign(window.ERPPreview,{managementSummaryRows,contasExportRows});
+// --- Carrinho nunca fica preso (03/11/2026) ---
+// Com todas as quantidades válidas, Carrinho fica ativo mesmo com a revisão de vários produtos aberta;
+// tocar nele fecha a revisão e segue. Antes, era preciso achar a pill Concluir ou esperar o fechamento
+// automático, e o botão parecia travado depois de voltar do carrinho e digitar a quantidade.
+const openCartBeforeReview=openCart;
+openCart=function(...args){if(draft&&!saleError(false)&&multiReviewPending()){clearTimeout(lastQuantityTimer);saveActiveDiscount();draft.quantityReviewCollapsed=true;}return openCartBeforeReview.apply(this,args);};
+// --- Cadastro de produto: o que falta fica em vermelho (03/11/2026) ---
+// Depois de tocar em Salvar sem conseguir, cada campo obrigatório vazio ou inválido fica em vermelho
+// (nome, unidade de venda, preço, peso/volume, unidades da caixa; custo, estoque e mínimo só se
+// preenchidos com valor inválido: custo vazio é desconhecido, não zero). O vermelho sai assim que o
+// campo é preenchido, e a tela vai até o primeiro que falta.
+let productSaveTried=false;
+function productMissingFields(){if(page!=='Produto'||!productForm)return [];const out=[],num=v=>E.number(v),bad=t=>String(t??'').trim()!==''&&!(Number.isFinite(num(t))&&num(t)>=0);
+ const name=document.getElementById('product-name');if(name&&!name.value.trim())out.push(name);
+ (productForm.variants||[]).forEach((v,i)=>{const q=sel=>document.querySelector('#app '+sel);
+  if(!String(v.unit||'').trim()){const box=q('[data-action="stock-confirm-unit"][data-index="'+i+'"]')?.closest('.stock-unit-confirm')||q('[data-variant="'+i+'"][data-field="unit"]');if(box)out.push(box);}
+  const price=q('#price-'+i);if(price&&(String(price.value).trim()===''||bad(price.value)))out.push(price);
+  for(const id of ['cost-','initial-','minimum-']){const el=q('#'+id+i);if(el&&bad(el.value))out.push(el);}
+  if(v.unit==='Caixa'&&!(num(v.contentCount)>0)){const el=q('[data-variant="'+i+'"][data-field="contentCount"]');if(el)out.push(el);}
+  if(v.unit==='Vidro'&&!(num(v.volume)>0)&&!(num(v.weight)>0)){const el=q('[data-variant="'+i+'"][data-field="volume"]');if(el)out.push(el);}});
+ return out;}
+function paintProductMissing(scroll){document.querySelectorAll('#app .is-missing').forEach(el=>{el.classList.remove('is-missing');el.removeAttribute('aria-invalid');el.closest('.form-field')?.classList.remove('has-missing');});
+ if(!productSaveTried||page!=='Produto')return;const list=productMissingFields();
+ for(const el of list){el.classList.add('is-missing');el.setAttribute('aria-invalid','true');el.closest('.form-field')?.classList.add('has-missing');}
+ if(scroll&&list[0])list[0].scrollIntoView({block:'center',behavior:'smooth'});}
+const saveProductBeforeMissing=actions['save-product'];
+actions['save-product']=d=>{productSaveTried=true;const before=page;saveProductBeforeMissing(d);if(page==='Produto'&&before==='Produto')requestAnimationFrame(()=>paintProductMissing(true));else productSaveTried=false;};
+const renderBeforeMissing=render;render=function(...args){const out=renderBeforeMissing.apply(this,args);if(page!=='Produto')productSaveTried=false;else if(productSaveTried)paintProductMissing(false);return out;};
+document.addEventListener('input',()=>{if(productSaveTried&&page==='Produto')requestAnimationFrame(()=>paintProductMissing(false));});
+// --- Produtos para estoque: categoria por seta (03/11/2026) ---
+// No lugar da fileira de pills, uma linha com seta: "Toque na seta para escolher a categoria". A seta
+// abre uma janela com as categorias (nasce da linha e volta para ela). Novo cadastro continua sem
+// categoria presumida: enquanto a pessoa não escolhe, a linha mostra só o convite.
+function stockCategoryCurrent(){if(!productForm)return '';if(stockProductFlow.stage==='pick')return stockProductFlow.category||'';return (productForm.manualCategory||productForm.editId||productForm.catalogSelected)?productForm.category||'':'';}
+stockFlowCategoryPills=function(){const current=stockCategoryCurrent();
+ return btn('stock-category-open','<span class="stock-cat-text">'+(current?'<small>Categoria</small><strong>'+escape(current)+'</strong>':'<span>Toque na seta para escolher a categoria</span>')+'</span><span class="stock-cat-arrow" aria-hidden="true">'+icon('down')+'</span>','stock-cat-open'+(current?' has-value':''));};
+const stockCategoryWrap=html=>html.replace(/<div class="category-scroll-wrap"><div id="product-category-pills" class="category-pills"([^>]*)>/g,'<div class="stock-cat-wrap"><div id="product-category-pills" class="stock-cat-holder"$1>').replace(/<span class="category-scroll-hint" aria-hidden="true">[\s\S]*?<\/span><\/div>/g,'</div>');
+const stockPickerPageBeforeCat=stockProductPickerPage;stockProductPickerPage=function(...a){return stockCategoryWrap(stockPickerPageBeforeCat.apply(this,a));};
+const productPageBeforeCat=productPage;productPage=function(...a){return stockCategoryWrap(productPageBeforeCat.apply(this,a));};
+Object.assign(actions,{
+ 'stock-category-open':()=>{if(!productForm)return;const current=stockCategoryCurrent(),pick=stockProductFlow.stage==='pick';
+  const rows=(pick?[['','Todas as categorias']]:[]).concat(stockFlowCategories().map(c=>[c,c]));
+  openModal('Categoria','<div class="stock-cat-list">'+rows.map(([value,label])=>btn('stock-category-pick','<span>'+escape(label)+'</span>'+(value===current?icon('check'):''),'link-row stock-cat-row'+(value===current?' is-current':''),{value})).join('')+'</div>','stock-category');},
+ 'stock-category-pick':d=>{const value=d.value||'';closeModal();if(stockProductFlow.stage==='pick'){stockProductFlow.category=value;stockProductFlow.ownLimit=8;stockProductFlow.familyLimit=8;render(true);requestStockCatalog();return;}if(value)setQuickCategory(value);}
+});
+// --- Café verde vende em saca (03/11/2026) ---
+// Formato Verde no café sugere Saca de 60 kg (a medida do café cru), não pacote; a pessoa ainda confirma
+// a unidade. Voltar do Verde para outro formato tira a saca sugerida para não ficar um pacote de 60 kg.
+const setPresentationBeforeGreen=setPresentation;
+setPresentation=function(index,field,value){const r=setPresentationBeforeGreen(index,field,value);const f=productForm,v=f?.variants[index];
+ if(!v||f.editId||f.category!=='Cafés'||field!=='format')return r;
+ if(value==='Verde'&&v.unit!=='Saca'){v.unit='Saca';v.weight=60000;v.unitConfirmed=false;render();}
+ else if(value!=='Verde'&&v.unit==='Saca'&&!v.unitConfirmed){v.unit='';v.weight=0;render();}
+ return r;};
+// --- Embalagem livre (03/11/2026) ---
+// Em Mais opções de embalagem, além das da categoria, todas as embalagens comuns ficam à mão (pote,
+// sacola, litro, bandeja, pacote...). As 4 sugestões rápidas continuam as da categoria, e qualquer outra
+// pode ser escrita em Adicionar opção.
+const COMMON_PACKAGING=['Unidade','Pacote','Pote','Sacola','Saco','Saca','Bandeja','Caixa','Vidro','Garrafa','Litro','kg','Lata','Frasco','Bisnaga','Balde','Galão','Copo','Sachê','Cesta','Fardo','Maço','Molho','Dúzia','Meia Dúzia','Peça','Kit','Barra','Rolo','Par'];
+const dimensionOptionsBeforePackaging=dimensionOptions;
+dimensionOptions=function(field,index){const list=dimensionOptionsBeforePackaging(field,index);if(field!=='unit')return list;const seen=new Set(list.map(v=>String(v)));return list.concat(COMMON_PACKAGING.filter(v=>!seen.has(v)));};
+// --- Estoque: tirar produto da família (03/11/2026) ---
+// O "−" vermelho no fim de cada família, ao lado do "+", abre os produtos daquela seção. Tirar do estoque
+// arquiva: o produto sai do Estoque e de Vender, mas vendas, histórico e saldo ficam guardados (Gestão e
+// relatórios dependem deles), e a mesma janela devolve ao estoque. Nada é apagado.
+const MINUS_ICON='<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>';
+const productListBeforeArchive=productList;productList=function(...a){return productListBeforeArchive.apply(this,a).filter(p=>!p.archived);};
+const stockListBeforeMinus=feiraStockList;
+feiraStockList=function(){const html=stockListBeforeMinus().replace(/<div class="glass-family-heading">([\s\S]*?)<\/div>/g,(m,inner)=>{const title=(inner.match(/<h3[^>]*>([\s\S]*?)<\/h3>/)||[])[1]||'';return '<div class="glass-family-heading">'+inner+btn('stock-family-remove',MINUS_ICON+'<span class="sr-only">Remover produto de '+title.replace(/<[^>]*>/g,'')+'</span>','round stock-minus')+'</div>';});return html+(model.data.products.some(p=>p.archived)?btn('stock-removed','Ver produtos removidos','choice management-wide-action'):'');};
+let stockRemove={ids:[],keys:[]};
+document.addEventListener('click',e=>{const b=e.target.closest?.('#app [data-action="stock-family-remove"]');if(!b)return;const box=b.closest('.workflow-stock-family')||b.closest('section')||b.parentElement.parentElement;const ids=[...box.querySelectorAll('[data-action="stock-product"]')].map(r=>r.dataset.id).filter(Boolean);stockRemove={ids,keys:[...new Set(ids.map(id=>window.TerritorioStockOrder.stockGroupKey(model.product(id)||{})))]};},true);
+const stockRmName=p=>titleName(window.TerritorioCoffee.coffeeName(p));
+function stockRemoveSheet(){const list=stockRemove.ids.map(id=>model.product(id)).filter(p=>p&&!p.archived),gone=model.data.products.filter(p=>p.archived&&stockRemove.keys.includes(window.TerritorioStockOrder.stockGroupKey(p)));
+ const row=(p,action,label,cls)=>'<div class="stock-rm-row"><span><strong>'+escape(stockRmName(p))+'</strong><small>'+escape(stockCardDescription(p)||p.unit)+' · '+escape(E.quantity(p.stock)+' '+E.unitLabel(p.unit,p.stock))+'</small></span>'+btn(action,label,cls,{id:p.id})+'</div>';
+ const body=(list.length?'<p class="dialog-text">Escolha o produto que sai do estoque. Ele deixa de aparecer no Estoque e em Vender; vendas e histórico continuam guardados.</p><div class="stock-rm-list">'+list.map(p=>row(p,'stock-remove-ask',icon('trash')+'<span>Remover</span>','stock-rm-btn is-remove')).join('')+'</div>':'<p class="dialog-text">Nenhum produto ativo nesta seção.</p>')
+  +(gone.length?'<h3 class="stock-rm-head">Removidos do estoque</h3><div class="stock-rm-list">'+gone.map(p=>row(p,'stock-restore',icon('back')+'<span>Devolver</span>','stock-rm-btn is-restore')).join('')+'</div>':'');
+ openModal('Remover do estoque',body,'stock-remove',null,btn('close-modal','Voltar','sheet-back'));}
+let stockArchiveBusy=false;
+async function setStockArchived(id,archived){
+ if(stockArchiveBusy)return;const owner=model,p=owner.product(id);if(!p)return;
+ if(archived&&draft?.items?.some(i=>i.productId===id))return toast('Este produto está na venda aberta. Conclua ou cancele a venda antes.');
+ const prior={archived:p.archived,archivedAt:p.archivedAt};stockArchiveBusy=true;
+ try{
+  p.archived=archived;if(archived)p.archivedAt=new Date().toISOString();else delete p.archivedAt;
+  if(!persist()||await resetDurable()!==true)throw Error('Não foi possível confirmar a gravação. Tente novamente.');
+  if(model!==owner)return;
+  if(!archived&&!stockRemove.ids.includes(id))stockRemove.ids.push(id);render();stockRemoveSheet();toast(stockRmName(p)+(archived?' removido do estoque.':' voltou ao estoque.'));
+ }catch(e){
+  for(const k of ['archived','archivedAt'])if(prior[k]===undefined)delete p[k];else p[k]=prior[k];
+  if(model===owner){persist();await resetDurable();toast(e.message);}
+ }finally{stockArchiveBusy=false;}
+}
+Object.assign(actions,{
+ 'stock-removed':()=>{stockRemove={ids:[],keys:[...new Set(model.data.products.filter(p=>p.archived).map(p=>window.TerritorioStockOrder.stockGroupKey(p)))]};stockRemoveSheet();},
+ 'stock-family-remove':()=>{if(!stockRemove.keys.length)return toast('Nenhum produto nesta seção.');stockRemoveSheet();},
+ 'stock-remove-ask':d=>{const p=model.product(d.id);if(!p)return;if(draft?.items?.some(i=>i.productId===p.id))return toast('Este produto está na venda aberta. Conclua ou cancele a venda antes.');
+  openModal('Remover do estoque?','<p class="dialog-text"><strong>'+escape(stockRmName(p))+'</strong> · '+escape(stockCardDescription(p)||p.unit)+'</p><p class="dialog-text">Ele sai do Estoque e de Vender. As vendas, o histórico e o saldo de '+escape(E.quantity(p.stock)+' '+E.unitLabel(p.unit,p.stock))+' ficam guardados, e dá para devolver ao estoque nesta mesma janela.</p>'+(p.stock>0?'<p class="settings-note">Se esse saldo não existe mais, registre antes uma Correção ou Perda, para os números da Gestão ficarem certos.</p>':''),'stock-remove-confirm',null,btn('stock-remove-do',icon('trash')+' Remover do estoque','danger modal-action',{id:p.id})+btn('stock-family-remove','Voltar','sheet-back'));},
+ 'stock-remove-do':d=>setStockArchived(d.id,true),
+ 'stock-restore':d=>setStockArchived(d.id,false)
+});
+// --- Olhinho dos valores fecha sozinho (03/11/2026) ---
+// Mostrar os valores (olho em Produtos, Gestão ou Mostrar valores) vale por 30 s; depois o app volta a
+// esconder, para ninguém ver o caixa por cima do ombro. Fechar à mão antes cancela a contagem.
+const FINANCIAL_PEEK_MS=30000;let financialPeekTimer=0;
+function armFinancialPeek(){clearTimeout(financialPeekTimer);financialPeekTimer=0;if(!model.data.settings.financialVisible)return;
+ const owner=model;financialPeekTimer=setTimeout(()=>{financialPeekTimer=0;if(model!==owner||!model.data.settings.financialVisible)return;model.data.settings.financialVisible=false;persist();window.ERPPreview.concealFinancialUI();const privacy=dialog.querySelector('.mg-privacy');if(privacy&&modal?.data?.key)privacy.outerHTML=managementPrivacy(modal.data.key);},FINANCIAL_PEEK_MS);}
+const renderBeforePeek=render;render=function(...args){const out=renderBeforePeek.apply(this,args);if(model.data.settings.financialVisible&&!financialPeekTimer)armFinancialPeek();else if(!model.data.settings.financialVisible&&financialPeekTimer){clearTimeout(financialPeekTimer);financialPeekTimer=0;}return out;};
+const toggleFinancialBeforePeek=actions['toggle-financial'];actions['toggle-financial']=(...a)=>{const r=toggleFinancialBeforePeek(...a);armFinancialPeek();return r;};
+// --- Janela do produto: apresentação logo abaixo do nome (03/11/2026) ---
+// "Moído · 250 g" sai do corpo e fica no cabeçalho, embaixo de "Café Especial": o nome e a apresentação
+// lidos juntos, e o corpo começa direto no Disponível.
+const paintMovementBeforeHead=paintMovement;
+paintMovement=function(...args){const r=paintMovementBeforeHead.apply(this,args);if(dialog.dataset.kind==='movement'){const desc=dialog.querySelector('.dialog-content > .movement-description'),head=dialog.querySelector('.checkout-header');if(desc&&head){head.querySelector('.movement-subtitle')?.remove();desc.classList.add('movement-subtitle');(head.querySelector('h2')||head.firstChild)?.after(desc);}}return r;};
 render();
 })();
 

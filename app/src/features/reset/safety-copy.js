@@ -40,7 +40,10 @@ async function writeCopy(json) {
   let data; try { data = JSON.parse(json); } catch { return 'failed'; }
   if (isEmptyData(data)) return 'skipped';
   try {
-    const all = await names(), name = (all.some(n => n.startsWith(ORIGINAL)) ? RECENT : ORIGINAL) + 'agro-gestao-' + stamp(new Date()) + '-' + crypto.randomUUID() + '.json';
+    const all = await names();
+    // Preserve order even within one millisecond or when the device clock moves backwards.
+    const when = new Date(Math.max(Date.now(), ...all.map(n => (+whenOf(n) || 0) + 1)));
+    const name = (all.some(n => n.startsWith(ORIGINAL)) ? RECENT : ORIGINAL) + 'agro-gestao-' + stamp(when) + '-' + crypto.randomUUID() + '.json';
     if (!native()) {
       const list = webList().concat({ name, json });
       const original = list.filter(c => c.name.startsWith(ORIGINAL)), recent = list.filter(c => c.name.startsWith(RECENT)).slice(-KEEP);
