@@ -91,3 +91,18 @@ O maior item. Feito depois das etapas 1 a 4 para responder sobre dados já certo
 - Enviar o formulário do item 17.
 - Dizer onde está a versão de teste com Qwen, se existir fora do Git.
 - Testar cada versão no celular e responder com o que viu, como nas versões anteriores.
+
+---
+
+## Situação em 03/11/2026
+
+| Etapa | Versão | Situação |
+|---|---|---|
+| 0 — Diagnóstico | — | Qwen não está em nenhum ramo; formulário do item 17 ainda não recebido. |
+| 1 — Venda e estoque | 0.12.141–0.12.142 | Feita: carrinho, campos em vermelho, 2 toques, segurar com 1 card, avisos conferidos. |
+| 2 — Cadastro | 0.12.143 | Feita: categoria por seta, café verde em saca de 60 kg, embalagem livre, Hortifrúti, lote e validade conferidos. |
+| 3 — Fornecedores e rastreio | 0.12.145 | Feita: estoque por fornecedor (estimativa), busca de entradas, produto manual testado. |
+| Extras | 0.12.144, 0.12.146, 0.12.147 | Remover/Devolver produto, validade no quadro Disponível, olhinho de 30 s, troca de abas sem piscar. |
+| 4 — Relatório do dia e Gestão | 0.12.148 | Feita: destaques do dia, Lançar custo, cérebro como cartão, Orientação em Produtos e Clientes. |
+| 5 — Pergunte sobre seu negócio | 0.12.149 | Feita: motor local com 257 perguntas testadas; sem LLM. |
+| 6 — Português e revisão | 0.12.150 | Feita: conectivos minúsculos em nomes ("Doce de Leite"), siglas preservadas, "que" minúsculo em títulos, página "O que o app faz", testes de red team. Títulos seguem a regra de nome próprio pedida antes; mudar para só a primeira letra maiúscula depende do Alex. |

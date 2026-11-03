@@ -3,9 +3,9 @@ import assert from 'node:assert/strict';
 import { forecastWindow,nextForecastPoint,forecastDays,weatherDayKey } from '../src/features/weather/forecast.js';
 import '../src/legacy/erp-core.js';
 const now=Date.parse('2026-10-20T08:00:00-03:00'),event={start:'2026-10-20',end:'2026-10-20',from:'09:00',until:'14:00'};
-test('product names normalize every word and preserve measurement units',()=>{
+test('product names capitalize words, keep connectors lowercase and preserve measurement units',()=>{
  for(const input of ['queijo meia cura','QUEIJO MEIA CURA','Queijo meia cura'])assert.equal(ERP.productName(input),'Queijo Meia Cura');
- assert.equal(ERP.productName(' café  em GRÃOS 250 G '),'Café Em Grãos 250 g');
+ assert.equal(ERP.productName(' café  em GRÃOS 250 G '),'Café em Grãos 250 g');
  const data=ERP.seed();data.settings={onboarding:'clean'};data.dataContext={id:'names-test',type:'real'};data.products=[{id:'cheese',name:'queijo meia cura',baseName:'queijo meia cura',category:'Laticínios',unit:'Pacote',stockGroup:'general',stock:3,price:300,cost:0,min:0}];
  const before=structuredClone(data.products[0]),model=new ERP.ERPModel(data),after=model.product('cheese');
  assert.deepEqual(after,{...before,name:'Queijo Meia Cura',baseName:'Queijo Meia Cura'});

@@ -43,3 +43,24 @@ dialog[data-kind='day-cost'] .checkout-footer { gap:8px; }
 .ds-event-section .ds-card :is(h3,h4){font-size:14px;margin:0 0 10px;line-height:1.4}
 .ds-event-section .ds-row{gap:10px;min-width:0}
 .ds-event-section .ds-row>span:first-child{min-width:0;overflow-wrap:anywhere}
+
+/* Destaques do dia: subtítulos discretos e cliente em duas linhas pequenas. */
+dialog[data-kind='day-summary'] .ds-highlights h4 { margin: 14px 2px 2px; font-size: 13px; font-weight: 650; letter-spacing: .02em; color: var(--muted); }
+dialog[data-kind='day-summary'] .ds-highlights h4 + .ds-row { border-top: 0; }
+dialog[data-kind='day-summary'] .ds-highlights .ds-client-row small { display: block; line-height: 1.35; }
+
+/* "Ver mais" das listas do resumo e dos dias em Gestão › Datas e Horários. */
+:is(dialog[data-kind='day-summary'], dialog[data-kind='mg-detail']) details.ds-more { margin-top: 6px; }
+:is(dialog[data-kind='day-summary'], dialog[data-kind='mg-detail']) details.ds-more > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 44px; padding: 8px 2px;
+  list-style: none; cursor: pointer; font-size: 15px; font-weight: 600; color: var(--accent, #7fa653);
+}
+:is(dialog[data-kind='day-summary'], dialog[data-kind='mg-detail']) details.ds-more > summary::-webkit-details-marker { display: none; }
+:is(dialog[data-kind='day-summary'], dialog[data-kind='mg-detail']) details.ds-more > summary::after { content: '›'; font-size: 20px; line-height: 1; transition: transform .2s ease; }
+:is(dialog[data-kind='day-summary'], dialog[data-kind='mg-detail']) details.ds-more[open] > summary::after { transform: rotate(90deg); }
+dialog[data-kind='mg-detail'] details.mg-day > summary { color: var(--text); border-top: 1px solid var(--line); }
+dialog[data-kind='mg-detail'] details.mg-day > summary span { text-transform: none; }
+dialog[data-kind='mg-detail'] details.mg-day > summary small { margin-left: auto; font-size: 13px; font-weight: 500; color: var(--muted); }
+dialog[data-kind='mg-detail'] details.mg-day > summary span,
+dialog[data-kind='mg-detail'] details.mg-day > summary small { white-space: nowrap; }
+dialog[data-kind='mg-detail'] details.mg-day > summary { flex-wrap: wrap; row-gap: 2px; }

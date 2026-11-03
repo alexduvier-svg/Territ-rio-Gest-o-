@@ -260,7 +260,7 @@ function installPageTransitions(listen) {
     // A checkout closes its own sheet into the sale; a copy of the sale page would flash stale content.
     // Both main tabs keep the real navigation visible; a copied bar would be discarded below.
     const betweenTabs = NAV_ORDER.includes(previousPage) && NAV_ORDER.includes(nextPage);
-    const lift = source?.insideDialog ? null : liftPage(app, goingBack, previousPage, { preserveChrome: !betweenTabs });
+    const lift = source?.insideDialog || nav ? null : liftPage(app, goingBack, previousPage, { preserveChrome: !betweenTabs });
     const t = pageTransition = { layer: lift?.layer, handles: [] };
     pageHandled = true;
     // The renderer finishes the new page synchronously after this event: aim once it is there.
@@ -275,10 +275,12 @@ function installPageTransitions(listen) {
       if (nav) {
         const step = Math.sign(NAV_ORDER.indexOf(nextPage) - NAV_ORDER.indexOf(previousPage)) || 0;
         const shift = (limited() ? 26 : 44) * step;
-        // No dip to the background between tabs (it read as a blink on phones): the new page starts a third
-        // visible and is nearly opaque before the old one begins to fade, so the screen never goes dark.
-        if (lift) t.handles.push(animate(lift.surface, { from: { x: 0, scale: 1, opacity: 1 }, to: { x: -shift, scale: 0.985, opacity: 0 }, spring: spring('tab'), shape: dissolve(0.22, 0.6), onFinish: done }));
-        t.handles.push(...arrivePage(app, { x: shift, y: step ? 0 : 14, scale: limited() ? 0.965 : 0.93, opacity: 0.35 }, center, 'tabEnter', { y: 0, opacity: 0.35 }));
+        // Between tabs nothing cross-fades: a fading old page dipped to the background (a blink) and an old
+        // page held behind showed through the gaps of the new one (a leftover image). The old page leaves in
+        // the very frame the new one is painted, and the new one arrives fully opaque with a short slide and
+        // settle, so the screen is never darker and never shows two pages (seen on Reno14 and Find X8).
+        lift?.layer.remove();
+        t.handles.push(...arrivePage(app, { x: shift * 0.5, y: step ? 0 : 8, scale: limited() ? 0.99 : 0.98, opacity: 1 }, center, 'tabEnter', { y: 0, opacity: 1 }));
         trackPageTransition(t);
         return;
       }
@@ -330,16 +332,18 @@ export function transitionSubview(render,direction=1,{subtle=false}={}){
  if(!app||!enabled()||document.hidden){render();return;}
  let lift,t;
  // The renderer builds HTML first. Lift only at its successful commit boundary.
- const commit=()=>{lift=liftPage(app,false,root().dataset.page);t=pageTransition={layer:lift?.layer,handles:[]};};
+ const commit=()=>{t=pageTransition={layer:null,handles:[]};};
  app.addEventListener('territorio:before-page',commit,{once:true});
  try{render();}catch(error){app.removeEventListener('territorio:before-page',commit);endPageTransition();throw error;}
  app.removeEventListener('territorio:before-page',commit);if(!t)return;
  lift?.surface.querySelectorAll(':scope > .fluid-chrome-copy').forEach(node=>node.remove());
  if(subtle)lift?.surface.querySelectorAll('.fluid-page-morph-context > .topbar').forEach(node=>node.style.visibility='hidden');
- const done=()=>{if(pageTransition===t)t.layer?.remove();},shift=(subtle?(limited()?2:6):(limited()?5:18))*direction;
- if(lift)t.handles.push(animate(lift.surface,{from:REST,to:{x:-shift,opacity:0},spring:spring('tab'),shape:dissolve(.22,.6),onFinish:done}));
+ const done=()=>{if(pageTransition===t){t.layer?.remove();}},shift=(subtle?(limited()?2:6):(limited()?5:18))*direction;
+ // Same rule as the tabs: the old view leaves in the frame the new one is painted (no cross-fade, so
+ // no dark dip and no leftover image), and the new one arrives opaque with a short slide.
+ lift?.layer.remove();
  const fixedTop=subtle?app.querySelector(':scope > .topbar'):null;if(fixedTop)fixedTop.dataset.motionStill='1';
- t.handles.push(...arrivePage(app,{x:shift,opacity:.35,scale:1},[innerWidth/2,innerHeight/2],'tab',{y:0,opacity:.35}));
+ t.handles.push(...arrivePage(app,{x:shift,opacity:1,scale:1},[innerWidth/2,innerHeight/2],'tab',{y:0,opacity:1}));
  if(fixedTop)delete fixedTop.dataset.motionStill;
  trackPageTransition(t);
 }

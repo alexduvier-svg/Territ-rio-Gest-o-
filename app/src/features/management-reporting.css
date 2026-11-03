@@ -59,6 +59,47 @@ dialog[data-kind='mg-detail'] .mg-empty{padding:20px 16px;border:1px solid var(-
 html[data-large-text=true] dialog[data-kind='mg-detail'] .fin-row{grid-template-columns:minmax(0,1fr);gap:5px}
 html[data-large-text=true] dialog[data-kind='mg-detail'] .fin-row>strong{text-align:left}
 
-/* Indicadores incorporados do Claude139; valores canônicos do Codex. */
-.ds-card:is(.mg-abc,.mg-coverage,.mg-change) h4{margin:14px 2px 2px;font-size:13px;line-height:1.5;color:var(--muted)}
-.ds-card:is(.mg-abc,.mg-coverage,.mg-change)>details{margin-top:14px}
+/* Aviso dos valores ocultos dentro das seções da Gestão. */
+.mg-privacy-note{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:10px 12px 10px 14px;border-radius:16px;background:var(--field);border:1px solid var(--line)}
+.mg-privacy-note span{font-size:14px;color:var(--muted)}
+.mg-privacy-note .choice{min-height:38px;padding:0 14px;margin:0}
+
+/* Indicadores (ABC, duração do estoque, o que mudou): subtítulos no mesmo tom discreto dos grupos. */
+.ds-card:is(.mg-abc, .mg-coverage, .mg-change) h4 { margin: 14px 2px 2px; font-size: 13px; font-weight: 650; letter-spacing: .02em; color: var(--muted); }
+.ds-card:is(.mg-abc, .mg-coverage, .mg-change) h4 + .ds-row { border-top: 0; }
+.ds-card:is(.mg-abc, .mg-coverage, .mg-change) > details { margin-top: 10px; }
+.ds-card.mg-change > p:not(.ds-note) { margin: 6px 2px 10px; font-size: 15px; line-height: 1.4; font-weight: 600; }
+
+/* Custos: "Lançar custo" com o mesmo respiro dos cartões, nunca colado na lista de custos abaixo. */
+dialog[data-kind='mg-detail'] [data-action='fin-cost-new'] { margin: 4px 0 14px; }
+dialog[data-kind='mg-detail'] [data-action='fin-cost-new'] + .fin-empty { margin-top: 0; }
+
+/* Inteligência do Negócio logo abaixo de Receita por Dia: um cartão no mesmo material das seções. */
+.mg-brain-entry { margin: 12px 0; }
+#app .mg-brain-entry .mg-brain-open {
+  display: flex; align-items: center; gap: 12px; width: 100%; min-height: 64px; padding: 12px 14px;
+  border: 1px solid var(--material-line, var(--line)); border-radius: 20px; background: var(--material-plane, var(--panel));
+  color: var(--text); font: inherit; text-align: left;
+  box-shadow: inset 0 1px 0 #ffffff14, 0 5px 16px #0000000b;
+}
+#app .mg-brain-entry .mg-brain-ico { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--field); color: var(--accent, #7fa653); }
+#app .mg-brain-entry .mg-brain-ico .icon { width: 24px; height: 24px; }
+#app .mg-brain-entry .mg-brain-text { display: grid; gap: 2px; min-width: 0; flex: 1; }
+#app .mg-brain-entry .mg-brain-text strong { font-size: 16px; font-weight: 650; }
+#app .mg-brain-entry .mg-brain-text small { font-size: 13px; line-height: 1.35; color: var(--muted); }
+#app .mg-brain-entry .mg-brain-open > .icon { flex: none; width: 18px; height: 18px; color: var(--muted); }
+/* No cérebro, o que a Gestão já mostra (Próximas Ações e Orientações) não se repete. */
+dialog[data-kind='brain'] .agent-journey-entry, dialog[data-kind='brain'] .agent-guidance { display: none; }
+/* A Orientação dentro de Produtos e Clientes. */
+.mg-explore-content > .mg-advisor { margin-bottom: 8px; }
+
+/* Ajustes › O que o app faz: listas curtas, legíveis nos dois temas. */
+dialog[data-kind='about-app'] .about-app-card ul { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 8px; }
+dialog[data-kind='about-app'] .about-app-card li { font-size: 15px; line-height: 1.45; color: var(--text); }
+dialog[data-kind='about-app'] .about-app-card + .about-app-card { margin-top: 12px; }
+
+/* Esqueleto da Inteligência do Negócio enquanto a janela abre (mesmo material, sem brilho animado). */
+dialog[data-kind='brain'] .brain-shell { display: grid; gap: 12px; }
+dialog[data-kind='brain'] .brain-shell-block { border-radius: 18px; background: var(--field); border: 1px solid var(--line); opacity: .7; }
+
+.ds-card:is(.mg-abc,.mg-coverage,.mg-change) h4{line-height:1.5}

@@ -6,6 +6,7 @@ import { installGeneralEducation } from '../general-education/index.js';
 import { INTELLIGENCE_HIERARCHY } from '../../data/intelligence-hierarchy.js';
 import { educationTopicFor } from '../general-education/service.js';
 import {compareOffers} from '../suppliers/model.js';
+import { answerQuestion } from './question-engine.js';
 import {readAgentContext,readContinuityContext} from './connect.js';
 import {installContinuity} from './continuity-ui.js';
 const scheduler=registerPlugin('AgroAgentScheduler');
@@ -59,6 +60,10 @@ export function installAgent(){
  async function ask(text,source='text',requestId=uid()){
   const base=view?.ctx||context(),ctx=b.queryContext?.(text,base)||base,actor=contextOf(b.data()).actorId,token=++epoch;if(!current(ctx))return b.toast('O produtor mudou. Abra a análise novamente.');
   if(window.TerritorioStockLotsUI?.handleQuestion(text)){audit(state(),requestId,'query-stock-validity',{intent:'stock-validity',scopeId:'all'});persist();return;}
+  // Perguntas do dia a dia (mais vendidos, estoque, CNPJ, período...) respondidas direto dos registros.
+  let direct=null;try{direct=answerQuestion(b.data(),text,{scopeId:ctx.scopeId});}catch(e){direct=null;}
+  if(direct?.understood){audit(state(),requestId,'queried',{scopeId:ctx.scopeId,intent:'question-engine',period:direct.period?.label||'',dataRevision:revisionOf(b.data()),queryContractVersion:1});persist();view={kind:'answer',ctx,result:{text:direct.text}};
+   b.open('Gerente do negócio','<p class="agent-origin">'+esc(originLabel(b.data()))+'</p><p class="agent-question">'+esc(text)+'</p><p class="agent-answer">'+b.privateHTML(esc(direct.text))+'</p><p class="agent-note">Calculado no aparelho, sem internet, só com o que foi registrado. Nenhuma operação foi executada.</p>',back(),'agent-answer');return;}
   const request=parseRequest(text,b.data(),{scopeId:ctx.scopeId,source,requestId});
   if(window.TerritorioBusinessQuery?.businessQueryGate(text).status!=='supported')request.intent='management';
   if(request.intent==='sale'){request.scopeId=b.saleScope();const p=proposeSale(b.data(),request,{proposalId:uid()});persist();return paintProposal(p,ctx);}

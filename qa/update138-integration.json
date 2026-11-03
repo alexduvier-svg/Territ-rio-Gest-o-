@@ -1,0 +1,92 @@
+{
+  "baseCodex": "e11b5f3c9cc756d35e3ddacbf915c1c6ca2f577b",
+  "claudeBase": "8180b4283b8242844eb5a2c53fc7159f127f7218",
+  "claudeFinal": "b679b4b71bd505fb14ee094995b0307465402200",
+  "claudeVersion": "0.12.157",
+  "codexVersion": "0.12.138",
+  "commits": [
+    {
+      "sha": "60636fa9a059ef5274e13553e1e2a4470158030b",
+      "title": "Etapa 4: relatório do fim do dia e Gestão reorganizada (0.12.148)"
+    },
+    {
+      "sha": "19fd126af3aacc4e2fcbe5c4c79c789d4ce90849",
+      "title": "Etapa 5: \"Pergunte sobre seu negócio\" entende as perguntas do dia a dia (0.12.149)"
+    },
+    {
+      "sha": "b1e16bae84ce3e1fde412be55a3939c2f520d6cb",
+      "title": "Etapa 6: português dos nomes, página \"O que o app faz\" e revisão de segurança (0.12.150)"
+    },
+    {
+      "sha": "96170f6ed1f417cb14b4a7c2d24b3438e43bfd72",
+      "title": "Abas sem sobra da tela anterior, Inteligência abre sem agarrar e título das áreas do Estoque mais acima (0.12.151)"
+    },
+    {
+      "sha": "8f83b3009f24ab5f19d88dc6e2a617a34a2ba2aa",
+      "title": "Estoque zerado: caixinha vermelha na Loja, \"Vou repor depois\" e aviso diário no celular (0.12.152)"
+    },
+    {
+      "sha": "aa210e4f345cb9494319b06c2abdbc331bc29f76",
+      "title": "Vender: produto zerado esmaecido e com bolinha vermelha antes do segundo nome (0.12.153)"
+    },
+    {
+      "sha": "ecd02db7506d3915f213b7f923e9d7e1d69fdc6e",
+      "title": "Resumo do dia: o que vendeu por horário, forma de pagamento e itens vendidos claros (0.12.154)"
+    },
+    {
+      "sha": "483a90df390e6154e869df586bdf2a3b8fad531f",
+      "title": "Listas que expandem no Resumo do dia e vendas por horário na Gestão (0.12.155)"
+    },
+    {
+      "sha": "1d4a92ef72fc0304c5a932f0bc8b9d66fa891dc0",
+      "title": "Relatórios em português correto e comparação de gestor (0.12.156)"
+    },
+    {
+      "sha": "b679b4b71bd505fb14ee094995b0307465402200",
+      "title": "Inteligência do negócio: só \"Comparação com o período anterior\", sem os campos Comparar/Com (0.12.157)"
+    }
+  ],
+  "incomingFiles": [
+    "app/android/app/build.gradle",
+    "app/docs/DIRETRIZ-LINGUAGEM-RELATORIOS.md",
+    "app/docs/SEQUENCIA-AJUSTES-0.12.140.md",
+    "app/package-lock.json",
+    "app/package.json",
+    "app/src/data/interface-guidelines.js",
+    "app/src/features/agent/index.js",
+    "app/src/features/agent/question-engine.js",
+    "app/src/features/day-summary.css",
+    "app/src/features/management-reporting.css",
+    "app/src/features/motion/index.js",
+    "app/src/features/product-stock.css",
+    "app/src/features/proper-name.js",
+    "app/src/features/report-language.js",
+    "app/src/legacy/erp-core.js",
+    "app/src/legacy/erp-ui.js",
+    "app/src/main.js",
+    "app/src/native/shell.js",
+    "app/tests/product-memory.test.mjs",
+    "app/tests/question-engine.test.mjs",
+    "app/tests/redteam.test.mjs",
+    "app/tests/report-language.test.mjs",
+    "app/tests/weather.test.mjs"
+  ],
+  "excludedIdentityFiles": [
+    "app/package.json",
+    "app/package-lock.json",
+    "app/android/app/build.gradle"
+  ],
+  "reviewAdjustments": [
+    "Motion uses opaque new tabs/subviews and avoids creating the outgoing snapshot; preserves whole-group ownership and no rewind watchdog.",
+    "Own privacy/export/finance/reset/location protections retained.",
+    "Question dates canonicalized; explicit year, selected scope, actual timestamp cutoff and unknown products handled without whole-business fallthrough.",
+    "Historical names and buyer identity; unknown classification stays unknown, missing costs and zero revenue do not fabricate margin.",
+    "Payment-use frequency separated from amount and no claim of settlement.",
+    "Brain completion tied to the exact open sheet and data owner.",
+    "Stock acknowledgment rechecked, durably saved and rolled back on failure; notifications recheck acknowledgment after permission.",
+    "About page accurately discloses optional configured external AI requests."
+  ],
+  "claudeCheckoutModified": false,
+  "productionDatabaseRead": false,
+  "backendPublished": false
+}

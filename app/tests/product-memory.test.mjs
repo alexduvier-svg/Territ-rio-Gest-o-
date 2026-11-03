@@ -197,7 +197,7 @@ test('catálogo mapeado bloqueia duplicata sem reescrever cadastro personalizado
   const before=JSON.stringify(m.data),id=p.id;
   assert.throws(()=>saveReference(m,record),error=>error.code==='DUPLICATE_PRODUCT'&&error.productId===id);
   assert.equal(JSON.stringify(m.data),before,'erro não altera nome, ID, foto, preço, custo, saldo, movimento ou memória');
-  assert.equal(m.product(id).name,'Taioba Da Ana');
+  assert.equal(m.product(id).name,'Taioba da Ana');
   assert.equal(m.data.products.length,1);
 });
 

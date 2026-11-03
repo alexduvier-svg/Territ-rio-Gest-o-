@@ -2,6 +2,20 @@
 
 Humano: “trabalhe sempre com o codex”. Consultas/revisões do Claude servem de referência; implementar as correções solicitadas neste projeto Codex, preservando sua identidade, dados, assinatura, fluidez e Git próprio. Não voltar a perguntar o destino por uma simples referência ao Claude. Não alterar/publicar o checkout Claude.
 
+Preferência de 03/11/2026: ao solicitar desbloqueio dos celulares na caixa de confirmação, incluir a opção selecionável **“Já desbloqueei”**. Não repetir a solicitação sem um bloqueio real.
+
+# Codex 0.12.138 entregue — Claude157 — 03/11/2026
+
+Novo pedido de conferir Git e atualizar concluído. Base própria137/e11b5f3, fonte remota Claude157/b679b4b71bd505fb14ee094995b0307465402200,10commits148–157. Numeração independente:138/code179. Mantidos identidade/pacote/certificado/dados e proteções134–137. Sem checkoutClaude alterado/backend/migração133/BDprincipal lido ou zerado.
+
+Entraram resumo diário expandível/horários/clientes, Gestão reorganizada, perguntas locais, português, comparação automática por período equivalente, página O que o app faz, abas opacas sem imagem anterior, abertura leve da Inteligência e aviso de zerado/confirmar reposição depois. Revisados datas canônicas/ano/escopo/instante atual, comprador sem identificação, desconhecidos/custo/receita zero/rateio/unidades históricas, uso vs valor de pagamento e Fiado, nome histórico, janela/contexto do preenchimento tardio, ack durável/rollback/rechecagem após permissão e explicação correta da IA externa opcional. Sem watchdog de recuo; sem construir snapshot descartado entre abas/áreas. Preferência humana pela opção Já desbloqueei nas próximas perguntas registrada acima.
+
+APK AGRO-Gestao-Codex-0.12.138.apk,9321177bytes,SHA0df91c4c6a33455a3c5bc3a35d860a014a9230bb5609168f48324cd4a8e55bb4; certoriginal/57assets+2pontes/CRC/v2v3/ZIP-ELF16KB estrutural PASS. MesmoAPKworkspace/Newproject/Território Gestão/DOIS. Install-r PKJ03/11 16:45:35 e Reno16:47:55; primeirasdatas28/10 08:59:26PKJ e21/10 18:58:01Reno preservadas, hashes/processos/foreground conferidos. Sem nova confirmação visual humana do principal. Metadata manage138 installed=true/statusinstalled-and-validated e qa/update138-delivery.json. NÃO repetir build/verificador/instalação por retomada/documentação.
+
+1120unit+8browsercompilados320/360/393/412dois temas (320ampliado/lite/reduced)+4nativeDOIS2temas PASS,82checks em cada jornada física. Reno claro16:41:35/escuro16:46:58,PKJclaro16:40:35/escuro16:44:27. Fixture1335feafb9dff0f49150a94ab80e5f1742f037d28a3d3bf48860365d34b467dc removidaDOIS,SDupdate138 e forwards9403/9404 próprios removidos; KeepAwake liberado. HistóricoReno.motionfixture intocado. GPS/Share/HTTP/navegação externa simulados só no auxiliar; sem BD/GPSreal/FPS/bateria/aparelhobásico/runtime16KB medidos. Lembrete de zerado reavalia após20h durante verificações do app, sujeito ao Android/permissão; não prometer execução contínua em segundo plano. Linguagem/perguntas são regras locais com cobertura limitada, não garantia universal.
+
+Relatório app/docs/INTEGRACAO-CLAUDE157-CODEX-0.12.138.md; provas qa/update138-final-review.json,integration.json,package-review.json,delivery.json,unit.txt. Fontes/QA/docs para Gitpróprio codex/atualizacao-agro-gestao2. Chaves/APKs/BD/prints privados fora doGit; backups133 ignorados. VIZ2026/10/28/01a1835c-018b-7352-95a2-037da69102a6/update138-* contém evidências sintéticas. Nenhuma pendência de implementação/QA/instalação138; sem metas/subagentes/automações novas.
+
 # Codex 0.12.137 entregue — Claude final147 — 03/11/2026
 
 Pedido de conferir o Git e atualizar o Codex136 com o Claude final147 concluído. Fonte remota `8180b4283b8242844eb5a2c53fc7159f127f7218`, delta140→147; base própria136 `78edfb5e2a44fc0819e5cf904420d4cb5f85c535`. Numeração independente mantida: Codex137/code178. Identidade, pacote, certificado, dados, Seu lugar135 e proteções próprias134/136 preservados. Claude checkout intacto; sem backend, migração133 ou dados principais zerados/restaurados.

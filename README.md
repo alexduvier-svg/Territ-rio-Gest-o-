@@ -1,6 +1,6 @@
 # AGRO Gestão Codex
 
-Versão atual: **0.12.137**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. A [integração do Claude final147](app/docs/INTEGRACAO-CLAUDE147-CODEX-0.12.137.md) traz as melhorias de carrinho, gestos, cadastro, embalagens, lotes, fornecedores e transições, preservando a [revisão de Gestão, Contas e Perfil136](app/docs/GESTAO-CONTAS-CLAUDE-0.12.136.md). Validação137: 843 testes unitários, oito jornadas de navegador e quatro jornadas físicas nos dois temas, usando dados e GPS fictícios. Zerar/restaurar foi testado somente no auxiliar isolado.
+Versão atual: **0.12.138**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. A [integração Claude148–157](app/docs/INTEGRACAO-CLAUDE157-CODEX-0.12.138.md) traz resumo diário, perguntas locais, comparação de períodos, Gestão reorganizada, avisos de estoque e transições opacas. Mantém as [melhorias137](app/docs/INTEGRACAO-CLAUDE147-CODEX-0.12.137.md) e as proteções próprias do Codex. Validação138: 1.120 testes unitários, oito jornadas de navegador e quatro físicas nos dois temas, com dados e GPS fictícios. Zerar/restaurar foi exercitado somente no auxiliar isolado.
 
 [Seu lugar135](app/docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md) continua disponível, com código completo, confirmação, Maps/Waze e Street View opcional.
 

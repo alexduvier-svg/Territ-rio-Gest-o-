@@ -56,6 +56,7 @@ import { INTERFACE_GUIDELINES } from './data/interface-guidelines.js';
 import { VOICE_GUIDELINES } from './data/voice-guidelines.js';
 import { DECISION_GUIDELINES } from './data/decision-guidelines.js';
 import * as SalesPresentation from './features/sales-presentation.js';
+import * as ReportLanguage from './features/report-language.js';
 import { installGlassTouch } from './features/glass-touch.js';
 import { installLocalCatalog } from './features/local-catalog/index.js';
 import './features/local-catalog/catalog.css';
@@ -146,6 +147,7 @@ try {
   window.TerritorioProperName = ProperName;
   window.TerritorioWeather = {eventWeather,localWeatherAnswer};
   window.TerritorioSalesPresentation = SalesPresentation;
+  window.TerritorioReportLanguage = ReportLanguage;
   window.TerritorioCatalogReference = {catalogReference,isCatalogQuestion};
   window.TerritorioCatalogKnowledge = CATALOG_KNOWLEDGE;
   window.TerritorioInterfaceGuidelines = INTERFACE_GUIDELINES;

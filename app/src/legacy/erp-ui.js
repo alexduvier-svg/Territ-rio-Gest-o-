@@ -1805,7 +1805,7 @@ dialog.addEventListener('close',()=>{if(dialog.dataset.kind!=='day-summary'||!da
 function daySummaryText(){const {sales,costs,m}=daySummaryData(),money=v=>model.data.settings.financialVisible?E.money(v):'••••••',lines=['*Resumo do dia*',new Date().toLocaleDateString('pt-BR',{timeZone:'America/Sao_Paulo'}),'','Total vendido: '+money(m.revenue),'Vendas: '+sales.length,'Lucro do dia: '+money(m.result)];
  if(m.families.length){lines.push('','*Vendas por categoria*');m.families.forEach(f=>lines.push('• '+titleName(f.name)+': '+money(f.amount)));}
  if(m.received){const rec=E.PAYMENTS.filter(k=>m.received[k]);if(rec.length){lines.push('','*Recebimentos*');rec.forEach(k=>lines.push('• '+k+': '+money(m.received[k])));}}
- if(m.rank.length){lines.push('','*O que vendeu*');m.rank.forEach(r=>lines.push('• '+titleName(r.name)+(r.description?' ('+r.description+')':'')+': '+E.quantity(r.qty)+' '+shortUnit(r.unit)+' · '+money(r.amount)));}
+ if(m.rank.length){lines.push('','*O que vendeu*');m.rank.forEach(r=>lines.push('• '+saleItemText({productId:r.id,qty:r.qty,name:r.name,description:r.description,unit:r.unit})+' · '+money(r.amount)));}
  if(costs.length){lines.push('','*Custos do dia*');costs.forEach(x=>lines.push('• '+x.title+': '+money(x.amount)));}
  return lines.join('\n');}
 
@@ -3148,8 +3148,8 @@ mgRows=function(sel,m){return mgRowsBeforeReportQuality(sel,m).replace('Relatór
 
 // Two coherent disclosure cards retain every existing report action exactly once.
 function mgExploreCards(sel,m){
- const rows=mgRows(sel,m).match(/<button\b[\s\S]*?<\/button>/g)||[],byKey=new Map(rows.map(row=>[row.match(/data-key="([^"]+)"/)?.[1],row])),first=['financas','custos'],second=['produtos','estoque','clientes','horarios'],merged=new Set(['pagamentos','onde']),groups=[['finance','chart','Finanças','Resultado, caixa e custos',first],['market','box','Produtos e Clientes','Estoque, clientes e datas',second],['files','download','Arquivos e Planilhas','CSV do período e arquivos completos',['relatorios']]];
- for(const key of byKey.keys())if(!first.includes(key)&&!second.includes(key)&&!merged.has(key)&&key!=='relatorios')second.push(key);
+ const rows=mgRows(sel,m).match(/<button\b[\s\S]*?<\/button>/g)||[],byKey=new Map(rows.map(row=>[row.match(/data-key="([^"]+)"/)?.[1],row])),first=['financas','custos'],second=['produtos','estoque','clientes','horarios'],third=['relatorios'],merged=new Set(['pagamentos','onde']),groups=[['finance','chart','Finanças','Resultado, caixa e custos',first],['market','box','Produtos e Clientes','Orientação, estoque, clientes, datas e fornecedores',second],['files','download','Arquivos e Planilhas','Planilhas do período, das feiras e geral',third]];
+ for(const key of byKey.keys())if(!first.includes(key)&&!second.includes(key)&&!third.includes(key)&&!merged.has(key))second.push(key);
  return '<div class="mg-explore-groups" aria-label="Detalhes do Período">'+groups.map(([id,ico,title,note,keys])=>'<details class="event-material-card mg-explore-card" data-explore-group="'+id+'" data-management-section="explore-'+id+'"'+(managementExpanded.has('explore-'+id)?' open':'')+'><summary><span class="mg-explore-symbol" aria-hidden="true">'+icon(ico)+'</span><span class="mg-explore-label"><strong>'+title+'</strong><small>'+note+'</small></span>'+icon('down')+'</summary><div class="mg-overview-list mg-explore-content">'+keys.map(key=>byKey.get(key)||'').join('')+'</div></details>').join('')+'</div>';
 }
 const exportGroups=[['Vendas e Financeiro',['sales','items','payments','returns','expenses','receivables','collections']],['Produtos e Estoque',['products','presentations','movements','loads']],['Clientes e Pedidos',['clients','orders','orderitems']],['Eventos e Agenda',['events','calendar']]];
@@ -4090,6 +4090,177 @@ const toggleFinancialBeforePeek=actions['toggle-financial'];actions['toggle-fina
 // lidos juntos, e o corpo começa direto no Disponível.
 const paintMovementBeforeHead=paintMovement;
 paintMovement=function(...args){const r=paintMovementBeforeHead.apply(this,args);if(dialog.dataset.kind==='movement'){const desc=dialog.querySelector('.dialog-content > .movement-description'),head=dialog.querySelector('.checkout-header');if(desc&&head){head.querySelector('.movement-subtitle')?.remove();desc.classList.add('movement-subtitle');(head.querySelector('h2')||head.firstChild)?.after(desc);}}return r;};
+// --- Relatório do fim do dia (03/11/2026) ---
+// Logo abaixo do total: quanto saiu de produto (somado por unidade), os 3 horários que mais venderam e
+// cada cliente identificado com horário, produtos, pagamento e de onde é. Receita, faturamento e
+// comparação com outros dias ficam na Gestão. Valores seguem o olho do resumo (mesmo registro).
+function dayHighlightsHtml(){const {sales}=daySummaryData(),done=sales.filter(s=>s.status==='completed');if(!done.length)return '';
+ const visible=!!model.data.settings.financialVisible,money=v=>{const i=daySummaryView.values.push(v)-1;return '<span data-day-money="'+i+'">'+(visible?E.money(v):'••••••')+'</span>';};
+ const hour=s=>Number(new Date(s.date).toLocaleString('en-GB',{timeZone:'America/Sao_Paulo',hour:'2-digit',hour12:false}))%24,clock=s=>new Date(s.date).toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'});
+ // Itens contados por unidade vendida (pacote, dúzia, pote... somam como itens); peso e volume à parte.
+ let items=0,kg=0,liters=0;const kinds=new Set();for(const x of done)for(const i of netItems(x)){const u=i.unit||model.product(i.productId)?.unit||'Unidade',q=Number(i.qty)||0;kinds.add(i.productId);if(u==='kg')kg+=q;else if(u==='g')kg+=q/1000;else if(u==='Litro')liters+=q;else if(u==='ml')liters+=q/1000;else items+=q;}
+ const qtyText=[items?E.quantity(Math.round(items*1000)/1000)+(items===1?' item':' itens'):'',kg?E.quantity(Math.round(kg*1000)/1000)+' kg':'',liters?E.quantity(Math.round(liters*1000)/1000)+' L':''].filter(Boolean).join(' + ');
+ const byHour=new Map();for(const x of done){const h=hour(x),r=byHour.get(h)||{h,n:0,v:0};r.n++;r.v+=x.total||0;byHour.set(h,r);}
+ const top=[...byHour.values()].sort((a,b)=>b.v-a.v||b.n-a.n||a.h-b.h).slice(0,3);
+ const pay=x=>[...new Set((x.payments||[]).filter(p=>p.amount>0).map(p=>p.method))].join(' + ')||x.payment||'Não informado';
+ const who=done.filter(x=>x.customerId||String(x.customerName||x.clientName||'').trim()).map(x=>{const c=x.customerId?model.data.clients.find(c=>c.id===x.customerId):null,name=x.customerName||x.clientName||c?.name,place=[x.customerNeighborhood||x.neighborhood||c?.neighborhood,x.customerCity||x.city||c?.city,x.customerUF||x.uf||c?.uf].filter(Boolean).join(', ');return {x,name,place};});
+ return '<section class="ds-card ds-highlights"><h3>Destaques do dia</h3>'
+  +'<div class="ds-row ds-items-row"><span><strong>Itens vendidos</strong><small>'+grammarCount(kinds.size,'produto diferente','produtos diferentes')+' em '+grammarCount(done.length,'venda','vendas')+'</small></span><span class="ds-num"><strong>'+escape(qtyText||'—')+'</strong></span></div>'
+  +'<h4>Horários que mais venderam</h4>'+top.map((r,i)=>'<div class="ds-row"><span><strong>'+(i+1)+'º · '+String(r.h).padStart(2,'0')+'h às '+String((r.h+1)%24).padStart(2,'0')+'h</strong><small>'+grammarCount(r.n,'venda','vendas')+'</small></span><span class="ds-num"><strong>'+money(r.v)+'</strong></span></div>').join('')
+  +'<h4>Clientes identificados</h4>'+(who.length?moreList(who.map(({x,name,place})=>'<div class="ds-row ds-client-row"><span><strong>'+escape(titleName(name))+' · '+escape(clock(x))+'</strong><small>'+escape(saleItemsText(x))+'</small><small>'+escape(pay(x))+(place?' · '+escape(place):'')+'</small></span><span class="ds-num"><strong>'+money(x.total||0)+'</strong></span></div>'),3,'clientes','cliente'):'<p class="ds-empty">Nenhuma venda de hoje com cliente identificado.</p>')
+  +'<p class="ds-note">Horários de Brasília. Receita, faturamento e a comparação com outros dias ficam em Gestão.</p></section>';}
+const daySummaryHtmlBeforeHighlights=daySummaryHtml;
+daySummaryHtml=function(...args){const html=daySummaryHtmlBeforeHighlights.apply(this,args);let extra='';try{extra=dayHighlightsHtml();}catch(e){console.error(e);}if(!extra)return html;
+ const hero=html.indexOf('ds-hero');const close=hero<0?-1:html.indexOf('</section>',hero);return close<0?html+extra:html.slice(0,close+10)+extra+html.slice(close+10);};
+// "O que vendeu" logo depois de Vendas por categoria, na ordem do horário (cada venda com hora, produtos,
+// total e forma de pagamento); "Recebimentos" passa a se chamar "Forma de pagamento".
+// Listas longas: as primeiras linhas à vista e o resto em "Ver mais", que abre no toque.
+function moreList(rows,shown,plural,singular){const rest=rows.length-shown;return rows.slice(0,shown).join('')+(rest>0?'<details class="ds-more"><summary>Ver mais '+rest+' '+(rest===1?singular:plural)+'</summary>'+rows.slice(shown).join('')+'</details>':'');}
+// Item vendido escrito com a concordância do português ("2 dúzias de Ovos Caipiras", "3 Acarás-Bandeiras
+// Vivos"); diretriz em app/docs/DIRETRIZ-LINGUAGEM-RELATORIOS.md. Itens separados por ponto e vírgula.
+function saleItemText(i){const p=model.product(i.productId||i.id),u=i.unit||p?.unit||'',L=window.TerritorioReportLanguage,name=i.name?titleName(i.name):p?titleName(window.TerritorioCoffee.coffeeName(p)):'',desc=i.description||(p?weightLabel(p):'');
+ if(L)return L.itemPhrase({qty:Number(i.qty)||0,name,description:desc,unit:u},E.quantity);
+ return E.quantity(i.qty)+(['kg','g','Litro','ml'].includes(u)?' '+shortUnit(u):'')+' '+name+(desc?' '+desc:'');}
+const saleItemsText=x=>netItems(x).map(saleItemText).join('; ');
+const saleClock=s=>new Date(s.date).toLocaleTimeString('pt-BR',{timeZone:'America/Sao_Paulo',hour:'2-digit',minute:'2-digit'}),salePay=x=>[...new Set((x.payments||[]).filter(p=>p.amount>0).map(p=>p.method))].join(' + ')||'Não informado';
+const saleTimeRow=(x,money)=>'<div class="ds-row"><span><strong>'+escape(saleClock(x))+'</strong><small>'+escape(saleItemsText(x))+'</small></span><span class="ds-num"><strong>'+money(x.total||0)+'</strong><small>'+escape(salePay(x))+'</small></span></div>';
+function daySoldByTimeHtml(){const {sales}=daySummaryData(),done=sales.filter(s=>s.status==='completed').slice().sort((a,b)=>String(a.date).localeCompare(String(b.date)));if(!done.length)return '';
+ const visible=!!model.data.settings.financialVisible,money=v=>{const i=daySummaryView.values.push(v)-1;return '<span data-day-money="'+i+'">'+(visible?E.money(v):'••••••')+'</span>';};
+ return '<section class="ds-card ds-sold-time"><h3>O que vendeu</h3>'+moreList(done.map(x=>saleTimeRow(x,money)),5,'vendas','venda')+'</section>';}
+// Gestão › Datas e Horários: as vendas do período em ordem de horário, um dia por linha que abre no toque
+// (o mesmo formato do Resumo do dia). Os valores seguem o olho de privacidade da Gestão.
+const mgDetailBeforeSalesTime=mgDetail;
+mgDetail=function(key,sel,m){const out=mgDetailBeforeSalesTime(key,sel,m);if(key!=='horarios'||!out||out[0]==='Conferir Antes de Analisar')return out;let extra='';
+ try{const sales=finStatement(sel).sales.filter(s=>s.status==='completed').slice().sort((a,b)=>String(a.date).localeCompare(String(b.date))),days=new Map();for(const s of sales){const k=E.dayKey(s.date);if(!days.has(k))days.set(k,[]);days.get(k).push(s);}
+  if(days.size)extra='<section class="ds-card mg-sales-time"><h3>Vendas em ordem de horário</h3><p class="ds-note">Toque no dia para ver cada venda com horário, produtos, total e forma de pagamento.</p>'+[...days].reverse().map(([k,list])=>'<details class="ds-more mg-day"><summary><span>'+escape(dateBR(k).slice(0,5))+' · '+escape(titleName(new Date(k+'T12:00:00Z').toLocaleDateString('pt-BR',{timeZone:'UTC',weekday:'long'}).replace('-feira','')))+'</span><small>'+grammarCount(list.length,'venda','vendas')+' · '+E.money(list.reduce((n,s)=>n+(s.total||0),0))+'</small></summary>'+list.map(x=>saleTimeRow(x,E.money)).join('')+'</details>').join('')+'</section>';}catch(e){console.error(e);extra='';}
+ if(!extra)return out;const html=out[1],at=html.lastIndexOf('<details class="mg-report-guide"');return [out[0],at>=0?html.slice(0,at)+extra+html.slice(at):html+extra];};
+const daySummaryHtmlBeforeTime=daySummaryHtml;
+daySummaryHtml=function(...args){let html=daySummaryHtmlBeforeTime.apply(this,args).replace(/<h3>Recebimentos<\/h3>/g,'<h3>Forma de pagamento</h3>').replace(/<h4>Recebimentos<\/h4>/g,'<h4>Forma de pagamento</h4>');
+ const fam=html.indexOf('<section class="ds-card ds-families">');if(fam<0)return html;let timed='';try{timed=daySoldByTimeHtml();}catch(e){console.error(e);}if(!timed)return html;
+ html=html.replace(/<section class="ds-card"><h3>O que vendeu<\/h3>[\s\S]*?<\/section>/,'');const at=mgBalanced(html,html.indexOf('<section class="ds-card ds-families">'),'section');return at>0?html.slice(0,at)+timed+html.slice(at):html;};
+// --- Gestão reorganizada (03/11/2026) ---
+// A Inteligência do Negócio sai do ícone do topo e vira um cartão logo abaixo de Receita por Dia; a
+// Orientação passa para dentro de Produtos e Clientes. No cérebro, o que a Gestão já mostra (Próximas
+// Ações e Orientações) fica escondido para não repetir; o resto continua lá.
+function mgBalanced(html,start,tag){const open=new RegExp('<'+tag+'\\b','g'),close=new RegExp('</'+tag+'>','g');let depth=0,i=start;const re=new RegExp('<'+tag+'\\b|</'+tag+'>','g');re.lastIndex=start;let m;while((m=re.exec(html))){if(m[0][1]==='/'){if(--depth===0)return re.lastIndex;}else depth++;}return -1;}
+const managementPageBeforeReorg=managementPage;
+managementPage=function(...args){let html=managementPageBeforeReorg.apply(this,args);try{
+ html=html.replace(/<button type="button" data-action="brain" class="round brain-button"[\s\S]*?<\/button>/,'');
+ const brainCard='<section class="mg-brain-entry">'+btn('brain','<span class="mg-brain-ico" aria-hidden="true">'+icon('brain')+'</span><span class="mg-brain-text"><strong>Inteligência do Negócio</strong><small>Pergunte sobre o negócio, compare com o período anterior e veja o que os registros mostram</small></span>'+icon('chevron'),'mg-brain-open',{source:'management'})+'</section>';
+ const a=html.indexOf('<div class="mg-advisor">');let advisor='';if(a>=0){const e=mgBalanced(html,a,'div');if(e>0){advisor=html.slice(a,e);html=html.slice(0,a)+html.slice(e);}}
+ const c=html.indexOf('<section class="feira-chart');if(c>=0){const e=mgBalanced(html,c,'section');if(e>0)html=html.slice(0,e)+brainCard+html.slice(e);}else{const p=html.indexOf('<section class="feira-hero');const e=p>=0?mgBalanced(html,p,'section'):-1;if(e>0)html=html.slice(0,e)+brainCard+html.slice(e);}
+ if(advisor){const g=html.indexOf('data-explore-group="market"'),open=g>=0?html.indexOf('<div class="mg-overview-list mg-explore-content">',g):-1;if(open>=0){const at=open+'<div class="mg-overview-list mg-explore-content">'.length;html=html.slice(0,at)+advisor+html.slice(at);}else html+=advisor;}
+ }catch(e){console.error(e);}return html;};
+// --- Ajustes › O que o app faz e o que não faz (03/11/2026) ---
+// Em linguagem simples: o que o app calcula e guarda, o que depende do que a pessoa registra e o que ele
+// não promete (acurácia absoluta, recuperar dados sem backup, desempenho não medido).
+const ABOUT_APP=[
+ ['O que o app faz',['Registra vendas, estoque, clientes, fornecedores, custos e eventos neste celular, mesmo sem internet.','Calcula total vendido, lucro bruto (quando o custo foi informado), ticket médio, o que mais e o que menos vendeu, o que está acabando e quanto deve restar de cada fornecedor.','Responde perguntas sobre os seus registros em Pergunte sobre seu negócio.','Avisa estoque acabando e validade perto de vencer, se você permitir as notificações.','Faz planilhas (CSV), backup em arquivo e guarda uma cópia antes de zerar os dados.','Vende por voz sem internet e marca o lugar da propriedade para quem vai visitar.']],
+ ['O que depende de você',['Os números são tão certos quanto os registros: venda, custo ou entrada que não foi registrada fica de fora.','Custo em branco é desconhecido, não é zero: o lucro fica parcial até você informar.','Os avisos no celular dependem da permissão e das regras do Android.','Para guardar fora do aparelho, faça o backup em arquivo de vez em quando.']],
+ ['O que o app não faz',['Não envia mensagens, não faz compras, pedidos nem muda preços sozinho: tudo espera o seu toque.','Não garante que uma sugestão vai dar certo nem prevê vendas com certeza.','Não recupera dados apagados ou perdidos numa restauração de fábrica sem um backup feito antes.','Não emite nota fiscal nem substitui o contador. Impostos como Funrural e Simples, confirme com ele.','As contas e perguntas locais funcionam no celular. Se você configurar um provedor externo e pedir uma análise online, os dados dessa consulta serão enviados ao serviço escolhido.','O desempenho em celular básico não foi medido em laboratório.']]];
+const settingsPageBeforeAbout=settingsPage;
+settingsPage=function(){const html=settingsPageBeforeAbout(),row='<div class="settings-list">'+settingsRow('about-app','O que o app faz','','info','gray')+'</div>',at=html.indexOf('<div class="settings-about"');return at<0?html:html.slice(0,at)+row+html.slice(at);};
+Object.assign(actions,{'about-app':()=>openModal('O que o app faz',ABOUT_APP.map(([title,items])=>'<section class="ds-card about-app-card"><h3>'+escape(title)+'</h3><ul>'+items.map(t=>'<li>'+escape(t)+'</li>').join('')+'</ul></section>').join(''),'about-app',null,btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back'))});
+// --- Inteligência do Negócio abre sem agarrar (03/11/2026) ---
+// A análise é pesada (contas, previsão do tempo, painel do Pergunte) e era montada no toque e ainda
+// completada durante a abertura: no celular a janela travava no começo e no meio do movimento. Agora a
+// janela abre no próprio toque com o mesmo título e um esqueleto do mesmo tamanho, e a análise entra só
+// quando o movimento termina, no lugar, sem nova animação (mesmo tipo e título para o motor).
+const brainActionBeforeShell=actions['brain'];let brainShellEpoch=0;
+// Pronto para receber o conteúdo quando a janela já parece parada (escala a menos de 0,4% do fim), sem
+// esperar a cauda da mola; no máximo 900 ms.
+function whenSheetSettled(run){const start=performance.now();(function wait(){if(!dialog.open)return;const sc=parseFloat(getComputedStyle(dialog).scale),still=!dialog.classList.contains('fluid-animating')||(performance.now()-start>180&&Number.isFinite(sc)&&Math.abs(sc-1)<0.004);if(still||performance.now()-start>900)return run();requestAnimationFrame(wait);})();}
+actions['brain']=d=>{const token=++brainShellEpoch,owner=model,data=model.data;if(dialog.open&&modal?.kind==='brain')return brainActionBeforeShell(d);
+ const block=h=>'<div class="brain-shell-block" style="height:'+h+'px"></div>';
+ openModal('Inteligência do negócio','<div class="brain-shell" aria-busy="true"><p class="brain-context">Preparando a análise com os seus registros…</p>'+block(120)+block(180)+block(150)+block(110)+'</div>','brain',null,btn('close-modal',icon('back')+'<span>Voltar</span>','sheet-back'));
+ const entry=modal;requestAnimationFrame(()=>whenSheetSettled(()=>{if(token===brainShellEpoch&&model===owner&&model.data===data&&dialog.open&&modal===entry)brainActionBeforeShell(d);}));};
+// --- Estoque zerado: caixinha também na Loja; "Vou repor depois" desliga o aviso (03/11/2026) ---
+// Pedido do produtor: com produto zerado, a caixinha vermelha aparece no lugar do ícone da Loja (antes só
+// em feira). Tocando, ele repõe na hora ou avisa que vai repor depois; isso desliga a caixinha e o aviso
+// diário no celular para aqueles produtos, até outro produto zerar ou o mesmo voltar a zerar depois de reposto.
+function stockAck(){const m=stockMemory();return m.ack||(m.ack={});}
+const syncStockAlertsBeforeAck=syncStockAlerts;
+syncStockAlerts=function(...a){const r=syncStockAlertsBeforeAck.apply(this,a);const m=stockMemory();if(m.ack){let changed=false;for(const id of Object.keys(m.ack))if(m.state[id]!=='out'){delete m.ack[id];changed=true;}if(changed)persist();}return r;};
+const pendingOut=()=>{const ack=stockMemory().ack||{};return stockOutProducts().filter(p=>p.active!==false&&!p.archived&&!ack[p.id]);};
+stockAlertChip=function(){const out=pendingOut();armStockChip(0);if(!out.length)return '';const mem=stockMemory(),unseen=mem.events.some(e=>e.kind==='out'&&!e.resolvedAt&&e.at>(mem.seenAt||''));
+ return btn('stock-alert-open',STOCK_ALERT_ICON+'<span class="sr-only">'+out.length+' '+(out.length===1?'produto sem estoque':'produtos sem estoque')+'</span>','stock-alert-chip'+(unseen?' is-new':''));};
+const openStockAlertsBeforeAck=openStockAlerts;
+openStockAlerts=function(...a){const r=openStockAlertsBeforeAck.apply(this,a);const foot=dialog.querySelector('.checkout-footer'),out=pendingOut();
+ if(foot&&out.length){foot.querySelector('[data-action="stock-alert-snooze"]')?.remove();foot.insertAdjacentHTML('beforeend',btn('stock-alert-later','Vou repor depois<small>Desliga o aviso destes produtos</small>','sheet-back sa-snooze',{ids:out.map(p=>p.id).join(',')}));}
+ return r;};
+let stockAckBusy=false;
+Object.assign(actions,{'stock-alert-later':async d=>{
+ if(stockAckBusy)return;const owner=model,data=model.data,mem=stockMemory(),previousAck=mem.ack,previousSnooze=mem.snoozedAt,eligible=new Set(pendingOut().map(p=>p.id));stockAckBusy=true;
+ try{const ack={...(mem.ack||{})},now=new Date().toISOString();for(const id of String(d.ids||'').split(',').filter(id=>eligible.has(id)))ack[id]=now;mem.ack=ack;mem.snoozedAt='';if(!persist()||await resetDurable()!==true)throw Error('Não foi possível confirmar a gravação. Tente novamente.');if(model!==owner||model.data!==data)return;closeModal();render();window.TerritorioStockNotifications?.check?.();toast('Combinado. O aviso volta se outro produto zerar.');}
+ catch(e){if(previousAck===undefined)delete mem.ack;else mem.ack=previousAck;mem.snoozedAt=previousSnooze;if(model===owner&&model.data===data){persist();await resetDurable();toast(e.message);}}
+ finally{stockAckBusy=false;}
+}});
+
+// --- Produto zerado em Vender: esmaecido e com bolinha vermelha (03/11/2026) ---
+// Até o estoque ser renovado o card fica esmaecido e ganha uma bolinha vermelha na frente do segundo nome
+// (Acará-•Bandeira, Betta •Cauda Dupla, Café •Especial); nome de uma palavra só leva a bolinha na frente.
+const OUT_DOT='<i class="out-dot" aria-hidden="true"></i>';
+// A bolinha fica colada à palavra seguinte (quebram linha juntas), para nunca sobrar no fim da linha de cima.
+const glued=word=>'<span class="out-word">'+OUT_DOT+word+'</span>';
+const glueFirstWord=text=>{const m=String(text).match(/^(\s*)(\S+)([\s\S]*)$/);return m?m[1]+glued(m[2])+m[3]:glued(text);};
+function withOutDot(html){
+ if(html.includes('<span class="cn-rest"><span class="cn-second">'))return html.replace(/<span class="cn-rest">(<span class="cn-second">[\s\S]*?<\/span>)/,(m,second)=>'<span class="cn-rest">'+glued(second));
+ if(html.includes('<span class="cn-rest">'))return html.replace(/<span class="cn-rest">([^<]*)/,(m,text)=>'<span class="cn-rest">'+glueFirstWord(text));
+ return html.replace(/(<strong[^>]*>)([^<]*)(<\/strong>)/,(m,a,name,b)=>{const i=name.indexOf('-');return a+(i>0?name.slice(0,i+1)+glueFirstWord(name.slice(i+1)):glueFirstWord(name))+b;});}
+const sellCardHtmlBeforeDot=sellCardHtml;sellCardHtml=function(p,extra){const html=sellCardHtmlBeforeDot(p,extra);return sellOut(p)?withOutDot(html):html;};
+const sellRowHtmlBeforeDot=sellRowHtml;sellRowHtml=function(p){const html=sellRowHtmlBeforeDot(p);return sellOut(p)?withOutDot(html):html;};
+// --- Inteligência do negócio: comparação de gestor (03/11/2026) ---
+// Diretriz em app/docs/DIRETRIZ-LINGUAGEM-RELATORIOS.md. Os períodos têm nome (Nov × Out, 03/11 × 27/10,
+// feira de 12/10 × 05/10) em vez de "agora" e "antes"; um período em andamento é comparado com o mesmo
+// trecho do anterior (1 a 3/11 × 1 a 3/10), nunca com o período inteiro. Ordem: volume, dinheiro,
+// qualidade e produto. A variação vem com sentido (Subiu, Caiu) e, havendo base, em porcentagem;
+// a margem varia em pontos percentuais.
+let lastComparisonNames=null;
+const shortMonthBR=m=>new Date(m+'-15T12:00:00Z').toLocaleDateString('pt-BR',{month:'short',timeZone:'UTC'}).replace('.','').replace(/^./,c=>c.toUpperCase());
+function likeForLike(sel,now){const today=E.dayKey(now),mode=sel.periodMode||(sel.days&&sel.days.length===1?'dia':'mes'),prevBase=previousSelection(sel);
+ const range=(a,b)=>{const out=[];for(let d=a;d<=b;d=shiftDay(d,1))out.push(d);return out;},ddmm=d=>d.slice(8,10)+'/'+d.slice(5,7);
+ if(mode==='mes'&&!(sel.days&&sel.days.length)&&sel.month===today.slice(0,7)){const n=Number(today.slice(8,10)),pm=prevBase.month,last=new Date(Number(pm.slice(0,4)),Number(pm.slice(5)),0).getDate(),cut=Math.min(n,last);
+  return {cur:{...sel,days:range(sel.month+'-01',today)},prev:{...prevBase,days:range(pm+'-01',pm+'-'+String(cut).padStart(2,'0')),noDays:false},names:[shortMonthBR(sel.month),shortMonthBR(pm)],full:['Mês de '+monthBR(sel.month),'Mês de '+monthBR(pm)],window:(n===1?'Dia 1':'1 a '+n)+' de cada mês · o mês ainda está em andamento, então o anterior entra só até o mesmo dia'};}
+ if(mode==='semana'&&sel.days&&sel.days.includes(today)){const cur=sel.days.filter(d=>d<=today),prev=(prevBase.days||[]).slice(0,cur.length);
+  return {cur:{...sel,days:cur},prev:{...prevBase,days:prev},names:['Sem. '+ddmm(sel.days[0]),'Sem. '+ddmm(prevBase.days[0])],full:['Semana de '+ddmm(sel.days[0]),'Semana de '+ddmm(prevBase.days[0])],window:'Semana em andamento: as duas semanas até o mesmo dia ('+grammarCount(cur.length,'dia','dias')+')'};}
+ if(mode==='dia'&&sel.days&&sel.days.length===1&&sel.days[0]===today){const until=brTime(now);
+  return {cur:{...sel,until},prev:{...prevBase,until},names:[ddmm(today),ddmm(prevBase.days[0]||today)],full:['Dia '+ddmm(today),'Dia '+ddmm(prevBase.days[0]||today)],window:'Dia em andamento: os dois dias até as '+until};}
+ if(mode==='ano'&&sel.year===today.slice(0,4)){const py=String(Number(sel.year)-1),cur=range(sel.year+'-01-01',today),prev=cur.map(d=>py+d.slice(4)).filter(d=>!Number.isNaN(Date.parse(d+'T12:00:00Z'))&&E.dayKey(d+'T12:00:00-03:00')===d);
+  return {cur:{...sel,days:cur},prev:{...prevBase,days:prev},names:[sel.year,py],full:['Ano de '+sel.year,'Ano de '+py],window:'1/1 a '+ddmm(today)+' de cada ano · o ano ainda está em andamento'};}
+ const label=x=>mode==='ano'?x.year:mode==='dia'&&x.days&&x.days[0]?ddmm(x.days[0]):mode==='semana'&&x.days&&x.days[0]?'Sem. '+ddmm(x.days[0]):shortMonthBR(x.month);
+ const long=x=>mode==='ano'?'Ano de '+x.year:mode==='dia'&&x.days&&x.days[0]?'Dia '+ddmm(x.days[0]):mode==='semana'&&x.days&&x.days[0]?'Semana de '+ddmm(x.days[0]):'Mês de '+monthBR(x.month);
+ return {cur:sel,prev:prevBase,names:[label(sel),label(prevBase)],full:[long(sel),long(prevBase)],window:'Período completo comparado ao período anterior equivalente, no mesmo local'};}
+function comparisonRankName(r){const p=model.product(r.id);return p?titleName(window.TerritorioCoffee.coffeeName(p))+(weightLabel(p)?' · '+weightLabel(p):''):titleName(r.name)+(r.description?' · '+r.description:'');}
+const comparisonFactsBeforeManager=comparisonFacts;
+comparisonFacts=function(sel,currentId,previousId,now){now=now||Date.now();const current=model.data.events.find(e=>e.id===currentId),previous=model.data.events.find(e=>e.id===previousId),fairs=current&&previous&&current.id!==previous.id;
+ let a,b,title,windowLabel,names;const ll=likeForLike(sel,now);lastComparisonNames=ll.full;
+ if(fairs){const old=comparisonFactsBeforeManager(sel,currentId,previousId,now);({a,b,title,windowLabel}=old);names=[dateBR(current.start).slice(0,5),dateBR(previous.start).slice(0,5)];}
+ else{a=filteredMetrics(ll.cur);b=filteredMetrics(ll.prev);names=ll.names;title=ll.full[0].replace(/^Mês de /,'')+' × '+ll.full[1].replace(/^Mês de /,'');windowLabel=ll.window;}
+ const [A,B]=names,pct=x=>x.toLocaleString('pt-BR',{maximumFractionDigits:1}),sign=d=>d>0?'+':'−';
+ const change=(x,y,fmt)=>{const d=x-y;if(Math.abs(d)<1e-9)return 'Igual';return (d>0?'Subiu ':'Caiu ')+fmt(Math.abs(d))+(y>0?' ('+sign(d)+pct(Math.abs(d)/y*100)+'%)':'');};
+ const pair=(fx,fy,ch)=>A+': '+fx+' · '+B+': '+fy+' · '+ch+'.';
+ const perSale=m=>m.sales.length?m.sales.reduce((n,s)=>n+new Set(s.items.map(i=>i.productId)).size,0)/m.sales.length:0,identified=m=>m.sales.filter(s=>s.customerId).length;
+ const historical=m=>{const items=m.sales.flatMap(netItems),known=items.filter(i=>i.costKnown!==false&&Number.isFinite(i.costTotal)&&(i.costKnown===true||i.costTotal>0)),revenue=known.reduce((n,i)=>n+i.amount,0),profit=known.reduce((n,i)=>n+i.amount-i.costTotal,0);return {profit,complete:known.length===items.length,any:known.length>0,margin:revenue>0?profit/revenue*100:null};},ha=historical(a),hb=historical(b);
+ const facts=[];
+ facts.push(['Vendas concluídas',pair(grammarCount(a.sales.length,'venda','vendas'),grammarCount(b.sales.length,'venda','vendas'),change(a.sales.length,b.sales.length,n=>grammarCount(n,'venda','vendas')))]);
+ facts.push(['Receita',pair(E.money(a.revenue),E.money(b.revenue),change(a.revenue,b.revenue,E.money))]);
+ facts.push(['Ticket médio',a.sales.length&&b.sales.length?pair(E.money(a.ticket),E.money(b.ticket),change(a.ticket,b.ticket,E.money)):'Sem vendas em '+(a.sales.length?B:b.sales.length?A:A+' e '+B)+' para comparar.']);
+ facts.push(['Lucro bruto',A+': '+(ha.any?E.money(ha.profit):'custo não informado')+' · '+B+': '+(hb.any?E.money(hb.profit):'custo não informado')+(ha.complete&&hb.complete?' · '+change(ha.profit,hb.profit,E.money):' · Conta parcial: há custo histórico não informado; não compare como lucro total')+'. Antes de taxas, despesas e impostos.']);
+ facts.push(['Margem bruta',!ha.complete||!hb.complete?'Custo histórico incompleto; a margem total não é comparável.':ha.margin==null||hb.margin==null?'Sem receita positiva nos dois lados para comparar.':A+': '+pct(ha.margin)+'% · '+B+': '+pct(hb.margin)+'% · '+(Math.abs(ha.margin-hb.margin)<.05?'Igual':(ha.margin>hb.margin?'Subiu ':'Caiu ')+pct(Math.abs(ha.margin-hb.margin))+' p.p.')+'.']);
+ if(a.sales.length&&b.sales.length)facts.push(['Produtos por venda',A+': '+pct(perSale(a))+' · '+B+': '+pct(perSale(b))+' · '+(Math.abs(perSale(a)-perSale(b))<0.05?'Igual':perSale(a)>perSale(b)?'Subiu':'Caiu')+'. Mostra se cada cliente leva mais de um produto.']);
+ facts.push(['Vendas com cliente identificado',A+': '+grammarCount(identified(a),'venda','vendas')+' · '+B+': '+grammarCount(identified(b),'venda','vendas')+'. Cliente identificado permite avisar sobre a próxima feira.']);
+ const ids=new Set([...a.rank,...b.rank].map(r=>r.id)),moves=[...ids].map(id=>{const x=a.rank.find(r=>r.id===id),y=b.rank.find(r=>r.id===id);return {r:x||y,d:(x?x.amount:0)-(y?y.amount:0)};});
+ const up=moves.filter(m=>m.d>0).sort((p,q)=>q.d-p.d)[0],down=moves.filter(m=>m.d<0).sort((p,q)=>p.d-q.d)[0];
+ if(up||down)facts.push(['Produtos que mais mudaram',[up?'Maior alta: '+comparisonRankName(up.r)+', '+sign(1)+E.money(up.d)+' em receita':'',down?'Maior queda: '+comparisonRankName(down.r)+', '+sign(-1)+E.money(-down.d)+' em receita':''].filter(Boolean).join('. ')+'.']);
+ const common=a.rank[0]||b.rank[0],ar=common&&a.rank.find(r=>r.id===common.id),br=common&&b.rank.find(r=>r.id===common.id),phrase=r=>r?saleItemText({productId:r.id,qty:r.qty,name:r.name,description:r.description,unit:r.unit}):'nenhuma venda';
+ facts.push(['Produto principal',common?A+': '+phrase(ar)+' · '+B+': '+phrase(br)+'.':'Não há itens vendidos nos dois períodos para comparar.']);
+ if(a.sales.length&&b.sales.length&&(a.sales.length<5||b.sales.length<5))windowLabel+=' · Base pequena: com menos de 5 vendas em um dos lados, a diferença pode ser acaso.';
+ return {title,windowLabel,a,b,facts};};
+const paintBrainBeforeManagerCompare=paintBrain;
+// Pedido do produtor: a seção fica só com "Comparação com o período anterior", sem os campos de escolha.
+// A comparação segue automática: na feira, com a feira anterior; fora dela, com o período anterior equivalente.
+paintBrain=function(preserve){paintBrainBeforeManagerCompare(preserve);if(modal?.kind!=='brain')return;
+ dialog.querySelector('.brain-comparison #brain-current')?.closest('.two')?.remove();};
 render();
 })();
 
