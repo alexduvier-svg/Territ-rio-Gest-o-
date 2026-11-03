@@ -1,6 +1,6 @@
 # AGRO Gestão Codex
 
-Versão atual: **0.12.138**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. A [integração Claude148–157](app/docs/INTEGRACAO-CLAUDE157-CODEX-0.12.138.md) traz resumo diário, perguntas locais, comparação de períodos, Gestão reorganizada, avisos de estoque e transições opacas. Mantém as [melhorias137](app/docs/INTEGRACAO-CLAUDE147-CODEX-0.12.137.md) e as proteções próprias do Codex. Validação138: 1.120 testes unitários, oito jornadas de navegador e quatro físicas nos dois temas, com dados e GPS fictícios. Zerar/restaurar foi exercitado somente no auxiliar isolado.
+Versão atual: **0.12.139**, pacote `br.com.territorio.gestao2`, instalada no Reno e no PKJ. A [correção de reposição e esgotados](app/docs/REPOSICAO-ESGOTADOS-0.12.139.md) permite repor um produto e seguir ao próximo, ou deixá-lo para depois; usa bolinha antes da primeira palavra, conta esgotados no Estoque e restaura a ordem após qualquer reposição positiva. Após vender, o botão é Voltar ao Início. Mantém a [integração Claude148–157](app/docs/INTEGRACAO-CLAUDE157-CODEX-0.12.138.md) e as proteções próprias do Codex. Validação139: 1.133 testes unitários, oito jornadas de navegador e quatro físicas nos dois temas, com dados e GPS fictícios. Zerar/restaurar foi exercitado somente no auxiliar isolado.
 
 [Seu lugar135](app/docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md) continua disponível, com código completo, confirmação, Maps/Waze e Street View opcional.
 

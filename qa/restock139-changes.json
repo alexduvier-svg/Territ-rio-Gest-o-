@@ -1,0 +1,61 @@
+{
+  "version": "0.12.139",
+  "versionCode": 180,
+  "baseCodex": "908d1ba72a65a9dd7c54b6227ab8bf7c0620cbb6",
+  "claudeReference": "b679b4b71bd505fb14ee094995b0307465402200",
+  "additionalClaudeCommits": [],
+  "activeSource": "app/src",
+  "requirements": [
+    "Confirm each replenishment independently and automatically offer the next pending product.",
+    "Allow Agora não without changing stock, lots or movements for that product.",
+    "Place one red sold-out dot before the first word and remove red replenishment arrows.",
+    "Replace Zerado on stock area/subgroup cards with the red singular/plural sold-out count while preserving total product count.",
+    "Keep sold-out products last and restore their original order after any positive quantity.",
+    "Use Voltar ao Início after a sale, preserving the green primary action and its return behavior."
+  ],
+  "rootCauses": [
+    "The previous Finalizar loop silently skipped blank quantities and then closed the whole replenishment dialog.",
+    "The inherited marker deliberately targeted the second word or the word after a hyphen.",
+    "The inherited stock-area status used a fixed Zerado label instead of a count.",
+    "Recreating the dialog on each quantity digit reset its scroll position."
+  ],
+  "runtimeFiles": [
+    "app/src/legacy/erp-ui.js",
+    "app/src/interface-refinements.css",
+    "app/src/data/interface-guidelines.js"
+  ],
+  "protections": [
+    "One product per durable confirmation; double taps cannot apply the quantity twice.",
+    "Failed native acknowledgement keeps the already-applied quantity pending for confirmation instead of reapplying it.",
+    "Synchronous persistence refusal restores the previous model data.",
+    "Session, model, data, product activity and unit are checked before saving.",
+    "Closing or changing context prevents an asynchronous completion from reopening the dialog.",
+    "Confirmed products are disabled; deferred products can be revisited while other products remain pending.",
+    "Four-row pagination remains available in both directions; the active product follows the selected page.",
+    "Quantity entry preserves the same product's content scroll, allowing only natural height clamping."
+  ],
+  "newUnitCases": 13,
+  "totalUnitCases": 1133,
+  "unitFiles": [
+    "app/tests/restock-queue139.test.mjs",
+    "app/tests/stock-markers139.test.mjs"
+  ],
+  "interfaceFlow": "qa/restock139-flow.cjs",
+  "mainApkSHA256": "ef8df91078cc1450c8cf2d49749ca731b4ba0b163dddfcbe94833530df19269f",
+  "fixtureSHA256": "36dd15d8f79acc0519c2f1d1b4bf2a9d45f1296c80ed98d9032653752723a557",
+  "qaNotes": [
+    "Reviewing native dark captures showed that restoring the helper's first synthetic safety copy could also restore the light theme. The139 runner now preserves the scenario presentation after that restore and asserts the theme before every capture. Dark native rounds and the browser matrix were repeated on the same final APK.",
+    "One earlier Reno dark round failed the inherited entire-synthetic-dataset cleanup assertion. The full repeated round passed with that assertion unchanged; the139 wrapper retains a bounded field-difference diagnostic for any future recurrence. The earlier failed report is archived locally with the theme diagnostics."
+  ],
+  "productionDatabaseRead": false,
+  "realGpsRead": false,
+  "backendChanged": false,
+  "claudeCheckoutChanged": false,
+  "migration133Repeated": false,
+  "limitations": [
+    "Interface tests use synthetic data and an isolated Android package.",
+    "Native storage refusal is injected in the fixture; no producer storage is deliberately filled or corrupted.",
+    "External GPS, HTTP, sharing and navigation are simulated only in the harness.",
+    "No FPS, battery, basic-phone hardware or 16KB-page runtime measurement."
+  ]
+}

@@ -4,6 +4,18 @@ Humano: “trabalhe sempre com o codex”. Consultas/revisões do Claude servem 
 
 Preferência de 03/11/2026: ao solicitar desbloqueio dos celulares na caixa de confirmação, incluir a opção selecionável **“Já desbloqueei”**. Não repetir a solicitação sem um bloqueio real.
 
+# Codex 0.12.139 entregue — Reposição e esgotados — 03/11/2026
+
+Pedido humano atual: repor café e seguir para peixe (ou Agora não); bolinha antes da primeira palavra, retirar setas vermelhas; Estoque contar1esgotado/2esgotados; card esgotado ir ao fim e voltar com1unidade; botão após venda Voltar ao Início. Base138/908d1ba, fonte ativa app/. Funções de reposição agora confirmam1produto por vez, pulam explicitamente e aguardam durable sem duplicar; rollback síncrono, contexto/fechamento protegidos e páginas de4 alcançáveis. Indicador e texto aplicados. Ordenação original preservada, verificada com estoque1 abaixo do mínimo. Claude Git conferido: continua157/b679b4b; nenhum port novo solicitado/feito, checkout intacto.
+
+APK139/code180 SHAef8df91078cc1450c8cf2d49749ca731b4ba0b163dddfcbe94833530df19269f/9321177bytes, certificado original/57assets+2pontes/CRC/v2v3/ZIP-ELF16KB estrutural PASS. MesmoAPKworkspace/Newproject/Território Gestão/DOIS. Install-r PKJ03/11 17:55:54 e Reno17:56:07; primeirasdatas28/10 08:59:26PKJ e21/10 18:58:01Reno preservadas, hashes/processos/foreground conferidos. Sem nova confirmação visual humana dos principais. Metadata manage139 installed=true/statusinstalled-and-validated, qa/restock139-delivery.json. NÃO repetirbuild/verificador/instalação por retomada/documentação. Candidatos47a366/14172af e fixtures04fd/32d anteriores são obsoletos.
+
+1133unit+8browsercompilados320/360/393/412dois temas (320ampliado/lite/reduced)+4nativeDOIS2temas PASS,95checks cada. PKJclaro17:35:30/escuro17:50:19; Renoclaro17:37:19/escuro17:53:24. Corrigido salto da rolagem400→0 ao digitar quantidade; QA mede no pointerdown e admite só clamp natural. O auxiliar restaurava o tema claro junto da primeira cópia sintética; runner139 preserva apresentação do cenário e confere tema em cada captura. Escuros e matrizbrowser repetidos. Primeira rodada Renoescuro falhou na asserção histórica de limpeza sintética integral; repetição completa PASS, mesmaasserção mantida, wrapper139 registra diferenças em eventual recorrência. Diagnósticos anteriores noVIZ, não resultados finais.
+
+Fixture36dd15d8f79acc0519c2f1d1b4bf2a9d45f1296c80ed98d9032653752723a557 removidaDOIS, SDrestock139 e forwards9405/9406 próprios removidos; KeepAwake liberado. HistóricoReno.motionfixture intocado. GPS/Share/HTTP/navegação simulados só noauxiliar; sem BD/GPSreal/FPS/bateria/aparelhobásico/runtime16KB medidos. Sem backend/Claudecheckout/migração133/resetprincipal.
+
+Relatório app/docs/REPOSICAO-ESGOTADOS-0.12.139.md; provas qa/restock139-final-review.json,changes.json,package-review.json,delivery.json,unit.txt. Fontes/QA/docs para Gitpróprio codex/atualizacao-agro-gestao2. Chaves/APKs/BD/prints privados fora doGit; backups133 ignorados. VIZ2026/10/28/01a1835c-018b-7352-95a2-037da69102a6/restock139-* sóevidências sintéticas. Nenhuma pendência de implementação/QA/instalação139; sem metas/subagentes/automações novas.
+
 # Codex 0.12.138 entregue — Claude157 — 03/11/2026
 
 Novo pedido de conferir Git e atualizar concluído. Base própria137/e11b5f3, fonte remota Claude157/b679b4b71bd505fb14ee094995b0307465402200,10commits148–157. Numeração independente:138/code179. Mantidos identidade/pacote/certificado/dados e proteções134–137. Sem checkoutClaude alterado/backend/migração133/BDprincipal lido ou zerado.

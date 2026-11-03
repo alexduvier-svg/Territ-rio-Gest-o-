@@ -1,6 +1,6 @@
 # AGRO Gestão Codex — app Android
 
-Versão **0.12.138/code179**, com a [integração Claude148–157](docs/INTEGRACAO-CLAUDE157-CODEX-0.12.138.md), instalada no Reno e no PKJ. Mantém as [correções137](docs/INTEGRACAO-CLAUDE147-CODEX-0.12.137.md), [Gestão e Contas136](docs/GESTAO-CONTAS-CLAUDE-0.12.136.md), [Seu lugar135](docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md), dados, identidade Codex, pacote `br.com.territorio.gestao2` e assinatura original. Validação138: 1.120 testes unitários, oito jornadas de navegador e quatro físicas nos dois temas, com dados/GPS fictícios e reset/restauração apenas no auxiliar isolado.
+Versão **0.12.139/code180**, com as [correções de reposição e esgotados](docs/REPOSICAO-ESGOTADOS-0.12.139.md), instalada no Reno e no PKJ. Reposição por produto com Agora não, bolinha antes da primeira palavra, contagem de esgotados, retorno à ordem com uma unidade e Voltar ao Início após vender. Mantém a [integração Claude148–157](docs/INTEGRACAO-CLAUDE157-CODEX-0.12.138.md), [Gestão e Contas136](docs/GESTAO-CONTAS-CLAUDE-0.12.136.md), [Seu lugar135](docs/LOCALIZACAO-SEU-LUGAR-0.12.135.md), dados, identidade Codex, pacote `br.com.territorio.gestao2` e assinatura original. Validação139: 1.133 testes unitários, oito jornadas de navegador e quatro físicas nos dois temas, com dados/GPS fictícios e reset/restauração apenas no auxiliar isolado.
 
 App Android (Capacitor 8) com vendas, estoque, clientes, eventos e gestão local. A fonte atual está em `src/`; o mockup original é referência histórica. Não reexecutar a migração sobre o código atual.
 
