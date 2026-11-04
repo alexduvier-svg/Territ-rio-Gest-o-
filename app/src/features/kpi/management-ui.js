@@ -1,0 +1,61 @@
+import {investmentAssessment,investments} from './management-indicators.js';
+import {parseCost,day} from '../sales-records/domain.js';
+
+export function installIndicators(){
+  const b=window.TerritorioWorkflowBridge,a=b.actions,e=b.escape;
+  const button=(action,label,cls='choice',data)=>b.button(action,label,cls,data);
+  const back=(action='close-modal')=>button(action,b.icon('back')+'<span>Voltar</span>','sheet-back');
+  const money=n=>b.data().settings.financialVisible?b.money(n):'•••••';
+  const number=n=>Number(n).toLocaleString('pt-BR',{maximumFractionDigits:2});
+  const roi={investmentId:'',attribution:'',confirmed:false,selection:null};
+  function value(metric){
+    if(metric.value===null||!Number.isFinite(metric.value))return 'Sem base para calcular';
+    if(metric.private!==false&&metric.unit!=='number'&&!b.data().settings.financialVisible)return '•••••';
+    return metric.unit==='money'?b.money(metric.value):number(metric.value)+(metric.unit==='percent'?'%':'');
+  }
+  function card(metric){return '<section class="indicator-card" data-indicator="'+e(metric.id)+'"><h3>'+e(metric.title)+'</h3><strong class="indicator-value tabular"'+(metric.private!==false&&metric.unit!=='number'?' data-financial-value':'')+'>'+e(value(metric))+'</strong><details><summary>Como ler e usar</summary><p>'+e(metric.meaning)+'</p><p><strong>Fórmula:</strong> '+e(metric.formula)+'</p><p>'+e(metric.action)+'</p></details></section>';}
+  function open(){
+    const input=b.indicatorInput(),facts=input.indicators;
+    if(!facts||input.dataContext.type==='unconfirmed')return b.open('Indicadores','<p class="dialog-text">Confirme a origem dos registros para acompanhar os indicadores.</p>',back(),'indicators');
+    const crm=facts.crm,quality=facts.quality,context=input.dataContext.type==='real'?'':input.dataContext.type==='demo'?'<p class="ds-note">Exemplo com dados fictícios.</p>':'<p class="ds-note">Simulação.</p>';
+    const crmCards=[
+      {id:'identified',title:'Vendas com cliente identificado',value:crm.identificationRate,unit:'percent',private:false,formula:crm.identified+' vendas identificadas ÷ '+crm.sales+' vendas elegíveis × 100.',meaning:'Mostra a cobertura do cadastro. Compras anônimas continuam nas vendas e ficam fora das análises nominais.',action:'Identifique o cliente quando ele desejar; não reúna pessoas apenas por terem o mesmo nome.'},
+      {id:'frequency',title:'Frequência dos compradores identificados',value:crm.frequency,unit:'number',formula:crm.identified+' compras identificadas ÷ '+crm.clients+' compradores identificados.',meaning:'Média de compras por comprador identificado neste recorte. Os vários itens de uma venda não viram várias compras.',action:'Confira o histórico do cliente antes de planejar uma recompra.'},
+      {id:'repeat',title:'Clientes com recompra no período',value:crm.repeatRate,unit:'percent',private:false,formula:crm.repeat+' compradores com duas ou mais compras ÷ '+crm.clients+' compradores identificados × 100.',meaning:'Recompra observada no período selecionado. Não é retenção de coorte, previsão de fidelidade ou classificação de crédito.',action:'Compare janelas equivalentes e considere a cobertura de identificação.'}
+    ];
+    const records=b.reportRecords(),warning=window.TerritorioSalesRecords.costWarningMarkup(records.sales,records.returns);
+    b.open('Indicadores',context+'<p class="ds-note">'+e(facts.periodLabel)+'</p>'+button('metrics-privacy',b.icon(b.data().settings.financialVisible?'eyeOff':'eye')+'<span>'+(b.data().settings.financialVisible?'Ocultar valores':'Mostrar valores')+'</span>','choice indicator-privacy')+'<p class="indicator-quality">'+(quality.completeCosts?'Custos históricos completos na base recebida.':'Custos históricos incompletos: o lucro não pode ser tratado como resultado completo.')+' '+(quality.costCoverage===null?'Cobertura de custo não disponível nesta base.':number(quality.costCoverage)+'% da receita positiva com custo conhecido.')+(quality.feesEstimated?' Há taxas estimadas.':'')+'</p><div class="indicator-primary">'+facts.primary.map(card).join('')+'</div><details class="indicator-group"><summary>Resultado, equilíbrio e cesta</summary>'+facts.drivers.map(card).join('')+button('metrics-finance','Consultar o demonstrativo de Finanças')+'</details><details class="indicator-group"><summary>CRM · Clientes e recompra</summary>'+crmCards.map(card).join('')+'<p class="ds-note">Cobertura por valor das vendas: '+(crm.identifiedRevenueRate===null?'sem base':number(crm.identifiedRevenueRate)+'%')+'.</p>'+button('metrics-clients','Consultar clientes do período')+'</details><details class="indicator-group"><summary>ROI e Payback</summary><p>'+e(facts.roi.reason)+'</p><p class="ds-note">Avalie um investimento com ganho líquido atribuível e período informados.</p>'+button('metrics-roi','Calcular ROI e prazo de retorno')+'</details><details class="indicator-group"><summary>Produtos, estoque e dados usados</summary><p class="ds-note">Curva ABC por contribuição, margens e cobertura do saldo usam os mesmos registros das áreas correspondentes.</p>'+button('metrics-products','Curva ABC e margens dos produtos')+button('metrics-stock','Estoque e cobertura observada')+button('sales-records','Conferir as vendas e os custos')+'</details>'+warning,back(),'indicators');
+  }
+  function roiOpen(preserve=false){
+    if(!preserve){roi.selection=JSON.parse(JSON.stringify(window.ERPPreview.selection()));roi.confirmed=false;}
+    const input=b.indicatorInput(roi.selection),list=investments(b.data());
+    if(!list.some(x=>x.id===roi.investmentId))roi.investmentId=list.length===1?list[0].id:'';
+    b.open('ROI e Payback',button('metrics-roi-privacy',b.data().settings.financialVisible?'Ocultar valores':'Mostrar valores','choice indicator-privacy')+'<p class="ds-note">'+e(input.periodLabel)+'</p><p>O valor investido vem de Custos. O resultado vem do demonstrativo deste recorte, já integrado às vendas e aos custos históricos.</p><label for="roi-investment">Investimento registrado</label><select id="roi-investment"><option value="">Escolher investimento</option>'+list.map(x=>'<option value="'+e(x.id)+'"'+(x.id===roi.investmentId?' selected':'')+'>'+e(x.title)+' · '+money(x.amount)+'</option>').join('')+'</select>'+(!list.length?'<p class="records-missing">Registre primeiro o investimento em Custos, com valor e data.</p>':'')+'<p id="roi-investment-source" class="ds-note"></p><p>Resultado gerencial do recorte: <strong>'+money(input.finance.result)+'</strong></p>'+b.numericField('roi-attribution','Qual parte desse resultado se refere ao investimento? (%)',roi.attribution,'inputmode="decimal"')+'<label class="roi-negative"><input id="roi-confirmed" type="checkbox"'+(roi.confirmed?' checked':'')+'> Conferi o investimento, o recorte e o vínculo do resultado.</label><p class="ds-note">O percentual é uma atribuição sua. O sistema não presume que todo o resultado do negócio foi causado por um único investimento.</p>'+button('metrics-costs','Consultar investimentos e custos')+'<p id="roi-error" class="credit-error" role="status"></p><div id="roi-result" aria-live="polite"></div>',button('metrics-roi-calculate','Conferir ROI do recorte','success')+back('metrics-open'),'investment-roi');
+    updateInvestment();
+  }
+  function updateInvestment(){const x=investments(b.data()).find(x=>x.id===roi.investmentId),el=document.getElementById('roi-investment-source');if(el)el.textContent=x?'Origem: '+x.title+' · '+money(x.amount)+' · '+day(x.date).split('-').reverse().join('/'):'';}
+  function calculate(){
+    try{
+      const input=b.indicatorInput(roi.selection),sel=roi.selection,today=day(),days=Array.isArray(sel.days)?[...sel.days].sort():[],lastDay=days.at(-1)||(/^\d{4}-\d{2}$/.test(sel.month||'')?sel.month+'-'+new Date(Number(sel.month.slice(0,4)),Number(sel.month.slice(5)),0).getDate():sel.year?sel.year+'-12-31':today),throughDay=lastDay<today?lastDay:today;
+      const monthShare=b.periodShares(sel).reduce((n,s)=>n+s.share,0);
+      const result=investmentAssessment({data:b.data(),investmentId:roi.investmentId,finance:input.finance,quality:input.indicators.quality,attributionBps:parseCost(roi.attribution),confirmed:roi.confirmed,throughDay,monthShare,periodComplete:lastDay<today});
+      b.closeNumberPad();document.getElementById('roi-error').textContent='';
+      const target=document.getElementById('roi-result');target.innerHTML='<section class="roi-calculation"><p>ROI gerencial do recorte vinculado</p><strong class="indicator-value tabular" data-financial-value>'+(b.data().settings.financialVisible?number(result.roi)+'%':'•••••')+'</strong><p>Resultado atribuído: <strong>'+money(result.attributed)+'</strong></p><p>Após descontar o investimento: <strong>'+money(result.net)+'</strong></p><p>Prazo de retorno simples estimado: <strong'+(result.payback!==null?' data-financial-value':'')+'>'+(result.payback===null?'exige recorte encerrado com resultado atribuído positivo':b.data().settings.financialVisible?number(result.payback)+' meses, se o ritmo médio se repetir':'•••••')+'</strong></p><details><summary>Origem, fórmula e condições</summary><p>'+e(input.periodLabel)+'</p><p>Investimento: '+money(result.investment)+' · Resultado do demonstrativo: '+money(result.result)+' · Atribuição confirmada: '+number(result.attributionBps/100)+'%.</p><p>'+e(result.formula)+'</p><p>'+e(result.assumption)+'</p><p>A avaliação não duplica o investimento, as despesas ou os recebimentos.</p></details></section>';
+      target.scrollIntoView({block:'nearest',behavior:'auto'});
+    }catch(error){document.getElementById('roi-error').textContent=error.message;}
+  }
+  a['metrics-open']=open;a['metrics-roi']=()=>roiOpen();a['metrics-roi-privacy']=()=>{a['toggle-financial']();roiOpen(true);};a['metrics-roi-calculate']=calculate;
+  a['metrics-privacy']=()=>{a['toggle-financial']();open();};
+  a['metrics-finance']=()=>a['mg-detail']({key:'financas'});a['metrics-clients']=()=>a['mg-detail']({key:'clientes'});a['metrics-products']=()=>a['mg-detail']({key:'produtos'});a['metrics-stock']=()=>a['mg-detail']({key:'estoque'});
+  a['metrics-costs']=()=>a['mg-detail']({key:'custos'});
+  document.addEventListener('input',event=>{if(event.target.id==='roi-attribution'){roi.attribution=event.target.value;document.getElementById('roi-result').innerHTML='';}});
+  document.addEventListener('change',event=>{if(event.target.id==='roi-confirmed')roi.confirmed=event.target.checked;if(event.target.id==='roi-investment'){roi.investmentId=event.target.value;roi.confirmed=false;document.getElementById('roi-confirmed').checked=false;document.getElementById('roi-result').innerHTML='';updateInvestment();}});
+  function decorate(){
+    if(b.page()!=='Gestão')return;const root=document.getElementById('app');if(root.querySelector('.management-indicators-entry'))return;
+    const html='<details class="event-material-card records-entry management-indicators-entry"><summary><span>'+b.icon('chart')+'</span><span><strong>Indicadores</strong><small>Margens, ticket, CRM, ROI e prazo de retorno</small></span>'+b.icon('down')+'</summary><div>'+button('metrics-open','<span>Acompanhar indicadores e fórmulas</span>'+b.icon('chevron'),'link-row')+'</div></details>';
+    const point=root.querySelector('.records-entry:not(.management-indicators-entry)');if(point)point.insertAdjacentHTML('afterend',html);else root.insertAdjacentHTML('beforeend',html);
+  }
+  let refreshTimer;const refreshVisible=()=>{if(document.hidden||b.modal()?.kind!=='indicators')return;clearTimeout(refreshTimer);refreshTimer=setTimeout(()=>{if(document.hidden||b.modal()?.kind!=='indicators')return;const el=document.getElementById('checkout-scroll'),top=el?.scrollTop||0,expanded=[...el.querySelectorAll('details')].map(x=>x.open);open();const next=document.getElementById('checkout-scroll');[...next.querySelectorAll('details')].forEach((x,i)=>x.open=!!expanded[i]);next.scrollTop=top;},80);};
+  window.addEventListener('territorio:product-source-saved',refreshVisible);window.addEventListener('territorio:saved',refreshVisible);window.addEventListener('territorio:resume',refreshVisible);
+  new MutationObserver(decorate).observe(document.getElementById('app'),{childList:true});decorate();
+}

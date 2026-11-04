@@ -1,7 +1,8 @@
+import {recordDay} from '../record-date.js';
 // Finanças do produtor: demonstrativo do período, custos por tipo, indicadores e lucro por feira.
 // Método (gestão de pequeno negócio / feira):
 //   Total vendido (já com descontos)
-//   − custo dos produtos vendidos (o custo informado no cadastro do produto, sempre)
+//   − custo dos produtos vendidos (o snapshot de custo histórico da venda, inclusive correções identificadas)
 //   − taxas de cartão (débito e crédito, configuráveis)
 //   = margem de contribuição  → quanto cada venda deixa para pagar os outros custos
 //   − custos da feira, produção, divulgação (lançados quando a pessoa quiser, inclusive depois)
@@ -128,7 +129,7 @@ export function statement({ sales, returns = [], expenses, receipts = collection
   const drawLogged = new Map();
   let drawUndated = false;
   for (const x of expenses) if (costKind(x) === 'retirada') {
-    const m = String(x.date || '').slice(0, 7);
+    const m = recordDay(x).slice(0, 7);
     if (/^\d{4}-\d{2}$/.test(m)) drawLogged.set(m, (drawLogged.get(m) || 0) + x.amount); else drawUndated = true;
   }
   const drawPlanned = general && settings.drawOn ? Math.round(shares.reduce((n, s) => n + s.share, 0) * settings.drawMonthly) : 0;

@@ -1,3 +1,4 @@
+import {recordDay,recordClock} from './record-date.js';
 import { orderStockProducts } from './stock-order.js';
 
 const normalize=value=>String(value||'').normalize('NFD').replace(/\p{M}/gu,'').toLocaleLowerCase('pt-BR').replace(/[^a-z0-9]+/g,' ').trim();
@@ -11,11 +12,11 @@ export function dailySaleSections({sales=[],returns=[],events=[],day}){
  const byId=new Map(events.map(e=>[e.id,e])),groups=new Map();
  const add=(sale,isReturn)=>{
   if(!['completed','returned'].includes(sale.status))return;
-  const clock=recordedClock(isReturn?sale.returnedAt||sale.date:sale.date);if(!clock||clock.day!==day)return;
+  const clock=isReturn?recordedClock(sale.returnedAt||sale.date):{day:recordDay(sale),time:recordClock(sale)};if(!clock||clock.day!==day)return;
   const scope=sale.scope||'loja',event=byId.get(scope),validTime=t=>/^([01]\d|2[0-3]):[0-5]\d$/.test(t||'');
   const scheduled=!!event&&validTime(event.from)&&validTime(event.until)&&event.from<event.until;
   const inside=scheduled&&clock.day>=event.start&&clock.day<=(event.end||event.start)&&clock.time>=event.from&&clock.time<event.until;
-  const kind=event?(scheduled&&!inside?'outside':'event'):scope==='loja'?'store':'other';
+  const kind=event?(scheduled&&clock.time&&!inside?'outside':'event'):scope==='loja'?'store':'other';
   const key=kind+'|'+scope;
   if(!groups.has(key))groups.set(key,{key,kind,eventId:event?.id||null,name:event?.name||event?.fairName||(kind==='store'?'Loja':'Outras vendas'),from:scheduled?event.from:null,until:scheduled?event.until:null,sales:[],returns:[]});
   groups.get(key)[isReturn?'returns':'sales'].push(sale);

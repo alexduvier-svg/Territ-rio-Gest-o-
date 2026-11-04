@@ -1,3 +1,4 @@
+import {recordDay,recordClock} from '../record-date.js';
 // "Pergunte sobre seu negócio": perguntas em português comum, respondidas só com os registros do app,
 // sem internet e sem inventar. Entende o período ("hoje", "semana passada", "em outubro", "últimos 7
 // dias", "sempre"), o produto ou a categoria ("peixes", "café especial 250 g") e o que se quer saber:
@@ -67,7 +68,7 @@ const ROAST = { Clara: 'TC', 'Média': 'TM', Media: 'TM', Escura: 'TE' };
 function displayName(p) { const code = ROAST[p.coffeeRoast] || '', base = code && !String(p.name).includes(code) ? p.name + ' ' + code : p.name; return withSize({ ...p, name: base }); }
 function withSize(p) { const extra = [p.weight ? (p.weight >= 1000 ? qty(p.weight / 1000) + ' kg' : p.weight + ' g') : '', p.volume ? (p.volume >= 1000 ? qty(p.volume / 1000) + ' L' : p.volume + ' ml') : ''].filter(Boolean).join(' '); return String(p.name || '') + (extra && !String(p.name).includes(extra) ? ' ' + extra : ''); }
 
-function salesIn(data,period,now,scopeId){return (data.sales||[]).filter(s=>s.status==='completed'&&Number.isFinite(Date.parse(s.date))&&Date.parse(s.date)<=now&&(scopeId==='all'||(s.scope||'loja')===scopeId)&&dayKey(s.date)>=period.from&&dayKey(s.date)<=period.to);}
+function salesIn(data,period,now,scopeId){return (data.sales||[]).filter(s=>s.status==='completed'&&Number.isFinite(Date.parse(s.date))&&Date.parse(s.date)<=now&&(scopeId==='all'||(s.scope||'loja')===scopeId)&&recordDay(s)>=period.from&&recordDay(s)<=period.to);}
 const lines=s=>{const items=s.items||[],exact=items.every(i=>Number.isSafeInteger(i.netTotal)&&i.netTotal>=0)&&items.reduce((n,i)=>n+i.netTotal,0)===s.total;let left=s.total||0;return items.map((i,k)=>{const net=exact?i.netTotal:k===items.length-1?left:Math.min(left,Math.round((i.total||0)*(s.subtotal?s.total/s.subtotal:0)));left-=net;return {...i,net};});};
 function productTotals(data, sales) {
   const by = new Map();
@@ -116,8 +117,8 @@ export function answerQuestion(data, question, { now = Date.now(), scopeId='all'
   // Melhor dia e horário
   if (/melhor dia|dia (que|em que) mais|que dia|dia da semana|horario|que hora|que horas|hora que mais|horas que mais/.test(q)) {
     if (!sales.length) return none();
-    if (/hora/.test(q)) { const by = new Map(); for (const s of sales) { const h = Number(new Date(s.date).toLocaleString('en-GB', { timeZone: TZ, hour: '2-digit', hour12: false })) % 24; const r = by.get(h) || { h, n: 0, v: 0 }; r.n++; r.v += s.total || 0; by.set(h, r); } const top = [...by.values()].sort((a, b) => b.v - a.v).slice(0, 3); return out('Horários que mais venderam ' + when + ':\n' + top.map((r, i) => (i + 1) + 'º ' + String(r.h).padStart(2, '0') + 'h às ' + String((r.h + 1) % 24).padStart(2, '0') + 'h: ' + money(r.v) + ' em ' + r.n + (r.n === 1 ? ' venda' : ' vendas')).join('\n') + '\nHorário de Brasília.'); }
-    const by = new Map(); for (const s of sales) { const k = dayKey(s.date); const r = by.get(k) || { k, n: 0, v: 0 }; r.n++; r.v += s.total || 0; by.set(k, r); }
+    if (/hora/.test(q)) { const by = new Map(); for (const s of sales.filter(s=>recordClock(s))) { const h = Number(new Date(s.date).toLocaleString('en-GB', { timeZone: TZ, hour: '2-digit', hour12: false })) % 24; const r = by.get(h) || { h, n: 0, v: 0 }; r.n++; r.v += s.total || 0; by.set(h, r); } if(!by.size)return out('As vendas deste recorte não têm horário conhecido. Consulte os totais por dia.');const top = [...by.values()].sort((a, b) => b.v - a.v).slice(0, 3); return out('Horários que mais venderam ' + when + ':\n' + top.map((r, i) => (i + 1) + 'º ' + String(r.h).padStart(2, '0') + 'h às ' + String((r.h + 1) % 24).padStart(2, '0') + 'h: ' + money(r.v) + ' em ' + r.n + (r.n === 1 ? ' venda' : ' vendas')).join('\n') + '\nHorário de Brasília.'); }
+    const by = new Map(); for (const s of sales) { const k = recordDay(s); const r = by.get(k) || { k, n: 0, v: 0 }; r.n++; r.v += s.total || 0; by.set(k, r); }
     const top = [...by.values()].sort((a, b) => b.v - a.v).slice(0, 3);
     return out('Dias que mais venderam ' + when + ':\n' + top.map((r, i) => (i + 1) + 'º ' + r.k.split('-').reverse().join('/') + ' (' + WEEKDAYS[new Date(r.k + 'T12:00:00Z').getUTCDay()] + '): ' + money(r.v) + ' em ' + r.n + (r.n === 1 ? ' venda' : ' vendas')).join('\n'));
   }

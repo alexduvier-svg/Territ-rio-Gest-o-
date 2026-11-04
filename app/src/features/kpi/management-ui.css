@@ -1,0 +1,13 @@
+.indicator-primary { display:grid;gap:12px; }
+.indicator-card { background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px;margin:12px 0; }
+.indicator-card h3 { margin:0 0 10px;font-size:15px;line-height:1.4; }
+.indicator-value { display:block;font-size:24px;line-height:1.3;overflow-wrap:anywhere;margin:8px 0 12px; }
+.indicator-card summary,.indicator-group > summary,.roi-calculation summary { font-weight:650;font-size:14px;cursor:pointer;line-height:1.5;min-height:32px; }
+.indicator-card p,.indicator-group > p,.roi-calculation p { font-size:13px;line-height:1.55;color:var(--muted);margin:10px 0; }
+.indicator-group { padding:14px;border:1px solid var(--line);border-radius:18px;margin:14px 0; }
+.indicator-group > button { width:100%;font-size:14px;margin:10px 0 0; }
+.indicator-quality { font-size:13px;line-height:1.55;color:var(--muted);padding:12px;border-left:3px solid var(--orange); }
+.indicator-privacy { display:flex;align-items:center;gap:8px;font-size:14px;margin:10px 0; }
+.roi-negative { display:flex;align-items:center;gap:10px;font-size:14px;line-height:1.4;margin:12px 0; }
+.roi-negative input { width:22px;height:22px;min-height:22px;margin:0;flex:none; }
+.roi-calculation { padding:14px;background:var(--panel);border:1px solid var(--line);border-radius:18px;margin:16px 0; }

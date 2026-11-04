@@ -1,0 +1,26 @@
+# CRM, PDV e indicadores — revisão para Codex140
+
+Fonte do projeto identificada: **AGRO_Gestao_Diretrizes_Profissionais_CRM_PDV_Codex.docx**, versão1.0 de22/10/2026, SHA256 `4f0072c8acc752ee2300e15ccee186bcc1558ef761bf760d41eddff69ecd65ec`. A transcrição está em `app/public/knowledge/crm-pdv-profissional.md`. A matriz66 é histórica; não comprova o estado completo da139. Esta revisão cobre os pedidos de04/11/2026 sobre histórico/custos, Crédito, reposição e visibilidade dos indicadores.
+
+Estado de partida: Codex139, `c0c6898e9dd37f486e117cbfa39ca334a47426a1`. Implementado e validado em1159testes unitários e8cenários de navegador. Testes físicos/instalação140 pendentes de conexão; não é entrega instalada.
+
+| Requisito | Evidência na139 | Estado inicial/lacuna | Decisão140 | Risco e aceitação |
+|---|---|---|---|---|
+| Registro único de vendas | ERPModel.data.sales, resumo diário, consulta semanal, saleDetail | Existente; acesso disperso | Uma área Vendas expansível na Gestão, reutilizando os registros | Nenhuma cópia paralela, exclusão mensal ou alteração de saldos |
+| Arquivo mensal e consulta por dia | Histórico semanal e listas por recorte | Parcial | Mês atual e Arquivo, dias expansíveis e carregamento sob demanda | Datas civis de Brasília, dia confirmado da venda tardia, meses antigos preservados |
+| Custo histórico corrigível | Snapshot no item; sem editor posterior | Parcial | Correção por unidade no item vendido, com revisão identificada e custo total recalculado | Não alterar preço cobrado, cadastro atual, quantidade, estoque ou pagamento; conferir devoluções |
+| Ausente diferente de zero | costKnown e motores financeiros | Existente | Preservar; zero só quando explicitamente informado | Nenhum lucro total afirmado com custo desconhecido; nomes/apresentações e caminho para completar em Vendas |
+| Gravação e duplo toque | Auditoria obrigatória e slots duráveis | Existente | Reutilizar auditoria e chave da alteração; falha síncrona reverte, confirmação pendente não duplica | Testar rollback, mesma operação, revisão antiga e troca de produtor/contexto |
+| Crédito com parcelas | Apenas forma Crédito; Fiado separado | Parcial | Quantidade pelo teclado, datas mensais e calendário editável; plano gravado na venda | Soma exata em centavos, mês curto/ano bissexto, datas ordenadas, alteração de total invalida plano |
+| Vendas antigas no Crédito | Sem plano de parcelas | Existente | Preservar e indicar parcelamento não informado | Não inventar datas nem recebimentos de registros antigos |
+| Teclado de reposição com vários itens | Quatro linhas e teclado na mesma rolagem | Conflitante com altura útil | Um produto ativo por vez e Ver lista; seleção retorna ao teclado | Teclas e ações alcançáveis em telas pequenas, vários produtos e dois temas |
+| Dicionário de métricas do PDV | Finance, metric-interpretation, gestão e advisor | Existente, apresentação dispersa | Área Indicadores expansível com valor, fórmula, dados usados e ação | Reutilizar demonstrativo e recorte canônicos; não somar unidades físicas diferentes |
+| ROI e payback | Conta de investimento em Crédito e Investimento | Parcial em relação ao acesso pedido | Vincular investimento lançado em Custos, resultado do demonstrativo do recorte e percentual atribuível confirmado | Não dividir resultado geral por compras do mês como se fossem retorno atribuível |
+| Identificação e recompra de clientes | IDs, consumos, memória e propostas revisáveis | Parcial | Mostrar cobertura de identificação e recompra observada, com denominador explícito | Sem identificar pessoas por nome igual, sem inventar retenção/coorte ou conversão |
+| ABC e cobertura do estoque | kpi-engine, Produtos e Estoque | Existente desde integrações posteriores à66 | Dar acesso visível às análises existentes | Custo desconhecido, unidade e janela de30dias permanecem explícitos |
+| Motor de Inteligência | Connect/Action/Audit, regras e memória do produtor | Existente | Compartilhar definições e fatos dos indicadores com as orientações atuais | Nenhum motor paralelo ou resposta numérica externa inventada |
+| CRM completo, coortes, RFM e automações comerciais | Partes ausentes/parciais na matriz66 | Fora desta entrega | Registrar limites; não anunciar implementação integral do manual | Não enviar contatos/mensagens, criar nova automação ou migrar dados principais |
+
+O ROI é um pedido explícito desta rodada. Referências conceituais consultadas: [gestão financeira do Sebrae](https://sebrae.com.br/Sebrae/Portal%20Sebrae/UFs/PE/Anexos/Gestao-financeira-guia-completo-para-o-empresario-em-desenvolvimento.pdf) e [tempo de retorno do investimento — Sebrae Minas](https://sebrae.com.br/Sebrae/Portal%20Sebrae/UFs/MG/Sebrae%20de%20A%20a%20Z/Caderno_Gest%C3%A3o_Financeira_Sebrae_Minas.pdf). Fórmulas e parâmetros do aplicativo continuam verificáveis nos motores locais; não há certificação ou aprovação dessas instituições.
+
+Não há autorização inferida do manual para implantar todas as etapas futuras. O trabalho atende aos ajustes pedidos, preserva o Codex e foi validado com dados fictícios no domínio e navegador; a rodada física ainda está pendente. O backend, checkout Claude e bases principais ficam fora dos testes.

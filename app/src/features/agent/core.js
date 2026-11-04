@@ -1,3 +1,4 @@
+import {recordInstant,recordDay} from '../record-date.js';
 // Deterministic offline tools. No network, executable document instructions or business writes.
 import { interpretSpeech, cleanSpeech } from '../voice/interpret.js';
 import { productNetItems } from '../product-period-reports.js';
@@ -25,7 +26,7 @@ export function audit(agent,requestId,event,details={},now=Date.now()){
 }
 export function scopeMatches(record,scope='all'){if(scope==='all')return true;if(scope==='events')return record.scope&&record.scope!=='loja';if(scope==='individual-pf'||scope==='individual-pj')return(record.scope||'loja')==='loja'&&(record.customerType||record.recipientType||'PF')===(scope==='individual-pj'?'PJ':'PF');return (record.scope||'loja')===scope;}
 export function eligible(record,ctx){return !!record&&(!record.actorId||record.actorId===ctx.actorId)&&(!record.dataContext?.id||record.dataContext.id===ctx.actorId)&&(!record.dataContext?.type||record.dataContext.type===ctx.dataOrigin)&&(ctx.dataOrigin!=='real'||(!record.demo&&!record.simulation&&!record.simulated&&!/^(demo-|exemplo-)/.test(record.id||'')));}
-export function scopeSales(data,scope,now=Date.now()){const ctx=contextOf(data),seen=new Set();return(data.sales||[]).filter(s=>s.id&&eligible(s,ctx)&&scopeMatches(s,scope)&&['completed','returned'].includes(s.status)&&Number.isFinite(date(s.date))&&date(s.date)<=now&&!seen.has(s.id)&&seen.add(s.id));}
+export function scopeSales(data,scope,now=Date.now()){const ctx=contextOf(data),seen=new Set();return(data.sales||[]).filter(s=>s.id&&eligible(s,ctx)&&scopeMatches(s,scope)&&['completed','returned'].includes(s.status)&&Number.isFinite(recordInstant(s))&&recordInstant(s)<=now&&!seen.has(s.id)&&seen.add(s.id));}
 function activeProducts(data){const c=contextOf(data);return(data.products||[]).filter(p=>eligible(p,c)&&p.active!==false&&!p.archived);}
 export function productIndex(data){const rows=activeProducts(data).map(p=>({id:p.id,name:p.name,type:p.type||'',format:p.format||'',unit:p.unit,weight:p.weight||0,volume:p.volume||0})),fingerprint=JSON.stringify(rows);let hash=0;for(let i=0;i<fingerprint.length;i++)hash=Math.imul(hash^fingerprint.charCodeAt(i),31);return {version:1,actorId:contextOf(data).actorId,hash:(hash>>>0).toString(16),rows};}
 export function parseRequest(text,data,{scopeId='all',source='text',requestId='',now=Date.now()}={}){
@@ -90,12 +91,12 @@ export function fairFacts(data,eventId,now=Date.now()){
 export function rebuyFacts(data,scopeId='all',now=Date.now()){
  if(data.agent?.settings?.rebuy===false)return [];
  const ctx=contextOf(data),products=new Map(activeProducts(data).map(p=>[p.id,p])),clients=new Map((data.clients||[]).filter(c=>eligible(c,ctx)&&c.noticeConsent===true).map(c=>[c.id,c])),groups=new Map();
- for(const s of scopeSales(data,scopeId,now).filter(s=>s.status==='completed'&&clients.has(s.customerId)))for(const i of s.items||[]){const p=products.get(i.productId);if(!p||p.stock<=0||data.agent?.settings?.excludedProducts?.includes(p.id))continue;const key=s.customerId+'|'+p.id;if(!groups.has(key))groups.set(key,{clientId:s.customerId,productId:p.id,name:p.name,days:new Set(),saleIds:new Set()});groups.get(key).days.add(day(date(s.date)));groups.get(key).saleIds.add(s.id);}
+ for(const s of scopeSales(data,scopeId,now).filter(s=>s.status==='completed'&&clients.has(s.customerId)))for(const i of s.items||[]){const p=products.get(i.productId);if(!p||p.stock<=0||data.agent?.settings?.excludedProducts?.includes(p.id))continue;const key=s.customerId+'|'+p.id;if(!groups.has(key))groups.set(key,{clientId:s.customerId,productId:p.id,name:p.name,days:new Set(),saleIds:new Set()});groups.get(key).days.add(recordDay(s));groups.get(key).saleIds.add(s.id);}
  const out=[];for(const g of groups.values()){const days=[...g.days].sort(),intervals=days.slice(1).map((d,i)=>(date(d+'T12:00:00Z')-date(days[i]+'T12:00:00Z'))/DAY).filter(n=>n>0);if(days.length<AGENT_GUIDELINES.parameters.minimumBuyingDays||intervals.length<3)continue;const cadence=median(intervals),elapsed=(date(day(now)+'T12:00:00Z')-date(days.at(-1)+'T12:00:00Z'))/DAY;if(elapsed<AGENT_GUIDELINES.parameters.rebuyElapsedMultiplier*cadence)continue;out.push({...g,days,intervalDays:cadence,elapsedDays:elapsed,sampleSize:days.length,saleIds:[...g.saleIds],dueAt:date(days.at(-1)+'T12:00:00Z')+AGENT_GUIDELINES.parameters.rebuyElapsedMultiplier*cadence*DAY});}return out.sort((a,b)=>b.elapsedDays/b.intervalDays-a.elapsedDays/a.intervalDays);
 }
 export function analyze(data,{scopeId='all',period,now=Date.now()}={}){
  const context=contextOf(data),ctx={scopeId,period,now},sales=scopeSales(data,scopeId,now),valid=sales.filter(s=>s.status==='completed'),insights=[],products=activeProducts(data),sold=new Map();
- const end=Math.min(period?.end||now,now),days=data.agent?.settings?.stagnantDays||30,start=period?.start||now-days*DAY,stagnantStart=Math.max(start,end-days*DAY),periodSales=valid.filter(s=>date(s.date)>=stagnantStart&&date(s.date)<=end);
+ const end=Math.min(period?.end||now,now),days=data.agent?.settings?.stagnantDays||30,start=period?.start||now-days*DAY,stagnantStart=Math.max(start,end-days*DAY),periodSales=valid.filter(s=>recordInstant(s)>=stagnantStart&&recordInstant(s)<=end);
  for(const s of periodSales)for(const i of s.items||[])sold.set(i.productId,(sold.get(i.productId)||0)+i.qty);
  // Global balances must not masquerade as event balances.
  const eventScope=!['all','loja','events'].includes(scopeId),eventIds=new Set((data.eventLoads||[]).filter(l=>scopeId==='events'||l.eventId===scopeId).flatMap(l=>l.items.map(i=>i.productId)));

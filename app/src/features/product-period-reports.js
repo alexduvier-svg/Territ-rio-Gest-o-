@@ -1,3 +1,4 @@
+import {recordInstant} from './record-date.js';
 // Closed, deterministic summaries of the producer's own records. No catalogue,
 // current price, receipt payment or remote AI is used to rank products.
 const DAY = 86400000;
@@ -20,11 +21,11 @@ export function realProductSales(data, now = Date.now()) {
   const demoScopes = new Set((data.events || []).filter(e => e.demo || e.simulation).map(e => e.id));
   const byId = new Map();
   for (const sale of data.sales || []) {
-    const at = timestamp(sale.date);
+    const at = recordInstant(sale);
     if (!sale.id || !realRecord(sale) || demoScopes.has(sale.scope) || !['completed', 'returned'].includes(sale.status) || !Number.isFinite(at) || at > now || !sale.items?.length) continue;
     if (!byId.has(sale.id)) byId.set(sale.id, sale);
   }
-  return [...byId.values()].sort((a, b) => timestamp(a.date) - timestamp(b.date) || collator.compare(a.id, b.id));
+  return [...byId.values()].sort((a, b) => recordInstant(a) - recordInstant(b) || collator.compare(a.id, b.id));
 }
 
 // Same cent-exact allocation as the sale UI: the last line receives the residual.
@@ -121,7 +122,7 @@ function buildReportFromSales(data, period, now, sales) {
   for (const sale of sales) {
     // Legacy full returns without a timestamp use the original date, matching
     // the financial statement; they must never be ranked as an active sale.
-    const at = timestamp(sale.date), returnAt = sale.status === 'returned' ? timestamp(sale.returnedAt || sale.date) : NaN;
+    const at = recordInstant(sale), returnAt = sale.status === 'returned' ? timestamp(sale.returnedAt || sale.date) : NaN;
     const inSales = at >= period.start && at < period.end;
     const inReturns = Number.isFinite(returnAt) && returnAt >= period.start && returnAt < period.end && returnAt <= now;
     if (!inSales && !inReturns) continue;
