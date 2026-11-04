@@ -1,8 +1,8 @@
 {
   "version": "0.12.140",
   "versionCode": 181,
-  "generatedAt": "2026-11-04T13:17:21.329Z",
-  "status": "browser-validated-awaiting-devices",
+  "generatedAt": "2026-11-04T15:25:49.568Z",
+  "status": "installed-and-validated",
   "sha256": "233ebd3b6d2eef05410b3a570ca93f10495b04c5c994123902409e0e477fc1dd",
   "size": 9337561,
   "baseCodex": "c0c6898e9dd37f486e117cbfa39ca334a47426a1",
@@ -12,6 +12,501 @@
   "unit": {
     "passed": 1159,
     "failed": 0
+  },
+  "spacingRuleValidation": {
+    "ruleVersion": 1,
+    "appVersion": "0.12.140",
+    "runtimeChanged": false,
+    "synthetic": true,
+    "productionDatabaseRead": false,
+    "passed": true,
+    "cases": [
+      {
+        "theme": "dark",
+        "width": 320,
+        "largeText": true,
+        "performanceMode": "lite",
+        "reducedMotion": true,
+        "result": {
+          "spacingContract": true,
+          "noIndependentControlOverlap": true,
+          "scenes": [
+            {
+              "label": "Gestão · blocos independentes",
+              "checks": 0
+            },
+            {
+              "label": "Vendas · filtros e rodapé",
+              "checks": 3
+            },
+            {
+              "label": "Reposição · teclado e ações",
+              "checks": 57
+            },
+            {
+              "label": "Reposição · lista",
+              "checks": 1
+            },
+            {
+              "label": "Produtos · concentração de receita e lucro",
+              "checks": 0
+            },
+            {
+              "label": "Indicadores · grupos expandidos",
+              "checks": 0
+            },
+            {
+              "label": "ROI · campos e ações",
+              "checks": 1
+            },
+            {
+              "label": "Revisão da venda",
+              "checks": 0
+            },
+            {
+              "label": "Parcelamento · datas e ações",
+              "checks": 1
+            },
+            {
+              "label": "Crédito · resumo e alteração",
+              "checks": 0
+            }
+          ],
+          "measurements": 63
+        },
+        "passed": true
+      },
+      {
+        "theme": "dark",
+        "width": 360,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "spacingContract": true,
+          "noIndependentControlOverlap": true,
+          "scenes": [
+            {
+              "label": "Gestão · blocos independentes",
+              "checks": 0
+            },
+            {
+              "label": "Vendas · filtros e rodapé",
+              "checks": 3
+            },
+            {
+              "label": "Reposição · teclado e ações",
+              "checks": 57
+            },
+            {
+              "label": "Reposição · lista",
+              "checks": 1
+            },
+            {
+              "label": "Produtos · concentração de receita e lucro",
+              "checks": 0
+            },
+            {
+              "label": "Indicadores · grupos expandidos",
+              "checks": 0
+            },
+            {
+              "label": "ROI · campos e ações",
+              "checks": 1
+            },
+            {
+              "label": "Revisão da venda",
+              "checks": 0
+            },
+            {
+              "label": "Parcelamento · datas e ações",
+              "checks": 1
+            },
+            {
+              "label": "Crédito · resumo e alteração",
+              "checks": 1
+            }
+          ],
+          "measurements": 64
+        },
+        "passed": true
+      },
+      {
+        "theme": "dark",
+        "width": 393,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "spacingContract": true,
+          "noIndependentControlOverlap": true,
+          "scenes": [
+            {
+              "label": "Gestão · blocos independentes",
+              "checks": 0
+            },
+            {
+              "label": "Vendas · filtros e rodapé",
+              "checks": 3
+            },
+            {
+              "label": "Reposição · teclado e ações",
+              "checks": 57
+            },
+            {
+              "label": "Reposição · lista",
+              "checks": 1
+            },
+            {
+              "label": "Produtos · concentração de receita e lucro",
+              "checks": 0
+            },
+            {
+              "label": "Indicadores · grupos expandidos",
+              "checks": 0
+            },
+            {
+              "label": "ROI · campos e ações",
+              "checks": 1
+            },
+            {
+              "label": "Revisão da venda",
+              "checks": 0
+            },
+            {
+              "label": "Parcelamento · datas e ações",
+              "checks": 1
+            },
+            {
+              "label": "Crédito · resumo e alteração",
+              "checks": 1
+            }
+          ],
+          "measurements": 64
+        },
+        "passed": true
+      },
+      {
+        "theme": "dark",
+        "width": 412,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "spacingContract": true,
+          "noIndependentControlOverlap": true,
+          "scenes": [
+            {
+              "label": "Gestão · blocos independentes",
+              "checks": 0
+            },
+            {
+              "label": "Vendas · filtros e rodapé",
+              "checks": 3
+            },
+            {
+              "label": "Reposição · teclado e ações",
+              "checks": 57
+            },
+            {
+              "label": "Reposição · lista",
+              "checks": 1
+            },
+            {
+              "label": "Produtos · concentração de receita e lucro",
+              "checks": 0
+            },
+            {
+              "label": "Indicadores · grupos expandidos",
+              "checks": 0
+            },
+            {
+              "label": "ROI · campos e ações",
+              "checks": 1
+            },
+            {
+              "label": "Revisão da venda",
+              "checks": 0
+            },
+            {
+              "label": "Parcelamento · datas e ações",
+              "checks": 1
+            },
+            {
+              "label": "Crédito · resumo e alteração",
+              "checks": 1
+            }
+          ],
+          "measurements": 64
+        },
+        "passed": true
+      },
+      {
+        "theme": "light",
+        "width": 320,
+        "largeText": true,
+        "performanceMode": "lite",
+        "reducedMotion": true,
+        "result": {
+          "spacingContract": true,
+          "noIndependentControlOverlap": true,
+          "scenes": [
+            {
+              "label": "Gestão · blocos independentes",
+              "checks": 0
+            },
+            {
+              "label": "Vendas · filtros e rodapé",
+              "checks": 3
+            },
+            {
+              "label": "Reposição · teclado e ações",
+              "checks": 57
+            },
+            {
+              "label": "Reposição · lista",
+              "checks": 1
+            },
+            {
+              "label": "Produtos · concentração de receita e lucro",
+              "checks": 0
+            },
+            {
+              "label": "Indicadores · grupos expandidos",
+              "checks": 0
+            },
+            {
+              "label": "ROI · campos e ações",
+              "checks": 1
+            },
+            {
+              "label": "Revisão da venda",
+              "checks": 0
+            },
+            {
+              "label": "Parcelamento · datas e ações",
+              "checks": 1
+            },
+            {
+              "label": "Crédito · resumo e alteração",
+              "checks": 0
+            }
+          ],
+          "measurements": 63
+        },
+        "passed": true
+      },
+      {
+        "theme": "light",
+        "width": 360,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "spacingContract": true,
+          "noIndependentControlOverlap": true,
+          "scenes": [
+            {
+              "label": "Gestão · blocos independentes",
+              "checks": 0
+            },
+            {
+              "label": "Vendas · filtros e rodapé",
+              "checks": 3
+            },
+            {
+              "label": "Reposição · teclado e ações",
+              "checks": 57
+            },
+            {
+              "label": "Reposição · lista",
+              "checks": 1
+            },
+            {
+              "label": "Produtos · concentração de receita e lucro",
+              "checks": 0
+            },
+            {
+              "label": "Indicadores · grupos expandidos",
+              "checks": 0
+            },
+            {
+              "label": "ROI · campos e ações",
+              "checks": 1
+            },
+            {
+              "label": "Revisão da venda",
+              "checks": 0
+            },
+            {
+              "label": "Parcelamento · datas e ações",
+              "checks": 1
+            },
+            {
+              "label": "Crédito · resumo e alteração",
+              "checks": 1
+            }
+          ],
+          "measurements": 64
+        },
+        "passed": true
+      },
+      {
+        "theme": "light",
+        "width": 393,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "spacingContract": true,
+          "noIndependentControlOverlap": true,
+          "scenes": [
+            {
+              "label": "Gestão · blocos independentes",
+              "checks": 0
+            },
+            {
+              "label": "Vendas · filtros e rodapé",
+              "checks": 3
+            },
+            {
+              "label": "Reposição · teclado e ações",
+              "checks": 57
+            },
+            {
+              "label": "Reposição · lista",
+              "checks": 1
+            },
+            {
+              "label": "Produtos · concentração de receita e lucro",
+              "checks": 0
+            },
+            {
+              "label": "Indicadores · grupos expandidos",
+              "checks": 0
+            },
+            {
+              "label": "ROI · campos e ações",
+              "checks": 1
+            },
+            {
+              "label": "Revisão da venda",
+              "checks": 0
+            },
+            {
+              "label": "Parcelamento · datas e ações",
+              "checks": 1
+            },
+            {
+              "label": "Crédito · resumo e alteração",
+              "checks": 1
+            }
+          ],
+          "measurements": 64
+        },
+        "passed": true
+      },
+      {
+        "theme": "light",
+        "width": 412,
+        "largeText": false,
+        "performanceMode": "auto",
+        "reducedMotion": false,
+        "result": {
+          "spacingContract": true,
+          "noIndependentControlOverlap": true,
+          "scenes": [
+            {
+              "label": "Gestão · blocos independentes",
+              "checks": 0
+            },
+            {
+              "label": "Vendas · filtros e rodapé",
+              "checks": 3
+            },
+            {
+              "label": "Reposição · teclado e ações",
+              "checks": 57
+            },
+            {
+              "label": "Reposição · lista",
+              "checks": 1
+            },
+            {
+              "label": "Produtos · concentração de receita e lucro",
+              "checks": 0
+            },
+            {
+              "label": "Indicadores · grupos expandidos",
+              "checks": 0
+            },
+            {
+              "label": "ROI · campos e ações",
+              "checks": 1
+            },
+            {
+              "label": "Revisão da venda",
+              "checks": 0
+            },
+            {
+              "label": "Parcelamento · datas e ações",
+              "checks": 1
+            },
+            {
+              "label": "Crédito · resumo e alteração",
+              "checks": 1
+            }
+          ],
+          "measurements": 64
+        },
+        "passed": true
+      }
+    ],
+    "apk": {
+      "name": "AGRO-Gestao-Codex-0.12.140.apk",
+      "sha256": "233ebd3b6d2eef05410b3a570ca93f10495b04c5c994123902409e0e477fc1dd"
+    },
+    "assetsUnchanged": true,
+    "checkedAt": "2026-11-04T15:21:28.717Z"
+  },
+  "editorialRules": {
+    "language": "pt-BR",
+    "source": "app/docs/PADROES-DE-INTERACAO-E-TEXTOS.md",
+    "scope": "permanent-development-review"
+  },
+  "nativePrivacyDiagnostic": {
+    "at": "2026-11-04T14:50:18.510Z",
+    "synthetic": true,
+    "productionDatabaseRead": false,
+    "initial": {
+      "financialVisible": false,
+      "result": 2000,
+      "investment": 1000,
+      "costsComplete": true
+    },
+    "roiReopenedForDiagnosis": true,
+    "before": {
+      "kind": "investment-roi",
+      "financialVisible": false,
+      "result": 2000,
+      "investment": 1000,
+      "attribution": "100",
+      "confirmed": true,
+      "visibleResult": "ROI gerencial do recorte vinculado\n\n•••••\n\nResultado atribuído: •••••\n\nApós descontar o investimento: •••••\n\nPrazo de retorno simples estimado: exige recorte encerrado com resultado atribuído positivo\n\nOrigem, fórmula e condições",
+      "costsComplete": true
+    },
+    "after": {
+      "kind": "investment-roi",
+      "financialVisible": true,
+      "result": 2000,
+      "investment": 1000,
+      "attribution": "100",
+      "confirmed": true,
+      "visibleResult": "ROI gerencial do recorte vinculado\n\n100%\n\nResultado atribuído: R$ 20,00\n\nApós descontar o investimento: R$ 10,00\n\nPrazo de retorno simples estimado: exige recorte encerrado com resultado atribuído positivo\n\nOrigem, fórmula e condições",
+      "costsComplete": true
+    },
+    "passed": true,
+    "reason": "Existing FINANCIAL_PEEK_MS=30000 elapsed before the ROI visibility assertion. A fresh explicit reveal displays the same correct calculation and preserves the editor."
   },
   "browser": {
     "passed": true,
@@ -971,9 +1466,510 @@
     "packagedAssetsVerified": true,
     "internetPermission": false
   },
-  "native": [],
-  "validated": false,
-  "delivered": false,
+  "native": [
+    {
+      "version": "0.12.140",
+      "device": "reno",
+      "theme": "light",
+      "physical": true,
+      "synthetic": true,
+      "fixturePackage": "br.com.territorio.gestao2.sales140",
+      "fixtureSha256": "5118b3ef24b54f255d27c3545e64c59f44e34a6b81f63a1ba0aa8902a6d06f6c",
+      "networkBlocked": true,
+      "productionDatabaseRead": false,
+      "startedAt": "2026-11-04T14:51:01.574Z",
+      "errors": [],
+      "result": {
+        "fiveTabs": true,
+        "identity": true,
+        "familySixCards": true,
+        "familyExpansion": true,
+        "ornamentalsSeparate": true,
+        "sectionMap": true,
+        "oneTapSaleAndCancel": true,
+        "stockAreasAndSubgroups": true,
+        "backOneLevel": true,
+        "supplierBackToStock": true,
+        "sevenCalculatorTopics": true,
+        "searchProductPicker": true,
+        "markupCalculation": true,
+        "scientificAngle": true,
+        "basicCalculator": true,
+        "domainUnchanged": true,
+        "viewportFit": true,
+        "lateInterruptionCancelsWholeGroup": true,
+        "rapidTabsAndIconCleanup": true,
+        "profileSheet": true,
+        "rapidStockLevels": true,
+        "productDraftAndCancel": true,
+        "clientDraftAndClose": true,
+        "eventDraftAndClose": true,
+        "finalCleanup": true,
+        "communitySaved": true,
+        "seuLugarLanguage": true,
+        "weakGpsNeverSaved": true,
+        "previewDoesNotSave": true,
+        "gpsConfirmationAndDurableSave": true,
+        "weakGpsPreservesExisting": true,
+        "rejectedSaveRollsBack": true,
+        "failedDiskRollsBack": true,
+        "persistedAfterReload": true,
+        "existingErdFullCodeAndConfirmation": true,
+        "fiveReferences": true,
+        "streetViewValidationAndAngle": true,
+        "shortLinkResolution": true,
+        "shareOfflineAdviceAndFullCode": true,
+        "directMapsRoute": true,
+        "closedProfileDiscardsLateGps": true,
+        "businessRecordsUnchanged": true,
+        "syntheticGpsOnly": true,
+        "separateFilesSection": true,
+        "privacyExplainedAndToggle": true,
+        "emptyDatesFit": true,
+        "canonicalCashAndForecast": true,
+        "managementSummaryCSV": true,
+        "paretoSpacing": true,
+        "claudeAbc": true,
+        "managementSections": true,
+        "claudeStockCoverage": true,
+        "claudePeriodComparison": true,
+        "allSevenSimulationCSV": true,
+        "csvAction": true,
+        "profileMotionAndInterruptions": true,
+        "claudeResetCopyAndRestore": true,
+        "failedCopyNeverResets": true,
+        "doubleTapStock": true,
+        "holdWideAndGrid": true,
+        "cartReopenAndReview": true,
+        "requiredFieldFeedback": true,
+        "greenCoffeeSack": true,
+        "categoryAndFreePackaging": true,
+        "archiveLastFamilyAndRestore": true,
+        "archiveDurableRollback": true,
+        "lotEntrySearchAndHeader": true,
+        "lotSearchNeverReopensClosedSheet": true,
+        "supplierTraceExplained": true,
+        "financialAutoHideAndDraft": true,
+        "updateSyntheticCleanup": true,
+        "zeroStockInLoja": true,
+        "stockAckRollbackAndRearm": true,
+        "daySummaryTimeAndBuyers": true,
+        "managementReorganized": true,
+        "managementTimedSales": true,
+        "brainShellAndAutomaticComparison": true,
+        "comparisonEquivalentWindowAndUnknownCost": true,
+        "closedBrainNeverRevives": true,
+        "localQuestionCanonicalTotal": true,
+        "aboutAppAccurate": true,
+        "newJourneysSyntheticOnly": true,
+        "soldOutDotBeforeFirstWord": true,
+        "noRedRestockArrows": true,
+        "firstSaveOpensFish": true,
+        "deferFishWithoutChangingStock": true,
+        "oneUnitRestoresOriginalOrder": true,
+        "skipFirstStillReachesFish": true,
+        "storageRetryDoesNotDuplicate": true,
+        "quantityKeypadKeepsScroll": true,
+        "sixProductsCanBeReviewedWithoutRestock": true,
+        "soldOutCountsAndPlural": true,
+        "stockRowsUseFirstWordDot": true,
+        "postSaleReturnHomeLabelAndAction": true,
+        "restockSyntheticCleanup": true,
+        "expandableEntries": true,
+        "closedIndicatorsAreLazy": true,
+        "restoringSixProductsKeepsWholeKeyboard": true,
+        "costGuidanceBeforePrice": true,
+        "costPendingRetryDoesNotDuplicate": true,
+        "historicalCostPropagatesWithoutStockOrPaymentChange": true,
+        "indicatorsReadSameHistoricalCosts": true,
+        "roiReadsInvestmentAndStatement": true,
+        "integratedPrivacyPreservesRoiInputs": true,
+        "creditInstallmentsIntegrated": true,
+        "savedCreditScheduleReadable": true,
+        "archiveAndBoundedSalesList": true,
+        "syntheticDataRestored": true
+      },
+      "passed": true,
+      "finishedAt": "2026-11-04T14:59:39.041Z"
+    },
+    {
+      "version": "0.12.140",
+      "device": "reno",
+      "theme": "dark",
+      "physical": true,
+      "synthetic": true,
+      "fixturePackage": "br.com.territorio.gestao2.sales140",
+      "fixtureSha256": "5118b3ef24b54f255d27c3545e64c59f44e34a6b81f63a1ba0aa8902a6d06f6c",
+      "networkBlocked": true,
+      "productionDatabaseRead": false,
+      "startedAt": "2026-11-04T14:59:39.349Z",
+      "errors": [],
+      "result": {
+        "fiveTabs": true,
+        "identity": true,
+        "familySixCards": true,
+        "familyExpansion": true,
+        "ornamentalsSeparate": true,
+        "sectionMap": true,
+        "oneTapSaleAndCancel": true,
+        "stockAreasAndSubgroups": true,
+        "backOneLevel": true,
+        "supplierBackToStock": true,
+        "sevenCalculatorTopics": true,
+        "searchProductPicker": true,
+        "markupCalculation": true,
+        "scientificAngle": true,
+        "basicCalculator": true,
+        "domainUnchanged": true,
+        "viewportFit": true,
+        "lateInterruptionCancelsWholeGroup": true,
+        "rapidTabsAndIconCleanup": true,
+        "profileSheet": true,
+        "rapidStockLevels": true,
+        "productDraftAndCancel": true,
+        "clientDraftAndClose": true,
+        "eventDraftAndClose": true,
+        "finalCleanup": true,
+        "communitySaved": true,
+        "seuLugarLanguage": true,
+        "weakGpsNeverSaved": true,
+        "previewDoesNotSave": true,
+        "gpsConfirmationAndDurableSave": true,
+        "weakGpsPreservesExisting": true,
+        "rejectedSaveRollsBack": true,
+        "failedDiskRollsBack": true,
+        "persistedAfterReload": true,
+        "existingErdFullCodeAndConfirmation": true,
+        "fiveReferences": true,
+        "streetViewValidationAndAngle": true,
+        "shortLinkResolution": true,
+        "shareOfflineAdviceAndFullCode": true,
+        "directMapsRoute": true,
+        "closedProfileDiscardsLateGps": true,
+        "businessRecordsUnchanged": true,
+        "syntheticGpsOnly": true,
+        "separateFilesSection": true,
+        "privacyExplainedAndToggle": true,
+        "emptyDatesFit": true,
+        "canonicalCashAndForecast": true,
+        "managementSummaryCSV": true,
+        "paretoSpacing": true,
+        "claudeAbc": true,
+        "managementSections": true,
+        "claudeStockCoverage": true,
+        "claudePeriodComparison": true,
+        "allSevenSimulationCSV": true,
+        "csvAction": true,
+        "profileMotionAndInterruptions": true,
+        "claudeResetCopyAndRestore": true,
+        "failedCopyNeverResets": true,
+        "doubleTapStock": true,
+        "holdWideAndGrid": true,
+        "cartReopenAndReview": true,
+        "requiredFieldFeedback": true,
+        "greenCoffeeSack": true,
+        "categoryAndFreePackaging": true,
+        "archiveLastFamilyAndRestore": true,
+        "archiveDurableRollback": true,
+        "lotEntrySearchAndHeader": true,
+        "lotSearchNeverReopensClosedSheet": true,
+        "supplierTraceExplained": true,
+        "financialAutoHideAndDraft": true,
+        "updateSyntheticCleanup": true,
+        "zeroStockInLoja": true,
+        "stockAckRollbackAndRearm": true,
+        "daySummaryTimeAndBuyers": true,
+        "managementReorganized": true,
+        "managementTimedSales": true,
+        "brainShellAndAutomaticComparison": true,
+        "comparisonEquivalentWindowAndUnknownCost": true,
+        "closedBrainNeverRevives": true,
+        "localQuestionCanonicalTotal": true,
+        "aboutAppAccurate": true,
+        "newJourneysSyntheticOnly": true,
+        "soldOutDotBeforeFirstWord": true,
+        "noRedRestockArrows": true,
+        "firstSaveOpensFish": true,
+        "deferFishWithoutChangingStock": true,
+        "oneUnitRestoresOriginalOrder": true,
+        "skipFirstStillReachesFish": true,
+        "storageRetryDoesNotDuplicate": true,
+        "quantityKeypadKeepsScroll": true,
+        "sixProductsCanBeReviewedWithoutRestock": true,
+        "soldOutCountsAndPlural": true,
+        "stockRowsUseFirstWordDot": true,
+        "postSaleReturnHomeLabelAndAction": true,
+        "restockSyntheticCleanup": true,
+        "expandableEntries": true,
+        "closedIndicatorsAreLazy": true,
+        "restoringSixProductsKeepsWholeKeyboard": true,
+        "costGuidanceBeforePrice": true,
+        "costPendingRetryDoesNotDuplicate": true,
+        "historicalCostPropagatesWithoutStockOrPaymentChange": true,
+        "indicatorsReadSameHistoricalCosts": true,
+        "roiReadsInvestmentAndStatement": true,
+        "integratedPrivacyPreservesRoiInputs": true,
+        "creditInstallmentsIntegrated": true,
+        "savedCreditScheduleReadable": true,
+        "archiveAndBoundedSalesList": true,
+        "syntheticDataRestored": true
+      },
+      "passed": true,
+      "finishedAt": "2026-11-04T15:07:19.843Z"
+    },
+    {
+      "version": "0.12.140",
+      "device": "pkj",
+      "theme": "light",
+      "physical": true,
+      "synthetic": true,
+      "fixturePackage": "br.com.territorio.gestao2.sales140",
+      "fixtureSha256": "5118b3ef24b54f255d27c3545e64c59f44e34a6b81f63a1ba0aa8902a6d06f6c",
+      "networkBlocked": true,
+      "productionDatabaseRead": false,
+      "startedAt": "2026-11-04T14:34:28.846Z",
+      "errors": [],
+      "result": {
+        "fiveTabs": true,
+        "identity": true,
+        "familySixCards": true,
+        "familyExpansion": true,
+        "ornamentalsSeparate": true,
+        "sectionMap": true,
+        "oneTapSaleAndCancel": true,
+        "stockAreasAndSubgroups": true,
+        "backOneLevel": true,
+        "supplierBackToStock": true,
+        "sevenCalculatorTopics": true,
+        "searchProductPicker": true,
+        "markupCalculation": true,
+        "scientificAngle": true,
+        "basicCalculator": true,
+        "domainUnchanged": true,
+        "viewportFit": true,
+        "lateInterruptionCancelsWholeGroup": true,
+        "rapidTabsAndIconCleanup": true,
+        "profileSheet": true,
+        "rapidStockLevels": true,
+        "productDraftAndCancel": true,
+        "clientDraftAndClose": true,
+        "eventDraftAndClose": true,
+        "finalCleanup": true,
+        "communitySaved": true,
+        "seuLugarLanguage": true,
+        "weakGpsNeverSaved": true,
+        "previewDoesNotSave": true,
+        "gpsConfirmationAndDurableSave": true,
+        "weakGpsPreservesExisting": true,
+        "rejectedSaveRollsBack": true,
+        "failedDiskRollsBack": true,
+        "persistedAfterReload": true,
+        "existingErdFullCodeAndConfirmation": true,
+        "fiveReferences": true,
+        "streetViewValidationAndAngle": true,
+        "shortLinkResolution": true,
+        "shareOfflineAdviceAndFullCode": true,
+        "directMapsRoute": true,
+        "closedProfileDiscardsLateGps": true,
+        "businessRecordsUnchanged": true,
+        "syntheticGpsOnly": true,
+        "separateFilesSection": true,
+        "privacyExplainedAndToggle": true,
+        "emptyDatesFit": true,
+        "canonicalCashAndForecast": true,
+        "managementSummaryCSV": true,
+        "paretoSpacing": true,
+        "claudeAbc": true,
+        "managementSections": true,
+        "claudeStockCoverage": true,
+        "claudePeriodComparison": true,
+        "allSevenSimulationCSV": true,
+        "csvAction": true,
+        "profileMotionAndInterruptions": true,
+        "claudeResetCopyAndRestore": true,
+        "failedCopyNeverResets": true,
+        "doubleTapStock": true,
+        "holdWideAndGrid": true,
+        "cartReopenAndReview": true,
+        "requiredFieldFeedback": true,
+        "greenCoffeeSack": true,
+        "categoryAndFreePackaging": true,
+        "archiveLastFamilyAndRestore": true,
+        "archiveDurableRollback": true,
+        "lotEntrySearchAndHeader": true,
+        "lotSearchNeverReopensClosedSheet": true,
+        "supplierTraceExplained": true,
+        "financialAutoHideAndDraft": true,
+        "updateSyntheticCleanup": true,
+        "zeroStockInLoja": true,
+        "stockAckRollbackAndRearm": true,
+        "daySummaryTimeAndBuyers": true,
+        "managementReorganized": true,
+        "managementTimedSales": true,
+        "brainShellAndAutomaticComparison": true,
+        "comparisonEquivalentWindowAndUnknownCost": true,
+        "closedBrainNeverRevives": true,
+        "localQuestionCanonicalTotal": true,
+        "aboutAppAccurate": true,
+        "newJourneysSyntheticOnly": true,
+        "soldOutDotBeforeFirstWord": true,
+        "noRedRestockArrows": true,
+        "firstSaveOpensFish": true,
+        "deferFishWithoutChangingStock": true,
+        "oneUnitRestoresOriginalOrder": true,
+        "skipFirstStillReachesFish": true,
+        "storageRetryDoesNotDuplicate": true,
+        "quantityKeypadKeepsScroll": true,
+        "sixProductsCanBeReviewedWithoutRestock": true,
+        "soldOutCountsAndPlural": true,
+        "stockRowsUseFirstWordDot": true,
+        "postSaleReturnHomeLabelAndAction": true,
+        "restockSyntheticCleanup": true,
+        "expandableEntries": true,
+        "closedIndicatorsAreLazy": true,
+        "restoringSixProductsKeepsWholeKeyboard": true,
+        "costGuidanceBeforePrice": true,
+        "costPendingRetryDoesNotDuplicate": true,
+        "historicalCostPropagatesWithoutStockOrPaymentChange": true,
+        "indicatorsReadSameHistoricalCosts": true,
+        "roiReadsInvestmentAndStatement": true,
+        "integratedPrivacyPreservesRoiInputs": true,
+        "creditInstallmentsIntegrated": true,
+        "savedCreditScheduleReadable": true,
+        "archiveAndBoundedSalesList": true,
+        "syntheticDataRestored": true
+      },
+      "passed": true,
+      "finishedAt": "2026-11-04T14:40:48.204Z"
+    },
+    {
+      "version": "0.12.140",
+      "device": "pkj",
+      "theme": "dark",
+      "physical": true,
+      "synthetic": true,
+      "fixturePackage": "br.com.territorio.gestao2.sales140",
+      "fixtureSha256": "5118b3ef24b54f255d27c3545e64c59f44e34a6b81f63a1ba0aa8902a6d06f6c",
+      "networkBlocked": true,
+      "productionDatabaseRead": false,
+      "startedAt": "2026-11-04T14:40:48.560Z",
+      "errors": [],
+      "result": {
+        "fiveTabs": true,
+        "identity": true,
+        "familySixCards": true,
+        "familyExpansion": true,
+        "ornamentalsSeparate": true,
+        "sectionMap": true,
+        "oneTapSaleAndCancel": true,
+        "stockAreasAndSubgroups": true,
+        "backOneLevel": true,
+        "supplierBackToStock": true,
+        "sevenCalculatorTopics": true,
+        "searchProductPicker": true,
+        "markupCalculation": true,
+        "scientificAngle": true,
+        "basicCalculator": true,
+        "domainUnchanged": true,
+        "viewportFit": true,
+        "lateInterruptionCancelsWholeGroup": true,
+        "rapidTabsAndIconCleanup": true,
+        "profileSheet": true,
+        "rapidStockLevels": true,
+        "productDraftAndCancel": true,
+        "clientDraftAndClose": true,
+        "eventDraftAndClose": true,
+        "finalCleanup": true,
+        "communitySaved": true,
+        "seuLugarLanguage": true,
+        "weakGpsNeverSaved": true,
+        "previewDoesNotSave": true,
+        "gpsConfirmationAndDurableSave": true,
+        "weakGpsPreservesExisting": true,
+        "rejectedSaveRollsBack": true,
+        "failedDiskRollsBack": true,
+        "persistedAfterReload": true,
+        "existingErdFullCodeAndConfirmation": true,
+        "fiveReferences": true,
+        "streetViewValidationAndAngle": true,
+        "shortLinkResolution": true,
+        "shareOfflineAdviceAndFullCode": true,
+        "directMapsRoute": true,
+        "closedProfileDiscardsLateGps": true,
+        "businessRecordsUnchanged": true,
+        "syntheticGpsOnly": true,
+        "separateFilesSection": true,
+        "privacyExplainedAndToggle": true,
+        "emptyDatesFit": true,
+        "canonicalCashAndForecast": true,
+        "managementSummaryCSV": true,
+        "paretoSpacing": true,
+        "claudeAbc": true,
+        "managementSections": true,
+        "claudeStockCoverage": true,
+        "claudePeriodComparison": true,
+        "allSevenSimulationCSV": true,
+        "csvAction": true,
+        "profileMotionAndInterruptions": true,
+        "claudeResetCopyAndRestore": true,
+        "failedCopyNeverResets": true,
+        "doubleTapStock": true,
+        "holdWideAndGrid": true,
+        "cartReopenAndReview": true,
+        "requiredFieldFeedback": true,
+        "greenCoffeeSack": true,
+        "categoryAndFreePackaging": true,
+        "archiveLastFamilyAndRestore": true,
+        "archiveDurableRollback": true,
+        "lotEntrySearchAndHeader": true,
+        "lotSearchNeverReopensClosedSheet": true,
+        "supplierTraceExplained": true,
+        "financialAutoHideAndDraft": true,
+        "updateSyntheticCleanup": true,
+        "zeroStockInLoja": true,
+        "stockAckRollbackAndRearm": true,
+        "daySummaryTimeAndBuyers": true,
+        "managementReorganized": true,
+        "managementTimedSales": true,
+        "brainShellAndAutomaticComparison": true,
+        "comparisonEquivalentWindowAndUnknownCost": true,
+        "closedBrainNeverRevives": true,
+        "localQuestionCanonicalTotal": true,
+        "aboutAppAccurate": true,
+        "newJourneysSyntheticOnly": true,
+        "soldOutDotBeforeFirstWord": true,
+        "noRedRestockArrows": true,
+        "firstSaveOpensFish": true,
+        "deferFishWithoutChangingStock": true,
+        "oneUnitRestoresOriginalOrder": true,
+        "skipFirstStillReachesFish": true,
+        "storageRetryDoesNotDuplicate": true,
+        "quantityKeypadKeepsScroll": true,
+        "sixProductsCanBeReviewedWithoutRestock": true,
+        "soldOutCountsAndPlural": true,
+        "stockRowsUseFirstWordDot": true,
+        "postSaleReturnHomeLabelAndAction": true,
+        "restockSyntheticCleanup": true,
+        "expandableEntries": true,
+        "closedIndicatorsAreLazy": true,
+        "restoringSixProductsKeepsWholeKeyboard": true,
+        "costGuidanceBeforePrice": true,
+        "costPendingRetryDoesNotDuplicate": true,
+        "historicalCostPropagatesWithoutStockOrPaymentChange": true,
+        "indicatorsReadSameHistoricalCosts": true,
+        "roiReadsInvestmentAndStatement": true,
+        "integratedPrivacyPreservesRoiInputs": true,
+        "creditInstallmentsIntegrated": true,
+        "savedCreditScheduleReadable": true,
+        "archiveAndBoundedSalesList": true,
+        "syntheticDataRestored": true
+      },
+      "passed": true,
+      "finishedAt": "2026-11-04T14:46:13.865Z"
+    }
+  ],
+  "validated": true,
+  "delivered": true,
   "copies": {
     "version": "0.12.140",
     "versionCode": 181,
@@ -988,11 +1984,11 @@
     "installed": false,
     "productionDatabaseRead": false
   },
-  "pendingTasks": [
-    "Connect Reno and PKJ through their wireless-debugging IP:port.",
-    "Run the isolated fixture on both phones in light and dark, then install-r the verified principal APK."
+  "pendingTasks": [],
+  "installedModels": [
+    "PKJ110",
+    "CPH2737"
   ],
-  "installedModels": [],
   "productionDatabaseRead": false,
   "realGpsRead": false,
   "syntheticResetAndRestoreOnly": true,

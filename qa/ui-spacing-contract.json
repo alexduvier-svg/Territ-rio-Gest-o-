@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "scope": "development-and-synthetic-QA",
+  "units": "CSS pixels",
+  "minimumIndependentGap": 8,
+  "minimumSectionGap": 12,
+  "minimumCompactKeypadGap": 6,
+  "tolerance": 0.5,
+  "groups": [
+    {
+      "selector": ".checkout-footer",
+      "items": ":scope > button",
+      "gap": 8
+    },
+    {
+      "selector": ".two",
+      "items": ":scope > button, :scope > .form-field",
+      "gap": 8
+    },
+    {
+      "selector": ".choices",
+      "items": ":scope > button",
+      "gap": 6
+    },
+    {
+      "selector": ".restock-footer-actions",
+      "items": ":scope > button",
+      "gap": 8
+    },
+    {
+      "selector": ".restock-keypad",
+      "items": ":scope > button",
+      "gap": 6
+    },
+    {
+      "selector": ".card-plan-tools",
+      "items": ":scope > button",
+      "gap": 8
+    },
+    {
+      "selector": ".card-plan-summary",
+      "items": ":scope > span, :scope > button",
+      "gap": 8
+    },
+    {
+      "selector": ".records-controls",
+      "items": ":scope > select, :scope > button, :scope > details",
+      "gap": 8
+    },
+    {
+      "selector": ".records-archive > div",
+      "items": ":scope > button",
+      "gap": 8
+    },
+    {
+      "selector": ".indicator-group",
+      "items": ":scope > button",
+      "gap": 8
+    }
+  ],
+  "pairs": [
+    {
+      "a": ".records-entry:not(.management-indicators-entry)",
+      "b": ".management-indicators-entry",
+      "gap": 12
+    },
+    {
+      "a": ".mg-pareto-curve",
+      "aIndex": 0,
+      "b": ".mg-pareto-curve",
+      "bIndex": 1,
+      "gap": 12
+    },
+    {
+      "a": "[data-action=\"restock-list\"]",
+      "b": ".restock-row.active",
+      "gap": 8
+    }
+  ],
+  "notes": [
+    "Independent actions use at least 8 px; action blocks and other sections use at least 12 px.",
+    "Compact keypad keys and options belonging to one field may use 6 px.",
+    "Navigation, whole-row lists and input/clear controls are cohesive components with their own layout; no blanket margins on every button.",
+    "Any overlap is a failure. New action groups must be covered by the shared guard.",
+    "This runs in QA only, keeping geometry scans out of the production app."
+  ]
+}

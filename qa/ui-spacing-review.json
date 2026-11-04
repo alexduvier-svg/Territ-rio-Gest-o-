@@ -1,0 +1,456 @@
+{
+  "ruleVersion": 1,
+  "appVersion": "0.12.140",
+  "runtimeChanged": false,
+  "synthetic": true,
+  "productionDatabaseRead": false,
+  "passed": true,
+  "cases": [
+    {
+      "theme": "dark",
+      "width": 320,
+      "largeText": true,
+      "performanceMode": "lite",
+      "reducedMotion": true,
+      "result": {
+        "spacingContract": true,
+        "noIndependentControlOverlap": true,
+        "scenes": [
+          {
+            "label": "Gestão · blocos independentes",
+            "checks": 0
+          },
+          {
+            "label": "Vendas · filtros e rodapé",
+            "checks": 3
+          },
+          {
+            "label": "Reposição · teclado e ações",
+            "checks": 57
+          },
+          {
+            "label": "Reposição · lista",
+            "checks": 1
+          },
+          {
+            "label": "Produtos · concentração de receita e lucro",
+            "checks": 0
+          },
+          {
+            "label": "Indicadores · grupos expandidos",
+            "checks": 0
+          },
+          {
+            "label": "ROI · campos e ações",
+            "checks": 1
+          },
+          {
+            "label": "Revisão da venda",
+            "checks": 0
+          },
+          {
+            "label": "Parcelamento · datas e ações",
+            "checks": 1
+          },
+          {
+            "label": "Crédito · resumo e alteração",
+            "checks": 0
+          }
+        ],
+        "measurements": 63
+      },
+      "passed": true
+    },
+    {
+      "theme": "dark",
+      "width": 360,
+      "largeText": false,
+      "performanceMode": "auto",
+      "reducedMotion": false,
+      "result": {
+        "spacingContract": true,
+        "noIndependentControlOverlap": true,
+        "scenes": [
+          {
+            "label": "Gestão · blocos independentes",
+            "checks": 0
+          },
+          {
+            "label": "Vendas · filtros e rodapé",
+            "checks": 3
+          },
+          {
+            "label": "Reposição · teclado e ações",
+            "checks": 57
+          },
+          {
+            "label": "Reposição · lista",
+            "checks": 1
+          },
+          {
+            "label": "Produtos · concentração de receita e lucro",
+            "checks": 0
+          },
+          {
+            "label": "Indicadores · grupos expandidos",
+            "checks": 0
+          },
+          {
+            "label": "ROI · campos e ações",
+            "checks": 1
+          },
+          {
+            "label": "Revisão da venda",
+            "checks": 0
+          },
+          {
+            "label": "Parcelamento · datas e ações",
+            "checks": 1
+          },
+          {
+            "label": "Crédito · resumo e alteração",
+            "checks": 1
+          }
+        ],
+        "measurements": 64
+      },
+      "passed": true
+    },
+    {
+      "theme": "dark",
+      "width": 393,
+      "largeText": false,
+      "performanceMode": "auto",
+      "reducedMotion": false,
+      "result": {
+        "spacingContract": true,
+        "noIndependentControlOverlap": true,
+        "scenes": [
+          {
+            "label": "Gestão · blocos independentes",
+            "checks": 0
+          },
+          {
+            "label": "Vendas · filtros e rodapé",
+            "checks": 3
+          },
+          {
+            "label": "Reposição · teclado e ações",
+            "checks": 57
+          },
+          {
+            "label": "Reposição · lista",
+            "checks": 1
+          },
+          {
+            "label": "Produtos · concentração de receita e lucro",
+            "checks": 0
+          },
+          {
+            "label": "Indicadores · grupos expandidos",
+            "checks": 0
+          },
+          {
+            "label": "ROI · campos e ações",
+            "checks": 1
+          },
+          {
+            "label": "Revisão da venda",
+            "checks": 0
+          },
+          {
+            "label": "Parcelamento · datas e ações",
+            "checks": 1
+          },
+          {
+            "label": "Crédito · resumo e alteração",
+            "checks": 1
+          }
+        ],
+        "measurements": 64
+      },
+      "passed": true
+    },
+    {
+      "theme": "dark",
+      "width": 412,
+      "largeText": false,
+      "performanceMode": "auto",
+      "reducedMotion": false,
+      "result": {
+        "spacingContract": true,
+        "noIndependentControlOverlap": true,
+        "scenes": [
+          {
+            "label": "Gestão · blocos independentes",
+            "checks": 0
+          },
+          {
+            "label": "Vendas · filtros e rodapé",
+            "checks": 3
+          },
+          {
+            "label": "Reposição · teclado e ações",
+            "checks": 57
+          },
+          {
+            "label": "Reposição · lista",
+            "checks": 1
+          },
+          {
+            "label": "Produtos · concentração de receita e lucro",
+            "checks": 0
+          },
+          {
+            "label": "Indicadores · grupos expandidos",
+            "checks": 0
+          },
+          {
+            "label": "ROI · campos e ações",
+            "checks": 1
+          },
+          {
+            "label": "Revisão da venda",
+            "checks": 0
+          },
+          {
+            "label": "Parcelamento · datas e ações",
+            "checks": 1
+          },
+          {
+            "label": "Crédito · resumo e alteração",
+            "checks": 1
+          }
+        ],
+        "measurements": 64
+      },
+      "passed": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "largeText": true,
+      "performanceMode": "lite",
+      "reducedMotion": true,
+      "result": {
+        "spacingContract": true,
+        "noIndependentControlOverlap": true,
+        "scenes": [
+          {
+            "label": "Gestão · blocos independentes",
+            "checks": 0
+          },
+          {
+            "label": "Vendas · filtros e rodapé",
+            "checks": 3
+          },
+          {
+            "label": "Reposição · teclado e ações",
+            "checks": 57
+          },
+          {
+            "label": "Reposição · lista",
+            "checks": 1
+          },
+          {
+            "label": "Produtos · concentração de receita e lucro",
+            "checks": 0
+          },
+          {
+            "label": "Indicadores · grupos expandidos",
+            "checks": 0
+          },
+          {
+            "label": "ROI · campos e ações",
+            "checks": 1
+          },
+          {
+            "label": "Revisão da venda",
+            "checks": 0
+          },
+          {
+            "label": "Parcelamento · datas e ações",
+            "checks": 1
+          },
+          {
+            "label": "Crédito · resumo e alteração",
+            "checks": 0
+          }
+        ],
+        "measurements": 63
+      },
+      "passed": true
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "largeText": false,
+      "performanceMode": "auto",
+      "reducedMotion": false,
+      "result": {
+        "spacingContract": true,
+        "noIndependentControlOverlap": true,
+        "scenes": [
+          {
+            "label": "Gestão · blocos independentes",
+            "checks": 0
+          },
+          {
+            "label": "Vendas · filtros e rodapé",
+            "checks": 3
+          },
+          {
+            "label": "Reposição · teclado e ações",
+            "checks": 57
+          },
+          {
+            "label": "Reposição · lista",
+            "checks": 1
+          },
+          {
+            "label": "Produtos · concentração de receita e lucro",
+            "checks": 0
+          },
+          {
+            "label": "Indicadores · grupos expandidos",
+            "checks": 0
+          },
+          {
+            "label": "ROI · campos e ações",
+            "checks": 1
+          },
+          {
+            "label": "Revisão da venda",
+            "checks": 0
+          },
+          {
+            "label": "Parcelamento · datas e ações",
+            "checks": 1
+          },
+          {
+            "label": "Crédito · resumo e alteração",
+            "checks": 1
+          }
+        ],
+        "measurements": 64
+      },
+      "passed": true
+    },
+    {
+      "theme": "light",
+      "width": 393,
+      "largeText": false,
+      "performanceMode": "auto",
+      "reducedMotion": false,
+      "result": {
+        "spacingContract": true,
+        "noIndependentControlOverlap": true,
+        "scenes": [
+          {
+            "label": "Gestão · blocos independentes",
+            "checks": 0
+          },
+          {
+            "label": "Vendas · filtros e rodapé",
+            "checks": 3
+          },
+          {
+            "label": "Reposição · teclado e ações",
+            "checks": 57
+          },
+          {
+            "label": "Reposição · lista",
+            "checks": 1
+          },
+          {
+            "label": "Produtos · concentração de receita e lucro",
+            "checks": 0
+          },
+          {
+            "label": "Indicadores · grupos expandidos",
+            "checks": 0
+          },
+          {
+            "label": "ROI · campos e ações",
+            "checks": 1
+          },
+          {
+            "label": "Revisão da venda",
+            "checks": 0
+          },
+          {
+            "label": "Parcelamento · datas e ações",
+            "checks": 1
+          },
+          {
+            "label": "Crédito · resumo e alteração",
+            "checks": 1
+          }
+        ],
+        "measurements": 64
+      },
+      "passed": true
+    },
+    {
+      "theme": "light",
+      "width": 412,
+      "largeText": false,
+      "performanceMode": "auto",
+      "reducedMotion": false,
+      "result": {
+        "spacingContract": true,
+        "noIndependentControlOverlap": true,
+        "scenes": [
+          {
+            "label": "Gestão · blocos independentes",
+            "checks": 0
+          },
+          {
+            "label": "Vendas · filtros e rodapé",
+            "checks": 3
+          },
+          {
+            "label": "Reposição · teclado e ações",
+            "checks": 57
+          },
+          {
+            "label": "Reposição · lista",
+            "checks": 1
+          },
+          {
+            "label": "Produtos · concentração de receita e lucro",
+            "checks": 0
+          },
+          {
+            "label": "Indicadores · grupos expandidos",
+            "checks": 0
+          },
+          {
+            "label": "ROI · campos e ações",
+            "checks": 1
+          },
+          {
+            "label": "Revisão da venda",
+            "checks": 0
+          },
+          {
+            "label": "Parcelamento · datas e ações",
+            "checks": 1
+          },
+          {
+            "label": "Crédito · resumo e alteração",
+            "checks": 1
+          }
+        ],
+        "measurements": 64
+      },
+      "passed": true
+    }
+  ],
+  "apk": {
+    "name": "AGRO-Gestao-Codex-0.12.140.apk",
+    "sha256": "233ebd3b6d2eef05410b3a570ca93f10495b04c5c994123902409e0e477fc1dd"
+  },
+  "assetsUnchanged": true,
+  "checkedAt": "2026-11-04T15:21:28.717Z"
+}

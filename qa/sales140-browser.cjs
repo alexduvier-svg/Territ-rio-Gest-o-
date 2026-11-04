@@ -231,7 +231,7 @@ async function run() {
           const errors=[];page.on('pageerror',error=>errors.push(String(error.stack||error)));
           await page.goto('https://localhost');
           const capture=label=>page.screenshot({path:path.join(output,`${theme}-${width}-${label}.png`)});
-          entry.result=process.env.AGRO_UPDATE_ONLY ? await require("./sales140-flow.cjs").exerciseSales(page,capture) : process.env.AGRO_MANAGE_ONLY ? await require('./manage136-flow.cjs').exerciseManagement(page,capture) : process.env.AGRO_PLACE_ONLY ? await require('./place135-flow.cjs').exercisePlace(page,capture) : await exercise(page,capture);
+          entry.result=process.env.AGRO_SPACING_ONLY ? await require('./spacing-rule-flow.cjs').exerciseSpacing(page,capture) : process.env.AGRO_UPDATE_ONLY ? await require("./sales140-flow.cjs").exerciseSales(page,capture) : process.env.AGRO_MANAGE_ONLY ? await require('./manage136-flow.cjs').exerciseManagement(page,capture) : process.env.AGRO_PLACE_ONLY ? await require('./place135-flow.cjs').exercisePlace(page,capture) : await exercise(page,capture);
           assert.deepEqual(errors,[],'Uncaught browser errors');
           entry.passed=true;
         } catch(error) {

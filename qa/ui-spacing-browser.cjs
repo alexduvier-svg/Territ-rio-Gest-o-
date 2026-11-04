@@ -1,0 +1,1 @@
+process.env.AGRO_SPACING_ONLY='1';process.env.AGRO_QA_OUTPUT='C:/Users/alexd/.codex/visualizations/2026/10/28/01a1835c-018b-7352-95a2-037da69102a6/spacing140-browser';require('./sales140-browser.cjs').run().catch(e=>{console.error(e.stack);process.exitCode=1});

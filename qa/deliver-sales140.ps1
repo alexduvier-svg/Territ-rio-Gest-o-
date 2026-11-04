@@ -54,14 +54,14 @@ foreach($taskSerial in $DeviceSerial){
  if($LASTEXITCODE -ne 0 -or -not $taskPolicy){throw 'Device unavailable before delivery'}
  $taskModel=((& $taskAdb -s $taskSerial shell getprop ro.product.model)-join '').Trim()
  $taskBefore=Get-PackageInfo $taskSerial
- if($taskBefore.versionCode -and [int]$taskBefore.versionCode -gt 180){throw 'A newer Codex is already installed; refusing downgrade'}
- if($taskBefore.versionName -ne '0.12.140' -or $taskBefore.versionCode -ne '180'){
+ if($taskBefore.versionCode -and [int]$taskBefore.versionCode -gt 181){throw 'A newer Codex is already installed; refusing downgrade'}
+ if($taskBefore.versionName -ne '0.12.140' -or $taskBefore.versionCode -ne '181'){
   if($taskPolicy -match 'showing=true'){throw 'Human unlock required before delivery'}
   & $taskAdb -s $taskSerial install --no-streaming --no-incremental -r $taskSafeCopy
   if($LASTEXITCODE -ne 0){throw "Codex update failed on $taskModel"}
  }
  $taskAfter=Get-PackageInfo $taskSerial
- if($taskAfter.versionName -ne '0.12.140' -or $taskAfter.versionCode -ne '180'){throw 'Installed version mismatch'}
+ if($taskAfter.versionName -ne '0.12.140' -or $taskAfter.versionCode -ne '181'){throw 'Installed version mismatch'}
  if($taskBefore.firstInstallTime -and $taskBefore.firstInstallTime -ne $taskAfter.firstInstallTime){throw 'Existing first installation date changed'}
  $taskDevicePath=((& $taskAdb -s $taskSerial shell pm path $taskPackage)-join '').Trim() -replace '^package:',''
  if($taskDevicePath -notmatch '^/data/app/[^\r\n]+/base\.apk$'){throw 'Installed Codex APK path invalid'}

@@ -2,7 +2,7 @@
 
 Fonte do projeto identificada: **AGRO_Gestao_Diretrizes_Profissionais_CRM_PDV_Codex.docx**, versão1.0 de22/10/2026, SHA256 `4f0072c8acc752ee2300e15ccee186bcc1558ef761bf760d41eddff69ecd65ec`. A transcrição está em `app/public/knowledge/crm-pdv-profissional.md`. A matriz66 é histórica; não comprova o estado completo da139. Esta revisão cobre os pedidos de04/11/2026 sobre histórico/custos, Crédito, reposição e visibilidade dos indicadores.
 
-Estado de partida: Codex139, `c0c6898e9dd37f486e117cbfa39ca334a47426a1`. Implementado e validado em1159testes unitários e8cenários de navegador. Testes físicos/instalação140 pendentes de conexão; não é entrega instalada.
+Estado de partida: Codex139, `c0c6898e9dd37f486e117cbfa39ca334a47426a1`. Implementado e entregue no Codex 0.12.140: 1.159 testes unitários, oito cenários de navegador e quatro jornadas físicas aprovados. Instalado no Reno e no PKJ, preservando identidade, assinatura e armazenamento do app.
 
 | Requisito | Evidência na139 | Estado inicial/lacuna | Decisão140 | Risco e aceitação |
 |---|---|---|---|---|
