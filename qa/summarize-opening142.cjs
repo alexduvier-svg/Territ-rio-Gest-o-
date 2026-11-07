@@ -1,0 +1,26 @@
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'..');
+const viz='C:/Users/alexd/.codex/visualizations/2026/10/28/01a1835c-018b-7352-95a2-037da69102a6';
+const read=file=>fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8').replace(/^\uFEFF/,'')):null;
+const hash=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const apk=path.join(root,'AGRO-Gestao-Codex-0.12.142.apk'),fixture=path.join(viz,'opening142-fixture/fixture.apk');
+const packageReview=read(path.join(__dirname,'opening142-package-review.json'));
+const integration=read(path.join(__dirname,'opening142-integration.json'));
+const browser=read(path.join(viz,'opening142-browser/review.json'));
+const delivery=read(path.join(__dirname,'opening142-delivery.json'));
+const text=fs.readFileSync(path.join(__dirname,'opening142-unit.txt'),'utf8');
+const total=Number(text.match(/tests (\d+)/)?.[1]),pass=Number(text.match(/pass (\d+)/)?.[1]);
+const native=[];for(const device of ['reno','pkj'])for(const theme of ['light','dark']){const r=read(path.join(viz,'opening142-native',device+'-'+theme+'.json'));if(r)native.push(r);}
+const sha=hash(apk),fixtureSha=fs.existsSync(fixture)?hash(fixture):null;
+const unitPassed=total===1230&&pass===total&&/fail 0/.test(text)&&/skipped 0/.test(text);
+const browserPassed=browser?.passed&&browser.cases.length===8&&browser.errors.length===0&&browser.assetsUnchanged&&browser.apk.sha256===sha;
+const nativePassed=native.length===4&&native.every(r=>r.passed&&r.version==='0.12.142'&&r.fixtureSha256===fixtureSha&&!r.errors.length&&r.result.syntheticDataRestored);
+const samples=[...(browser?.cases||[]).flatMap(c=>c.result?.openingSamples||[]),...native.flatMap(c=>c.result?.openingSamples||[])];
+const firstFramesPassed=samples.length===168&&samples.every(s=>s.contentReadyAtOpening&&s.threeFramesReady&&s.frameHeights.length===3);
+const validated=!!(firstFramesPassed&&unitPassed&&browserPassed&&nativePassed&&packageReview?.sha256===sha&&packageReview.sameCertificateAsBaseline&&packageReview.compiledAssetsMatch);
+const delivered=!!(validated&&delivery?.status==='installed-and-validated'&&delivery.sha256===sha&&new Set(delivery.installed.map(d=>d.model)).size===2);
+const slim=r=>({device:r.device,theme:r.theme,passed:r.passed,finishedAt:r.finishedAt,booleanChecks:Object.values(r.result||{}).filter(v=>v===true).length,spacingMeasurements:r.result?.spacingMeasurements||0,checks:r.result,errors:r.errors});
+const report={version:'0.12.142',versionCode:183,createdAt:new Date().toISOString(),source:{baseCodex:integration.baseCodex,scope:'management-opening-first-frame',newClaudePort:false},opening:{passed:firstFramesPassed,topics:14,taps:samples.length,frameReads:samples.reduce((n,s)=>n+s.frameHeights.length,0)},apk:{sha256:sha,bytes:fs.statSync(apk).size},unit:{total,pass,passed:unitPassed},package:packageReview,browser:{passed:!!browserPassed,cases:browser?.cases.map(c=>({theme:c.theme,width:c.width,passed:c.passed,booleanChecks:Object.values(c.result||{}).filter(v=>v===true).length,spacingMeasurements:c.result?.spacingMeasurements||0})),errors:browser?.errors,assetsUnchanged:browser?.assetsUnchanged,assetsBefore:browser?.assetsBefore?.fingerprint,assetsAfter:browser?.assetsAfter?.fingerprint},native:{passed:!!nativePassed,fixturePackage:'br.com.territorio.gestao2.opening142',fixtureSHA256:fixtureSha,cases:native.map(slim)},validated,delivered,status:delivered?'installed-and-validated':validated?'validated-awaiting-installation':'validation-in-progress',productionDatabaseRead:false,claudeCheckoutChanged:false,backendPublished:false,clone133Repeated:false,nativeFPSMeasured:false,batteryMeasured:false,basicPhoneMeasured:false,runtime16KBMeasured:false,delivery:delivery||null};
+fs.writeFileSync(path.join(__dirname,'opening142-final-review.json'),JSON.stringify(report,null,2)+'\n');
+console.log(JSON.stringify({status:report.status,unit:pass,browserCases:browser?.cases.length||0,nativeCases:native.length,sha256:sha}));
+if(process.argv.includes('--require-complete'))assert(delivered,'The exact APK needs all final checks, both installations and fixture cleanup.');

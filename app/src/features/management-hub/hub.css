@@ -102,7 +102,6 @@ dialog[data-kind='receipt'] .ds-row > span:first-child { min-width: 0; overflow-
 dialog[data-kind='receipt'] .ds-num > strong { flex: none; white-space: nowrap; }
 dialog[data-kind='receipt'] .mgh-action-card .mg-row { width: 100%; min-height: 56px; margin: 0; padding: 12px 0; background: none; border: 0; border-radius: 0; box-shadow: none; }
 dialog[data-kind='receipt'] .customer-origin { font-size: 14px; line-height: 1.5; color: var(--muted); padding-bottom: 6px; }
-dialog[data-kind='mg-detail'] .mgh-advisor-slot { min-height: 200px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
 
 /* Orientações: leitura simples, item por item. */
 dialog[data-kind='mg-detail'] .mgh-read { margin: 0 0 8px; font-size: 15px; line-height: 1.45; color: var(--text); overflow-wrap: normal; word-break: normal; }

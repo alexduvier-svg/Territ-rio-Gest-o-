@@ -1,0 +1,20 @@
+{
+  "baseCodex": "3446f91a8c4747062e4f0706f11d701c0e9eaef0",
+  "claudeBase": "c095c85e52aa6f3abb6fb8bf7cd685051b0e3087",
+  "claudeFinal": "c095c85e52aa6f3abb6fb8bf7cd685051b0e3087",
+  "claudeVersion": "0.12.167",
+  "codexVersion": "0.12.142",
+  "commits": [],
+  "scope": "management-opening-first-frame",
+  "status": "installed-and-validated",
+  "newClaudePort": false,
+  "productionDatabaseRead": false,
+  "runtimeFiles": [
+    "app/src/legacy/erp-ui.js",
+    "app/src/features/management-hub/hub.css",
+    "app/src/data/interface-guidelines.js"
+  ],
+  "unitTests": 1230,
+  "browserCases": 8,
+  "nativeCases": 4
+}
