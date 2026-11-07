@@ -127,3 +127,14 @@ export function runAudit({ sales = [], products = [], movements = [], expenses =
 }
 
 export const auditMoney = brl;
+
+// Índice de gestão básica do Conselho: média simples de cinco dimensões, de 0 a 1. Sem vendas, não há o que medir.
+export function basicsScore({ sales = [], missingDays = 0, fairDays = 0, stockOk = true, backupDays = null } = {}) {
+  const done = sales.filter(s => s.status === 'completed');
+  if (!done.length) return { score: null, parts: [] };
+  const known = done.filter(s => (s.items || []).every(i => i.costKnown === true || (i.costKnown !== false && Number.isFinite(i.costTotal) && i.costTotal > 0))).length / done.length;
+  const paid = done.filter(s => (s.payments || []).length > 0).length / done.length;
+  const fairs = fairDays > 0 ? Math.max(0, fairDays - missingDays) / fairDays : 1;
+  const parts = [{ id: 'custo', label: 'informar o custo das vendas', value: known }, { id: 'pagamento', label: 'informar a forma de pagamento das vendas', value: paid }, { id: 'feiras', label: 'lançar os custos dos dias de feira', value: fairs }, { id: 'estoque', label: 'conferir o estoque', value: stockOk ? 1 : 0 }, { id: 'copia', label: 'fazer uma cópia de segurança', value: backupDays !== null && backupDays <= 7 ? 1 : 0 }];
+  return { score: parts.reduce((n, p) => n + p.value, 0) / parts.length, parts };
+}

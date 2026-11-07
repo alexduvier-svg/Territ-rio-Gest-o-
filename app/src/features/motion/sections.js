@@ -1,5 +1,6 @@
 import { fluidMotionAllowed, fluidMotionLite } from './index.js';
 import { animate, SPRINGS } from './engine.js';
+import { ghostClip } from './ghost-clip.js';
 
 // Sections that expand inside a page or a sheet (details, "more" arrows, discount, client, state,
 // calendar, a week day…). The renderer lays the page out once in its final state; the movement is
@@ -64,6 +65,13 @@ function followersOf(target, reach) {
 function bodyOf(target, previousHeight) {
   const top = target.getBoundingClientRect().top;
   return [...target.children].filter(child => !child.matches('summary, .fluid-section-ghost') && child.getBoundingClientRect().bottom > top + previousHeight + 1).slice(0, 12);
+}
+
+function scrollingArea(element) {
+  for (let node = element.parentElement; node && node !== document.body; node = node.parentElement) {
+    if (/auto|scroll/.test(getComputedStyle(node).overflowY)) return node.getBoundingClientRect();
+  }
+  return { top: 0, bottom: innerHeight };
 }
 
 export function installSectionMotion() {
@@ -139,7 +147,7 @@ export function installSectionMotion() {
       ghost.inert = true;
       ghost.setAttribute('aria-hidden', 'true');
       const host = target.closest('dialog[open]');
-      Object.assign(ghost.style, { left: box.left + 'px', top: box.top + 'px', width: box.width + 'px', height: record.height + 'px' });
+      Object.assign(ghost.style, { left: box.left + 'px', top: box.top + 'px', width: box.width + 'px', height: record.height + 'px', clipPath: ghostClip(box.top, record.height, scrollingArea(target)) });
       const context = document.createElement('div');
       context.className = target.parentElement?.className || '';
       Object.assign(context.style, { display: 'block', margin: '0', padding: '0', border: '0', background: 'transparent', width: '100%' });

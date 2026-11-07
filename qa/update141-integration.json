@@ -1,0 +1,165 @@
+{
+  "baseCodex": "373e23e07a8fe34bb97d27221abb53b08aaa051d",
+  "claudeBase": "b679b4b71bd505fb14ee094995b0307465402200",
+  "claudeFinal": "c095c85e52aa6f3abb6fb8bf7cd685051b0e3087",
+  "claudeVersion": "0.12.167",
+  "codexVersion": "0.12.141",
+  "commits": [
+    {
+      "sha": "2d6af3e6d0634a487be6c7da5f72d252eb13dcdc",
+      "title": "Inteligência do negócio abre sem agarrar (0.12.158)"
+    },
+    {
+      "sha": "7af249a62ed82f8fc42cf8b2a1fe3f84d31defc7",
+      "title": "Gestão única: três cards e 13 funções, finanças e motor no mesmo demonstrativo (em andamento)"
+    },
+    {
+      "sha": "522d80e812080f27cb497d17baa6fdb1da2e1784",
+      "title": "Gestão única: três cards e 13 funções, finanças e motor no mesmo demonstrativo (0.12.159)"
+    },
+    {
+      "sha": "41310ae74f62380cc04e2a5ebb298d58f1d27758",
+      "title": "Contas a pagar: vencimento e pagamento nas compras, em Caixa, Fornecedores e motor (0.12.160)"
+    },
+    {
+      "sha": "83bc58257012dc9564e79f6201c94e267c9d5342",
+      "title": "Janelas da Gestão no modelo de Resultado e regra de qualidade no sistema (0.12.161)"
+    },
+    {
+      "sha": "3813bd50bbfd4dd66dc767b1e4011e22790529f4",
+      "title": "Venda como relatório, devolução clara, Receita por Dia primeiro, Esgotado e peixes em grade (0.12.162)"
+    },
+    {
+      "sha": "bf3a3763895e12db00ca18105352f6744f09a315",
+      "title": "Aberturas mais leves: abas sem cópia inútil, Orientações no toque, seções fora da tela leves (0.12.163)"
+    },
+    {
+      "sha": "092096287ffe4dc5a6a49e4a210cfcf58ae61fed",
+      "title": "Orientações para decidir: leitura de Operação e Análise com auditoria do texto (0.12.164)"
+    },
+    {
+      "sha": "d74c4943e9a2a5f127f7e88e4426b0ab522dd232",
+      "title": "Orientações passa pela Conferência completa, avisa parcial e segue a ordem do Conselho"
+    },
+    {
+      "sha": "f17d5fa3c3b04bb86a2ccc47f749f742cdae52e7",
+      "title": "Conselho de Gestão no motor único e na leitura de Orientações (em andamento)"
+    },
+    {
+      "sha": "2da13102ff5a8c424c57676026fb1a833225a1bd",
+      "title": "Conselho de Gestão: lentes no motor único, Conferência primeiro e leitura para decidir (0.12.165)"
+    },
+    {
+      "sha": "f22d8bfa139a2f7c4f48dfce783a9474646b6e62",
+      "title": "Ranking antes de Operação na Gestão, com Padrões por produto (0.12.166)"
+    },
+    {
+      "sha": "c095c85e52aa6f3abb6fb8bf7cd685051b0e3087",
+      "title": "Card recolhendo não aparece fora da janela (0.12.167)"
+    }
+  ],
+  "incomingFiles": [
+    "AGENTS.md",
+    "app/DESIGN.md",
+    "app/android/app/build.gradle",
+    "app/docs/GESTAO-UNICA-0.12.159.md",
+    "app/docs/motor/registry.json",
+    "app/package-lock.json",
+    "app/package.json",
+    "app/public/knowledge/conselho-gestao.md",
+    "app/public/knowledge/premissas-interface.md",
+    "app/src/data/interface-guidelines.js",
+    "app/src/data/management-council-guidelines.js",
+    "app/src/features/advisor/agent.js",
+    "app/src/features/advisor/council-rules.js",
+    "app/src/features/advisor/engine.js",
+    "app/src/features/advisor/release.js",
+    "app/src/features/agent/index.js",
+    "app/src/features/agent/question-engine.js",
+    "app/src/features/finance/audit.js",
+    "app/src/features/finance/finance.js",
+    "app/src/features/finance/producer-calcs.js",
+    "app/src/features/management-hub/decision-engine.js",
+    "app/src/features/management-hub/domain.js",
+    "app/src/features/management-hub/hub.css",
+    "app/src/features/management-hub/ranking.js",
+    "app/src/features/motion/ghost-clip.js",
+    "app/src/features/motion/index.js",
+    "app/src/features/motion/sections.js",
+    "app/src/features/proper-name.js",
+    "app/src/features/sell-modes/model.js",
+    "app/src/features/sell-modes/sell-modes.css",
+    "app/src/features/suppliers/index.js",
+    "app/src/features/suppliers/model.js",
+    "app/src/legacy/erp-core.js",
+    "app/src/legacy/erp-ui.js",
+    "app/src/main.js",
+    "app/tests/council.test.mjs",
+    "app/tests/decision-engine.test.mjs",
+    "app/tests/management-hub.test.mjs",
+    "app/tests/management-ranking.test.mjs",
+    "app/tests/sell-modes.test.mjs",
+    "app/tests/supplier-settlement.test.mjs"
+  ],
+  "selectedPatchFiles": [
+    "app/DESIGN.md",
+    "app/docs/GESTAO-UNICA-0.12.159.md",
+    "app/docs/motor/registry.json",
+    "app/public/knowledge/conselho-gestao.md",
+    "app/public/knowledge/premissas-interface.md",
+    "app/src/data/management-council-guidelines.js",
+    "app/src/features/advisor/agent.js",
+    "app/src/features/advisor/council-rules.js",
+    "app/src/features/advisor/engine.js",
+    "app/src/features/advisor/release.js",
+    "app/src/features/agent/index.js",
+    "app/src/features/agent/question-engine.js",
+    "app/src/features/finance/audit.js",
+    "app/src/features/finance/finance.js",
+    "app/src/features/finance/producer-calcs.js",
+    "app/src/features/management-hub/decision-engine.js",
+    "app/src/features/management-hub/domain.js",
+    "app/src/features/management-hub/hub.css",
+    "app/src/features/management-hub/ranking.js",
+    "app/src/features/motion/ghost-clip.js",
+    "app/src/features/motion/index.js",
+    "app/src/features/motion/sections.js",
+    "app/src/features/proper-name.js",
+    "app/src/features/sell-modes/model.js",
+    "app/src/features/sell-modes/sell-modes.css",
+    "app/src/features/suppliers/index.js",
+    "app/src/features/suppliers/model.js",
+    "app/src/legacy/erp-core.js",
+    "app/src/legacy/erp-ui.js",
+    "app/src/main.js",
+    "app/tests/council.test.mjs",
+    "app/tests/decision-engine.test.mjs",
+    "app/tests/management-hub.test.mjs",
+    "app/tests/management-ranking.test.mjs",
+    "app/tests/sell-modes.test.mjs",
+    "app/tests/supplier-settlement.test.mjs"
+  ],
+  "excludedFromAutomaticPatch": [
+    "AGENTS.md",
+    "app/android/app/build.gradle",
+    "app/package.json",
+    "app/package-lock.json",
+    "app/src/data/interface-guidelines.js"
+  ],
+  "patchSHA256": "ed8302d3c9ef6e2c82e88ab469b273a195663ed4980455fefabe942896105620",
+  "status": "installed-and-validated",
+  "resolution": {
+    "identity": "Codex141/code182; package/certificate/data preserved",
+    "history": "Codex140 archive, historical cost amendments and card plan retained",
+    "cash": "recorded cash separate from forecasts; linked expense uses payment date once",
+    "dates": "canonical occurrence day, separate refund day and shared question parser",
+    "roi": "Codex140 confirmed linked investment assessment retained; net ROI equation",
+    "performance": "no speculative closed-area KPI or page precomputation",
+    "sourceCheckoutChanged": false,
+    "backendPublished": false
+  },
+  "packageSHA256": "15722c6261930f41bad5c43854ac9f59b712ffd43bf14d641edc76bf9af97123",
+  "unitTests": 1230,
+  "browserCases": 8,
+  "nativeCases": 4
+}

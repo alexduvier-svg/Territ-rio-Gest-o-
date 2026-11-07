@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "scope": "development-and-synthetic-QA",
   "units": "CSS pixels",
   "minimumIndependentGap": 8,
@@ -56,6 +56,21 @@
       "selector": ".indicator-group",
       "items": ":scope > button",
       "gap": 8
+    },
+    {
+      "selector": ".mgh-action-card",
+      "items": ":scope > button",
+      "gap": 8
+    },
+    {
+      "selector": ".mgh-context",
+      "items": ":scope > button, :scope > .mgh-range",
+      "gap": 8
+    },
+    {
+      "selector": ".mgh-options",
+      "items": ":scope > button",
+      "gap": 6
     }
   ],
   "pairs": [
@@ -82,6 +97,7 @@
     "Compact keypad keys and options belonging to one field may use 6 px.",
     "Navigation, whole-row lists and input/clear controls are cohesive components with their own layout; no blanket margins on every button.",
     "Any overlap is a failure. New action groups must be covered by the shared guard.",
-    "This runs in QA only, keeping geometry scans out of the production app."
+    "This runs in QA only, keeping geometry scans out of the production app.",
+    "mgh-hub/mgh-links and mgh-sale are cohesive whole-row navigation lists; action cards have independent 8 px gaps."
   ]
 }

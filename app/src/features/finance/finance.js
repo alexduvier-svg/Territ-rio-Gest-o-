@@ -42,6 +42,7 @@ export function financeSettings(raw) {
     goal: Math.max(0, Math.round(Number(f.goal) || 0)),
     drawOn: !!f.drawOn,
     drawMonthly: Math.max(0, Math.round(Number(f.drawMonthly) || 0)),
+    drawSince: /^\d{4}-\d{2}$/.test(f.drawSince || '') ? f.drawSince : '',
     // Imposto sobre a venda (ex.: Funrural do produtor pessoa física). Começa em 0: cada caso é um caso.
     salesTaxRate: Math.min(30, Math.max(0, Number(f.salesTaxRate) || 0)),
     fixedCosts: Array.isArray(f.fixedCosts) ? f.fixedCosts.filter(x => x && x.title && x.amount > 0) : [],
@@ -78,6 +79,14 @@ export function monthShares({ days, month, year, today }) {
   return [];
 }
 
+// Mesma proporção civil de monthShares, sem enumerar cada dia de um histórico longo.
+export function rangeMonthShares(start,end){
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(start||'')||!/^\d{4}-\d{2}-\d{2}$/.test(end||'')||start>end)return [];
+ const out=[];let month=start.slice(0,7),last=end.slice(0,7);
+ while(month<=last){const days=daysInMonth(month),from=month===start.slice(0,7)?Number(start.slice(8)):1,to=month===last?Number(end.slice(8)):days;out.push({month,share:(to-from+1)/days});let year=Number(month.slice(0,4)),m=Number(month.slice(5))+1;if(m>12){m=1;year++;}month=String(year).padStart(4,'0')+'-'+String(m).padStart(2,'0');}
+ return out;
+}
+
 function fixedFor(settings, shares) {
   let total = 0;
   for (const { month, share } of shares) {
@@ -107,7 +116,7 @@ export function cardFeesOf(sales, settings) {
 //   expenses = custos lançados no período/local · losses = valor das perdas de estoque no período
 //   shares   = monthShares(...) · general = local "Todos" (só então entram fixos, perdas e retirada mensal)
 // A taxa do cartão não volta na devolução (a maquininha não devolve a taxa).
-export function statement({ sales, returns = [], expenses, receipts = collections(sales), losses = 0, settings: raw, shares = [], general = true }) {
+export function statement({ sales, returns = [], expenses, receipts = collections(sales), losses = 0, settings: raw, shares = [], general = true, purchasesPaid = 0, purchases = [] }) {
   const settings = financeSettings(raw);
   const grossSales = sales.reduce((n, s) => n + s.total, 0);
   const returned = returns.reduce((n, s) => n + s.total, 0);
@@ -132,9 +141,12 @@ export function statement({ sales, returns = [], expenses, receipts = collection
     const m = recordDay(x).slice(0, 7);
     if (/^\d{4}-\d{2}$/.test(m)) drawLogged.set(m, (drawLogged.get(m) || 0) + x.amount); else drawUndated = true;
   }
-  const drawPlanned = general && settings.drawOn ? Math.round(shares.reduce((n, s) => n + s.share, 0) * settings.drawMonthly) : 0;
-  const drawOpen = general && settings.drawOn && !drawUndated ? Math.round(shares.filter(s => !(drawLogged.get(s.month) > 0)).reduce((n, s) => n + s.share, 0) * settings.drawMonthly) : 0;
-  const draw = kinds.retirada > 0 ? kinds.retirada + drawOpen : drawPlanned;
+  // A retirada planejada não existe antes do início (settings.drawSince): um mês sem operação não ganha prejuízo.
+  const drawShares = shares.filter(s => !settings.drawSince || !s.month || s.month >= settings.drawSince);
+  const drawPlanned = general && settings.drawOn ? Math.round(drawShares.reduce((n, s) => n + s.share, 0) * settings.drawMonthly) : 0;
+  const drawOpen = general && settings.drawOn && !drawUndated ? Math.round(drawShares.filter(s => !(drawLogged.get(s.month) > 0)).reduce((n, s) => n + s.share, 0) * settings.drawMonthly) : 0;
+  if (!general) kinds.retirada = 0;
+  const draw = general ? (kinds.retirada > 0 ? kinds.retirada + drawOpen : drawPlanned) : 0;
   const drawForecast = draw - kinds.retirada;
   const operating = kinds.feira + kinds.producao + kinds.marketing;
   const result = contribution - operating - lossValue - fixed - draw;
@@ -150,15 +162,21 @@ export function statement({ sales, returns = [], expenses, receipts = collection
   for (const r of receipts) received[r.method]=(received[r.method]||0)+r.amount;
   const creditSold=sales.reduce((n,s)=>n+principal(s),0),collected=receipts.reduce((n,r)=>n+r.amount,0),cashRefunded=returns.reduce((n,s)=>n+refundedCash(s),0);
   const cashIn = grossSales - creditSold + collected - cashRefunded - fees;
-  // Planned fixed costs/draw are provisions, not recorded money leaving the business.
-  const cashOut = operating + kinds.retirada + kinds.investimento + taxes;
+  // Previsões não são saídas realizadas. Compra paga sai uma vez, na data confirmada.
+  const paidPurchases = general ? Math.max(0, Math.round(purchasesPaid) || 0) : 0;
+  const linkedIds=new Set(purchases.filter(p=>p&&typeof p.id==='string').map(p=>p.id));
+  const cashKinds=Object.fromEntries(COST_KINDS.map(([id])=>[id,0]));
+  for(const x of expenses)if(!linkedIds.has(x.purchaseId))cashKinds[costKind(x)]+=x.amount;
+  const cashOperating=cashKinds.feira+cashKinds.producao+cashKinds.marketing;
+  const cashDrawLogged=general?cashKinds.retirada:0,cashInvestments=cashKinds.investimento;
+  const cashOut = cashOperating + cashDrawLogged + cashInvestments + taxes + paidPurchases;
   return {
     grossSales, returned, revenue, discounts, cmv, fees, feesDefault, taxes, contribution, contributionRate,
     costs: kinds, operating, losses: lossValue, fixed, draw, drawPlanned, drawLogged: kinds.retirada, drawForecast, result, salesCount: sales.length,
     // Parte do caixa que é previsão (fixos rateados e retirada planejada), não pagamento lançado no app.
     cashForecast: fixed + drawForecast,
     cashAfterForecast: cashIn - cashOut - fixed - drawForecast,
-    creditSold, collected, cashRefunded, investments: kinds.investimento, received, cashIn, cashOut, cash: cashIn - cashOut,
+    creditSold, collected, cashRefunded, investments: kinds.investimento, purchasesPaid: paidPurchases, cashOperating, cashDrawLogged, cashInvestments, received, cashIn, cashOut, cash: cashIn - cashOut,
     monthlyFixed, monthlyFixedReference,
     chargeEstimates: {
       fees: { basis: 'configured-rate-per-recorded-payment', rounding: 'integer-cent-per-payment' },

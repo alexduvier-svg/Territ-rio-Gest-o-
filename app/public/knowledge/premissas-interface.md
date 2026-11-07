@@ -168,3 +168,17 @@ Histórico de Compras: confirmação explícita do produtor, calendário comum; 
 Seção opcional antes de Valores e Estoque, com o mesmo material, calendário, teclado e botões do app. Nova reposição começa vazia, com validade própria; não herdar data anterior. Estoque mostra prazo informado, vencimento e restante separados, com detalhes por lote; preservar tamanho dos cards em Vender. Carga da feira mostra faixa de dias na data do evento, somente dos lotes separados. Acerto antigo pede data confirmada e escolha dos lotes quando houver alternativas. Rodapés com espaçamento, rolagem interna, dois temas e modo leve. Ver [Estoque, Lotes e Orientações](estoque-validade-contexto.md). Registro de referência não comprova instalação.
 
 Ajuste humano de26/10: em O Que Vou Levar, Adicionar Depois à esquerda e Salvar à direita; retirar Inserir Quantidade. O teclado compartilhado mantém apenas Próximo/Concluir, com alvo de44px e espaçamento. Em Clientes a Receber, símbolo $ vermelho imediatamente antes de Receber, no card e no título da janela, sem separar símbolo e palavra na quebra.
+
+
+## Qualidade de Toda Janela — Premissa 58
+
+Regra do sistema inteiro, pedida pelo produtor em 05/11/2026. Nenhum texto desconfigurado: palavra e valor não quebram no meio, seta não cai para outra linha, nada corta nem sobrepõe. Nenhuma página abaixo do padrão do app: o modelo é a janela Resultado, em cards com o material comum. Toda janela tem Voltar.
+
+Janela com valores tem o próprio olho no cabeçalho, só o ícone: fica aberto enquanto a janela é usada, fecha ao fechar a janela ou após 1 minuto sem uso. Assuntos de uma janela ficam em cards que expandem no mesmo lugar, sem seletor que troca o conteúdo nem caminho de vários toques. Sem redundância. Uso simples, resultado simples e eficiente, dados precisos: sem base, explicar o que falta.
+
+
+## Poder de Decisão — Premissa 59
+
+Regra do sistema inteiro, pedida pelo produtor em 05/11/2026. Todo resultado precisa gerar poder de decisão e ser explicado da forma mais simples possível. Orientações explica os 4 itens de Operação e os 6 de Análise em O que significa e O que decidir, até cerca de 10 linhas por item, em cards que expandem.
+
+Apuração, Ação e Auditoria cuidam dos dados; Redação, Revisão e Liberação cuidam do texto. Todo número do texto é um fato conferido dos mesmos cálculos das telas; se não bater, a leitura é retida e diz o motivo. Nunca baixar essa exigência. Causa e resultado futuro não são afirmados como fato.

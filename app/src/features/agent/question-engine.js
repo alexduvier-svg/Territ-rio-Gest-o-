@@ -23,6 +23,7 @@ const amount = (n, u) => qty(n) + ' ' + unitLabel(u, n);
 // Começa como pergunta? Pedido de venda ("vendi 3...", "vender 2...") não entra.
 const QUESTION = /^(o que|oque|qual|quais|quanto|quantos|quantas|quando|quem|como|onde|que dia|que hora|que horas|me (diz|diga|mostra|mostre)|mostra|mostre|lista|liste|tenho|tem |ja vendi|vendi para|vendi pra|vendi a quantos|vendi quantos|vendi quantas|vendi quanto|vendi mais|vendi menos|melhor|pior|produto|produtos|estoque|faturamento|lucro|ticket|preco|valor)/;
 
+export function questionPeriod(text,now=Date.now()){return periodOf(norm(text),now);}
 function periodOf(q, now) {
   const today = dayKey(now), d = new Date(today + 'T12:00:00Z'), shift = n => { const x = new Date(d); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
   const y = d.getUTCFullYear(), m = d.getUTCMonth(), monthStart = (yy, mm) => new Date(Date.UTC(yy, mm, 1)).toISOString().slice(0, 10), monthEnd = (yy, mm) => new Date(Date.UTC(yy, mm + 1, 0)).toISOString().slice(0, 10);
@@ -33,7 +34,7 @@ function periodOf(q, now) {
   else if (/semana passada|ultima semana/.test(q)) r = { from: shift(-wd - 7), to: shift(-wd - 1), label: 'na semana passada' };
   else if (/(esta|nesta|essa|nessa) semana|(?<!dia )da semana|na semana/.test(q)) r = { from: shift(-wd), to: today, label: 'nesta semana' };
   else if (/mes passado|ultimo mes/.test(q)) r = { from: monthStart(y, m - 1), to: monthEnd(y, m - 1), label: 'no mês passado' };
-  else if (/(este|neste|esse|nesse) ano|no ano|do ano/.test(q)) r = { from: y + '-01-01', to: today, label: 'neste ano' };
+  else if (/(este|neste|esse|nesse) ano|no ano|do ano/.test(q)&&! /\b(19\d{2}|20\d{2})\b/.test(q)) r = { from: y + '-01-01', to: today, label: 'neste ano' };
   else if (/ano passado/.test(q)) r = { from: (y - 1) + '-01-01', to: (y - 1) + '-12-31', label: 'no ano passado' };
   else {
     const last = q.match(/ultimos? (\d{1,3}) dias?/);
@@ -111,7 +112,7 @@ export function answerQuestion(data, question, { now = Date.now(), scopeId='all'
     if(asked&&!matched.length)return out('Não encontrei esse produto cadastrado.',{stock:true});
     const pool = (asked?matched:(data.products||[])).filter(p=>p.active!==false&&!p.archived);
     const out0 = pool.filter(p => Number(p.stock) <= 0), low = pool.filter(p => Number(p.stock) > 0 && Number(p.min) > 0 && Number(p.stock) <= Number(p.min));
-    return out((out0.length ? 'Sem estoque: ' + out0.slice(0, 8).map(displayName).join(', ') + (out0.length > 8 ? ' e mais ' + (out0.length - 8) : '') + '.' : 'Nenhum produto zerado.') + '\n' + (low.length ? 'No mínimo ou abaixo: ' + low.slice(0, 8).map(p => displayName(p) + ' (' + amount(p.stock, p.unit) + ')').join(', ') + '.' : 'Nenhum produto no mínimo.'), { stock: true });
+    return out((out0.length ? 'Sem estoque: ' + out0.slice(0, 8).map(displayName).join(', ') + (out0.length > 8 ? ' e mais ' + (out0.length - 8) : '') + '.' : 'Nenhum produto esgotado.') + '\n' + (low.length ? 'No mínimo ou abaixo: ' + low.slice(0, 8).map(p => displayName(p) + ' (' + amount(p.stock, p.unit) + ')').join(', ') + '.' : 'Nenhum produto no mínimo.'), { stock: true });
   }
 
   // Melhor dia e horário

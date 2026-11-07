@@ -16,7 +16,9 @@ const quantity=value=>quantityFormatter.format(Number(value));
 const uid=()=>global.crypto&&global.crypto.randomUUID?global.crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2,9);
 const dayFormatter=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'});
 const monthFormatter=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit'});
-const dayKey=date=>{const parts=dayFormatter.formatToParts(new Date(date));return ['year','month','day'].map(type=>parts.find(p=>p.type===type).value).join('-');};
+// O mesmo instante é sempre o mesmo dia: guardar a resposta evita refazer a conta a cada abertura de tela.
+const dayKeyMemo=new Map();
+const dayKey=date=>{const key=date instanceof Date?date.getTime():date,known=dayKeyMemo.get(key);if(known!==undefined)return known;const parts=dayFormatter.formatToParts(new Date(date)),out=['year','month','day'].map(type=>parts.find(p=>p.type===type).value).join('-');if(dayKeyMemo.size>=5000)dayKeyMemo.clear();dayKeyMemo.set(key,out);return out;};
 const monthKey=date=>{const d=new Date(date);const parts=monthFormatter.formatToParts(d);return parts.find(p=>p.type==='year').value+'-'+parts.find(p=>p.type==='month').value;};
 function classify(name){
  const n=normalize(name);

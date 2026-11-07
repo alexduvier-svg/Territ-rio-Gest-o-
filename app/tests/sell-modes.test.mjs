@@ -23,6 +23,12 @@ test('seções quando há pelo menos duas famílias; uma família só fica a gra
   assert.equal(useSections(sellSections([...cafes(2, 'Especial'), p('q', 'Laticínios')])), true);
 });
 
+test('peixes ficam sempre em grade: 2 fileiras de 3 e o resto expansível', () => {
+  assert.equal(sectionLayout(cafes(2, 'E'), false, { grid: true }).mode, 'grid');
+  const fish = sectionLayout(cafes(17, 'E'), false, { grid: true });
+  assert.deepEqual([fish.shown.length, fish.more], [6, 11]);
+});
+
 test('até 2 produtos a seção vira linhas; de 3 em diante, grade com 6 à mostra e o resto atrás da setinha', () => {
   assert.equal(sectionLayout(cafes(2, 'E')).mode, 'rows');
   const g = sectionLayout(cafes(9, 'E'));

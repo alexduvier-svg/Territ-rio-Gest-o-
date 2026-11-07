@@ -1,6 +1,6 @@
 // Product rule reference, copied into local memory by ensureAgent. Never an executable prompt.
 export const INTELLIGENCE_HIERARCHY = Object.freeze({
-  id: 'intelligence-hierarchy', version: 4, authority: 'product_requirements', document: 'knowledge/hierarquia-inteligencia.md',
+  id: 'intelligence-hierarchy', version: 5, authority: 'product_requirements', document: 'knowledge/hierarquia-inteligencia.md',
   order: [
     '1. ERP e domínios canônicos: fonte dos fatos, cálculos, estoque, reservas e consentimentos.',
     '2. Connect: fornece apenas o contexto local necessário, com produtor, origem, período e local.',

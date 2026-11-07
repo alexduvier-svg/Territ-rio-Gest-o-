@@ -62,6 +62,24 @@ As funções são as mesmas nos dois. O estilo Feira muda **estrutura**, não s�
 4. Uma ação principal por tela; linguagem simples, em português.
 5. Antes de cada versão, rodar `tests/overflow-audit.js` (zero ocorrências em 360 e 375 px, nos dois estilos e temas).
 
+## Qualidade de toda janela (regra do sistema, inegociável)
+
+- **Nenhum texto desconfigurado:** palavra e valor não quebram no meio, seta não cai para outra linha, nada corta nem sobrepõe.
+- **Nenhuma página abaixo do padrão:** o modelo é a janela Resultado da Gestão, em cards com o material comum.
+- **Toda janela tem Voltar.** Exceção só para quem tem controle próprio de venda ou teclado.
+- **Olho próprio:** janela com valores tem o olho no cabeçalho, só o ícone, sem caixa de Mostrar Valores. Fica aberto enquanto a janela é usada; fecha ao fechar a janela ou após 1 minuto sem uso.
+- **Assuntos em cards que expandem** no mesmo lugar. Sem seletor que troca o conteúdo e sem caminho de vários toques.
+- **Sem redundância:** a mesma informação aparece uma vez.
+- **Uso simples, resultado simples e eficiente, dados precisos:** sem base, explicar o que falta; nunca inventar.
+
+## Poder de decisão (regra do sistema, inegociável)
+
+- Todo resultado precisa ajudar a decidir e ser explicado da forma mais simples possível. Número sozinho fica vago.
+- Orientações explica os 4 itens de Operação e os 6 de Análise em **O que significa** e **O que decidir**, até cerca de 10 linhas por item, em cards que expandem.
+- Seis agentes locais: Apuração, Ação e Auditoria nos dados; Redação, Revisão e Liberação no texto.
+- **Coerência total:** todo número do texto é um fato conferido dos mesmos cálculos das telas. Se não bater, a leitura é retida e diz o motivo. Nunca baixar essa exigência.
+- Causa e resultado futuro não são afirmados como fato; decisão é sugestão.
+
 ## Movimento (`src/motion.css`, `src/polish.css`)
 
 - Janelas sobem como folha com mola sutil (passam um pouco e assentam); seções abertas pelo toque quicam uma vez; botões afundam no toque.

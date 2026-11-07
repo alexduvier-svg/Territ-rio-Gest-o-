@@ -51,7 +51,7 @@ export function installIndicators(){
   document.addEventListener('input',event=>{if(event.target.id==='roi-attribution'){roi.attribution=event.target.value;document.getElementById('roi-result').innerHTML='';}});
   document.addEventListener('change',event=>{if(event.target.id==='roi-confirmed')roi.confirmed=event.target.checked;if(event.target.id==='roi-investment'){roi.investmentId=event.target.value;roi.confirmed=false;document.getElementById('roi-confirmed').checked=false;document.getElementById('roi-result').innerHTML='';updateInvestment();}});
   function decorate(){
-    if(b.page()!=='Gestão')return;const root=document.getElementById('app');if(root.querySelector('.management-indicators-entry'))return;
+    if(b.page()!=='Gestão')return;const root=document.getElementById('app');if(root.querySelector('.mgh-hub'))return;if(root.querySelector('.management-indicators-entry'))return;
     const html='<details class="event-material-card records-entry management-indicators-entry"><summary><span>'+b.icon('chart')+'</span><span><strong>Indicadores</strong><small>Margens, ticket, CRM, ROI e prazo de retorno</small></span>'+b.icon('down')+'</summary><div>'+button('metrics-open','<span>Acompanhar indicadores e fórmulas</span>'+b.icon('chevron'),'link-row')+'</div></details>';
     const point=root.querySelector('.records-entry:not(.management-indicators-entry)');if(point)point.insertAdjacentHTML('afterend',html);else root.insertAdjacentHTML('beforeend',html);
   }

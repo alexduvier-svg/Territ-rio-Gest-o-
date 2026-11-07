@@ -23,3 +23,8 @@ Parágrafos explicativos de leitura devem receber justificação, hifenização 
 ## Verificação da regra de espaçamento
 
 O aplicativo compilado 0.12.140 passou nos oito cenários de 320, 360, 393 e 412 px, nos temas claro e escuro, incluindo texto ampliado, modo leve e efeitos reduzidos em 320 px. Foram feitas 510 medições entre controles e blocos nos estados exercitados, com foco em Gestão, Vendas, reposição, produtos e margens, indicadores, ROI e parcelamento. As medições usam os limites de recorte e visibilidade dos componentes. Prova: qa/ui-spacing-review.json. A fonte de produção e os APKs instalados permaneceram iguais durante esta verificação.
+
+
+## Integração 0.12.141
+
+Contrato v2 ampliado para os novos grupos de ações da Gestão, contexto do período e opções. As listas inteiras de navegação são componentes coesos identificados; ações independentes dos cards mantêm gap de 8 px. A matriz final de oito cenários fez 370 medições; as quatro jornadas físicas, 188. Foram conferidos os dois temas e, em 320 px, texto ampliado, modo leve e efeitos reduzidos. Os números são medições dos estados exercitados, não uma alegação de inspeção automática de cada tela possível. A revisão visual e editorial acompanha a medição. Provas: qa/update141-final-review.json e qa/ui-spacing-contract.json.

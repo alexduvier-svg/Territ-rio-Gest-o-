@@ -142,3 +142,6 @@ dialog .fam-thumb.is-lifted{position:relative;z-index:3;box-shadow:0 16px 34px -
 :is(#app,.fluid-page-morph-context) .stock-area-foot .stock-area-back{margin:4px 0 0}
 /* Miniaturas de Seções: o texto de cada quadradinho (TC, TM, nomes curtos) fica centralizado. */
 dialog .fam-thumb-art i{text-align:center}
+
+/* Seção fora da tela não pesa ao abrir a aba: o navegador só calcula quando ela chega perto. */
+html:not(.fam-dragging) #app .fam:not(:first-child):not(.is-open){content-visibility:auto;contain-intrinsic-size:auto 354px}

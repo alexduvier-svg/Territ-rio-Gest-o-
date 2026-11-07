@@ -1,0 +1,147 @@
+/* Gestão única: cards de navegação e o conteúdo das 13 funções. Usa os materiais do sistema. */
+.mgh-hub { display: grid; gap: 24px; min-width: 0; padding-bottom: calc(var(--nav-height, 96px) + 24px); }
+#app .mgh-card { margin: 0; padding: 20px 20px 8px; background: var(--material-face); border: 1px solid var(--material-line); border-radius: 24px; box-shadow: var(--material-depth); min-width: 0; }
+#app .mgh-card > h2 { margin: 0 0 4px; font: 800 20px/1.2 'Inter Tight Variable', 'Inter Tight', sans-serif; letter-spacing: -.01em; color: var(--text); }
+#app .mgh-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 56px; padding: 12px 0; margin: 0; background: none; border: 0; border-radius: 0; box-shadow: none; color: var(--text); font: 600 16px/1.3 'Inter Variable', sans-serif; text-align: left; }
+#app .mgh-links > .mgh-link + .mgh-link { border-top: 1px solid var(--line); }
+#app .mgh-link .icon { width: 18px; height: 18px; flex: none; color: var(--muted); }
+
+.mgh-context { display: grid; grid-template-columns: 48px minmax(0, 1fr) 48px; align-items: center; gap: 4px; margin: 0 0 12px; }
+.mgh-context .mg-arrow { width: 48px; height: 48px; min-height: 48px; padding: 0; display: grid; place-items: center; background: none; border: 0; box-shadow: none; }
+.mgh-context .mg-arrow[disabled] { opacity: .3; }
+.mgh-range { display: grid; gap: 2px; text-align: center; min-width: 0; }
+.mgh-range strong { font-size: 16px; line-height: 1.25; color: var(--text); }
+.mgh-range small { font-size: 13px; line-height: 1.3; color: var(--muted); }
+.mgh-status { margin: 0 0 12px; text-align: center; font-size: 13px; font-weight: 600; color: var(--accent-ink); }
+
+.mgh-select { margin: 0 0 12px; background: var(--field, var(--panel)); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.mgh-select > summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: 10px 14px; list-style: none; cursor: pointer; }
+.mgh-select > summary::-webkit-details-marker { display: none; }
+.mgh-select > summary > span { display: grid; gap: 2px; min-width: 0; }
+.mgh-select > summary small { font-size: 13px; color: var(--muted); }
+.mgh-select > summary strong { font-size: 16px; line-height: 1.3; color: var(--text); overflow-wrap: normal; word-break: normal; }
+.mgh-select > summary .icon { width: 18px; height: 18px; flex: none; color: var(--muted); }
+.mgh-select[open] > summary .icon { transform: rotate(180deg); }
+.mgh-options { display: grid; border-top: 1px solid var(--line); }
+dialog .mgh-option { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px; margin: 0; padding: 10px 14px; background: none; border: 0; border-radius: 0; box-shadow: none; color: var(--text); font: 500 15px/1.3 'Inter Variable', sans-serif; text-align: left; }
+dialog .mgh-option + .mgh-option { border-top: 1px solid var(--line); }
+dialog .mgh-option.selected { font-weight: 700; color: var(--accent-ink); }
+
+dialog .mgh-sale { display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 64px; margin: 0; padding: 12px 0; background: none; border: 0; border-top: 1px solid var(--line); border-radius: 0; box-shadow: none; color: var(--text); text-align: left; }
+.mgh-sale-text { display: grid; gap: 2px; min-width: 0; font: 400 14px/1.35 'Inter Variable', sans-serif; }
+.mgh-sale-text > strong { font-weight: 600; }
+.mgh-sale-text small { font-size: 13px; color: var(--muted); font-weight: 400; }
+.mgh-sale > strong { flex: none; font-size: 15px; }
+.mgh-badge { display: inline-block; width: fit-content; padding: 1px 8px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--text); }
+
+.mgh-day { padding: 10px 0; border-top: 1px solid var(--line); }
+.mgh-day-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.mgh-day-row > span { display: grid; gap: 1px; font-size: 15px; }
+.mgh-day-row small { font-size: 13px; color: var(--muted); }
+.mgh-day.is-negative .mgh-day-row strong { color: var(--red); }
+.mgh-bar { height: 6px; margin-top: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+.mgh-bar > i { display: block; height: 100%; background: var(--accent-ink); border-radius: 4px; }
+.mgh-day.is-negative .mgh-bar > i { background: var(--red); }
+
+.mgh-abc { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 8px; font-size: 13px; color: var(--muted); }
+.mgh-metric { display: grid; gap: 8px; }
+.mgh-metric-value { display: block; margin: 12px 0 0; font: 800 32px/1.15 'Inter Tight Variable', 'Inter Tight', sans-serif; color: var(--text); overflow-wrap: anywhere; }
+.mgh-settings { width: 100%; margin-bottom: 12px; }
+dialog[data-kind='mg-detail'] label[for='mgh-question'] { display: block; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
+dialog[data-kind='mg-detail'] #mgh-question { width: 100%; margin-bottom: 12px; }
+dialog[data-kind='mg-detail'] .mgh-links { margin-top: 16px; }
+dialog[data-kind='mg-detail'] .fin-del { min-width: 44px; min-height: 44px; }
+dialog[data-kind='mg-detail'] details > summary { min-height: 48px; display: flex; align-items: center; }
+dialog[data-kind='mg-detail'] .mgh-select > summary { min-height: 64px; }
+/* Valor em uma linha só: quem quebra é o rótulo. */
+dialog[data-kind='mg-detail'] .fin-row > strong, dialog[data-kind='mg-detail'] .mgh-day-row > strong, dialog[data-kind='mg-detail'] .ds-num > strong { flex: none; white-space: nowrap; }
+dialog[data-kind='mg-detail'] .fin-row > span { min-width: 0; }
+
+/* Janelas no modelo de Resultado: cards que expandem, sem seletor. */
+dialog[data-kind='mg-detail'] .mgh-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+dialog[data-kind='mg-detail'] .mgh-header > h2 { flex: 1; min-width: 0; }
+dialog[data-kind='mg-detail'] .mgh-eye { flex: none; display: grid; place-items: center; width: 44px; height: 44px; min-height: 44px; margin: 0; padding: 0; background: none; border: 0; box-shadow: none; color: var(--text); }
+dialog[data-kind='mg-detail'] .mgh-eye .icon { width: 24px; height: 24px; }
+dialog[data-kind='mg-detail'] .mgh-context { margin-top: 4px; }
+dialog[data-kind='mg-detail'] .mgh-fold { display: block; padding: 0; }
+dialog[data-kind='mg-detail'] .mgh-fold.ds-card { padding: 0 14px; margin: 0 0 12px; }
+dialog[data-kind='mg-detail'] .mgh-fold > summary { display: flex; flex-wrap: nowrap; align-items: center; gap: 10px; min-height: 56px; padding: 12px 0; list-style: none; cursor: pointer; color: var(--text); }
+dialog[data-kind='mg-detail'] .mgh-fold > summary::-webkit-details-marker { display: none; }
+dialog[data-kind='mg-detail'] .mgh-fold > summary > h3 { flex: 1 1 auto; min-width: 0; margin: 0; font: 700 16px/1.25 'Inter Tight Variable', 'Inter Variable', sans-serif; color: var(--text); text-transform: none; overflow-wrap: normal; word-break: normal; }
+dialog[data-kind='mg-detail'] .mgh-fold-side { flex: 0 1 auto; font-size: 13px; line-height: 1.3; font-weight: 500; color: var(--muted); text-align: right; }
+dialog[data-kind='mg-detail'] .mgh-fold > summary > .icon { flex: none; width: 18px; height: 18px; color: var(--muted); transition: transform .2s ease; }
+dialog[data-kind='mg-detail'] .mgh-fold[open] > summary > .icon { transform: rotate(180deg); }
+dialog[data-kind='mg-detail'] .mgh-fold-body { padding-bottom: 8px; }
+dialog[data-kind='mg-detail'] .mgh-fold.mgh-row { border-top: 1px solid var(--line); }
+dialog[data-kind='mg-detail'] .mgh-fold.mgh-row > summary > h3 { font: 600 15px/1.3 'Inter Variable', sans-serif; }
+dialog[data-kind='mg-detail'] .mgh-list > div:first-child .mgh-fold.mgh-row { border-top: 0; }
+dialog[data-kind='mg-detail'] .mgh-sale { align-items: flex-start; }
+dialog[data-kind='mg-detail'] .mgh-action-card .mg-row, dialog[data-kind='mg-detail'] .mgh-action-card .link-row { width: 100%; min-height: 56px; margin: 0; padding: 12px 0; background: none; border: 0; border-radius: 0; box-shadow: none; }
+dialog[data-kind='mg-detail'] .mgh-action-card > button + button { border-top: 1px solid var(--line); }
+dialog[data-kind='mg-detail'] .mgh-ask-card { padding-top: 12px; padding-bottom: 12px; }
+dialog[data-kind='mg-detail'] .mgh-ask-card .modal-action { margin-bottom: 0; }
+dialog[data-kind='mg-detail'] .mgh-supplier-card .mg-sup-total { background: none; box-shadow: none; border: 0; padding: 4px 0; }
+dialog[data-kind='mg-detail'] .mgh-fold-side { white-space: nowrap; }
+dialog[data-kind='mg-detail'] .mgh-sale .ds-num { display: grid; flex: none; justify-items: end; gap: 2px; text-align: right; }
+dialog[data-kind='mg-detail'] .mgh-sale .ds-num small { font-size: 13px; color: var(--muted); }
+dialog[data-kind='mg-detail'] .mgh-loose { padding-top: 10px; padding-bottom: 10px; }
+dialog[data-kind='mg-detail'] .mgh-loose > :last-child { margin-bottom: 0; }
+dialog[data-kind='mg-detail'] .mgh-loose > :first-child { margin-top: 0; }
+/* Palavra inteira: o texto desce para a linha seguinte, sem cortar a palavra. */
+dialog[data-kind='mg-detail'] .ds-row > span:first-child, dialog[data-kind='mg-detail'] .ds-row > span:first-child strong { min-width: 0; overflow-wrap: normal; word-break: normal; hyphens: none; }
+
+/* Venda como relatório e devolução, no mesmo padrão das janelas da Gestão. */
+dialog:is([data-kind='receipt'],[data-kind='refund']) .ds-card { padding: 6px 14px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); box-shadow: none; }
+dialog:is([data-kind='receipt'],[data-kind='refund']) .ds-card > h3 { margin: 8px 0 4px; font: 700 16px/1.25 'Inter Tight Variable', 'Inter Variable', sans-serif; color: var(--text); }
+dialog[data-kind='receipt'] .mgh-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+dialog[data-kind='receipt'] .mgh-header > h2 { flex: 1; min-width: 0; }
+dialog[data-kind='receipt'] .mgh-eye { flex: none; display: grid; place-items: center; width: 44px; height: 44px; min-height: 44px; margin: 0; padding: 0; background: none; border: 0; box-shadow: none; color: var(--text); }
+dialog[data-kind='receipt'] .mgh-eye .icon { width: 24px; height: 24px; }
+dialog[data-kind='receipt'] .sale-receipt .receipt-number { margin: 4px 0 8px; }
+dialog[data-kind='receipt'] .ds-row > span:first-child { min-width: 0; overflow-wrap: normal; word-break: normal; }
+dialog[data-kind='receipt'] .ds-num > strong { flex: none; white-space: nowrap; }
+dialog[data-kind='receipt'] .mgh-action-card .mg-row { width: 100%; min-height: 56px; margin: 0; padding: 12px 0; background: none; border: 0; border-radius: 0; box-shadow: none; }
+dialog[data-kind='receipt'] .customer-origin { font-size: 14px; line-height: 1.5; color: var(--muted); padding-bottom: 6px; }
+dialog[data-kind='mg-detail'] .mgh-advisor-slot { min-height: 200px; margin-bottom: 12px; border: 1px solid var(--line); border-radius: 18px; background: var(--panel); }
+
+/* Orientações: leitura simples, item por item. */
+dialog[data-kind='mg-detail'] .mgh-read { margin: 0 0 8px; font-size: 15px; line-height: 1.45; color: var(--text); overflow-wrap: normal; word-break: normal; }
+dialog[data-kind='mg-detail'] .mgh-global > h3, dialog[data-kind='mg-detail'] .mgh-decisions > h3 { margin: 10px 0 6px; font: 800 18px/1.2 'Inter Tight Variable', 'Inter Variable', sans-serif; color: var(--text); }
+dialog[data-kind='mg-detail'] .mgh-global h4, dialog[data-kind='mg-detail'] .mgh-decisions h4 { margin: 10px 0 4px; font: 700 13px/1.3 'Inter Variable', sans-serif; color: var(--accent-ink); }
+dialog[data-kind='mg-detail'] .mgh-decisions > .mgh-fold:first-of-type { border-top: 0; }
+dialog[data-kind='mg-detail'] .mgh-see { display: block; width: 100%; min-height: 44px; margin: 4px 0 4px; padding: 8px 0; background: none; border: 0; box-shadow: none; color: var(--accent-ink); font: 600 14px/1.3 'Inter Variable', sans-serif; text-align: left; }
+/* Valor nunca quebra: vale para qualquer linha de janela da Gestão. */
+dialog[data-kind='mg-detail'] .fin-row > strong { flex: none; white-space: nowrap; }
+dialog[data-kind='mg-detail'] .mgh-lens { margin: 6px 0 4px; font-size: 12px; line-height: 1.35; color: var(--muted); }
+dialog[data-kind='mg-detail'] .mgh-lens strong { font-weight: 600; color: var(--muted); }
+dialog[data-kind='mg-detail'] .mgh-fold-body h4 { margin: 10px 0 4px; font: 700 13px/1.3 'Inter Variable', sans-serif; color: var(--muted); }
+/* Rótulo e detalhe em linhas separadas, sem colar as palavras. */
+dialog[data-kind='mg-detail'] .fin-row > span > small { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: var(--muted); }
+dialog[data-kind='mg-detail'] .link-row > span > small { display: block; margin-top: 2px; }
+
+/* Ranking */
+#app .mgh-rank-entry { padding: 6px 20px; }
+#app .mgh-rank-entry .mgh-link { font: 800 20px/1.2 'Inter Tight Variable', 'Inter Tight', sans-serif; letter-spacing: -.01em; }
+dialog[data-kind='mg-detail'] .mgh-rank { display: flex; align-items: center; gap: 10px; }
+dialog[data-kind='mg-detail'] .mgh-rank-n { flex: 0 0 26px; font-size: 14px; font-weight: 700; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+dialog[data-kind='mg-detail'] .mgh-rank-text { display: grid; gap: 2px; flex: 1; min-width: 0; overflow-wrap: normal; word-break: normal; }
+dialog[data-kind='mg-detail'] .mgh-rank-text small { font-size: 13px; color: var(--muted); }
+dialog[data-kind='mg-detail'] .mgh-rank .ds-num { display: grid; flex: none; justify-items: end; gap: 2px; text-align: right; }
+dialog[data-kind='mg-detail'] .mgh-rank .ds-num small { font-size: 13px; color: var(--muted); }
+dialog[data-kind='mg-detail'] .mgh-rank-advice { margin: 10px 0 6px; font-size: 14px; line-height: 1.4; color: var(--text); }
+dialog[data-kind='mg-detail'] [data-ranking-events] .ds-note { margin: 0; }
+
+/* Ações independentes: regra permanente do Codex, inclusive com texto ampliado. */
+dialog:is([data-kind='mg-detail'],[data-kind='receipt']) .mgh-action-card { display:grid; gap:8px; margin-bottom:12px; }
+dialog .mgh-loose { display:grid; gap:12px; }
+dialog .mgh-context { gap:8px; }
+dialog .mgh-options { display:grid; gap:6px; }
+dialog .mgh-see { margin-top:12px; margin-bottom:8px; }
+dialog[data-kind='mg-detail'] :is(.mgh-read,.ds-note,.mgh-rank-advice) { text-align:justify; hyphens:auto; overflow-wrap:break-word; }
+@media(max-width:360px){
+ dialog[data-kind='mg-detail'] .mgh-sale { flex-wrap:wrap; }
+ dialog[data-kind='mg-detail'] .mgh-sale .mgh-sale-text { flex:1 1 150px; }
+ dialog[data-kind='mg-detail'] .mgh-fold-side { white-space:normal; }
+ dialog[data-kind='mg-detail'] .mgh-rank { flex-wrap:wrap; }
+ dialog[data-kind='mg-detail'] .mgh-rank .ds-num { margin-left:36px; }
+}

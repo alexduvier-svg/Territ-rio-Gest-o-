@@ -35,7 +35,7 @@ function forecastSection(input) {
 function stockSection(input) {
   const list = runOut(input).filter(r => r.days <= 14).slice(0, 6);
   if (!input.history?.daily?.length) return ['Ainda não há histórico diário suficiente para estimar a duração do estoque.'];
-  if (!list.length) return ['Nos registros disponíveis, nenhum saldo positivo tem projeção de acabar nos próximos 14 dias. Estoque zerado e dados ausentes precisam ser conferidos separadamente.'];
+  if (!list.length) return ['Nos registros disponíveis, nenhum saldo positivo tem projeção de acabar nos próximos 14 dias. Estoque esgotado e dados ausentes precisam ser conferidos separadamente.'];
   return ['Referência pelo ritmo registrado, sem garantia de duração:', ...list.map(r => `• ${r.name}: cerca de ${r.days < 1 ? 'menos de 1 dia' : Math.round(r.days) + (Math.round(r.days) === 1 ? ' dia' : ' dias')} (${qty(r.stock)} ${r.unitLabel}; ${qty(r.perDay)} por dia corrido em ${r.daysObserved} dias considerados, ${r.samples} com vendas registradas${r.limited?'; amostra pequena':''}).`),'Dias corridos não comprovam dias de exposição nem disponibilidade. Confira o mínimo manual, as entradas previstas, a validade e o prazo do fornecedor antes de repor.'];
 }
 

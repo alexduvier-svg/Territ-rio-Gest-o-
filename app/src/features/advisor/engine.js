@@ -9,6 +9,7 @@ import {productPareto} from '../product-pareto.js';
 import { forecastNextEvent, runOut } from './forecast.js';
 import {stockValidityRules} from './validity-rules.js';
 import { FINANCE_RULES } from './finance-rules.js';
+import { COUNCIL_RULES, lensOf, lensMethod } from './council-rules.js';
 import { evidenceQuality } from './quality.js';
 import { explainMethod } from './method.js';
 import { WEATHER_RULES } from './weather-rules.js';
@@ -163,7 +164,7 @@ function leftovers(input) {
         title: `Esgotou na ${event.name}`,
         happened: `${list(soldOut.slice(0, 3).map(i => i.name))} ${soldOut.length === 1 ? 'acabou' : 'acabaram'} durante a feira.`,
         todo: `Leve mais ${list(soldOut.slice(0, 2).map(i => i.name))} após conferir validade, caixa e demanda. O esgotamento sozinho não prova pedidos perdidos.`,
-        why: 'O saldo zerado é um fato registrado. Só pedidos não atendidos permitem medir demanda perdida; testar reposição exige avaliar prazo e validade.',
+        why: 'O saldo esgotado é um fato registrado. Só pedidos não atendidos permitem medir demanda perdida; testar reposição exige avaliar prazo e validade.',
         topics: ['giro', 'espaco'],
         impact: soldOut.reduce((n, i) => n + Math.round(i.taken * i.price * 0.25), 0),
       }));
@@ -478,7 +479,7 @@ export function calendarPlanning(input){
   topics:['parcerias','encarte'],impact:0,
  }));
 }
-const RULES = [...WEATHER_RULES, stockValidityRules, bestFirst, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, productRoles, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests,calendarPlanning,practiceCandidates];
+const RULES = [...WEATHER_RULES, stockValidityRules, bestFirst, noSales, lossPeriod, pricing, missingCost, ...FINANCE_RULES, ...COUNCIL_RULES, productRoles, restock, runningOut, leftovers, nextEventPlan, trend, basket, concentration, loyalty, acquisition, upcomingEvent, qrAndPortfolio, roundPrices, pendingTests,calendarPlanning,practiceCandidates];
 
 // ------------------------------------------------------------------------------------- saída
 
@@ -490,7 +491,7 @@ function stampDecisions(all, input) {
   const commerce = q.errors ? 'nula' : q.completeCosts && q.sales >= 8 ? 'media' : 'baixa';
   const generated = new Date().toISOString();
   for (const d of all) {
-    d.decision = { rule_id: d.id.split(':')[0], rule_version: 1, module: 'vendas', confidence: commerce, requires_user_action: d.level !== 'bom', ...(d.decision || {}),
+    d.decision = { rule_id: d.id.split(':')[0], rule_version: 1, module: 'vendas', confidence: commerce, requires_user_action: d.level !== 'bom', ...(lensOf(d.id) ? { lens: lensOf(d.id), lens_method: lensMethod(lensOf(d.id)) } : {}), audit_status: q.errors ? 'erro' : 'ok', ...(d.decision || {}),
       advice_id: d.id, generated_at: generated, data_context: q.context || 'unconfirmed' };
   }
 }

@@ -60,8 +60,12 @@ export function installAgent(){
  async function ask(text,source='text',requestId=uid()){
   const base=view?.ctx||context(),ctx=b.queryContext?.(text,base)||base,actor=contextOf(b.data()).actorId,token=++epoch;if(!current(ctx))return b.toast('O produtor mudou. Abra a análise novamente.');
   if(window.TerritorioStockLotsUI?.handleQuestion(text)){audit(state(),requestId,'query-stock-validity',{intent:'stock-validity',scopeId:'all'});persist();return;}
+  let money='';try{money=b.financeQuestion?.(text,ctx)||'';}catch(e){money='';}
+  if(money){audit(state(),requestId,'queried',{scopeId:ctx.scopeId,intent:'management-finance',dataRevision:revisionOf(b.data()),queryContractVersion:1});persist();view={kind:'answer',ctx,result:{text:money}};
+   b.open('Gerente do negócio','<p class="agent-origin">'+esc(originLabel(b.data()))+'</p><p class="agent-question">'+esc(text)+'</p><p class="agent-answer">'+b.privateHTML(esc(money))+'</p><p class="agent-note">Calculado no aparelho, sem internet, só com o que foi registrado. Nenhuma operação foi executada.</p>',back(),'agent-answer');return;}
   // Perguntas do dia a dia (mais vendidos, estoque, CNPJ, período...) respondidas direto dos registros.
   let direct=null;try{direct=answerQuestion(b.data(),text,{scopeId:ctx.scopeId});}catch(e){direct=null;}
+  if(direct?.understood&&/R\$/.test(direct.text)){const stop=b.conferenceStop?.(text,ctx);if(stop)direct={...direct,text:stop};}
   if(direct?.understood){audit(state(),requestId,'queried',{scopeId:ctx.scopeId,intent:'question-engine',period:direct.period?.label||'',dataRevision:revisionOf(b.data()),queryContractVersion:1});persist();view={kind:'answer',ctx,result:{text:direct.text}};
    b.open('Gerente do negócio','<p class="agent-origin">'+esc(originLabel(b.data()))+'</p><p class="agent-question">'+esc(text)+'</p><p class="agent-answer">'+b.privateHTML(esc(direct.text))+'</p><p class="agent-note">Calculado no aparelho, sem internet, só com o que foi registrado. Nenhuma operação foi executada.</p>',back(),'agent-answer');return;}
   const request=parseRequest(text,b.data(),{scopeId:ctx.scopeId,source,requestId});

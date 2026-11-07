@@ -290,5 +290,74 @@
     "versao": "1",
     "estado": "Entregue na 0.12.87, no motor de Orientação existente",
     "nota": "Mesmo RULES/release existente; fatos e limitações, sem novo motor."
+  },
+  "leitura_decisao": {
+    "arquivo": "app/src/features/management-hub/decision-engine.js",
+    "funcao": "buildDecisions",
+    "versao": "1",
+    "estado": "Entregue na 0.12.164; Conferência ligada na 0.12.165",
+    "nota": "Só redige e libera texto com números dos motores canônicos. As regras devem migrar para a lista RULES do motor de Orientação; não criar fórmula financeira aqui.",
+    "testes": [
+      "decision-engine.test.mjs"
+    ]
+  },
+  "conselho_gestao": {
+    "arquivo": "app/src/data/management-council-guidelines.js",
+    "funcao": "MANAGEMENT_COUNCIL",
+    "versao": "1",
+    "nota": "Diretriz, sem cálculo."
+  },
+  "ganho_por_restricao": {
+    "arquivo": "app/src/features/advisor/council-rules.js",
+    "funcao": "throughputPerConstraint",
+    "versao": "1",
+    "estado": "Cálculo pronto; falta o campo do recurso que limita."
+  },
+  "concentracao_clientes": {
+    "arquivo": "app/src/features/advisor/council-rules.js",
+    "funcao": "clientConcentration",
+    "versao": "1"
+  },
+  "rfm_clientes": {
+    "arquivo": "app/src/features/advisor/council-rules.js",
+    "funcao": "rfmSegments",
+    "versao": "1",
+    "nota": "Só histórico; sem valor futuro."
+  },
+  "matriz_compras": {
+    "arquivo": "app/src/features/suppliers/model.js",
+    "funcao": "purchaseMatrix",
+    "versao": "1"
+  },
+  "poder_do_um": {
+    "arquivo": "app/src/features/finance/producer-calcs.js",
+    "funcao": "powerOfOne",
+    "versao": "1",
+    "nota": "Simulação sobre o demonstrativo."
+  },
+  "indice_gestao_basica": {
+    "arquivo": "app/src/features/finance/audit.js",
+    "funcao": "basicsScore",
+    "versao": "1"
+  },
+  "ranking_gestao": {
+    "arquivo": "app/src/features/management-hub/ranking.js",
+    "funcao": "rankProducts, rankHours, rankWeekdays, rankValues, rankPayments, rankClients",
+    "versao": "1",
+    "estado": "Entregue na 0.12.166",
+    "nota": "Só ordena registros já apurados; produtos vêm do demonstrativo, sem fórmula financeira nova.",
+    "testes": [
+      "management-ranking.test.mjs"
+    ]
+  },
+  "padroes_venda": {
+    "arquivo": "app/src/features/management-hub/ranking.js",
+    "funcao": "salesPatterns",
+    "versao": "1",
+    "estado": "Entregue na 0.12.166",
+    "nota": "Produto, horário e dia em 90 dias. Sem base mínima não há frase; passa por releaseCheck; não afirma futuro.",
+    "testes": [
+      "management-ranking.test.mjs"
+    ]
   }
 }

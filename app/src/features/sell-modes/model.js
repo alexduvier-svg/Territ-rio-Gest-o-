@@ -34,8 +34,8 @@ export const useSections = sections => sections.length >= 2;
 
 // Como a seção se mostra: até 2 produtos em linhas; de 3 em diante, grade com 6 à mostra e o resto guardado
 // atrás da setinha. "more" é quantos ficam guardados (a setinha continua lá, para fechar, com a seção aberta).
-export function sectionLayout(items, open = false) {
-  if (items.length <= ROWS_MAX) return { mode: 'rows', shown: items, extra: [], more: 0 };
+export function sectionLayout(items, open = false, { grid = false } = {}) {
+  if (!grid && items.length <= ROWS_MAX) return { mode: 'rows', shown: items, extra: [], more: 0 };
   const more = Math.max(0, items.length - FAM_FIT);
   return { mode: 'grid', shown: open ? items : items.slice(0, FAM_FIT), extra: open ? [] : items.slice(FAM_FIT), more };
 }

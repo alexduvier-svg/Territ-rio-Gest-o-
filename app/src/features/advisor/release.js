@@ -4,7 +4,7 @@ export const RELEASE_VERSION = 1;
 const DAY = 86400000;
 const levels = { urgente: 0, atencao: 1, oportunidade: 2, bom: 3 };
 const integrity = id => /^(origem-dados|fin-conferencia|fin-audit|fin-erros|auditoria|audit-|fin-inconsistencia)/.test(id);
-const family = id => /^guia-pdv:/.test(id)?'pdv':/^guia-crm:/.test(id)?'crm':/^(stock-low|repor|acaba-logo|esgotou)/.test(id) ? 'stock'
+const family = id => /^(resultado|rotina|ganho|cliente|compra|caixa):/.test(id)?id.split(':')[0]:/^guia-pdv:/.test(id)?'pdv':/^guia-crm:/.test(id)?'crm':/^(stock-low|repor|acaba-logo|esgotou)/.test(id) ? 'stock'
   : /^(fair-|encalhe|previsao-feira)/.test(id) ? 'fair'
   : /^(rebuy|retorno|fieis|identificar)/.test(id) ? 'crm'
   : /^(papel-produto|dependencia|ticket)/.test(id) ? 'mix' : id;

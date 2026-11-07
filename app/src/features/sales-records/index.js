@@ -40,19 +40,19 @@ export function installSalesRecords() {
   function detail(id){if(b.modal()?.kind==='sales-records'&&view)view.scroll=document.getElementById('checkout-scroll')?.scrollTop||0;b.saleDetail(id);const sale=b.data().sales.find(s=>s.id===id);if(sale)decorateReceipt(sale);}
   function fillAudit(details,sale) {
     const limit=auditLimits.get(sale.id)||40,rows=[...(sale.costCorrections||[])].reverse();
-    details.querySelector('.records-audit-body').innerHTML=rows.slice(0,limit).map(row=>'<p><strong>'+e(row.name)+'</strong><br>'+e(new Date(row.recordedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))+' · '+(row.before.costKnown?b.money(row.before.cost):'Não informado')+' → '+b.money(row.after.cost)+' por '+e(b.unitLabel(row.unit,1))+'</p>').join('')+(rows.length>limit?button('records-audit-more','Mostrar mais alterações','choice',{id:sale.id}):'');
+    details.querySelector('.records-audit-body').innerHTML=rows.slice(0,limit).map(row=>'<p><strong>'+e(row.name)+'</strong><br>'+e(new Date(row.recordedAt).toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}))+' · '+(row.before.costKnown?money(row.before.cost):'Não informado')+' → '+money(row.after.cost)+' por '+e(b.unitLabel(row.unit,1))+'</p>').join('')+(rows.length>limit?button('records-audit-more','Mostrar mais alterações','choice',{id:sale.id}):'');
   }
   function decorateReceipt(sale) {
     if(!R.eligible(b.data(),sale)||b.modal()?.kind!=='receipt')return;
-    const body=document.querySelector('#dialog > .dialog-content');if(!body)return;
-    const rows=[...body.querySelectorAll(':scope > .list-row')];
+    const body=document.querySelector('#dialog > .dialog-content');if(!body||body.querySelector('.record-cost-note'))return;
+    const rows=[...body.querySelectorAll('[data-sale-products] > .ds-row, :scope > .list-row')];
     sale.items.forEach((item,index)=>{const row=rows[index];if(!row)return;row.outerHTML=button('sale-cost-open',row.innerHTML,'list-row record-cost-row',{sale:sale.id,index});const current=body.querySelector('.record-cost-row[data-index="'+index+'"] > span');if(current){const note=document.createElement('small');note.className='record-cost-note';note.textContent=costCaption(item);current.append(note);}});
     let extra='<p class="ds-note">Toque no produto para informar ou corrigir o custo desta venda. O preço e o cadastro atual do produto continuam os mesmos.</p>';
-    if(sale.cardPlan){extra+='<section class="record-installments"><h3>Crédito · '+sale.cardPlan.count+' '+(sale.cardPlan.count===1?'parcela':'parcelas')+'</h3>'+sale.cardPlan.installments.map(p=>'<div><span>'+p.number+'ª · '+dateBR(p.date)+'</span><strong class="tabular">'+b.money(p.amount)+'</strong></div>').join('')+'<p class="ds-note">Datas combinadas com o cliente. Não confirmam o repasse da operadora.</p></section>';}
+    if(sale.cardPlan){extra+='<section class="record-installments"><h3>Crédito · '+sale.cardPlan.count+' '+(sale.cardPlan.count===1?'parcela':'parcelas')+'</h3>'+sale.cardPlan.installments.map(p=>'<div><span>'+p.number+'ª · '+dateBR(p.date)+'</span><strong class="tabular">'+money(p.amount)+'</strong></div>').join('')+'<p class="ds-note">Datas combinadas com o cliente. Não confirmam o repasse da operadora.</p></section>';}
     else if(sale.payments.some(p=>p.method==='Crédito'))extra+='<p class="ds-note">O parcelamento não foi informado nesta venda antiga.</p>';
     if(sale.costCorrections?.length)extra+='<details class="records-audit" data-cost-audit="'+e(sale.id)+'"><summary>Alterações de custo · '+sale.costCorrections.length+'</summary><div class="records-audit-body"></div></details>';
     const marker=body.querySelector('[data-action="sale-story"]');if(marker)marker.insertAdjacentHTML('beforebegin',extra);else body.insertAdjacentHTML('beforeend',extra);
-    if(currentView()){const close=body.querySelector('[data-action="close-modal"]');if(close)close.outerHTML=foot('records-back','Voltar a Vendas');}
+    if(currentView()){const close=document.querySelector('#dialog [data-action="close-modal"]');if(close)close.outerHTML=foot('records-back','Voltar a Vendas');}
   }
   function openCost(saleId,index) {
     if(cost?.pending||cost?.saving)return b.toast('Confirme a gravação do custo antes de abrir outro produto.');
@@ -117,7 +117,7 @@ export function installSalesRecords() {
     const r=card;if(!r||!ownsCard(r))return;
     let body;
     if(r.stage==='count')body='<div class="card-plan-count"><p>Valor no Crédito: <strong class="tabular">'+b.money(r.amount)+'</strong></p>'+b.numericField('card-installment-count','Em quantas vezes?',String(r.count),'inputmode="numeric"')+'<p class="ds-note">De 1 a 60 parcelas. As datas mensais aparecerão para você conferir.</p></div>';
-    else body='<p class="ds-note">Datas mensais sugeridas. Toque em uma data para ajustar no calendário.</p><div class="card-plan-list">'+r.plan.installments.map(p=>'<section class="card-plan-row"><div><strong>'+p.number+'ª parcela</strong><span class="tabular">'+b.money(p.amount)+'</span></div>'+b.dateField('card-plan-date-'+(p.number-1),monthName(p.date.slice(0,7)),p.date,'min="'+R.day()+'"')+'</section>').join('')+'</div><div class="card-plan-tools">'+button('card-count-back','Alterar número de parcelas')+button('card-monthly','Gerar datas mensais novamente')+'</div>';
+    else body='<p class="ds-note">Datas mensais sugeridas. Toque em uma data para ajustar no calendário.</p><div class="card-plan-list">'+r.plan.installments.map(p=>'<section class="card-plan-row"><div><strong>'+p.number+'ª parcela</strong><span class="tabular">'+money(p.amount)+'</span></div>'+b.dateField('card-plan-date-'+(p.number-1),monthName(p.date.slice(0,7)),p.date,'min="'+R.day()+'"')+'</section>').join('')+'</div><div class="card-plan-tools">'+button('card-count-back','Alterar número de parcelas')+button('card-monthly','Gerar datas mensais novamente')+'</div>';
     b.open('Crédito · Parcelamento',body+'<p id="card-plan-error" role="status" class="credit-error">'+e(message)+'</p>',button(r.stage==='count'?'card-generate':'card-save',r.stage==='count'?'Conferir datas':'Usar parcelamento','success')+foot('card-back','Voltar à venda'),'card-installments');
   }
   function generateCard() {
@@ -161,6 +161,7 @@ export function installSalesRecords() {
     const records=b.reportRecords(),html=costWarningMarkup(records.sales,records.returns);if(html)body.insertAdjacentHTML('beforeend',html);
   }
   new MutationObserver(decorateReport).observe(document.getElementById('dialog'),{childList:true});
+  window.addEventListener('territorio:management-ready',decorateReport);
   function decorateProductWarning(){
     if(b.page()!=='Produto')return;const root=document.getElementById('app');if(root.querySelector('.product-cost-guidance'))return;
     const price=root.querySelector('input[id^="price-"]'),row=price?.closest('.form-field');if(!row)return;
@@ -179,7 +180,7 @@ export function installSalesRecords() {
   new MutationObserver(decorateCheckout).observe(document.getElementById('dialog'),{childList:true});
   function decorateEntry(){
     if(b.page()!=='Gestão')return;
-    const root=document.getElementById('app');if(root.querySelector('.records-entry:not(.management-indicators-entry)'))return;
+    const root=document.getElementById('app');if(root.querySelector('.mgh-hub'))return;if(root.querySelector('.records-entry:not(.management-indicators-entry)'))return;
     const entry='<details class="event-material-card records-entry"><summary><span>'+b.icon('receipt')+'</span><span><strong>Vendas</strong><small>Registros por dia, custos e arquivo mensal</small></span>'+b.icon('down')+'</summary><div>'+button('sales-records','<span>Consultar vendas e informar custos</span>'+b.icon('chevron'),'link-row')+'</div></details>';
     const point=[...root.querySelectorAll('.mg-section-title')].find(el=>/Explorar o Período/i.test(el.textContent));
     if(point)point.insertAdjacentHTML('beforebegin',entry);else root.insertAdjacentHTML('beforeend',entry);

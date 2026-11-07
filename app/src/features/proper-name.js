@@ -8,11 +8,19 @@
 const CONNECTORS = new Set(['que', 'de', 'da', 'do', 'das', 'dos', 'e', 'com', 'em', 'na', 'no', 'nas', 'nos', 'por', 'pelo', 'pela', 'pelos', 'pelas', 'ou', 'se', 'para', 'sem', 'ao', 'aos', 'à', 'às', 'a', 'o', 'os', 'as', 'd\'', 'del', 'y']);
 const UNITS = new Set(['g', 'kg', 'mg', 'ml', 'l', 'lt', 'un', 'und', 'dz', 'pct', 'cx', 'm', 'cm', 'mm']);
 // Siglas que ficam como estão quando digitadas em maiúsculas; palavras comuns em caixa alta não.
-const ACRONYMS = new Set(['ABC', 'CSV', 'PDF', 'PDV', 'KPI', 'KPIS', 'CRM', 'ERP', 'GPS', 'IOF', 'ICMS', 'NF', 'NFE', 'TC', 'TM', 'TE','UHT', 'SIF', 'SIM', 'SIE', 'SISBI', 'IG', 'DOP', 'MEI', 'ME', 'EPP', 'LTDA', 'CNPJ', 'CPF', 'PIX', 'QR', 'UF', 'AGRO', 'EMATER', 'EPAMIG', 'IMA', 'MAPA', 'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']);
+const ACRONYMS = new Set(['ABC', 'CSV', 'PDF', 'PDV', 'ROI', 'KPI', 'KPIS', 'CRM', 'ERP', 'GPS', 'IOF', 'ICMS', 'NF', 'NFE', 'TC', 'TM', 'TE','UHT', 'SIF', 'SIM', 'SIE', 'SISBI', 'IG', 'DOP', 'MEI', 'ME', 'EPP', 'LTDA', 'CNPJ', 'CPF', 'PIX', 'QR', 'UF', 'AGRO', 'EMATER', 'EPAMIG', 'IMA', 'MAPA', 'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO']);
 const acronym = word => ACRONYMS.has(word) || /^[B-DF-HJ-NP-TV-Z]{2,4}$/.test(word);
 const capitalize = word => word ? word.charAt(0).toLocaleUpperCase('pt-BR') + word.slice(1).toLocaleLowerCase('pt-BR') : word;
 
+const properMemo = new Map();
 export function properName(value) {
+  const known = properMemo.get(value);
+  if (known !== undefined) return known;
+  const out = buildProperName(value);
+  if (typeof value === 'string') { if (properMemo.size >= 3000) properMemo.clear(); properMemo.set(value, out); }
+  return out;
+}
+function buildProperName(value) {
   const text = String(value ?? '').replace(/\s+/g, ' ').trim();
   if (!text) return text;
   // Everything typed in capitals is a name, not a row of acronyms.

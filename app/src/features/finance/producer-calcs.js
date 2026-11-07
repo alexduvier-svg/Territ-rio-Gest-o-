@@ -156,3 +156,11 @@ export function parseBR(text) {
   else return NaN;
   return Number.isFinite(n) ? (negative ? -n : n) : NaN;
 }
+
+// Poder do um (Miltz; Harnish): simulação de 1% ou 1 dia em cada alavanca sobre o demonstrativo. Não é fato registrado.
+export function powerOfOne({ revenue, cmv, fixed }) {
+  if (![revenue, cmv, fixed].every(Number.isFinite) || revenue <= 0) return null;
+  const round = Math.round;
+  return { result: [{ id: 'preco', label: 'Preço 1% maior, mesmo volume', cents: round(revenue * 0.01) }, { id: 'volume', label: 'Volume 1% maior, mesma margem', cents: round((revenue - cmv) * 0.01) }, { id: 'custo', label: 'Custo dos produtos 1% menor', cents: round(cmv * 0.01) }, { id: 'fixos', label: 'Fixos 1% menores', cents: round(fixed * 0.01) }],
+    cash: [{ id: 'receber', label: 'Receber 1 dia antes', cents: round(revenue / 30) }, { id: 'estoque', label: 'Estoque 1 dia a menos', cents: round(cmv / 30) }, { id: 'pagar', label: 'Pagar 1 dia depois, dentro do combinado', cents: round(cmv / 30) }] };
+}
