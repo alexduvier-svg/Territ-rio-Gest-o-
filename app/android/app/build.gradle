@@ -8,6 +8,7 @@ android {
     namespace = "br.com.territorio.gestao"
     testBuildType "release"
     compileSdk = rootProject.ext.compileSdkVersion
+    buildToolsVersion "36.0.0"
     defaultConfig {
         applicationId "br.com.territorio.gestao2"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -27,6 +28,19 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:voice'
         }
     }
+    flavorDimensions 'edition'
+    productFlavors {
+        original { dimension 'edition'; manifestPlaceholders = [agroScheme: 'agrogestao'] }
+        codexTeste142 {
+            dimension 'edition'
+            applicationIdSuffix '.teste142'
+            versionName '0.12.142-teste.1'
+            versionCode 184
+            manifestPlaceholders = [agroScheme: 'agrogestaoteste142']
+            resValue 'string', 'app_name', 'Agro Gestão Teste 142'
+            resValue 'string', 'title_activity_main', 'Agro Gestão Teste 142'
+        }
+    }
     sourceSets { main { java.exclude '**/AgroVoicePlugin.java'; assets.exclude 'voice/**' }; androidTest { java.exclude '**/VoiceOfflineInstrumentedTest.java' } }
     buildTypes {
         release {
@@ -43,6 +57,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'androidx.biometric:biometric:1.1.0'
     implementation platform('com.google.firebase:firebase-bom:35.0.2')
     implementation 'com.google.firebase:firebase-ai'
     implementation 'com.google.firebase:firebase-appcheck-playintegrity'

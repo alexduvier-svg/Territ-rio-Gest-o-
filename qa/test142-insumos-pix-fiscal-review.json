@@ -1,0 +1,80 @@
+{
+  "file": "Agro_Gestao_Teste_142_0.12.142-teste.1.apk",
+  "sizeBytes": 9543129,
+  "sha256": "faa22f4516e291c5fe459f64118ac17123ffa5e375dee6532fd61f540c7df514",
+  "package": "br.com.territorio.gestao2.teste142",
+  "versionName": "0.12.142-teste.1",
+  "versionCode": 184,
+  "webFilesMatch": 58,
+  "zipCrc": true,
+  "zipAlignment16Kb": true,
+  "signatureV2": true,
+  "signatureV3": true,
+  "historicalOriginalBytes": 9390897,
+  "growthPercentVsHistorical": 1.62,
+  "nativeJvmTests": [
+    {
+      "name": "com.getcapacitor.myapp.ExampleUnitTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "br.com.territorio.gestao.PixPasswordCryptoTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "physicalDeviceTested": false,
+  "biometricPromptOnDeviceTested": false,
+  "baseCommit": "92d67bfae48243e0cfab2f61c7d69fe75df94490",
+  "branch": "codex/agro-gestao-teste-142-insumos-pix-nf",
+  "webRegression": {
+    "passed": 1247,
+    "failed": 0
+  },
+  "webBytes": {
+    "original": 4766092,
+    "test": 4804645,
+    "growth": 38553
+  },
+  "browser": {
+    "widths": [
+      320,
+      360,
+      393,
+      412
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "narrowest": "320 px with large text, lite mode and reduced effects",
+    "horizontalOverflow": false,
+    "newMainControlsMinimumTouchPx": 44,
+    "flows": [
+      "stock selector",
+      "free activities",
+      "shared input registration",
+      "input consumption and history",
+      "fiscal entry and external disclosure",
+      "Pix settings entry",
+      "Pix checkout button and return with sale preserved"
+    ]
+  },
+  "unchangedVisualFiles": [
+    "src/legacy/app.css",
+    "src/features/visual-cohesion.css",
+    "src/glass-system.css",
+    "src/dialog-system.css",
+    "src/features/management-hub/hub.css",
+    "src/fonts.css"
+  ],
+  "limitations": [
+    "No physical phone connected",
+    "Biometric prompts, device credential fallback, device keystore and clearing app data not exercised on a physical device",
+    "No FPS, RAM, battery or low-end device measurements",
+    "Static Pix has no automatic settlement confirmation"
+  ]
+}

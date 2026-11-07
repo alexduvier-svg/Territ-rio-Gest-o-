@@ -14,5 +14,6 @@
       "insetsHandling": "css",
       "style": "DARK"
     }
-  }
+  },
+  "loggingBehavior": "none"
 }

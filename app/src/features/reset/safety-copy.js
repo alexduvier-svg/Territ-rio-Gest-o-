@@ -28,6 +28,7 @@ export function isEmptyData(data) {
   if (['products','sales','clients','events','expenses','movements','eventLoads','contacts','stockLots','lotMovements','onlineShopArchives'].some(k=>Array.isArray(data?.[k])&&data[k].length))return false;
   if (['suppliers','comparisons','purchases'].some(k=>data?.supplierBook?.[k]?.length)||data?.onlineShop?.orders?.length||data?.municipalCalendar?.dates?.length)return false;
   if(Object.values(data?.localCommerce?.actors||{}).some(a=>a.orders?.length))return false;
+  if(data?.inputStock?.items?.length||data?.inputStock?.movements?.length)return false;
   const s=data?.settings||{};
   return !['businessName','producerName','phone','email','photo','location'].some(k=>s[k])&&!s.finance?.fixedCosts?.length;
 }

@@ -105,7 +105,7 @@ export function recordPurchase(data,input,{id,uid,now=new Date().toISOString()}=
  const item=requestFrom(data,{...input,needed:input.quantity,destination:'Registro Histórico'},{id:'item',uid}).item;
  const quantity=decimal(input.quantity,3,{positive:true}),goods=decimal(input.goods,2,{positive:true}),freight=decimal(input.freight,2),discount=decimal(input.discount,2),charges=decimal(input.charges,2);
  if(discount>goods)throw Error('O desconto supera o valor dos produtos.');const total=safe(BigInt(goods-discount)+BigInt(freight)+BigInt(charges));if(total<=0)throw Error('O custo total deve ser positivo para comparar.');
- const entry={id:id||uid(),supplierId:input.supplierId,item,quantity:text(input.quantity,24),goods:text(input.goods,24),freight:text(input.freight,24),discount:text(input.discount,24),charges:text(input.charges,24),total,unitCost:total/(quantity/1000),occurredOn:input.occurredOn,payment:text(input.payment,160),notes:text(input.notes,600),source:'producer-confirmed-history',createdAt:now,...(settlement?{settlement}:{})};
+ const entry={id:id||uid(),supplierId:input.supplierId,item,quantity:text(input.quantity,24),goods:text(input.goods,24),freight:text(input.freight,24),discount:text(input.discount,24),charges:text(input.charges,24),total,unitCost:total/(quantity/1000),occurredOn:input.occurredOn,payment:text(input.payment,160),notes:text(input.notes,600),source:'producer-confirmed-history',createdAt:now,inputReceiptTracked:true,...(settlement?{settlement}:{})};
  s.purchases=[...purchases(data),entry];return entry;
 }
 export function voidPurchase(data,id,reason,now=new Date().toISOString()){
